@@ -846,6 +846,77 @@ ul.nav-tabs {
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+    defs["analytic_service.CohortsRequest"] = {
+  "type" : "object",
+  "properties" : {
+    "projectOwner" : {
+      "type" : "string"
+    },
+    "projectSlug" : {
+      "type" : "string"
+    },
+    "projectId" : {
+      "type" : "string"
+    },
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "timeRange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "queries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.SegmentationQuery"
+      }
+    },
+    "joinOperator" : {
+      "$ref" : "#/components/schemas/common.JoinOperator"
+    },
+    "requireValue" : {
+      "type" : "boolean"
+    },
+    "debug" : {
+      "type" : "boolean"
+    }
+  }
+};
+    defs["analytic_service.QueryCohortsResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "result" : {
+      "$ref" : "#/components/schemas/analytic_service.QueryCohortsResponse.Result"
+    },
+    "error" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["analytic_service.QueryCohortsResponse.Result"] = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string"
+    },
+    "displayName" : {
+      "type" : "string"
+    },
+    "total" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "values" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "executeCommand" : {
+      "type" : "string"
+    }
+  }
+};
     defs["common.Aggregate"] = {
   "type" : "object",
   "properties" : {
@@ -1978,6 +2049,36 @@ ul.nav-tabs {
   "default" : "UNKNOWN",
   "enum" : [ "UNKNOWN", "PENDING", "ACTIVE", "OBSOLETE" ]
 };
+    defs["QueryCohorts2_request"] = {
+  "type" : "object",
+  "properties" : {
+    "projectId" : {
+      "type" : "string"
+    },
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "timeRange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "queries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.SegmentationQuery"
+      }
+    },
+    "joinOperator" : {
+      "$ref" : "#/components/schemas/common.JoinOperator"
+    },
+    "requireValue" : {
+      "type" : "boolean"
+    },
+    "debug" : {
+      "type" : "boolean"
+    }
+  }
+};
     defs["QueryLog_request"] = {
   "type" : "object",
   "properties" : {
@@ -2696,6 +2797,12 @@ ul.nav-tabs {
                     </li>
                     <li data-group="Default" data-name="query" class="">
                       <a href="#api-Default-query">query</a>
+                    </li>
+                    <li data-group="Default" data-name="queryCohorts" class="">
+                      <a href="#api-Default-queryCohorts">queryCohorts</a>
+                    </li>
+                    <li data-group="Default" data-name="queryCohorts2" class="">
+                      <a href="#api-Default-queryCohorts2">queryCohorts2</a>
                     </li>
                     <li data-group="Default" data-name="queryLog" class="">
                       <a href="#api-Default-queryLog">queryLog</a>
@@ -7208,6 +7315,857 @@ $(document).ready(function() {
                                     </script>
                                   </div>
                                   <input id='responses-Default-query-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-queryCohorts">
+                      <article id="api-Default-queryCohorts-0" data-group="User" data-name="queryCohorts" data-version="0">
+                        <div class="pull-left">
+                          <h1>queryCohorts</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/analytics/cohorts</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-queryCohorts-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-queryCohorts-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-queryCohorts-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-queryCohorts-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-queryCohorts-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-queryCohorts-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "Api-Key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "http://app.sentio.xyz/api/v1/analytics/cohorts" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-queryCohorts-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        AnalyticServiceCohortsRequest body = ; // AnalyticServiceCohortsRequest | 
+
+        try {
+            analytic_service.QueryCohortsResponse result = apiInstance.queryCohorts(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#queryCohorts");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-queryCohorts-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        AnalyticServiceCohortsRequest body = ; // AnalyticServiceCohortsRequest | 
+
+        try {
+            analytic_service.QueryCohortsResponse result = apiInstance.queryCohorts(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#queryCohorts");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-queryCohorts-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-queryCohorts-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"Api-Key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"Api-Key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+AnalyticServiceCohortsRequest *body = ; // 
+
+[apiInstance queryCohortsWith:body
+              completionHandler: ^(analytic_service.QueryCohortsResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['Api-Key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var body = ; // {AnalyticServiceCohortsRequest} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.queryCohorts(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-queryCohorts-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-queryCohorts-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class queryCohortsExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("Api-Key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("Api-Key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var body = new AnalyticServiceCohortsRequest(); // AnalyticServiceCohortsRequest | 
+
+            try {
+                analytic_service.QueryCohortsResponse result = apiInstance.queryCohorts(body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.queryCohorts: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$body = ; // AnalyticServiceCohortsRequest | 
+
+try {
+    $result = $api_instance->queryCohorts($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->queryCohorts: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'Api-Key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'Api-Key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $body = WWW::OPenAPIClient::Object::AnalyticServiceCohortsRequest->new(); # AnalyticServiceCohortsRequest | 
+
+eval {
+    my $result = $api_instance->queryCohorts(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->queryCohorts: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['Api-Key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['Api-Key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+body =  # AnalyticServiceCohortsRequest | 
+
+try:
+    api_response = api_instance.query_cohorts(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->queryCohorts: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let body = ; // AnalyticServiceCohortsRequest
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.queryCohorts(body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/analytic_service.CohortsRequest"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_queryCohorts_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_queryCohorts_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-queryCohorts-title-200"></h3>
+                            <p id="examples-Default-queryCohorts-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-queryCohorts-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-queryCohorts-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-queryCohorts-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-queryCohorts-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-queryCohorts-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-queryCohorts-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Default-queryCohorts-200-schema">
+                                  <div id="responses-Default-queryCohorts-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Default-queryCohorts-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Default-queryCohorts-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Default-queryCohorts-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-queryCohorts2">
+                      <article id="api-Default-queryCohorts2-0" data-group="User" data-name="queryCohorts2" data-version="0">
+                        <div class="pull-left">
+                          <h1>queryCohorts2</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/analytics/{owner}/{slug}/cohorts</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-queryCohorts2-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-queryCohorts2-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-queryCohorts2-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-queryCohorts2-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-queryCohorts2-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "Api-Key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "http://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/cohorts" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-queryCohorts2-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        String owner = owner_example; // String | 
+        String slug = slug_example; // String | 
+        QueryCohorts2Request body = ; // QueryCohorts2Request | 
+
+        try {
+            analytic_service.QueryCohortsResponse result = apiInstance.queryCohorts2(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#queryCohorts2");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-queryCohorts2-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        String owner = owner_example; // String | 
+        String slug = slug_example; // String | 
+        QueryCohorts2Request body = ; // QueryCohorts2Request | 
+
+        try {
+            analytic_service.QueryCohortsResponse result = apiInstance.queryCohorts2(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#queryCohorts2");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-queryCohorts2-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-queryCohorts2-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"Api-Key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"Api-Key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+String *owner = owner_example; //  (default to null)
+String *slug = slug_example; //  (default to null)
+QueryCohorts2Request *body = ; // 
+
+[apiInstance queryCohorts2With:owner
+    slug:slug
+    body:body
+              completionHandler: ^(analytic_service.QueryCohortsResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts2-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['Api-Key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var owner = owner_example; // {String} 
+var slug = slug_example; // {String} 
+var body = ; // {QueryCohorts2Request} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.queryCohorts2(owner, slug, body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-queryCohorts2-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-queryCohorts2-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class queryCohorts2Example
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("Api-Key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("Api-Key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var owner = owner_example;  // String |  (default to null)
+            var slug = slug_example;  // String |  (default to null)
+            var body = new QueryCohorts2Request(); // QueryCohorts2Request | 
+
+            try {
+                analytic_service.QueryCohortsResponse result = apiInstance.queryCohorts2(owner, slug, body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.queryCohorts2: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts2-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$owner = owner_example; // String | 
+$slug = slug_example; // String | 
+$body = ; // QueryCohorts2Request | 
+
+try {
+    $result = $api_instance->queryCohorts2($owner, $slug, $body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->queryCohorts2: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts2-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'Api-Key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'Api-Key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $owner = owner_example; # String | 
+my $slug = slug_example; # String | 
+my $body = WWW::OPenAPIClient::Object::QueryCohorts2Request->new(); # QueryCohorts2Request | 
+
+eval {
+    my $result = $api_instance->queryCohorts2(owner => $owner, slug => $slug, body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->queryCohorts2: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts2-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['Api-Key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['Api-Key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+owner = owner_example # String |  (default to null)
+slug = slug_example # String |  (default to null)
+body =  # QueryCohorts2Request | 
+
+try:
+    api_response = api_instance.query_cohorts2(owner, slug, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->queryCohorts2: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-queryCohorts2-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+    let body = ; // QueryCohorts2Request
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.queryCohorts2(owner, slug, body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_queryCohorts2_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_queryCohorts2_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/QueryCohorts2_request"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_queryCohorts2_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_queryCohorts2_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-queryCohorts2-title-200"></h3>
+                            <p id="examples-Default-queryCohorts2-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-queryCohorts2-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-queryCohorts2-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-queryCohorts2-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-queryCohorts2-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-queryCohorts2-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-queryCohorts2-200-wrapper" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-Default-queryCohorts2-200-schema">
+                                  <div id="responses-Default-queryCohorts2-schema-200" class="exampleStyle">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = ;
+                                        var schema = findNode('schema',schemaWrapper).schema;
+                                        if (!schema) {
+                                          schema = schemaWrapper.schema;
+                                        }
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        } else if (schema.items != null && schema.items.$ref != null) {
+                                            schema.items = defsParser.$refs.get(schema.items.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-Default-queryCohorts2-200-schema-data').val(JSON.stringify(schema));
+                                        var result = $('#responses-Default-queryCohorts2-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-Default-queryCohorts2-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
                         </article>

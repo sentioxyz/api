@@ -1,5 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './AnalyticServiceCohortsRequest';
+export * from './AnalyticServiceQueryCohortsResponse';
+export * from './AnalyticServiceQueryCohortsResponseResult';
 export * from './CommonAggregate';
 export * from './CommonAggregateAggregateOps';
 export * from './CommonAny';
@@ -67,6 +70,7 @@ export * from './ProcessorServiceGetProjectVersionsResponse';
 export * from './ProcessorServiceGetProjectVersionsResponseVersion';
 export * from './ProcessorServiceProcessor';
 export * from './ProcessorServiceProcessorVersionState';
+export * from './QueryCohorts2Request';
 export * from './QueryLogRequest';
 export * from './QueryRangeRequest';
 export * from './QueryRequest';

@@ -15,12 +15,15 @@
 
 import * as runtime from '../runtime';
 import type {
+  AnalyticServiceCohortsRequest,
+  AnalyticServiceQueryCohortsResponse,
   CommonUser,
   MetricsServiceLogQueryResponse,
   MetricsServiceMetricsQueryResponse,
   MetricsServiceQueryValueResponse,
   ProcessorServiceGetProcessorStatusResponse,
   ProcessorServiceGetProjectVersionsResponse,
+  QueryCohorts2Request,
   QueryLogRequest,
   QueryRangeRequest,
   QueryRequest,
@@ -32,6 +35,10 @@ import type {
   WebServiceImportDashboardResponse,
 } from '../models';
 import {
+    AnalyticServiceCohortsRequestFromJSON,
+    AnalyticServiceCohortsRequestToJSON,
+    AnalyticServiceQueryCohortsResponseFromJSON,
+    AnalyticServiceQueryCohortsResponseToJSON,
     CommonUserFromJSON,
     CommonUserToJSON,
     MetricsServiceLogQueryResponseFromJSON,
@@ -44,6 +51,8 @@ import {
     ProcessorServiceGetProcessorStatusResponseToJSON,
     ProcessorServiceGetProjectVersionsResponseFromJSON,
     ProcessorServiceGetProjectVersionsResponseToJSON,
+    QueryCohorts2RequestFromJSON,
+    QueryCohorts2RequestToJSON,
     QueryLogRequestFromJSON,
     QueryLogRequestToJSON,
     QueryRangeRequestFromJSON,
@@ -117,6 +126,16 @@ export interface QueryOperationRequest {
     owner: string;
     slug: string;
     body: QueryRequest;
+}
+
+export interface QueryCohortsRequest {
+    body: AnalyticServiceCohortsRequest;
+}
+
+export interface QueryCohorts2OperationRequest {
+    owner: string;
+    slug: string;
+    body: QueryCohorts2Request;
 }
 
 export interface QueryLogOperationRequest {
@@ -591,6 +610,84 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async query(requestParameters: QueryOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceQueryValueResponse> {
         const response = await this.queryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async queryCohortsRaw(requestParameters: QueryCohortsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceQueryCohortsResponse>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling queryCohorts.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/analytics/cohorts`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AnalyticServiceCohortsRequestToJSON(requestParameters.body),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceQueryCohortsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async queryCohorts(requestParameters: QueryCohortsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceQueryCohortsResponse> {
+        const response = await this.queryCohortsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async queryCohorts2Raw(requestParameters: QueryCohorts2OperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceQueryCohortsResponse>> {
+        if (requestParameters.owner === null || requestParameters.owner === undefined) {
+            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling queryCohorts2.');
+        }
+
+        if (requestParameters.slug === null || requestParameters.slug === undefined) {
+            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling queryCohorts2.');
+        }
+
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling queryCohorts2.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/analytics/{owner}/{slug}/cohorts`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: QueryCohorts2RequestToJSON(requestParameters.body),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceQueryCohortsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async queryCohorts2(requestParameters: QueryCohorts2OperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceQueryCohortsResponse> {
+        const response = await this.queryCohorts2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

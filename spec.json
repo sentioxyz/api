@@ -13,6 +13,91 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/analytics/cohorts": {
+      "post": {
+        "operationId": "QueryCohorts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QueryCohortsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/analytic_service.CohortsRequest"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/analytics/{owner}/{slug}/cohorts": {
+      "post": {
+        "operationId": "QueryCohorts2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QueryCohortsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "projectId": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "timeRange": {
+                  "$ref": "#/definitions/common.TimeRangeLite"
+                },
+                "queries": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/common.SegmentationQuery"
+                  }
+                },
+                "joinOperator": {
+                  "$ref": "#/definitions/common.JoinOperator"
+                },
+                "requireValue": {
+                  "type": "boolean"
+                },
+                "debug": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/dashboards": {
       "get": {
         "summary": "Get default dashboard or get dashboard by id",
@@ -793,6 +878,77 @@
     }
   },
   "definitions": {
+    "analytic_service.CohortsRequest": {
+      "type": "object",
+      "properties": {
+        "projectOwner": {
+          "type": "string"
+        },
+        "projectSlug": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timeRange": {
+          "$ref": "#/definitions/common.TimeRangeLite"
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.SegmentationQuery"
+          }
+        },
+        "joinOperator": {
+          "$ref": "#/definitions/common.JoinOperator"
+        },
+        "requireValue": {
+          "type": "boolean"
+        },
+        "debug": {
+          "type": "boolean"
+        }
+      }
+    },
+    "analytic_service.QueryCohortsResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/analytic_service.QueryCohortsResponse.Result"
+        },
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "analytic_service.QueryCohortsResponse.Result": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "executeCommand": {
+          "type": "string"
+        }
+      }
+    },
     "common.Aggregate": {
       "type": "object",
       "properties": {
