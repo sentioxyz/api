@@ -1,0 +1,2635 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sentio API",
+    "description": "Sentio Open API for query data",
+    "version": "version not set"
+  },
+  "host": "app.sentio.xyz",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/dashboards": {
+      "get": {
+        "summary": "Get default dashboard or get dashboard by id",
+        "operationId": "GetDashboard",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/web_service.GetDashboardResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "dashboardId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/dashboards/json": {
+      "post": {
+        "summary": "Import dashboard json",
+        "operationId": "ImportDashboard",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/web_service.ImportDashboardResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/web_service.ImportDashboardRequest"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/dashboards/{dashboardId}": {
+      "get": {
+        "summary": "Get default dashboard or get dashboard by id",
+        "operationId": "GetDashboard2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/web_service.GetDashboardResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "dashboardId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete dashboard by id",
+        "operationId": "DeleteDashboard",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/web_service.Dashboard"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "dashboardId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/dashboards/{dashboardId}/json": {
+      "get": {
+        "summary": "Export dashboard json by id",
+        "operationId": "ExportDashboard",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/web_service.ExportDashboardResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "dashboardId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/logs/{owner}/{slug}": {
+      "post": {
+        "operationId": "QueryLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/metrics_service.LogQueryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "projectId": {
+                  "type": "string"
+                },
+                "query": {
+                  "type": "string"
+                },
+                "timeRange": {
+                  "$ref": "#/definitions/common.TimeRange"
+                },
+                "sorts": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/metrics_service.LogQueryRequest.Sort"
+                  }
+                },
+                "after": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/common.Any"
+                  },
+                  "title": "for pagination"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "filters": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/metrics_service.LogQueryRequest.Filter"
+                  }
+                },
+                "version": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/logs/{owner}/{slug}/metrics": {
+      "get": {
+        "operationId": "QueryLogMetrics2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/metrics_service.MetricsQueryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.start.relativeTime.unit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.start.relativeTime.value",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "timeRange.start.absoluteTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "timeRange.end.relativeTime.unit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.end.relativeTime.value",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "timeRange.end.absoluteTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "timeRange.step",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "timeRange.interval.value",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "timeRange.interval.unit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.timezone",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ]
+      },
+      "post": {
+        "operationId": "QueryLogMetrics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/metrics_service.MetricsQueryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "projectId": {
+                  "type": "string"
+                },
+                "query": {
+                  "type": "string"
+                },
+                "timeRange": {
+                  "$ref": "#/definitions/common.TimeRange"
+                },
+                "sorts": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/metrics_service.LogQueryRequest.Sort"
+                  }
+                },
+                "after": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/common.Any"
+                  },
+                  "title": "for pagination"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "filters": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/metrics_service.LogQueryRequest.Filter"
+                  }
+                },
+                "version": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/logs/{owner}/{slug}/query": {
+      "get": {
+        "operationId": "QueryLog2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/metrics_service.LogQueryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.start.relativeTime.unit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.start.relativeTime.value",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "timeRange.start.absoluteTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "timeRange.end.relativeTime.unit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.end.relativeTime.value",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "timeRange.end.absoluteTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "timeRange.step",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "timeRange.interval.value",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "timeRange.interval.unit",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeRange.timezone",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ]
+      }
+    },
+    "/api/v1/metrics/{owner}/{slug}/query": {
+      "post": {
+        "operationId": "Query",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/metrics_service.QueryValueResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "queries": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/common.Query"
+                  }
+                },
+                "formulas": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/common.Formula"
+                  }
+                },
+                "time": {
+                  "type": "string"
+                },
+                "samplesLimit": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "version": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "timezone": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/metrics/{owner}/{slug}/query_range": {
+      "post": {
+        "operationId": "QueryRange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/metrics_service.MetricsQueryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "queries": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/common.Query"
+                  }
+                },
+                "formulas": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/common.Formula"
+                  }
+                },
+                "samplesLimit": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "timeRange": {
+                  "$ref": "#/definitions/common.TimeRangeLite"
+                },
+                "projectId": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/processors/status": {
+      "get": {
+        "operationId": "GetProcessorStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProcessorStatusResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/processors/{projectId}/versions": {
+      "get": {
+        "operationId": "GetProjectVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProjectVersionsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/project/{owner}/{slug}": {
+      "get": {
+        "summary": "Get project detail",
+        "operationId": "GetProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/web_service.GetProjectResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/users": {
+      "get": {
+        "operationId": "GetUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/common.User"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "subject",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/users/{userId}": {
+      "get": {
+        "operationId": "GetUser2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/common.User"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "subject",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "common.Aggregate": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "$ref": "#/definitions/common.Aggregate.AggregateOps"
+        },
+        "grouping": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "common.Aggregate.AggregateOps": {
+      "type": "string",
+      "enum": [
+        "AVG",
+        "SUM",
+        "MIN",
+        "MAX",
+        "COUNT"
+      ],
+      "default": "AVG"
+    },
+    "common.Any": {
+      "type": "object",
+      "properties": {
+        "intValue": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "longValue": {
+          "type": "string",
+          "format": "int64"
+        },
+        "doubleValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "stringValue": {
+          "type": "string"
+        },
+        "boolValue": {
+          "type": "boolean"
+        },
+        "dateValue": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "listValue": {
+          "$ref": "#/definitions/common.StringList"
+        }
+      }
+    },
+    "common.Argument": {
+      "type": "object",
+      "properties": {
+        "stringValue": {
+          "type": "string"
+        },
+        "intValue": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "doubleValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "boolValue": {
+          "type": "boolean"
+        },
+        "durationValue": {
+          "$ref": "#/definitions/common.Duration"
+        }
+      }
+    },
+    "common.Duration": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "common.ErrorRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "same as google.rpc.status.Status.code"
+        },
+        "namespaceCode": {
+          "type": "integer",
+          "format": "int32",
+          "title": "additional codes definted in the namespace"
+        },
+        "message": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "details"
+        }
+      }
+    },
+    "common.Formula": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string",
+          "title": "bool enabled = 2;"
+        },
+        "id": {
+          "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "common.Function": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Argument"
+          }
+        }
+      }
+    },
+    "common.JoinOperator": {
+      "type": "string",
+      "enum": [
+        "AND",
+        "OR"
+      ],
+      "default": "AND"
+    },
+    "common.LogEntry": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
+        },
+        "logLevel": {
+          "type": "string"
+        },
+        "logType": {
+          "type": "string"
+        },
+        "contractName": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "chainId": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "highlightedMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "common.Organization": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "oid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Organization.Member"
+          }
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "logoUrl": {
+          "type": "string"
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.ProjectInfo"
+          }
+        },
+        "tier": {
+          "$ref": "#/definitions/common.Tier"
+        }
+      }
+    },
+    "common.Organization.Member": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/common.UserInfo"
+        },
+        "role": {
+          "$ref": "#/definitions/common.OrganizationRole"
+        }
+      }
+    },
+    "common.OrganizationRole": {
+      "type": "string",
+      "enum": [
+        "ORG_MEMBER",
+        "ORG_ADMIN"
+      ],
+      "default": "ORG_MEMBER"
+    },
+    "common.Owner": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/common.User"
+        },
+        "organization": {
+          "$ref": "#/definitions/common.Organization"
+        },
+        "tier": {
+          "$ref": "#/definitions/common.Tier"
+        }
+      }
+    },
+    "common.Permission": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "WRITE",
+        "ADMIN"
+      ],
+      "default": "READ"
+    },
+    "common.Project": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "slug": {
+          "type": "string",
+          "title": "{ownerName}/{slug} is the unique name of the project"
+        },
+        "ownerId": {
+          "type": "string"
+        },
+        "owner": {
+          "$ref": "#/definitions/common.Owner"
+        },
+        "visibility": {
+          "$ref": "#/definitions/common.Project.Visibility"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Project.ProjectMember"
+          }
+        },
+        "multiVersion": {
+          "type": "boolean"
+        },
+        "ownerName": {
+          "type": "string"
+        }
+      }
+    },
+    "common.Project.ProjectMember": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/common.UserInfo"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "common.Project.Visibility": {
+      "type": "string",
+      "enum": [
+        "PUBLIC",
+        "PRIVATE"
+      ],
+      "default": "PUBLIC"
+    },
+    "common.ProjectInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/definitions/common.Project.Visibility"
+        },
+        "multiVersion": {
+          "type": "boolean"
+        }
+      }
+    },
+    "common.Query": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "title": "bool enabled = 3; // deprecated"
+        },
+        "labelSelector": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "aggregate": {
+          "$ref": "#/definitions/common.Aggregate"
+        },
+        "functions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Function"
+          }
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      },
+      "title": "TODO rename to MetricQuery"
+    },
+    "common.SegmentationQuery": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "$ref": "#/definitions/common.SegmentationQuery.Resource"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "aggregation": {
+          "$ref": "#/definitions/common.SegmentationQuery.Aggregation"
+        },
+        "selectorExpr": {
+          "$ref": "#/definitions/common.SegmentationQuery.SelectorExpr"
+        },
+        "groupBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "common.SegmentationQuery.Aggregation": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "$ref": "#/definitions/common.SegmentationQuery.Aggregation.Total"
+        },
+        "unique": {
+          "$ref": "#/definitions/common.SegmentationQuery.Aggregation.Unique"
+        },
+        "countUnique": {
+          "$ref": "#/definitions/common.SegmentationQuery.Aggregation.CountUnique"
+        },
+        "aggregateProperties": {
+          "$ref": "#/definitions/common.SegmentationQuery.Aggregation.AggregateProperties"
+        }
+      }
+    },
+    "common.SegmentationQuery.Aggregation.AggregateProperties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/common.SegmentationQuery.Aggregation.AggregateProperties.AggregationType"
+        },
+        "propertyName": {
+          "type": "string"
+        }
+      }
+    },
+    "common.SegmentationQuery.Aggregation.AggregateProperties.AggregationType": {
+      "type": "string",
+      "enum": [
+        "SUM",
+        "AVG",
+        "MEDIAN",
+        "MIN",
+        "MAX",
+        "DISTINCT_COUNT",
+        "CUMULATIVE_SUM"
+      ],
+      "default": "SUM"
+    },
+    "common.SegmentationQuery.Aggregation.CountUnique": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "$ref": "#/definitions/common.Duration"
+        }
+      }
+    },
+    "common.SegmentationQuery.Aggregation.Total": {
+      "type": "object"
+    },
+    "common.SegmentationQuery.Aggregation.Unique": {
+      "type": "object"
+    },
+    "common.SegmentationQuery.Resource": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/common.SegmentationQuery.ResourceType"
+        }
+      }
+    },
+    "common.SegmentationQuery.ResourceType": {
+      "type": "string",
+      "enum": [
+        "EVENTS",
+        "COHORTS"
+      ],
+      "default": "EVENTS"
+    },
+    "common.SegmentationQuery.SelectorExpr": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "$ref": "#/definitions/common.Selector"
+        },
+        "logicExpr": {
+          "$ref": "#/definitions/common.SegmentationQuery.SelectorExpr.LogicExpr"
+        }
+      }
+    },
+    "common.SegmentationQuery.SelectorExpr.LogicExpr": {
+      "type": "object",
+      "properties": {
+        "expressions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.SegmentationQuery.SelectorExpr"
+          }
+        },
+        "operator": {
+          "$ref": "#/definitions/common.JoinOperator",
+          "title": "default is AND"
+        }
+      }
+    },
+    "common.Selector": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "operator": {
+          "$ref": "#/definitions/common.Selector.OperatorType"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Any"
+          }
+        }
+      },
+      "title": "TODO maybe MetricQuery should use this as well"
+    },
+    "common.Selector.OperatorType": {
+      "type": "string",
+      "enum": [
+        "EQ",
+        "NEQ",
+        "EXISTS",
+        "NOT_EXISTS",
+        "GT",
+        "GTE",
+        "LT",
+        "LTE",
+        "BETWEEN",
+        "NOT_BETWEEN",
+        "CONTAINS",
+        "NOT_CONTAINS"
+      ],
+      "default": "EQ",
+      "description": "- GT: Numeric operators\n - CONTAINS: String operators",
+      "title": "TODO add Date Value and List Value and its data type"
+    },
+    "common.StringList": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "JoinOperator operator = 2; // this field should implement in the future"
+        }
+      }
+    },
+    "common.Tier": {
+      "type": "string",
+      "enum": [
+        "FREE",
+        "DEV",
+        "PRO",
+        "ENTERPRISE"
+      ],
+      "default": "FREE"
+    },
+    "common.TimeRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/definitions/common.TimeRange.TimeLike"
+        },
+        "end": {
+          "$ref": "#/definitions/common.TimeRange.TimeLike"
+        },
+        "step": {
+          "type": "string",
+          "format": "int64"
+        },
+        "interval": {
+          "$ref": "#/definitions/common.Duration",
+          "title": "TODO remove step in favor of interval"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      }
+    },
+    "common.TimeRange.RelativeTime": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "common.TimeRange.TimeLike": {
+      "type": "object",
+      "properties": {
+        "relativeTime": {
+          "$ref": "#/definitions/common.TimeRange.RelativeTime"
+        },
+        "absoluteTime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "common.TimeRangeLite": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "step": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      }
+    },
+    "common.User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "emailVerified": {
+          "type": "boolean"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "sub": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "accountStatus": {
+          "$ref": "#/definitions/common.User.AccountStatus"
+        },
+        "tier": {
+          "$ref": "#/definitions/common.Tier"
+        }
+      }
+    },
+    "common.User.AccountStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "SET_USERNAME",
+        "BANNED",
+        "ACTIVE"
+      ],
+      "default": "PENDING"
+    },
+    "common.UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "description": "The same to user but with sensitive data removed."
+    },
+    "google.protobuf.NullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "metrics_service.LogQueryRequest.Filter": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "not": {
+          "type": "boolean"
+        }
+      }
+    },
+    "metrics_service.LogQueryRequest.Sort": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "boolean"
+        }
+      }
+    },
+    "metrics_service.LogQueryResponse": {
+      "type": "object",
+      "properties": {
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.LogEntry"
+          }
+        },
+        "after": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Any"
+          },
+          "title": "for pagination"
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "metrics_service.MetricsQueryResponse": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metrics_service.MetricsQueryResponse.Result"
+          }
+        }
+      }
+    },
+    "metrics_service.MetricsQueryResponse.Matrix": {
+      "type": "object",
+      "properties": {
+        "samples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metrics_service.MetricsQueryResponse.Sample"
+          }
+        },
+        "totalSamples": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "metrics_service.MetricsQueryResponse.Metric": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "displayName": {
+          "type": "string",
+          "title": "string project_id = 3;"
+        }
+      }
+    },
+    "metrics_service.MetricsQueryResponse.Result": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "$ref": "#/definitions/metrics_service.MetricsQueryResponse.Matrix",
+          "title": "TODO(chen@sentio.xyz): should use common.Matrix in the future"
+        },
+        "error": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "metrics_service.MetricsQueryResponse.Sample": {
+      "type": "object",
+      "properties": {
+        "metric": {
+          "$ref": "#/definitions/metrics_service.MetricsQueryResponse.Metric"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metrics_service.MetricsQueryResponse.Value"
+          }
+        }
+      }
+    },
+    "metrics_service.MetricsQueryResponse.Value": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "metrics_service.QueryValueResponse": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metrics_service.QueryValueResponse.Result"
+          }
+        }
+      }
+    },
+    "metrics_service.QueryValueResponse.Result": {
+      "type": "object",
+      "properties": {
+        "sample": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metrics_service.MetricsQueryResponse.Sample"
+          }
+        },
+        "error": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "processor_service.ChainState": {
+      "type": "object",
+      "properties": {
+        "chainId": {
+          "type": "string",
+          "description": "The chain id."
+        },
+        "processedBlockNumber": {
+          "type": "string",
+          "format": "int64",
+          "description": "The most recently processed block number and block hash."
+        },
+        "processedTimestampMicros": {
+          "type": "string",
+          "format": "int64"
+        },
+        "processedBlockHash": {
+          "type": "string"
+        },
+        "processedVersion": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Processed version"
+        },
+        "status": {
+          "$ref": "#/definitions/processor_service.ChainState.Status"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "templates": {
+          "type": "string",
+          "description": "The serialized templates info."
+        },
+        "indexerState": {
+          "type": "string",
+          "description": "The serialized indexer state."
+        },
+        "meterState": {
+          "type": "string",
+          "description": "The serialized meter state."
+        },
+        "initialStartBlockNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "estimatedLatestBlockNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "trackers": {
+          "type": "string",
+          "description": "To be deprecated after the migration."
+        }
+      }
+    },
+    "processor_service.ChainState.Status": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/processor_service.ChainState.Status.State"
+        },
+        "errorRecord": {
+          "$ref": "#/definitions/common.ErrorRecord",
+          "description": "This field is set if state is ERROR."
+        }
+      },
+      "title": "Status of this chain indexer"
+    },
+    "processor_service.ChainState.Status.State": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "ERROR",
+        "CATCHING_UP",
+        "PROCESSING_LATEST"
+      ],
+      "default": "UNKNOWN"
+    },
+    "processor_service.DownloadProcessorResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "processor_service.GetProcessorResponse": {
+      "type": "object",
+      "properties": {
+        "processor": {
+          "$ref": "#/definitions/processor_service.Processor"
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse": {
+      "type": "object",
+      "properties": {
+        "processors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/processor_service.GetProcessorStatusResponse.ProcessorEx"
+          }
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse.ProcessorEx": {
+      "type": "object",
+      "properties": {
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/processor_service.ChainState"
+          }
+        },
+        "processorId": {
+          "type": "string"
+        },
+        "codeHash": {
+          "type": "string"
+        },
+        "commitSha": {
+          "type": "string"
+        },
+        "uploadedBy": {
+          "$ref": "#/definitions/common.UserInfo"
+        },
+        "uploadedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "processorStatus": {
+          "$ref": "#/definitions/processor_service.GetProcessorStatusResponse.ProcessorStatus",
+          "description": "The processor status."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sdkVersion": {
+          "type": "string"
+        },
+        "gitUrl": {
+          "type": "string"
+        },
+        "versionState": {
+          "$ref": "#/definitions/processor_service.ProcessorVersionState"
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse.ProcessorStatus": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/processor_service.GetProcessorStatusResponse.ProcessorStatus.State"
+        },
+        "errorRecord": {
+          "$ref": "#/definitions/common.ErrorRecord",
+          "description": "This field is set if state is ERROR."
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse.ProcessorStatus.State": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "ERROR",
+        "STARTING",
+        "PROCESSING"
+      ],
+      "default": "UNKNOWN"
+    },
+    "processor_service.GetProcessorWithProjectResponse": {
+      "type": "object",
+      "properties": {
+        "processor": {
+          "$ref": "#/definitions/processor_service.Processor"
+        },
+        "project": {
+          "$ref": "#/definitions/common.Project"
+        }
+      }
+    },
+    "processor_service.GetProcessorsResponse": {
+      "type": "object",
+      "properties": {
+        "processors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/processor_service.Processor"
+          }
+        }
+      }
+    },
+    "processor_service.GetProjectVersionsResponse": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/processor_service.GetProjectVersionsResponse.Version"
+          }
+        }
+      }
+    },
+    "processor_service.GetProjectVersionsResponse.Version": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "state": {
+          "$ref": "#/definitions/processor_service.ProcessorVersionState"
+        },
+        "processorId": {
+          "type": "string"
+        }
+      }
+    },
+    "processor_service.Processor": {
+      "type": "object",
+      "properties": {
+        "processorId": {
+          "type": "string",
+          "description": "The unique processor id."
+        },
+        "projectId": {
+          "type": "string",
+          "description": "The project this processor belongs to."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The version of the code_url below."
+        },
+        "sdkVersion": {
+          "type": "string",
+          "title": "The SDK version used when uploaded"
+        },
+        "codeUrl": {
+          "type": "string",
+          "description": "Call should be able to fetch the code to run from code_url."
+        },
+        "chainStates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/processor_service.ChainState"
+          },
+          "title": "Each maintains a state of a processor w.r.t a given chain.\nThis is a one-to-many mapping (processor to processor-chain)"
+        },
+        "contractId": {
+          "type": "string",
+          "description": "If non empty, this is the contract associated with the processor."
+        },
+        "versionState": {
+          "$ref": "#/definitions/processor_service.ProcessorVersionState"
+        },
+        "debug": {
+          "type": "boolean",
+          "title": "If enabled, driver job's log level will be set to debug"
+        },
+        "timescaleShardingIndex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The timescale-db sharding index of this processor."
+        }
+      },
+      "description": "This represents a processor which backend works on."
+    },
+    "processor_service.ProcessorVersionState": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "PENDING",
+        "ACTIVE",
+        "OBSOLETE"
+      ],
+      "default": "UNKNOWN"
+    },
+    "processor_service.UpdateChainProcessorStatusResponse": {
+      "type": "object"
+    },
+    "web_service.Chart": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/web_service.Chart.ChartType"
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Query"
+          }
+        },
+        "formulas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Formula"
+          }
+        },
+        "config": {
+          "$ref": "#/definitions/web_service.ChartConfig"
+        },
+        "note": {
+          "$ref": "#/definitions/web_service.Note"
+        },
+        "datasourceType": {
+          "$ref": "#/definitions/web_service.Chart.DataSourceType"
+        },
+        "segmentationQueries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.SegmentationQuery"
+          }
+        }
+      }
+    },
+    "web_service.Chart.ChartType": {
+      "type": "string",
+      "enum": [
+        "LINE",
+        "AREA",
+        "BAR",
+        "BAR_GAUGE",
+        "TABLE",
+        "QUERY_VALUE",
+        "PIE",
+        "NOTE"
+      ],
+      "default": "LINE"
+    },
+    "web_service.Chart.DataSourceType": {
+      "type": "string",
+      "enum": [
+        "METRICS",
+        "NOTES",
+        "ANALYTICS"
+      ],
+      "default": "METRICS"
+    },
+    "web_service.ChartConfig": {
+      "type": "object",
+      "properties": {
+        "yAxis": {
+          "$ref": "#/definitions/web_service.ChartConfig.YAxisConfig"
+        },
+        "barGauge": {
+          "$ref": "#/definitions/web_service.ChartConfig.BarGaugeConfig"
+        },
+        "valueConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.ValueConfig"
+        },
+        "timeRangeOverride": {
+          "$ref": "#/definitions/web_service.ChartConfig.TimeRangeOverride"
+        },
+        "tableConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.TableConfig"
+        },
+        "queryValueConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.QueryValueConfig"
+        },
+        "pieConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.PieConfig"
+        }
+      }
+    },
+    "web_service.ChartConfig.BarGaugeConfig": {
+      "type": "object",
+      "properties": {
+        "direction": {
+          "$ref": "#/definitions/web_service.ChartConfig.Direction"
+        },
+        "calculation": {
+          "$ref": "#/definitions/web_service.ChartConfig.Calculation"
+        },
+        "sort": {
+          "$ref": "#/definitions/web_service.ChartConfig.Sort"
+        }
+      }
+    },
+    "web_service.ChartConfig.Calculation": {
+      "type": "string",
+      "enum": [
+        "LAST",
+        "FIRST",
+        "MEAN",
+        "TOTAL",
+        "ALL"
+      ],
+      "default": "LAST"
+    },
+    "web_service.ChartConfig.ColorTheme": {
+      "type": "object",
+      "properties": {
+        "textColor": {
+          "type": "string"
+        },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "themeType": {
+          "type": "string"
+        }
+      }
+    },
+    "web_service.ChartConfig.ColumnSort": {
+      "type": "object",
+      "properties": {
+        "column": {
+          "type": "string"
+        },
+        "orderDesc": {
+          "type": "boolean"
+        }
+      }
+    },
+    "web_service.ChartConfig.Direction": {
+      "type": "string",
+      "enum": [
+        "HORIZONTAL",
+        "VERTICAL"
+      ],
+      "default": "HORIZONTAL"
+    },
+    "web_service.ChartConfig.MappingRule": {
+      "type": "object",
+      "properties": {
+        "comparison": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "text": {
+          "type": "string"
+        },
+        "colorTheme": {
+          "$ref": "#/definitions/web_service.ChartConfig.ColorTheme"
+        }
+      }
+    },
+    "web_service.ChartConfig.PieConfig": {
+      "type": "object",
+      "properties": {
+        "pieType": {
+          "$ref": "#/definitions/web_service.ChartConfig.PieConfig.PieType"
+        },
+        "showPercent": {
+          "type": "boolean"
+        },
+        "showValue": {
+          "type": "boolean"
+        },
+        "calculation": {
+          "$ref": "#/definitions/web_service.ChartConfig.Calculation"
+        }
+      }
+    },
+    "web_service.ChartConfig.PieConfig.PieType": {
+      "type": "string",
+      "enum": [
+        "Pie",
+        "Donut"
+      ],
+      "default": "Pie"
+    },
+    "web_service.ChartConfig.QueryValueConfig": {
+      "type": "object",
+      "properties": {
+        "colorTheme": {
+          "$ref": "#/definitions/web_service.ChartConfig.ColorTheme"
+        },
+        "showBackgroundChart": {
+          "type": "boolean"
+        },
+        "calculation": {
+          "$ref": "#/definitions/web_service.ChartConfig.Calculation"
+        }
+      }
+    },
+    "web_service.ChartConfig.Sort": {
+      "type": "object",
+      "properties": {
+        "sortBy": {
+          "$ref": "#/definitions/web_service.ChartConfig.SortBy"
+        },
+        "orderDesc": {
+          "type": "boolean"
+        }
+      }
+    },
+    "web_service.ChartConfig.SortBy": {
+      "type": "string",
+      "enum": [
+        "ByName",
+        "ByValue"
+      ],
+      "default": "ByName"
+    },
+    "web_service.ChartConfig.TableConfig": {
+      "type": "object",
+      "properties": {
+        "calculation": {
+          "$ref": "#/definitions/web_service.ChartConfig.Calculation"
+        },
+        "showColumns": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "title": "map\u003cstring, bool\u003e sort_by = 2;"
+        },
+        "sortColumns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/web_service.ChartConfig.ColumnSort"
+          }
+        },
+        "columnOrders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "columnWidths": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "showPlainData": {
+          "type": "boolean"
+        },
+        "calculations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/web_service.ChartConfig.Calculation"
+          }
+        },
+        "valueConfigs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/web_service.ChartConfig.ValueConfig"
+          }
+        }
+      }
+    },
+    "web_service.ChartConfig.TimeRangeOverride": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "timeRange": {
+          "$ref": "#/definitions/common.TimeRange"
+        }
+      }
+    },
+    "web_service.ChartConfig.ValueConfig": {
+      "type": "object",
+      "properties": {
+        "valueFormatter": {
+          "$ref": "#/definitions/web_service.ChartConfig.ValueFormatter"
+        },
+        "showValueLabel": {
+          "type": "boolean"
+        },
+        "maxSignificantDigits": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "dateFormat": {
+          "type": "string"
+        },
+        "mappingRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/web_service.ChartConfig.MappingRule"
+          }
+        },
+        "style": {
+          "$ref": "#/definitions/web_service.ChartConfig.ValueConfig.Style"
+        },
+        "maxFractionDigits": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "precision": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "currencySymbol": {
+          "type": "string"
+        }
+      }
+    },
+    "web_service.ChartConfig.ValueConfig.Style": {
+      "type": "string",
+      "enum": [
+        "Standard",
+        "Compact",
+        "Scientific",
+        "Percent",
+        "Currency"
+      ],
+      "default": "Standard"
+    },
+    "web_service.ChartConfig.ValueFormatter": {
+      "type": "string",
+      "enum": [
+        "NumberFormatter",
+        "DateFormatter",
+        "StringFormatter"
+      ],
+      "default": "NumberFormatter"
+    },
+    "web_service.ChartConfig.YAxisConfig": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "string"
+        },
+        "max": {
+          "type": "string"
+        },
+        "scale": {
+          "type": "boolean"
+        },
+        "stacked": {
+          "type": "string"
+        }
+      }
+    },
+    "web_service.Dashboard": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "panels": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/web_service.Panel"
+          }
+        },
+        "layouts": {
+          "$ref": "#/definitions/web_service.Dashboard.ResponsiveLayouts"
+        },
+        "extra": {
+          "$ref": "#/definitions/web_service.Dashboard.Extra"
+        },
+        "sharing": {
+          "$ref": "#/definitions/web_service.DashboardSharing"
+        }
+      }
+    },
+    "web_service.Dashboard.Extra": {
+      "type": "object",
+      "properties": {
+        "templateVariables": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/web_service.Dashboard.Extra.TemplateVariable"
+          }
+        },
+        "templateViews": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/web_service.Dashboard.Extra.TemplateView"
+          }
+        }
+      }
+    },
+    "web_service.Dashboard.Extra.TemplateVariable": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "type": "string"
+        }
+      }
+    },
+    "web_service.Dashboard.Extra.TemplateView": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "web_service.Dashboard.Layouts": {
+      "type": "object",
+      "properties": {
+        "layouts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/web_service.Dashboard.Layouts.Layout"
+          }
+        }
+      }
+    },
+    "web_service.Dashboard.Layouts.Layout": {
+      "type": "object",
+      "properties": {
+        "i": {
+          "type": "string"
+        },
+        "x": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "y": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "w": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "h": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "web_service.Dashboard.ResponsiveLayouts": {
+      "type": "object",
+      "properties": {
+        "responsiveLayouts": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/web_service.Dashboard.Layouts"
+          }
+        }
+      }
+    },
+    "web_service.DashboardSharing": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "dashboardId": {
+          "type": "string"
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "viewers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "web_service.ExportDashboardResponse": {
+      "type": "object",
+      "properties": {
+        "dashboardJson": {
+          "type": "object"
+        }
+      }
+    },
+    "web_service.GetDashboardResponse": {
+      "type": "object",
+      "properties": {
+        "dashboards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/web_service.Dashboard"
+          }
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Permission"
+          }
+        }
+      }
+    },
+    "web_service.GetProjectResponse": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/common.Project"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.Permission"
+          }
+        }
+      }
+    },
+    "web_service.ImportDashboardRequest": {
+      "type": "object",
+      "properties": {
+        "dashboardId": {
+          "type": "string"
+        },
+        "dashboardJson": {
+          "type": "object"
+        },
+        "overrideLayouts": {
+          "type": "boolean"
+        }
+      }
+    },
+    "web_service.ImportDashboardResponse": {
+      "type": "object",
+      "properties": {
+        "dashboard": {
+          "$ref": "#/definitions/web_service.Dashboard"
+        }
+      }
+    },
+    "web_service.Note": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "fontSize": {
+          "$ref": "#/definitions/web_service.Note.FontSize"
+        },
+        "textAlign": {
+          "$ref": "#/definitions/web_service.Note.Alignment"
+        }
+      }
+    },
+    "web_service.Note.Alignment": {
+      "type": "string",
+      "enum": [
+        "LEFT",
+        "CENTER",
+        "RIGHT"
+      ],
+      "default": "LEFT"
+    },
+    "web_service.Note.FontSize": {
+      "type": "string",
+      "enum": [
+        "MD",
+        "SM",
+        "LG",
+        "XL",
+        "XXL"
+      ],
+      "default": "MD"
+    },
+    "web_service.Panel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dashboardId": {
+          "type": "string"
+        },
+        "chart": {
+          "$ref": "#/definitions/web_service.Chart"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "name": "Api-Key",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ]
+}

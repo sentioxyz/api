@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    //    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "declaration": true,
+    "alwaysStrict": true,
+    "sourceMap": true,
+    "target": "es2022",
+    "lib": [
+      "ES2021",
+      "dom"
+    ],
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+//    "isolatedModules": true,
+    "strictNullChecks": true,
+    "stripInternal": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmitOnError": true,
+    // by pass issue: Could not find a declaration file for module 'buffer-layout' for now.
+    "skipLibCheck": true,
+
+    "outDir": "dist",
+//    "rootDir": "./src",
+    "rootDirs": ["./src", "test"]
+  },
+  "include": ["src", "test"],
+  "exclude": ["dist", "jest.config.ts"]
+}

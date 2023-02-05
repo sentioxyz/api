@@ -1,0 +1,14 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+
+write_source_files(
+    name = "write_openapi",
+    files = {
+        "src": "//openapi:openapi_ts",
+        "spec.json": "//openapi:openapi",
+        "doc": "//openapi:openapi_doc",
+    },
+    tags = [
+        "manual",
+    ],
+    visibility = ["//visibility:public"],
+)
