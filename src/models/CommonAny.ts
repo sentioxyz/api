@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonStringList } from './CommonStringList';
 import {
     CommonStringListFromJSON,
@@ -74,9 +74,7 @@ export interface CommonAny {
  * Check if a given object implements the CommonAny interface.
  */
 export function instanceOfCommonAny(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonAnyFromJSON(json: any): CommonAny {
@@ -84,37 +82,34 @@ export function CommonAnyFromJSON(json: any): CommonAny {
 }
 
 export function CommonAnyFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonAny {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'intValue': !exists(json, 'intValue') ? undefined : json['intValue'],
-        'longValue': !exists(json, 'longValue') ? undefined : json['longValue'],
-        'doubleValue': !exists(json, 'doubleValue') ? undefined : json['doubleValue'],
-        'stringValue': !exists(json, 'stringValue') ? undefined : json['stringValue'],
-        'boolValue': !exists(json, 'boolValue') ? undefined : json['boolValue'],
-        'dateValue': !exists(json, 'dateValue') ? undefined : (new Date(json['dateValue'])),
-        'listValue': !exists(json, 'listValue') ? undefined : CommonStringListFromJSON(json['listValue']),
+        'intValue': json['intValue'] == null ? undefined : json['intValue'],
+        'longValue': json['longValue'] == null ? undefined : json['longValue'],
+        'doubleValue': json['doubleValue'] == null ? undefined : json['doubleValue'],
+        'stringValue': json['stringValue'] == null ? undefined : json['stringValue'],
+        'boolValue': json['boolValue'] == null ? undefined : json['boolValue'],
+        'dateValue': json['dateValue'] == null ? undefined : (new Date(json['dateValue'])),
+        'listValue': json['listValue'] == null ? undefined : CommonStringListFromJSON(json['listValue']),
     };
 }
 
 export function CommonAnyToJSON(value?: CommonAny | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'intValue': value.intValue,
-        'longValue': value.longValue,
-        'doubleValue': value.doubleValue,
-        'stringValue': value.stringValue,
-        'boolValue': value.boolValue,
-        'dateValue': value.dateValue === undefined ? undefined : (value.dateValue.toISOString()),
-        'listValue': CommonStringListToJSON(value.listValue),
+        'intValue': value['intValue'],
+        'longValue': value['longValue'],
+        'doubleValue': value['doubleValue'],
+        'stringValue': value['stringValue'],
+        'boolValue': value['boolValue'],
+        'dateValue': value['dateValue'] == null ? undefined : ((value['dateValue']).toISOString()),
+        'listValue': CommonStringListToJSON(value['listValue']),
     };
 }
 

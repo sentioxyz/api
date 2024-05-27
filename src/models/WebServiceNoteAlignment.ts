@@ -20,11 +20,14 @@
 export const WebServiceNoteAlignment = {
     Left: 'LEFT',
     Center: 'CENTER',
-    Right: 'RIGHT',
-    UnknownDefaultOpenApi: '11184809'
+    Right: 'RIGHT'
 } as const;
 export type WebServiceNoteAlignment = typeof WebServiceNoteAlignment[keyof typeof WebServiceNoteAlignment];
 
+
+export function instanceOfWebServiceNoteAlignment(value: any): boolean {
+    return Object.values(WebServiceNoteAlignment).includes(value);
+}
 
 export function WebServiceNoteAlignmentFromJSON(json: any): WebServiceNoteAlignment {
     return WebServiceNoteAlignmentFromJSONTyped(json, false);

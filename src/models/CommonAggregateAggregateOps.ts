@@ -22,11 +22,14 @@ export const CommonAggregateAggregateOps = {
     Sum: 'SUM',
     Min: 'MIN',
     Max: 'MAX',
-    Count: 'COUNT',
-    UnknownDefaultOpenApi: '11184809'
+    Count: 'COUNT'
 } as const;
 export type CommonAggregateAggregateOps = typeof CommonAggregateAggregateOps[keyof typeof CommonAggregateAggregateOps];
 
+
+export function instanceOfCommonAggregateAggregateOps(value: any): boolean {
+    return Object.values(CommonAggregateAggregateOps).includes(value);
+}
 
 export function CommonAggregateAggregateOpsFromJSON(json: any): CommonAggregateAggregateOps {
     return CommonAggregateAggregateOpsFromJSONTyped(json, false);

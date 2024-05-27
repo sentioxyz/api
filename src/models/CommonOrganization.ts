@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonOrganizationMember } from './CommonOrganizationMember';
 import {
     CommonOrganizationMemberFromJSON,
@@ -104,9 +104,7 @@ export interface CommonOrganization {
  * Check if a given object implements the CommonOrganization interface.
  */
 export function instanceOfCommonOrganization(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonOrganizationFromJSON(json: any): CommonOrganization {
@@ -114,43 +112,40 @@ export function CommonOrganizationFromJSON(json: any): CommonOrganization {
 }
 
 export function CommonOrganizationFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonOrganization {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'oid': !exists(json, 'oid') ? undefined : json['oid'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-        'updatedAt': !exists(json, 'updatedAt') ? undefined : json['updatedAt'],
-        'members': !exists(json, 'members') ? undefined : ((json['members'] as Array<any>).map(CommonOrganizationMemberFromJSON)),
-        'displayName': !exists(json, 'displayName') ? undefined : json['displayName'],
-        'logoUrl': !exists(json, 'logoUrl') ? undefined : json['logoUrl'],
-        'projects': !exists(json, 'projects') ? undefined : ((json['projects'] as Array<any>).map(CommonProjectInfoFromJSON)),
-        'tier': !exists(json, 'tier') ? undefined : CommonTierFromJSON(json['tier']),
+        'id': json['id'] == null ? undefined : json['id'],
+        'oid': json['oid'] == null ? undefined : json['oid'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'createdAt': json['createdAt'] == null ? undefined : json['createdAt'],
+        'updatedAt': json['updatedAt'] == null ? undefined : json['updatedAt'],
+        'members': json['members'] == null ? undefined : ((json['members'] as Array<any>).map(CommonOrganizationMemberFromJSON)),
+        'displayName': json['displayName'] == null ? undefined : json['displayName'],
+        'logoUrl': json['logoUrl'] == null ? undefined : json['logoUrl'],
+        'projects': json['projects'] == null ? undefined : ((json['projects'] as Array<any>).map(CommonProjectInfoFromJSON)),
+        'tier': json['tier'] == null ? undefined : CommonTierFromJSON(json['tier']),
     };
 }
 
 export function CommonOrganizationToJSON(value?: CommonOrganization | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'oid': value.oid,
-        'name': value.name,
-        'createdAt': value.createdAt,
-        'updatedAt': value.updatedAt,
-        'members': value.members === undefined ? undefined : ((value.members as Array<any>).map(CommonOrganizationMemberToJSON)),
-        'displayName': value.displayName,
-        'logoUrl': value.logoUrl,
-        'projects': value.projects === undefined ? undefined : ((value.projects as Array<any>).map(CommonProjectInfoToJSON)),
-        'tier': CommonTierToJSON(value.tier),
+        'id': value['id'],
+        'oid': value['oid'],
+        'name': value['name'],
+        'createdAt': value['createdAt'],
+        'updatedAt': value['updatedAt'],
+        'members': value['members'] == null ? undefined : ((value['members'] as Array<any>).map(CommonOrganizationMemberToJSON)),
+        'displayName': value['displayName'],
+        'logoUrl': value['logoUrl'],
+        'projects': value['projects'] == null ? undefined : ((value['projects'] as Array<any>).map(CommonProjectInfoToJSON)),
+        'tier': CommonTierToJSON(value['tier']),
     };
 }
 

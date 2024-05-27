@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -55,9 +55,7 @@ export interface WebServiceDashboardLayoutsLayout {
  * Check if a given object implements the WebServiceDashboardLayoutsLayout interface.
  */
 export function instanceOfWebServiceDashboardLayoutsLayout(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardLayoutsLayoutFromJSON(json: any): WebServiceDashboardLayoutsLayout {
@@ -65,33 +63,30 @@ export function WebServiceDashboardLayoutsLayoutFromJSON(json: any): WebServiceD
 }
 
 export function WebServiceDashboardLayoutsLayoutFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboardLayoutsLayout {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'i': !exists(json, 'i') ? undefined : json['i'],
-        'x': !exists(json, 'x') ? undefined : json['x'],
-        'y': !exists(json, 'y') ? undefined : json['y'],
-        'w': !exists(json, 'w') ? undefined : json['w'],
-        'h': !exists(json, 'h') ? undefined : json['h'],
+        'i': json['i'] == null ? undefined : json['i'],
+        'x': json['x'] == null ? undefined : json['x'],
+        'y': json['y'] == null ? undefined : json['y'],
+        'w': json['w'] == null ? undefined : json['w'],
+        'h': json['h'] == null ? undefined : json['h'],
     };
 }
 
 export function WebServiceDashboardLayoutsLayoutToJSON(value?: WebServiceDashboardLayoutsLayout | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'i': value.i,
-        'x': value.x,
-        'y': value.y,
-        'w': value.w,
-        'h': value.h,
+        'i': value['i'],
+        'x': value['x'],
+        'y': value['y'],
+        'w': value['w'],
+        'h': value['h'],
     };
 }
 

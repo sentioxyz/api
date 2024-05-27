@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceDashboardExtraTemplateVariable } from './WebServiceDashboardExtraTemplateVariable';
 import {
     WebServiceDashboardExtraTemplateVariableFromJSON,
@@ -50,9 +50,7 @@ export interface WebServiceDashboardExtra {
  * Check if a given object implements the WebServiceDashboardExtra interface.
  */
 export function instanceOfWebServiceDashboardExtra(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardExtraFromJSON(json: any): WebServiceDashboardExtra {
@@ -60,27 +58,24 @@ export function WebServiceDashboardExtraFromJSON(json: any): WebServiceDashboard
 }
 
 export function WebServiceDashboardExtraFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboardExtra {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'templateVariables': !exists(json, 'templateVariables') ? undefined : (mapValues(json['templateVariables'], WebServiceDashboardExtraTemplateVariableFromJSON)),
-        'templateViews': !exists(json, 'templateViews') ? undefined : ((json['templateViews'] as Array<any>).map(WebServiceDashboardExtraTemplateViewFromJSON)),
+        'templateVariables': json['templateVariables'] == null ? undefined : (mapValues(json['templateVariables'], WebServiceDashboardExtraTemplateVariableFromJSON)),
+        'templateViews': json['templateViews'] == null ? undefined : ((json['templateViews'] as Array<any>).map(WebServiceDashboardExtraTemplateViewFromJSON)),
     };
 }
 
 export function WebServiceDashboardExtraToJSON(value?: WebServiceDashboardExtra | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'templateVariables': value.templateVariables === undefined ? undefined : (mapValues(value.templateVariables, WebServiceDashboardExtraTemplateVariableToJSON)),
-        'templateViews': value.templateViews === undefined ? undefined : ((value.templateViews as Array<any>).map(WebServiceDashboardExtraTemplateViewToJSON)),
+        'templateVariables': value['templateVariables'] == null ? undefined : (mapValues(value['templateVariables'], WebServiceDashboardExtraTemplateVariableToJSON)),
+        'templateViews': value['templateViews'] == null ? undefined : ((value['templateViews'] as Array<any>).map(WebServiceDashboardExtraTemplateViewToJSON)),
     };
 }
 

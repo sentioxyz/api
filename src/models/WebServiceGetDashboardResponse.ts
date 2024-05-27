@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonPermission } from './CommonPermission';
 import {
     CommonPermissionFromJSON,
@@ -50,9 +50,7 @@ export interface WebServiceGetDashboardResponse {
  * Check if a given object implements the WebServiceGetDashboardResponse interface.
  */
 export function instanceOfWebServiceGetDashboardResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceGetDashboardResponseFromJSON(json: any): WebServiceGetDashboardResponse {
@@ -60,27 +58,24 @@ export function WebServiceGetDashboardResponseFromJSON(json: any): WebServiceGet
 }
 
 export function WebServiceGetDashboardResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceGetDashboardResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'dashboards': !exists(json, 'dashboards') ? undefined : ((json['dashboards'] as Array<any>).map(WebServiceDashboardFromJSON)),
-        'permissions': !exists(json, 'permissions') ? undefined : ((json['permissions'] as Array<any>).map(CommonPermissionFromJSON)),
+        'dashboards': json['dashboards'] == null ? undefined : ((json['dashboards'] as Array<any>).map(WebServiceDashboardFromJSON)),
+        'permissions': json['permissions'] == null ? undefined : ((json['permissions'] as Array<any>).map(CommonPermissionFromJSON)),
     };
 }
 
 export function WebServiceGetDashboardResponseToJSON(value?: WebServiceGetDashboardResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'dashboards': value.dashboards === undefined ? undefined : ((value.dashboards as Array<any>).map(WebServiceDashboardToJSON)),
-        'permissions': value.permissions === undefined ? undefined : ((value.permissions as Array<any>).map(CommonPermissionToJSON)),
+        'dashboards': value['dashboards'] == null ? undefined : ((value['dashboards'] as Array<any>).map(WebServiceDashboardToJSON)),
+        'permissions': value['permissions'] == null ? undefined : ((value['permissions'] as Array<any>).map(CommonPermissionToJSON)),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -43,9 +43,7 @@ export interface MetricsServiceMetricsQueryResponseMetric {
  * Check if a given object implements the MetricsServiceMetricsQueryResponseMetric interface.
  */
 export function instanceOfMetricsServiceMetricsQueryResponseMetric(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceMetricsQueryResponseMetricFromJSON(json: any): MetricsServiceMetricsQueryResponseMetric {
@@ -53,29 +51,26 @@ export function MetricsServiceMetricsQueryResponseMetricFromJSON(json: any): Met
 }
 
 export function MetricsServiceMetricsQueryResponseMetricFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceMetricsQueryResponseMetric {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'labels': !exists(json, 'labels') ? undefined : json['labels'],
-        'displayName': !exists(json, 'displayName') ? undefined : json['displayName'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'labels': json['labels'] == null ? undefined : json['labels'],
+        'displayName': json['displayName'] == null ? undefined : json['displayName'],
     };
 }
 
 export function MetricsServiceMetricsQueryResponseMetricToJSON(value?: MetricsServiceMetricsQueryResponseMetric | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'name': value.name,
-        'labels': value.labels,
-        'displayName': value.displayName,
+        'name': value['name'],
+        'labels': value['labels'],
+        'displayName': value['displayName'],
     };
 }
 

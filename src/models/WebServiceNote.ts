@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceNoteAlignment } from './WebServiceNoteAlignment';
 import {
     WebServiceNoteAlignmentFromJSON,
@@ -25,6 +25,12 @@ import {
     WebServiceNoteFontSizeFromJSONTyped,
     WebServiceNoteFontSizeToJSON,
 } from './WebServiceNoteFontSize';
+import type { WebServiceNoteVerticalAlignment } from './WebServiceNoteVerticalAlignment';
+import {
+    WebServiceNoteVerticalAlignmentFromJSON,
+    WebServiceNoteVerticalAlignmentFromJSONTyped,
+    WebServiceNoteVerticalAlignmentToJSON,
+} from './WebServiceNoteVerticalAlignment';
 
 /**
  * 
@@ -50,15 +56,31 @@ export interface WebServiceNote {
      * @memberof WebServiceNote
      */
     textAlign?: WebServiceNoteAlignment;
+    /**
+     * 
+     * @type {WebServiceNoteVerticalAlignment}
+     * @memberof WebServiceNote
+     */
+    verticalAlign?: WebServiceNoteVerticalAlignment;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebServiceNote
+     */
+    backgroundColor?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebServiceNote
+     */
+    textColor?: string;
 }
 
 /**
  * Check if a given object implements the WebServiceNote interface.
  */
 export function instanceOfWebServiceNote(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceNoteFromJSON(json: any): WebServiceNote {
@@ -66,29 +88,32 @@ export function WebServiceNoteFromJSON(json: any): WebServiceNote {
 }
 
 export function WebServiceNoteFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceNote {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'content': !exists(json, 'content') ? undefined : json['content'],
-        'fontSize': !exists(json, 'fontSize') ? undefined : WebServiceNoteFontSizeFromJSON(json['fontSize']),
-        'textAlign': !exists(json, 'textAlign') ? undefined : WebServiceNoteAlignmentFromJSON(json['textAlign']),
+        'content': json['content'] == null ? undefined : json['content'],
+        'fontSize': json['fontSize'] == null ? undefined : WebServiceNoteFontSizeFromJSON(json['fontSize']),
+        'textAlign': json['textAlign'] == null ? undefined : WebServiceNoteAlignmentFromJSON(json['textAlign']),
+        'verticalAlign': json['verticalAlign'] == null ? undefined : WebServiceNoteVerticalAlignmentFromJSON(json['verticalAlign']),
+        'backgroundColor': json['backgroundColor'] == null ? undefined : json['backgroundColor'],
+        'textColor': json['textColor'] == null ? undefined : json['textColor'],
     };
 }
 
 export function WebServiceNoteToJSON(value?: WebServiceNote | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'content': value.content,
-        'fontSize': WebServiceNoteFontSizeToJSON(value.fontSize),
-        'textAlign': WebServiceNoteAlignmentToJSON(value.textAlign),
+        'content': value['content'],
+        'fontSize': WebServiceNoteFontSizeToJSON(value['fontSize']),
+        'textAlign': WebServiceNoteAlignmentToJSON(value['textAlign']),
+        'verticalAlign': WebServiceNoteVerticalAlignmentToJSON(value['verticalAlign']),
+        'backgroundColor': value['backgroundColor'],
+        'textColor': value['textColor'],
     };
 }
 

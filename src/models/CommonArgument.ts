@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonDuration } from './CommonDuration';
 import {
     CommonDurationFromJSON,
@@ -62,9 +62,7 @@ export interface CommonArgument {
  * Check if a given object implements the CommonArgument interface.
  */
 export function instanceOfCommonArgument(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonArgumentFromJSON(json: any): CommonArgument {
@@ -72,33 +70,30 @@ export function CommonArgumentFromJSON(json: any): CommonArgument {
 }
 
 export function CommonArgumentFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonArgument {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'stringValue': !exists(json, 'stringValue') ? undefined : json['stringValue'],
-        'intValue': !exists(json, 'intValue') ? undefined : json['intValue'],
-        'doubleValue': !exists(json, 'doubleValue') ? undefined : json['doubleValue'],
-        'boolValue': !exists(json, 'boolValue') ? undefined : json['boolValue'],
-        'durationValue': !exists(json, 'durationValue') ? undefined : CommonDurationFromJSON(json['durationValue']),
+        'stringValue': json['stringValue'] == null ? undefined : json['stringValue'],
+        'intValue': json['intValue'] == null ? undefined : json['intValue'],
+        'doubleValue': json['doubleValue'] == null ? undefined : json['doubleValue'],
+        'boolValue': json['boolValue'] == null ? undefined : json['boolValue'],
+        'durationValue': json['durationValue'] == null ? undefined : CommonDurationFromJSON(json['durationValue']),
     };
 }
 
 export function CommonArgumentToJSON(value?: CommonArgument | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'stringValue': value.stringValue,
-        'intValue': value.intValue,
-        'doubleValue': value.doubleValue,
-        'boolValue': value.boolValue,
-        'durationValue': CommonDurationToJSON(value.durationValue),
+        'stringValue': value['stringValue'],
+        'intValue': value['intValue'],
+        'doubleValue': value['doubleValue'],
+        'boolValue': value['boolValue'],
+        'durationValue': CommonDurationToJSON(value['durationValue']),
     };
 }
 

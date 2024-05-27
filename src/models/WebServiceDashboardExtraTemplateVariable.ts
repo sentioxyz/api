@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -31,15 +31,25 @@ export interface WebServiceDashboardExtraTemplateVariable {
      * @memberof WebServiceDashboardExtraTemplateVariable
      */
     defaultValue?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebServiceDashboardExtraTemplateVariable
+     */
+    sourceName?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof WebServiceDashboardExtraTemplateVariable
+     */
+    options?: Array<string>;
 }
 
 /**
  * Check if a given object implements the WebServiceDashboardExtraTemplateVariable interface.
  */
 export function instanceOfWebServiceDashboardExtraTemplateVariable(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardExtraTemplateVariableFromJSON(json: any): WebServiceDashboardExtraTemplateVariable {
@@ -47,27 +57,28 @@ export function WebServiceDashboardExtraTemplateVariableFromJSON(json: any): Web
 }
 
 export function WebServiceDashboardExtraTemplateVariableFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboardExtraTemplateVariable {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'field': !exists(json, 'field') ? undefined : json['field'],
-        'defaultValue': !exists(json, 'defaultValue') ? undefined : json['defaultValue'],
+        'field': json['field'] == null ? undefined : json['field'],
+        'defaultValue': json['defaultValue'] == null ? undefined : json['defaultValue'],
+        'sourceName': json['sourceName'] == null ? undefined : json['sourceName'],
+        'options': json['options'] == null ? undefined : json['options'],
     };
 }
 
 export function WebServiceDashboardExtraTemplateVariableToJSON(value?: WebServiceDashboardExtraTemplateVariable | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'field': value.field,
-        'defaultValue': value.defaultValue,
+        'field': value['field'],
+        'defaultValue': value['defaultValue'],
+        'sourceName': value['sourceName'],
+        'options': value['options'],
     };
 }
 

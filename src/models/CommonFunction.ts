@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonArgument } from './CommonArgument';
 import {
     CommonArgumentFromJSON,
@@ -44,9 +44,7 @@ export interface CommonFunction {
  * Check if a given object implements the CommonFunction interface.
  */
 export function instanceOfCommonFunction(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonFunctionFromJSON(json: any): CommonFunction {
@@ -54,27 +52,24 @@ export function CommonFunctionFromJSON(json: any): CommonFunction {
 }
 
 export function CommonFunctionFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonFunction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'arguments': !exists(json, 'arguments') ? undefined : ((json['arguments'] as Array<any>).map(CommonArgumentFromJSON)),
+        'name': json['name'] == null ? undefined : json['name'],
+        'arguments': json['arguments'] == null ? undefined : ((json['arguments'] as Array<any>).map(CommonArgumentFromJSON)),
     };
 }
 
 export function CommonFunctionToJSON(value?: CommonFunction | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'name': value.name,
-        'arguments': value.arguments === undefined ? undefined : ((value.arguments as Array<any>).map(CommonArgumentToJSON)),
+        'name': value['name'],
+        'arguments': value['arguments'] == null ? undefined : ((value['arguments'] as Array<any>).map(CommonArgumentToJSON)),
     };
 }
 

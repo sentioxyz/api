@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonJoinOperator } from './CommonJoinOperator';
 import {
     CommonJoinOperatorFromJSON,
@@ -50,9 +50,7 @@ export interface CommonSegmentationQuerySelectorExprLogicExpr {
  * Check if a given object implements the CommonSegmentationQuerySelectorExprLogicExpr interface.
  */
 export function instanceOfCommonSegmentationQuerySelectorExprLogicExpr(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSegmentationQuerySelectorExprLogicExprFromJSON(json: any): CommonSegmentationQuerySelectorExprLogicExpr {
@@ -60,27 +58,24 @@ export function CommonSegmentationQuerySelectorExprLogicExprFromJSON(json: any):
 }
 
 export function CommonSegmentationQuerySelectorExprLogicExprFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSegmentationQuerySelectorExprLogicExpr {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'expressions': !exists(json, 'expressions') ? undefined : ((json['expressions'] as Array<any>).map(CommonSegmentationQuerySelectorExprFromJSON)),
-        'operator': !exists(json, 'operator') ? undefined : CommonJoinOperatorFromJSON(json['operator']),
+        'expressions': json['expressions'] == null ? undefined : ((json['expressions'] as Array<any>).map(CommonSegmentationQuerySelectorExprFromJSON)),
+        'operator': json['operator'] == null ? undefined : CommonJoinOperatorFromJSON(json['operator']),
     };
 }
 
 export function CommonSegmentationQuerySelectorExprLogicExprToJSON(value?: CommonSegmentationQuerySelectorExprLogicExpr | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'expressions': value.expressions === undefined ? undefined : ((value.expressions as Array<any>).map(CommonSegmentationQuerySelectorExprToJSON)),
-        'operator': CommonJoinOperatorToJSON(value.operator),
+        'expressions': value['expressions'] == null ? undefined : ((value['expressions'] as Array<any>).map(CommonSegmentationQuerySelectorExprToJSON)),
+        'operator': CommonJoinOperatorToJSON(value['operator']),
     };
 }
 

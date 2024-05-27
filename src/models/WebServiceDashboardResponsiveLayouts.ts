@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceDashboardLayouts } from './WebServiceDashboardLayouts';
 import {
     WebServiceDashboardLayoutsFromJSON,
@@ -38,9 +38,7 @@ export interface WebServiceDashboardResponsiveLayouts {
  * Check if a given object implements the WebServiceDashboardResponsiveLayouts interface.
  */
 export function instanceOfWebServiceDashboardResponsiveLayouts(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardResponsiveLayoutsFromJSON(json: any): WebServiceDashboardResponsiveLayouts {
@@ -48,25 +46,22 @@ export function WebServiceDashboardResponsiveLayoutsFromJSON(json: any): WebServ
 }
 
 export function WebServiceDashboardResponsiveLayoutsFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboardResponsiveLayouts {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'responsiveLayouts': !exists(json, 'responsiveLayouts') ? undefined : (mapValues(json['responsiveLayouts'], WebServiceDashboardLayoutsFromJSON)),
+        'responsiveLayouts': json['responsiveLayouts'] == null ? undefined : (mapValues(json['responsiveLayouts'], WebServiceDashboardLayoutsFromJSON)),
     };
 }
 
 export function WebServiceDashboardResponsiveLayoutsToJSON(value?: WebServiceDashboardResponsiveLayouts | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'responsiveLayouts': value.responsiveLayouts === undefined ? undefined : (mapValues(value.responsiveLayouts, WebServiceDashboardLayoutsToJSON)),
+        'responsiveLayouts': value['responsiveLayouts'] == null ? undefined : (mapValues(value['responsiveLayouts'], WebServiceDashboardLayoutsToJSON)),
     };
 }
 

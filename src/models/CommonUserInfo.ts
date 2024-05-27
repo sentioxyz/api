@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * The same to user but with sensitive data removed.
  * @export
@@ -61,9 +61,7 @@ export interface CommonUserInfo {
  * Check if a given object implements the CommonUserInfo interface.
  */
 export function instanceOfCommonUserInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonUserInfoFromJSON(json: any): CommonUserInfo {
@@ -71,35 +69,32 @@ export function CommonUserInfoFromJSON(json: any): CommonUserInfo {
 }
 
 export function CommonUserInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonUserInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'lastName': !exists(json, 'lastName') ? undefined : json['lastName'],
-        'firstName': !exists(json, 'firstName') ? undefined : json['firstName'],
-        'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
-        'picture': !exists(json, 'picture') ? undefined : json['picture'],
-        'username': !exists(json, 'username') ? undefined : json['username'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'lastName': json['lastName'] == null ? undefined : json['lastName'],
+        'firstName': json['firstName'] == null ? undefined : json['firstName'],
+        'nickname': json['nickname'] == null ? undefined : json['nickname'],
+        'picture': json['picture'] == null ? undefined : json['picture'],
+        'username': json['username'] == null ? undefined : json['username'],
     };
 }
 
 export function CommonUserInfoToJSON(value?: CommonUserInfo | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'lastName': value.lastName,
-        'firstName': value.firstName,
-        'nickname': value.nickname,
-        'picture': value.picture,
-        'username': value.username,
+        'id': value['id'],
+        'lastName': value['lastName'],
+        'firstName': value['firstName'],
+        'nickname': value['nickname'],
+        'picture': value['picture'],
+        'username': value['username'],
     };
 }
 

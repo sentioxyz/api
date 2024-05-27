@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -49,9 +49,7 @@ export interface CommonTimeRangeLite {
  * Check if a given object implements the CommonTimeRangeLite interface.
  */
 export function instanceOfCommonTimeRangeLite(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonTimeRangeLiteFromJSON(json: any): CommonTimeRangeLite {
@@ -59,31 +57,28 @@ export function CommonTimeRangeLiteFromJSON(json: any): CommonTimeRangeLite {
 }
 
 export function CommonTimeRangeLiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonTimeRangeLite {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'start': !exists(json, 'start') ? undefined : json['start'],
-        'end': !exists(json, 'end') ? undefined : json['end'],
-        'step': !exists(json, 'step') ? undefined : json['step'],
-        'timezone': !exists(json, 'timezone') ? undefined : json['timezone'],
+        'start': json['start'] == null ? undefined : json['start'],
+        'end': json['end'] == null ? undefined : json['end'],
+        'step': json['step'] == null ? undefined : json['step'],
+        'timezone': json['timezone'] == null ? undefined : json['timezone'],
     };
 }
 
 export function CommonTimeRangeLiteToJSON(value?: CommonTimeRangeLite | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'start': value.start,
-        'end': value.end,
-        'step': value.step,
-        'timezone': value.timezone,
+        'start': value['start'],
+        'end': value['end'],
+        'step': value['step'],
+        'timezone': value['timezone'],
     };
 }
 

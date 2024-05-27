@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -49,9 +49,7 @@ export interface WebServiceDashboardSharing {
  * Check if a given object implements the WebServiceDashboardSharing interface.
  */
 export function instanceOfWebServiceDashboardSharing(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardSharingFromJSON(json: any): WebServiceDashboardSharing {
@@ -59,31 +57,28 @@ export function WebServiceDashboardSharingFromJSON(json: any): WebServiceDashboa
 }
 
 export function WebServiceDashboardSharingFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboardSharing {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'dashboardId': !exists(json, 'dashboardId') ? undefined : json['dashboardId'],
-        'isPublic': !exists(json, 'isPublic') ? undefined : json['isPublic'],
-        'viewers': !exists(json, 'viewers') ? undefined : json['viewers'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'dashboardId': json['dashboardId'] == null ? undefined : json['dashboardId'],
+        'isPublic': json['isPublic'] == null ? undefined : json['isPublic'],
+        'viewers': json['viewers'] == null ? undefined : json['viewers'],
     };
 }
 
 export function WebServiceDashboardSharingToJSON(value?: WebServiceDashboardSharing | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'dashboardId': value.dashboardId,
-        'isPublic': value.isPublic,
-        'viewers': value.viewers,
+        'id': value['id'],
+        'dashboardId': value['dashboardId'],
+        'isPublic': value['isPublic'],
+        'viewers': value['viewers'],
     };
 }
 

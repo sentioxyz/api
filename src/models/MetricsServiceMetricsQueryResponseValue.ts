@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -37,9 +37,7 @@ export interface MetricsServiceMetricsQueryResponseValue {
  * Check if a given object implements the MetricsServiceMetricsQueryResponseValue interface.
  */
 export function instanceOfMetricsServiceMetricsQueryResponseValue(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceMetricsQueryResponseValueFromJSON(json: any): MetricsServiceMetricsQueryResponseValue {
@@ -47,27 +45,24 @@ export function MetricsServiceMetricsQueryResponseValueFromJSON(json: any): Metr
 }
 
 export function MetricsServiceMetricsQueryResponseValueFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceMetricsQueryResponseValue {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'timestamp': !exists(json, 'timestamp') ? undefined : json['timestamp'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'timestamp': json['timestamp'] == null ? undefined : json['timestamp'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
 export function MetricsServiceMetricsQueryResponseValueToJSON(value?: MetricsServiceMetricsQueryResponseValue | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'timestamp': value.timestamp,
-        'value': value.value,
+        'timestamp': value['timestamp'],
+        'value': value['value'],
     };
 }
 

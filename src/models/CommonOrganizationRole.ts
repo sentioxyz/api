@@ -19,11 +19,14 @@
  */
 export const CommonOrganizationRole = {
     Member: 'ORG_MEMBER',
-    Admin: 'ORG_ADMIN',
-    UnknownDefaultOpenApi: '11184809'
+    Admin: 'ORG_ADMIN'
 } as const;
 export type CommonOrganizationRole = typeof CommonOrganizationRole[keyof typeof CommonOrganizationRole];
 
+
+export function instanceOfCommonOrganizationRole(value: any): boolean {
+    return Object.values(CommonOrganizationRole).includes(value);
+}
 
 export function CommonOrganizationRoleFromJSON(json: any): CommonOrganizationRole {
     return CommonOrganizationRoleFromJSONTyped(json, false);

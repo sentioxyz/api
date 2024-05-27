@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { MetricsServiceMetricsQueryResponseMetric } from './MetricsServiceMetricsQueryResponseMetric';
 import {
     MetricsServiceMetricsQueryResponseMetricFromJSON,
@@ -50,9 +50,7 @@ export interface MetricsServiceMetricsQueryResponseSample {
  * Check if a given object implements the MetricsServiceMetricsQueryResponseSample interface.
  */
 export function instanceOfMetricsServiceMetricsQueryResponseSample(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceMetricsQueryResponseSampleFromJSON(json: any): MetricsServiceMetricsQueryResponseSample {
@@ -60,27 +58,24 @@ export function MetricsServiceMetricsQueryResponseSampleFromJSON(json: any): Met
 }
 
 export function MetricsServiceMetricsQueryResponseSampleFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceMetricsQueryResponseSample {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metric': !exists(json, 'metric') ? undefined : MetricsServiceMetricsQueryResponseMetricFromJSON(json['metric']),
-        'values': !exists(json, 'values') ? undefined : ((json['values'] as Array<any>).map(MetricsServiceMetricsQueryResponseValueFromJSON)),
+        'metric': json['metric'] == null ? undefined : MetricsServiceMetricsQueryResponseMetricFromJSON(json['metric']),
+        'values': json['values'] == null ? undefined : ((json['values'] as Array<any>).map(MetricsServiceMetricsQueryResponseValueFromJSON)),
     };
 }
 
 export function MetricsServiceMetricsQueryResponseSampleToJSON(value?: MetricsServiceMetricsQueryResponseSample | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'metric': MetricsServiceMetricsQueryResponseMetricToJSON(value.metric),
-        'values': value.values === undefined ? undefined : ((value.values as Array<any>).map(MetricsServiceMetricsQueryResponseValueToJSON)),
+        'metric': MetricsServiceMetricsQueryResponseMetricToJSON(value['metric']),
+        'values': value['values'] == null ? undefined : ((value['values'] as Array<any>).map(MetricsServiceMetricsQueryResponseValueToJSON)),
     };
 }
 

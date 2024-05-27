@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -31,9 +31,7 @@ export interface CommonStringList {
  * Check if a given object implements the CommonStringList interface.
  */
 export function instanceOfCommonStringList(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonStringListFromJSON(json: any): CommonStringList {
@@ -41,25 +39,22 @@ export function CommonStringListFromJSON(json: any): CommonStringList {
 }
 
 export function CommonStringListFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonStringList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'values': !exists(json, 'values') ? undefined : json['values'],
+        'values': json['values'] == null ? undefined : json['values'],
     };
 }
 
 export function CommonStringListToJSON(value?: CommonStringList | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'values': value.values,
+        'values': value['values'],
     };
 }
 

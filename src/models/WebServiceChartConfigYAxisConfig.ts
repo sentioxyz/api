@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -49,9 +49,7 @@ export interface WebServiceChartConfigYAxisConfig {
  * Check if a given object implements the WebServiceChartConfigYAxisConfig interface.
  */
 export function instanceOfWebServiceChartConfigYAxisConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigYAxisConfigFromJSON(json: any): WebServiceChartConfigYAxisConfig {
@@ -59,31 +57,28 @@ export function WebServiceChartConfigYAxisConfigFromJSON(json: any): WebServiceC
 }
 
 export function WebServiceChartConfigYAxisConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigYAxisConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'min': !exists(json, 'min') ? undefined : json['min'],
-        'max': !exists(json, 'max') ? undefined : json['max'],
-        'scale': !exists(json, 'scale') ? undefined : json['scale'],
-        'stacked': !exists(json, 'stacked') ? undefined : json['stacked'],
+        'min': json['min'] == null ? undefined : json['min'],
+        'max': json['max'] == null ? undefined : json['max'],
+        'scale': json['scale'] == null ? undefined : json['scale'],
+        'stacked': json['stacked'] == null ? undefined : json['stacked'],
     };
 }
 
 export function WebServiceChartConfigYAxisConfigToJSON(value?: WebServiceChartConfigYAxisConfig | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'min': value.min,
-        'max': value.max,
-        'scale': value.scale,
-        'stacked': value.stacked,
+        'min': value['min'],
+        'max': value['max'],
+        'scale': value['scale'],
+        'stacked': value['stacked'],
     };
 }
 

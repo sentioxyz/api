@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigMappingRule } from './WebServiceChartConfigMappingRule';
 import {
     WebServiceChartConfigMappingRuleFromJSON,
@@ -98,9 +98,7 @@ export interface WebServiceChartConfigValueConfig {
  * Check if a given object implements the WebServiceChartConfigValueConfig interface.
  */
 export function instanceOfWebServiceChartConfigValueConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigValueConfigFromJSON(json: any): WebServiceChartConfigValueConfig {
@@ -108,41 +106,38 @@ export function WebServiceChartConfigValueConfigFromJSON(json: any): WebServiceC
 }
 
 export function WebServiceChartConfigValueConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigValueConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'valueFormatter': !exists(json, 'valueFormatter') ? undefined : WebServiceChartConfigValueFormatterFromJSON(json['valueFormatter']),
-        'showValueLabel': !exists(json, 'showValueLabel') ? undefined : json['showValueLabel'],
-        'maxSignificantDigits': !exists(json, 'maxSignificantDigits') ? undefined : json['maxSignificantDigits'],
-        'dateFormat': !exists(json, 'dateFormat') ? undefined : json['dateFormat'],
-        'mappingRules': !exists(json, 'mappingRules') ? undefined : ((json['mappingRules'] as Array<any>).map(WebServiceChartConfigMappingRuleFromJSON)),
-        'style': !exists(json, 'style') ? undefined : WebServiceChartConfigValueConfigStyleFromJSON(json['style']),
-        'maxFractionDigits': !exists(json, 'maxFractionDigits') ? undefined : json['maxFractionDigits'],
-        'precision': !exists(json, 'precision') ? undefined : json['precision'],
-        'currencySymbol': !exists(json, 'currencySymbol') ? undefined : json['currencySymbol'],
+        'valueFormatter': json['valueFormatter'] == null ? undefined : WebServiceChartConfigValueFormatterFromJSON(json['valueFormatter']),
+        'showValueLabel': json['showValueLabel'] == null ? undefined : json['showValueLabel'],
+        'maxSignificantDigits': json['maxSignificantDigits'] == null ? undefined : json['maxSignificantDigits'],
+        'dateFormat': json['dateFormat'] == null ? undefined : json['dateFormat'],
+        'mappingRules': json['mappingRules'] == null ? undefined : ((json['mappingRules'] as Array<any>).map(WebServiceChartConfigMappingRuleFromJSON)),
+        'style': json['style'] == null ? undefined : WebServiceChartConfigValueConfigStyleFromJSON(json['style']),
+        'maxFractionDigits': json['maxFractionDigits'] == null ? undefined : json['maxFractionDigits'],
+        'precision': json['precision'] == null ? undefined : json['precision'],
+        'currencySymbol': json['currencySymbol'] == null ? undefined : json['currencySymbol'],
     };
 }
 
 export function WebServiceChartConfigValueConfigToJSON(value?: WebServiceChartConfigValueConfig | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'valueFormatter': WebServiceChartConfigValueFormatterToJSON(value.valueFormatter),
-        'showValueLabel': value.showValueLabel,
-        'maxSignificantDigits': value.maxSignificantDigits,
-        'dateFormat': value.dateFormat,
-        'mappingRules': value.mappingRules === undefined ? undefined : ((value.mappingRules as Array<any>).map(WebServiceChartConfigMappingRuleToJSON)),
-        'style': WebServiceChartConfigValueConfigStyleToJSON(value.style),
-        'maxFractionDigits': value.maxFractionDigits,
-        'precision': value.precision,
-        'currencySymbol': value.currencySymbol,
+        'valueFormatter': WebServiceChartConfigValueFormatterToJSON(value['valueFormatter']),
+        'showValueLabel': value['showValueLabel'],
+        'maxSignificantDigits': value['maxSignificantDigits'],
+        'dateFormat': value['dateFormat'],
+        'mappingRules': value['mappingRules'] == null ? undefined : ((value['mappingRules'] as Array<any>).map(WebServiceChartConfigMappingRuleToJSON)),
+        'style': WebServiceChartConfigValueConfigStyleToJSON(value['style']),
+        'maxFractionDigits': value['maxFractionDigits'],
+        'precision': value['precision'],
+        'currencySymbol': value['currencySymbol'],
     };
 }
 

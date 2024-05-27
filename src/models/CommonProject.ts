@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { CommonChannel } from './CommonChannel';
+import {
+    CommonChannelFromJSON,
+    CommonChannelFromJSONTyped,
+    CommonChannelToJSON,
+} from './CommonChannel';
 import type { CommonOwner } from './CommonOwner';
 import {
     CommonOwnerFromJSON,
@@ -25,6 +31,24 @@ import {
     CommonProjectProjectMemberFromJSONTyped,
     CommonProjectProjectMemberToJSON,
 } from './CommonProjectProjectMember';
+import type { CommonProjectSuperset } from './CommonProjectSuperset';
+import {
+    CommonProjectSupersetFromJSON,
+    CommonProjectSupersetFromJSONTyped,
+    CommonProjectSupersetToJSON,
+} from './CommonProjectSuperset';
+import type { CommonProjectType } from './CommonProjectType';
+import {
+    CommonProjectTypeFromJSON,
+    CommonProjectTypeFromJSONTyped,
+    CommonProjectTypeToJSON,
+} from './CommonProjectType';
+import type { CommonProjectView } from './CommonProjectView';
+import {
+    CommonProjectViewFromJSON,
+    CommonProjectViewFromJSONTyped,
+    CommonProjectViewToJSON,
+} from './CommonProjectView';
 import type { CommonProjectVisibility } from './CommonProjectVisibility';
 import {
     CommonProjectVisibilityFromJSON,
@@ -94,6 +118,12 @@ export interface CommonProject {
     visibility?: CommonProjectVisibility;
     /**
      * 
+     * @type {CommonProjectType}
+     * @memberof CommonProject
+     */
+    type?: CommonProjectType;
+    /**
+     * 
      * @type {Array<CommonProjectProjectMember>}
      * @memberof CommonProject
      */
@@ -110,15 +140,49 @@ export interface CommonProject {
      * @memberof CommonProject
      */
     ownerName?: string;
+    /**
+     * 
+     * @type {Array<CommonChannel>}
+     * @memberof CommonProject
+     */
+    notificationChannels?: Array<CommonChannel>;
+    /**
+     * 
+     * @type {Array<CommonProjectView>}
+     * @memberof CommonProject
+     */
+    views?: Array<CommonProjectView>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommonProject
+     */
+    supersetEnable?: boolean;
+    /**
+     * 
+     * @type {CommonProjectSuperset}
+     * @memberof CommonProject
+     */
+    superset?: CommonProjectSuperset;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommonProject
+     */
+    enableDisk?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommonProject
+     */
+    enableMaterializedView?: boolean;
 }
 
 /**
  * Check if a given object implements the CommonProject interface.
  */
 export function instanceOfCommonProject(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonProjectFromJSON(json: any): CommonProject {
@@ -126,47 +190,58 @@ export function CommonProjectFromJSON(json: any): CommonProject {
 }
 
 export function CommonProjectFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonProject {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'displayName': !exists(json, 'displayName') ? undefined : json['displayName'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-        'updatedAt': !exists(json, 'updatedAt') ? undefined : json['updatedAt'],
-        'slug': !exists(json, 'slug') ? undefined : json['slug'],
-        'ownerId': !exists(json, 'ownerId') ? undefined : json['ownerId'],
-        'owner': !exists(json, 'owner') ? undefined : CommonOwnerFromJSON(json['owner']),
-        'visibility': !exists(json, 'visibility') ? undefined : CommonProjectVisibilityFromJSON(json['visibility']),
-        'members': !exists(json, 'members') ? undefined : ((json['members'] as Array<any>).map(CommonProjectProjectMemberFromJSON)),
-        'multiVersion': !exists(json, 'multiVersion') ? undefined : json['multiVersion'],
-        'ownerName': !exists(json, 'ownerName') ? undefined : json['ownerName'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'displayName': json['displayName'] == null ? undefined : json['displayName'],
+        'description': json['description'] == null ? undefined : json['description'],
+        'createdAt': json['createdAt'] == null ? undefined : json['createdAt'],
+        'updatedAt': json['updatedAt'] == null ? undefined : json['updatedAt'],
+        'slug': json['slug'] == null ? undefined : json['slug'],
+        'ownerId': json['ownerId'] == null ? undefined : json['ownerId'],
+        'owner': json['owner'] == null ? undefined : CommonOwnerFromJSON(json['owner']),
+        'visibility': json['visibility'] == null ? undefined : CommonProjectVisibilityFromJSON(json['visibility']),
+        'type': json['type'] == null ? undefined : CommonProjectTypeFromJSON(json['type']),
+        'members': json['members'] == null ? undefined : ((json['members'] as Array<any>).map(CommonProjectProjectMemberFromJSON)),
+        'multiVersion': json['multiVersion'] == null ? undefined : json['multiVersion'],
+        'ownerName': json['ownerName'] == null ? undefined : json['ownerName'],
+        'notificationChannels': json['notificationChannels'] == null ? undefined : ((json['notificationChannels'] as Array<any>).map(CommonChannelFromJSON)),
+        'views': json['views'] == null ? undefined : ((json['views'] as Array<any>).map(CommonProjectViewFromJSON)),
+        'supersetEnable': json['supersetEnable'] == null ? undefined : json['supersetEnable'],
+        'superset': json['superset'] == null ? undefined : CommonProjectSupersetFromJSON(json['superset']),
+        'enableDisk': json['enableDisk'] == null ? undefined : json['enableDisk'],
+        'enableMaterializedView': json['enableMaterializedView'] == null ? undefined : json['enableMaterializedView'],
     };
 }
 
 export function CommonProjectToJSON(value?: CommonProject | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'displayName': value.displayName,
-        'description': value.description,
-        'createdAt': value.createdAt,
-        'updatedAt': value.updatedAt,
-        'slug': value.slug,
-        'ownerId': value.ownerId,
-        'owner': CommonOwnerToJSON(value.owner),
-        'visibility': CommonProjectVisibilityToJSON(value.visibility),
-        'members': value.members === undefined ? undefined : ((value.members as Array<any>).map(CommonProjectProjectMemberToJSON)),
-        'multiVersion': value.multiVersion,
-        'ownerName': value.ownerName,
+        'id': value['id'],
+        'displayName': value['displayName'],
+        'description': value['description'],
+        'createdAt': value['createdAt'],
+        'updatedAt': value['updatedAt'],
+        'slug': value['slug'],
+        'ownerId': value['ownerId'],
+        'owner': CommonOwnerToJSON(value['owner']),
+        'visibility': CommonProjectVisibilityToJSON(value['visibility']),
+        'type': CommonProjectTypeToJSON(value['type']),
+        'members': value['members'] == null ? undefined : ((value['members'] as Array<any>).map(CommonProjectProjectMemberToJSON)),
+        'multiVersion': value['multiVersion'],
+        'ownerName': value['ownerName'],
+        'notificationChannels': value['notificationChannels'] == null ? undefined : ((value['notificationChannels'] as Array<any>).map(CommonChannelToJSON)),
+        'views': value['views'] == null ? undefined : ((value['views'] as Array<any>).map(CommonProjectViewToJSON)),
+        'supersetEnable': value['supersetEnable'],
+        'superset': CommonProjectSupersetToJSON(value['superset']),
+        'enableDisk': value['enableDisk'],
+        'enableMaterializedView': value['enableMaterializedView'],
     };
 }
 

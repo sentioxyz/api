@@ -21,11 +21,14 @@ export const CommonUserAccountStatus = {
     Pending: 'PENDING',
     SetUsername: 'SET_USERNAME',
     Banned: 'BANNED',
-    Active: 'ACTIVE',
-    UnknownDefaultOpenApi: '11184809'
+    Active: 'ACTIVE'
 } as const;
 export type CommonUserAccountStatus = typeof CommonUserAccountStatus[keyof typeof CommonUserAccountStatus];
 
+
+export function instanceOfCommonUserAccountStatus(value: any): boolean {
+    return Object.values(CommonUserAccountStatus).includes(value);
+}
 
 export function CommonUserAccountStatusFromJSON(json: any): CommonUserAccountStatus {
     return CommonUserAccountStatusFromJSONTyped(json, false);

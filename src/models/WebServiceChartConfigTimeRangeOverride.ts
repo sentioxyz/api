@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonTimeRange } from './CommonTimeRange';
 import {
     CommonTimeRangeFromJSON,
     CommonTimeRangeFromJSONTyped,
     CommonTimeRangeToJSON,
 } from './CommonTimeRange';
+import type { WebServiceChartConfigCompareTime } from './WebServiceChartConfigCompareTime';
+import {
+    WebServiceChartConfigCompareTimeFromJSON,
+    WebServiceChartConfigCompareTimeFromJSONTyped,
+    WebServiceChartConfigCompareTimeToJSON,
+} from './WebServiceChartConfigCompareTime';
 
 /**
  * 
@@ -38,15 +44,19 @@ export interface WebServiceChartConfigTimeRangeOverride {
      * @memberof WebServiceChartConfigTimeRangeOverride
      */
     timeRange?: CommonTimeRange;
+    /**
+     * 
+     * @type {WebServiceChartConfigCompareTime}
+     * @memberof WebServiceChartConfigTimeRangeOverride
+     */
+    compareTime?: WebServiceChartConfigCompareTime;
 }
 
 /**
  * Check if a given object implements the WebServiceChartConfigTimeRangeOverride interface.
  */
 export function instanceOfWebServiceChartConfigTimeRangeOverride(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigTimeRangeOverrideFromJSON(json: any): WebServiceChartConfigTimeRangeOverride {
@@ -54,27 +64,26 @@ export function WebServiceChartConfigTimeRangeOverrideFromJSON(json: any): WebSe
 }
 
 export function WebServiceChartConfigTimeRangeOverrideFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigTimeRangeOverride {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'enabled': !exists(json, 'enabled') ? undefined : json['enabled'],
-        'timeRange': !exists(json, 'timeRange') ? undefined : CommonTimeRangeFromJSON(json['timeRange']),
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'timeRange': json['timeRange'] == null ? undefined : CommonTimeRangeFromJSON(json['timeRange']),
+        'compareTime': json['compareTime'] == null ? undefined : WebServiceChartConfigCompareTimeFromJSON(json['compareTime']),
     };
 }
 
 export function WebServiceChartConfigTimeRangeOverrideToJSON(value?: WebServiceChartConfigTimeRangeOverride | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'enabled': value.enabled,
-        'timeRange': CommonTimeRangeToJSON(value.timeRange),
+        'enabled': value['enabled'],
+        'timeRange': CommonTimeRangeToJSON(value['timeRange']),
+        'compareTime': WebServiceChartConfigCompareTimeToJSON(value['compareTime']),
     };
 }
 

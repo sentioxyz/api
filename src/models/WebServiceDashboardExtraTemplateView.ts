@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -31,9 +31,7 @@ export interface WebServiceDashboardExtraTemplateView {
  * Check if a given object implements the WebServiceDashboardExtraTemplateView interface.
  */
 export function instanceOfWebServiceDashboardExtraTemplateView(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardExtraTemplateViewFromJSON(json: any): WebServiceDashboardExtraTemplateView {
@@ -41,25 +39,22 @@ export function WebServiceDashboardExtraTemplateViewFromJSON(json: any): WebServ
 }
 
 export function WebServiceDashboardExtraTemplateViewFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboardExtraTemplateView {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'values': !exists(json, 'values') ? undefined : json['values'],
+        'values': json['values'] == null ? undefined : json['values'],
     };
 }
 
 export function WebServiceDashboardExtraTemplateViewToJSON(value?: WebServiceDashboardExtraTemplateView | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'values': value.values,
+        'values': value['values'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { MetricsServiceQueryValueResponseResult } from './MetricsServiceQueryValueResponseResult';
 import {
     MetricsServiceQueryValueResponseResultFromJSON,
@@ -38,9 +38,7 @@ export interface MetricsServiceQueryValueResponse {
  * Check if a given object implements the MetricsServiceQueryValueResponse interface.
  */
 export function instanceOfMetricsServiceQueryValueResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceQueryValueResponseFromJSON(json: any): MetricsServiceQueryValueResponse {
@@ -48,25 +46,22 @@ export function MetricsServiceQueryValueResponseFromJSON(json: any): MetricsServ
 }
 
 export function MetricsServiceQueryValueResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceQueryValueResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'results': !exists(json, 'results') ? undefined : ((json['results'] as Array<any>).map(MetricsServiceQueryValueResponseResultFromJSON)),
+        'results': json['results'] == null ? undefined : ((json['results'] as Array<any>).map(MetricsServiceQueryValueResponseResultFromJSON)),
     };
 }
 
 export function MetricsServiceQueryValueResponseToJSON(value?: MetricsServiceQueryValueResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'results': value.results === undefined ? undefined : ((value.results as Array<any>).map(MetricsServiceQueryValueResponseResultToJSON)),
+        'results': value['results'] == null ? undefined : ((value['results'] as Array<any>).map(MetricsServiceQueryValueResponseResultToJSON)),
     };
 }
 

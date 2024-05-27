@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { MetricsServiceMetricsQueryResponseResult } from './MetricsServiceMetricsQueryResponseResult';
 import {
     MetricsServiceMetricsQueryResponseResultFromJSON,
@@ -38,9 +38,7 @@ export interface MetricsServiceMetricsQueryResponse {
  * Check if a given object implements the MetricsServiceMetricsQueryResponse interface.
  */
 export function instanceOfMetricsServiceMetricsQueryResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceMetricsQueryResponseFromJSON(json: any): MetricsServiceMetricsQueryResponse {
@@ -48,25 +46,22 @@ export function MetricsServiceMetricsQueryResponseFromJSON(json: any): MetricsSe
 }
 
 export function MetricsServiceMetricsQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceMetricsQueryResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'results': !exists(json, 'results') ? undefined : ((json['results'] as Array<any>).map(MetricsServiceMetricsQueryResponseResultFromJSON)),
+        'results': json['results'] == null ? undefined : ((json['results'] as Array<any>).map(MetricsServiceMetricsQueryResponseResultFromJSON)),
     };
 }
 
 export function MetricsServiceMetricsQueryResponseToJSON(value?: MetricsServiceMetricsQueryResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'results': value.results === undefined ? undefined : ((value.results as Array<any>).map(MetricsServiceMetricsQueryResponseResultToJSON)),
+        'results': value['results'] == null ? undefined : ((value['results'] as Array<any>).map(MetricsServiceMetricsQueryResponseResultToJSON)),
     };
 }
 

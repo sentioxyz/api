@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -31,9 +31,7 @@ export interface WebServiceExportDashboardResponse {
  * Check if a given object implements the WebServiceExportDashboardResponse interface.
  */
 export function instanceOfWebServiceExportDashboardResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceExportDashboardResponseFromJSON(json: any): WebServiceExportDashboardResponse {
@@ -41,25 +39,22 @@ export function WebServiceExportDashboardResponseFromJSON(json: any): WebService
 }
 
 export function WebServiceExportDashboardResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceExportDashboardResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'dashboardJson': !exists(json, 'dashboardJson') ? undefined : json['dashboardJson'],
+        'dashboardJson': json['dashboardJson'] == null ? undefined : json['dashboardJson'],
     };
 }
 
 export function WebServiceExportDashboardResponseToJSON(value?: WebServiceExportDashboardResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'dashboardJson': value.dashboardJson,
+        'dashboardJson': value['dashboardJson'],
     };
 }
 

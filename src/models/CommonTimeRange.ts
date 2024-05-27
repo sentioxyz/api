@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonDuration } from './CommonDuration';
 import {
     CommonDurationFromJSON,
@@ -68,9 +68,7 @@ export interface CommonTimeRange {
  * Check if a given object implements the CommonTimeRange interface.
  */
 export function instanceOfCommonTimeRange(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonTimeRangeFromJSON(json: any): CommonTimeRange {
@@ -78,33 +76,30 @@ export function CommonTimeRangeFromJSON(json: any): CommonTimeRange {
 }
 
 export function CommonTimeRangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonTimeRange {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'start': !exists(json, 'start') ? undefined : CommonTimeRangeTimeLikeFromJSON(json['start']),
-        'end': !exists(json, 'end') ? undefined : CommonTimeRangeTimeLikeFromJSON(json['end']),
-        'step': !exists(json, 'step') ? undefined : json['step'],
-        'interval': !exists(json, 'interval') ? undefined : CommonDurationFromJSON(json['interval']),
-        'timezone': !exists(json, 'timezone') ? undefined : json['timezone'],
+        'start': json['start'] == null ? undefined : CommonTimeRangeTimeLikeFromJSON(json['start']),
+        'end': json['end'] == null ? undefined : CommonTimeRangeTimeLikeFromJSON(json['end']),
+        'step': json['step'] == null ? undefined : json['step'],
+        'interval': json['interval'] == null ? undefined : CommonDurationFromJSON(json['interval']),
+        'timezone': json['timezone'] == null ? undefined : json['timezone'],
     };
 }
 
 export function CommonTimeRangeToJSON(value?: CommonTimeRange | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'start': CommonTimeRangeTimeLikeToJSON(value.start),
-        'end': CommonTimeRangeTimeLikeToJSON(value.end),
-        'step': value.step,
-        'interval': CommonDurationToJSON(value.interval),
-        'timezone': value.timezone,
+        'start': CommonTimeRangeTimeLikeToJSON(value['start']),
+        'end': CommonTimeRangeTimeLikeToJSON(value['end']),
+        'step': value['step'],
+        'interval': CommonDurationToJSON(value['interval']),
+        'timezone': value['timezone'],
     };
 }
 

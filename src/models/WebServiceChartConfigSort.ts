@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigSortBy } from './WebServiceChartConfigSortBy';
 import {
     WebServiceChartConfigSortByFromJSON,
@@ -44,9 +44,7 @@ export interface WebServiceChartConfigSort {
  * Check if a given object implements the WebServiceChartConfigSort interface.
  */
 export function instanceOfWebServiceChartConfigSort(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigSortFromJSON(json: any): WebServiceChartConfigSort {
@@ -54,27 +52,24 @@ export function WebServiceChartConfigSortFromJSON(json: any): WebServiceChartCon
 }
 
 export function WebServiceChartConfigSortFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigSort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'sortBy': !exists(json, 'sortBy') ? undefined : WebServiceChartConfigSortByFromJSON(json['sortBy']),
-        'orderDesc': !exists(json, 'orderDesc') ? undefined : json['orderDesc'],
+        'sortBy': json['sortBy'] == null ? undefined : WebServiceChartConfigSortByFromJSON(json['sortBy']),
+        'orderDesc': json['orderDesc'] == null ? undefined : json['orderDesc'],
     };
 }
 
 export function WebServiceChartConfigSortToJSON(value?: WebServiceChartConfigSort | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'sortBy': WebServiceChartConfigSortByToJSON(value.sortBy),
-        'orderDesc': value.orderDesc,
+        'sortBy': WebServiceChartConfigSortByToJSON(value['sortBy']),
+        'orderDesc': value['orderDesc'],
     };
 }
 

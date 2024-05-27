@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { MetricsServiceMetricsQueryResponseSample } from './MetricsServiceMetricsQueryResponseSample';
 import {
     MetricsServiceMetricsQueryResponseSampleFromJSON,
@@ -56,9 +56,7 @@ export interface MetricsServiceQueryValueResponseResult {
  * Check if a given object implements the MetricsServiceQueryValueResponseResult interface.
  */
 export function instanceOfMetricsServiceQueryValueResponseResult(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceQueryValueResponseResultFromJSON(json: any): MetricsServiceQueryValueResponseResult {
@@ -66,31 +64,28 @@ export function MetricsServiceQueryValueResponseResultFromJSON(json: any): Metri
 }
 
 export function MetricsServiceQueryValueResponseResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceQueryValueResponseResult {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'sample': !exists(json, 'sample') ? undefined : ((json['sample'] as Array<any>).map(MetricsServiceMetricsQueryResponseSampleFromJSON)),
-        'error': !exists(json, 'error') ? undefined : json['error'],
-        'alias': !exists(json, 'alias') ? undefined : json['alias'],
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'sample': json['sample'] == null ? undefined : ((json['sample'] as Array<any>).map(MetricsServiceMetricsQueryResponseSampleFromJSON)),
+        'error': json['error'] == null ? undefined : json['error'],
+        'alias': json['alias'] == null ? undefined : json['alias'],
+        'id': json['id'] == null ? undefined : json['id'],
     };
 }
 
 export function MetricsServiceQueryValueResponseResultToJSON(value?: MetricsServiceQueryValueResponseResult | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'sample': value.sample === undefined ? undefined : ((value.sample as Array<any>).map(MetricsServiceMetricsQueryResponseSampleToJSON)),
-        'error': value.error,
-        'alias': value.alias,
-        'id': value.id,
+        'sample': value['sample'] == null ? undefined : ((value['sample'] as Array<any>).map(MetricsServiceMetricsQueryResponseSampleToJSON)),
+        'error': value['error'],
+        'alias': value['alias'],
+        'id': value['id'],
     };
 }
 

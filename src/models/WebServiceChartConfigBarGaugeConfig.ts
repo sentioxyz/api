@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation';
 import {
     WebServiceChartConfigCalculationFromJSON,
@@ -62,9 +62,7 @@ export interface WebServiceChartConfigBarGaugeConfig {
  * Check if a given object implements the WebServiceChartConfigBarGaugeConfig interface.
  */
 export function instanceOfWebServiceChartConfigBarGaugeConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigBarGaugeConfigFromJSON(json: any): WebServiceChartConfigBarGaugeConfig {
@@ -72,29 +70,26 @@ export function WebServiceChartConfigBarGaugeConfigFromJSON(json: any): WebServi
 }
 
 export function WebServiceChartConfigBarGaugeConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigBarGaugeConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'direction': !exists(json, 'direction') ? undefined : WebServiceChartConfigDirectionFromJSON(json['direction']),
-        'calculation': !exists(json, 'calculation') ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
-        'sort': !exists(json, 'sort') ? undefined : WebServiceChartConfigSortFromJSON(json['sort']),
+        'direction': json['direction'] == null ? undefined : WebServiceChartConfigDirectionFromJSON(json['direction']),
+        'calculation': json['calculation'] == null ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
+        'sort': json['sort'] == null ? undefined : WebServiceChartConfigSortFromJSON(json['sort']),
     };
 }
 
 export function WebServiceChartConfigBarGaugeConfigToJSON(value?: WebServiceChartConfigBarGaugeConfig | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'direction': WebServiceChartConfigDirectionToJSON(value.direction),
-        'calculation': WebServiceChartConfigCalculationToJSON(value.calculation),
-        'sort': WebServiceChartConfigSortToJSON(value.sort),
+        'direction': WebServiceChartConfigDirectionToJSON(value['direction']),
+        'calculation': WebServiceChartConfigCalculationToJSON(value['calculation']),
+        'sort': WebServiceChartConfigSortToJSON(value['sort']),
     };
 }
 

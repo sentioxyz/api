@@ -21,10 +21,17 @@ export const WebServiceChartDataSourceType = {
     Metrics: 'METRICS',
     Notes: 'NOTES',
     Analytics: 'ANALYTICS',
-    UnknownDefaultOpenApi: '11184809'
+    Insights: 'INSIGHTS',
+    Events: 'EVENTS',
+    Retention: 'RETENTION',
+    Sql: 'SQL'
 } as const;
 export type WebServiceChartDataSourceType = typeof WebServiceChartDataSourceType[keyof typeof WebServiceChartDataSourceType];
 
+
+export function instanceOfWebServiceChartDataSourceType(value: any): boolean {
+    return Object.values(WebServiceChartDataSourceType).includes(value);
+}
 
 export function WebServiceChartDataSourceTypeFromJSON(json: any): WebServiceChartDataSourceType {
     return WebServiceChartDataSourceTypeFromJSONTyped(json, false);

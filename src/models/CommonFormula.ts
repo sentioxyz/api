@@ -12,7 +12,14 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { CommonFunction } from './CommonFunction';
+import {
+    CommonFunctionFromJSON,
+    CommonFunctionFromJSONTyped,
+    CommonFunctionToJSON,
+} from './CommonFunction';
+
 /**
  * 
  * @export
@@ -43,15 +50,19 @@ export interface CommonFormula {
      * @memberof CommonFormula
      */
     disabled?: boolean;
+    /**
+     * 
+     * @type {Array<CommonFunction>}
+     * @memberof CommonFormula
+     */
+    functions?: Array<CommonFunction>;
 }
 
 /**
  * Check if a given object implements the CommonFormula interface.
  */
 export function instanceOfCommonFormula(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonFormulaFromJSON(json: any): CommonFormula {
@@ -59,31 +70,30 @@ export function CommonFormulaFromJSON(json: any): CommonFormula {
 }
 
 export function CommonFormulaFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonFormula {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'expression': !exists(json, 'expression') ? undefined : json['expression'],
-        'alias': !exists(json, 'alias') ? undefined : json['alias'],
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'disabled': !exists(json, 'disabled') ? undefined : json['disabled'],
+        'expression': json['expression'] == null ? undefined : json['expression'],
+        'alias': json['alias'] == null ? undefined : json['alias'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'disabled': json['disabled'] == null ? undefined : json['disabled'],
+        'functions': json['functions'] == null ? undefined : ((json['functions'] as Array<any>).map(CommonFunctionFromJSON)),
     };
 }
 
 export function CommonFormulaToJSON(value?: CommonFormula | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'expression': value.expression,
-        'alias': value.alias,
-        'id': value.id,
-        'disabled': value.disabled,
+        'expression': value['expression'],
+        'alias': value['alias'],
+        'id': value['id'],
+        'disabled': value['disabled'],
+        'functions': value['functions'] == null ? undefined : ((value['functions'] as Array<any>).map(CommonFunctionToJSON)),
     };
 }
 

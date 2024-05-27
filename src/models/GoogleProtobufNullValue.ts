@@ -17,17 +17,20 @@
  * `NullValue` is a singleton enumeration to represent the null value for the
  * `Value` type union.
  * 
- *  The JSON representation for `NullValue` is JSON `null`.
+ * The JSON representation for `NullValue` is JSON `null`.
  * 
  *  - NULL_VALUE: Null value.
  * @export
  */
 export const GoogleProtobufNullValue = {
-    NullValue: 'NULL_VALUE',
-    UnknownDefaultOpenApi: '11184809'
+    NullValue: 'NULL_VALUE'
 } as const;
 export type GoogleProtobufNullValue = typeof GoogleProtobufNullValue[keyof typeof GoogleProtobufNullValue];
 
+
+export function instanceOfGoogleProtobufNullValue(value: any): boolean {
+    return Object.values(GoogleProtobufNullValue).includes(value);
+}
 
 export function GoogleProtobufNullValueFromJSON(json: any): GoogleProtobufNullValue {
     return GoogleProtobufNullValueFromJSONTyped(json, false);

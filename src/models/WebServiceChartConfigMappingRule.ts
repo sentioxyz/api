@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigColorTheme } from './WebServiceChartConfigColorTheme';
 import {
     WebServiceChartConfigColorThemeFromJSON,
@@ -56,9 +56,7 @@ export interface WebServiceChartConfigMappingRule {
  * Check if a given object implements the WebServiceChartConfigMappingRule interface.
  */
 export function instanceOfWebServiceChartConfigMappingRule(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigMappingRuleFromJSON(json: any): WebServiceChartConfigMappingRule {
@@ -66,31 +64,28 @@ export function WebServiceChartConfigMappingRuleFromJSON(json: any): WebServiceC
 }
 
 export function WebServiceChartConfigMappingRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigMappingRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'comparison': !exists(json, 'comparison') ? undefined : json['comparison'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
-        'text': !exists(json, 'text') ? undefined : json['text'],
-        'colorTheme': !exists(json, 'colorTheme') ? undefined : WebServiceChartConfigColorThemeFromJSON(json['colorTheme']),
+        'comparison': json['comparison'] == null ? undefined : json['comparison'],
+        'value': json['value'] == null ? undefined : json['value'],
+        'text': json['text'] == null ? undefined : json['text'],
+        'colorTheme': json['colorTheme'] == null ? undefined : WebServiceChartConfigColorThemeFromJSON(json['colorTheme']),
     };
 }
 
 export function WebServiceChartConfigMappingRuleToJSON(value?: WebServiceChartConfigMappingRule | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'comparison': value.comparison,
-        'value': value.value,
-        'text': value.text,
-        'colorTheme': WebServiceChartConfigColorThemeToJSON(value.colorTheme),
+        'comparison': value['comparison'],
+        'value': value['value'],
+        'text': value['text'],
+        'colorTheme': WebServiceChartConfigColorThemeToJSON(value['colorTheme']),
     };
 }
 

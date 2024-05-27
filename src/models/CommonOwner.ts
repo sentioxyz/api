@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonOrganization } from './CommonOrganization';
 import {
     CommonOrganizationFromJSON,
@@ -62,9 +62,7 @@ export interface CommonOwner {
  * Check if a given object implements the CommonOwner interface.
  */
 export function instanceOfCommonOwner(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonOwnerFromJSON(json: any): CommonOwner {
@@ -72,29 +70,26 @@ export function CommonOwnerFromJSON(json: any): CommonOwner {
 }
 
 export function CommonOwnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonOwner {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'user': !exists(json, 'user') ? undefined : CommonUserFromJSON(json['user']),
-        'organization': !exists(json, 'organization') ? undefined : CommonOrganizationFromJSON(json['organization']),
-        'tier': !exists(json, 'tier') ? undefined : CommonTierFromJSON(json['tier']),
+        'user': json['user'] == null ? undefined : CommonUserFromJSON(json['user']),
+        'organization': json['organization'] == null ? undefined : CommonOrganizationFromJSON(json['organization']),
+        'tier': json['tier'] == null ? undefined : CommonTierFromJSON(json['tier']),
     };
 }
 
 export function CommonOwnerToJSON(value?: CommonOwner | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'user': CommonUserToJSON(value.user),
-        'organization': CommonOrganizationToJSON(value.organization),
-        'tier': CommonTierToJSON(value.tier),
+        'user': CommonUserToJSON(value['user']),
+        'organization': CommonOrganizationToJSON(value['organization']),
+        'tier': CommonTierToJSON(value['tier']),
     };
 }
 

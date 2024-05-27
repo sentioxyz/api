@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonAggregateAggregateOps } from './CommonAggregateAggregateOps';
 import {
     CommonAggregateAggregateOpsFromJSON,
@@ -44,9 +44,7 @@ export interface CommonAggregate {
  * Check if a given object implements the CommonAggregate interface.
  */
 export function instanceOfCommonAggregate(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonAggregateFromJSON(json: any): CommonAggregate {
@@ -54,27 +52,24 @@ export function CommonAggregateFromJSON(json: any): CommonAggregate {
 }
 
 export function CommonAggregateFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonAggregate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'op': !exists(json, 'op') ? undefined : CommonAggregateAggregateOpsFromJSON(json['op']),
-        'grouping': !exists(json, 'grouping') ? undefined : json['grouping'],
+        'op': json['op'] == null ? undefined : CommonAggregateAggregateOpsFromJSON(json['op']),
+        'grouping': json['grouping'] == null ? undefined : json['grouping'],
     };
 }
 
 export function CommonAggregateToJSON(value?: CommonAggregate | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'op': CommonAggregateAggregateOpsToJSON(value.op),
-        'grouping': value.grouping,
+        'op': CommonAggregateAggregateOpsToJSON(value['op']),
+        'grouping': value['grouping'],
     };
 }
 

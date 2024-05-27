@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonAggregate } from './CommonAggregate';
 import {
     CommonAggregateFromJSON,
@@ -80,9 +80,7 @@ export interface CommonQuery {
  * Check if a given object implements the CommonQuery interface.
  */
 export function instanceOfCommonQuery(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonQueryFromJSON(json: any): CommonQuery {
@@ -90,37 +88,34 @@ export function CommonQueryFromJSON(json: any): CommonQuery {
 }
 
 export function CommonQueryFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonQuery {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'query': !exists(json, 'query') ? undefined : json['query'],
-        'alias': !exists(json, 'alias') ? undefined : json['alias'],
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'labelSelector': !exists(json, 'labelSelector') ? undefined : json['labelSelector'],
-        'aggregate': !exists(json, 'aggregate') ? undefined : CommonAggregateFromJSON(json['aggregate']),
-        'functions': !exists(json, 'functions') ? undefined : ((json['functions'] as Array<any>).map(CommonFunctionFromJSON)),
-        'disabled': !exists(json, 'disabled') ? undefined : json['disabled'],
+        'query': json['query'] == null ? undefined : json['query'],
+        'alias': json['alias'] == null ? undefined : json['alias'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'labelSelector': json['labelSelector'] == null ? undefined : json['labelSelector'],
+        'aggregate': json['aggregate'] == null ? undefined : CommonAggregateFromJSON(json['aggregate']),
+        'functions': json['functions'] == null ? undefined : ((json['functions'] as Array<any>).map(CommonFunctionFromJSON)),
+        'disabled': json['disabled'] == null ? undefined : json['disabled'],
     };
 }
 
 export function CommonQueryToJSON(value?: CommonQuery | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'query': value.query,
-        'alias': value.alias,
-        'id': value.id,
-        'labelSelector': value.labelSelector,
-        'aggregate': CommonAggregateToJSON(value.aggregate),
-        'functions': value.functions === undefined ? undefined : ((value.functions as Array<any>).map(CommonFunctionToJSON)),
-        'disabled': value.disabled,
+        'query': value['query'],
+        'alias': value['alias'],
+        'id': value['id'],
+        'labelSelector': value['labelSelector'],
+        'aggregate': CommonAggregateToJSON(value['aggregate']),
+        'functions': value['functions'] == null ? undefined : ((value['functions'] as Array<any>).map(CommonFunctionToJSON)),
+        'disabled': value['disabled'],
     };
 }
 

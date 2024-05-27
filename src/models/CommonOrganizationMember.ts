@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonOrganizationRole } from './CommonOrganizationRole';
 import {
     CommonOrganizationRoleFromJSON,
@@ -50,9 +50,7 @@ export interface CommonOrganizationMember {
  * Check if a given object implements the CommonOrganizationMember interface.
  */
 export function instanceOfCommonOrganizationMember(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonOrganizationMemberFromJSON(json: any): CommonOrganizationMember {
@@ -60,27 +58,24 @@ export function CommonOrganizationMemberFromJSON(json: any): CommonOrganizationM
 }
 
 export function CommonOrganizationMemberFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonOrganizationMember {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'user': !exists(json, 'user') ? undefined : CommonUserInfoFromJSON(json['user']),
-        'role': !exists(json, 'role') ? undefined : CommonOrganizationRoleFromJSON(json['role']),
+        'user': json['user'] == null ? undefined : CommonUserInfoFromJSON(json['user']),
+        'role': json['role'] == null ? undefined : CommonOrganizationRoleFromJSON(json['role']),
     };
 }
 
 export function CommonOrganizationMemberToJSON(value?: CommonOrganizationMember | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'user': CommonUserInfoToJSON(value.user),
-        'role': CommonOrganizationRoleToJSON(value.role),
+        'user': CommonUserInfoToJSON(value['user']),
+        'role': CommonOrganizationRoleToJSON(value['role']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceDashboard } from './WebServiceDashboard';
 import {
     WebServiceDashboardFromJSON,
@@ -38,9 +38,7 @@ export interface WebServiceImportDashboardResponse {
  * Check if a given object implements the WebServiceImportDashboardResponse interface.
  */
 export function instanceOfWebServiceImportDashboardResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceImportDashboardResponseFromJSON(json: any): WebServiceImportDashboardResponse {
@@ -48,25 +46,22 @@ export function WebServiceImportDashboardResponseFromJSON(json: any): WebService
 }
 
 export function WebServiceImportDashboardResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceImportDashboardResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'dashboard': !exists(json, 'dashboard') ? undefined : WebServiceDashboardFromJSON(json['dashboard']),
+        'dashboard': json['dashboard'] == null ? undefined : WebServiceDashboardFromJSON(json['dashboard']),
     };
 }
 
 export function WebServiceImportDashboardResponseToJSON(value?: WebServiceImportDashboardResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'dashboard': WebServiceDashboardToJSON(value.dashboard),
+        'dashboard': WebServiceDashboardToJSON(value['dashboard']),
     };
 }
 

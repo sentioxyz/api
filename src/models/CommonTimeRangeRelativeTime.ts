@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -31,15 +31,19 @@ export interface CommonTimeRangeRelativeTime {
      * @memberof CommonTimeRangeRelativeTime
      */
     value?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CommonTimeRangeRelativeTime
+     */
+    align?: string;
 }
 
 /**
  * Check if a given object implements the CommonTimeRangeRelativeTime interface.
  */
 export function instanceOfCommonTimeRangeRelativeTime(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonTimeRangeRelativeTimeFromJSON(json: any): CommonTimeRangeRelativeTime {
@@ -47,27 +51,26 @@ export function CommonTimeRangeRelativeTimeFromJSON(json: any): CommonTimeRangeR
 }
 
 export function CommonTimeRangeRelativeTimeFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonTimeRangeRelativeTime {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'unit': !exists(json, 'unit') ? undefined : json['unit'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'unit': json['unit'] == null ? undefined : json['unit'],
+        'value': json['value'] == null ? undefined : json['value'],
+        'align': json['align'] == null ? undefined : json['align'],
     };
 }
 
 export function CommonTimeRangeRelativeTimeToJSON(value?: CommonTimeRangeRelativeTime | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'unit': value.unit,
-        'value': value.value,
+        'unit': value['unit'],
+        'value': value['value'],
+        'align': value['align'],
     };
 }
 

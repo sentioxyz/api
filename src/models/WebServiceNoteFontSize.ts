@@ -22,11 +22,14 @@ export const WebServiceNoteFontSize = {
     Sm: 'SM',
     Lg: 'LG',
     Xl: 'XL',
-    Xxl: 'XXL',
-    UnknownDefaultOpenApi: '11184809'
+    Xxl: 'XXL'
 } as const;
 export type WebServiceNoteFontSize = typeof WebServiceNoteFontSize[keyof typeof WebServiceNoteFontSize];
 
+
+export function instanceOfWebServiceNoteFontSize(value: any): boolean {
+    return Object.values(WebServiceNoteFontSize).includes(value);
+}
 
 export function WebServiceNoteFontSizeFromJSON(json: any): WebServiceNoteFontSize {
     return WebServiceNoteFontSizeFromJSONTyped(json, false);

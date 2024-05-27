@@ -25,11 +25,14 @@ export const WebServiceChartChartType = {
     Table: 'TABLE',
     QueryValue: 'QUERY_VALUE',
     Pie: 'PIE',
-    Note: 'NOTE',
-    UnknownDefaultOpenApi: '11184809'
+    Note: 'NOTE'
 } as const;
 export type WebServiceChartChartType = typeof WebServiceChartChartType[keyof typeof WebServiceChartChartType];
 
+
+export function instanceOfWebServiceChartChartType(value: any): boolean {
+    return Object.values(WebServiceChartChartType).includes(value);
+}
 
 export function WebServiceChartChartTypeFromJSON(json: any): WebServiceChartChartType {
     return WebServiceChartChartTypeFromJSONTyped(json, false);

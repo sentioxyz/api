@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { MetricsServiceMetricsQueryResponseSample } from './MetricsServiceMetricsQueryResponseSample';
 import {
     MetricsServiceMetricsQueryResponseSampleFromJSON,
@@ -44,9 +44,7 @@ export interface MetricsServiceMetricsQueryResponseMatrix {
  * Check if a given object implements the MetricsServiceMetricsQueryResponseMatrix interface.
  */
 export function instanceOfMetricsServiceMetricsQueryResponseMatrix(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceMetricsQueryResponseMatrixFromJSON(json: any): MetricsServiceMetricsQueryResponseMatrix {
@@ -54,27 +52,24 @@ export function MetricsServiceMetricsQueryResponseMatrixFromJSON(json: any): Met
 }
 
 export function MetricsServiceMetricsQueryResponseMatrixFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceMetricsQueryResponseMatrix {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'samples': !exists(json, 'samples') ? undefined : ((json['samples'] as Array<any>).map(MetricsServiceMetricsQueryResponseSampleFromJSON)),
-        'totalSamples': !exists(json, 'totalSamples') ? undefined : json['totalSamples'],
+        'samples': json['samples'] == null ? undefined : ((json['samples'] as Array<any>).map(MetricsServiceMetricsQueryResponseSampleFromJSON)),
+        'totalSamples': json['totalSamples'] == null ? undefined : json['totalSamples'],
     };
 }
 
 export function MetricsServiceMetricsQueryResponseMatrixToJSON(value?: MetricsServiceMetricsQueryResponseMatrix | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'samples': value.samples === undefined ? undefined : ((value.samples as Array<any>).map(MetricsServiceMetricsQueryResponseSampleToJSON)),
-        'totalSamples': value.totalSamples,
+        'samples': value['samples'] == null ? undefined : ((value['samples'] as Array<any>).map(MetricsServiceMetricsQueryResponseSampleToJSON)),
+        'totalSamples': value['totalSamples'],
     };
 }
 

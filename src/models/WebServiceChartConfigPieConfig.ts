@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation';
 import {
     WebServiceChartConfigCalculationFromJSON,
@@ -62,9 +62,7 @@ export interface WebServiceChartConfigPieConfig {
  * Check if a given object implements the WebServiceChartConfigPieConfig interface.
  */
 export function instanceOfWebServiceChartConfigPieConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigPieConfigFromJSON(json: any): WebServiceChartConfigPieConfig {
@@ -72,31 +70,28 @@ export function WebServiceChartConfigPieConfigFromJSON(json: any): WebServiceCha
 }
 
 export function WebServiceChartConfigPieConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigPieConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'pieType': !exists(json, 'pieType') ? undefined : WebServiceChartConfigPieConfigPieTypeFromJSON(json['pieType']),
-        'showPercent': !exists(json, 'showPercent') ? undefined : json['showPercent'],
-        'showValue': !exists(json, 'showValue') ? undefined : json['showValue'],
-        'calculation': !exists(json, 'calculation') ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
+        'pieType': json['pieType'] == null ? undefined : WebServiceChartConfigPieConfigPieTypeFromJSON(json['pieType']),
+        'showPercent': json['showPercent'] == null ? undefined : json['showPercent'],
+        'showValue': json['showValue'] == null ? undefined : json['showValue'],
+        'calculation': json['calculation'] == null ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
     };
 }
 
 export function WebServiceChartConfigPieConfigToJSON(value?: WebServiceChartConfigPieConfig | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'pieType': WebServiceChartConfigPieConfigPieTypeToJSON(value.pieType),
-        'showPercent': value.showPercent,
-        'showValue': value.showValue,
-        'calculation': WebServiceChartConfigCalculationToJSON(value.calculation),
+        'pieType': WebServiceChartConfigPieConfigPieTypeToJSON(value['pieType']),
+        'showPercent': value['showPercent'],
+        'showValue': value['showValue'],
+        'calculation': WebServiceChartConfigCalculationToJSON(value['calculation']),
     };
 }
 

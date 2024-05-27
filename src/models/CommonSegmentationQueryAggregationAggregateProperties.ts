@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonSegmentationQueryAggregationAggregatePropertiesAggregationType } from './CommonSegmentationQueryAggregationAggregatePropertiesAggregationType';
 import {
     CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSON,
@@ -44,9 +44,7 @@ export interface CommonSegmentationQueryAggregationAggregateProperties {
  * Check if a given object implements the CommonSegmentationQueryAggregationAggregateProperties interface.
  */
 export function instanceOfCommonSegmentationQueryAggregationAggregateProperties(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSegmentationQueryAggregationAggregatePropertiesFromJSON(json: any): CommonSegmentationQueryAggregationAggregateProperties {
@@ -54,27 +52,24 @@ export function CommonSegmentationQueryAggregationAggregatePropertiesFromJSON(js
 }
 
 export function CommonSegmentationQueryAggregationAggregatePropertiesFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSegmentationQueryAggregationAggregateProperties {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'type': !exists(json, 'type') ? undefined : CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSON(json['type']),
-        'propertyName': !exists(json, 'propertyName') ? undefined : json['propertyName'],
+        'type': json['type'] == null ? undefined : CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSON(json['type']),
+        'propertyName': json['propertyName'] == null ? undefined : json['propertyName'],
     };
 }
 
 export function CommonSegmentationQueryAggregationAggregatePropertiesToJSON(value?: CommonSegmentationQueryAggregationAggregateProperties | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'type': CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeToJSON(value.type),
-        'propertyName': value.propertyName,
+        'type': CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeToJSON(value['type']),
+        'propertyName': value['propertyName'],
     };
 }
 

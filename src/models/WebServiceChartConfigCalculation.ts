@@ -23,10 +23,15 @@ export const WebServiceChartConfigCalculation = {
     Mean: 'MEAN',
     Total: 'TOTAL',
     All: 'ALL',
-    UnknownDefaultOpenApi: '11184809'
+    Min: 'MIN',
+    Max: 'MAX'
 } as const;
 export type WebServiceChartConfigCalculation = typeof WebServiceChartConfigCalculation[keyof typeof WebServiceChartConfigCalculation];
 
+
+export function instanceOfWebServiceChartConfigCalculation(value: any): boolean {
+    return Object.values(WebServiceChartConfigCalculation).includes(value);
+}
 
 export function WebServiceChartConfigCalculationFromJSON(json: any): WebServiceChartConfigCalculation {
     return WebServiceChartConfigCalculationFromJSONTyped(json, false);

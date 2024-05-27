@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -43,9 +43,7 @@ export interface WebServiceChartConfigColorTheme {
  * Check if a given object implements the WebServiceChartConfigColorTheme interface.
  */
 export function instanceOfWebServiceChartConfigColorTheme(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigColorThemeFromJSON(json: any): WebServiceChartConfigColorTheme {
@@ -53,29 +51,26 @@ export function WebServiceChartConfigColorThemeFromJSON(json: any): WebServiceCh
 }
 
 export function WebServiceChartConfigColorThemeFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigColorTheme {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'textColor': !exists(json, 'textColor') ? undefined : json['textColor'],
-        'backgroundColor': !exists(json, 'backgroundColor') ? undefined : json['backgroundColor'],
-        'themeType': !exists(json, 'themeType') ? undefined : json['themeType'],
+        'textColor': json['textColor'] == null ? undefined : json['textColor'],
+        'backgroundColor': json['backgroundColor'] == null ? undefined : json['backgroundColor'],
+        'themeType': json['themeType'] == null ? undefined : json['themeType'],
     };
 }
 
 export function WebServiceChartConfigColorThemeToJSON(value?: WebServiceChartConfigColorTheme | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'textColor': value.textColor,
-        'backgroundColor': value.backgroundColor,
-        'themeType': value.themeType,
+        'textColor': value['textColor'],
+        'backgroundColor': value['backgroundColor'],
+        'themeType': value['themeType'],
     };
 }
 

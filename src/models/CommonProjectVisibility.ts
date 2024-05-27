@@ -19,11 +19,14 @@
  */
 export const CommonProjectVisibility = {
     Public: 'PUBLIC',
-    Private: 'PRIVATE',
-    UnknownDefaultOpenApi: '11184809'
+    Private: 'PRIVATE'
 } as const;
 export type CommonProjectVisibility = typeof CommonProjectVisibility[keyof typeof CommonProjectVisibility];
 
+
+export function instanceOfCommonProjectVisibility(value: any): boolean {
+    return Object.values(CommonProjectVisibility).includes(value);
+}
 
 export function CommonProjectVisibilityFromJSON(json: any): CommonProjectVisibility {
     return CommonProjectVisibilityFromJSONTyped(json, false);

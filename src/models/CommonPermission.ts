@@ -20,11 +20,14 @@
 export const CommonPermission = {
     Read: 'READ',
     Write: 'WRITE',
-    Admin: 'ADMIN',
-    UnknownDefaultOpenApi: '11184809'
+    Admin: 'ADMIN'
 } as const;
 export type CommonPermission = typeof CommonPermission[keyof typeof CommonPermission];
 
+
+export function instanceOfCommonPermission(value: any): boolean {
+    return Object.values(CommonPermission).includes(value);
+}
 
 export function CommonPermissionFromJSON(json: any): CommonPermission {
     return CommonPermissionFromJSONTyped(json, false);

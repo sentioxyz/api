@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonDuration } from './CommonDuration';
 import {
     CommonDurationFromJSON,
@@ -38,9 +38,7 @@ export interface CommonSegmentationQueryAggregationCountUnique {
  * Check if a given object implements the CommonSegmentationQueryAggregationCountUnique interface.
  */
 export function instanceOfCommonSegmentationQueryAggregationCountUnique(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSegmentationQueryAggregationCountUniqueFromJSON(json: any): CommonSegmentationQueryAggregationCountUnique {
@@ -48,25 +46,22 @@ export function CommonSegmentationQueryAggregationCountUniqueFromJSON(json: any)
 }
 
 export function CommonSegmentationQueryAggregationCountUniqueFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSegmentationQueryAggregationCountUnique {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'duration': !exists(json, 'duration') ? undefined : CommonDurationFromJSON(json['duration']),
+        'duration': json['duration'] == null ? undefined : CommonDurationFromJSON(json['duration']),
     };
 }
 
 export function CommonSegmentationQueryAggregationCountUniqueToJSON(value?: CommonSegmentationQueryAggregationCountUnique | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'duration': CommonDurationToJSON(value.duration),
+        'duration': CommonDurationToJSON(value['duration']),
     };
 }
 

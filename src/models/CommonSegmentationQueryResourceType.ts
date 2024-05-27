@@ -19,11 +19,14 @@
  */
 export const CommonSegmentationQueryResourceType = {
     Events: 'EVENTS',
-    Cohorts: 'COHORTS',
-    UnknownDefaultOpenApi: '11184809'
+    Cohorts: 'COHORTS'
 } as const;
 export type CommonSegmentationQueryResourceType = typeof CommonSegmentationQueryResourceType[keyof typeof CommonSegmentationQueryResourceType];
 
+
+export function instanceOfCommonSegmentationQueryResourceType(value: any): boolean {
+    return Object.values(CommonSegmentationQueryResourceType).includes(value);
+}
 
 export function CommonSegmentationQueryResourceTypeFromJSON(json: any): CommonSegmentationQueryResourceType {
     return CommonSegmentationQueryResourceTypeFromJSONTyped(json, false);

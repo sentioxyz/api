@@ -20,11 +20,14 @@
 export const WebServiceChartConfigValueFormatter = {
     NumberFormatter: 'NumberFormatter',
     DateFormatter: 'DateFormatter',
-    StringFormatter: 'StringFormatter',
-    UnknownDefaultOpenApi: '11184809'
+    StringFormatter: 'StringFormatter'
 } as const;
 export type WebServiceChartConfigValueFormatter = typeof WebServiceChartConfigValueFormatter[keyof typeof WebServiceChartConfigValueFormatter];
 
+
+export function instanceOfWebServiceChartConfigValueFormatter(value: any): boolean {
+    return Object.values(WebServiceChartConfigValueFormatter).includes(value);
+}
 
 export function WebServiceChartConfigValueFormatterFromJSON(json: any): WebServiceChartConfigValueFormatter {
     return WebServiceChartConfigValueFormatterFromJSONTyped(json, false);

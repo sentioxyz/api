@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonSegmentationQuerySelectorExprLogicExpr } from './CommonSegmentationQuerySelectorExprLogicExpr';
 import {
     CommonSegmentationQuerySelectorExprLogicExprFromJSON,
@@ -50,9 +50,7 @@ export interface CommonSegmentationQuerySelectorExpr {
  * Check if a given object implements the CommonSegmentationQuerySelectorExpr interface.
  */
 export function instanceOfCommonSegmentationQuerySelectorExpr(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSegmentationQuerySelectorExprFromJSON(json: any): CommonSegmentationQuerySelectorExpr {
@@ -60,27 +58,24 @@ export function CommonSegmentationQuerySelectorExprFromJSON(json: any): CommonSe
 }
 
 export function CommonSegmentationQuerySelectorExprFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSegmentationQuerySelectorExpr {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'selector': !exists(json, 'selector') ? undefined : CommonSelectorFromJSON(json['selector']),
-        'logicExpr': !exists(json, 'logicExpr') ? undefined : CommonSegmentationQuerySelectorExprLogicExprFromJSON(json['logicExpr']),
+        'selector': json['selector'] == null ? undefined : CommonSelectorFromJSON(json['selector']),
+        'logicExpr': json['logicExpr'] == null ? undefined : CommonSegmentationQuerySelectorExprLogicExprFromJSON(json['logicExpr']),
     };
 }
 
 export function CommonSegmentationQuerySelectorExprToJSON(value?: CommonSegmentationQuerySelectorExpr | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'selector': CommonSelectorToJSON(value.selector),
-        'logicExpr': CommonSegmentationQuerySelectorExprLogicExprToJSON(value.logicExpr),
+        'selector': CommonSelectorToJSON(value['selector']),
+        'logicExpr': CommonSegmentationQuerySelectorExprLogicExprToJSON(value['logicExpr']),
     };
 }
 

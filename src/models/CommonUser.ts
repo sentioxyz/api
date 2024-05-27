@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonTier } from './CommonTier';
 import {
     CommonTierFromJSON,
@@ -122,9 +122,7 @@ export interface CommonUser {
  * Check if a given object implements the CommonUser interface.
  */
 export function instanceOfCommonUser(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonUserFromJSON(json: any): CommonUser {
@@ -132,51 +130,48 @@ export function CommonUserFromJSON(json: any): CommonUser {
 }
 
 export function CommonUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonUser {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'emailVerified': !exists(json, 'emailVerified') ? undefined : json['emailVerified'],
-        'lastName': !exists(json, 'lastName') ? undefined : json['lastName'],
-        'firstName': !exists(json, 'firstName') ? undefined : json['firstName'],
-        'locale': !exists(json, 'locale') ? undefined : json['locale'],
-        'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
-        'picture': !exists(json, 'picture') ? undefined : json['picture'],
-        'sub': !exists(json, 'sub') ? undefined : json['sub'],
-        'updatedAt': !exists(json, 'updatedAt') ? undefined : json['updatedAt'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-        'username': !exists(json, 'username') ? undefined : json['username'],
-        'accountStatus': !exists(json, 'accountStatus') ? undefined : CommonUserAccountStatusFromJSON(json['accountStatus']),
-        'tier': !exists(json, 'tier') ? undefined : CommonTierFromJSON(json['tier']),
+        'id': json['id'] == null ? undefined : json['id'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'emailVerified': json['emailVerified'] == null ? undefined : json['emailVerified'],
+        'lastName': json['lastName'] == null ? undefined : json['lastName'],
+        'firstName': json['firstName'] == null ? undefined : json['firstName'],
+        'locale': json['locale'] == null ? undefined : json['locale'],
+        'nickname': json['nickname'] == null ? undefined : json['nickname'],
+        'picture': json['picture'] == null ? undefined : json['picture'],
+        'sub': json['sub'] == null ? undefined : json['sub'],
+        'updatedAt': json['updatedAt'] == null ? undefined : json['updatedAt'],
+        'createdAt': json['createdAt'] == null ? undefined : json['createdAt'],
+        'username': json['username'] == null ? undefined : json['username'],
+        'accountStatus': json['accountStatus'] == null ? undefined : CommonUserAccountStatusFromJSON(json['accountStatus']),
+        'tier': json['tier'] == null ? undefined : CommonTierFromJSON(json['tier']),
     };
 }
 
 export function CommonUserToJSON(value?: CommonUser | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'email': value.email,
-        'emailVerified': value.emailVerified,
-        'lastName': value.lastName,
-        'firstName': value.firstName,
-        'locale': value.locale,
-        'nickname': value.nickname,
-        'picture': value.picture,
-        'sub': value.sub,
-        'updatedAt': value.updatedAt,
-        'createdAt': value.createdAt,
-        'username': value.username,
-        'accountStatus': CommonUserAccountStatusToJSON(value.accountStatus),
-        'tier': CommonTierToJSON(value.tier),
+        'id': value['id'],
+        'email': value['email'],
+        'emailVerified': value['emailVerified'],
+        'lastName': value['lastName'],
+        'firstName': value['firstName'],
+        'locale': value['locale'],
+        'nickname': value['nickname'],
+        'picture': value['picture'],
+        'sub': value['sub'],
+        'updatedAt': value['updatedAt'],
+        'createdAt': value['createdAt'],
+        'username': value['username'],
+        'accountStatus': CommonUserAccountStatusToJSON(value['accountStatus']),
+        'tier': CommonTierToJSON(value['tier']),
     };
 }
 

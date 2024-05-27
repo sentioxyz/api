@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonAny } from './CommonAny';
 import {
     CommonAnyFromJSON,
@@ -56,9 +56,7 @@ export interface CommonSelector {
  * Check if a given object implements the CommonSelector interface.
  */
 export function instanceOfCommonSelector(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSelectorFromJSON(json: any): CommonSelector {
@@ -66,29 +64,26 @@ export function CommonSelectorFromJSON(json: any): CommonSelector {
 }
 
 export function CommonSelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'key': !exists(json, 'key') ? undefined : json['key'],
-        'operator': !exists(json, 'operator') ? undefined : CommonSelectorOperatorTypeFromJSON(json['operator']),
-        'value': !exists(json, 'value') ? undefined : ((json['value'] as Array<any>).map(CommonAnyFromJSON)),
+        'key': json['key'] == null ? undefined : json['key'],
+        'operator': json['operator'] == null ? undefined : CommonSelectorOperatorTypeFromJSON(json['operator']),
+        'value': json['value'] == null ? undefined : ((json['value'] as Array<any>).map(CommonAnyFromJSON)),
     };
 }
 
 export function CommonSelectorToJSON(value?: CommonSelector | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'key': value.key,
-        'operator': CommonSelectorOperatorTypeToJSON(value.operator),
-        'value': value.value === undefined ? undefined : ((value.value as Array<any>).map(CommonAnyToJSON)),
+        'key': value['key'],
+        'operator': CommonSelectorOperatorTypeToJSON(value['operator']),
+        'value': value['value'] == null ? undefined : ((value['value'] as Array<any>).map(CommonAnyToJSON)),
     };
 }
 

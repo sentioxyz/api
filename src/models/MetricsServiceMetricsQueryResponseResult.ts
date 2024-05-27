@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { CommonComputeStats } from './CommonComputeStats';
+import {
+    CommonComputeStatsFromJSON,
+    CommonComputeStatsFromJSONTyped,
+    CommonComputeStatsToJSON,
+} from './CommonComputeStats';
 import type { MetricsServiceMetricsQueryResponseMatrix } from './MetricsServiceMetricsQueryResponseMatrix';
 import {
     MetricsServiceMetricsQueryResponseMatrixFromJSON,
@@ -50,15 +56,19 @@ export interface MetricsServiceMetricsQueryResponseResult {
      * @memberof MetricsServiceMetricsQueryResponseResult
      */
     id?: string;
+    /**
+     * 
+     * @type {CommonComputeStats}
+     * @memberof MetricsServiceMetricsQueryResponseResult
+     */
+    computeStats?: CommonComputeStats;
 }
 
 /**
  * Check if a given object implements the MetricsServiceMetricsQueryResponseResult interface.
  */
 export function instanceOfMetricsServiceMetricsQueryResponseResult(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function MetricsServiceMetricsQueryResponseResultFromJSON(json: any): MetricsServiceMetricsQueryResponseResult {
@@ -66,31 +76,30 @@ export function MetricsServiceMetricsQueryResponseResultFromJSON(json: any): Met
 }
 
 export function MetricsServiceMetricsQueryResponseResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): MetricsServiceMetricsQueryResponseResult {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'matrix': !exists(json, 'matrix') ? undefined : MetricsServiceMetricsQueryResponseMatrixFromJSON(json['matrix']),
-        'error': !exists(json, 'error') ? undefined : json['error'],
-        'alias': !exists(json, 'alias') ? undefined : json['alias'],
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'matrix': json['matrix'] == null ? undefined : MetricsServiceMetricsQueryResponseMatrixFromJSON(json['matrix']),
+        'error': json['error'] == null ? undefined : json['error'],
+        'alias': json['alias'] == null ? undefined : json['alias'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'computeStats': json['computeStats'] == null ? undefined : CommonComputeStatsFromJSON(json['computeStats']),
     };
 }
 
 export function MetricsServiceMetricsQueryResponseResultToJSON(value?: MetricsServiceMetricsQueryResponseResult | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'matrix': MetricsServiceMetricsQueryResponseMatrixToJSON(value.matrix),
-        'error': value.error,
-        'alias': value.alias,
-        'id': value.id,
+        'matrix': MetricsServiceMetricsQueryResponseMatrixToJSON(value['matrix']),
+        'error': value['error'],
+        'alias': value['alias'],
+        'id': value['id'],
+        'computeStats': CommonComputeStatsToJSON(value['computeStats']),
     };
 }
 

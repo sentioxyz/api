@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -20,19 +20,19 @@ import { exists, mapValues } from '../runtime';
  */
 export interface WebServiceImportDashboardRequest {
     /**
-     * 
+     * The id of the target dashboard to import into.
      * @type {string}
      * @memberof WebServiceImportDashboardRequest
      */
-    dashboardId?: string;
+    dashboardId: string;
     /**
-     * 
+     * The json data of a previously exported dashboard.
      * @type {object}
      * @memberof WebServiceImportDashboardRequest
      */
-    dashboardJson?: object;
+    dashboardJson: object;
     /**
-     * 
+     * Override the layout of target dashboard.
      * @type {boolean}
      * @memberof WebServiceImportDashboardRequest
      */
@@ -43,9 +43,9 @@ export interface WebServiceImportDashboardRequest {
  * Check if a given object implements the WebServiceImportDashboardRequest interface.
  */
 export function instanceOfWebServiceImportDashboardRequest(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    if (!('dashboardId' in value)) return false;
+    if (!('dashboardJson' in value)) return false;
+    return true;
 }
 
 export function WebServiceImportDashboardRequestFromJSON(json: any): WebServiceImportDashboardRequest {
@@ -53,29 +53,26 @@ export function WebServiceImportDashboardRequestFromJSON(json: any): WebServiceI
 }
 
 export function WebServiceImportDashboardRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceImportDashboardRequest {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'dashboardId': !exists(json, 'dashboardId') ? undefined : json['dashboardId'],
-        'dashboardJson': !exists(json, 'dashboardJson') ? undefined : json['dashboardJson'],
-        'overrideLayouts': !exists(json, 'overrideLayouts') ? undefined : json['overrideLayouts'],
+        'dashboardId': json['dashboardId'],
+        'dashboardJson': json['dashboardJson'],
+        'overrideLayouts': json['overrideLayouts'] == null ? undefined : json['overrideLayouts'],
     };
 }
 
 export function WebServiceImportDashboardRequestToJSON(value?: WebServiceImportDashboardRequest | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'dashboardId': value.dashboardId,
-        'dashboardJson': value.dashboardJson,
-        'overrideLayouts': value.overrideLayouts,
+        'dashboardId': value['dashboardId'],
+        'dashboardJson': value['dashboardJson'],
+        'overrideLayouts': value['overrideLayouts'],
     };
 }
 

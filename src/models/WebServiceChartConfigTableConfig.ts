@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation';
 import {
     WebServiceChartConfigCalculationFromJSON,
@@ -86,15 +86,19 @@ export interface WebServiceChartConfigTableConfig {
      * @memberof WebServiceChartConfigTableConfig
      */
     valueConfigs?: { [key: string]: WebServiceChartConfigValueConfig; };
+    /**
+     * 
+     * @type {number}
+     * @memberof WebServiceChartConfigTableConfig
+     */
+    rowLimit?: number;
 }
 
 /**
  * Check if a given object implements the WebServiceChartConfigTableConfig interface.
  */
 export function instanceOfWebServiceChartConfigTableConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigTableConfigFromJSON(json: any): WebServiceChartConfigTableConfig {
@@ -102,39 +106,38 @@ export function WebServiceChartConfigTableConfigFromJSON(json: any): WebServiceC
 }
 
 export function WebServiceChartConfigTableConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigTableConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'calculation': !exists(json, 'calculation') ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
-        'showColumns': !exists(json, 'showColumns') ? undefined : json['showColumns'],
-        'sortColumns': !exists(json, 'sortColumns') ? undefined : ((json['sortColumns'] as Array<any>).map(WebServiceChartConfigColumnSortFromJSON)),
-        'columnOrders': !exists(json, 'columnOrders') ? undefined : json['columnOrders'],
-        'columnWidths': !exists(json, 'columnWidths') ? undefined : json['columnWidths'],
-        'showPlainData': !exists(json, 'showPlainData') ? undefined : json['showPlainData'],
-        'calculations': !exists(json, 'calculations') ? undefined : (mapValues(json['calculations'], WebServiceChartConfigCalculationFromJSON)),
-        'valueConfigs': !exists(json, 'valueConfigs') ? undefined : (mapValues(json['valueConfigs'], WebServiceChartConfigValueConfigFromJSON)),
+        'calculation': json['calculation'] == null ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
+        'showColumns': json['showColumns'] == null ? undefined : json['showColumns'],
+        'sortColumns': json['sortColumns'] == null ? undefined : ((json['sortColumns'] as Array<any>).map(WebServiceChartConfigColumnSortFromJSON)),
+        'columnOrders': json['columnOrders'] == null ? undefined : json['columnOrders'],
+        'columnWidths': json['columnWidths'] == null ? undefined : json['columnWidths'],
+        'showPlainData': json['showPlainData'] == null ? undefined : json['showPlainData'],
+        'calculations': json['calculations'] == null ? undefined : (mapValues(json['calculations'], WebServiceChartConfigCalculationFromJSON)),
+        'valueConfigs': json['valueConfigs'] == null ? undefined : (mapValues(json['valueConfigs'], WebServiceChartConfigValueConfigFromJSON)),
+        'rowLimit': json['rowLimit'] == null ? undefined : json['rowLimit'],
     };
 }
 
 export function WebServiceChartConfigTableConfigToJSON(value?: WebServiceChartConfigTableConfig | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'calculation': WebServiceChartConfigCalculationToJSON(value.calculation),
-        'showColumns': value.showColumns,
-        'sortColumns': value.sortColumns === undefined ? undefined : ((value.sortColumns as Array<any>).map(WebServiceChartConfigColumnSortToJSON)),
-        'columnOrders': value.columnOrders,
-        'columnWidths': value.columnWidths,
-        'showPlainData': value.showPlainData,
-        'calculations': value.calculations === undefined ? undefined : (mapValues(value.calculations, WebServiceChartConfigCalculationToJSON)),
-        'valueConfigs': value.valueConfigs === undefined ? undefined : (mapValues(value.valueConfigs, WebServiceChartConfigValueConfigToJSON)),
+        'calculation': WebServiceChartConfigCalculationToJSON(value['calculation']),
+        'showColumns': value['showColumns'],
+        'sortColumns': value['sortColumns'] == null ? undefined : ((value['sortColumns'] as Array<any>).map(WebServiceChartConfigColumnSortToJSON)),
+        'columnOrders': value['columnOrders'],
+        'columnWidths': value['columnWidths'],
+        'showPlainData': value['showPlainData'],
+        'calculations': value['calculations'] == null ? undefined : (mapValues(value['calculations'], WebServiceChartConfigCalculationToJSON)),
+        'valueConfigs': value['valueConfigs'] == null ? undefined : (mapValues(value['valueConfigs'], WebServiceChartConfigValueConfigToJSON)),
+        'rowLimit': value['rowLimit'],
     };
 }
 

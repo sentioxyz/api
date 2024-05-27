@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -37,9 +37,7 @@ export interface WebServiceChartConfigColumnSort {
  * Check if a given object implements the WebServiceChartConfigColumnSort interface.
  */
 export function instanceOfWebServiceChartConfigColumnSort(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigColumnSortFromJSON(json: any): WebServiceChartConfigColumnSort {
@@ -47,27 +45,24 @@ export function WebServiceChartConfigColumnSortFromJSON(json: any): WebServiceCh
 }
 
 export function WebServiceChartConfigColumnSortFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigColumnSort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'column': !exists(json, 'column') ? undefined : json['column'],
-        'orderDesc': !exists(json, 'orderDesc') ? undefined : json['orderDesc'],
+        'column': json['column'] == null ? undefined : json['column'],
+        'orderDesc': json['orderDesc'] == null ? undefined : json['orderDesc'],
     };
 }
 
 export function WebServiceChartConfigColumnSortToJSON(value?: WebServiceChartConfigColumnSort | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'column': value.column,
-        'orderDesc': value.orderDesc,
+        'column': value['column'],
+        'orderDesc': value['orderDesc'],
     };
 }
 

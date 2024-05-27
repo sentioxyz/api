@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { WebServiceDashboardDashboardVisibility } from './WebServiceDashboardDashboardVisibility';
+import {
+    WebServiceDashboardDashboardVisibilityFromJSON,
+    WebServiceDashboardDashboardVisibilityFromJSONTyped,
+    WebServiceDashboardDashboardVisibilityToJSON,
+} from './WebServiceDashboardDashboardVisibility';
 import type { WebServiceDashboardExtra } from './WebServiceDashboardExtra';
 import {
     WebServiceDashboardExtraFromJSON,
@@ -104,15 +110,43 @@ export interface WebServiceDashboard {
      * @memberof WebServiceDashboard
      */
     sharing?: WebServiceDashboardSharing;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebServiceDashboard
+     */
+    _default?: boolean;
+    /**
+     * 
+     * @type {WebServiceDashboardDashboardVisibility}
+     * @memberof WebServiceDashboard
+     */
+    visibility?: WebServiceDashboardDashboardVisibility;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebServiceDashboard
+     */
+    ownerId?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof WebServiceDashboard
+     */
+    tags?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebServiceDashboard
+     */
+    url?: string;
 }
 
 /**
  * Check if a given object implements the WebServiceDashboard interface.
  */
 export function instanceOfWebServiceDashboard(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardFromJSON(json: any): WebServiceDashboard {
@@ -120,43 +154,50 @@ export function WebServiceDashboardFromJSON(json: any): WebServiceDashboard {
 }
 
 export function WebServiceDashboardFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboard {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'projectId': !exists(json, 'projectId') ? undefined : json['projectId'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : (new Date(json['createdAt'])),
-        'updatedAt': !exists(json, 'updatedAt') ? undefined : (new Date(json['updatedAt'])),
-        'panels': !exists(json, 'panels') ? undefined : (mapValues(json['panels'], WebServicePanelFromJSON)),
-        'layouts': !exists(json, 'layouts') ? undefined : WebServiceDashboardResponsiveLayoutsFromJSON(json['layouts']),
-        'extra': !exists(json, 'extra') ? undefined : WebServiceDashboardExtraFromJSON(json['extra']),
-        'sharing': !exists(json, 'sharing') ? undefined : WebServiceDashboardSharingFromJSON(json['sharing']),
+        'id': json['id'] == null ? undefined : json['id'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'projectId': json['projectId'] == null ? undefined : json['projectId'],
+        'description': json['description'] == null ? undefined : json['description'],
+        'createdAt': json['createdAt'] == null ? undefined : (new Date(json['createdAt'])),
+        'updatedAt': json['updatedAt'] == null ? undefined : (new Date(json['updatedAt'])),
+        'panels': json['panels'] == null ? undefined : (mapValues(json['panels'], WebServicePanelFromJSON)),
+        'layouts': json['layouts'] == null ? undefined : WebServiceDashboardResponsiveLayoutsFromJSON(json['layouts']),
+        'extra': json['extra'] == null ? undefined : WebServiceDashboardExtraFromJSON(json['extra']),
+        'sharing': json['sharing'] == null ? undefined : WebServiceDashboardSharingFromJSON(json['sharing']),
+        '_default': json['default'] == null ? undefined : json['default'],
+        'visibility': json['visibility'] == null ? undefined : WebServiceDashboardDashboardVisibilityFromJSON(json['visibility']),
+        'ownerId': json['ownerId'] == null ? undefined : json['ownerId'],
+        'tags': json['tags'] == null ? undefined : json['tags'],
+        'url': json['url'] == null ? undefined : json['url'],
     };
 }
 
 export function WebServiceDashboardToJSON(value?: WebServiceDashboard | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'name': value.name,
-        'projectId': value.projectId,
-        'description': value.description,
-        'createdAt': value.createdAt === undefined ? undefined : (value.createdAt.toISOString()),
-        'updatedAt': value.updatedAt === undefined ? undefined : (value.updatedAt.toISOString()),
-        'panels': value.panels === undefined ? undefined : (mapValues(value.panels, WebServicePanelToJSON)),
-        'layouts': WebServiceDashboardResponsiveLayoutsToJSON(value.layouts),
-        'extra': WebServiceDashboardExtraToJSON(value.extra),
-        'sharing': WebServiceDashboardSharingToJSON(value.sharing),
+        'id': value['id'],
+        'name': value['name'],
+        'projectId': value['projectId'],
+        'description': value['description'],
+        'createdAt': value['createdAt'] == null ? undefined : ((value['createdAt']).toISOString()),
+        'updatedAt': value['updatedAt'] == null ? undefined : ((value['updatedAt']).toISOString()),
+        'panels': value['panels'] == null ? undefined : (mapValues(value['panels'], WebServicePanelToJSON)),
+        'layouts': WebServiceDashboardResponsiveLayoutsToJSON(value['layouts']),
+        'extra': WebServiceDashboardExtraToJSON(value['extra']),
+        'sharing': WebServiceDashboardSharingToJSON(value['sharing']),
+        'default': value['_default'],
+        'visibility': WebServiceDashboardDashboardVisibilityToJSON(value['visibility']),
+        'ownerId': value['ownerId'],
+        'tags': value['tags'],
+        'url': value['url'],
     };
 }
 

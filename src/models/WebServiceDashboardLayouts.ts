@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceDashboardLayoutsLayout } from './WebServiceDashboardLayoutsLayout';
 import {
     WebServiceDashboardLayoutsLayoutFromJSON,
@@ -38,9 +38,7 @@ export interface WebServiceDashboardLayouts {
  * Check if a given object implements the WebServiceDashboardLayouts interface.
  */
 export function instanceOfWebServiceDashboardLayouts(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceDashboardLayoutsFromJSON(json: any): WebServiceDashboardLayouts {
@@ -48,25 +46,22 @@ export function WebServiceDashboardLayoutsFromJSON(json: any): WebServiceDashboa
 }
 
 export function WebServiceDashboardLayoutsFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceDashboardLayouts {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'layouts': !exists(json, 'layouts') ? undefined : ((json['layouts'] as Array<any>).map(WebServiceDashboardLayoutsLayoutFromJSON)),
+        'layouts': json['layouts'] == null ? undefined : ((json['layouts'] as Array<any>).map(WebServiceDashboardLayoutsLayoutFromJSON)),
     };
 }
 
 export function WebServiceDashboardLayoutsToJSON(value?: WebServiceDashboardLayouts | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'layouts': value.layouts === undefined ? undefined : ((value.layouts as Array<any>).map(WebServiceDashboardLayoutsLayoutToJSON)),
+        'layouts': value['layouts'] == null ? undefined : ((value['layouts'] as Array<any>).map(WebServiceDashboardLayoutsLayoutToJSON)),
     };
 }
 

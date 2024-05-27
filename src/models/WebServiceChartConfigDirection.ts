@@ -19,11 +19,14 @@
  */
 export const WebServiceChartConfigDirection = {
     Horizontal: 'HORIZONTAL',
-    Vertical: 'VERTICAL',
-    UnknownDefaultOpenApi: '11184809'
+    Vertical: 'VERTICAL'
 } as const;
 export type WebServiceChartConfigDirection = typeof WebServiceChartConfigDirection[keyof typeof WebServiceChartConfigDirection];
 
+
+export function instanceOfWebServiceChartConfigDirection(value: any): boolean {
+    return Object.values(WebServiceChartConfigDirection).includes(value);
+}
 
 export function WebServiceChartConfigDirectionFromJSON(json: any): WebServiceChartConfigDirection {
     return WebServiceChartConfigDirectionFromJSONTyped(json, false);

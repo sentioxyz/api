@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChart } from './WebServiceChart';
 import {
     WebServiceChartFromJSON,
@@ -56,9 +56,7 @@ export interface WebServicePanel {
  * Check if a given object implements the WebServicePanel interface.
  */
 export function instanceOfWebServicePanel(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServicePanelFromJSON(json: any): WebServicePanel {
@@ -66,31 +64,28 @@ export function WebServicePanelFromJSON(json: any): WebServicePanel {
 }
 
 export function WebServicePanelFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServicePanel {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'dashboardId': !exists(json, 'dashboardId') ? undefined : json['dashboardId'],
-        'chart': !exists(json, 'chart') ? undefined : WebServiceChartFromJSON(json['chart']),
+        'id': json['id'] == null ? undefined : json['id'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'dashboardId': json['dashboardId'] == null ? undefined : json['dashboardId'],
+        'chart': json['chart'] == null ? undefined : WebServiceChartFromJSON(json['chart']),
     };
 }
 
 export function WebServicePanelToJSON(value?: WebServicePanel | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'name': value.name,
-        'dashboardId': value.dashboardId,
-        'chart': WebServiceChartToJSON(value.chart),
+        'id': value['id'],
+        'name': value['name'],
+        'dashboardId': value['dashboardId'],
+        'chart': WebServiceChartToJSON(value['chart']),
     };
 }
 

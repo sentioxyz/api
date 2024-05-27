@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { CommonCohortsQuery } from './CommonCohortsQuery';
+import {
+    CommonCohortsQueryFromJSON,
+    CommonCohortsQueryFromJSONTyped,
+    CommonCohortsQueryToJSON,
+} from './CommonCohortsQuery';
 import type { CommonSegmentationQueryResourceType } from './CommonSegmentationQueryResourceType';
 import {
     CommonSegmentationQueryResourceTypeFromJSON,
@@ -38,15 +44,25 @@ export interface CommonSegmentationQueryResource {
      * @memberof CommonSegmentationQueryResource
      */
     type?: CommonSegmentationQueryResourceType;
+    /**
+     * 
+     * @type {string}
+     * @memberof CommonSegmentationQueryResource
+     */
+    cohortsId?: string;
+    /**
+     * 
+     * @type {CommonCohortsQuery}
+     * @memberof CommonSegmentationQueryResource
+     */
+    cohortsQuery?: CommonCohortsQuery;
 }
 
 /**
  * Check if a given object implements the CommonSegmentationQueryResource interface.
  */
 export function instanceOfCommonSegmentationQueryResource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSegmentationQueryResourceFromJSON(json: any): CommonSegmentationQueryResource {
@@ -54,27 +70,28 @@ export function CommonSegmentationQueryResourceFromJSON(json: any): CommonSegmen
 }
 
 export function CommonSegmentationQueryResourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSegmentationQueryResource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'type': !exists(json, 'type') ? undefined : CommonSegmentationQueryResourceTypeFromJSON(json['type']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'type': json['type'] == null ? undefined : CommonSegmentationQueryResourceTypeFromJSON(json['type']),
+        'cohortsId': json['cohortsId'] == null ? undefined : json['cohortsId'],
+        'cohortsQuery': json['cohortsQuery'] == null ? undefined : CommonCohortsQueryFromJSON(json['cohortsQuery']),
     };
 }
 
 export function CommonSegmentationQueryResourceToJSON(value?: CommonSegmentationQueryResource | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'name': value.name,
-        'type': CommonSegmentationQueryResourceTypeToJSON(value.type),
+        'name': value['name'],
+        'type': CommonSegmentationQueryResourceTypeToJSON(value['type']),
+        'cohortsId': value['cohortsId'],
+        'cohortsQuery': CommonCohortsQueryToJSON(value['cohortsQuery']),
     };
 }
 

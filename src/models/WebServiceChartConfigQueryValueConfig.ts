@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation';
 import {
     WebServiceChartConfigCalculationFromJSON,
@@ -50,15 +50,19 @@ export interface WebServiceChartConfigQueryValueConfig {
      * @memberof WebServiceChartConfigQueryValueConfig
      */
     calculation?: WebServiceChartConfigCalculation;
+    /**
+     * 
+     * @type {WebServiceChartConfigCalculation}
+     * @memberof WebServiceChartConfigQueryValueConfig
+     */
+    seriesCalculation?: WebServiceChartConfigCalculation;
 }
 
 /**
  * Check if a given object implements the WebServiceChartConfigQueryValueConfig interface.
  */
 export function instanceOfWebServiceChartConfigQueryValueConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigQueryValueConfigFromJSON(json: any): WebServiceChartConfigQueryValueConfig {
@@ -66,29 +70,28 @@ export function WebServiceChartConfigQueryValueConfigFromJSON(json: any): WebSer
 }
 
 export function WebServiceChartConfigQueryValueConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfigQueryValueConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'colorTheme': !exists(json, 'colorTheme') ? undefined : WebServiceChartConfigColorThemeFromJSON(json['colorTheme']),
-        'showBackgroundChart': !exists(json, 'showBackgroundChart') ? undefined : json['showBackgroundChart'],
-        'calculation': !exists(json, 'calculation') ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
+        'colorTheme': json['colorTheme'] == null ? undefined : WebServiceChartConfigColorThemeFromJSON(json['colorTheme']),
+        'showBackgroundChart': json['showBackgroundChart'] == null ? undefined : json['showBackgroundChart'],
+        'calculation': json['calculation'] == null ? undefined : WebServiceChartConfigCalculationFromJSON(json['calculation']),
+        'seriesCalculation': json['seriesCalculation'] == null ? undefined : WebServiceChartConfigCalculationFromJSON(json['seriesCalculation']),
     };
 }
 
 export function WebServiceChartConfigQueryValueConfigToJSON(value?: WebServiceChartConfigQueryValueConfig | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'colorTheme': WebServiceChartConfigColorThemeToJSON(value.colorTheme),
-        'showBackgroundChart': value.showBackgroundChart,
-        'calculation': WebServiceChartConfigCalculationToJSON(value.calculation),
+        'colorTheme': WebServiceChartConfigColorThemeToJSON(value['colorTheme']),
+        'showBackgroundChart': value['showBackgroundChart'],
+        'calculation': WebServiceChartConfigCalculationToJSON(value['calculation']),
+        'seriesCalculation': WebServiceChartConfigCalculationToJSON(value['seriesCalculation']),
     };
 }
 

@@ -31,10 +31,15 @@ export const CommonSelectorOperatorType = {
     NotBetween: 'NOT_BETWEEN',
     Contains: 'CONTAINS',
     NotContains: 'NOT_CONTAINS',
-    UnknownDefaultOpenApi: '11184809'
+    InCohorts: 'IN_COHORTS',
+    NotInCohorts: 'NOT_IN_COHORTS'
 } as const;
 export type CommonSelectorOperatorType = typeof CommonSelectorOperatorType[keyof typeof CommonSelectorOperatorType];
 
+
+export function instanceOfCommonSelectorOperatorType(value: any): boolean {
+    return Object.values(CommonSelectorOperatorType).includes(value);
+}
 
 export function CommonSelectorOperatorTypeFromJSON(json: any): CommonSelectorOperatorType {
     return CommonSelectorOperatorTypeFromJSONTyped(json, false);

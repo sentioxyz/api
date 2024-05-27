@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { WebServiceChartConfigBarGaugeConfig } from './WebServiceChartConfigBarGaugeConfig';
 import {
     WebServiceChartConfigBarGaugeConfigFromJSON,
     WebServiceChartConfigBarGaugeConfigFromJSONTyped,
     WebServiceChartConfigBarGaugeConfigToJSON,
 } from './WebServiceChartConfigBarGaugeConfig';
+import type { WebServiceChartConfigMarker } from './WebServiceChartConfigMarker';
+import {
+    WebServiceChartConfigMarkerFromJSON,
+    WebServiceChartConfigMarkerFromJSONTyped,
+    WebServiceChartConfigMarkerToJSON,
+} from './WebServiceChartConfigMarker';
 import type { WebServiceChartConfigPieConfig } from './WebServiceChartConfigPieConfig';
 import {
     WebServiceChartConfigPieConfigFromJSON,
@@ -104,15 +110,19 @@ export interface WebServiceChartConfig {
      * @memberof WebServiceChartConfig
      */
     pieConfig?: WebServiceChartConfigPieConfig;
+    /**
+     * 
+     * @type {Array<WebServiceChartConfigMarker>}
+     * @memberof WebServiceChartConfig
+     */
+    markers?: Array<WebServiceChartConfigMarker>;
 }
 
 /**
  * Check if a given object implements the WebServiceChartConfig interface.
  */
 export function instanceOfWebServiceChartConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceChartConfigFromJSON(json: any): WebServiceChartConfig {
@@ -120,37 +130,36 @@ export function WebServiceChartConfigFromJSON(json: any): WebServiceChartConfig 
 }
 
 export function WebServiceChartConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceChartConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'yAxis': !exists(json, 'yAxis') ? undefined : WebServiceChartConfigYAxisConfigFromJSON(json['yAxis']),
-        'barGauge': !exists(json, 'barGauge') ? undefined : WebServiceChartConfigBarGaugeConfigFromJSON(json['barGauge']),
-        'valueConfig': !exists(json, 'valueConfig') ? undefined : WebServiceChartConfigValueConfigFromJSON(json['valueConfig']),
-        'timeRangeOverride': !exists(json, 'timeRangeOverride') ? undefined : WebServiceChartConfigTimeRangeOverrideFromJSON(json['timeRangeOverride']),
-        'tableConfig': !exists(json, 'tableConfig') ? undefined : WebServiceChartConfigTableConfigFromJSON(json['tableConfig']),
-        'queryValueConfig': !exists(json, 'queryValueConfig') ? undefined : WebServiceChartConfigQueryValueConfigFromJSON(json['queryValueConfig']),
-        'pieConfig': !exists(json, 'pieConfig') ? undefined : WebServiceChartConfigPieConfigFromJSON(json['pieConfig']),
+        'yAxis': json['yAxis'] == null ? undefined : WebServiceChartConfigYAxisConfigFromJSON(json['yAxis']),
+        'barGauge': json['barGauge'] == null ? undefined : WebServiceChartConfigBarGaugeConfigFromJSON(json['barGauge']),
+        'valueConfig': json['valueConfig'] == null ? undefined : WebServiceChartConfigValueConfigFromJSON(json['valueConfig']),
+        'timeRangeOverride': json['timeRangeOverride'] == null ? undefined : WebServiceChartConfigTimeRangeOverrideFromJSON(json['timeRangeOverride']),
+        'tableConfig': json['tableConfig'] == null ? undefined : WebServiceChartConfigTableConfigFromJSON(json['tableConfig']),
+        'queryValueConfig': json['queryValueConfig'] == null ? undefined : WebServiceChartConfigQueryValueConfigFromJSON(json['queryValueConfig']),
+        'pieConfig': json['pieConfig'] == null ? undefined : WebServiceChartConfigPieConfigFromJSON(json['pieConfig']),
+        'markers': json['markers'] == null ? undefined : ((json['markers'] as Array<any>).map(WebServiceChartConfigMarkerFromJSON)),
     };
 }
 
 export function WebServiceChartConfigToJSON(value?: WebServiceChartConfig | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'yAxis': WebServiceChartConfigYAxisConfigToJSON(value.yAxis),
-        'barGauge': WebServiceChartConfigBarGaugeConfigToJSON(value.barGauge),
-        'valueConfig': WebServiceChartConfigValueConfigToJSON(value.valueConfig),
-        'timeRangeOverride': WebServiceChartConfigTimeRangeOverrideToJSON(value.timeRangeOverride),
-        'tableConfig': WebServiceChartConfigTableConfigToJSON(value.tableConfig),
-        'queryValueConfig': WebServiceChartConfigQueryValueConfigToJSON(value.queryValueConfig),
-        'pieConfig': WebServiceChartConfigPieConfigToJSON(value.pieConfig),
+        'yAxis': WebServiceChartConfigYAxisConfigToJSON(value['yAxis']),
+        'barGauge': WebServiceChartConfigBarGaugeConfigToJSON(value['barGauge']),
+        'valueConfig': WebServiceChartConfigValueConfigToJSON(value['valueConfig']),
+        'timeRangeOverride': WebServiceChartConfigTimeRangeOverrideToJSON(value['timeRangeOverride']),
+        'tableConfig': WebServiceChartConfigTableConfigToJSON(value['tableConfig']),
+        'queryValueConfig': WebServiceChartConfigQueryValueConfigToJSON(value['queryValueConfig']),
+        'pieConfig': WebServiceChartConfigPieConfigToJSON(value['pieConfig']),
+        'markers': value['markers'] == null ? undefined : ((value['markers'] as Array<any>).map(WebServiceChartConfigMarkerToJSON)),
     };
 }
 

@@ -19,11 +19,14 @@
  */
 export const WebServiceChartConfigSortBy = {
     ByName: 'ByName',
-    ByValue: 'ByValue',
-    UnknownDefaultOpenApi: '11184809'
+    ByValue: 'ByValue'
 } as const;
 export type WebServiceChartConfigSortBy = typeof WebServiceChartConfigSortBy[keyof typeof WebServiceChartConfigSortBy];
 
+
+export function instanceOfWebServiceChartConfigSortBy(value: any): boolean {
+    return Object.values(WebServiceChartConfigSortBy).includes(value);
+}
 
 export function WebServiceChartConfigSortByFromJSON(json: any): WebServiceChartConfigSortBy {
     return WebServiceChartConfigSortByFromJSONTyped(json, false);

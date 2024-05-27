@@ -15,86 +15,205 @@
 
 import * as runtime from '../runtime';
 import type {
-  AnalyticServiceCohortsRequest,
-  AnalyticServiceQueryCohortsResponse,
+  AnalyticServiceAnalyticServiceExecuteSQLBody,
+  AnalyticServiceLogQueryResponse,
+  AnalyticServiceQueryLogMetricsResponse,
+  AnalyticServiceSearchServiceQueryLogBody,
+  AnalyticServiceSearchServiceQueryLogMetricsBody,
+  AnalyticServiceSyncExecuteSQLRequest,
+  AnalyticServiceSyncExecuteSQLResponse,
   CommonUser,
-  MetricsServiceLogQueryResponse,
+  CommonUserInfo,
+  GoogleApiHttpBody,
+  InsightsServiceInsightsServiceQueryBody,
+  InsightsServiceInsightsServiceRetentionBody,
+  InsightsServiceListCoinsResponse,
+  InsightsServiceQueryRequest,
+  InsightsServiceQueryResponse,
+  InsightsServiceRetentionRequest,
+  InsightsServiceRetentionResponse,
   MetricsServiceMetricsQueryResponse,
+  MetricsServiceObservabilityServiceQueryBody,
+  MetricsServiceObservabilityServiceQueryRangeBody,
   MetricsServiceQueryValueResponse,
-  ProcessorServiceGetProcessorStatusResponse,
-  ProcessorServiceGetProjectVersionsResponse,
-  QueryCohorts2Request,
-  QueryLogRequest,
-  QueryRangeRequest,
-  QueryRequest,
+  SolidityServiceGetSimulationBundleResponse,
+  SolidityServiceGetSimulationResponse,
+  SolidityServiceGetSimulationsResponse,
+  SolidityServiceSimulateTransactionBundleRequest,
+  SolidityServiceSimulateTransactionBundleResponse,
+  SolidityServiceSimulateTransactionRequest,
+  SolidityServiceSimulateTransactionResponse,
+  SolidityServiceUniversalSearchResponse,
+  TxindexEvmSearchTransactionsResponse,
   WebServiceDashboard,
   WebServiceExportDashboardResponse,
   WebServiceGetDashboardResponse,
+  WebServiceGetExternalDashboardResponse,
+  WebServiceGetProjectListResponse,
   WebServiceGetProjectResponse,
   WebServiceImportDashboardRequest,
   WebServiceImportDashboardResponse,
-} from '../models';
+  WebServiceListExternalDashboardsRequest,
+  WebServiceListExternalDashboardsResponse,
+  WebServiceNotificationReadRequest,
+  WebServiceNotificationResponse,
+  WebServiceSearchUsersInfoResponse,
+  WebServiceUnreadNotificationResponse,
+} from '../models/index';
 import {
-    AnalyticServiceCohortsRequestFromJSON,
-    AnalyticServiceCohortsRequestToJSON,
-    AnalyticServiceQueryCohortsResponseFromJSON,
-    AnalyticServiceQueryCohortsResponseToJSON,
+    AnalyticServiceAnalyticServiceExecuteSQLBodyFromJSON,
+    AnalyticServiceAnalyticServiceExecuteSQLBodyToJSON,
+    AnalyticServiceLogQueryResponseFromJSON,
+    AnalyticServiceLogQueryResponseToJSON,
+    AnalyticServiceQueryLogMetricsResponseFromJSON,
+    AnalyticServiceQueryLogMetricsResponseToJSON,
+    AnalyticServiceSearchServiceQueryLogBodyFromJSON,
+    AnalyticServiceSearchServiceQueryLogBodyToJSON,
+    AnalyticServiceSearchServiceQueryLogMetricsBodyFromJSON,
+    AnalyticServiceSearchServiceQueryLogMetricsBodyToJSON,
+    AnalyticServiceSyncExecuteSQLRequestFromJSON,
+    AnalyticServiceSyncExecuteSQLRequestToJSON,
+    AnalyticServiceSyncExecuteSQLResponseFromJSON,
+    AnalyticServiceSyncExecuteSQLResponseToJSON,
     CommonUserFromJSON,
     CommonUserToJSON,
-    MetricsServiceLogQueryResponseFromJSON,
-    MetricsServiceLogQueryResponseToJSON,
+    CommonUserInfoFromJSON,
+    CommonUserInfoToJSON,
+    GoogleApiHttpBodyFromJSON,
+    GoogleApiHttpBodyToJSON,
+    InsightsServiceInsightsServiceQueryBodyFromJSON,
+    InsightsServiceInsightsServiceQueryBodyToJSON,
+    InsightsServiceInsightsServiceRetentionBodyFromJSON,
+    InsightsServiceInsightsServiceRetentionBodyToJSON,
+    InsightsServiceListCoinsResponseFromJSON,
+    InsightsServiceListCoinsResponseToJSON,
+    InsightsServiceQueryRequestFromJSON,
+    InsightsServiceQueryRequestToJSON,
+    InsightsServiceQueryResponseFromJSON,
+    InsightsServiceQueryResponseToJSON,
+    InsightsServiceRetentionRequestFromJSON,
+    InsightsServiceRetentionRequestToJSON,
+    InsightsServiceRetentionResponseFromJSON,
+    InsightsServiceRetentionResponseToJSON,
     MetricsServiceMetricsQueryResponseFromJSON,
     MetricsServiceMetricsQueryResponseToJSON,
+    MetricsServiceObservabilityServiceQueryBodyFromJSON,
+    MetricsServiceObservabilityServiceQueryBodyToJSON,
+    MetricsServiceObservabilityServiceQueryRangeBodyFromJSON,
+    MetricsServiceObservabilityServiceQueryRangeBodyToJSON,
     MetricsServiceQueryValueResponseFromJSON,
     MetricsServiceQueryValueResponseToJSON,
-    ProcessorServiceGetProcessorStatusResponseFromJSON,
-    ProcessorServiceGetProcessorStatusResponseToJSON,
-    ProcessorServiceGetProjectVersionsResponseFromJSON,
-    ProcessorServiceGetProjectVersionsResponseToJSON,
-    QueryCohorts2RequestFromJSON,
-    QueryCohorts2RequestToJSON,
-    QueryLogRequestFromJSON,
-    QueryLogRequestToJSON,
-    QueryRangeRequestFromJSON,
-    QueryRangeRequestToJSON,
-    QueryRequestFromJSON,
-    QueryRequestToJSON,
+    SolidityServiceGetSimulationBundleResponseFromJSON,
+    SolidityServiceGetSimulationBundleResponseToJSON,
+    SolidityServiceGetSimulationResponseFromJSON,
+    SolidityServiceGetSimulationResponseToJSON,
+    SolidityServiceGetSimulationsResponseFromJSON,
+    SolidityServiceGetSimulationsResponseToJSON,
+    SolidityServiceSimulateTransactionBundleRequestFromJSON,
+    SolidityServiceSimulateTransactionBundleRequestToJSON,
+    SolidityServiceSimulateTransactionBundleResponseFromJSON,
+    SolidityServiceSimulateTransactionBundleResponseToJSON,
+    SolidityServiceSimulateTransactionRequestFromJSON,
+    SolidityServiceSimulateTransactionRequestToJSON,
+    SolidityServiceSimulateTransactionResponseFromJSON,
+    SolidityServiceSimulateTransactionResponseToJSON,
+    SolidityServiceUniversalSearchResponseFromJSON,
+    SolidityServiceUniversalSearchResponseToJSON,
+    TxindexEvmSearchTransactionsResponseFromJSON,
+    TxindexEvmSearchTransactionsResponseToJSON,
     WebServiceDashboardFromJSON,
     WebServiceDashboardToJSON,
     WebServiceExportDashboardResponseFromJSON,
     WebServiceExportDashboardResponseToJSON,
     WebServiceGetDashboardResponseFromJSON,
     WebServiceGetDashboardResponseToJSON,
+    WebServiceGetExternalDashboardResponseFromJSON,
+    WebServiceGetExternalDashboardResponseToJSON,
+    WebServiceGetProjectListResponseFromJSON,
+    WebServiceGetProjectListResponseToJSON,
     WebServiceGetProjectResponseFromJSON,
     WebServiceGetProjectResponseToJSON,
     WebServiceImportDashboardRequestFromJSON,
     WebServiceImportDashboardRequestToJSON,
     WebServiceImportDashboardResponseFromJSON,
     WebServiceImportDashboardResponseToJSON,
-} from '../models';
+    WebServiceListExternalDashboardsRequestFromJSON,
+    WebServiceListExternalDashboardsRequestToJSON,
+    WebServiceListExternalDashboardsResponseFromJSON,
+    WebServiceListExternalDashboardsResponseToJSON,
+    WebServiceNotificationReadRequestFromJSON,
+    WebServiceNotificationReadRequestToJSON,
+    WebServiceNotificationResponseFromJSON,
+    WebServiceNotificationResponseToJSON,
+    WebServiceSearchUsersInfoResponseFromJSON,
+    WebServiceSearchUsersInfoResponseToJSON,
+    WebServiceUnreadNotificationResponseFromJSON,
+    WebServiceUnreadNotificationResponseToJSON,
+} from '../models/index';
 
 export interface DeleteDashboardRequest {
     dashboardId: string;
     projectId?: string;
+    ownerName?: string;
+    slug?: string;
+}
+
+export interface ExecuteSQLRequest {
+    owner: string;
+    slug: string;
+    body: AnalyticServiceAnalyticServiceExecuteSQLBody;
+}
+
+export interface ExecuteSQL2Request {
+    body: AnalyticServiceSyncExecuteSQLRequest;
 }
 
 export interface ExportDashboardRequest {
     dashboardId: string;
 }
 
+export interface GetCallTraceRequest {
+    networkId: string;
+    txIdTxHash: string;
+    projectOwner?: string;
+    projectSlug?: string;
+    txIdSimulationId?: string;
+    txIdBundleId?: string;
+    disableOptimizer?: boolean;
+    withInternalCalls?: boolean;
+    ignoreGasCost?: boolean;
+}
+
 export interface GetDashboardRequest {
-    dashboardId?: string;
+    dashboardId: string;
     projectId?: string;
+    ownerName?: string;
+    slug?: string;
 }
 
 export interface GetDashboard2Request {
+    owner: string;
+    slug: string;
     dashboardId: string;
     projectId?: string;
 }
 
-export interface GetProcessorStatusRequest {
+export interface GetExternalDashboardRequest {
+    dashboardId?: string;
     projectId?: string;
-    id?: string;
+    ownerName?: string;
+    slug?: string;
+    url?: string;
+}
+
+export interface GetNotificationsRequest {
+    limit?: number;
+    offset?: number;
+}
+
+export interface GetPopulateProjectListRequest {
+    userId?: string;
+    organizationId?: string;
 }
 
 export interface GetProjectRequest {
@@ -102,8 +221,23 @@ export interface GetProjectRequest {
     slug: string;
 }
 
-export interface GetProjectVersionsRequest {
-    projectId: string;
+export interface GetSimulationRequest {
+    simulationId: string;
+    projectOwner?: string;
+    projectSlug?: string;
+}
+
+export interface GetSimulationBundleRequest {
+    bundleId: string;
+    projectOwner?: string;
+    projectSlug?: string;
+}
+
+export interface GetSimulationsRequest {
+    projectOwner?: string;
+    projectSlug?: string;
+    page?: number;
+    pageSize?: number;
 }
 
 export interface GetUserRequest {
@@ -118,30 +252,100 @@ export interface GetUser2Request {
     email?: string;
 }
 
+export interface GetUserInfoRequest {
+    userId?: string;
+    userName?: string;
+    email?: string;
+}
+
+export interface GetUserInfo2Request {
+    userId: string;
+    userName?: string;
+    email?: string;
+}
+
 export interface ImportDashboardRequest {
     body: WebServiceImportDashboardRequest;
 }
 
-export interface QueryOperationRequest {
+export interface ListCoinsRequest {
     owner: string;
     slug: string;
-    body: QueryRequest;
+    projectId?: string;
+    version?: number;
+    limit?: number;
+    offset?: number;
+    searchQuery?: string;
 }
 
-export interface QueryCohortsRequest {
-    body: AnalyticServiceCohortsRequest;
+export interface ListCoins2Request {
+    projectOwner?: string;
+    projectSlug?: string;
+    projectId?: string;
+    version?: number;
+    limit?: number;
+    offset?: number;
+    searchQuery?: string;
 }
 
-export interface QueryCohorts2OperationRequest {
+export interface ListDashboardsRequest {
+    dashboardId?: string;
+    projectId?: string;
+    ownerName?: string;
+    slug?: string;
+}
+
+export interface ListDashboards2Request {
     owner: string;
     slug: string;
-    body: QueryCohorts2Request;
+    dashboardId?: string;
+    projectId?: string;
 }
 
-export interface QueryLogOperationRequest {
+export interface ListExternalDashboardsRequest {
+    body: WebServiceListExternalDashboardsRequest;
+}
+
+export interface ListExternalDashboards2Request {
+    projectId?: string;
+    ownerName?: string;
+    slug?: string;
+    ownerFilter?: string;
+    tagsFilterTags?: Array<string>;
+    tagsFilterName?: string;
+    starFilter?: boolean;
+    orderBy?: ListExternalDashboards2OrderByEnum;
+    orderByTimeRange?: string;
+    limit?: number;
+    offset?: number;
+}
+
+export interface ObservabilityServiceQueryRequest {
     owner: string;
     slug: string;
-    body: QueryLogRequest;
+    body: MetricsServiceObservabilityServiceQueryBody;
+}
+
+export interface ObservabilityServiceQueryRangeRequest {
+    owner: string;
+    slug: string;
+    body: MetricsServiceObservabilityServiceQueryRangeBody;
+}
+
+export interface QueryRequest {
+    owner: string;
+    slug: string;
+    body: InsightsServiceInsightsServiceQueryBody;
+}
+
+export interface Query2Request {
+    body: InsightsServiceQueryRequest;
+}
+
+export interface QueryLogRequest {
+    owner: string;
+    slug: string;
+    body: AnalyticServiceSearchServiceQueryLogBody;
 }
 
 export interface QueryLog2Request {
@@ -151,22 +355,25 @@ export interface QueryLog2Request {
     query?: string;
     timeRangeStartRelativeTimeUnit?: string;
     timeRangeStartRelativeTimeValue?: number;
+    timeRangeStartRelativeTimeAlign?: string;
     timeRangeStartAbsoluteTime?: string;
     timeRangeEndRelativeTimeUnit?: string;
     timeRangeEndRelativeTimeValue?: number;
+    timeRangeEndRelativeTimeAlign?: string;
     timeRangeEndAbsoluteTime?: string;
     timeRangeStep?: string;
     timeRangeIntervalValue?: number;
     timeRangeIntervalUnit?: string;
     timeRangeTimezone?: string;
     limit?: number;
+    offset?: number;
     version?: number;
 }
 
 export interface QueryLogMetricsRequest {
     owner: string;
     slug: string;
-    body: QueryLogRequest;
+    body: AnalyticServiceSearchServiceQueryLogMetricsBody;
 }
 
 export interface QueryLogMetrics2Request {
@@ -176,22 +383,69 @@ export interface QueryLogMetrics2Request {
     query?: string;
     timeRangeStartRelativeTimeUnit?: string;
     timeRangeStartRelativeTimeValue?: number;
+    timeRangeStartRelativeTimeAlign?: string;
     timeRangeStartAbsoluteTime?: string;
     timeRangeEndRelativeTimeUnit?: string;
     timeRangeEndRelativeTimeValue?: number;
+    timeRangeEndRelativeTimeAlign?: string;
     timeRangeEndAbsoluteTime?: string;
     timeRangeStep?: string;
     timeRangeIntervalValue?: number;
     timeRangeIntervalUnit?: string;
     timeRangeTimezone?: string;
     limit?: number;
+    offset?: number;
     version?: number;
 }
 
-export interface QueryRangeOperationRequest {
+export interface ReadNotificationRequest {
+    body: WebServiceNotificationReadRequest;
+}
+
+export interface RetentionRequest {
     owner: string;
     slug: string;
-    body: QueryRangeRequest;
+    body: InsightsServiceInsightsServiceRetentionBody;
+}
+
+export interface Retention2Request {
+    body: InsightsServiceRetentionRequest;
+}
+
+export interface SearchTransactionsRequest {
+    chainId?: Array<string>;
+    address?: Array<string>;
+    includeDirect?: boolean;
+    includeTrace?: boolean;
+    includeIn?: boolean;
+    includeOut?: boolean;
+    startBlock?: string;
+    endBlock?: string;
+    startTimestamp?: string;
+    endTimestamp?: string;
+    transactionStatus?: Array<number>;
+    methodSignature?: string;
+    limit?: number;
+    pageToken?: string;
+}
+
+export interface SearchUsersInfoRequest {
+    query: string;
+    limit?: number;
+    offset?: number;
+}
+
+export interface SimulateTransactionRequest {
+    body: SolidityServiceSimulateTransactionRequest;
+}
+
+export interface SimulateTransactionBundleRequest {
+    body: SolidityServiceSimulateTransactionBundleRequest;
+}
+
+export interface UniversalSearchRequest {
+    q?: string;
+    limit?: number;
 }
 
 /**
@@ -200,27 +454,38 @@ export interface QueryRangeOperationRequest {
 export class DefaultApi extends runtime.BaseAPI {
 
     /**
-     * Delete dashboard by id
+     * Delete a dashboard by id
      */
     async deleteDashboardRaw(requestParameters: DeleteDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceDashboard>> {
-        if (requestParameters.dashboardId === null || requestParameters.dashboardId === undefined) {
-            throw new runtime.RequiredError('dashboardId','Required parameter requestParameters.dashboardId was null or undefined when calling deleteDashboard.');
+        if (requestParameters['dashboardId'] == null) {
+            throw new runtime.RequiredError(
+                'dashboardId',
+                'Required parameter "dashboardId" was null or undefined when calling deleteDashboard().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.projectId !== undefined) {
-            queryParameters['projectId'] = requestParameters.projectId;
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['ownerName'] != null) {
+            queryParameters['ownerName'] = requestParameters['ownerName'];
+        }
+
+        if (requestParameters['slug'] != null) {
+            queryParameters['slug'] = requestParameters['slug'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/dashboards/{dashboardId}`.replace(`{${"dashboardId"}}`, encodeURIComponent(String(requestParameters.dashboardId))),
+            path: `/api/v1/dashboards/{dashboardId}`.replace(`{${"dashboardId"}}`, encodeURIComponent(String(requestParameters['dashboardId']))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -230,7 +495,7 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete dashboard by id
+     * Delete a dashboard by id
      */
     async deleteDashboard(requestParameters: DeleteDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceDashboard> {
         const response = await this.deleteDashboardRaw(requestParameters, initOverrides);
@@ -238,11 +503,108 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Export dashboard json by id
+     * Execute SQL in a project
+     */
+    async executeSQLRaw(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceSyncExecuteSQLResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling executeSQL().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling executeSQL().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling executeSQL().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/analytics/{owner}/{slug}/sql/execute`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AnalyticServiceAnalyticServiceExecuteSQLBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceSyncExecuteSQLResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Execute SQL in a project
+     */
+    async executeSQL(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
+        const response = await this.executeSQLRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Execute SQL in a project
+     */
+    async executeSQL2Raw(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceSyncExecuteSQLResponse>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling executeSQL2().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/analytics/sql/execute`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: AnalyticServiceSyncExecuteSQLRequestToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceSyncExecuteSQLResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Execute SQL in a project
+     */
+    async executeSQL2(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
+        const response = await this.executeSQL2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Export a dashboard to json
      */
     async exportDashboardRaw(requestParameters: ExportDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceExportDashboardResponse>> {
-        if (requestParameters.dashboardId === null || requestParameters.dashboardId === undefined) {
-            throw new runtime.RequiredError('dashboardId','Required parameter requestParameters.dashboardId was null or undefined when calling exportDashboard.');
+        if (requestParameters['dashboardId'] == null) {
+            throw new runtime.RequiredError(
+                'dashboardId',
+                'Required parameter "dashboardId" was null or undefined when calling exportDashboard().'
+            );
         }
 
         const queryParameters: any = {};
@@ -250,11 +612,11 @@ export class DefaultApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/dashboards/{dashboardId}/json`.replace(`{${"dashboardId"}}`, encodeURIComponent(String(requestParameters.dashboardId))),
+            path: `/api/v1/dashboards/{dashboardId}/json`.replace(`{${"dashboardId"}}`, encodeURIComponent(String(requestParameters['dashboardId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -264,7 +626,7 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Export dashboard json by id
+     * Export a dashboard to json
      */
     async exportDashboard(requestParameters: ExportDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceExportDashboardResponse> {
         const response = await this.exportDashboardRaw(requestParameters, initOverrides);
@@ -272,27 +634,118 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get default dashboard or get dashboard by id
+     * Get indexed call trace
      */
-    async getDashboardRaw(requestParameters: GetDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetDashboardResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters.dashboardId !== undefined) {
-            queryParameters['dashboardId'] = requestParameters.dashboardId;
+    async getCallTraceRaw(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['networkId'] == null) {
+            throw new runtime.RequiredError(
+                'networkId',
+                'Required parameter "networkId" was null or undefined when calling getCallTrace().'
+            );
         }
 
-        if (requestParameters.projectId !== undefined) {
-            queryParameters['projectId'] = requestParameters.projectId;
+        if (requestParameters['txIdTxHash'] == null) {
+            throw new runtime.RequiredError(
+                'txIdTxHash',
+                'Required parameter "txIdTxHash" was null or undefined when calling getCallTrace().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['projectOwner'] != null) {
+            queryParameters['projectOwner'] = requestParameters['projectOwner'];
+        }
+
+        if (requestParameters['projectSlug'] != null) {
+            queryParameters['projectSlug'] = requestParameters['projectSlug'];
+        }
+
+        if (requestParameters['networkId'] != null) {
+            queryParameters['networkId'] = requestParameters['networkId'];
+        }
+
+        if (requestParameters['txIdTxHash'] != null) {
+            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
+        }
+
+        if (requestParameters['txIdSimulationId'] != null) {
+            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
+        }
+
+        if (requestParameters['txIdBundleId'] != null) {
+            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/dashboards`,
+            path: `/api/v1/solidity/call_trace`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * Get indexed call trace
+     */
+    async getCallTrace(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTraceRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a dashboard by id
+     */
+    async getDashboardRaw(requestParameters: GetDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetDashboardResponse>> {
+        if (requestParameters['dashboardId'] == null) {
+            throw new runtime.RequiredError(
+                'dashboardId',
+                'Required parameter "dashboardId" was null or undefined when calling getDashboard().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['ownerName'] != null) {
+            queryParameters['ownerName'] = requestParameters['ownerName'];
+        }
+
+        if (requestParameters['slug'] != null) {
+            queryParameters['slug'] = requestParameters['slug'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/dashboards/{dashboardId}`.replace(`{${"dashboardId"}}`, encodeURIComponent(String(requestParameters['dashboardId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -302,35 +755,52 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get default dashboard or get dashboard by id
+     * Get a dashboard by id
      */
-    async getDashboard(requestParameters: GetDashboardRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetDashboardResponse> {
+    async getDashboard(requestParameters: GetDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetDashboardResponse> {
         const response = await this.getDashboardRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Get default dashboard or get dashboard by id
+     * Get a dashboard by id
      */
     async getDashboard2Raw(requestParameters: GetDashboard2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetDashboardResponse>> {
-        if (requestParameters.dashboardId === null || requestParameters.dashboardId === undefined) {
-            throw new runtime.RequiredError('dashboardId','Required parameter requestParameters.dashboardId was null or undefined when calling getDashboard2.');
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getDashboard2().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getDashboard2().'
+            );
+        }
+
+        if (requestParameters['dashboardId'] == null) {
+            throw new runtime.RequiredError(
+                'dashboardId',
+                'Required parameter "dashboardId" was null or undefined when calling getDashboard2().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.projectId !== undefined) {
-            queryParameters['projectId'] = requestParameters.projectId;
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/dashboards/{dashboardId}`.replace(`{${"dashboardId"}}`, encodeURIComponent(String(requestParameters.dashboardId))),
+            path: `/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"dashboardId"}}`, encodeURIComponent(String(requestParameters['dashboardId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -340,7 +810,7 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get default dashboard or get dashboard by id
+     * Get a dashboard by id
      */
     async getDashboard2(requestParameters: GetDashboard2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetDashboardResponse> {
         const response = await this.getDashboard2Raw(requestParameters, initOverrides);
@@ -348,38 +818,126 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get an external dashboard by id
      */
-    async getProcessorStatusRaw(requestParameters: GetProcessorStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ProcessorServiceGetProcessorStatusResponse>> {
+    async getExternalDashboardRaw(requestParameters: GetExternalDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetExternalDashboardResponse>> {
         const queryParameters: any = {};
 
-        if (requestParameters.projectId !== undefined) {
-            queryParameters['projectId'] = requestParameters.projectId;
+        if (requestParameters['dashboardId'] != null) {
+            queryParameters['dashboardId'] = requestParameters['dashboardId'];
         }
 
-        if (requestParameters.id !== undefined) {
-            queryParameters['id'] = requestParameters.id;
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['ownerName'] != null) {
+            queryParameters['ownerName'] = requestParameters['ownerName'];
+        }
+
+        if (requestParameters['slug'] != null) {
+            queryParameters['slug'] = requestParameters['slug'];
+        }
+
+        if (requestParameters['url'] != null) {
+            queryParameters['url'] = requestParameters['url'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/processors/status`,
+            path: `/api/v1/external_dashboard`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ProcessorServiceGetProcessorStatusResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceGetExternalDashboardResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get an external dashboard by id
+     */
+    async getExternalDashboard(requestParameters: GetExternalDashboardRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetExternalDashboardResponse> {
+        const response = await this.getExternalDashboardRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List all notifications, both read and unread.
+     */
+    async getNotificationsRaw(requestParameters: GetNotificationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceNotificationResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/notifications`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceNotificationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List all notifications, both read and unread.
+     */
+    async getNotifications(requestParameters: GetNotificationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceNotificationResponse> {
+        const response = await this.getNotificationsRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**
      */
-    async getProcessorStatus(requestParameters: GetProcessorStatusRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProcessorServiceGetProcessorStatusResponse> {
-        const response = await this.getProcessorStatusRaw(requestParameters, initOverrides);
+    async getPopulateProjectListRaw(requestParameters: GetPopulateProjectListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetProjectListResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['userId'] != null) {
+            queryParameters['userId'] = requestParameters['userId'];
+        }
+
+        if (requestParameters['organizationId'] != null) {
+            queryParameters['organizationId'] = requestParameters['organizationId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/populate-projects`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceGetProjectListResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getPopulateProjectList(requestParameters: GetPopulateProjectListRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetProjectListResponse> {
+        const response = await this.getPopulateProjectListRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -387,12 +945,18 @@ export class DefaultApi extends runtime.BaseAPI {
      * Get project detail
      */
     async getProjectRaw(requestParameters: GetProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetProjectResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling getProject.');
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getProject().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling getProject.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getProject().'
+            );
         }
 
         const queryParameters: any = {};
@@ -400,11 +964,11 @@ export class DefaultApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/project/{owner}/{slug}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/project/{owner}/{slug}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -422,58 +986,163 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get a simulation by id
      */
-    async getProjectVersionsRaw(requestParameters: GetProjectVersionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ProcessorServiceGetProjectVersionsResponse>> {
-        if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling getProjectVersions.');
+    async getSimulationRaw(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationResponse>> {
+        if (requestParameters['simulationId'] == null) {
+            throw new runtime.RequiredError(
+                'simulationId',
+                'Required parameter "simulationId" was null or undefined when calling getSimulation().'
+            );
         }
 
         const queryParameters: any = {};
 
+        if (requestParameters['projectOwner'] != null) {
+            queryParameters['projectOwner'] = requestParameters['projectOwner'];
+        }
+
+        if (requestParameters['projectSlug'] != null) {
+            queryParameters['projectSlug'] = requestParameters['projectSlug'];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/processors/{projectId}/versions`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))),
+            path: `/api/v1/solidity/simulate/{simulationId}`.replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ProcessorServiceGetProjectVersionsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceGetSimulationResponseFromJSON(jsonValue));
     }
 
     /**
+     * Get a simulation by id
      */
-    async getProjectVersions(requestParameters: GetProjectVersionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ProcessorServiceGetProjectVersionsResponse> {
-        const response = await this.getProjectVersionsRaw(requestParameters, initOverrides);
+    async getSimulation(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationResponse> {
+        const response = await this.getSimulationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
+     * Get a bundle simulation by id
      */
-    async getUserRaw(requestParameters: GetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUser>> {
+    async getSimulationBundleRaw(requestParameters: GetSimulationBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationBundleResponse>> {
+        if (requestParameters['bundleId'] == null) {
+            throw new runtime.RequiredError(
+                'bundleId',
+                'Required parameter "bundleId" was null or undefined when calling getSimulationBundle().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters.userId !== undefined) {
-            queryParameters['userId'] = requestParameters.userId;
+        if (requestParameters['projectOwner'] != null) {
+            queryParameters['projectOwner'] = requestParameters['projectOwner'];
         }
 
-        if (requestParameters.subject !== undefined) {
-            queryParameters['subject'] = requestParameters.subject;
-        }
-
-        if (requestParameters.email !== undefined) {
-            queryParameters['email'] = requestParameters.email;
+        if (requestParameters['projectSlug'] != null) {
+            queryParameters['projectSlug'] = requestParameters['projectSlug'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/simulate_bundle/{bundleId}`.replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceGetSimulationBundleResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a bundle simulation by id
+     */
+    async getSimulationBundle(requestParameters: GetSimulationBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationBundleResponse> {
+        const response = await this.getSimulationBundleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get existing transaction simulations
+     */
+    async getSimulationsRaw(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationsResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['projectOwner'] != null) {
+            queryParameters['projectOwner'] = requestParameters['projectOwner'];
+        }
+
+        if (requestParameters['projectSlug'] != null) {
+            queryParameters['projectSlug'] = requestParameters['projectSlug'];
+        }
+
+        if (requestParameters['page'] != null) {
+            queryParameters['page'] = requestParameters['page'];
+        }
+
+        if (requestParameters['pageSize'] != null) {
+            queryParameters['pageSize'] = requestParameters['pageSize'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/simulate`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceGetSimulationsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get existing transaction simulations
+     */
+    async getSimulations(requestParameters: GetSimulationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationsResponse> {
+        const response = await this.getSimulationsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get user details by id
+     */
+    async getUserRaw(requestParameters: GetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUser>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['userId'] != null) {
+            queryParameters['userId'] = requestParameters['userId'];
+        }
+
+        if (requestParameters['subject'] != null) {
+            queryParameters['subject'] = requestParameters['subject'];
+        }
+
+        if (requestParameters['email'] != null) {
+            queryParameters['email'] = requestParameters['email'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -487,6 +1156,7 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get user details by id
      */
     async getUser(requestParameters: GetUserRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUser> {
         const response = await this.getUserRaw(requestParameters, initOverrides);
@@ -494,30 +1164,34 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get user details by id
      */
     async getUser2Raw(requestParameters: GetUser2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUser>> {
-        if (requestParameters.userId === null || requestParameters.userId === undefined) {
-            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling getUser2.');
+        if (requestParameters['userId'] == null) {
+            throw new runtime.RequiredError(
+                'userId',
+                'Required parameter "userId" was null or undefined when calling getUser2().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.subject !== undefined) {
-            queryParameters['subject'] = requestParameters.subject;
+        if (requestParameters['subject'] != null) {
+            queryParameters['subject'] = requestParameters['subject'];
         }
 
-        if (requestParameters.email !== undefined) {
-            queryParameters['email'] = requestParameters.email;
+        if (requestParameters['email'] != null) {
+            queryParameters['email'] = requestParameters['email'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/users/{userId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters.userId))),
+            path: `/api/v1/users/{userId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters['userId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -527,6 +1201,7 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get user details by id
      */
     async getUser2(requestParameters: GetUser2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUser> {
         const response = await this.getUser2Raw(requestParameters, initOverrides);
@@ -534,11 +1209,101 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Import dashboard json
+     * Get user info by id
+     */
+    async getUserInfoRaw(requestParameters: GetUserInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUserInfo>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['userId'] != null) {
+            queryParameters['userId'] = requestParameters['userId'];
+        }
+
+        if (requestParameters['userName'] != null) {
+            queryParameters['userName'] = requestParameters['userName'];
+        }
+
+        if (requestParameters['email'] != null) {
+            queryParameters['email'] = requestParameters['email'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/users/info`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonUserInfoFromJSON(jsonValue));
+    }
+
+    /**
+     * Get user info by id
+     */
+    async getUserInfo(requestParameters: GetUserInfoRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUserInfo> {
+        const response = await this.getUserInfoRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get user info by id
+     */
+    async getUserInfo2Raw(requestParameters: GetUserInfo2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUserInfo>> {
+        if (requestParameters['userId'] == null) {
+            throw new runtime.RequiredError(
+                'userId',
+                'Required parameter "userId" was null or undefined when calling getUserInfo2().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['userName'] != null) {
+            queryParameters['userName'] = requestParameters['userName'];
+        }
+
+        if (requestParameters['email'] != null) {
+            queryParameters['email'] = requestParameters['email'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/users/info/{userId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters['userId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonUserInfoFromJSON(jsonValue));
+    }
+
+    /**
+     * Get user info by id
+     */
+    async getUserInfo2(requestParameters: GetUserInfo2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUserInfo> {
+        const response = await this.getUserInfo2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Import a dashboard to another dashboard
      */
     async importDashboardRaw(requestParameters: ImportDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceImportDashboardResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling importDashboard.');
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling importDashboard().'
+            );
         }
 
         const queryParameters: any = {};
@@ -548,7 +1313,7 @@ export class DefaultApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -556,14 +1321,14 @@ export class DefaultApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WebServiceImportDashboardRequestToJSON(requestParameters.body),
+            body: WebServiceImportDashboardRequestToJSON(requestParameters['body']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceImportDashboardResponseFromJSON(jsonValue));
     }
 
     /**
-     * Import dashboard json
+     * Import a dashboard to another dashboard
      */
     async importDashboard(requestParameters: ImportDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceImportDashboardResponse> {
         const response = await this.importDashboardRaw(requestParameters, initOverrides);
@@ -571,18 +1336,234 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get a list of coins in a project.
      */
-    async queryRaw(requestParameters: QueryOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceQueryValueResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling query.');
+    async listCoinsRaw(requestParameters: ListCoinsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InsightsServiceListCoinsResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling listCoins().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling query.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling listCoins().'
+            );
         }
 
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling query.');
+        const queryParameters: any = {};
+
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['version'] != null) {
+            queryParameters['version'] = requestParameters['version'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['searchQuery'] != null) {
+            queryParameters['searchQuery'] = requestParameters['searchQuery'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/insights/{owner}/{slug}/coins`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => InsightsServiceListCoinsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of coins in a project.
+     */
+    async listCoins(requestParameters: ListCoinsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceListCoinsResponse> {
+        const response = await this.listCoinsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a list of coins in a project.
+     */
+    async listCoins2Raw(requestParameters: ListCoins2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InsightsServiceListCoinsResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['projectOwner'] != null) {
+            queryParameters['projectOwner'] = requestParameters['projectOwner'];
+        }
+
+        if (requestParameters['projectSlug'] != null) {
+            queryParameters['projectSlug'] = requestParameters['projectSlug'];
+        }
+
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['version'] != null) {
+            queryParameters['version'] = requestParameters['version'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['searchQuery'] != null) {
+            queryParameters['searchQuery'] = requestParameters['searchQuery'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/insights/coins`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => InsightsServiceListCoinsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of coins in a project.
+     */
+    async listCoins2(requestParameters: ListCoins2Request = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceListCoinsResponse> {
+        const response = await this.listCoins2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List all dashboards in a project
+     */
+    async listDashboardsRaw(requestParameters: ListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetDashboardResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['dashboardId'] != null) {
+            queryParameters['dashboardId'] = requestParameters['dashboardId'];
+        }
+
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['ownerName'] != null) {
+            queryParameters['ownerName'] = requestParameters['ownerName'];
+        }
+
+        if (requestParameters['slug'] != null) {
+            queryParameters['slug'] = requestParameters['slug'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/dashboards`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceGetDashboardResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List all dashboards in a project
+     */
+    async listDashboards(requestParameters: ListDashboardsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetDashboardResponse> {
+        const response = await this.listDashboardsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List all dashboards in a project
+     */
+    async listDashboards2Raw(requestParameters: ListDashboards2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetDashboardResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling listDashboards2().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling listDashboards2().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['dashboardId'] != null) {
+            queryParameters['dashboardId'] = requestParameters['dashboardId'];
+        }
+
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/projects/{owner}/{slug}/dashboards`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceGetDashboardResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List all dashboards in a project
+     */
+    async listDashboards2(requestParameters: ListDashboards2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetDashboardResponse> {
+        const response = await this.listDashboards2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List external dashboards in a project
+     */
+    async listExternalDashboardsRaw(requestParameters: ListExternalDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceListExternalDashboardsResponse>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling listExternalDashboards().'
+            );
         }
 
         const queryParameters: any = {};
@@ -592,15 +1573,142 @@ export class DefaultApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/metrics/{owner}/{slug}/query`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/external_dashboards`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QueryRequestToJSON(requestParameters.body),
+            body: WebServiceListExternalDashboardsRequestToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceListExternalDashboardsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List external dashboards in a project
+     */
+    async listExternalDashboards(requestParameters: ListExternalDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceListExternalDashboardsResponse> {
+        const response = await this.listExternalDashboardsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List external dashboards in a project
+     */
+    async listExternalDashboards2Raw(requestParameters: ListExternalDashboards2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceListExternalDashboardsResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['ownerName'] != null) {
+            queryParameters['ownerName'] = requestParameters['ownerName'];
+        }
+
+        if (requestParameters['slug'] != null) {
+            queryParameters['slug'] = requestParameters['slug'];
+        }
+
+        if (requestParameters['ownerFilter'] != null) {
+            queryParameters['ownerFilter'] = requestParameters['ownerFilter'];
+        }
+
+        if (requestParameters['tagsFilterTags'] != null) {
+            queryParameters['tagsFilter.tags'] = requestParameters['tagsFilterTags'];
+        }
+
+        if (requestParameters['tagsFilterName'] != null) {
+            queryParameters['tagsFilter.name'] = requestParameters['tagsFilterName'];
+        }
+
+        if (requestParameters['starFilter'] != null) {
+            queryParameters['starFilter'] = requestParameters['starFilter'];
+        }
+
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['orderBy'] = requestParameters['orderBy'];
+        }
+
+        if (requestParameters['orderByTimeRange'] != null) {
+            queryParameters['orderByTimeRange'] = requestParameters['orderByTimeRange'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/external_dashboards`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceListExternalDashboardsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List external dashboards in a project
+     */
+    async listExternalDashboards2(requestParameters: ListExternalDashboards2Request = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceListExternalDashboardsResponse> {
+        const response = await this.listExternalDashboards2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async observabilityServiceQueryRaw(requestParameters: ObservabilityServiceQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceQueryValueResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling observabilityServiceQuery().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling observabilityServiceQuery().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling observabilityServiceQuery().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/metrics/{owner}/{slug}/query`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: MetricsServiceObservabilityServiceQueryBodyToJSON(requestParameters['body']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceQueryValueResponseFromJSON(jsonValue));
@@ -608,16 +1716,128 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
-    async query(requestParameters: QueryOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceQueryValueResponse> {
+    async observabilityServiceQuery(requestParameters: ObservabilityServiceQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceQueryValueResponse> {
+        const response = await this.observabilityServiceQueryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Run metric queries in a project
+     */
+    async observabilityServiceQueryRangeRaw(requestParameters: ObservabilityServiceQueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceMetricsQueryResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling observabilityServiceQueryRange().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling observabilityServiceQueryRange().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling observabilityServiceQueryRange().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/metrics/{owner}/{slug}/query_range`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: MetricsServiceObservabilityServiceQueryRangeBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceMetricsQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Run metric queries in a project
+     */
+    async observabilityServiceQueryRange(requestParameters: ObservabilityServiceQueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceMetricsQueryResponse> {
+        const response = await this.observabilityServiceQueryRangeRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Query for metrics in a project.
+     */
+    async queryRaw(requestParameters: QueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InsightsServiceQueryResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling query().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling query().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling query().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/insights/{owner}/{slug}/query`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: InsightsServiceInsightsServiceQueryBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => InsightsServiceQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Query for metrics in a project.
+     */
+    async query(requestParameters: QueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceQueryResponse> {
         const response = await this.queryRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
+     * Query for metrics in a project.
      */
-    async queryCohortsRaw(requestParameters: QueryCohortsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceQueryCohortsResponse>> {
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling queryCohorts.');
+    async query2Raw(requestParameters: Query2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InsightsServiceQueryResponse>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling query2().'
+            );
         }
 
         const queryParameters: any = {};
@@ -627,83 +1847,50 @@ export class DefaultApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/analytics/cohorts`,
+            path: `/api/v1/insights/query`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AnalyticServiceCohortsRequestToJSON(requestParameters.body),
+            body: InsightsServiceQueryRequestToJSON(requestParameters['body']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceQueryCohortsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => InsightsServiceQueryResponseFromJSON(jsonValue));
     }
 
     /**
+     * Query for metrics in a project.
      */
-    async queryCohorts(requestParameters: QueryCohortsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceQueryCohortsResponse> {
-        const response = await this.queryCohortsRaw(requestParameters, initOverrides);
+    async query2(requestParameters: Query2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceQueryResponse> {
+        const response = await this.query2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async queryCohorts2Raw(requestParameters: QueryCohorts2OperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceQueryCohortsResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling queryCohorts2.');
+    async queryLogRaw(requestParameters: QueryLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceLogQueryResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling queryLog().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling queryCohorts2.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling queryLog().'
+            );
         }
 
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling queryCohorts2.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/analytics/{owner}/{slug}/cohorts`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: QueryCohorts2RequestToJSON(requestParameters.body),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceQueryCohortsResponseFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async queryCohorts2(requestParameters: QueryCohorts2OperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceQueryCohortsResponse> {
-        const response = await this.queryCohorts2Raw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async queryLogRaw(requestParameters: QueryLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceLogQueryResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling queryLog.');
-        }
-
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling queryLog.');
-        }
-
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling queryLog.');
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling queryLog().'
+            );
         }
 
         const queryParameters: any = {};
@@ -713,132 +1900,159 @@ export class DefaultApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/logs/{owner}/{slug}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/eventlogs/{owner}/{slug}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QueryLogRequestToJSON(requestParameters.body),
+            body: AnalyticServiceSearchServiceQueryLogBodyToJSON(requestParameters['body']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceLogQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceLogQueryResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async queryLog(requestParameters: QueryLogOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceLogQueryResponse> {
+    async queryLog(requestParameters: QueryLogRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceLogQueryResponse> {
         const response = await this.queryLogRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async queryLog2Raw(requestParameters: QueryLog2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceLogQueryResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling queryLog2.');
+    async queryLog2Raw(requestParameters: QueryLog2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceLogQueryResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling queryLog2().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling queryLog2.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling queryLog2().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.projectId !== undefined) {
-            queryParameters['projectId'] = requestParameters.projectId;
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
         }
 
-        if (requestParameters.query !== undefined) {
-            queryParameters['query'] = requestParameters.query;
+        if (requestParameters['query'] != null) {
+            queryParameters['query'] = requestParameters['query'];
         }
 
-        if (requestParameters.timeRangeStartRelativeTimeUnit !== undefined) {
-            queryParameters['timeRange.start.relativeTime.unit'] = requestParameters.timeRangeStartRelativeTimeUnit;
+        if (requestParameters['timeRangeStartRelativeTimeUnit'] != null) {
+            queryParameters['timeRange.start.relativeTime.unit'] = requestParameters['timeRangeStartRelativeTimeUnit'];
         }
 
-        if (requestParameters.timeRangeStartRelativeTimeValue !== undefined) {
-            queryParameters['timeRange.start.relativeTime.value'] = requestParameters.timeRangeStartRelativeTimeValue;
+        if (requestParameters['timeRangeStartRelativeTimeValue'] != null) {
+            queryParameters['timeRange.start.relativeTime.value'] = requestParameters['timeRangeStartRelativeTimeValue'];
         }
 
-        if (requestParameters.timeRangeStartAbsoluteTime !== undefined) {
-            queryParameters['timeRange.start.absoluteTime'] = requestParameters.timeRangeStartAbsoluteTime;
+        if (requestParameters['timeRangeStartRelativeTimeAlign'] != null) {
+            queryParameters['timeRange.start.relativeTime.align'] = requestParameters['timeRangeStartRelativeTimeAlign'];
         }
 
-        if (requestParameters.timeRangeEndRelativeTimeUnit !== undefined) {
-            queryParameters['timeRange.end.relativeTime.unit'] = requestParameters.timeRangeEndRelativeTimeUnit;
+        if (requestParameters['timeRangeStartAbsoluteTime'] != null) {
+            queryParameters['timeRange.start.absoluteTime'] = requestParameters['timeRangeStartAbsoluteTime'];
         }
 
-        if (requestParameters.timeRangeEndRelativeTimeValue !== undefined) {
-            queryParameters['timeRange.end.relativeTime.value'] = requestParameters.timeRangeEndRelativeTimeValue;
+        if (requestParameters['timeRangeEndRelativeTimeUnit'] != null) {
+            queryParameters['timeRange.end.relativeTime.unit'] = requestParameters['timeRangeEndRelativeTimeUnit'];
         }
 
-        if (requestParameters.timeRangeEndAbsoluteTime !== undefined) {
-            queryParameters['timeRange.end.absoluteTime'] = requestParameters.timeRangeEndAbsoluteTime;
+        if (requestParameters['timeRangeEndRelativeTimeValue'] != null) {
+            queryParameters['timeRange.end.relativeTime.value'] = requestParameters['timeRangeEndRelativeTimeValue'];
         }
 
-        if (requestParameters.timeRangeStep !== undefined) {
-            queryParameters['timeRange.step'] = requestParameters.timeRangeStep;
+        if (requestParameters['timeRangeEndRelativeTimeAlign'] != null) {
+            queryParameters['timeRange.end.relativeTime.align'] = requestParameters['timeRangeEndRelativeTimeAlign'];
         }
 
-        if (requestParameters.timeRangeIntervalValue !== undefined) {
-            queryParameters['timeRange.interval.value'] = requestParameters.timeRangeIntervalValue;
+        if (requestParameters['timeRangeEndAbsoluteTime'] != null) {
+            queryParameters['timeRange.end.absoluteTime'] = requestParameters['timeRangeEndAbsoluteTime'];
         }
 
-        if (requestParameters.timeRangeIntervalUnit !== undefined) {
-            queryParameters['timeRange.interval.unit'] = requestParameters.timeRangeIntervalUnit;
+        if (requestParameters['timeRangeStep'] != null) {
+            queryParameters['timeRange.step'] = requestParameters['timeRangeStep'];
         }
 
-        if (requestParameters.timeRangeTimezone !== undefined) {
-            queryParameters['timeRange.timezone'] = requestParameters.timeRangeTimezone;
+        if (requestParameters['timeRangeIntervalValue'] != null) {
+            queryParameters['timeRange.interval.value'] = requestParameters['timeRangeIntervalValue'];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
+        if (requestParameters['timeRangeIntervalUnit'] != null) {
+            queryParameters['timeRange.interval.unit'] = requestParameters['timeRangeIntervalUnit'];
         }
 
-        if (requestParameters.version !== undefined) {
-            queryParameters['version'] = requestParameters.version;
+        if (requestParameters['timeRangeTimezone'] != null) {
+            queryParameters['timeRange.timezone'] = requestParameters['timeRangeTimezone'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['version'] != null) {
+            queryParameters['version'] = requestParameters['version'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/logs/{owner}/{slug}/query`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/eventlogs/{owner}/{slug}/query`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceLogQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceLogQueryResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async queryLog2(requestParameters: QueryLog2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceLogQueryResponse> {
+    async queryLog2(requestParameters: QueryLog2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceLogQueryResponse> {
         const response = await this.queryLog2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async queryLogMetricsRaw(requestParameters: QueryLogMetricsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceMetricsQueryResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling queryLogMetrics.');
+    async queryLogMetricsRaw(requestParameters: QueryLogMetricsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceQueryLogMetricsResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling queryLogMetrics().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling queryLogMetrics.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling queryLogMetrics().'
+            );
         }
 
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling queryLogMetrics.');
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling queryLogMetrics().'
+            );
         }
 
         const queryParameters: any = {};
@@ -848,132 +2062,146 @@ export class DefaultApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/logs/{owner}/{slug}/metrics`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/eventlogs/{owner}/{slug}/metrics`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QueryLogRequestToJSON(requestParameters.body),
+            body: AnalyticServiceSearchServiceQueryLogMetricsBodyToJSON(requestParameters['body']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceMetricsQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceQueryLogMetricsResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async queryLogMetrics(requestParameters: QueryLogMetricsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceMetricsQueryResponse> {
+    async queryLogMetrics(requestParameters: QueryLogMetricsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceQueryLogMetricsResponse> {
         const response = await this.queryLogMetricsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async queryLogMetrics2Raw(requestParameters: QueryLogMetrics2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceMetricsQueryResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling queryLogMetrics2.');
+    async queryLogMetrics2Raw(requestParameters: QueryLogMetrics2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceQueryLogMetricsResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling queryLogMetrics2().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling queryLogMetrics2.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling queryLogMetrics2().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.projectId !== undefined) {
-            queryParameters['projectId'] = requestParameters.projectId;
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
         }
 
-        if (requestParameters.query !== undefined) {
-            queryParameters['query'] = requestParameters.query;
+        if (requestParameters['query'] != null) {
+            queryParameters['query'] = requestParameters['query'];
         }
 
-        if (requestParameters.timeRangeStartRelativeTimeUnit !== undefined) {
-            queryParameters['timeRange.start.relativeTime.unit'] = requestParameters.timeRangeStartRelativeTimeUnit;
+        if (requestParameters['timeRangeStartRelativeTimeUnit'] != null) {
+            queryParameters['timeRange.start.relativeTime.unit'] = requestParameters['timeRangeStartRelativeTimeUnit'];
         }
 
-        if (requestParameters.timeRangeStartRelativeTimeValue !== undefined) {
-            queryParameters['timeRange.start.relativeTime.value'] = requestParameters.timeRangeStartRelativeTimeValue;
+        if (requestParameters['timeRangeStartRelativeTimeValue'] != null) {
+            queryParameters['timeRange.start.relativeTime.value'] = requestParameters['timeRangeStartRelativeTimeValue'];
         }
 
-        if (requestParameters.timeRangeStartAbsoluteTime !== undefined) {
-            queryParameters['timeRange.start.absoluteTime'] = requestParameters.timeRangeStartAbsoluteTime;
+        if (requestParameters['timeRangeStartRelativeTimeAlign'] != null) {
+            queryParameters['timeRange.start.relativeTime.align'] = requestParameters['timeRangeStartRelativeTimeAlign'];
         }
 
-        if (requestParameters.timeRangeEndRelativeTimeUnit !== undefined) {
-            queryParameters['timeRange.end.relativeTime.unit'] = requestParameters.timeRangeEndRelativeTimeUnit;
+        if (requestParameters['timeRangeStartAbsoluteTime'] != null) {
+            queryParameters['timeRange.start.absoluteTime'] = requestParameters['timeRangeStartAbsoluteTime'];
         }
 
-        if (requestParameters.timeRangeEndRelativeTimeValue !== undefined) {
-            queryParameters['timeRange.end.relativeTime.value'] = requestParameters.timeRangeEndRelativeTimeValue;
+        if (requestParameters['timeRangeEndRelativeTimeUnit'] != null) {
+            queryParameters['timeRange.end.relativeTime.unit'] = requestParameters['timeRangeEndRelativeTimeUnit'];
         }
 
-        if (requestParameters.timeRangeEndAbsoluteTime !== undefined) {
-            queryParameters['timeRange.end.absoluteTime'] = requestParameters.timeRangeEndAbsoluteTime;
+        if (requestParameters['timeRangeEndRelativeTimeValue'] != null) {
+            queryParameters['timeRange.end.relativeTime.value'] = requestParameters['timeRangeEndRelativeTimeValue'];
         }
 
-        if (requestParameters.timeRangeStep !== undefined) {
-            queryParameters['timeRange.step'] = requestParameters.timeRangeStep;
+        if (requestParameters['timeRangeEndRelativeTimeAlign'] != null) {
+            queryParameters['timeRange.end.relativeTime.align'] = requestParameters['timeRangeEndRelativeTimeAlign'];
         }
 
-        if (requestParameters.timeRangeIntervalValue !== undefined) {
-            queryParameters['timeRange.interval.value'] = requestParameters.timeRangeIntervalValue;
+        if (requestParameters['timeRangeEndAbsoluteTime'] != null) {
+            queryParameters['timeRange.end.absoluteTime'] = requestParameters['timeRangeEndAbsoluteTime'];
         }
 
-        if (requestParameters.timeRangeIntervalUnit !== undefined) {
-            queryParameters['timeRange.interval.unit'] = requestParameters.timeRangeIntervalUnit;
+        if (requestParameters['timeRangeStep'] != null) {
+            queryParameters['timeRange.step'] = requestParameters['timeRangeStep'];
         }
 
-        if (requestParameters.timeRangeTimezone !== undefined) {
-            queryParameters['timeRange.timezone'] = requestParameters.timeRangeTimezone;
+        if (requestParameters['timeRangeIntervalValue'] != null) {
+            queryParameters['timeRange.interval.value'] = requestParameters['timeRangeIntervalValue'];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
+        if (requestParameters['timeRangeIntervalUnit'] != null) {
+            queryParameters['timeRange.interval.unit'] = requestParameters['timeRangeIntervalUnit'];
         }
 
-        if (requestParameters.version !== undefined) {
-            queryParameters['version'] = requestParameters.version;
+        if (requestParameters['timeRangeTimezone'] != null) {
+            queryParameters['timeRange.timezone'] = requestParameters['timeRangeTimezone'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        if (requestParameters['version'] != null) {
+            queryParameters['version'] = requestParameters['version'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/logs/{owner}/{slug}/metrics`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/eventlogs/{owner}/{slug}/metrics`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceMetricsQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceQueryLogMetricsResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async queryLogMetrics2(requestParameters: QueryLogMetrics2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceMetricsQueryResponse> {
+    async queryLogMetrics2(requestParameters: QueryLogMetrics2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceQueryLogMetricsResponse> {
         const response = await this.queryLogMetrics2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
+     * Mark notifications as read.
      */
-    async queryRangeRaw(requestParameters: QueryRangeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceMetricsQueryResponse>> {
-        if (requestParameters.owner === null || requestParameters.owner === undefined) {
-            throw new runtime.RequiredError('owner','Required parameter requestParameters.owner was null or undefined when calling queryRange.');
-        }
-
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling queryRange.');
-        }
-
-        if (requestParameters.body === null || requestParameters.body === undefined) {
-            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling queryRange.');
+    async readNotificationRaw(requestParameters: ReadNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling readNotification().'
+            );
         }
 
         const queryParameters: any = {};
@@ -983,25 +2211,406 @@ export class DefaultApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
-            path: `/api/v1/metrics/{owner}/{slug}/query_range`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters.owner))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
-            method: 'POST',
+            path: `/api/v1/notifications/read`,
+            method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: QueryRangeRequestToJSON(requestParameters.body),
+            body: WebServiceNotificationReadRequestToJSON(requestParameters['body']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceMetricsQueryResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * Mark notifications as read.
+     */
+    async readNotification(requestParameters: ReadNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
+        const response = await this.readNotificationRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**
      */
-    async queryRange(requestParameters: QueryRangeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceMetricsQueryResponse> {
-        const response = await this.queryRangeRaw(requestParameters, initOverrides);
+    async retentionRaw(requestParameters: RetentionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InsightsServiceRetentionResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling retention().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling retention().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling retention().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/insights/{owner}/{slug}/retention`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: InsightsServiceInsightsServiceRetentionBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => InsightsServiceRetentionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async retention(requestParameters: RetentionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceRetentionResponse> {
+        const response = await this.retentionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async retention2Raw(requestParameters: Retention2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InsightsServiceRetentionResponse>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling retention2().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/insights/retention`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: InsightsServiceRetentionRequestToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => InsightsServiceRetentionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async retention2(requestParameters: Retention2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceRetentionResponse> {
+        const response = await this.retention2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for transactions
+     */
+    async searchTransactionsRaw(requestParameters: SearchTransactionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TxindexEvmSearchTransactionsResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['chainId'] != null) {
+            queryParameters['chainId'] = requestParameters['chainId'];
+        }
+
+        if (requestParameters['address'] != null) {
+            queryParameters['address'] = requestParameters['address'];
+        }
+
+        if (requestParameters['includeDirect'] != null) {
+            queryParameters['includeDirect'] = requestParameters['includeDirect'];
+        }
+
+        if (requestParameters['includeTrace'] != null) {
+            queryParameters['includeTrace'] = requestParameters['includeTrace'];
+        }
+
+        if (requestParameters['includeIn'] != null) {
+            queryParameters['includeIn'] = requestParameters['includeIn'];
+        }
+
+        if (requestParameters['includeOut'] != null) {
+            queryParameters['includeOut'] = requestParameters['includeOut'];
+        }
+
+        if (requestParameters['startBlock'] != null) {
+            queryParameters['startBlock'] = requestParameters['startBlock'];
+        }
+
+        if (requestParameters['endBlock'] != null) {
+            queryParameters['endBlock'] = requestParameters['endBlock'];
+        }
+
+        if (requestParameters['startTimestamp'] != null) {
+            queryParameters['startTimestamp'] = requestParameters['startTimestamp'];
+        }
+
+        if (requestParameters['endTimestamp'] != null) {
+            queryParameters['endTimestamp'] = requestParameters['endTimestamp'];
+        }
+
+        if (requestParameters['transactionStatus'] != null) {
+            queryParameters['transactionStatus'] = requestParameters['transactionStatus'];
+        }
+
+        if (requestParameters['methodSignature'] != null) {
+            queryParameters['methodSignature'] = requestParameters['methodSignature'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['pageToken'] != null) {
+            queryParameters['pageToken'] = requestParameters['pageToken'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/search_transactions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TxindexEvmSearchTransactionsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for transactions
+     */
+    async searchTransactions(requestParameters: SearchTransactionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TxindexEvmSearchTransactionsResponse> {
+        const response = await this.searchTransactionsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search users by name
+     */
+    async searchUsersInfoRaw(requestParameters: SearchUsersInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceSearchUsersInfoResponse>> {
+        if (requestParameters['query'] == null) {
+            throw new runtime.RequiredError(
+                'query',
+                'Required parameter "query" was null or undefined when calling searchUsersInfo().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['query'] != null) {
+            queryParameters['query'] = requestParameters['query'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['offset'] = requestParameters['offset'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/users/search`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceSearchUsersInfoResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search users by name
+     */
+    async searchUsersInfo(requestParameters: SearchUsersInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceSearchUsersInfoResponse> {
+        const response = await this.searchUsersInfoRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create a new transaction simulation
+     */
+    async simulateTransactionRaw(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling simulateTransaction().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/simulate`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SolidityServiceSimulateTransactionRequestToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a new transaction simulation
+     */
+    async simulateTransaction(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
+        const response = await this.simulateTransactionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create a new bundle simulation
+     */
+    async simulateTransactionBundleRaw(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling simulateTransactionBundle().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/simulate_bundle`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SolidityServiceSimulateTransactionBundleRequestToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionBundleResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a new bundle simulation
+     */
+    async simulateTransactionBundle(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
+        const response = await this.simulateTransactionBundleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async universalSearchRaw(requestParameters: UniversalSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceUniversalSearchResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['q'] != null) {
+            queryParameters['q'] = requestParameters['q'];
+        }
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/universal_search`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceUniversalSearchResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async universalSearch(requestParameters: UniversalSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceUniversalSearchResponse> {
+        const response = await this.universalSearchRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List all unread notifications.
+     */
+    async unreadNotificationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceUnreadNotificationResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/notifications/unread`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceUnreadNotificationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List all unread notifications.
+     */
+    async unreadNotification(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceUnreadNotificationResponse> {
+        const response = await this.unreadNotificationRaw(initOverrides);
         return await response.value();
     }
 
 }
+
+/**
+ * @export
+ */
+export const ListExternalDashboards2OrderByEnum = {
+    Starred: 'STARRED',
+    UpdatedAt: 'UPDATED_AT'
+} as const;
+export type ListExternalDashboards2OrderByEnum = typeof ListExternalDashboards2OrderByEnum[keyof typeof ListExternalDashboards2OrderByEnum];

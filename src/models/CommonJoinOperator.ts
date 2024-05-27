@@ -20,10 +20,14 @@
 export const CommonJoinOperator = {
     And: 'AND',
     Or: 'OR',
-    UnknownDefaultOpenApi: '11184809'
+    Then: 'THEN'
 } as const;
 export type CommonJoinOperator = typeof CommonJoinOperator[keyof typeof CommonJoinOperator];
 
+
+export function instanceOfCommonJoinOperator(value: any): boolean {
+    return Object.values(CommonJoinOperator).includes(value);
+}
 
 export function CommonJoinOperatorFromJSON(json: any): CommonJoinOperator {
     return CommonJoinOperatorFromJSONTyped(json, false);

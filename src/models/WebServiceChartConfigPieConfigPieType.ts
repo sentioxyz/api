@@ -19,11 +19,14 @@
  */
 export const WebServiceChartConfigPieConfigPieType = {
     Pie: 'Pie',
-    Donut: 'Donut',
-    UnknownDefaultOpenApi: '11184809'
+    Donut: 'Donut'
 } as const;
 export type WebServiceChartConfigPieConfigPieType = typeof WebServiceChartConfigPieConfigPieType[keyof typeof WebServiceChartConfigPieConfigPieType];
 
+
+export function instanceOfWebServiceChartConfigPieConfigPieType(value: any): boolean {
+    return Object.values(WebServiceChartConfigPieConfigPieType).includes(value);
+}
 
 export function WebServiceChartConfigPieConfigPieTypeFromJSON(json: any): WebServiceChartConfigPieConfigPieType {
     return WebServiceChartConfigPieConfigPieTypeFromJSONTyped(json, false);

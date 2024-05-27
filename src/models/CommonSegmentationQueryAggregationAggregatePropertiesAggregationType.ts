@@ -19,16 +19,30 @@
  */
 export const CommonSegmentationQueryAggregationAggregatePropertiesAggregationType = {
     Sum: 'SUM',
+    CumulativeSum: 'CUMULATIVE_SUM',
     Avg: 'AVG',
     Median: 'MEDIAN',
     Min: 'MIN',
     Max: 'MAX',
     DistinctCount: 'DISTINCT_COUNT',
-    CumulativeSum: 'CUMULATIVE_SUM',
-    UnknownDefaultOpenApi: '11184809'
+    CumulativeDistinctCount: 'CUMULATIVE_DISTINCT_COUNT',
+    CumulativeCount: 'CUMULATIVE_COUNT',
+    Last: 'LAST',
+    CumulativeLast: 'CUMULATIVE_LAST',
+    First: 'FIRST',
+    CumulativeFirst: 'CUMULATIVE_FIRST',
+    Percentile25Th: 'PERCENTILE_25TH',
+    Percentile75Th: 'PERCENTILE_75TH',
+    Percentile90Th: 'PERCENTILE_90TH',
+    Percentile95Th: 'PERCENTILE_95TH',
+    Percentile99Th: 'PERCENTILE_99TH'
 } as const;
 export type CommonSegmentationQueryAggregationAggregatePropertiesAggregationType = typeof CommonSegmentationQueryAggregationAggregatePropertiesAggregationType[keyof typeof CommonSegmentationQueryAggregationAggregatePropertiesAggregationType];
 
+
+export function instanceOfCommonSegmentationQueryAggregationAggregatePropertiesAggregationType(value: any): boolean {
+    return Object.values(CommonSegmentationQueryAggregationAggregatePropertiesAggregationType).includes(value);
+}
 
 export function CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSON(json: any): CommonSegmentationQueryAggregationAggregatePropertiesAggregationType {
     return CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSONTyped(json, false);

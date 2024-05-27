@@ -23,10 +23,14 @@ export const WebServiceChartConfigValueConfigStyle = {
     Scientific: 'Scientific',
     Percent: 'Percent',
     Currency: 'Currency',
-    UnknownDefaultOpenApi: '11184809'
+    None: 'None'
 } as const;
 export type WebServiceChartConfigValueConfigStyle = typeof WebServiceChartConfigValueConfigStyle[keyof typeof WebServiceChartConfigValueConfigStyle];
 
+
+export function instanceOfWebServiceChartConfigValueConfigStyle(value: any): boolean {
+    return Object.values(WebServiceChartConfigValueConfigStyle).includes(value);
+}
 
 export function WebServiceChartConfigValueConfigStyleFromJSON(json: any): WebServiceChartConfigValueConfigStyle {
     return WebServiceChartConfigValueConfigStyleFromJSONTyped(json, false);

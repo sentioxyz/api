@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonPermission } from './CommonPermission';
 import {
     CommonPermissionFromJSON,
@@ -50,9 +50,7 @@ export interface WebServiceGetProjectResponse {
  * Check if a given object implements the WebServiceGetProjectResponse interface.
  */
 export function instanceOfWebServiceGetProjectResponse(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function WebServiceGetProjectResponseFromJSON(json: any): WebServiceGetProjectResponse {
@@ -60,27 +58,24 @@ export function WebServiceGetProjectResponseFromJSON(json: any): WebServiceGetPr
 }
 
 export function WebServiceGetProjectResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): WebServiceGetProjectResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'project': !exists(json, 'project') ? undefined : CommonProjectFromJSON(json['project']),
-        'permissions': !exists(json, 'permissions') ? undefined : ((json['permissions'] as Array<any>).map(CommonPermissionFromJSON)),
+        'project': json['project'] == null ? undefined : CommonProjectFromJSON(json['project']),
+        'permissions': json['permissions'] == null ? undefined : ((json['permissions'] as Array<any>).map(CommonPermissionFromJSON)),
     };
 }
 
 export function WebServiceGetProjectResponseToJSON(value?: WebServiceGetProjectResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'project': CommonProjectToJSON(value.project),
-        'permissions': value.permissions === undefined ? undefined : ((value.permissions as Array<any>).map(CommonPermissionToJSON)),
+        'project': CommonProjectToJSON(value['project']),
+        'permissions': value['permissions'] == null ? undefined : ((value['permissions'] as Array<any>).map(CommonPermissionToJSON)),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonSegmentationQueryAggregationAggregateProperties } from './CommonSegmentationQueryAggregationAggregateProperties';
 import {
     CommonSegmentationQueryAggregationAggregatePropertiesFromJSON,
@@ -62,9 +62,7 @@ export interface CommonSegmentationQueryAggregation {
  * Check if a given object implements the CommonSegmentationQueryAggregation interface.
  */
 export function instanceOfCommonSegmentationQueryAggregation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSegmentationQueryAggregationFromJSON(json: any): CommonSegmentationQueryAggregation {
@@ -72,31 +70,28 @@ export function CommonSegmentationQueryAggregationFromJSON(json: any): CommonSeg
 }
 
 export function CommonSegmentationQueryAggregationFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSegmentationQueryAggregation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'total': !exists(json, 'total') ? undefined : json['total'],
-        'unique': !exists(json, 'unique') ? undefined : json['unique'],
-        'countUnique': !exists(json, 'countUnique') ? undefined : CommonSegmentationQueryAggregationCountUniqueFromJSON(json['countUnique']),
-        'aggregateProperties': !exists(json, 'aggregateProperties') ? undefined : CommonSegmentationQueryAggregationAggregatePropertiesFromJSON(json['aggregateProperties']),
+        'total': json['total'] == null ? undefined : json['total'],
+        'unique': json['unique'] == null ? undefined : json['unique'],
+        'countUnique': json['countUnique'] == null ? undefined : CommonSegmentationQueryAggregationCountUniqueFromJSON(json['countUnique']),
+        'aggregateProperties': json['aggregateProperties'] == null ? undefined : CommonSegmentationQueryAggregationAggregatePropertiesFromJSON(json['aggregateProperties']),
     };
 }
 
 export function CommonSegmentationQueryAggregationToJSON(value?: CommonSegmentationQueryAggregation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'total': value.total,
-        'unique': value.unique,
-        'countUnique': CommonSegmentationQueryAggregationCountUniqueToJSON(value.countUnique),
-        'aggregateProperties': CommonSegmentationQueryAggregationAggregatePropertiesToJSON(value.aggregateProperties),
+        'total': value['total'],
+        'unique': value['unique'],
+        'countUnique': CommonSegmentationQueryAggregationCountUniqueToJSON(value['countUnique']),
+        'aggregateProperties': CommonSegmentationQueryAggregationAggregatePropertiesToJSON(value['aggregateProperties']),
     };
 }
 

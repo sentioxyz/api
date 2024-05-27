@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -37,9 +37,7 @@ export interface CommonDuration {
  * Check if a given object implements the CommonDuration interface.
  */
 export function instanceOfCommonDuration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonDurationFromJSON(json: any): CommonDuration {
@@ -47,27 +45,24 @@ export function CommonDurationFromJSON(json: any): CommonDuration {
 }
 
 export function CommonDurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonDuration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'value': !exists(json, 'value') ? undefined : json['value'],
-        'unit': !exists(json, 'unit') ? undefined : json['unit'],
+        'value': json['value'] == null ? undefined : json['value'],
+        'unit': json['unit'] == null ? undefined : json['unit'],
     };
 }
 
 export function CommonDurationToJSON(value?: CommonDuration | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'value': value.value,
-        'unit': value.unit,
+        'value': value['value'],
+        'unit': value['unit'],
     };
 }
 

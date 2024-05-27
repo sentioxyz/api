@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonUserInfo } from './CommonUserInfo';
 import {
     CommonUserInfoFromJSON,
@@ -44,9 +44,7 @@ export interface CommonProjectProjectMember {
  * Check if a given object implements the CommonProjectProjectMember interface.
  */
 export function instanceOfCommonProjectProjectMember(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonProjectProjectMemberFromJSON(json: any): CommonProjectProjectMember {
@@ -54,27 +52,24 @@ export function CommonProjectProjectMemberFromJSON(json: any): CommonProjectProj
 }
 
 export function CommonProjectProjectMemberFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonProjectProjectMember {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'user': !exists(json, 'user') ? undefined : CommonUserInfoFromJSON(json['user']),
-        'role': !exists(json, 'role') ? undefined : json['role'],
+        'user': json['user'] == null ? undefined : CommonUserInfoFromJSON(json['user']),
+        'role': json['role'] == null ? undefined : json['role'],
     };
 }
 
 export function CommonProjectProjectMemberToJSON(value?: CommonProjectProjectMember | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'user': CommonUserInfoToJSON(value.user),
-        'role': value.role,
+        'user': CommonUserInfoToJSON(value['user']),
+        'role': value['role'],
     };
 }
 

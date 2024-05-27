@@ -22,10 +22,14 @@ export const CommonTier = {
     Dev: 'DEV',
     Pro: 'PRO',
     Enterprise: 'ENTERPRISE',
-    UnknownDefaultOpenApi: '11184809'
+    Anonymous: 'ANONYMOUS'
 } as const;
 export type CommonTier = typeof CommonTier[keyof typeof CommonTier];
 
+
+export function instanceOfCommonTier(value: any): boolean {
+    return Object.values(CommonTier).includes(value);
+}
 
 export function CommonTierFromJSON(json: any): CommonTier {
     return CommonTierFromJSONTyped(json, false);

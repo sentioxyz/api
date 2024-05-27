@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { CommonFunction } from './CommonFunction';
+import {
+    CommonFunctionFromJSON,
+    CommonFunctionFromJSONTyped,
+    CommonFunctionToJSON,
+} from './CommonFunction';
 import type { CommonSegmentationQueryAggregation } from './CommonSegmentationQueryAggregation';
 import {
     CommonSegmentationQueryAggregationFromJSON,
@@ -76,6 +82,18 @@ export interface CommonSegmentationQuery {
     groupBy?: Array<string>;
     /**
      * 
+     * @type {number}
+     * @memberof CommonSegmentationQuery
+     */
+    limit?: number;
+    /**
+     * 
+     * @type {Array<CommonFunction>}
+     * @memberof CommonSegmentationQuery
+     */
+    functions?: Array<CommonFunction>;
+    /**
+     * 
      * @type {boolean}
      * @memberof CommonSegmentationQuery
      */
@@ -86,9 +104,7 @@ export interface CommonSegmentationQuery {
  * Check if a given object implements the CommonSegmentationQuery interface.
  */
 export function instanceOfCommonSegmentationQuery(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonSegmentationQueryFromJSON(json: any): CommonSegmentationQuery {
@@ -96,37 +112,38 @@ export function CommonSegmentationQueryFromJSON(json: any): CommonSegmentationQu
 }
 
 export function CommonSegmentationQueryFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonSegmentationQuery {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'resource': !exists(json, 'resource') ? undefined : CommonSegmentationQueryResourceFromJSON(json['resource']),
-        'alias': !exists(json, 'alias') ? undefined : json['alias'],
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'aggregation': !exists(json, 'aggregation') ? undefined : CommonSegmentationQueryAggregationFromJSON(json['aggregation']),
-        'selectorExpr': !exists(json, 'selectorExpr') ? undefined : CommonSegmentationQuerySelectorExprFromJSON(json['selectorExpr']),
-        'groupBy': !exists(json, 'groupBy') ? undefined : json['groupBy'],
-        'disabled': !exists(json, 'disabled') ? undefined : json['disabled'],
+        'resource': json['resource'] == null ? undefined : CommonSegmentationQueryResourceFromJSON(json['resource']),
+        'alias': json['alias'] == null ? undefined : json['alias'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'aggregation': json['aggregation'] == null ? undefined : CommonSegmentationQueryAggregationFromJSON(json['aggregation']),
+        'selectorExpr': json['selectorExpr'] == null ? undefined : CommonSegmentationQuerySelectorExprFromJSON(json['selectorExpr']),
+        'groupBy': json['groupBy'] == null ? undefined : json['groupBy'],
+        'limit': json['limit'] == null ? undefined : json['limit'],
+        'functions': json['functions'] == null ? undefined : ((json['functions'] as Array<any>).map(CommonFunctionFromJSON)),
+        'disabled': json['disabled'] == null ? undefined : json['disabled'],
     };
 }
 
 export function CommonSegmentationQueryToJSON(value?: CommonSegmentationQuery | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'resource': CommonSegmentationQueryResourceToJSON(value.resource),
-        'alias': value.alias,
-        'id': value.id,
-        'aggregation': CommonSegmentationQueryAggregationToJSON(value.aggregation),
-        'selectorExpr': CommonSegmentationQuerySelectorExprToJSON(value.selectorExpr),
-        'groupBy': value.groupBy,
-        'disabled': value.disabled,
+        'resource': CommonSegmentationQueryResourceToJSON(value['resource']),
+        'alias': value['alias'],
+        'id': value['id'],
+        'aggregation': CommonSegmentationQueryAggregationToJSON(value['aggregation']),
+        'selectorExpr': CommonSegmentationQuerySelectorExprToJSON(value['selectorExpr']),
+        'groupBy': value['groupBy'],
+        'limit': value['limit'],
+        'functions': value['functions'] == null ? undefined : ((value['functions'] as Array<any>).map(CommonFunctionToJSON)),
+        'disabled': value['disabled'],
     };
 }
 

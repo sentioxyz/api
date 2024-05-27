@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { CommonTimeRangeRelativeTime } from './CommonTimeRangeRelativeTime';
 import {
     CommonTimeRangeRelativeTimeFromJSON,
@@ -44,9 +44,7 @@ export interface CommonTimeRangeTimeLike {
  * Check if a given object implements the CommonTimeRangeTimeLike interface.
  */
 export function instanceOfCommonTimeRangeTimeLike(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonTimeRangeTimeLikeFromJSON(json: any): CommonTimeRangeTimeLike {
@@ -54,27 +52,24 @@ export function CommonTimeRangeTimeLikeFromJSON(json: any): CommonTimeRangeTimeL
 }
 
 export function CommonTimeRangeTimeLikeFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonTimeRangeTimeLike {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'relativeTime': !exists(json, 'relativeTime') ? undefined : CommonTimeRangeRelativeTimeFromJSON(json['relativeTime']),
-        'absoluteTime': !exists(json, 'absoluteTime') ? undefined : json['absoluteTime'],
+        'relativeTime': json['relativeTime'] == null ? undefined : CommonTimeRangeRelativeTimeFromJSON(json['relativeTime']),
+        'absoluteTime': json['absoluteTime'] == null ? undefined : json['absoluteTime'],
     };
 }
 
 export function CommonTimeRangeTimeLikeToJSON(value?: CommonTimeRangeTimeLike | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'relativeTime': CommonTimeRangeRelativeTimeToJSON(value.relativeTime),
-        'absoluteTime': value.absoluteTime,
+        'relativeTime': CommonTimeRangeRelativeTimeToJSON(value['relativeTime']),
+        'absoluteTime': value['absoluteTime'],
     };
 }
 

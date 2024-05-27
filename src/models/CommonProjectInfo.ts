@@ -12,7 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { CommonProjectSuperset } from './CommonProjectSuperset';
+import {
+    CommonProjectSupersetFromJSON,
+    CommonProjectSupersetFromJSONTyped,
+    CommonProjectSupersetToJSON,
+} from './CommonProjectSuperset';
+import type { CommonProjectType } from './CommonProjectType';
+import {
+    CommonProjectTypeFromJSON,
+    CommonProjectTypeFromJSONTyped,
+    CommonProjectTypeToJSON,
+} from './CommonProjectType';
 import type { CommonProjectVisibility } from './CommonProjectVisibility';
 import {
     CommonProjectVisibilityFromJSON,
@@ -76,19 +88,47 @@ export interface CommonProjectInfo {
     visibility?: CommonProjectVisibility;
     /**
      * 
+     * @type {CommonProjectType}
+     * @memberof CommonProjectInfo
+     */
+    type?: CommonProjectType;
+    /**
+     * 
      * @type {boolean}
      * @memberof CommonProjectInfo
      */
     multiVersion?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommonProjectInfo
+     */
+    supersetEnable?: boolean;
+    /**
+     * 
+     * @type {CommonProjectSuperset}
+     * @memberof CommonProjectInfo
+     */
+    superset?: CommonProjectSuperset;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommonProjectInfo
+     */
+    enableDisk?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CommonProjectInfo
+     */
+    enableMaterializedView?: boolean;
 }
 
 /**
  * Check if a given object implements the CommonProjectInfo interface.
  */
 export function instanceOfCommonProjectInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+    return true;
 }
 
 export function CommonProjectInfoFromJSON(json: any): CommonProjectInfo {
@@ -96,41 +136,48 @@ export function CommonProjectInfoFromJSON(json: any): CommonProjectInfo {
 }
 
 export function CommonProjectInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): CommonProjectInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'displayName': !exists(json, 'displayName') ? undefined : json['displayName'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'createdAt': !exists(json, 'createdAt') ? undefined : json['createdAt'],
-        'updatedAt': !exists(json, 'updatedAt') ? undefined : json['updatedAt'],
-        'slug': !exists(json, 'slug') ? undefined : json['slug'],
-        'owner': !exists(json, 'owner') ? undefined : json['owner'],
-        'visibility': !exists(json, 'visibility') ? undefined : CommonProjectVisibilityFromJSON(json['visibility']),
-        'multiVersion': !exists(json, 'multiVersion') ? undefined : json['multiVersion'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'displayName': json['displayName'] == null ? undefined : json['displayName'],
+        'description': json['description'] == null ? undefined : json['description'],
+        'createdAt': json['createdAt'] == null ? undefined : json['createdAt'],
+        'updatedAt': json['updatedAt'] == null ? undefined : json['updatedAt'],
+        'slug': json['slug'] == null ? undefined : json['slug'],
+        'owner': json['owner'] == null ? undefined : json['owner'],
+        'visibility': json['visibility'] == null ? undefined : CommonProjectVisibilityFromJSON(json['visibility']),
+        'type': json['type'] == null ? undefined : CommonProjectTypeFromJSON(json['type']),
+        'multiVersion': json['multiVersion'] == null ? undefined : json['multiVersion'],
+        'supersetEnable': json['supersetEnable'] == null ? undefined : json['supersetEnable'],
+        'superset': json['superset'] == null ? undefined : CommonProjectSupersetFromJSON(json['superset']),
+        'enableDisk': json['enableDisk'] == null ? undefined : json['enableDisk'],
+        'enableMaterializedView': json['enableMaterializedView'] == null ? undefined : json['enableMaterializedView'],
     };
 }
 
 export function CommonProjectInfoToJSON(value?: CommonProjectInfo | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'displayName': value.displayName,
-        'description': value.description,
-        'createdAt': value.createdAt,
-        'updatedAt': value.updatedAt,
-        'slug': value.slug,
-        'owner': value.owner,
-        'visibility': CommonProjectVisibilityToJSON(value.visibility),
-        'multiVersion': value.multiVersion,
+        'id': value['id'],
+        'displayName': value['displayName'],
+        'description': value['description'],
+        'createdAt': value['createdAt'],
+        'updatedAt': value['updatedAt'],
+        'slug': value['slug'],
+        'owner': value['owner'],
+        'visibility': CommonProjectVisibilityToJSON(value['visibility']),
+        'type': CommonProjectTypeToJSON(value['type']),
+        'multiVersion': value['multiVersion'],
+        'supersetEnable': value['supersetEnable'],
+        'superset': CommonProjectSupersetToJSON(value['superset']),
+        'enableDisk': value['enableDisk'],
+        'enableMaterializedView': value['enableMaterializedView'],
     };
 }
 
