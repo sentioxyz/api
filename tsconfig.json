@@ -1,23 +1,18 @@
 {
   "compilerOptions": {
     //    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
     "declaration": true,
     "alwaysStrict": true,
     "sourceMap": true,
     "target": "es2022",
-    "lib": [
-      "ES2021",
-      "dom"
-    ],
     "esModuleInterop": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
     "resolveJsonModule": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-//    "isolatedModules": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    //    "isolatedModules": true,
     "strictNullChecks": true,
     "stripInternal": true,
     "noFallthroughCasesInSwitch": true,
@@ -26,7 +21,7 @@
     "skipLibCheck": true,
 
     "outDir": "dist",
-//    "rootDir": "./src",
+    //    "rootDir": "./src",
     "rootDirs": ["./src", "test"]
   },
   "include": ["src", "test"],
