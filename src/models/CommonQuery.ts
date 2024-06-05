@@ -27,7 +27,7 @@ import {
 } from './CommonFunction';
 
 /**
- * 
+ * the query to fetch metrics data, promql
  * @export
  * @interface CommonQuery
  */

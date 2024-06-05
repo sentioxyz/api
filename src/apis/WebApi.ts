@@ -15,36 +15,21 @@
 
 import * as runtime from '../runtime';
 import type {
-  CommonUser,
-  CommonUserInfo,
   WebServiceDashboard,
   WebServiceExportDashboardResponse,
   WebServiceGetDashboardResponse,
-  WebServiceGetExternalDashboardResponse,
   WebServiceGetProjectListResponse,
   WebServiceGetProjectResponse,
   WebServiceImportDashboardRequest,
   WebServiceImportDashboardResponse,
-  WebServiceListExternalDashboardsRequest,
-  WebServiceListExternalDashboardsResponse,
-  WebServiceNotificationReadRequest,
-  WebServiceNotificationResponse,
-  WebServiceSearchUsersInfoResponse,
-  WebServiceUnreadNotificationResponse,
 } from '../models/index';
 import {
-    CommonUserFromJSON,
-    CommonUserToJSON,
-    CommonUserInfoFromJSON,
-    CommonUserInfoToJSON,
     WebServiceDashboardFromJSON,
     WebServiceDashboardToJSON,
     WebServiceExportDashboardResponseFromJSON,
     WebServiceExportDashboardResponseToJSON,
     WebServiceGetDashboardResponseFromJSON,
     WebServiceGetDashboardResponseToJSON,
-    WebServiceGetExternalDashboardResponseFromJSON,
-    WebServiceGetExternalDashboardResponseToJSON,
     WebServiceGetProjectListResponseFromJSON,
     WebServiceGetProjectListResponseToJSON,
     WebServiceGetProjectResponseFromJSON,
@@ -53,18 +38,6 @@ import {
     WebServiceImportDashboardRequestToJSON,
     WebServiceImportDashboardResponseFromJSON,
     WebServiceImportDashboardResponseToJSON,
-    WebServiceListExternalDashboardsRequestFromJSON,
-    WebServiceListExternalDashboardsRequestToJSON,
-    WebServiceListExternalDashboardsResponseFromJSON,
-    WebServiceListExternalDashboardsResponseToJSON,
-    WebServiceNotificationReadRequestFromJSON,
-    WebServiceNotificationReadRequestToJSON,
-    WebServiceNotificationResponseFromJSON,
-    WebServiceNotificationResponseToJSON,
-    WebServiceSearchUsersInfoResponseFromJSON,
-    WebServiceSearchUsersInfoResponseToJSON,
-    WebServiceUnreadNotificationResponseFromJSON,
-    WebServiceUnreadNotificationResponseToJSON,
 } from '../models/index';
 
 export interface DeleteDashboardRequest {
@@ -92,51 +65,14 @@ export interface GetDashboard2Request {
     projectId?: string;
 }
 
-export interface GetExternalDashboardRequest {
-    dashboardId?: string;
-    projectId?: string;
-    ownerName?: string;
-    slug?: string;
-    url?: string;
-}
-
-export interface GetNotificationsRequest {
-    limit?: number;
-    offset?: number;
-}
-
-export interface GetPopulateProjectListRequest {
-    userId?: string;
-    organizationId?: string;
-}
-
 export interface GetProjectRequest {
     owner: string;
     slug: string;
 }
 
-export interface GetUserRequest {
+export interface GetProjectListRequest {
     userId?: string;
-    subject?: string;
-    email?: string;
-}
-
-export interface GetUser2Request {
-    userId: string;
-    subject?: string;
-    email?: string;
-}
-
-export interface GetUserInfoRequest {
-    userId?: string;
-    userName?: string;
-    email?: string;
-}
-
-export interface GetUserInfo2Request {
-    userId: string;
-    userName?: string;
-    email?: string;
+    organizationId?: string;
 }
 
 export interface ImportDashboardRequest {
@@ -155,34 +91,6 @@ export interface ListDashboards2Request {
     slug: string;
     dashboardId?: string;
     projectId?: string;
-}
-
-export interface ListExternalDashboardsRequest {
-    body: WebServiceListExternalDashboardsRequest;
-}
-
-export interface ListExternalDashboards2Request {
-    projectId?: string;
-    ownerName?: string;
-    slug?: string;
-    ownerFilter?: string;
-    tagsFilterTags?: Array<string>;
-    tagsFilterName?: string;
-    starFilter?: boolean;
-    orderBy?: ListExternalDashboards2OrderByEnum;
-    orderByTimeRange?: string;
-    limit?: number;
-    offset?: number;
-}
-
-export interface ReadNotificationRequest {
-    body: WebServiceNotificationReadRequest;
-}
-
-export interface SearchUsersInfoRequest {
-    query: string;
-    limit?: number;
-    offset?: number;
 }
 
 /**
@@ -381,131 +289,7 @@ export class WebApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get an external dashboard by id
-     */
-    async getExternalDashboardRaw(requestParameters: GetExternalDashboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetExternalDashboardResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['dashboardId'] != null) {
-            queryParameters['dashboardId'] = requestParameters['dashboardId'];
-        }
-
-        if (requestParameters['projectId'] != null) {
-            queryParameters['projectId'] = requestParameters['projectId'];
-        }
-
-        if (requestParameters['ownerName'] != null) {
-            queryParameters['ownerName'] = requestParameters['ownerName'];
-        }
-
-        if (requestParameters['slug'] != null) {
-            queryParameters['slug'] = requestParameters['slug'];
-        }
-
-        if (requestParameters['url'] != null) {
-            queryParameters['url'] = requestParameters['url'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/external_dashboard`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceGetExternalDashboardResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Get an external dashboard by id
-     */
-    async getExternalDashboard(requestParameters: GetExternalDashboardRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetExternalDashboardResponse> {
-        const response = await this.getExternalDashboardRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * List all notifications, both read and unread.
-     */
-    async getNotificationsRaw(requestParameters: GetNotificationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceNotificationResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
-        if (requestParameters['offset'] != null) {
-            queryParameters['offset'] = requestParameters['offset'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/notifications`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceNotificationResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * List all notifications, both read and unread.
-     */
-    async getNotifications(requestParameters: GetNotificationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceNotificationResponse> {
-        const response = await this.getNotificationsRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async getPopulateProjectListRaw(requestParameters: GetPopulateProjectListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetProjectListResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['userId'] != null) {
-            queryParameters['userId'] = requestParameters['userId'];
-        }
-
-        if (requestParameters['organizationId'] != null) {
-            queryParameters['organizationId'] = requestParameters['organizationId'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/populate-projects`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceGetProjectListResponseFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async getPopulateProjectList(requestParameters: GetPopulateProjectListRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetProjectListResponse> {
-        const response = await this.getPopulateProjectListRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get project detail
+     * Get project details
      */
     async getProjectRaw(requestParameters: GetProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetProjectResponse>> {
         if (requestParameters['owner'] == null) {
@@ -541,7 +325,7 @@ export class WebApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get project detail
+     * Get project details
      */
     async getProject(requestParameters: GetProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetProjectResponse> {
         const response = await this.getProjectRaw(requestParameters, initOverrides);
@@ -549,21 +333,17 @@ export class WebApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get user details by id
+     * Get project list
      */
-    async getUserRaw(requestParameters: GetUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUser>> {
+    async getProjectListRaw(requestParameters: GetProjectListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceGetProjectListResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters['userId'] != null) {
             queryParameters['userId'] = requestParameters['userId'];
         }
 
-        if (requestParameters['subject'] != null) {
-            queryParameters['subject'] = requestParameters['subject'];
-        }
-
-        if (requestParameters['email'] != null) {
-            queryParameters['email'] = requestParameters['email'];
+        if (requestParameters['organizationId'] != null) {
+            queryParameters['organizationId'] = requestParameters['organizationId'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -573,152 +353,20 @@ export class WebApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/users`,
+            path: `/api/v1/projects`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CommonUserFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceGetProjectListResponseFromJSON(jsonValue));
     }
 
     /**
-     * Get user details by id
+     * Get project list
      */
-    async getUser(requestParameters: GetUserRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUser> {
-        const response = await this.getUserRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get user details by id
-     */
-    async getUser2Raw(requestParameters: GetUser2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUser>> {
-        if (requestParameters['userId'] == null) {
-            throw new runtime.RequiredError(
-                'userId',
-                'Required parameter "userId" was null or undefined when calling getUser2().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['subject'] != null) {
-            queryParameters['subject'] = requestParameters['subject'];
-        }
-
-        if (requestParameters['email'] != null) {
-            queryParameters['email'] = requestParameters['email'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/users/{userId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters['userId']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CommonUserFromJSON(jsonValue));
-    }
-
-    /**
-     * Get user details by id
-     */
-    async getUser2(requestParameters: GetUser2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUser> {
-        const response = await this.getUser2Raw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get user info by id
-     */
-    async getUserInfoRaw(requestParameters: GetUserInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUserInfo>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['userId'] != null) {
-            queryParameters['userId'] = requestParameters['userId'];
-        }
-
-        if (requestParameters['userName'] != null) {
-            queryParameters['userName'] = requestParameters['userName'];
-        }
-
-        if (requestParameters['email'] != null) {
-            queryParameters['email'] = requestParameters['email'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/users/info`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CommonUserInfoFromJSON(jsonValue));
-    }
-
-    /**
-     * Get user info by id
-     */
-    async getUserInfo(requestParameters: GetUserInfoRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUserInfo> {
-        const response = await this.getUserInfoRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get user info by id
-     */
-    async getUserInfo2Raw(requestParameters: GetUserInfo2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonUserInfo>> {
-        if (requestParameters['userId'] == null) {
-            throw new runtime.RequiredError(
-                'userId',
-                'Required parameter "userId" was null or undefined when calling getUserInfo2().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['userName'] != null) {
-            queryParameters['userName'] = requestParameters['userName'];
-        }
-
-        if (requestParameters['email'] != null) {
-            queryParameters['email'] = requestParameters['email'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/users/info/{userId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters['userId']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CommonUserInfoFromJSON(jsonValue));
-    }
-
-    /**
-     * Get user info by id
-     */
-    async getUserInfo2(requestParameters: GetUserInfo2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonUserInfo> {
-        const response = await this.getUserInfo2Raw(requestParameters, initOverrides);
+    async getProjectList(requestParameters: GetProjectListRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceGetProjectListResponse> {
+        const response = await this.getProjectListRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -860,246 +508,4 @@ export class WebApi extends runtime.BaseAPI {
         return await response.value();
     }
 
-    /**
-     * List external dashboards in a project
-     */
-    async listExternalDashboardsRaw(requestParameters: ListExternalDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceListExternalDashboardsResponse>> {
-        if (requestParameters['body'] == null) {
-            throw new runtime.RequiredError(
-                'body',
-                'Required parameter "body" was null or undefined when calling listExternalDashboards().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/external_dashboards`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: WebServiceListExternalDashboardsRequestToJSON(requestParameters['body']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceListExternalDashboardsResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * List external dashboards in a project
-     */
-    async listExternalDashboards(requestParameters: ListExternalDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceListExternalDashboardsResponse> {
-        const response = await this.listExternalDashboardsRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * List external dashboards in a project
-     */
-    async listExternalDashboards2Raw(requestParameters: ListExternalDashboards2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceListExternalDashboardsResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['projectId'] != null) {
-            queryParameters['projectId'] = requestParameters['projectId'];
-        }
-
-        if (requestParameters['ownerName'] != null) {
-            queryParameters['ownerName'] = requestParameters['ownerName'];
-        }
-
-        if (requestParameters['slug'] != null) {
-            queryParameters['slug'] = requestParameters['slug'];
-        }
-
-        if (requestParameters['ownerFilter'] != null) {
-            queryParameters['ownerFilter'] = requestParameters['ownerFilter'];
-        }
-
-        if (requestParameters['tagsFilterTags'] != null) {
-            queryParameters['tagsFilter.tags'] = requestParameters['tagsFilterTags'];
-        }
-
-        if (requestParameters['tagsFilterName'] != null) {
-            queryParameters['tagsFilter.name'] = requestParameters['tagsFilterName'];
-        }
-
-        if (requestParameters['starFilter'] != null) {
-            queryParameters['starFilter'] = requestParameters['starFilter'];
-        }
-
-        if (requestParameters['orderBy'] != null) {
-            queryParameters['orderBy'] = requestParameters['orderBy'];
-        }
-
-        if (requestParameters['orderByTimeRange'] != null) {
-            queryParameters['orderByTimeRange'] = requestParameters['orderByTimeRange'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
-        if (requestParameters['offset'] != null) {
-            queryParameters['offset'] = requestParameters['offset'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/external_dashboards`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceListExternalDashboardsResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * List external dashboards in a project
-     */
-    async listExternalDashboards2(requestParameters: ListExternalDashboards2Request = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceListExternalDashboardsResponse> {
-        const response = await this.listExternalDashboards2Raw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Mark notifications as read.
-     */
-    async readNotificationRaw(requestParameters: ReadNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
-        if (requestParameters['body'] == null) {
-            throw new runtime.RequiredError(
-                'body',
-                'Required parameter "body" was null or undefined when calling readNotification().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/notifications/read`,
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: WebServiceNotificationReadRequestToJSON(requestParameters['body']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse<any>(response);
-    }
-
-    /**
-     * Mark notifications as read.
-     */
-    async readNotification(requestParameters: ReadNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
-        const response = await this.readNotificationRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Search users by name
-     */
-    async searchUsersInfoRaw(requestParameters: SearchUsersInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceSearchUsersInfoResponse>> {
-        if (requestParameters['query'] == null) {
-            throw new runtime.RequiredError(
-                'query',
-                'Required parameter "query" was null or undefined when calling searchUsersInfo().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['query'] != null) {
-            queryParameters['query'] = requestParameters['query'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
-        if (requestParameters['offset'] != null) {
-            queryParameters['offset'] = requestParameters['offset'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/users/search`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceSearchUsersInfoResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Search users by name
-     */
-    async searchUsersInfo(requestParameters: SearchUsersInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceSearchUsersInfoResponse> {
-        const response = await this.searchUsersInfoRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * List all unread notifications.
-     */
-    async unreadNotificationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WebServiceUnreadNotificationResponse>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/notifications/unread`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => WebServiceUnreadNotificationResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * List all unread notifications.
-     */
-    async unreadNotification(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WebServiceUnreadNotificationResponse> {
-        const response = await this.unreadNotificationRaw(initOverrides);
-        return await response.value();
-    }
-
 }
-
-/**
- * @export
- */
-export const ListExternalDashboards2OrderByEnum = {
-    Starred: 'STARRED',
-    UpdatedAt: 'UPDATED_AT'
-} as const;
-export type ListExternalDashboards2OrderByEnum = typeof ListExternalDashboards2OrderByEnum[keyof typeof ListExternalDashboards2OrderByEnum];

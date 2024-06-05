@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime';
 /**
- * 
+ * start and end time of the time range
  * @export
  * @interface CommonTimeRangeLite
  */
@@ -24,19 +24,19 @@ export interface CommonTimeRangeLite {
      * @type {string}
      * @memberof CommonTimeRangeLite
      */
-    start?: string;
+    start: string;
     /**
      * 
      * @type {string}
      * @memberof CommonTimeRangeLite
      */
-    end?: string;
+    end: string;
     /**
      * 
      * @type {number}
      * @memberof CommonTimeRangeLite
      */
-    step?: number;
+    step: number;
     /**
      * 
      * @type {string}
@@ -49,6 +49,9 @@ export interface CommonTimeRangeLite {
  * Check if a given object implements the CommonTimeRangeLite interface.
  */
 export function instanceOfCommonTimeRangeLite(value: object): boolean {
+    if (!('start' in value)) return false;
+    if (!('end' in value)) return false;
+    if (!('step' in value)) return false;
     return true;
 }
 
@@ -62,9 +65,9 @@ export function CommonTimeRangeLiteFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'start': json['start'] == null ? undefined : json['start'],
-        'end': json['end'] == null ? undefined : json['end'],
-        'step': json['step'] == null ? undefined : json['step'],
+        'start': json['start'],
+        'end': json['end'],
+        'step': json['step'],
         'timezone': json['timezone'] == null ? undefined : json['timezone'],
     };
 }

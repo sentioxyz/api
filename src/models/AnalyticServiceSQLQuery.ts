@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { AnalyticServiceSQLGrammarVersion } from './AnalyticServiceSQLGrammarVersion';
-import {
-    AnalyticServiceSQLGrammarVersionFromJSON,
-    AnalyticServiceSQLGrammarVersionFromJSONTyped,
-    AnalyticServiceSQLGrammarVersionToJSON,
-} from './AnalyticServiceSQLGrammarVersion';
-
 /**
  * 
  * @export
@@ -38,18 +31,6 @@ export interface AnalyticServiceSQLQuery {
      * @memberof AnalyticServiceSQLQuery
      */
     size?: number;
-    /**
-     * 
-     * @type {object}
-     * @memberof AnalyticServiceSQLQuery
-     */
-    variables?: object;
-    /**
-     * 
-     * @type {AnalyticServiceSQLGrammarVersion}
-     * @memberof AnalyticServiceSQLQuery
-     */
-    version?: AnalyticServiceSQLGrammarVersion;
 }
 
 /**
@@ -71,8 +52,6 @@ export function AnalyticServiceSQLQueryFromJSONTyped(json: any, ignoreDiscrimina
         
         'sql': json['sql'] == null ? undefined : json['sql'],
         'size': json['size'] == null ? undefined : json['size'],
-        'variables': json['variables'] == null ? undefined : json['variables'],
-        'version': json['version'] == null ? undefined : AnalyticServiceSQLGrammarVersionFromJSON(json['version']),
     };
 }
 
@@ -84,8 +63,6 @@ export function AnalyticServiceSQLQueryToJSON(value?: AnalyticServiceSQLQuery | 
         
         'sql': value['sql'],
         'size': value['size'],
-        'variables': value['variables'],
-        'version': AnalyticServiceSQLGrammarVersionToJSON(value['version']),
     };
 }
 

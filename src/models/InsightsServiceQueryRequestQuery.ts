@@ -31,12 +31,6 @@ import {
     CommonSegmentationQueryFromJSONTyped,
     CommonSegmentationQueryToJSON,
 } from './CommonSegmentationQuery';
-import type { CommonSystemSQLQuery } from './CommonSystemSQLQuery';
-import {
-    CommonSystemSQLQueryFromJSON,
-    CommonSystemSQLQueryFromJSONTyped,
-    CommonSystemSQLQueryToJSON,
-} from './CommonSystemSQLQuery';
 import type { InsightsServiceDataSource } from './InsightsServiceDataSource';
 import {
     InsightsServiceDataSourceFromJSON,
@@ -68,12 +62,6 @@ export interface InsightsServiceQueryRequestQuery {
      * @memberof InsightsServiceQueryRequestQuery
      */
     priceQuery?: CommonPriceSegmentationQuery;
-    /**
-     * 
-     * @type {CommonSystemSQLQuery}
-     * @memberof InsightsServiceQueryRequestQuery
-     */
-    systemSqlQuery?: CommonSystemSQLQuery;
     /**
      * 
      * @type {InsightsServiceDataSource}
@@ -108,7 +96,6 @@ export function InsightsServiceQueryRequestQueryFromJSONTyped(json: any, ignoreD
         'metricsQuery': json['metricsQuery'] == null ? undefined : CommonQueryFromJSON(json['metricsQuery']),
         'eventsQuery': json['eventsQuery'] == null ? undefined : CommonSegmentationQueryFromJSON(json['eventsQuery']),
         'priceQuery': json['priceQuery'] == null ? undefined : CommonPriceSegmentationQueryFromJSON(json['priceQuery']),
-        'systemSqlQuery': json['systemSqlQuery'] == null ? undefined : CommonSystemSQLQueryFromJSON(json['systemSqlQuery']),
         'dataSource': json['dataSource'] == null ? undefined : InsightsServiceDataSourceFromJSON(json['dataSource']),
         'sourceName': json['sourceName'] == null ? undefined : json['sourceName'],
     };
@@ -123,7 +110,6 @@ export function InsightsServiceQueryRequestQueryToJSON(value?: InsightsServiceQu
         'metricsQuery': CommonQueryToJSON(value['metricsQuery']),
         'eventsQuery': CommonSegmentationQueryToJSON(value['eventsQuery']),
         'priceQuery': CommonPriceSegmentationQueryToJSON(value['priceQuery']),
-        'systemSqlQuery': CommonSystemSQLQueryToJSON(value['systemSqlQuery']),
         'dataSource': InsightsServiceDataSourceToJSON(value['dataSource']),
         'sourceName': value['sourceName'],
     };

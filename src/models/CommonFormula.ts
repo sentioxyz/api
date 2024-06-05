@@ -21,7 +21,7 @@ import {
 } from './CommonFunction';
 
 /**
- * 
+ * the formula to combine multiple queries
  * @export
  * @interface CommonFormula
  */

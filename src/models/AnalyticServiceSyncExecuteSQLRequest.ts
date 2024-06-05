@@ -19,12 +19,6 @@ import {
     AnalyticServiceSQLQueryFromJSONTyped,
     AnalyticServiceSQLQueryToJSON,
 } from './AnalyticServiceSQLQuery';
-import type { AnalyticServiceSyncExecuteSQLRequestSource } from './AnalyticServiceSyncExecuteSQLRequestSource';
-import {
-    AnalyticServiceSyncExecuteSQLRequestSourceFromJSON,
-    AnalyticServiceSyncExecuteSQLRequestSourceFromJSONTyped,
-    AnalyticServiceSyncExecuteSQLRequestSourceToJSON,
-} from './AnalyticServiceSyncExecuteSQLRequestSource';
 import type { CommonCachePolicy } from './CommonCachePolicy';
 import {
     CommonCachePolicyFromJSON,
@@ -76,12 +70,6 @@ export interface AnalyticServiceSyncExecuteSQLRequest {
     cursor?: string;
     /**
      * 
-     * @type {AnalyticServiceSyncExecuteSQLRequestSource}
-     * @memberof AnalyticServiceSyncExecuteSQLRequest
-     */
-    source?: AnalyticServiceSyncExecuteSQLRequestSource;
-    /**
-     * 
      * @type {boolean}
      * @memberof AnalyticServiceSyncExecuteSQLRequest
      */
@@ -117,7 +105,6 @@ export function AnalyticServiceSyncExecuteSQLRequestFromJSONTyped(json: any, ign
         'version': json['version'] == null ? undefined : json['version'],
         'sqlQuery': json['sqlQuery'] == null ? undefined : AnalyticServiceSQLQueryFromJSON(json['sqlQuery']),
         'cursor': json['cursor'] == null ? undefined : json['cursor'],
-        'source': json['source'] == null ? undefined : AnalyticServiceSyncExecuteSQLRequestSourceFromJSON(json['source']),
         'bypassCache': json['bypassCache'] == null ? undefined : json['bypassCache'],
         'cachePolicy': json['cachePolicy'] == null ? undefined : CommonCachePolicyFromJSON(json['cachePolicy']),
     };
@@ -135,7 +122,6 @@ export function AnalyticServiceSyncExecuteSQLRequestToJSON(value?: AnalyticServi
         'version': value['version'],
         'sqlQuery': AnalyticServiceSQLQueryToJSON(value['sqlQuery']),
         'cursor': value['cursor'],
-        'source': AnalyticServiceSyncExecuteSQLRequestSourceToJSON(value['source']),
         'bypassCache': value['bypassCache'],
         'cachePolicy': CommonCachePolicyToJSON(value['cachePolicy']),
     };

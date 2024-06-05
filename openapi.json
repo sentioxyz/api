@@ -1,0 +1,5533 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "Sentio API",
+		"version": "version not set",
+		"description": "Sentio Open API for query data"
+	},
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/api/v1/analytics/sql/execute": {
+			"post": {
+				"summary": "Execute SQL",
+				"description": "Execute SQL in a project.\nFind more: \"https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api\"",
+				"operationId": "ExecuteSQL2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/analytic_service.SyncExecuteSQLResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/analytic_service.SyncExecuteSQLRequest"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				],
+				"externalDocs": {
+					"description": "find more information here",
+					"url": "https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api"
+				}
+			}
+		},
+		"/api/v1/analytics/{owner}/{slug}/sql/execute": {
+			"post": {
+				"summary": "Execute SQL",
+				"description": "Execute SQL in a project.\nFind more: \"https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api\"",
+				"operationId": "ExecuteSQL",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/analytic_service.SyncExecuteSQLResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/analytic_service.AnalyticService.ExecuteSQLBody"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				],
+				"externalDocs": {
+					"description": "find more information here",
+					"url": "https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api"
+				}
+			}
+		},
+		"/api/v1/eventlogs/{owner}/{slug}": {
+			"post": {
+				"summary": "Query event logs",
+				"operationId": "QueryLog",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/analytic_service.LogQueryResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/analytic_service.SearchService.QueryLogBody"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/eventlogs/{owner}/{slug}/query": {
+			"get": {
+				"summary": "Query event logs",
+				"operationId": "QueryLog2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/analytic_service.LogQueryResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "timeRange.start.relativeTime.unit",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "timeRange.start.relativeTime.value",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "timeRange.start.relativeTime.align",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "timeRange.start.absoluteTime",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "int64"
+					},
+					{
+						"name": "timeRange.end.relativeTime.unit",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "timeRange.end.relativeTime.value",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "timeRange.end.relativeTime.align",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "timeRange.end.absoluteTime",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "int64"
+					},
+					{
+						"name": "timeRange.step",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "int64"
+					},
+					{
+						"name": "timeRange.interval.value",
+						"in": "query",
+						"required": false,
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"name": "timeRange.interval.unit",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "timeRange.timezone",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/insights/coins": {
+			"get": {
+				"summary": "List coins",
+				"description": "Get a list of coins in a project.",
+				"operationId": "ListCoins2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/insights_service.ListCoinsResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "projectOwner",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectSlug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "searchQuery",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/insights/query": {
+			"post": {
+				"summary": "Insight Query",
+				"description": "Query for metrics,event logs and coin prices in a project.",
+				"operationId": "Query2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/insights_service.QueryResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/insights_service.QueryRequest"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/insights/retention": {
+			"post": {
+				"summary": "Retention query",
+				"description": "Query for retention.",
+				"operationId": "Retention2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/insights_service.RetentionResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/insights_service.RetentionRequest"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/insights/{owner}/{slug}/coins": {
+			"get": {
+				"summary": "List coins",
+				"description": "Get a list of coins in a project.",
+				"operationId": "ListCoins",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/insights_service.ListCoinsResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "searchQuery",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/insights/{owner}/{slug}/query": {
+			"post": {
+				"summary": "Insight Query",
+				"description": "Query for metrics,event logs and coin prices in a project.",
+				"operationId": "Query",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/insights_service.QueryResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/insights_service.InsightsService.QueryBody"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/insights/{owner}/{slug}/retention": {
+			"post": {
+				"summary": "Retention query",
+				"description": "Query for retention.",
+				"operationId": "Retention",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/insights_service.RetentionResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/insights_service.InsightsService.RetentionBody"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/metrics": {
+			"get": {
+				"summary": "Get a list of metrics in a project",
+				"operationId": "ObservabilityService_GetMetrics",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/metrics_service.GetMetricsResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "name",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/metrics/{owner}/{slug}/query": {
+			"post": {
+				"summary": "Metric instant queries",
+				"operationId": "ObservabilityService_Query",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/metrics_service.QueryValueResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/metrics_service.ObservabilityService.QueryBody"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/metrics/{owner}/{slug}/query_range": {
+			"post": {
+				"summary": "Metric range queries",
+				"operationId": "ObservabilityService_QueryRange",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/metrics_service.MetricsQueryResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/metrics_service.ObservabilityService.QueryRangeBody"
+						}
+					}
+				],
+				"tags": [
+					"Data"
+				]
+			}
+		},
+		"/api/v1/solidity/call_trace": {
+			"get": {
+				"summary": "Get indexed call trace",
+				"operationId": "GetCallTrace",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/google.api.HttpBody"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "projectOwner",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectSlug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "networkId",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "txId.txHash",
+						"in": "query",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "txId.simulationId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "txId.bundleId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "disableOptimizer",
+						"in": "query",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "withInternalCalls",
+						"description": "Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.",
+						"in": "query",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "ignoreGasCost",
+						"description": "Only effective when disableOptimizer=true",
+						"in": "query",
+						"required": false,
+						"type": "boolean"
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			}
+		},
+		"/api/v1/solidity/search_transactions": {
+			"get": {
+				"summary": "Search for transactions",
+				"operationId": "SearchTransactions",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/txindex.EvmSearchTransactionsResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "chainId",
+						"in": "query",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi"
+					},
+					{
+						"name": "address",
+						"in": "query",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi"
+					},
+					{
+						"name": "includeDirect",
+						"in": "query",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "includeTrace",
+						"in": "query",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "includeIn",
+						"in": "query",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "includeOut",
+						"in": "query",
+						"required": false,
+						"type": "boolean"
+					},
+					{
+						"name": "startBlock",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "int64"
+					},
+					{
+						"name": "endBlock",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "int64"
+					},
+					{
+						"name": "startTimestamp",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "int64"
+					},
+					{
+						"name": "endTimestamp",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "int64"
+					},
+					{
+						"name": "transactionStatus",
+						"in": "query",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "integer",
+							"format": "int32"
+						},
+						"collectionFormat": "multi"
+					},
+					{
+						"name": "methodSignature",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "pageToken",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "byte"
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			}
+		},
+		"/api/v1/solidity/simulate": {
+			"get": {
+				"summary": "Get existing transaction simulations",
+				"operationId": "GetSimulations",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/solidity_service.GetSimulationsResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "projectOwner",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectSlug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			},
+			"post": {
+				"summary": "Create a new transaction simulation",
+				"operationId": "SimulateTransaction",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/solidity_service.SimulateTransactionResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/solidity_service.SimulateTransactionRequest"
+						}
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			}
+		},
+		"/api/v1/solidity/simulate/{simulationId}": {
+			"get": {
+				"summary": "Get a simulation by id",
+				"operationId": "GetSimulation",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/solidity_service.GetSimulationResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "simulationId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "projectOwner",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectSlug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			}
+		},
+		"/api/v1/solidity/simulate_bundle": {
+			"post": {
+				"summary": "Create a new bundle simulation",
+				"operationId": "SimulateTransactionBundle",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/solidity_service.SimulateTransactionBundleResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/solidity_service.SimulateTransactionBundleRequest"
+						}
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			}
+		},
+		"/api/v1/solidity/simulate_bundle/{bundleId}": {
+			"get": {
+				"summary": "Get a bundle simulation by id",
+				"operationId": "GetSimulationBundle",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/solidity_service.GetSimulationBundleResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "bundleId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "projectOwner",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectSlug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			}
+		},
+		"/api/v1/solidity/universal_search": {
+			"get": {
+				"operationId": "UniversalSearch",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/solidity_service.UniversalSearchResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "q",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"tags": [
+					"Debug and Simulation"
+				]
+			}
+		},
+		"/api/v1/dashboards": {
+			"get": {
+				"summary": "List all dashboards in a project",
+				"operationId": "ListDashboards",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.GetDashboardResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "dashboardId",
+						"description": "filter the dashboard by id",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"description": "filter the dashboard by project id",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "ownerName",
+						"description": "username or organization name",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		},
+		"/api/v1/dashboards/json": {
+			"post": {
+				"summary": "Import a dashboard to another dashboard",
+				"operationId": "ImportDashboard",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.ImportDashboardResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/web_service.ImportDashboardRequest"
+						}
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		},
+		"/api/v1/dashboards/{dashboardId}": {
+			"get": {
+				"summary": "Get a dashboard by id",
+				"operationId": "GetDashboard",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.GetDashboardResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "dashboardId",
+						"description": "filter the dashboard by id",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"description": "filter the dashboard by project id",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "ownerName",
+						"description": "username or organization name",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			},
+			"delete": {
+				"summary": "Delete a dashboard by id",
+				"operationId": "DeleteDashboard",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.Dashboard"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "dashboardId",
+						"description": "filter the dashboard by id",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"description": "filter the dashboard by project id",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "ownerName",
+						"description": "username or organization name",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		},
+		"/api/v1/dashboards/{dashboardId}/json": {
+			"get": {
+				"summary": "Export a dashboard to json",
+				"operationId": "ExportDashboard",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.ExportDashboardResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "dashboardId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		},
+		"/api/v1/project/{owner}/{slug}": {
+			"get": {
+				"summary": "Get project details",
+				"operationId": "GetProject",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.GetProjectResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		},
+		"/api/v1/projects": {
+			"get": {
+				"summary": "Get project list",
+				"operationId": "GetProjectList",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.GetProjectListResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "organizationId",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		},
+		"/api/v1/projects/{owner}/{slug}/dashboards": {
+			"get": {
+				"summary": "List all dashboards in a project",
+				"operationId": "ListDashboards2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.GetDashboardResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "dashboardId",
+						"description": "filter the dashboard by id",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"description": "filter the dashboard by project id",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		},
+		"/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}": {
+			"get": {
+				"summary": "Get a dashboard by id",
+				"operationId": "GetDashboard2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/web_service.GetDashboardResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "dashboardId",
+						"description": "filter the dashboard by id",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "projectId",
+						"description": "filter the dashboard by project id",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Web"
+				]
+			}
+		}
+	},
+	"definitions": {
+		"analytic_service.AnalyticService.ExecuteSQLBody": {
+			"type": "object",
+			"example": {
+				"sqlQuery": {
+					"sql": "SELECT uniq(distinct_id) FROM `Transfer`"
+				}
+			},
+			"properties": {
+				"projectId": {
+					"type": "string",
+					"title": "use project id if project_owner and project_slug are not provided"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32",
+					"title": "version of the datasource, default to the active version if not provided"
+				},
+				"sqlQuery": {
+					"$ref": "#/definitions/analytic_service.SQLQuery"
+				},
+				"cursor": {
+					"type": "string",
+					"title": "cursor for pagination"
+				},
+				"bypassCache": {
+					"type": "boolean",
+					"title": "deprecated, use cachePolicy instead"
+				},
+				"cachePolicy": {
+					"$ref": "#/definitions/common.CachePolicy"
+				}
+			}
+		},
+		"analytic_service.LogQueryRequest.Filter": {
+			"type": "object",
+			"properties": {
+				"field": {
+					"type": "string"
+				},
+				"value": {
+					"type": "string"
+				},
+				"not": {
+					"type": "boolean"
+				}
+			}
+		},
+		"analytic_service.LogQueryRequest.Sort": {
+			"type": "object",
+			"properties": {
+				"field": {
+					"type": "string"
+				},
+				"desc": {
+					"type": "boolean"
+				}
+			}
+		},
+		"analytic_service.LogQueryResponse": {
+			"type": "object",
+			"properties": {
+				"entries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.EventLogEntry"
+					}
+				},
+				"after": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Any"
+					},
+					"title": "for pagination"
+				},
+				"total": {
+					"type": "string",
+					"format": "int64"
+				}
+			}
+		},
+		"analytic_service.SQLQuery": {
+			"type": "object",
+			"properties": {
+				"sql": {
+					"type": "string",
+					"title": "the sql query"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32",
+					"title": "the limit of the query"
+				}
+			}
+		},
+		"analytic_service.SearchService.QueryLogBody": {
+			"type": "object",
+			"properties": {
+				"projectId": {
+					"type": "string"
+				},
+				"query": {
+					"type": "string"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRange"
+				},
+				"sorts": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/analytic_service.LogQueryRequest.Sort"
+					}
+				},
+				"after": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Any"
+					},
+					"title": "for pagination"
+				},
+				"limit": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"offset": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"filters": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/analytic_service.LogQueryRequest.Filter"
+					}
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"analytic_service.SyncExecuteSQLRequest": {
+			"type": "object",
+			"example": {
+				"sqlQuery": {
+					"sql": "SELECT uniq(distinct_id) FROM `Transfer`"
+				}
+			},
+			"properties": {
+				"projectOwner": {
+					"type": "string",
+					"title": "username or organization name"
+				},
+				"projectSlug": {
+					"type": "string",
+					"title": "project slug"
+				},
+				"projectId": {
+					"type": "string",
+					"title": "use project id if project_owner and project_slug are not provided"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32",
+					"title": "version of the datasource, default to the active version if not provided"
+				},
+				"sqlQuery": {
+					"$ref": "#/definitions/analytic_service.SQLQuery"
+				},
+				"cursor": {
+					"type": "string",
+					"title": "cursor for pagination"
+				},
+				"bypassCache": {
+					"type": "boolean",
+					"title": "deprecated, use cachePolicy instead"
+				},
+				"cachePolicy": {
+					"$ref": "#/definitions/common.CachePolicy"
+				}
+			}
+		},
+		"analytic_service.SyncExecuteSQLResponse": {
+			"type": "object",
+			"properties": {
+				"runtimeCost": {
+					"type": "string",
+					"format": "int64"
+				},
+				"result": {
+					"$ref": "#/definitions/common.TabularData"
+				},
+				"error": {
+					"type": "string"
+				},
+				"computeStats": {
+					"$ref": "#/definitions/common.ComputeStats"
+				}
+			}
+		},
+		"common.Any": {
+			"type": "object",
+			"properties": {
+				"intValue": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"longValue": {
+					"type": "string",
+					"format": "int64"
+				},
+				"doubleValue": {
+					"type": "number",
+					"format": "double"
+				},
+				"stringValue": {
+					"type": "string"
+				},
+				"boolValue": {
+					"type": "boolean"
+				},
+				"dateValue": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"listValue": {
+					"$ref": "#/definitions/common.StringList"
+				}
+			}
+		},
+		"common.CachePolicy": {
+			"type": "object",
+			"properties": {
+				"cacheTtlSecs": {
+					"type": "integer",
+					"format": "int32",
+					"title": "how long the cache will be stored before it is evicted"
+				},
+				"cacheRefreshTtlSecs": {
+					"type": "integer",
+					"format": "int32",
+					"title": "how long the cache will be refreshed in the background"
+				},
+				"forceRefresh": {
+					"type": "boolean",
+					"title": "force refresh the cache now"
+				},
+				"noCache": {
+					"type": "boolean",
+					"title": "do not use cache"
+				}
+			}
+		},
+		"common.ComputeStats": {
+			"type": "object",
+			"properties": {
+				"computedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"computeCostMs": {
+					"type": "string",
+					"format": "int64"
+				},
+				"binaryVersionHash": {
+					"type": "string",
+					"format": "uint64"
+				},
+				"computedBy": {
+					"type": "string"
+				},
+				"isCached": {
+					"type": "boolean"
+				},
+				"isRefreshing": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.Duration": {
+			"type": "object",
+			"properties": {
+				"value": {
+					"type": "number",
+					"format": "double"
+				},
+				"unit": {
+					"type": "string"
+				}
+			}
+		},
+		"common.EventLogEntry": {
+			"type": "object",
+			"properties": {
+				"message": {
+					"type": "string"
+				},
+				"timestamp": {
+					"type": "string",
+					"format": "int64"
+				},
+				"logLevel": {
+					"type": "string"
+				},
+				"logType": {
+					"type": "string"
+				},
+				"contractName": {
+					"type": "string"
+				},
+				"contractAddress": {
+					"type": "string"
+				},
+				"blockNumber": {
+					"type": "string",
+					"format": "uint64"
+				},
+				"chainId": {
+					"type": "string"
+				},
+				"attributes": {
+					"type": "object"
+				},
+				"id": {
+					"type": "string"
+				},
+				"transactionHash": {
+					"type": "string"
+				},
+				"highlightedMessage": {
+					"type": "string"
+				},
+				"distinctId": {
+					"type": "string"
+				},
+				"eventName": {
+					"type": "string"
+				},
+				"logIndex": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"transactionIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"common.StringList": {
+			"type": "object",
+			"properties": {
+				"values": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"title": "JoinOperator operator = 2; // this field should implement in the future"
+				}
+			}
+		},
+		"common.TabularData": {
+			"type": "object",
+			"properties": {
+				"columns": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"columnTypes": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/common.TabularData.ColumnType"
+					}
+				},
+				"rows": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					}
+				},
+				"generatedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"cursor": {
+					"type": "string"
+				}
+			}
+		},
+		"common.TabularData.ColumnType": {
+			"type": "string",
+			"enum": [
+				"STRING",
+				"NUMBER",
+				"BOOLEAN",
+				"LIST",
+				"TIME"
+			],
+			"default": "STRING"
+		},
+		"common.TimeRange": {
+			"type": "object",
+			"properties": {
+				"start": {
+					"$ref": "#/definitions/common.TimeRange.TimeLike"
+				},
+				"end": {
+					"$ref": "#/definitions/common.TimeRange.TimeLike"
+				},
+				"step": {
+					"type": "string",
+					"format": "int64"
+				},
+				"interval": {
+					"$ref": "#/definitions/common.Duration",
+					"title": "TODO remove step in favor of interval"
+				},
+				"timezone": {
+					"type": "string"
+				}
+			}
+		},
+		"common.TimeRange.RelativeTime": {
+			"type": "object",
+			"properties": {
+				"unit": {
+					"type": "string"
+				},
+				"value": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"align": {
+					"type": "string"
+				}
+			}
+		},
+		"common.TimeRange.TimeLike": {
+			"type": "object",
+			"properties": {
+				"relativeTime": {
+					"$ref": "#/definitions/common.TimeRange.RelativeTime"
+				},
+				"absoluteTime": {
+					"type": "string",
+					"format": "int64"
+				}
+			}
+		},
+		"google.protobuf.NullValue": {
+			"type": "string",
+			"enum": [
+				"NULL_VALUE"
+			],
+			"default": "NULL_VALUE",
+			"description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+		},
+		"common.Aggregate": {
+			"type": "object",
+			"properties": {
+				"op": {
+					"$ref": "#/definitions/common.Aggregate.AggregateOps"
+				},
+				"grouping": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"common.Aggregate.AggregateOps": {
+			"type": "string",
+			"enum": [
+				"AVG",
+				"SUM",
+				"MIN",
+				"MAX",
+				"COUNT"
+			],
+			"default": "AVG"
+		},
+		"common.Argument": {
+			"type": "object",
+			"properties": {
+				"stringValue": {
+					"type": "string"
+				},
+				"intValue": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"doubleValue": {
+					"type": "number",
+					"format": "double"
+				},
+				"boolValue": {
+					"type": "boolean"
+				},
+				"durationValue": {
+					"$ref": "#/definitions/common.Duration"
+				}
+			}
+		},
+		"common.CohortsFilter": {
+			"type": "object",
+			"properties": {
+				"symbol": {
+					"type": "boolean"
+				},
+				"name": {
+					"type": "string"
+				},
+				"aggregation": {
+					"$ref": "#/definitions/common.CohortsFilter.Aggregation"
+				},
+				"selectorExpr": {
+					"$ref": "#/definitions/common.SelectorExpr"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRangeLite"
+				}
+			}
+		},
+		"common.CohortsFilter.Aggregation": {
+			"type": "object",
+			"properties": {
+				"total": {
+					"$ref": "#/definitions/common.CohortsFilter.Aggregation.Total"
+				},
+				"aggregateProperties": {
+					"$ref": "#/definitions/common.CohortsFilter.Aggregation.AggregateProperties"
+				},
+				"operator": {
+					"$ref": "#/definitions/common.CohortsFilter.Aggregation.OperatorType"
+				},
+				"value": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Any"
+					}
+				}
+			}
+		},
+		"common.CohortsFilter.Aggregation.AggregateProperties": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"$ref": "#/definitions/common.CohortsFilter.Aggregation.AggregateProperties.AggregationType"
+				},
+				"propertyName": {
+					"type": "string"
+				}
+			}
+		},
+		"common.CohortsFilter.Aggregation.AggregateProperties.AggregationType": {
+			"type": "string",
+			"enum": [
+				"SUM",
+				"AVG",
+				"MEDIAN",
+				"MIN",
+				"MAX",
+				"DISTINCT_COUNT",
+				"LAST",
+				"FIRST"
+			],
+			"default": "SUM"
+		},
+		"common.CohortsFilter.Aggregation.OperatorType": {
+			"type": "string",
+			"enum": [
+				"EQ",
+				"NEQ",
+				"GT",
+				"GTE",
+				"LT",
+				"LTE",
+				"BETWEEN",
+				"NOT_BETWEEN"
+			],
+			"default": "EQ"
+		},
+		"common.CohortsFilter.Aggregation.Total": {
+			"type": "object"
+		},
+		"common.CohortsGroup": {
+			"type": "object",
+			"properties": {
+				"joinOperator": {
+					"$ref": "#/definitions/common.JoinOperator"
+				},
+				"filters": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.CohortsFilter"
+					}
+				}
+			}
+		},
+		"common.CohortsQuery": {
+			"type": "object",
+			"properties": {
+				"joinOperator": {
+					"$ref": "#/definitions/common.JoinOperator",
+					"title": "not support THEN"
+				},
+				"groups": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.CohortsGroup"
+					}
+				},
+				"name": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				}
+			}
+		},
+		"common.CoinID": {
+			"type": "object",
+			"properties": {
+				"symbol": {
+					"type": "string"
+				},
+				"address": {
+					"$ref": "#/definitions/common.CoinID.AddressIdentifier"
+				}
+			}
+		},
+		"common.CoinID.AddressIdentifier": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				},
+				"chain": {
+					"type": "string"
+				}
+			}
+		},
+		"common.Formula": {
+			"type": "object",
+			"example": {
+				"expression": "sum(a)+sum(b)"
+			},
+			"properties": {
+				"expression": {
+					"type": "string"
+				},
+				"alias": {
+					"type": "string",
+					"title": "bool enabled = 2;"
+				},
+				"id": {
+					"type": "string"
+				},
+				"disabled": {
+					"type": "boolean"
+				},
+				"functions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Function"
+					}
+				}
+			},
+			"description": "the formula to combine multiple queries",
+			"title": "formula"
+		},
+		"common.Function": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"arguments": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Argument"
+					}
+				}
+			}
+		},
+		"common.JoinOperator": {
+			"type": "string",
+			"enum": [
+				"AND",
+				"OR",
+				"THEN"
+			],
+			"default": "AND"
+		},
+		"common.Matrix": {
+			"type": "object",
+			"properties": {
+				"samples": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Matrix.Sample"
+					}
+				},
+				"totalSamples": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"common.Matrix.Metric": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"labels": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"displayName": {
+					"type": "string"
+				}
+			}
+		},
+		"common.Matrix.Sample": {
+			"type": "object",
+			"properties": {
+				"metric": {
+					"$ref": "#/definitions/common.Matrix.Metric"
+				},
+				"values": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Matrix.Value"
+					}
+				}
+			}
+		},
+		"common.Matrix.Value": {
+			"type": "object",
+			"properties": {
+				"timestamp": {
+					"type": "string",
+					"format": "int64"
+				},
+				"value": {
+					"type": "number",
+					"format": "double"
+				}
+			}
+		},
+		"common.PriceSegmentationQuery": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"alias": {
+					"type": "string"
+				},
+				"coinId": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.CoinID"
+					}
+				},
+				"disabled": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.Query": {
+			"type": "object",
+			"example": {
+				"query": "transfer_sum",
+				"alias": "transfer (24h)",
+				"id": "a",
+				"labelSelector": {},
+				"aggregate": null,
+				"functions": [
+					{
+						"name": "rollup_sum",
+						"arguments": [
+							{
+								"durationValue": {
+									"value": 1,
+									"unit": "d"
+								}
+							}
+						]
+					}
+				],
+				"disabled": false
+			},
+			"properties": {
+				"query": {
+					"type": "string",
+					"title": "the promql query or the metric name"
+				},
+				"alias": {
+					"type": "string",
+					"title": "the alias of the query"
+				},
+				"id": {
+					"type": "string",
+					"title": "the id of the query"
+				},
+				"labelSelector": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"aggregate": {
+					"$ref": "#/definitions/common.Aggregate"
+				},
+				"functions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Function"
+					}
+				},
+				"disabled": {
+					"type": "boolean",
+					"title": "hide the result, usually used for formula, default is false"
+				}
+			},
+			"description": "the query to fetch metrics data, promql",
+			"title": "Metrics query",
+			"externalDocs": {
+				"description": "Find more about prometheus query language here.",
+				"url": "https://prometheus.io/docs/prometheus/latest/querying/basics/"
+			}
+		},
+		"common.RetentionMatrix": {
+			"type": "object",
+			"properties": {
+				"samples": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.RetentionMatrix.Sample"
+					}
+				}
+			}
+		},
+		"common.RetentionMatrix.Sample": {
+			"type": "object",
+			"properties": {
+				"time": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"segmentParameter": {
+					"$ref": "#/definitions/common.SegmentParameter"
+				},
+				"labels": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"totalCount": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"counts": {
+					"type": "array",
+					"items": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"rates": {
+					"type": "array",
+					"items": {
+						"type": "number",
+						"format": "double"
+					}
+				}
+			}
+		},
+		"common.RetentionQuery": {
+			"type": "object",
+			"properties": {
+				"resources": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.RetentionQuery.Resource"
+					},
+					"title": "only support 2 resources"
+				},
+				"criteria": {
+					"$ref": "#/definitions/common.RetentionQuery.Criteria"
+				},
+				"interval": {
+					"$ref": "#/definitions/common.RetentionQuery.Interval"
+				},
+				"selectorExpr": {
+					"$ref": "#/definitions/common.SelectorExpr"
+				},
+				"groupBy": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"segmentBy": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.SegmentParameter"
+					}
+				},
+				"windowSize": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"common.RetentionQuery.Criteria": {
+			"type": "string",
+			"enum": [
+				"OnOrAfter",
+				"On"
+			],
+			"default": "OnOrAfter"
+		},
+		"common.RetentionQuery.Filter": {
+			"type": "object",
+			"properties": {
+				"propertyFilter": {
+					"$ref": "#/definitions/common.SelectorExpr"
+				},
+				"timeFilter": {
+					"$ref": "#/definitions/common.RetentionQuery.Filter.TimeFilter"
+				}
+			}
+		},
+		"common.RetentionQuery.Filter.TimeFilter": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"$ref": "#/definitions/common.RetentionQuery.Filter.TimeFilter.Type"
+				}
+			}
+		},
+		"common.RetentionQuery.Filter.TimeFilter.Type": {
+			"type": "string",
+			"enum": [
+				"Disable",
+				"FirstInTimeRange",
+				"FirstInGlobal"
+			],
+			"default": "Disable"
+		},
+		"common.RetentionQuery.Interval": {
+			"type": "object",
+			"properties": {
+				"value": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"unit": {
+					"$ref": "#/definitions/common.RetentionQuery.Interval.Unit"
+				}
+			}
+		},
+		"common.RetentionQuery.Interval.Unit": {
+			"type": "string",
+			"enum": [
+				"Day",
+				"Week",
+				"Month"
+			],
+			"default": "Day"
+		},
+		"common.RetentionQuery.Resource": {
+			"type": "object",
+			"properties": {
+				"eventNames": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"filter": {
+					"$ref": "#/definitions/common.RetentionQuery.Filter"
+				}
+			}
+		},
+		"common.SegmentParameter": {
+			"type": "object",
+			"properties": {
+				"cohortId": {
+					"type": "string"
+				},
+				"allUsers": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.SegmentationQuery": {
+			"type": "object",
+			"properties": {
+				"resource": {
+					"$ref": "#/definitions/common.SegmentationQuery.Resource"
+				},
+				"alias": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				},
+				"aggregation": {
+					"$ref": "#/definitions/common.SegmentationQuery.Aggregation"
+				},
+				"selectorExpr": {
+					"$ref": "#/definitions/common.SegmentationQuery.SelectorExpr"
+				},
+				"groupBy": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"limit": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"functions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Function"
+					}
+				},
+				"disabled": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.SegmentationQuery.Aggregation": {
+			"type": "object",
+			"properties": {
+				"total": {
+					"$ref": "#/definitions/common.SegmentationQuery.Aggregation.Total"
+				},
+				"unique": {
+					"$ref": "#/definitions/common.SegmentationQuery.Aggregation.Unique"
+				},
+				"countUnique": {
+					"$ref": "#/definitions/common.SegmentationQuery.Aggregation.CountUnique"
+				},
+				"aggregateProperties": {
+					"$ref": "#/definitions/common.SegmentationQuery.Aggregation.AggregateProperties"
+				}
+			}
+		},
+		"common.SegmentationQuery.Aggregation.AggregateProperties": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"$ref": "#/definitions/common.SegmentationQuery.Aggregation.AggregateProperties.AggregationType"
+				},
+				"propertyName": {
+					"type": "string"
+				}
+			}
+		},
+		"common.SegmentationQuery.Aggregation.AggregateProperties.AggregationType": {
+			"type": "string",
+			"enum": [
+				"SUM",
+				"CUMULATIVE_SUM",
+				"AVG",
+				"MEDIAN",
+				"MIN",
+				"MAX",
+				"DISTINCT_COUNT",
+				"CUMULATIVE_DISTINCT_COUNT",
+				"CUMULATIVE_COUNT",
+				"LAST",
+				"CUMULATIVE_LAST",
+				"FIRST",
+				"CUMULATIVE_FIRST",
+				"PERCENTILE_25TH",
+				"PERCENTILE_75TH",
+				"PERCENTILE_90TH",
+				"PERCENTILE_95TH",
+				"PERCENTILE_99TH"
+			],
+			"default": "SUM"
+		},
+		"common.SegmentationQuery.Aggregation.CountUnique": {
+			"type": "object",
+			"properties": {
+				"duration": {
+					"$ref": "#/definitions/common.Duration"
+				}
+			}
+		},
+		"common.SegmentationQuery.Aggregation.Total": {
+			"type": "object"
+		},
+		"common.SegmentationQuery.Aggregation.Unique": {
+			"type": "object"
+		},
+		"common.SegmentationQuery.Resource": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"type": {
+					"$ref": "#/definitions/common.SegmentationQuery.ResourceType"
+				},
+				"cohortsId": {
+					"type": "string"
+				},
+				"cohortsQuery": {
+					"$ref": "#/definitions/common.CohortsQuery"
+				}
+			}
+		},
+		"common.SegmentationQuery.ResourceType": {
+			"type": "string",
+			"enum": [
+				"EVENTS",
+				"COHORTS"
+			],
+			"default": "EVENTS"
+		},
+		"common.SegmentationQuery.SelectorExpr": {
+			"type": "object",
+			"properties": {
+				"selector": {
+					"$ref": "#/definitions/common.Selector"
+				},
+				"logicExpr": {
+					"$ref": "#/definitions/common.SegmentationQuery.SelectorExpr.LogicExpr"
+				}
+			}
+		},
+		"common.SegmentationQuery.SelectorExpr.LogicExpr": {
+			"type": "object",
+			"properties": {
+				"expressions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.SegmentationQuery.SelectorExpr"
+					}
+				},
+				"operator": {
+					"$ref": "#/definitions/common.JoinOperator",
+					"title": "default is AND"
+				}
+			}
+		},
+		"common.Selector": {
+			"type": "object",
+			"properties": {
+				"key": {
+					"type": "string"
+				},
+				"operator": {
+					"$ref": "#/definitions/common.Selector.OperatorType"
+				},
+				"value": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Any"
+					}
+				}
+			},
+			"title": "TODO maybe MetricQuery should use this as well"
+		},
+		"common.Selector.OperatorType": {
+			"type": "string",
+			"enum": [
+				"EQ",
+				"NEQ",
+				"EXISTS",
+				"NOT_EXISTS",
+				"GT",
+				"GTE",
+				"LT",
+				"LTE",
+				"BETWEEN",
+				"NOT_BETWEEN",
+				"CONTAINS",
+				"NOT_CONTAINS",
+				"IN_COHORTS",
+				"NOT_IN_COHORTS"
+			],
+			"default": "EQ",
+			"description": "- GT: Numeric operators\n - CONTAINS: String operators",
+			"title": "TODO add Date Value and List Value and its data type"
+		},
+		"common.SelectorExpr": {
+			"type": "object",
+			"properties": {
+				"selector": {
+					"$ref": "#/definitions/common.Selector"
+				},
+				"logicExpr": {
+					"$ref": "#/definitions/common.SelectorExpr.LogicExpr"
+				}
+			},
+			"title": "TODO migrate segmentationQuery to use this"
+		},
+		"common.SelectorExpr.LogicExpr": {
+			"type": "object",
+			"properties": {
+				"expressions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.SelectorExpr"
+					}
+				},
+				"operator": {
+					"$ref": "#/definitions/common.JoinOperator",
+					"title": "default is AND"
+				}
+			}
+		},
+		"common.TimeRangeLite": {
+			"type": "object",
+			"example": {
+				"start": "now-1M",
+				"end": "now",
+				"step": 86400,
+				"timezone": "Europe/London"
+			},
+			"properties": {
+				"start": {
+					"type": "string"
+				},
+				"end": {
+					"type": "string"
+				},
+				"step": {
+					"type": "integer",
+					"format": "int32",
+					"title": "interval in seconds between each data point"
+				},
+				"timezone": {
+					"type": "string"
+				}
+			},
+			"description": "start and end time of the time range",
+			"title": "Time range",
+			"externalDocs": {
+				"description": "Find more about time range here.",
+				"url": "https://api.docs.sentio.xyz/docs/data-api#time-range-configuration-guide"
+			},
+			"required": [
+				"start",
+				"end",
+				"step"
+			]
+		},
+		"insights_service.DataSource": {
+			"type": "string",
+			"enum": [
+				"METRICS",
+				"EVENTS",
+				"PRICE",
+				"FORMULA",
+				"COHORTS",
+				"SYSTEM_SQL"
+			],
+			"default": "METRICS"
+		},
+		"insights_service.InsightsService.QueryBody": {
+			"type": "object",
+			"properties": {
+				"projectId": {
+					"type": "string",
+					"title": "use project id if project_owner and project_slug are not provided"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32",
+					"title": "version of the datasource, default to the active version if not provided"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRangeLite"
+				},
+				"queries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/insights_service.QueryRequest.Query"
+					}
+				},
+				"formulas": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Formula"
+					}
+				},
+				"limit": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"offset": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"bypassCache": {
+					"type": "boolean",
+					"title": "deprecated, use cachePolicy instead"
+				},
+				"cachePolicy": {
+					"$ref": "#/definitions/common.CachePolicy"
+				}
+			}
+		},
+		"insights_service.InsightsService.RetentionBody": {
+			"type": "object",
+			"properties": {
+				"projectId": {
+					"type": "string"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRangeLite"
+				},
+				"query": {
+					"$ref": "#/definitions/common.RetentionQuery"
+				}
+			}
+		},
+		"insights_service.ListCoinsResponse": {
+			"type": "object",
+			"properties": {
+				"coins": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.CoinID"
+					}
+				},
+				"computeStats": {
+					"$ref": "#/definitions/common.ComputeStats"
+				}
+			}
+		},
+		"insights_service.QueryRequest": {
+			"type": "object",
+			"properties": {
+				"projectOwner": {
+					"type": "string",
+					"title": "username or organization name"
+				},
+				"projectSlug": {
+					"type": "string",
+					"title": "project slug"
+				},
+				"projectId": {
+					"type": "string",
+					"title": "use project id if project_owner and project_slug are not provided"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32",
+					"title": "version of the datasource, default to the active version if not provided"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRangeLite"
+				},
+				"queries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/insights_service.QueryRequest.Query"
+					}
+				},
+				"formulas": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Formula"
+					}
+				},
+				"limit": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"offset": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"bypassCache": {
+					"type": "boolean",
+					"title": "deprecated, use cachePolicy instead"
+				},
+				"cachePolicy": {
+					"$ref": "#/definitions/common.CachePolicy"
+				}
+			}
+		},
+		"insights_service.QueryRequest.Query": {
+			"type": "object",
+			"properties": {
+				"metricsQuery": {
+					"$ref": "#/definitions/common.Query",
+					"title": "Query for metrics"
+				},
+				"eventsQuery": {
+					"$ref": "#/definitions/common.SegmentationQuery",
+					"title": "Query for event logs"
+				},
+				"priceQuery": {
+					"$ref": "#/definitions/common.PriceSegmentationQuery",
+					"title": "Query for coin prices"
+				},
+				"dataSource": {
+					"$ref": "#/definitions/insights_service.DataSource",
+					"title": "type of the data, can be METRICS, EVENTS, PRICE, FORMULA, COHORTS"
+				},
+				"sourceName": {
+					"type": "string",
+					"title": "source name for the query, used when data is from a external project"
+				}
+			}
+		},
+		"insights_service.QueryResponse": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/insights_service.QueryResponse.Result"
+					}
+				}
+			}
+		},
+		"insights_service.QueryResponse.Result": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"alias": {
+					"type": "string"
+				},
+				"dataSource": {
+					"$ref": "#/definitions/insights_service.DataSource"
+				},
+				"matrix": {
+					"$ref": "#/definitions/common.Matrix"
+				},
+				"error": {
+					"type": "string"
+				},
+				"computeStats": {
+					"$ref": "#/definitions/common.ComputeStats"
+				}
+			}
+		},
+		"insights_service.RetentionRequest": {
+			"type": "object",
+			"properties": {
+				"projectOwner": {
+					"type": "string"
+				},
+				"projectSlug": {
+					"type": "string"
+				},
+				"projectId": {
+					"type": "string"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRangeLite"
+				},
+				"query": {
+					"$ref": "#/definitions/common.RetentionQuery"
+				}
+			}
+		},
+		"insights_service.RetentionResponse": {
+			"type": "object",
+			"properties": {
+				"computeStats": {
+					"$ref": "#/definitions/common.ComputeStats"
+				},
+				"results": {
+					"$ref": "#/definitions/common.RetentionMatrix"
+				},
+				"error": {
+					"type": "string"
+				}
+			}
+		},
+		"metrics_service.GetMetricsResponse": {
+			"type": "object",
+			"properties": {
+				"metrics": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/metrics_service.MetricInfo"
+					}
+				}
+			}
+		},
+		"metrics_service.MetricInfo": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"displayName": {
+					"type": "string"
+				},
+				"projectId": {
+					"type": "string"
+				},
+				"contractName": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"contractAddress": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"chainId": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"labels": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/metrics_service.MetricInfo.LabelValues"
+					}
+				},
+				"metadata": {
+					"$ref": "#/definitions/metrics_service.MetricMetadata"
+				}
+			}
+		},
+		"metrics_service.MetricInfo.LabelValues": {
+			"type": "object",
+			"properties": {
+				"values": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"metrics_service.MetricMetadata": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"type": "string"
+				},
+				"unit": {
+					"type": "string"
+				},
+				"help": {
+					"type": "string"
+				},
+				"lastSeen": {
+					"type": "string",
+					"format": "int64"
+				}
+			}
+		},
+		"metrics_service.MetricsQueryResponse": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/metrics_service.MetricsQueryResponse.Result"
+					}
+				}
+			}
+		},
+		"metrics_service.MetricsQueryResponse.Matrix": {
+			"type": "object",
+			"properties": {
+				"samples": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/metrics_service.MetricsQueryResponse.Sample"
+					}
+				},
+				"totalSamples": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"metrics_service.MetricsQueryResponse.Metric": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"labels": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"displayName": {
+					"type": "string",
+					"title": "string project_id = 3;"
+				}
+			}
+		},
+		"metrics_service.MetricsQueryResponse.Result": {
+			"type": "object",
+			"properties": {
+				"matrix": {
+					"$ref": "#/definitions/metrics_service.MetricsQueryResponse.Matrix",
+					"title": "TODO(chen@sentio.xyz): should use common.Matrix in the future"
+				},
+				"error": {
+					"type": "string"
+				},
+				"alias": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				},
+				"computeStats": {
+					"$ref": "#/definitions/common.ComputeStats"
+				}
+			}
+		},
+		"metrics_service.MetricsQueryResponse.Sample": {
+			"type": "object",
+			"properties": {
+				"metric": {
+					"$ref": "#/definitions/metrics_service.MetricsQueryResponse.Metric"
+				},
+				"values": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/metrics_service.MetricsQueryResponse.Value"
+					}
+				}
+			}
+		},
+		"metrics_service.MetricsQueryResponse.Value": {
+			"type": "object",
+			"properties": {
+				"timestamp": {
+					"type": "string",
+					"format": "int64"
+				},
+				"value": {
+					"type": "number",
+					"format": "double"
+				}
+			}
+		},
+		"metrics_service.ObservabilityService.QueryBody": {
+			"type": "object",
+			"properties": {
+				"queries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Query"
+					}
+				},
+				"formulas": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Formula"
+					}
+				},
+				"time": {
+					"type": "string"
+				},
+				"samplesLimit": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"timezone": {
+					"type": "string"
+				},
+				"samplesOffset": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"metrics_service.ObservabilityService.QueryRangeBody": {
+			"type": "object",
+			"example": {
+				"queries": [
+					{
+						"query": "mint_sum",
+						"alias": "Mint (24 hours)",
+						"id": "a",
+						"labelSelector": {},
+						"aggregate": null,
+						"functions": [
+							{
+								"name": "rollup_sum",
+								"arguments": [
+									{
+										"durationValue": {
+											"value": 1,
+											"unit": "d"
+										}
+									}
+								]
+							}
+						],
+						"disabled": false
+					},
+					{
+						"query": "burn_sum",
+						"alias": "Burn (24 hours)",
+						"id": "b",
+						"labelSelector": {},
+						"aggregate": null,
+						"functions": [
+							{
+								"name": "rollup_sum",
+								"arguments": [
+									{
+										"durationValue": {
+											"value": 1,
+											"unit": "d"
+										}
+									}
+								]
+							}
+						],
+						"disabled": false
+					}
+				],
+				"formulas": [],
+				"timeRange": {
+					"start": "now-30d",
+					"end": "now",
+					"step": 3600,
+					"timezone": "America/Los_Angeles"
+				},
+				"samplesLimit": 20
+			},
+			"properties": {
+				"queries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Query"
+					}
+				},
+				"formulas": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Formula"
+					}
+				},
+				"samplesLimit": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRangeLite"
+				},
+				"projectId": {
+					"type": "string"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"samplesOffset": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"required": [
+				"timeRange"
+			]
+		},
+		"metrics_service.QueryValueResponse": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/metrics_service.QueryValueResponse.Result"
+					}
+				}
+			}
+		},
+		"metrics_service.QueryValueResponse.Result": {
+			"type": "object",
+			"properties": {
+				"sample": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/metrics_service.MetricsQueryResponse.Sample"
+					}
+				},
+				"error": {
+					"type": "string"
+				},
+				"alias": {
+					"type": "string"
+				},
+				"id": {
+					"type": "string"
+				}
+			}
+		},
+		"evm.AccessListItem": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				},
+				"storageKeys": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"evm.Transaction": {
+			"type": "object",
+			"properties": {
+				"blockNumber": {
+					"type": "string"
+				},
+				"blockHash": {
+					"type": "string"
+				},
+				"transactionIndex": {
+					"type": "string"
+				},
+				"hash": {
+					"type": "string"
+				},
+				"chainId": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				},
+				"from": {
+					"type": "string"
+				},
+				"to": {
+					"type": "string"
+				},
+				"input": {
+					"type": "string"
+				},
+				"value": {
+					"type": "string"
+				},
+				"nonce": {
+					"type": "string"
+				},
+				"gas": {
+					"type": "string"
+				},
+				"gasPrice": {
+					"type": "string"
+				},
+				"maxFeePerGas": {
+					"type": "string"
+				},
+				"maxPriorityFeePerGas": {
+					"type": "string"
+				},
+				"accessList": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/evm.AccessListItem"
+					}
+				}
+			}
+		},
+		"evm.TransactionReceipt": {
+			"type": "object",
+			"properties": {
+				"gasUsed": {
+					"type": "string"
+				},
+				"cumulativeGasUsed": {
+					"type": "string"
+				},
+				"effectiveGasPrice": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string",
+					"title": "0x0: failed, 0x1: succeed"
+				},
+				"error": {
+					"type": "string"
+				},
+				"revertReason": {
+					"type": "string"
+				},
+				"logs": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					}
+				}
+			}
+		},
+		"google.api.HttpBody": {
+			"type": "object",
+			"properties": {
+				"contentType": {
+					"type": "string",
+					"description": "The HTTP Content-Type header value specifying the content type of the body."
+				},
+				"data": {
+					"type": "string",
+					"format": "byte",
+					"description": "The HTTP request/response body as raw binary."
+				},
+				"extensions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/google.protobuf.Any"
+					},
+					"description": "Application specific response metadata. Must be set in the first response\nfor streaming APIs."
+				}
+			},
+			"description": "Message that represents an arbitrary HTTP body. It should only be used for\npayload formats that can't be represented as JSON, such as raw binary or\nan HTML page.\n\n\nThis message can be used both in streaming and non-streaming API methods in\nthe request as well as the response.\n\nIt can be used as a top-level request field, which is convenient if one\nwants to extract parameters from either the URL or HTTP template into the\nrequest fields and also want access to the raw HTTP body.\n\nExample:\n\n    message GetResourceRequest {\n      // A unique request id.\n      string request_id = 1;\n\n      // The raw HTTP body is bound to this field.\n      google.api.HttpBody http_body = 2;\n\n    }\n\n    service ResourceService {\n      rpc GetResource(GetResourceRequest)\n        returns (google.api.HttpBody);\n      rpc UpdateResource(google.api.HttpBody)\n        returns (google.protobuf.Empty);\n\n    }\n\nExample with streaming methods:\n\n    service CaldavService {\n      rpc GetCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n      rpc UpdateCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n\n    }\n\nUse of this type only changes how the request and response bodies are\nhandled, all other features will continue to work unchanged."
+		},
+		"google.protobuf.Any": {
+			"type": "object",
+			"properties": {
+				"@type": {
+					"type": "string",
+					"description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+				}
+			},
+			"additionalProperties": {},
+			"description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+		},
+		"solidity_service.BlockOverrides": {
+			"type": "object",
+			"properties": {
+				"blockNumber": {
+					"type": "string"
+				},
+				"timestamp": {
+					"type": "string"
+				},
+				"gasLimit": {
+					"type": "string"
+				},
+				"difficulty": {
+					"type": "string"
+				},
+				"baseFee": {
+					"type": "string"
+				},
+				"blockHash": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"solidity_service.CompileSourceInternalResponse": {
+			"type": "object",
+			"properties": {
+				"failure": {
+					"$ref": "#/definitions/solidity_service.Failure"
+				}
+			}
+		},
+		"solidity_service.CompilerOptions": {
+			"type": "object",
+			"properties": {
+				"language": {
+					"type": "string"
+				},
+				"version": {
+					"type": "string"
+				},
+				"settings": {
+					"$ref": "#/definitions/solidity_service.Settings"
+				},
+				"specializations": {
+					"$ref": "#/definitions/solidity_service.Specializations"
+				}
+			}
+		},
+		"solidity_service.ContractKeyInfo": {
+			"type": "object",
+			"properties": {
+				"preprocessKey": {
+					"type": "string",
+					"title": "always set, even if not preprocessed, pass the key to debugger to store"
+				},
+				"compilationKey": {
+					"type": "string",
+					"title": "If it's already preprocessed, compilation key will be empty"
+				}
+			}
+		},
+		"solidity_service.DecodeStateDiffResponse": {
+			"type": "object",
+			"properties": {
+				"result": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.Failure": {
+			"type": "object",
+			"properties": {
+				"error": {
+					"type": "string"
+				},
+				"reason": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.FetchAndCompileInternalResponse": {
+			"type": "object",
+			"properties": {
+				"compiledAddresses": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"failures": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/solidity_service.Failure"
+					}
+				}
+			}
+		},
+		"solidity_service.GetSimulationBundleResponse": {
+			"type": "object",
+			"properties": {
+				"simulations": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/solidity_service.Simulation"
+					}
+				},
+				"error": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.GetSimulationResponse": {
+			"type": "object",
+			"properties": {
+				"simulation": {
+					"$ref": "#/definitions/solidity_service.Simulation"
+				}
+			}
+		},
+		"solidity_service.GetSimulationsResponse": {
+			"type": "object",
+			"properties": {
+				"simulations": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/solidity_service.Simulation"
+					}
+				},
+				"count": {
+					"type": "string",
+					"format": "int64"
+				},
+				"page": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"pageSize": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"solidity_service.GetStorageSummaryInternalResponse": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/solidity_service.StorageSummaryResult"
+					}
+				}
+			}
+		},
+		"solidity_service.GetTraceCallInternalRequest.Bundle": {
+			"type": "object",
+			"properties": {
+				"transactions": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					}
+				},
+				"blockOverride": {
+					"$ref": "#/definitions/solidity_service.BlockOverrides"
+				}
+			}
+		},
+		"solidity_service.GetTraceCallInternalRequest.StateContext": {
+			"type": "object",
+			"properties": {
+				"blockNumber": {
+					"type": "string"
+				},
+				"transactionIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"solidity_service.GetTraceCallInternalResponse": {
+			"type": "object",
+			"properties": {
+				"result": {
+					"type": "array",
+					"items": {
+						"type": "array",
+						"items": {
+							"type": "object"
+						}
+					}
+				},
+				"outputs": {
+					"type": "array",
+					"items": {
+						"type": "array",
+						"items": {
+							"type": "object"
+						}
+					}
+				},
+				"error": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.GetTraceTransactionInternalResponse": {
+			"type": "object",
+			"properties": {
+				"result": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.Metadata": {
+			"type": "object",
+			"properties": {
+				"useLiteralContent": {
+					"type": "boolean"
+				},
+				"bytecodeHash": {
+					"type": "string"
+				},
+				"appendCBOR": {
+					"type": "boolean"
+				}
+			}
+		},
+		"solidity_service.Optimizer": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean"
+				},
+				"runs": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"details": {
+					"$ref": "#/definitions/solidity_service.Optimizer.Details"
+				}
+			},
+			"title": "partial"
+		},
+		"solidity_service.Optimizer.Details": {
+			"type": "object",
+			"properties": {
+				"peephole": {
+					"type": "boolean"
+				},
+				"jumpdestRemover": {
+					"type": "boolean"
+				},
+				"yul": {
+					"type": "boolean"
+				},
+				"yulDetails": {
+					"$ref": "#/definitions/solidity_service.Optimizer.Details.YulDetails"
+				}
+			}
+		},
+		"solidity_service.Optimizer.Details.YulDetails": {
+			"type": "object",
+			"properties": {
+				"stackAllocation": {
+					"type": "boolean"
+				},
+				"optimizerSteps": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.PreProcessCompilationInternalResponse": {
+			"type": "object",
+			"properties": {
+				"preprocessedAddresses": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"solidity_service.Settings": {
+			"type": "object",
+			"properties": {
+				"remappings": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"optimizer": {
+					"$ref": "#/definitions/solidity_service.Optimizer"
+				},
+				"evmVersion": {
+					"type": "string"
+				},
+				"metadata": {
+					"$ref": "#/definitions/solidity_service.Metadata"
+				},
+				"viaIR": {
+					"type": "boolean"
+				},
+				"compilationTarget": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				}
+			},
+			"title": "partial"
+		},
+		"solidity_service.SimulateTransactionBundleRequest": {
+			"type": "object",
+			"example": {
+				"projectOwner": "<USER>",
+				"projectSlug": "<PROJECT>",
+				"simulations": [
+					{
+						"blockNumber": "17415072",
+						"transactionIndex": "97",
+						"network_id": "1",
+						"from": "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
+						"to": "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+						"gas": "0x31ae2",
+						"gasPrice": "0xe59a1adbe",
+						"input": "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+						"value": "0x0"
+					},
+					{
+						"from": "0x99922ca65188cc218a5d316969dc66d8672994f2",
+						"to": "0xae96a46b64e08861cf2af8c7d954b722e0725a0c",
+						"gas": "0x52",
+						"gasPrice": "0xe5909173e",
+						"maxPriorityFeePerGas": "0x3b023380",
+						"maxFeePerGas": "0x147d03",
+						"input": "0x",
+						"value": "0xbe32c0faed7400"
+					}
+				]
+			},
+			"properties": {
+				"projectOwner": {
+					"type": "string"
+				},
+				"projectSlug": {
+					"type": "string"
+				},
+				"simulations": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/solidity_service.Simulation"
+					},
+					"description": "For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect."
+				}
+			},
+			"required": [
+				"projectOwner",
+				"projectSlug",
+				"simulations"
+			]
+		},
+		"solidity_service.SimulateTransactionBundleResponse": {
+			"type": "object",
+			"properties": {
+				"bundleId": {
+					"type": "string"
+				},
+				"simulations": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/solidity_service.Simulation"
+					}
+				},
+				"error": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.SimulateTransactionRequest": {
+			"type": "object",
+			"example": {
+				"projectOwner": "<USER>",
+				"projectSlug": "<PROJECT>",
+				"simulation": {
+					"networkId": "1",
+					"blockNumber": "17415072",
+					"transactionIndex": "97",
+					"from": "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
+					"to": "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+					"value": "0x0",
+					"gas": "0x31ae2",
+					"gasPrice": "0xe59a1adbe",
+					"input": "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+					"stateOverrides": {
+						"0x0811fd1808e14f0b93f0514313965a5f142c5539": {
+							"balance": "0x1111111111111111"
+						}
+					},
+					"blockOverride": {
+						"baseFee": "0x0"
+					}
+				}
+			},
+			"properties": {
+				"projectOwner": {
+					"type": "string"
+				},
+				"projectSlug": {
+					"type": "string"
+				},
+				"simulation": {
+					"$ref": "#/definitions/solidity_service.Simulation",
+					"title": "bool save = 4;\n  bool save_if_fails = 5;"
+				}
+			},
+			"required": [
+				"projectOwner",
+				"projectSlug",
+				"simulation"
+			]
+		},
+		"solidity_service.SimulateTransactionResponse": {
+			"type": "object",
+			"properties": {
+				"simulation": {
+					"$ref": "#/definitions/solidity_service.Simulation"
+				}
+			}
+		},
+		"solidity_service.Simulation": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"createAt": {
+					"type": "string"
+				},
+				"bundleId": {
+					"type": "string"
+				},
+				"networkId": {
+					"type": "string"
+				},
+				"chainId": {
+					"type": "string",
+					"title": "we should use chain_id in favor of network_id"
+				},
+				"to": {
+					"type": "string"
+				},
+				"input": {
+					"type": "string"
+				},
+				"blockNumber": {
+					"type": "string"
+				},
+				"transactionIndex": {
+					"type": "string"
+				},
+				"from": {
+					"type": "string"
+				},
+				"gas": {
+					"type": "string"
+				},
+				"gasPrice": {
+					"type": "string"
+				},
+				"maxFeePerGas": {
+					"type": "string"
+				},
+				"maxPriorityFeePerGas": {
+					"type": "string"
+				},
+				"value": {
+					"type": "string"
+				},
+				"accessList": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/evm.AccessListItem"
+					}
+				},
+				"originTxHash": {
+					"type": "string"
+				},
+				"stateOverrides": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/solidity_service.StateOverride"
+					}
+				},
+				"sourceOverrides": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					},
+					"title": "map from address to compilationID"
+				},
+				"blockOverride": {
+					"$ref": "#/definitions/solidity_service.BlockOverrides"
+				},
+				"debugDeployment": {
+					"type": "boolean",
+					"title": "for debugging user compilation deployment"
+				},
+				"result": {
+					"$ref": "#/definitions/solidity_service.Simulation.Result"
+				}
+			}
+		},
+		"solidity_service.Simulation.Result": {
+			"type": "object",
+			"properties": {
+				"transaction": {
+					"$ref": "#/definitions/evm.Transaction"
+				},
+				"transactionReceipt": {
+					"$ref": "#/definitions/evm.TransactionReceipt"
+				}
+			}
+		},
+		"solidity_service.SourceInfo": {
+			"type": "object",
+			"properties": {
+				"contractName": {
+					"type": "string"
+				},
+				"options": {
+					"$ref": "#/definitions/solidity_service.CompilerOptions"
+				}
+			}
+		},
+		"solidity_service.SourceMultiFile": {
+			"type": "object",
+			"properties": {
+				"source": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"compilerSettings": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.SourceSpec": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"multiFile": {
+					"$ref": "#/definitions/solidity_service.SourceMultiFile"
+				},
+				"standardJson": {
+					"type": "object"
+				},
+				"metadata": {
+					"type": "object"
+				},
+				"solidityVersion": {
+					"type": "string"
+				},
+				"contractName": {
+					"type": "string"
+				},
+				"constructorArgs": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.Specializations": {
+			"type": "object",
+			"properties": {
+				"constructorArguments": {
+					"type": "string"
+				}
+			},
+			"title": "partial"
+		},
+		"solidity_service.StateOverride": {
+			"type": "object",
+			"properties": {
+				"state": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"balance": {
+					"type": "string",
+					"description": "uint256",
+					"title": "map<string, string> stateDiff = 4;"
+				},
+				"code": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.StorageSummaryResult": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				},
+				"codeAddress": {
+					"type": "string"
+				},
+				"stateVariables": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					}
+				}
+			}
+		},
+		"solidity_service.TxIdentifier": {
+			"type": "object",
+			"properties": {
+				"txHash": {
+					"type": "string"
+				},
+				"simulationId": {
+					"type": "string"
+				},
+				"bundleId": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"txHash"
+			]
+		},
+		"solidity_service.UniversalSearchResponse": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/solidity_service.UniversalSearchResult"
+					}
+				}
+			}
+		},
+		"solidity_service.UniversalSearchResult": {
+			"type": "object",
+			"properties": {
+				"chainId": {
+					"type": "string"
+				},
+				"timestampMs": {
+					"type": "string",
+					"format": "uint64"
+				},
+				"transaction": {
+					"$ref": "#/definitions/solidity_service.UniversalSearchResultTransaction"
+				},
+				"contract": {
+					"$ref": "#/definitions/solidity_service.UniversalSearchResultContract"
+				}
+			}
+		},
+		"solidity_service.UniversalSearchResultContract": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				},
+				"contractName": {
+					"type": "string"
+				}
+			}
+		},
+		"solidity_service.UniversalSearchResultTransaction": {
+			"type": "object",
+			"properties": {
+				"hash": {
+					"type": "string"
+				},
+				"blockNumber": {
+					"type": "string",
+					"format": "uint64"
+				},
+				"blockHash": {
+					"type": "string"
+				},
+				"from": {
+					"type": "string"
+				},
+				"to": {
+					"type": "string"
+				},
+				"methodId": {
+					"type": "string"
+				},
+				"status": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"isTrace": {
+					"type": "boolean"
+				}
+			}
+		},
+		"txindex.EvmRawTransaction": {
+			"type": "object",
+			"properties": {
+				"hash": {
+					"type": "string"
+				},
+				"blockNumber": {
+					"type": "string",
+					"format": "int64"
+				},
+				"isIn": {
+					"type": "boolean"
+				},
+				"trace": {
+					"type": "boolean"
+				},
+				"tx": {
+					"$ref": "#/definitions/evm.Transaction"
+				},
+				"json": {
+					"type": "string"
+				},
+				"timestamp": {
+					"type": "string",
+					"format": "int64"
+				},
+				"transactionStatus": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"methodSignature": {
+					"type": "string"
+				},
+				"methodSignatureText": {
+					"type": "string"
+				},
+				"abiItem": {
+					"type": "string"
+				}
+			}
+		},
+		"txindex.EvmSearchTransactionsResponse": {
+			"type": "object",
+			"properties": {
+				"transactions": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/txindex.EvmRawTransaction"
+					}
+				},
+				"nextPageToken": {
+					"type": "string",
+					"format": "byte"
+				}
+			}
+		},
+		"common.Channel": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"projectId": {
+					"type": "string"
+				},
+				"type": {
+					"$ref": "#/definitions/common.Channel.Type"
+				},
+				"slackWebhookUrl": {
+					"type": "string"
+				},
+				"emailAddress": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"customWebhookUrl": {
+					"type": "string"
+				},
+				"customHeaders": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				},
+				"telegramReference": {
+					"type": "string"
+				},
+				"telegramChatId": {
+					"type": "string"
+				},
+				"slackTeam": {
+					"type": "string"
+				},
+				"slackChannel": {
+					"type": "string"
+				},
+				"pagerdutyConfig": {
+					"type": "object"
+				}
+			},
+			"title": "TODO, finish this"
+		},
+		"common.Channel.Type": {
+			"type": "string",
+			"enum": [
+				"UNKNOWN",
+				"EMAIL",
+				"SLACK",
+				"TELEGRAM",
+				"WEBHOOK",
+				"DISCORD",
+				"PAGERDUTY"
+			],
+			"default": "UNKNOWN"
+		},
+		"common.ColumnState": {
+			"type": "object",
+			"properties": {
+				"columnSizing": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"columnVisibility": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "boolean"
+					}
+				},
+				"columnOrder": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"sorting": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.ColumnState.Sort"
+					}
+				}
+			}
+		},
+		"common.ColumnState.Sort": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"desc": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.EventLogColumn": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"size": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"name": {
+					"type": "string"
+				},
+				"accessorKey": {
+					"type": "string"
+				},
+				"enableHiding": {
+					"type": "boolean"
+				},
+				"enableSorting": {
+					"type": "boolean"
+				},
+				"enableResizing": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.EventLogConfig": {
+			"type": "object",
+			"properties": {
+				"columns": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.EventLogColumn"
+					}
+				},
+				"state": {
+					"$ref": "#/definitions/common.ColumnState"
+				}
+			}
+		},
+		"common.Organization": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"oid": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"members": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Organization.Member"
+					}
+				},
+				"displayName": {
+					"type": "string"
+				},
+				"logoUrl": {
+					"type": "string"
+				},
+				"projects": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.ProjectInfo"
+					}
+				},
+				"tier": {
+					"$ref": "#/definitions/common.Tier"
+				}
+			}
+		},
+		"common.Organization.Member": {
+			"type": "object",
+			"properties": {
+				"user": {
+					"$ref": "#/definitions/common.UserInfo"
+				},
+				"role": {
+					"$ref": "#/definitions/common.OrganizationRole"
+				}
+			}
+		},
+		"common.OrganizationRole": {
+			"type": "string",
+			"enum": [
+				"ORG_MEMBER",
+				"ORG_ADMIN"
+			],
+			"default": "ORG_MEMBER"
+		},
+		"common.Owner": {
+			"type": "object",
+			"properties": {
+				"user": {
+					"$ref": "#/definitions/common.User"
+				},
+				"organization": {
+					"$ref": "#/definitions/common.Organization"
+				},
+				"tier": {
+					"$ref": "#/definitions/common.Tier"
+				}
+			}
+		},
+		"common.Permission": {
+			"type": "string",
+			"enum": [
+				"READ",
+				"WRITE",
+				"ADMIN"
+			],
+			"default": "READ"
+		},
+		"common.Project": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"displayName": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"slug": {
+					"type": "string",
+					"title": "{ownerName}/{slug} is the unique name of the project"
+				},
+				"ownerId": {
+					"type": "string"
+				},
+				"owner": {
+					"$ref": "#/definitions/common.Owner"
+				},
+				"visibility": {
+					"$ref": "#/definitions/common.Project.Visibility"
+				},
+				"type": {
+					"$ref": "#/definitions/common.Project.Type"
+				},
+				"members": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Project.ProjectMember"
+					}
+				},
+				"multiVersion": {
+					"type": "boolean"
+				},
+				"ownerName": {
+					"type": "string"
+				},
+				"notificationChannels": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Channel"
+					}
+				},
+				"views": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.ProjectView"
+					}
+				},
+				"supersetEnable": {
+					"type": "boolean"
+				},
+				"superset": {
+					"$ref": "#/definitions/common.ProjectSuperset"
+				},
+				"enableDisk": {
+					"type": "boolean"
+				},
+				"enableMaterializedView": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.Project.ProjectMember": {
+			"type": "object",
+			"properties": {
+				"user": {
+					"$ref": "#/definitions/common.UserInfo"
+				},
+				"role": {
+					"type": "string"
+				}
+			}
+		},
+		"common.Project.Type": {
+			"type": "string",
+			"enum": [
+				"SENTIO",
+				"SUBGRAPH"
+			],
+			"default": "SENTIO"
+		},
+		"common.Project.Visibility": {
+			"type": "string",
+			"enum": [
+				"PUBLIC",
+				"PRIVATE"
+			],
+			"default": "PUBLIC"
+		},
+		"common.ProjectInfo": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"displayName": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"slug": {
+					"type": "string"
+				},
+				"owner": {
+					"type": "string"
+				},
+				"visibility": {
+					"$ref": "#/definitions/common.Project.Visibility"
+				},
+				"type": {
+					"$ref": "#/definitions/common.Project.Type"
+				},
+				"multiVersion": {
+					"type": "boolean"
+				},
+				"supersetEnable": {
+					"type": "boolean"
+				},
+				"superset": {
+					"$ref": "#/definitions/common.ProjectSuperset"
+				},
+				"enableDisk": {
+					"type": "boolean"
+				},
+				"enableMaterializedView": {
+					"type": "boolean"
+				}
+			}
+		},
+		"common.ProjectSuperset": {
+			"type": "object",
+			"properties": {
+				"projectId": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"syncAt": {
+					"type": "string",
+					"format": "date-time"
+				}
+			}
+		},
+		"common.ProjectView": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"projectId": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"config": {
+					"$ref": "#/definitions/common.ProjectView.ProjectViewConfig"
+				}
+			}
+		},
+		"common.ProjectView.ProjectViewConfig": {
+			"type": "object",
+			"properties": {
+				"eventLog": {
+					"$ref": "#/definitions/common.EventLogConfig"
+				}
+			}
+		},
+		"common.Tier": {
+			"type": "string",
+			"enum": [
+				"FREE",
+				"DEV",
+				"PRO",
+				"ENTERPRISE",
+				"ANONYMOUS"
+			],
+			"default": "FREE"
+		},
+		"common.User": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"emailVerified": {
+					"type": "boolean"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"locale": {
+					"type": "string"
+				},
+				"nickname": {
+					"type": "string"
+				},
+				"picture": {
+					"type": "string"
+				},
+				"sub": {
+					"type": "string"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "int64"
+				},
+				"username": {
+					"type": "string"
+				},
+				"accountStatus": {
+					"$ref": "#/definitions/common.User.AccountStatus"
+				},
+				"tier": {
+					"$ref": "#/definitions/common.Tier"
+				}
+			}
+		},
+		"common.User.AccountStatus": {
+			"type": "string",
+			"enum": [
+				"PENDING",
+				"SET_USERNAME",
+				"BANNED",
+				"ACTIVE"
+			],
+			"default": "PENDING"
+		},
+		"common.UserInfo": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"nickname": {
+					"type": "string"
+				},
+				"picture": {
+					"type": "string"
+				},
+				"username": {
+					"type": "string"
+				}
+			},
+			"description": "The same to user but with sensitive data removed."
+		},
+		"web_service.Chart": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"$ref": "#/definitions/web_service.Chart.ChartType"
+				},
+				"queries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Query"
+					}
+				},
+				"formulas": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Formula"
+					}
+				},
+				"config": {
+					"$ref": "#/definitions/web_service.ChartConfig"
+				},
+				"note": {
+					"$ref": "#/definitions/web_service.Note"
+				},
+				"datasourceType": {
+					"$ref": "#/definitions/web_service.Chart.DataSourceType"
+				},
+				"segmentationQueries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.SegmentationQuery"
+					}
+				},
+				"insightsQueries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/insights_service.QueryRequest.Query"
+					}
+				},
+				"eventLogsConfig": {
+					"$ref": "#/definitions/web_service.EventLogsConfig"
+				},
+				"retentionQuery": {
+					"$ref": "#/definitions/common.RetentionQuery"
+				},
+				"sqlQuery": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.Chart.ChartType": {
+			"type": "string",
+			"enum": [
+				"LINE",
+				"AREA",
+				"BAR",
+				"BAR_GAUGE",
+				"TABLE",
+				"QUERY_VALUE",
+				"PIE",
+				"NOTE"
+			],
+			"default": "LINE"
+		},
+		"web_service.Chart.DataSourceType": {
+			"type": "string",
+			"enum": [
+				"METRICS",
+				"NOTES",
+				"ANALYTICS",
+				"INSIGHTS",
+				"EVENTS",
+				"RETENTION",
+				"SQL"
+			],
+			"default": "METRICS"
+		},
+		"web_service.ChartConfig": {
+			"type": "object",
+			"properties": {
+				"yAxis": {
+					"$ref": "#/definitions/web_service.ChartConfig.YAxisConfig"
+				},
+				"barGauge": {
+					"$ref": "#/definitions/web_service.ChartConfig.BarGaugeConfig"
+				},
+				"valueConfig": {
+					"$ref": "#/definitions/web_service.ChartConfig.ValueConfig"
+				},
+				"timeRangeOverride": {
+					"$ref": "#/definitions/web_service.ChartConfig.TimeRangeOverride"
+				},
+				"tableConfig": {
+					"$ref": "#/definitions/web_service.ChartConfig.TableConfig"
+				},
+				"queryValueConfig": {
+					"$ref": "#/definitions/web_service.ChartConfig.QueryValueConfig"
+				},
+				"pieConfig": {
+					"$ref": "#/definitions/web_service.ChartConfig.PieConfig"
+				},
+				"markers": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/web_service.ChartConfig.Marker"
+					}
+				}
+			}
+		},
+		"web_service.ChartConfig.BarGaugeConfig": {
+			"type": "object",
+			"properties": {
+				"direction": {
+					"$ref": "#/definitions/web_service.ChartConfig.Direction"
+				},
+				"calculation": {
+					"$ref": "#/definitions/web_service.ChartConfig.Calculation"
+				},
+				"sort": {
+					"$ref": "#/definitions/web_service.ChartConfig.Sort"
+				}
+			}
+		},
+		"web_service.ChartConfig.Calculation": {
+			"type": "string",
+			"enum": [
+				"LAST",
+				"FIRST",
+				"MEAN",
+				"TOTAL",
+				"ALL",
+				"MIN",
+				"MAX"
+			],
+			"default": "LAST"
+		},
+		"web_service.ChartConfig.ColorTheme": {
+			"type": "object",
+			"properties": {
+				"textColor": {
+					"type": "string"
+				},
+				"backgroundColor": {
+					"type": "string"
+				},
+				"themeType": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.ChartConfig.ColumnSort": {
+			"type": "object",
+			"properties": {
+				"column": {
+					"type": "string"
+				},
+				"orderDesc": {
+					"type": "boolean"
+				}
+			}
+		},
+		"web_service.ChartConfig.CompareTime": {
+			"type": "object",
+			"properties": {
+				"ago": {
+					"$ref": "#/definitions/common.Duration"
+				}
+			}
+		},
+		"web_service.ChartConfig.Direction": {
+			"type": "string",
+			"enum": [
+				"HORIZONTAL",
+				"VERTICAL"
+			],
+			"default": "HORIZONTAL"
+		},
+		"web_service.ChartConfig.MappingRule": {
+			"type": "object",
+			"properties": {
+				"comparison": {
+					"type": "string"
+				},
+				"value": {
+					"type": "number",
+					"format": "double"
+				},
+				"text": {
+					"type": "string"
+				},
+				"colorTheme": {
+					"$ref": "#/definitions/web_service.ChartConfig.ColorTheme"
+				}
+			}
+		},
+		"web_service.ChartConfig.Marker": {
+			"type": "object",
+			"properties": {
+				"type": {
+					"$ref": "#/definitions/web_service.ChartConfig.MarkerType"
+				},
+				"value": {
+					"type": "number",
+					"format": "double"
+				},
+				"color": {
+					"type": "string"
+				},
+				"label": {
+					"type": "string"
+				},
+				"valueX": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.ChartConfig.MarkerType": {
+			"type": "string",
+			"enum": [
+				"LINE",
+				"AREA",
+				"LINEX"
+			],
+			"default": "LINE"
+		},
+		"web_service.ChartConfig.PieConfig": {
+			"type": "object",
+			"properties": {
+				"pieType": {
+					"$ref": "#/definitions/web_service.ChartConfig.PieConfig.PieType"
+				},
+				"showPercent": {
+					"type": "boolean"
+				},
+				"showValue": {
+					"type": "boolean"
+				},
+				"calculation": {
+					"$ref": "#/definitions/web_service.ChartConfig.Calculation"
+				}
+			}
+		},
+		"web_service.ChartConfig.PieConfig.PieType": {
+			"type": "string",
+			"enum": [
+				"Pie",
+				"Donut"
+			],
+			"default": "Pie"
+		},
+		"web_service.ChartConfig.QueryValueConfig": {
+			"type": "object",
+			"properties": {
+				"colorTheme": {
+					"$ref": "#/definitions/web_service.ChartConfig.ColorTheme"
+				},
+				"showBackgroundChart": {
+					"type": "boolean"
+				},
+				"calculation": {
+					"$ref": "#/definitions/web_service.ChartConfig.Calculation"
+				},
+				"seriesCalculation": {
+					"$ref": "#/definitions/web_service.ChartConfig.Calculation"
+				}
+			}
+		},
+		"web_service.ChartConfig.Sort": {
+			"type": "object",
+			"properties": {
+				"sortBy": {
+					"$ref": "#/definitions/web_service.ChartConfig.SortBy"
+				},
+				"orderDesc": {
+					"type": "boolean"
+				}
+			}
+		},
+		"web_service.ChartConfig.SortBy": {
+			"type": "string",
+			"enum": [
+				"ByName",
+				"ByValue"
+			],
+			"default": "ByName"
+		},
+		"web_service.ChartConfig.TableConfig": {
+			"type": "object",
+			"properties": {
+				"calculation": {
+					"$ref": "#/definitions/web_service.ChartConfig.Calculation"
+				},
+				"showColumns": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "boolean"
+					},
+					"title": "map<string, bool> sort_by = 2;"
+				},
+				"sortColumns": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/web_service.ChartConfig.ColumnSort"
+					}
+				},
+				"columnOrders": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"columnWidths": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "integer",
+						"format": "int32"
+					}
+				},
+				"showPlainData": {
+					"type": "boolean"
+				},
+				"calculations": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/web_service.ChartConfig.Calculation"
+					}
+				},
+				"valueConfigs": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/web_service.ChartConfig.ValueConfig"
+					}
+				},
+				"rowLimit": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"web_service.ChartConfig.TimeRangeOverride": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRange"
+				},
+				"compareTime": {
+					"$ref": "#/definitions/web_service.ChartConfig.CompareTime"
+				}
+			}
+		},
+		"web_service.ChartConfig.ValueConfig": {
+			"type": "object",
+			"properties": {
+				"valueFormatter": {
+					"$ref": "#/definitions/web_service.ChartConfig.ValueFormatter"
+				},
+				"showValueLabel": {
+					"type": "boolean"
+				},
+				"maxSignificantDigits": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"dateFormat": {
+					"type": "string"
+				},
+				"mappingRules": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/web_service.ChartConfig.MappingRule"
+					}
+				},
+				"style": {
+					"$ref": "#/definitions/web_service.ChartConfig.ValueConfig.Style"
+				},
+				"maxFractionDigits": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"precision": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"currencySymbol": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.ChartConfig.ValueConfig.Style": {
+			"type": "string",
+			"enum": [
+				"Standard",
+				"Compact",
+				"Scientific",
+				"Percent",
+				"Currency",
+				"None"
+			],
+			"default": "Standard"
+		},
+		"web_service.ChartConfig.ValueFormatter": {
+			"type": "string",
+			"enum": [
+				"NumberFormatter",
+				"DateFormatter",
+				"StringFormatter"
+			],
+			"default": "NumberFormatter"
+		},
+		"web_service.ChartConfig.YAxisConfig": {
+			"type": "object",
+			"properties": {
+				"min": {
+					"type": "string"
+				},
+				"max": {
+					"type": "string"
+				},
+				"scale": {
+					"type": "boolean"
+				},
+				"stacked": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.Dashboard": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"projectId": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"updatedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"panels": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/web_service.Panel"
+					}
+				},
+				"layouts": {
+					"$ref": "#/definitions/web_service.Dashboard.ResponsiveLayouts"
+				},
+				"extra": {
+					"$ref": "#/definitions/web_service.Dashboard.Extra"
+				},
+				"sharing": {
+					"$ref": "#/definitions/web_service.DashboardSharing"
+				},
+				"default": {
+					"type": "boolean"
+				},
+				"visibility": {
+					"$ref": "#/definitions/web_service.Dashboard.DashboardVisibility"
+				},
+				"ownerId": {
+					"type": "string"
+				},
+				"tags": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"url": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.Dashboard.DashboardVisibility": {
+			"type": "string",
+			"enum": [
+				"INTERNAL",
+				"PRIVATE",
+				"PUBLIC"
+			],
+			"default": "INTERNAL"
+		},
+		"web_service.Dashboard.Extra": {
+			"type": "object",
+			"properties": {
+				"templateVariables": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/web_service.Dashboard.Extra.TemplateVariable"
+					}
+				},
+				"templateViews": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/web_service.Dashboard.Extra.TemplateView"
+					}
+				}
+			}
+		},
+		"web_service.Dashboard.Extra.TemplateVariable": {
+			"type": "object",
+			"properties": {
+				"field": {
+					"type": "string"
+				},
+				"defaultValue": {
+					"type": "string"
+				},
+				"sourceName": {
+					"type": "string"
+				},
+				"options": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"web_service.Dashboard.Extra.TemplateView": {
+			"type": "object",
+			"properties": {
+				"values": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"web_service.Dashboard.Layouts": {
+			"type": "object",
+			"properties": {
+				"layouts": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/web_service.Dashboard.Layouts.Layout"
+					}
+				}
+			}
+		},
+		"web_service.Dashboard.Layouts.Layout": {
+			"type": "object",
+			"properties": {
+				"i": {
+					"type": "string"
+				},
+				"x": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"y": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"w": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"h": {
+					"type": "integer",
+					"format": "int32"
+				}
+			}
+		},
+		"web_service.Dashboard.ResponsiveLayouts": {
+			"type": "object",
+			"properties": {
+				"responsiveLayouts": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/web_service.Dashboard.Layouts"
+					}
+				}
+			}
+		},
+		"web_service.DashboardSharing": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"dashboardId": {
+					"type": "string"
+				},
+				"isPublic": {
+					"type": "boolean"
+				},
+				"viewers": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"web_service.EventLogsConfig": {
+			"type": "object",
+			"properties": {
+				"columnsConfig": {
+					"$ref": "#/definitions/common.EventLogConfig"
+				},
+				"timeRangeOverride": {
+					"$ref": "#/definitions/web_service.EventLogsConfig.TimeRangeOverride"
+				},
+				"query": {
+					"type": "string"
+				},
+				"sourceName": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.EventLogsConfig.TimeRangeOverride": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean"
+				},
+				"timeRange": {
+					"$ref": "#/definitions/common.TimeRange"
+				}
+			}
+		},
+		"web_service.ExportDashboardResponse": {
+			"type": "object",
+			"properties": {
+				"dashboardJson": {
+					"type": "object"
+				}
+			}
+		},
+		"web_service.GetDashboardResponse": {
+			"type": "object",
+			"properties": {
+				"dashboards": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/web_service.Dashboard"
+					}
+				},
+				"permissions": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/common.Permission"
+					}
+				}
+			}
+		},
+		"web_service.GetProjectListResponse": {
+			"type": "object",
+			"properties": {
+				"projects": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Project"
+					}
+				},
+				"sharedProjects": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Project"
+					}
+				},
+				"orgProjects": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/common.Project"
+					}
+				}
+			}
+		},
+		"web_service.GetProjectResponse": {
+			"type": "object",
+			"properties": {
+				"project": {
+					"$ref": "#/definitions/common.Project"
+				},
+				"permissions": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/common.Permission"
+					}
+				}
+			}
+		},
+		"web_service.ImportDashboardRequest": {
+			"type": "object",
+			"properties": {
+				"dashboardId": {
+					"type": "string",
+					"description": "The id of the target dashboard to import into."
+				},
+				"dashboardJson": {
+					"type": "object",
+					"description": "The json data of a previously exported dashboard."
+				},
+				"overrideLayouts": {
+					"type": "boolean",
+					"description": "Override the layout of target dashboard."
+				}
+			},
+			"required": [
+				"dashboardId",
+				"dashboardJson"
+			]
+		},
+		"web_service.ImportDashboardResponse": {
+			"type": "object",
+			"properties": {
+				"dashboard": {
+					"$ref": "#/definitions/web_service.Dashboard"
+				}
+			}
+		},
+		"web_service.Note": {
+			"type": "object",
+			"properties": {
+				"content": {
+					"type": "string"
+				},
+				"fontSize": {
+					"$ref": "#/definitions/web_service.Note.FontSize"
+				},
+				"textAlign": {
+					"$ref": "#/definitions/web_service.Note.Alignment"
+				},
+				"verticalAlign": {
+					"$ref": "#/definitions/web_service.Note.VerticalAlignment"
+				},
+				"backgroundColor": {
+					"type": "string"
+				},
+				"textColor": {
+					"type": "string"
+				}
+			}
+		},
+		"web_service.Note.Alignment": {
+			"type": "string",
+			"enum": [
+				"LEFT",
+				"CENTER",
+				"RIGHT"
+			],
+			"default": "LEFT"
+		},
+		"web_service.Note.FontSize": {
+			"type": "string",
+			"enum": [
+				"MD",
+				"SM",
+				"LG",
+				"XL",
+				"XXL"
+			],
+			"default": "MD"
+		},
+		"web_service.Note.VerticalAlignment": {
+			"type": "string",
+			"enum": [
+				"TOP",
+				"MIDDLE",
+				"BOTTOM"
+			],
+			"default": "TOP"
+		},
+		"web_service.Panel": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"dashboardId": {
+					"type": "string"
+				},
+				"chart": {
+					"$ref": "#/definitions/web_service.Chart"
+				}
+			}
+		}
+	},
+	"host": "app.sentio.xyz",
+	"securityDefinitions": {
+		"ApiKeyAuth": {
+			"type": "apiKey",
+			"name": "Api-Key",
+			"in": "header"
+		}
+	},
+	"security": [
+		{
+			"ApiKeyAuth": []
+		}
+	]
+}
