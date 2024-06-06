@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonRetentionMatrixSample } from './CommonRetentionMatrixSample';
+import { mapValues } from '../runtime.js';
+import type { CommonRetentionMatrixSample } from './CommonRetentionMatrixSample.js';
 import {
     CommonRetentionMatrixSampleFromJSON,
     CommonRetentionMatrixSampleFromJSONTyped,
     CommonRetentionMatrixSampleToJSON,
-} from './CommonRetentionMatrixSample';
+} from './CommonRetentionMatrixSample.js';
 
 /**
  * 

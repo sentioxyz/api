@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChartConfigMarkerType } from './WebServiceChartConfigMarkerType';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChartConfigMarkerType } from './WebServiceChartConfigMarkerType.js';
 import {
     WebServiceChartConfigMarkerTypeFromJSON,
     WebServiceChartConfigMarkerTypeFromJSONTyped,
     WebServiceChartConfigMarkerTypeToJSON,
-} from './WebServiceChartConfigMarkerType';
+} from './WebServiceChartConfigMarkerType.js';
 
 /**
  * 

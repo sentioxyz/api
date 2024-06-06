@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonAggregateAggregateOps } from './CommonAggregateAggregateOps';
+import { mapValues } from '../runtime.js';
+import type { CommonAggregateAggregateOps } from './CommonAggregateAggregateOps.js';
 import {
     CommonAggregateAggregateOpsFromJSON,
     CommonAggregateAggregateOpsFromJSONTyped,
     CommonAggregateAggregateOpsToJSON,
-} from './CommonAggregateAggregateOps';
+} from './CommonAggregateAggregateOps.js';
 
 /**
  * 

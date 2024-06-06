@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonColumnState } from './CommonColumnState';
+import { mapValues } from '../runtime.js';
+import type { CommonColumnState } from './CommonColumnState.js';
 import {
     CommonColumnStateFromJSON,
     CommonColumnStateFromJSONTyped,
     CommonColumnStateToJSON,
-} from './CommonColumnState';
-import type { CommonEventLogColumn } from './CommonEventLogColumn';
+} from './CommonColumnState.js';
+import type { CommonEventLogColumn } from './CommonEventLogColumn.js';
 import {
     CommonEventLogColumnFromJSON,
     CommonEventLogColumnFromJSONTyped,
     CommonEventLogColumnToJSON,
-} from './CommonEventLogColumn';
+} from './CommonEventLogColumn.js';
 
 /**
  * 

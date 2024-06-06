@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonCohortsFilterAggregation } from './CommonCohortsFilterAggregation';
+import { mapValues } from '../runtime.js';
+import type { CommonCohortsFilterAggregation } from './CommonCohortsFilterAggregation.js';
 import {
     CommonCohortsFilterAggregationFromJSON,
     CommonCohortsFilterAggregationFromJSONTyped,
     CommonCohortsFilterAggregationToJSON,
-} from './CommonCohortsFilterAggregation';
-import type { CommonSelectorExpr } from './CommonSelectorExpr';
+} from './CommonCohortsFilterAggregation.js';
+import type { CommonSelectorExpr } from './CommonSelectorExpr.js';
 import {
     CommonSelectorExprFromJSON,
     CommonSelectorExprFromJSONTyped,
     CommonSelectorExprToJSON,
-} from './CommonSelectorExpr';
-import type { CommonTimeRangeLite } from './CommonTimeRangeLite';
+} from './CommonSelectorExpr.js';
+import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
-} from './CommonTimeRangeLite';
+} from './CommonTimeRangeLite.js';
 
 /**
  * 

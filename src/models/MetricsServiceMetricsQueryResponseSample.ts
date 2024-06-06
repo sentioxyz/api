@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { MetricsServiceMetricsQueryResponseMetric } from './MetricsServiceMetricsQueryResponseMetric';
+import { mapValues } from '../runtime.js';
+import type { MetricsServiceMetricsQueryResponseMetric } from './MetricsServiceMetricsQueryResponseMetric.js';
 import {
     MetricsServiceMetricsQueryResponseMetricFromJSON,
     MetricsServiceMetricsQueryResponseMetricFromJSONTyped,
     MetricsServiceMetricsQueryResponseMetricToJSON,
-} from './MetricsServiceMetricsQueryResponseMetric';
-import type { MetricsServiceMetricsQueryResponseValue } from './MetricsServiceMetricsQueryResponseValue';
+} from './MetricsServiceMetricsQueryResponseMetric.js';
+import type { MetricsServiceMetricsQueryResponseValue } from './MetricsServiceMetricsQueryResponseValue.js';
 import {
     MetricsServiceMetricsQueryResponseValueFromJSON,
     MetricsServiceMetricsQueryResponseValueFromJSONTyped,
     MetricsServiceMetricsQueryResponseValueToJSON,
-} from './MetricsServiceMetricsQueryResponseValue';
+} from './MetricsServiceMetricsQueryResponseValue.js';
 
 /**
  * 

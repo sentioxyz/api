@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonComputeStats } from './CommonComputeStats';
+import { mapValues } from '../runtime.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
 import {
     CommonComputeStatsFromJSON,
     CommonComputeStatsFromJSONTyped,
     CommonComputeStatsToJSON,
-} from './CommonComputeStats';
-import type { MetricsServiceMetricsQueryResponseMatrix } from './MetricsServiceMetricsQueryResponseMatrix';
+} from './CommonComputeStats.js';
+import type { MetricsServiceMetricsQueryResponseMatrix } from './MetricsServiceMetricsQueryResponseMatrix.js';
 import {
     MetricsServiceMetricsQueryResponseMatrixFromJSON,
     MetricsServiceMetricsQueryResponseMatrixFromJSONTyped,
     MetricsServiceMetricsQueryResponseMatrixToJSON,
-} from './MetricsServiceMetricsQueryResponseMatrix';
+} from './MetricsServiceMetricsQueryResponseMatrix.js';
 
 /**
  * 

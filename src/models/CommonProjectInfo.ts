@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonProjectSuperset } from './CommonProjectSuperset';
+import { mapValues } from '../runtime.js';
+import type { CommonProjectSuperset } from './CommonProjectSuperset.js';
 import {
     CommonProjectSupersetFromJSON,
     CommonProjectSupersetFromJSONTyped,
     CommonProjectSupersetToJSON,
-} from './CommonProjectSuperset';
-import type { CommonProjectType } from './CommonProjectType';
+} from './CommonProjectSuperset.js';
+import type { CommonProjectType } from './CommonProjectType.js';
 import {
     CommonProjectTypeFromJSON,
     CommonProjectTypeFromJSONTyped,
     CommonProjectTypeToJSON,
-} from './CommonProjectType';
-import type { CommonProjectVisibility } from './CommonProjectVisibility';
+} from './CommonProjectType.js';
+import type { CommonProjectVisibility } from './CommonProjectVisibility.js';
 import {
     CommonProjectVisibilityFromJSON,
     CommonProjectVisibilityFromJSONTyped,
     CommonProjectVisibilityToJSON,
-} from './CommonProjectVisibility';
+} from './CommonProjectVisibility.js';
 
 /**
  * 

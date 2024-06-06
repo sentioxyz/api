@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonEventLogConfig } from './CommonEventLogConfig';
+import { mapValues } from '../runtime.js';
+import type { CommonEventLogConfig } from './CommonEventLogConfig.js';
 import {
     CommonEventLogConfigFromJSON,
     CommonEventLogConfigFromJSONTyped,
     CommonEventLogConfigToJSON,
-} from './CommonEventLogConfig';
+} from './CommonEventLogConfig.js';
 
 /**
  * 

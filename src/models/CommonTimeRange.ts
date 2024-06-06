@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonDuration } from './CommonDuration';
+import { mapValues } from '../runtime.js';
+import type { CommonDuration } from './CommonDuration.js';
 import {
     CommonDurationFromJSON,
     CommonDurationFromJSONTyped,
     CommonDurationToJSON,
-} from './CommonDuration';
-import type { CommonTimeRangeTimeLike } from './CommonTimeRangeTimeLike';
+} from './CommonDuration.js';
+import type { CommonTimeRangeTimeLike } from './CommonTimeRangeTimeLike.js';
 import {
     CommonTimeRangeTimeLikeFromJSON,
     CommonTimeRangeTimeLikeFromJSONTyped,
     CommonTimeRangeTimeLikeToJSON,
-} from './CommonTimeRangeTimeLike';
+} from './CommonTimeRangeTimeLike.js';
 
 /**
  * 

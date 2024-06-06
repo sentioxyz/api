@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceOptimizerDetails } from './SolidityServiceOptimizerDetails';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceOptimizerDetails } from './SolidityServiceOptimizerDetails.js';
 import {
     SolidityServiceOptimizerDetailsFromJSON,
     SolidityServiceOptimizerDetailsFromJSONTyped,
     SolidityServiceOptimizerDetailsToJSON,
-} from './SolidityServiceOptimizerDetails';
+} from './SolidityServiceOptimizerDetails.js';
 
 /**
  * 

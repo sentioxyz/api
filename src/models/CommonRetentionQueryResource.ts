@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonRetentionQueryFilter } from './CommonRetentionQueryFilter';
+import { mapValues } from '../runtime.js';
+import type { CommonRetentionQueryFilter } from './CommonRetentionQueryFilter.js';
 import {
     CommonRetentionQueryFilterFromJSON,
     CommonRetentionQueryFilterFromJSONTyped,
     CommonRetentionQueryFilterToJSON,
-} from './CommonRetentionQueryFilter';
+} from './CommonRetentionQueryFilter.js';
 
 /**
  * 

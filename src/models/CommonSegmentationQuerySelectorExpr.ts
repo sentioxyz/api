@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonSegmentationQuerySelectorExprLogicExpr } from './CommonSegmentationQuerySelectorExprLogicExpr';
+import { mapValues } from '../runtime.js';
+import type { CommonSegmentationQuerySelectorExprLogicExpr } from './CommonSegmentationQuerySelectorExprLogicExpr.js';
 import {
     CommonSegmentationQuerySelectorExprLogicExprFromJSON,
     CommonSegmentationQuerySelectorExprLogicExprFromJSONTyped,
     CommonSegmentationQuerySelectorExprLogicExprToJSON,
-} from './CommonSegmentationQuerySelectorExprLogicExpr';
-import type { CommonSelector } from './CommonSelector';
+} from './CommonSegmentationQuerySelectorExprLogicExpr.js';
+import type { CommonSelector } from './CommonSelector.js';
 import {
     CommonSelectorFromJSON,
     CommonSelectorFromJSONTyped,
     CommonSelectorToJSON,
-} from './CommonSelector';
+} from './CommonSelector.js';
 
 /**
  * 

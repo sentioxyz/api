@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonFormula } from './CommonFormula';
+import { mapValues } from '../runtime.js';
+import type { CommonFormula } from './CommonFormula.js';
 import {
     CommonFormulaFromJSON,
     CommonFormulaFromJSONTyped,
     CommonFormulaToJSON,
-} from './CommonFormula';
-import type { CommonQuery } from './CommonQuery';
+} from './CommonFormula.js';
+import type { CommonQuery } from './CommonQuery.js';
 import {
     CommonQueryFromJSON,
     CommonQueryFromJSONTyped,
     CommonQueryToJSON,
-} from './CommonQuery';
-import type { CommonTimeRangeLite } from './CommonTimeRangeLite';
+} from './CommonQuery.js';
+import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
-} from './CommonTimeRangeLite';
+} from './CommonTimeRangeLite.js';
 
 /**
  * 

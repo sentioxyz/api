@@ -12,49 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonChannel } from './CommonChannel';
+import { mapValues } from '../runtime.js';
+import type { CommonChannel } from './CommonChannel.js';
 import {
     CommonChannelFromJSON,
     CommonChannelFromJSONTyped,
     CommonChannelToJSON,
-} from './CommonChannel';
-import type { CommonOwner } from './CommonOwner';
+} from './CommonChannel.js';
+import type { CommonOwner } from './CommonOwner.js';
 import {
     CommonOwnerFromJSON,
     CommonOwnerFromJSONTyped,
     CommonOwnerToJSON,
-} from './CommonOwner';
-import type { CommonProjectProjectMember } from './CommonProjectProjectMember';
+} from './CommonOwner.js';
+import type { CommonProjectProjectMember } from './CommonProjectProjectMember.js';
 import {
     CommonProjectProjectMemberFromJSON,
     CommonProjectProjectMemberFromJSONTyped,
     CommonProjectProjectMemberToJSON,
-} from './CommonProjectProjectMember';
-import type { CommonProjectSuperset } from './CommonProjectSuperset';
+} from './CommonProjectProjectMember.js';
+import type { CommonProjectSuperset } from './CommonProjectSuperset.js';
 import {
     CommonProjectSupersetFromJSON,
     CommonProjectSupersetFromJSONTyped,
     CommonProjectSupersetToJSON,
-} from './CommonProjectSuperset';
-import type { CommonProjectType } from './CommonProjectType';
+} from './CommonProjectSuperset.js';
+import type { CommonProjectType } from './CommonProjectType.js';
 import {
     CommonProjectTypeFromJSON,
     CommonProjectTypeFromJSONTyped,
     CommonProjectTypeToJSON,
-} from './CommonProjectType';
-import type { CommonProjectView } from './CommonProjectView';
+} from './CommonProjectType.js';
+import type { CommonProjectView } from './CommonProjectView.js';
 import {
     CommonProjectViewFromJSON,
     CommonProjectViewFromJSONTyped,
     CommonProjectViewToJSON,
-} from './CommonProjectView';
-import type { CommonProjectVisibility } from './CommonProjectVisibility';
+} from './CommonProjectView.js';
+import type { CommonProjectVisibility } from './CommonProjectVisibility.js';
 import {
     CommonProjectVisibilityFromJSON,
     CommonProjectVisibilityFromJSONTyped,
     CommonProjectVisibilityToJSON,
-} from './CommonProjectVisibility';
+} from './CommonProjectVisibility.js';
 
 /**
  * 

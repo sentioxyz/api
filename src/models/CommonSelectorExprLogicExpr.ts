@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonJoinOperator } from './CommonJoinOperator';
+import { mapValues } from '../runtime.js';
+import type { CommonJoinOperator } from './CommonJoinOperator.js';
 import {
     CommonJoinOperatorFromJSON,
     CommonJoinOperatorFromJSONTyped,
     CommonJoinOperatorToJSON,
-} from './CommonJoinOperator';
-import type { CommonSelectorExpr } from './CommonSelectorExpr';
+} from './CommonJoinOperator.js';
+import type { CommonSelectorExpr } from './CommonSelectorExpr.js';
 import {
     CommonSelectorExprFromJSON,
     CommonSelectorExprFromJSONTyped,
     CommonSelectorExprToJSON,
-} from './CommonSelectorExpr';
+} from './CommonSelectorExpr.js';
 
 /**
  * 

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { MetricsServiceMetricInfoLabelValues } from './MetricsServiceMetricInfoLabelValues';
+import { mapValues } from '../runtime.js';
+import type { MetricsServiceMetricInfoLabelValues } from './MetricsServiceMetricInfoLabelValues.js';
 import {
     MetricsServiceMetricInfoLabelValuesFromJSON,
     MetricsServiceMetricInfoLabelValuesFromJSONTyped,
     MetricsServiceMetricInfoLabelValuesToJSON,
-} from './MetricsServiceMetricInfoLabelValues';
-import type { MetricsServiceMetricMetadata } from './MetricsServiceMetricMetadata';
+} from './MetricsServiceMetricInfoLabelValues.js';
+import type { MetricsServiceMetricMetadata } from './MetricsServiceMetricMetadata.js';
 import {
     MetricsServiceMetricMetadataFromJSON,
     MetricsServiceMetricMetadataFromJSONTyped,
     MetricsServiceMetricMetadataToJSON,
-} from './MetricsServiceMetricMetadata';
+} from './MetricsServiceMetricMetadata.js';
 
 /**
  * 

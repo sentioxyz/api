@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceUniversalSearchResult } from './SolidityServiceUniversalSearchResult';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceUniversalSearchResult } from './SolidityServiceUniversalSearchResult.js';
 import {
     SolidityServiceUniversalSearchResultFromJSON,
     SolidityServiceUniversalSearchResultFromJSONTyped,
     SolidityServiceUniversalSearchResultToJSON,
-} from './SolidityServiceUniversalSearchResult';
+} from './SolidityServiceUniversalSearchResult.js';
 
 /**
  * 

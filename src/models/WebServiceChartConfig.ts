@@ -12,55 +12,55 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChartConfigBarGaugeConfig } from './WebServiceChartConfigBarGaugeConfig';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChartConfigBarGaugeConfig } from './WebServiceChartConfigBarGaugeConfig.js';
 import {
     WebServiceChartConfigBarGaugeConfigFromJSON,
     WebServiceChartConfigBarGaugeConfigFromJSONTyped,
     WebServiceChartConfigBarGaugeConfigToJSON,
-} from './WebServiceChartConfigBarGaugeConfig';
-import type { WebServiceChartConfigMarker } from './WebServiceChartConfigMarker';
+} from './WebServiceChartConfigBarGaugeConfig.js';
+import type { WebServiceChartConfigMarker } from './WebServiceChartConfigMarker.js';
 import {
     WebServiceChartConfigMarkerFromJSON,
     WebServiceChartConfigMarkerFromJSONTyped,
     WebServiceChartConfigMarkerToJSON,
-} from './WebServiceChartConfigMarker';
-import type { WebServiceChartConfigPieConfig } from './WebServiceChartConfigPieConfig';
+} from './WebServiceChartConfigMarker.js';
+import type { WebServiceChartConfigPieConfig } from './WebServiceChartConfigPieConfig.js';
 import {
     WebServiceChartConfigPieConfigFromJSON,
     WebServiceChartConfigPieConfigFromJSONTyped,
     WebServiceChartConfigPieConfigToJSON,
-} from './WebServiceChartConfigPieConfig';
-import type { WebServiceChartConfigQueryValueConfig } from './WebServiceChartConfigQueryValueConfig';
+} from './WebServiceChartConfigPieConfig.js';
+import type { WebServiceChartConfigQueryValueConfig } from './WebServiceChartConfigQueryValueConfig.js';
 import {
     WebServiceChartConfigQueryValueConfigFromJSON,
     WebServiceChartConfigQueryValueConfigFromJSONTyped,
     WebServiceChartConfigQueryValueConfigToJSON,
-} from './WebServiceChartConfigQueryValueConfig';
-import type { WebServiceChartConfigTableConfig } from './WebServiceChartConfigTableConfig';
+} from './WebServiceChartConfigQueryValueConfig.js';
+import type { WebServiceChartConfigTableConfig } from './WebServiceChartConfigTableConfig.js';
 import {
     WebServiceChartConfigTableConfigFromJSON,
     WebServiceChartConfigTableConfigFromJSONTyped,
     WebServiceChartConfigTableConfigToJSON,
-} from './WebServiceChartConfigTableConfig';
-import type { WebServiceChartConfigTimeRangeOverride } from './WebServiceChartConfigTimeRangeOverride';
+} from './WebServiceChartConfigTableConfig.js';
+import type { WebServiceChartConfigTimeRangeOverride } from './WebServiceChartConfigTimeRangeOverride.js';
 import {
     WebServiceChartConfigTimeRangeOverrideFromJSON,
     WebServiceChartConfigTimeRangeOverrideFromJSONTyped,
     WebServiceChartConfigTimeRangeOverrideToJSON,
-} from './WebServiceChartConfigTimeRangeOverride';
-import type { WebServiceChartConfigValueConfig } from './WebServiceChartConfigValueConfig';
+} from './WebServiceChartConfigTimeRangeOverride.js';
+import type { WebServiceChartConfigValueConfig } from './WebServiceChartConfigValueConfig.js';
 import {
     WebServiceChartConfigValueConfigFromJSON,
     WebServiceChartConfigValueConfigFromJSONTyped,
     WebServiceChartConfigValueConfigToJSON,
-} from './WebServiceChartConfigValueConfig';
-import type { WebServiceChartConfigYAxisConfig } from './WebServiceChartConfigYAxisConfig';
+} from './WebServiceChartConfigValueConfig.js';
+import type { WebServiceChartConfigYAxisConfig } from './WebServiceChartConfigYAxisConfig.js';
 import {
     WebServiceChartConfigYAxisConfigFromJSON,
     WebServiceChartConfigYAxisConfigFromJSONTyped,
     WebServiceChartConfigYAxisConfigToJSON,
-} from './WebServiceChartConfigYAxisConfig';
+} from './WebServiceChartConfigYAxisConfig.js';
 
 /**
  * 

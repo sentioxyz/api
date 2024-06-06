@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { AnalyticServiceLogQueryRequestFilter } from './AnalyticServiceLogQueryRequestFilter';
+import { mapValues } from '../runtime.js';
+import type { AnalyticServiceLogQueryRequestFilter } from './AnalyticServiceLogQueryRequestFilter.js';
 import {
     AnalyticServiceLogQueryRequestFilterFromJSON,
     AnalyticServiceLogQueryRequestFilterFromJSONTyped,
     AnalyticServiceLogQueryRequestFilterToJSON,
-} from './AnalyticServiceLogQueryRequestFilter';
-import type { AnalyticServiceLogQueryRequestSort } from './AnalyticServiceLogQueryRequestSort';
+} from './AnalyticServiceLogQueryRequestFilter.js';
+import type { AnalyticServiceLogQueryRequestSort } from './AnalyticServiceLogQueryRequestSort.js';
 import {
     AnalyticServiceLogQueryRequestSortFromJSON,
     AnalyticServiceLogQueryRequestSortFromJSONTyped,
     AnalyticServiceLogQueryRequestSortToJSON,
-} from './AnalyticServiceLogQueryRequestSort';
-import type { CommonAny } from './CommonAny';
+} from './AnalyticServiceLogQueryRequestSort.js';
+import type { CommonAny } from './CommonAny.js';
 import {
     CommonAnyFromJSON,
     CommonAnyFromJSONTyped,
     CommonAnyToJSON,
-} from './CommonAny';
-import type { CommonTimeRange } from './CommonTimeRange';
+} from './CommonAny.js';
+import type { CommonTimeRange } from './CommonTimeRange.js';
 import {
     CommonTimeRangeFromJSON,
     CommonTimeRangeFromJSONTyped,
     CommonTimeRangeToJSON,
-} from './CommonTimeRange';
+} from './CommonTimeRange.js';
 
 /**
  * 

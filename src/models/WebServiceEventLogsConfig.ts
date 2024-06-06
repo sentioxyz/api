@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonEventLogConfig } from './CommonEventLogConfig';
+import { mapValues } from '../runtime.js';
+import type { CommonEventLogConfig } from './CommonEventLogConfig.js';
 import {
     CommonEventLogConfigFromJSON,
     CommonEventLogConfigFromJSONTyped,
     CommonEventLogConfigToJSON,
-} from './CommonEventLogConfig';
-import type { WebServiceEventLogsConfigTimeRangeOverride } from './WebServiceEventLogsConfigTimeRangeOverride';
+} from './CommonEventLogConfig.js';
+import type { WebServiceEventLogsConfigTimeRangeOverride } from './WebServiceEventLogsConfigTimeRangeOverride.js';
 import {
     WebServiceEventLogsConfigTimeRangeOverrideFromJSON,
     WebServiceEventLogsConfigTimeRangeOverrideFromJSONTyped,
     WebServiceEventLogsConfigTimeRangeOverrideToJSON,
-} from './WebServiceEventLogsConfigTimeRangeOverride';
+} from './WebServiceEventLogsConfigTimeRangeOverride.js';
 
 /**
  * 

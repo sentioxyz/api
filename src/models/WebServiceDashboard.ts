@@ -12,37 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceDashboardDashboardVisibility } from './WebServiceDashboardDashboardVisibility';
+import { mapValues } from '../runtime.js';
+import type { WebServiceDashboardDashboardVisibility } from './WebServiceDashboardDashboardVisibility.js';
 import {
     WebServiceDashboardDashboardVisibilityFromJSON,
     WebServiceDashboardDashboardVisibilityFromJSONTyped,
     WebServiceDashboardDashboardVisibilityToJSON,
-} from './WebServiceDashboardDashboardVisibility';
-import type { WebServiceDashboardExtra } from './WebServiceDashboardExtra';
+} from './WebServiceDashboardDashboardVisibility.js';
+import type { WebServiceDashboardExtra } from './WebServiceDashboardExtra.js';
 import {
     WebServiceDashboardExtraFromJSON,
     WebServiceDashboardExtraFromJSONTyped,
     WebServiceDashboardExtraToJSON,
-} from './WebServiceDashboardExtra';
-import type { WebServiceDashboardResponsiveLayouts } from './WebServiceDashboardResponsiveLayouts';
+} from './WebServiceDashboardExtra.js';
+import type { WebServiceDashboardResponsiveLayouts } from './WebServiceDashboardResponsiveLayouts.js';
 import {
     WebServiceDashboardResponsiveLayoutsFromJSON,
     WebServiceDashboardResponsiveLayoutsFromJSONTyped,
     WebServiceDashboardResponsiveLayoutsToJSON,
-} from './WebServiceDashboardResponsiveLayouts';
-import type { WebServiceDashboardSharing } from './WebServiceDashboardSharing';
+} from './WebServiceDashboardResponsiveLayouts.js';
+import type { WebServiceDashboardSharing } from './WebServiceDashboardSharing.js';
 import {
     WebServiceDashboardSharingFromJSON,
     WebServiceDashboardSharingFromJSONTyped,
     WebServiceDashboardSharingToJSON,
-} from './WebServiceDashboardSharing';
-import type { WebServicePanel } from './WebServicePanel';
+} from './WebServiceDashboardSharing.js';
+import type { WebServicePanel } from './WebServicePanel.js';
 import {
     WebServicePanelFromJSON,
     WebServicePanelFromJSONTyped,
     WebServicePanelToJSON,
-} from './WebServicePanel';
+} from './WebServicePanel.js';
 
 /**
  * 

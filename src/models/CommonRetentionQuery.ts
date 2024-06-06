@@ -12,37 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonRetentionQueryCriteria } from './CommonRetentionQueryCriteria';
+import { mapValues } from '../runtime.js';
+import type { CommonRetentionQueryCriteria } from './CommonRetentionQueryCriteria.js';
 import {
     CommonRetentionQueryCriteriaFromJSON,
     CommonRetentionQueryCriteriaFromJSONTyped,
     CommonRetentionQueryCriteriaToJSON,
-} from './CommonRetentionQueryCriteria';
-import type { CommonRetentionQueryInterval } from './CommonRetentionQueryInterval';
+} from './CommonRetentionQueryCriteria.js';
+import type { CommonRetentionQueryInterval } from './CommonRetentionQueryInterval.js';
 import {
     CommonRetentionQueryIntervalFromJSON,
     CommonRetentionQueryIntervalFromJSONTyped,
     CommonRetentionQueryIntervalToJSON,
-} from './CommonRetentionQueryInterval';
-import type { CommonRetentionQueryResource } from './CommonRetentionQueryResource';
+} from './CommonRetentionQueryInterval.js';
+import type { CommonRetentionQueryResource } from './CommonRetentionQueryResource.js';
 import {
     CommonRetentionQueryResourceFromJSON,
     CommonRetentionQueryResourceFromJSONTyped,
     CommonRetentionQueryResourceToJSON,
-} from './CommonRetentionQueryResource';
-import type { CommonSegmentParameter } from './CommonSegmentParameter';
+} from './CommonRetentionQueryResource.js';
+import type { CommonSegmentParameter } from './CommonSegmentParameter.js';
 import {
     CommonSegmentParameterFromJSON,
     CommonSegmentParameterFromJSONTyped,
     CommonSegmentParameterToJSON,
-} from './CommonSegmentParameter';
-import type { CommonSelectorExpr } from './CommonSelectorExpr';
+} from './CommonSegmentParameter.js';
+import type { CommonSelectorExpr } from './CommonSelectorExpr.js';
 import {
     CommonSelectorExprFromJSON,
     CommonSelectorExprFromJSONTyped,
     CommonSelectorExprToJSON,
-} from './CommonSelectorExpr';
+} from './CommonSelectorExpr.js';
 
 /**
  * 

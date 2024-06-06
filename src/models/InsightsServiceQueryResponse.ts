@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { InsightsServiceQueryResponseResult } from './InsightsServiceQueryResponseResult';
+import { mapValues } from '../runtime.js';
+import type { InsightsServiceQueryResponseResult } from './InsightsServiceQueryResponseResult.js';
 import {
     InsightsServiceQueryResponseResultFromJSON,
     InsightsServiceQueryResponseResultFromJSONTyped,
     InsightsServiceQueryResponseResultToJSON,
-} from './InsightsServiceQueryResponseResult';
+} from './InsightsServiceQueryResponseResult.js';
 
 /**
  * 

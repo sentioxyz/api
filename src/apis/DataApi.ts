@@ -13,7 +13,7 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   AnalyticServiceAnalyticServiceExecuteSQLBody,
   AnalyticServiceLogQueryResponse,
@@ -32,7 +32,7 @@ import type {
   MetricsServiceObservabilityServiceQueryBody,
   MetricsServiceObservabilityServiceQueryRangeBody,
   MetricsServiceQueryValueResponse,
-} from '../models/index';
+} from '../models/index.js';
 import {
     AnalyticServiceAnalyticServiceExecuteSQLBodyFromJSON,
     AnalyticServiceAnalyticServiceExecuteSQLBodyToJSON,
@@ -68,7 +68,7 @@ import {
     MetricsServiceObservabilityServiceQueryRangeBodyToJSON,
     MetricsServiceQueryValueResponseFromJSON,
     MetricsServiceQueryValueResponseToJSON,
-} from '../models/index';
+} from '../models/index.js';
 
 export interface ExecuteSQLRequest {
     owner: string;

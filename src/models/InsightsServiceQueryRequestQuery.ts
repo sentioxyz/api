@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonPriceSegmentationQuery } from './CommonPriceSegmentationQuery';
+import { mapValues } from '../runtime.js';
+import type { CommonPriceSegmentationQuery } from './CommonPriceSegmentationQuery.js';
 import {
     CommonPriceSegmentationQueryFromJSON,
     CommonPriceSegmentationQueryFromJSONTyped,
     CommonPriceSegmentationQueryToJSON,
-} from './CommonPriceSegmentationQuery';
-import type { CommonQuery } from './CommonQuery';
+} from './CommonPriceSegmentationQuery.js';
+import type { CommonQuery } from './CommonQuery.js';
 import {
     CommonQueryFromJSON,
     CommonQueryFromJSONTyped,
     CommonQueryToJSON,
-} from './CommonQuery';
-import type { CommonSegmentationQuery } from './CommonSegmentationQuery';
+} from './CommonQuery.js';
+import type { CommonSegmentationQuery } from './CommonSegmentationQuery.js';
 import {
     CommonSegmentationQueryFromJSON,
     CommonSegmentationQueryFromJSONTyped,
     CommonSegmentationQueryToJSON,
-} from './CommonSegmentationQuery';
-import type { InsightsServiceDataSource } from './InsightsServiceDataSource';
+} from './CommonSegmentationQuery.js';
+import type { InsightsServiceDataSource } from './InsightsServiceDataSource.js';
 import {
     InsightsServiceDataSourceFromJSON,
     InsightsServiceDataSourceFromJSONTyped,
     InsightsServiceDataSourceToJSON,
-} from './InsightsServiceDataSource';
+} from './InsightsServiceDataSource.js';
 
 /**
  * 

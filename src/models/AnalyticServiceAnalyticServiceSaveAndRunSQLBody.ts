@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { AnalyticServiceSQLQuery } from './AnalyticServiceSQLQuery';
+import { mapValues } from '../runtime.js';
+import type { AnalyticServiceSQLQuery } from './AnalyticServiceSQLQuery.js';
 import {
     AnalyticServiceSQLQueryFromJSON,
     AnalyticServiceSQLQueryFromJSONTyped,
     AnalyticServiceSQLQueryToJSON,
-} from './AnalyticServiceSQLQuery';
+} from './AnalyticServiceSQLQuery.js';
 
 /**
  * 

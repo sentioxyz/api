@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { MetricsServiceMetricInfo } from './MetricsServiceMetricInfo';
+import { mapValues } from '../runtime.js';
+import type { MetricsServiceMetricInfo } from './MetricsServiceMetricInfo.js';
 import {
     MetricsServiceMetricInfoFromJSON,
     MetricsServiceMetricInfoFromJSONTyped,
     MetricsServiceMetricInfoToJSON,
-} from './MetricsServiceMetricInfo';
+} from './MetricsServiceMetricInfo.js';
 
 /**
  * 

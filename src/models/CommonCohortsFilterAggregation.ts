@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonAny } from './CommonAny';
+import { mapValues } from '../runtime.js';
+import type { CommonAny } from './CommonAny.js';
 import {
     CommonAnyFromJSON,
     CommonAnyFromJSONTyped,
     CommonAnyToJSON,
-} from './CommonAny';
-import type { CommonCohortsFilterAggregationAggregateProperties } from './CommonCohortsFilterAggregationAggregateProperties';
+} from './CommonAny.js';
+import type { CommonCohortsFilterAggregationAggregateProperties } from './CommonCohortsFilterAggregationAggregateProperties.js';
 import {
     CommonCohortsFilterAggregationAggregatePropertiesFromJSON,
     CommonCohortsFilterAggregationAggregatePropertiesFromJSONTyped,
     CommonCohortsFilterAggregationAggregatePropertiesToJSON,
-} from './CommonCohortsFilterAggregationAggregateProperties';
-import type { CommonCohortsFilterAggregationOperatorType } from './CommonCohortsFilterAggregationOperatorType';
+} from './CommonCohortsFilterAggregationAggregateProperties.js';
+import type { CommonCohortsFilterAggregationOperatorType } from './CommonCohortsFilterAggregationOperatorType.js';
 import {
     CommonCohortsFilterAggregationOperatorTypeFromJSON,
     CommonCohortsFilterAggregationOperatorTypeFromJSONTyped,
     CommonCohortsFilterAggregationOperatorTypeToJSON,
-} from './CommonCohortsFilterAggregationOperatorType';
+} from './CommonCohortsFilterAggregationOperatorType.js';
 
 /**
  * 

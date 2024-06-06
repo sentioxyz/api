@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonTimeRange } from './CommonTimeRange';
+import { mapValues } from '../runtime.js';
+import type { CommonTimeRange } from './CommonTimeRange.js';
 import {
     CommonTimeRangeFromJSON,
     CommonTimeRangeFromJSONTyped,
     CommonTimeRangeToJSON,
-} from './CommonTimeRange';
+} from './CommonTimeRange.js';
 
 /**
  * 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonChannelType } from './CommonChannelType';
+import { mapValues } from '../runtime.js';
+import type { CommonChannelType } from './CommonChannelType.js';
 import {
     CommonChannelTypeFromJSON,
     CommonChannelTypeFromJSONTyped,
     CommonChannelTypeToJSON,
-} from './CommonChannelType';
+} from './CommonChannelType.js';
 
 /**
  * 

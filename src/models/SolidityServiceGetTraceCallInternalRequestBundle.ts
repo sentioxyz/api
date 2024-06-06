@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceBlockOverrides } from './SolidityServiceBlockOverrides';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceBlockOverrides } from './SolidityServiceBlockOverrides.js';
 import {
     SolidityServiceBlockOverridesFromJSON,
     SolidityServiceBlockOverridesFromJSONTyped,
     SolidityServiceBlockOverridesToJSON,
-} from './SolidityServiceBlockOverrides';
+} from './SolidityServiceBlockOverrides.js';
 
 /**
  * 

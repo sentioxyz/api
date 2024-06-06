@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonMatrixSample } from './CommonMatrixSample';
+import { mapValues } from '../runtime.js';
+import type { CommonMatrixSample } from './CommonMatrixSample.js';
 import {
     CommonMatrixSampleFromJSON,
     CommonMatrixSampleFromJSONTyped,
     CommonMatrixSampleToJSON,
-} from './CommonMatrixSample';
+} from './CommonMatrixSample.js';
 
 /**
  * 

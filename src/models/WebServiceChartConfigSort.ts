@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChartConfigSortBy } from './WebServiceChartConfigSortBy';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChartConfigSortBy } from './WebServiceChartConfigSortBy.js';
 import {
     WebServiceChartConfigSortByFromJSON,
     WebServiceChartConfigSortByFromJSONTyped,
     WebServiceChartConfigSortByToJSON,
-} from './WebServiceChartConfigSortBy';
+} from './WebServiceChartConfigSortBy.js';
 
 /**
  * 

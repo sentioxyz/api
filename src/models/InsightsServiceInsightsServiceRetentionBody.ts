@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonRetentionQuery } from './CommonRetentionQuery';
+import { mapValues } from '../runtime.js';
+import type { CommonRetentionQuery } from './CommonRetentionQuery.js';
 import {
     CommonRetentionQueryFromJSON,
     CommonRetentionQueryFromJSONTyped,
     CommonRetentionQueryToJSON,
-} from './CommonRetentionQuery';
-import type { CommonTimeRangeLite } from './CommonTimeRangeLite';
+} from './CommonRetentionQuery.js';
+import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
-} from './CommonTimeRangeLite';
+} from './CommonTimeRangeLite.js';
 
 /**
  * 

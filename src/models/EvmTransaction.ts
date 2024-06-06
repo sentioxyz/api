@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { EvmAccessListItem } from './EvmAccessListItem';
+import { mapValues } from '../runtime.js';
+import type { EvmAccessListItem } from './EvmAccessListItem.js';
 import {
     EvmAccessListItemFromJSON,
     EvmAccessListItemFromJSONTyped,
     EvmAccessListItemToJSON,
-} from './EvmAccessListItem';
+} from './EvmAccessListItem.js';
 
 /**
  * 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonFunction } from './CommonFunction';
+import { mapValues } from '../runtime.js';
+import type { CommonFunction } from './CommonFunction.js';
 import {
     CommonFunctionFromJSON,
     CommonFunctionFromJSONTyped,
     CommonFunctionToJSON,
-} from './CommonFunction';
+} from './CommonFunction.js';
 
 /**
  * the formula to combine multiple queries

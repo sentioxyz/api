@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonOrganization } from './CommonOrganization';
+import { mapValues } from '../runtime.js';
+import type { CommonOrganization } from './CommonOrganization.js';
 import {
     CommonOrganizationFromJSON,
     CommonOrganizationFromJSONTyped,
     CommonOrganizationToJSON,
-} from './CommonOrganization';
-import type { CommonTier } from './CommonTier';
+} from './CommonOrganization.js';
+import type { CommonTier } from './CommonTier.js';
 import {
     CommonTierFromJSON,
     CommonTierFromJSONTyped,
     CommonTierToJSON,
-} from './CommonTier';
-import type { CommonUser } from './CommonUser';
+} from './CommonTier.js';
+import type { CommonUser } from './CommonUser.js';
 import {
     CommonUserFromJSON,
     CommonUserFromJSONTyped,
     CommonUserToJSON,
-} from './CommonUser';
+} from './CommonUser.js';
 
 /**
  * 

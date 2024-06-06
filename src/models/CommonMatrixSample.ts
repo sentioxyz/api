@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonMatrixMetric } from './CommonMatrixMetric';
+import { mapValues } from '../runtime.js';
+import type { CommonMatrixMetric } from './CommonMatrixMetric.js';
 import {
     CommonMatrixMetricFromJSON,
     CommonMatrixMetricFromJSONTyped,
     CommonMatrixMetricToJSON,
-} from './CommonMatrixMetric';
-import type { CommonMatrixValue } from './CommonMatrixValue';
+} from './CommonMatrixMetric.js';
+import type { CommonMatrixValue } from './CommonMatrixValue.js';
 import {
     CommonMatrixValueFromJSON,
     CommonMatrixValueFromJSONTyped,
     CommonMatrixValueToJSON,
-} from './CommonMatrixValue';
+} from './CommonMatrixValue.js';
 
 /**
  * 

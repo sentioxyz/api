@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonPermission } from './CommonPermission';
+import { mapValues } from '../runtime.js';
+import type { CommonPermission } from './CommonPermission.js';
 import {
     CommonPermissionFromJSON,
     CommonPermissionFromJSONTyped,
     CommonPermissionToJSON,
-} from './CommonPermission';
-import type { WebServiceDashboard } from './WebServiceDashboard';
+} from './CommonPermission.js';
+import type { WebServiceDashboard } from './WebServiceDashboard.js';
 import {
     WebServiceDashboardFromJSON,
     WebServiceDashboardFromJSONTyped,
     WebServiceDashboardToJSON,
-} from './WebServiceDashboard';
+} from './WebServiceDashboard.js';
 
 /**
  * 

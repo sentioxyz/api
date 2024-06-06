@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonCohortsFilterAggregationAggregatePropertiesAggregationType } from './CommonCohortsFilterAggregationAggregatePropertiesAggregationType';
+import { mapValues } from '../runtime.js';
+import type { CommonCohortsFilterAggregationAggregatePropertiesAggregationType } from './CommonCohortsFilterAggregationAggregatePropertiesAggregationType.js';
 import {
     CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeFromJSON,
     CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeFromJSONTyped,
     CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeToJSON,
-} from './CommonCohortsFilterAggregationAggregatePropertiesAggregationType';
+} from './CommonCohortsFilterAggregationAggregatePropertiesAggregationType.js';
 
 /**
  * 

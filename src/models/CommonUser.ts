@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonTier } from './CommonTier';
+import { mapValues } from '../runtime.js';
+import type { CommonTier } from './CommonTier.js';
 import {
     CommonTierFromJSON,
     CommonTierFromJSONTyped,
     CommonTierToJSON,
-} from './CommonTier';
-import type { CommonUserAccountStatus } from './CommonUserAccountStatus';
+} from './CommonTier.js';
+import type { CommonUserAccountStatus } from './CommonUserAccountStatus.js';
 import {
     CommonUserAccountStatusFromJSON,
     CommonUserAccountStatusFromJSONTyped,
     CommonUserAccountStatusToJSON,
-} from './CommonUserAccountStatus';
+} from './CommonUserAccountStatus.js';
 
 /**
  * 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { TxindexEvmRawTransaction } from './TxindexEvmRawTransaction';
+import { mapValues } from '../runtime.js';
+import type { TxindexEvmRawTransaction } from './TxindexEvmRawTransaction.js';
 import {
     TxindexEvmRawTransactionFromJSON,
     TxindexEvmRawTransactionFromJSONTyped,
     TxindexEvmRawTransactionToJSON,
-} from './TxindexEvmRawTransaction';
+} from './TxindexEvmRawTransaction.js';
 
 /**
  * 

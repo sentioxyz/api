@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonComputeStats } from './CommonComputeStats';
+import { mapValues } from '../runtime.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
 import {
     CommonComputeStatsFromJSON,
     CommonComputeStatsFromJSONTyped,
     CommonComputeStatsToJSON,
-} from './CommonComputeStats';
-import type { CommonRetentionMatrix } from './CommonRetentionMatrix';
+} from './CommonComputeStats.js';
+import type { CommonRetentionMatrix } from './CommonRetentionMatrix.js';
 import {
     CommonRetentionMatrixFromJSON,
     CommonRetentionMatrixFromJSONTyped,
     CommonRetentionMatrixToJSON,
-} from './CommonRetentionMatrix';
+} from './CommonRetentionMatrix.js';
 
 /**
  * 

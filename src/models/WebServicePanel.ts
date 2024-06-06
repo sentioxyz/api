@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChart } from './WebServiceChart';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChart } from './WebServiceChart.js';
 import {
     WebServiceChartFromJSON,
     WebServiceChartFromJSONTyped,
     WebServiceChartToJSON,
-} from './WebServiceChart';
+} from './WebServiceChart.js';
 
 /**
  * 

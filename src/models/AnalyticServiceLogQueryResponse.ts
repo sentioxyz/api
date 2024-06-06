@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonAny } from './CommonAny';
+import { mapValues } from '../runtime.js';
+import type { CommonAny } from './CommonAny.js';
 import {
     CommonAnyFromJSON,
     CommonAnyFromJSONTyped,
     CommonAnyToJSON,
-} from './CommonAny';
-import type { CommonEventLogEntry } from './CommonEventLogEntry';
+} from './CommonAny.js';
+import type { CommonEventLogEntry } from './CommonEventLogEntry.js';
 import {
     CommonEventLogEntryFromJSON,
     CommonEventLogEntryFromJSONTyped,
     CommonEventLogEntryToJSON,
-} from './CommonEventLogEntry';
+} from './CommonEventLogEntry.js';
 
 /**
  * 

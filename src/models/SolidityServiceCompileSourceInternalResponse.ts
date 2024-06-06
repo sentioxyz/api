@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceFailure } from './SolidityServiceFailure';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceFailure } from './SolidityServiceFailure.js';
 import {
     SolidityServiceFailureFromJSON,
     SolidityServiceFailureFromJSONTyped,
     SolidityServiceFailureToJSON,
-} from './SolidityServiceFailure';
+} from './SolidityServiceFailure.js';
 
 /**
  * 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonTabularDataColumnType } from './CommonTabularDataColumnType';
+import { mapValues } from '../runtime.js';
+import type { CommonTabularDataColumnType } from './CommonTabularDataColumnType.js';
 import {
     CommonTabularDataColumnTypeFromJSON,
     CommonTabularDataColumnTypeFromJSONTyped,
     CommonTabularDataColumnTypeToJSON,
-} from './CommonTabularDataColumnType';
+} from './CommonTabularDataColumnType.js';
 
 /**
  * 

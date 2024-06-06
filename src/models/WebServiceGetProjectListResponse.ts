@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonProject } from './CommonProject';
+import { mapValues } from '../runtime.js';
+import type { CommonProject } from './CommonProject.js';
 import {
     CommonProjectFromJSON,
     CommonProjectFromJSONTyped,
     CommonProjectToJSON,
-} from './CommonProject';
+} from './CommonProject.js';
 
 /**
  * 

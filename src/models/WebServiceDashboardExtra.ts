@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceDashboardExtraTemplateVariable } from './WebServiceDashboardExtraTemplateVariable';
+import { mapValues } from '../runtime.js';
+import type { WebServiceDashboardExtraTemplateVariable } from './WebServiceDashboardExtraTemplateVariable.js';
 import {
     WebServiceDashboardExtraTemplateVariableFromJSON,
     WebServiceDashboardExtraTemplateVariableFromJSONTyped,
     WebServiceDashboardExtraTemplateVariableToJSON,
-} from './WebServiceDashboardExtraTemplateVariable';
-import type { WebServiceDashboardExtraTemplateView } from './WebServiceDashboardExtraTemplateView';
+} from './WebServiceDashboardExtraTemplateVariable.js';
+import type { WebServiceDashboardExtraTemplateView } from './WebServiceDashboardExtraTemplateView.js';
 import {
     WebServiceDashboardExtraTemplateViewFromJSON,
     WebServiceDashboardExtraTemplateViewFromJSONTyped,
     WebServiceDashboardExtraTemplateViewToJSON,
-} from './WebServiceDashboardExtraTemplateView';
+} from './WebServiceDashboardExtraTemplateView.js';
 
 /**
  * 

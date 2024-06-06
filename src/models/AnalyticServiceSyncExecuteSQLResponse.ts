@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonComputeStats } from './CommonComputeStats';
+import { mapValues } from '../runtime.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
 import {
     CommonComputeStatsFromJSON,
     CommonComputeStatsFromJSONTyped,
     CommonComputeStatsToJSON,
-} from './CommonComputeStats';
-import type { CommonTabularData } from './CommonTabularData';
+} from './CommonComputeStats.js';
+import type { CommonTabularData } from './CommonTabularData.js';
 import {
     CommonTabularDataFromJSON,
     CommonTabularDataFromJSONTyped,
     CommonTabularDataToJSON,
-} from './CommonTabularData';
+} from './CommonTabularData.js';
 
 /**
  * 

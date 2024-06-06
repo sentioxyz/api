@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceCompilerOptions } from './SolidityServiceCompilerOptions';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceCompilerOptions } from './SolidityServiceCompilerOptions.js';
 import {
     SolidityServiceCompilerOptionsFromJSON,
     SolidityServiceCompilerOptionsFromJSONTyped,
     SolidityServiceCompilerOptionsToJSON,
-} from './SolidityServiceCompilerOptions';
+} from './SolidityServiceCompilerOptions.js';
 
 /**
  * 

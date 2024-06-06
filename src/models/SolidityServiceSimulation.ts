@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { EvmAccessListItem } from './EvmAccessListItem';
+import { mapValues } from '../runtime.js';
+import type { EvmAccessListItem } from './EvmAccessListItem.js';
 import {
     EvmAccessListItemFromJSON,
     EvmAccessListItemFromJSONTyped,
     EvmAccessListItemToJSON,
-} from './EvmAccessListItem';
-import type { SolidityServiceBlockOverrides } from './SolidityServiceBlockOverrides';
+} from './EvmAccessListItem.js';
+import type { SolidityServiceBlockOverrides } from './SolidityServiceBlockOverrides.js';
 import {
     SolidityServiceBlockOverridesFromJSON,
     SolidityServiceBlockOverridesFromJSONTyped,
     SolidityServiceBlockOverridesToJSON,
-} from './SolidityServiceBlockOverrides';
-import type { SolidityServiceSimulationResult } from './SolidityServiceSimulationResult';
+} from './SolidityServiceBlockOverrides.js';
+import type { SolidityServiceSimulationResult } from './SolidityServiceSimulationResult.js';
 import {
     SolidityServiceSimulationResultFromJSON,
     SolidityServiceSimulationResultFromJSONTyped,
     SolidityServiceSimulationResultToJSON,
-} from './SolidityServiceSimulationResult';
-import type { SolidityServiceStateOverride } from './SolidityServiceStateOverride';
+} from './SolidityServiceSimulationResult.js';
+import type { SolidityServiceStateOverride } from './SolidityServiceStateOverride.js';
 import {
     SolidityServiceStateOverrideFromJSON,
     SolidityServiceStateOverrideFromJSONTyped,
     SolidityServiceStateOverrideToJSON,
-} from './SolidityServiceStateOverride';
+} from './SolidityServiceStateOverride.js';
 
 /**
  * 

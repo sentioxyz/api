@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonCohortsFilter } from './CommonCohortsFilter';
+import { mapValues } from '../runtime.js';
+import type { CommonCohortsFilter } from './CommonCohortsFilter.js';
 import {
     CommonCohortsFilterFromJSON,
     CommonCohortsFilterFromJSONTyped,
     CommonCohortsFilterToJSON,
-} from './CommonCohortsFilter';
-import type { CommonJoinOperator } from './CommonJoinOperator';
+} from './CommonCohortsFilter.js';
+import type { CommonJoinOperator } from './CommonJoinOperator.js';
 import {
     CommonJoinOperatorFromJSON,
     CommonJoinOperatorFromJSONTyped,
     CommonJoinOperatorToJSON,
-} from './CommonJoinOperator';
+} from './CommonJoinOperator.js';
 
 /**
  * 

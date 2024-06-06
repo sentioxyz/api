@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonArgument } from './CommonArgument';
+import { mapValues } from '../runtime.js';
+import type { CommonArgument } from './CommonArgument.js';
 import {
     CommonArgumentFromJSON,
     CommonArgumentFromJSONTyped,
     CommonArgumentToJSON,
-} from './CommonArgument';
+} from './CommonArgument.js';
 
 /**
  * 

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { EvmTransaction } from './EvmTransaction';
+import { mapValues } from '../runtime.js';
+import type { EvmTransaction } from './EvmTransaction.js';
 import {
     EvmTransactionFromJSON,
     EvmTransactionFromJSONTyped,
     EvmTransactionToJSON,
-} from './EvmTransaction';
-import type { EvmTransactionReceipt } from './EvmTransactionReceipt';
+} from './EvmTransaction.js';
+import type { EvmTransactionReceipt } from './EvmTransactionReceipt.js';
 import {
     EvmTransactionReceiptFromJSON,
     EvmTransactionReceiptFromJSONTyped,
     EvmTransactionReceiptToJSON,
-} from './EvmTransactionReceipt';
+} from './EvmTransactionReceipt.js';
 
 /**
  * 

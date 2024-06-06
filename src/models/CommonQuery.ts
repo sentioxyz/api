@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonAggregate } from './CommonAggregate';
+import { mapValues } from '../runtime.js';
+import type { CommonAggregate } from './CommonAggregate.js';
 import {
     CommonAggregateFromJSON,
     CommonAggregateFromJSONTyped,
     CommonAggregateToJSON,
-} from './CommonAggregate';
-import type { CommonFunction } from './CommonFunction';
+} from './CommonAggregate.js';
+import type { CommonFunction } from './CommonFunction.js';
 import {
     CommonFunctionFromJSON,
     CommonFunctionFromJSONTyped,
     CommonFunctionToJSON,
-} from './CommonFunction';
+} from './CommonFunction.js';
 
 /**
  * the query to fetch metrics data, promql

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChartConfigColorTheme } from './WebServiceChartConfigColorTheme';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChartConfigColorTheme } from './WebServiceChartConfigColorTheme.js';
 import {
     WebServiceChartConfigColorThemeFromJSON,
     WebServiceChartConfigColorThemeFromJSONTyped,
     WebServiceChartConfigColorThemeToJSON,
-} from './WebServiceChartConfigColorTheme';
+} from './WebServiceChartConfigColorTheme.js';
 
 /**
  * 

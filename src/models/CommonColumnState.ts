@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonColumnStateSort } from './CommonColumnStateSort';
+import { mapValues } from '../runtime.js';
+import type { CommonColumnStateSort } from './CommonColumnStateSort.js';
 import {
     CommonColumnStateSortFromJSON,
     CommonColumnStateSortFromJSONTyped,
     CommonColumnStateSortToJSON,
-} from './CommonColumnStateSort';
+} from './CommonColumnStateSort.js';
 
 /**
  * 

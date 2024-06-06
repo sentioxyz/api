@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonComputeStats } from './CommonComputeStats';
+import { mapValues } from '../runtime.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
 import {
     CommonComputeStatsFromJSON,
     CommonComputeStatsFromJSONTyped,
     CommonComputeStatsToJSON,
-} from './CommonComputeStats';
-import type { CommonMatrix } from './CommonMatrix';
+} from './CommonComputeStats.js';
+import type { CommonMatrix } from './CommonMatrix.js';
 import {
     CommonMatrixFromJSON,
     CommonMatrixFromJSONTyped,
     CommonMatrixToJSON,
-} from './CommonMatrix';
-import type { InsightsServiceDataSource } from './InsightsServiceDataSource';
+} from './CommonMatrix.js';
+import type { InsightsServiceDataSource } from './InsightsServiceDataSource.js';
 import {
     InsightsServiceDataSourceFromJSON,
     InsightsServiceDataSourceFromJSONTyped,
     InsightsServiceDataSourceToJSON,
-} from './InsightsServiceDataSource';
+} from './InsightsServiceDataSource.js';
 
 /**
  * 

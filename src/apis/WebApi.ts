@@ -13,7 +13,7 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   WebServiceDashboard,
   WebServiceExportDashboardResponse,
@@ -22,7 +22,7 @@ import type {
   WebServiceGetProjectResponse,
   WebServiceImportDashboardRequest,
   WebServiceImportDashboardResponse,
-} from '../models/index';
+} from '../models/index.js';
 import {
     WebServiceDashboardFromJSON,
     WebServiceDashboardToJSON,
@@ -38,7 +38,7 @@ import {
     WebServiceImportDashboardRequestToJSON,
     WebServiceImportDashboardResponseFromJSON,
     WebServiceImportDashboardResponseToJSON,
-} from '../models/index';
+} from '../models/index.js';
 
 export interface DeleteDashboardRequest {
     dashboardId: string;

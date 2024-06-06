@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceMetadata } from './SolidityServiceMetadata';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceMetadata } from './SolidityServiceMetadata.js';
 import {
     SolidityServiceMetadataFromJSON,
     SolidityServiceMetadataFromJSONTyped,
     SolidityServiceMetadataToJSON,
-} from './SolidityServiceMetadata';
-import type { SolidityServiceOptimizer } from './SolidityServiceOptimizer';
+} from './SolidityServiceMetadata.js';
+import type { SolidityServiceOptimizer } from './SolidityServiceOptimizer.js';
 import {
     SolidityServiceOptimizerFromJSON,
     SolidityServiceOptimizerFromJSONTyped,
     SolidityServiceOptimizerToJSON,
-} from './SolidityServiceOptimizer';
+} from './SolidityServiceOptimizer.js';
 
 /**
  * 

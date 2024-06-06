@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation.js';
 import {
     WebServiceChartConfigCalculationFromJSON,
     WebServiceChartConfigCalculationFromJSONTyped,
     WebServiceChartConfigCalculationToJSON,
-} from './WebServiceChartConfigCalculation';
-import type { WebServiceChartConfigColumnSort } from './WebServiceChartConfigColumnSort';
+} from './WebServiceChartConfigCalculation.js';
+import type { WebServiceChartConfigColumnSort } from './WebServiceChartConfigColumnSort.js';
 import {
     WebServiceChartConfigColumnSortFromJSON,
     WebServiceChartConfigColumnSortFromJSONTyped,
     WebServiceChartConfigColumnSortToJSON,
-} from './WebServiceChartConfigColumnSort';
-import type { WebServiceChartConfigValueConfig } from './WebServiceChartConfigValueConfig';
+} from './WebServiceChartConfigColumnSort.js';
+import type { WebServiceChartConfigValueConfig } from './WebServiceChartConfigValueConfig.js';
 import {
     WebServiceChartConfigValueConfigFromJSON,
     WebServiceChartConfigValueConfigFromJSONTyped,
     WebServiceChartConfigValueConfigToJSON,
-} from './WebServiceChartConfigValueConfig';
+} from './WebServiceChartConfigValueConfig.js';
 
 /**
  * 

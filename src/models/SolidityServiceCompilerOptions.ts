@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceSettings } from './SolidityServiceSettings';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceSettings } from './SolidityServiceSettings.js';
 import {
     SolidityServiceSettingsFromJSON,
     SolidityServiceSettingsFromJSONTyped,
     SolidityServiceSettingsToJSON,
-} from './SolidityServiceSettings';
-import type { SolidityServiceSpecializations } from './SolidityServiceSpecializations';
+} from './SolidityServiceSettings.js';
+import type { SolidityServiceSpecializations } from './SolidityServiceSpecializations.js';
 import {
     SolidityServiceSpecializationsFromJSON,
     SolidityServiceSpecializationsFromJSONTyped,
     SolidityServiceSpecializationsToJSON,
-} from './SolidityServiceSpecializations';
+} from './SolidityServiceSpecializations.js';
 
 /**
  * 

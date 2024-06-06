@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonCohortsQuery } from './CommonCohortsQuery';
+import { mapValues } from '../runtime.js';
+import type { CommonCohortsQuery } from './CommonCohortsQuery.js';
 import {
     CommonCohortsQueryFromJSON,
     CommonCohortsQueryFromJSONTyped,
     CommonCohortsQueryToJSON,
-} from './CommonCohortsQuery';
-import type { CommonSegmentationQueryResourceType } from './CommonSegmentationQueryResourceType';
+} from './CommonCohortsQuery.js';
+import type { CommonSegmentationQueryResourceType } from './CommonSegmentationQueryResourceType.js';
 import {
     CommonSegmentationQueryResourceTypeFromJSON,
     CommonSegmentationQueryResourceTypeFromJSONTyped,
     CommonSegmentationQueryResourceTypeToJSON,
-} from './CommonSegmentationQueryResourceType';
+} from './CommonSegmentationQueryResourceType.js';
 
 /**
  * 

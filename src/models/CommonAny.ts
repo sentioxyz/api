@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonStringList } from './CommonStringList';
+import { mapValues } from '../runtime.js';
+import type { CommonStringList } from './CommonStringList.js';
 import {
     CommonStringListFromJSON,
     CommonStringListFromJSONTyped,
     CommonStringListToJSON,
-} from './CommonStringList';
+} from './CommonStringList.js';
 
 /**
  * 

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { AnalyticServiceSQLQuery } from './AnalyticServiceSQLQuery';
+import { mapValues } from '../runtime.js';
+import type { AnalyticServiceSQLQuery } from './AnalyticServiceSQLQuery.js';
 import {
     AnalyticServiceSQLQueryFromJSON,
     AnalyticServiceSQLQueryFromJSONTyped,
     AnalyticServiceSQLQueryToJSON,
-} from './AnalyticServiceSQLQuery';
-import type { CommonCachePolicy } from './CommonCachePolicy';
+} from './AnalyticServiceSQLQuery.js';
+import type { CommonCachePolicy } from './CommonCachePolicy.js';
 import {
     CommonCachePolicyFromJSON,
     CommonCachePolicyFromJSONTyped,
     CommonCachePolicyToJSON,
-} from './CommonCachePolicy';
+} from './CommonCachePolicy.js';
 
 /**
  * 

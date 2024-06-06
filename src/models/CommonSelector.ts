@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonAny } from './CommonAny';
+import { mapValues } from '../runtime.js';
+import type { CommonAny } from './CommonAny.js';
 import {
     CommonAnyFromJSON,
     CommonAnyFromJSONTyped,
     CommonAnyToJSON,
-} from './CommonAny';
-import type { CommonSelectorOperatorType } from './CommonSelectorOperatorType';
+} from './CommonAny.js';
+import type { CommonSelectorOperatorType } from './CommonSelectorOperatorType.js';
 import {
     CommonSelectorOperatorTypeFromJSON,
     CommonSelectorOperatorTypeFromJSONTyped,
     CommonSelectorOperatorTypeToJSON,
-} from './CommonSelectorOperatorType';
+} from './CommonSelectorOperatorType.js';
 
 /**
  * 

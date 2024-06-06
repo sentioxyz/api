@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonSelector } from './CommonSelector';
+import { mapValues } from '../runtime.js';
+import type { CommonSelector } from './CommonSelector.js';
 import {
     CommonSelectorFromJSON,
     CommonSelectorFromJSONTyped,
     CommonSelectorToJSON,
-} from './CommonSelector';
-import type { CommonSelectorExprLogicExpr } from './CommonSelectorExprLogicExpr';
+} from './CommonSelector.js';
+import type { CommonSelectorExprLogicExpr } from './CommonSelectorExprLogicExpr.js';
 import {
     CommonSelectorExprLogicExprFromJSON,
     CommonSelectorExprLogicExprFromJSONTyped,
     CommonSelectorExprLogicExprToJSON,
-} from './CommonSelectorExprLogicExpr';
+} from './CommonSelectorExprLogicExpr.js';
 
 /**
  * 

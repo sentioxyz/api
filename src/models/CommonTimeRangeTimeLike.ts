@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonTimeRangeRelativeTime } from './CommonTimeRangeRelativeTime';
+import { mapValues } from '../runtime.js';
+import type { CommonTimeRangeRelativeTime } from './CommonTimeRangeRelativeTime.js';
 import {
     CommonTimeRangeRelativeTimeFromJSON,
     CommonTimeRangeRelativeTimeFromJSONTyped,
     CommonTimeRangeRelativeTimeToJSON,
-} from './CommonTimeRangeRelativeTime';
+} from './CommonTimeRangeRelativeTime.js';
 
 /**
  * 

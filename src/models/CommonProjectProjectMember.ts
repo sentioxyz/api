@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonUserInfo } from './CommonUserInfo';
+import { mapValues } from '../runtime.js';
+import type { CommonUserInfo } from './CommonUserInfo.js';
 import {
     CommonUserInfoFromJSON,
     CommonUserInfoFromJSONTyped,
     CommonUserInfoToJSON,
-} from './CommonUserInfo';
+} from './CommonUserInfo.js';
 
 /**
  * 

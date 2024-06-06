@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonJoinOperator } from './CommonJoinOperator';
+import { mapValues } from '../runtime.js';
+import type { CommonJoinOperator } from './CommonJoinOperator.js';
 import {
     CommonJoinOperatorFromJSON,
     CommonJoinOperatorFromJSONTyped,
     CommonJoinOperatorToJSON,
-} from './CommonJoinOperator';
-import type { CommonSegmentationQuerySelectorExpr } from './CommonSegmentationQuerySelectorExpr';
+} from './CommonJoinOperator.js';
+import type { CommonSegmentationQuerySelectorExpr } from './CommonSegmentationQuerySelectorExpr.js';
 import {
     CommonSegmentationQuerySelectorExprFromJSON,
     CommonSegmentationQuerySelectorExprFromJSONTyped,
     CommonSegmentationQuerySelectorExprToJSON,
-} from './CommonSegmentationQuerySelectorExpr';
+} from './CommonSegmentationQuerySelectorExpr.js';
 
 /**
  * 

@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonCachePolicy } from './CommonCachePolicy';
+import { mapValues } from '../runtime.js';
+import type { CommonCachePolicy } from './CommonCachePolicy.js';
 import {
     CommonCachePolicyFromJSON,
     CommonCachePolicyFromJSONTyped,
     CommonCachePolicyToJSON,
-} from './CommonCachePolicy';
-import type { CommonFormula } from './CommonFormula';
+} from './CommonCachePolicy.js';
+import type { CommonFormula } from './CommonFormula.js';
 import {
     CommonFormulaFromJSON,
     CommonFormulaFromJSONTyped,
     CommonFormulaToJSON,
-} from './CommonFormula';
-import type { CommonTimeRangeLite } from './CommonTimeRangeLite';
+} from './CommonFormula.js';
+import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
-} from './CommonTimeRangeLite';
-import type { InsightsServiceQueryRequestQuery } from './InsightsServiceQueryRequestQuery';
+} from './CommonTimeRangeLite.js';
+import type { InsightsServiceQueryRequestQuery } from './InsightsServiceQueryRequestQuery.js';
 import {
     InsightsServiceQueryRequestQueryFromJSON,
     InsightsServiceQueryRequestQueryFromJSONTyped,
     InsightsServiceQueryRequestQueryToJSON,
-} from './InsightsServiceQueryRequestQuery';
+} from './InsightsServiceQueryRequestQuery.js';
 
 /**
  * 

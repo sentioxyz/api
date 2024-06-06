@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonFunction } from './CommonFunction';
+import { mapValues } from '../runtime.js';
+import type { CommonFunction } from './CommonFunction.js';
 import {
     CommonFunctionFromJSON,
     CommonFunctionFromJSONTyped,
     CommonFunctionToJSON,
-} from './CommonFunction';
-import type { CommonSegmentationQueryAggregation } from './CommonSegmentationQueryAggregation';
+} from './CommonFunction.js';
+import type { CommonSegmentationQueryAggregation } from './CommonSegmentationQueryAggregation.js';
 import {
     CommonSegmentationQueryAggregationFromJSON,
     CommonSegmentationQueryAggregationFromJSONTyped,
     CommonSegmentationQueryAggregationToJSON,
-} from './CommonSegmentationQueryAggregation';
-import type { CommonSegmentationQueryResource } from './CommonSegmentationQueryResource';
+} from './CommonSegmentationQueryAggregation.js';
+import type { CommonSegmentationQueryResource } from './CommonSegmentationQueryResource.js';
 import {
     CommonSegmentationQueryResourceFromJSON,
     CommonSegmentationQueryResourceFromJSONTyped,
     CommonSegmentationQueryResourceToJSON,
-} from './CommonSegmentationQueryResource';
-import type { CommonSegmentationQuerySelectorExpr } from './CommonSegmentationQuerySelectorExpr';
+} from './CommonSegmentationQueryResource.js';
+import type { CommonSegmentationQuerySelectorExpr } from './CommonSegmentationQuerySelectorExpr.js';
 import {
     CommonSegmentationQuerySelectorExprFromJSON,
     CommonSegmentationQuerySelectorExprFromJSONTyped,
     CommonSegmentationQuerySelectorExprToJSON,
-} from './CommonSegmentationQuerySelectorExpr';
+} from './CommonSegmentationQuerySelectorExpr.js';
 
 /**
  * 

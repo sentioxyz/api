@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { AnalyticServiceExecutionStatus } from './AnalyticServiceExecutionStatus';
+import { mapValues } from '../runtime.js';
+import type { AnalyticServiceExecutionStatus } from './AnalyticServiceExecutionStatus.js';
 import {
     AnalyticServiceExecutionStatusFromJSON,
     AnalyticServiceExecutionStatusFromJSONTyped,
     AnalyticServiceExecutionStatusToJSON,
-} from './AnalyticServiceExecutionStatus';
-import type { CommonTabularData } from './CommonTabularData';
+} from './AnalyticServiceExecutionStatus.js';
+import type { CommonTabularData } from './CommonTabularData.js';
 import {
     CommonTabularDataFromJSON,
     CommonTabularDataFromJSONTyped,
     CommonTabularDataToJSON,
-} from './CommonTabularData';
+} from './CommonTabularData.js';
 
 /**
  * 

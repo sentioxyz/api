@@ -13,7 +13,7 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   GoogleApiHttpBody,
   SolidityServiceGetSimulationBundleResponse,
@@ -25,7 +25,7 @@ import type {
   SolidityServiceSimulateTransactionResponse,
   SolidityServiceUniversalSearchResponse,
   TxindexEvmSearchTransactionsResponse,
-} from '../models/index';
+} from '../models/index.js';
 import {
     GoogleApiHttpBodyFromJSON,
     GoogleApiHttpBodyToJSON,
@@ -47,7 +47,7 @@ import {
     SolidityServiceUniversalSearchResponseToJSON,
     TxindexEvmSearchTransactionsResponseFromJSON,
     TxindexEvmSearchTransactionsResponseToJSON,
-} from '../models/index';
+} from '../models/index.js';
 
 export interface GetCallTraceRequest {
     networkId: string;

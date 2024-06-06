@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonSegmentParameter } from './CommonSegmentParameter';
+import { mapValues } from '../runtime.js';
+import type { CommonSegmentParameter } from './CommonSegmentParameter.js';
 import {
     CommonSegmentParameterFromJSON,
     CommonSegmentParameterFromJSONTyped,
     CommonSegmentParameterToJSON,
-} from './CommonSegmentParameter';
+} from './CommonSegmentParameter.js';
 
 /**
  * 

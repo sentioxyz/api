@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChartConfigMappingRule } from './WebServiceChartConfigMappingRule';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChartConfigMappingRule } from './WebServiceChartConfigMappingRule.js';
 import {
     WebServiceChartConfigMappingRuleFromJSON,
     WebServiceChartConfigMappingRuleFromJSONTyped,
     WebServiceChartConfigMappingRuleToJSON,
-} from './WebServiceChartConfigMappingRule';
-import type { WebServiceChartConfigValueConfigStyle } from './WebServiceChartConfigValueConfigStyle';
+} from './WebServiceChartConfigMappingRule.js';
+import type { WebServiceChartConfigValueConfigStyle } from './WebServiceChartConfigValueConfigStyle.js';
 import {
     WebServiceChartConfigValueConfigStyleFromJSON,
     WebServiceChartConfigValueConfigStyleFromJSONTyped,
     WebServiceChartConfigValueConfigStyleToJSON,
-} from './WebServiceChartConfigValueConfigStyle';
-import type { WebServiceChartConfigValueFormatter } from './WebServiceChartConfigValueFormatter';
+} from './WebServiceChartConfigValueConfigStyle.js';
+import type { WebServiceChartConfigValueFormatter } from './WebServiceChartConfigValueFormatter.js';
 import {
     WebServiceChartConfigValueFormatterFromJSON,
     WebServiceChartConfigValueFormatterFromJSONTyped,
     WebServiceChartConfigValueFormatterToJSON,
-} from './WebServiceChartConfigValueFormatter';
+} from './WebServiceChartConfigValueFormatter.js';
 
 /**
  * 

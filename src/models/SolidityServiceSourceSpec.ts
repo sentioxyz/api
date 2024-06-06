@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceSourceMultiFile } from './SolidityServiceSourceMultiFile';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceSourceMultiFile } from './SolidityServiceSourceMultiFile.js';
 import {
     SolidityServiceSourceMultiFileFromJSON,
     SolidityServiceSourceMultiFileFromJSONTyped,
     SolidityServiceSourceMultiFileToJSON,
-} from './SolidityServiceSourceMultiFile';
+} from './SolidityServiceSourceMultiFile.js';
 
 /**
  * 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonCoinIDAddressIdentifier } from './CommonCoinIDAddressIdentifier';
+import { mapValues } from '../runtime.js';
+import type { CommonCoinIDAddressIdentifier } from './CommonCoinIDAddressIdentifier.js';
 import {
     CommonCoinIDAddressIdentifierFromJSON,
     CommonCoinIDAddressIdentifierFromJSONTyped,
     CommonCoinIDAddressIdentifierToJSON,
-} from './CommonCoinIDAddressIdentifier';
+} from './CommonCoinIDAddressIdentifier.js';
 
 /**
  * 

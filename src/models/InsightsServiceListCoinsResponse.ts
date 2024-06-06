@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonCoinID } from './CommonCoinID';
+import { mapValues } from '../runtime.js';
+import type { CommonCoinID } from './CommonCoinID.js';
 import {
     CommonCoinIDFromJSON,
     CommonCoinIDFromJSONTyped,
     CommonCoinIDToJSON,
-} from './CommonCoinID';
-import type { CommonComputeStats } from './CommonComputeStats';
+} from './CommonCoinID.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
 import {
     CommonComputeStatsFromJSON,
     CommonComputeStatsFromJSONTyped,
     CommonComputeStatsToJSON,
-} from './CommonComputeStats';
+} from './CommonComputeStats.js';
 
 /**
  * 

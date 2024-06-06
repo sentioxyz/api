@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceNoteAlignment } from './WebServiceNoteAlignment';
+import { mapValues } from '../runtime.js';
+import type { WebServiceNoteAlignment } from './WebServiceNoteAlignment.js';
 import {
     WebServiceNoteAlignmentFromJSON,
     WebServiceNoteAlignmentFromJSONTyped,
     WebServiceNoteAlignmentToJSON,
-} from './WebServiceNoteAlignment';
-import type { WebServiceNoteFontSize } from './WebServiceNoteFontSize';
+} from './WebServiceNoteAlignment.js';
+import type { WebServiceNoteFontSize } from './WebServiceNoteFontSize.js';
 import {
     WebServiceNoteFontSizeFromJSON,
     WebServiceNoteFontSizeFromJSONTyped,
     WebServiceNoteFontSizeToJSON,
-} from './WebServiceNoteFontSize';
-import type { WebServiceNoteVerticalAlignment } from './WebServiceNoteVerticalAlignment';
+} from './WebServiceNoteFontSize.js';
+import type { WebServiceNoteVerticalAlignment } from './WebServiceNoteVerticalAlignment.js';
 import {
     WebServiceNoteVerticalAlignmentFromJSON,
     WebServiceNoteVerticalAlignmentFromJSONTyped,
     WebServiceNoteVerticalAlignmentToJSON,
-} from './WebServiceNoteVerticalAlignment';
+} from './WebServiceNoteVerticalAlignment.js';
 
 /**
  * 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonRetentionQueryIntervalUnit } from './CommonRetentionQueryIntervalUnit';
+import { mapValues } from '../runtime.js';
+import type { CommonRetentionQueryIntervalUnit } from './CommonRetentionQueryIntervalUnit.js';
 import {
     CommonRetentionQueryIntervalUnitFromJSON,
     CommonRetentionQueryIntervalUnitFromJSONTyped,
     CommonRetentionQueryIntervalUnitToJSON,
-} from './CommonRetentionQueryIntervalUnit';
+} from './CommonRetentionQueryIntervalUnit.js';
 
 /**
  * 

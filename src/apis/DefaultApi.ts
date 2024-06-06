@@ -13,12 +13,12 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   AnalyticServiceAnalyticServiceSaveAndRunSQLBody,
   AnalyticServiceSaveAndRunSQLRequest,
   AnalyticServiceSaveAndRunSQLResponse,
-} from '../models/index';
+} from '../models/index.js';
 import {
     AnalyticServiceAnalyticServiceSaveAndRunSQLBodyFromJSON,
     AnalyticServiceAnalyticServiceSaveAndRunSQLBodyToJSON,
@@ -26,7 +26,7 @@ import {
     AnalyticServiceSaveAndRunSQLRequestToJSON,
     AnalyticServiceSaveAndRunSQLResponseFromJSON,
     AnalyticServiceSaveAndRunSQLResponseToJSON,
-} from '../models/index';
+} from '../models/index.js';
 
 export interface SaveAndRunSQLRequest {
     owner: string;

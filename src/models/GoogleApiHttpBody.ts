@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { GoogleProtobufAny } from './GoogleProtobufAny';
+import { mapValues } from '../runtime.js';
+import type { GoogleProtobufAny } from './GoogleProtobufAny.js';
 import {
     GoogleProtobufAnyFromJSON,
     GoogleProtobufAnyFromJSONTyped,
     GoogleProtobufAnyToJSON,
-} from './GoogleProtobufAny';
+} from './GoogleProtobufAny.js';
 
 /**
  * Message that represents an arbitrary HTTP body. It should only be used for

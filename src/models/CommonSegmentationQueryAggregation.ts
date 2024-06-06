@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonSegmentationQueryAggregationAggregateProperties } from './CommonSegmentationQueryAggregationAggregateProperties';
+import { mapValues } from '../runtime.js';
+import type { CommonSegmentationQueryAggregationAggregateProperties } from './CommonSegmentationQueryAggregationAggregateProperties.js';
 import {
     CommonSegmentationQueryAggregationAggregatePropertiesFromJSON,
     CommonSegmentationQueryAggregationAggregatePropertiesFromJSONTyped,
     CommonSegmentationQueryAggregationAggregatePropertiesToJSON,
-} from './CommonSegmentationQueryAggregationAggregateProperties';
-import type { CommonSegmentationQueryAggregationCountUnique } from './CommonSegmentationQueryAggregationCountUnique';
+} from './CommonSegmentationQueryAggregationAggregateProperties.js';
+import type { CommonSegmentationQueryAggregationCountUnique } from './CommonSegmentationQueryAggregationCountUnique.js';
 import {
     CommonSegmentationQueryAggregationCountUniqueFromJSON,
     CommonSegmentationQueryAggregationCountUniqueFromJSONTyped,
     CommonSegmentationQueryAggregationCountUniqueToJSON,
-} from './CommonSegmentationQueryAggregationCountUnique';
+} from './CommonSegmentationQueryAggregationCountUnique.js';
 
 /**
  * 

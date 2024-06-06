@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonRetentionQueryFilterTimeFilter } from './CommonRetentionQueryFilterTimeFilter';
+import { mapValues } from '../runtime.js';
+import type { CommonRetentionQueryFilterTimeFilter } from './CommonRetentionQueryFilterTimeFilter.js';
 import {
     CommonRetentionQueryFilterTimeFilterFromJSON,
     CommonRetentionQueryFilterTimeFilterFromJSONTyped,
     CommonRetentionQueryFilterTimeFilterToJSON,
-} from './CommonRetentionQueryFilterTimeFilter';
-import type { CommonSelectorExpr } from './CommonSelectorExpr';
+} from './CommonRetentionQueryFilterTimeFilter.js';
+import type { CommonSelectorExpr } from './CommonSelectorExpr.js';
 import {
     CommonSelectorExprFromJSON,
     CommonSelectorExprFromJSONTyped,
     CommonSelectorExprToJSON,
-} from './CommonSelectorExpr';
+} from './CommonSelectorExpr.js';
 
 /**
  * 

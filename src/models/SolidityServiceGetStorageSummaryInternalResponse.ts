@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { SolidityServiceStorageSummaryResult } from './SolidityServiceStorageSummaryResult';
+import { mapValues } from '../runtime.js';
+import type { SolidityServiceStorageSummaryResult } from './SolidityServiceStorageSummaryResult.js';
 import {
     SolidityServiceStorageSummaryResultFromJSON,
     SolidityServiceStorageSummaryResultFromJSONTyped,
     SolidityServiceStorageSummaryResultToJSON,
-} from './SolidityServiceStorageSummaryResult';
+} from './SolidityServiceStorageSummaryResult.js';
 
 /**
  * 

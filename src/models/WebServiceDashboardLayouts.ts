@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceDashboardLayoutsLayout } from './WebServiceDashboardLayoutsLayout';
+import { mapValues } from '../runtime.js';
+import type { WebServiceDashboardLayoutsLayout } from './WebServiceDashboardLayoutsLayout.js';
 import {
     WebServiceDashboardLayoutsLayoutFromJSON,
     WebServiceDashboardLayoutsLayoutFromJSONTyped,
     WebServiceDashboardLayoutsLayoutToJSON,
-} from './WebServiceDashboardLayoutsLayout';
+} from './WebServiceDashboardLayoutsLayout.js';
 
 /**
  * 

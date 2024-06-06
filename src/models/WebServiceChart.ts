@@ -12,67 +12,67 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { CommonFormula } from './CommonFormula';
+import { mapValues } from '../runtime.js';
+import type { CommonFormula } from './CommonFormula.js';
 import {
     CommonFormulaFromJSON,
     CommonFormulaFromJSONTyped,
     CommonFormulaToJSON,
-} from './CommonFormula';
-import type { CommonQuery } from './CommonQuery';
+} from './CommonFormula.js';
+import type { CommonQuery } from './CommonQuery.js';
 import {
     CommonQueryFromJSON,
     CommonQueryFromJSONTyped,
     CommonQueryToJSON,
-} from './CommonQuery';
-import type { CommonRetentionQuery } from './CommonRetentionQuery';
+} from './CommonQuery.js';
+import type { CommonRetentionQuery } from './CommonRetentionQuery.js';
 import {
     CommonRetentionQueryFromJSON,
     CommonRetentionQueryFromJSONTyped,
     CommonRetentionQueryToJSON,
-} from './CommonRetentionQuery';
-import type { CommonSegmentationQuery } from './CommonSegmentationQuery';
+} from './CommonRetentionQuery.js';
+import type { CommonSegmentationQuery } from './CommonSegmentationQuery.js';
 import {
     CommonSegmentationQueryFromJSON,
     CommonSegmentationQueryFromJSONTyped,
     CommonSegmentationQueryToJSON,
-} from './CommonSegmentationQuery';
-import type { InsightsServiceQueryRequestQuery } from './InsightsServiceQueryRequestQuery';
+} from './CommonSegmentationQuery.js';
+import type { InsightsServiceQueryRequestQuery } from './InsightsServiceQueryRequestQuery.js';
 import {
     InsightsServiceQueryRequestQueryFromJSON,
     InsightsServiceQueryRequestQueryFromJSONTyped,
     InsightsServiceQueryRequestQueryToJSON,
-} from './InsightsServiceQueryRequestQuery';
-import type { WebServiceChartChartType } from './WebServiceChartChartType';
+} from './InsightsServiceQueryRequestQuery.js';
+import type { WebServiceChartChartType } from './WebServiceChartChartType.js';
 import {
     WebServiceChartChartTypeFromJSON,
     WebServiceChartChartTypeFromJSONTyped,
     WebServiceChartChartTypeToJSON,
-} from './WebServiceChartChartType';
-import type { WebServiceChartConfig } from './WebServiceChartConfig';
+} from './WebServiceChartChartType.js';
+import type { WebServiceChartConfig } from './WebServiceChartConfig.js';
 import {
     WebServiceChartConfigFromJSON,
     WebServiceChartConfigFromJSONTyped,
     WebServiceChartConfigToJSON,
-} from './WebServiceChartConfig';
-import type { WebServiceChartDataSourceType } from './WebServiceChartDataSourceType';
+} from './WebServiceChartConfig.js';
+import type { WebServiceChartDataSourceType } from './WebServiceChartDataSourceType.js';
 import {
     WebServiceChartDataSourceTypeFromJSON,
     WebServiceChartDataSourceTypeFromJSONTyped,
     WebServiceChartDataSourceTypeToJSON,
-} from './WebServiceChartDataSourceType';
-import type { WebServiceEventLogsConfig } from './WebServiceEventLogsConfig';
+} from './WebServiceChartDataSourceType.js';
+import type { WebServiceEventLogsConfig } from './WebServiceEventLogsConfig.js';
 import {
     WebServiceEventLogsConfigFromJSON,
     WebServiceEventLogsConfigFromJSONTyped,
     WebServiceEventLogsConfigToJSON,
-} from './WebServiceEventLogsConfig';
-import type { WebServiceNote } from './WebServiceNote';
+} from './WebServiceEventLogsConfig.js';
+import type { WebServiceNote } from './WebServiceNote.js';
 import {
     WebServiceNoteFromJSON,
     WebServiceNoteFromJSONTyped,
     WebServiceNoteToJSON,
-} from './WebServiceNote';
+} from './WebServiceNote.js';
 
 /**
  * 

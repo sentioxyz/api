@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation';
+import { mapValues } from '../runtime.js';
+import type { WebServiceChartConfigCalculation } from './WebServiceChartConfigCalculation.js';
 import {
     WebServiceChartConfigCalculationFromJSON,
     WebServiceChartConfigCalculationFromJSONTyped,
     WebServiceChartConfigCalculationToJSON,
-} from './WebServiceChartConfigCalculation';
-import type { WebServiceChartConfigPieConfigPieType } from './WebServiceChartConfigPieConfigPieType';
+} from './WebServiceChartConfigCalculation.js';
+import type { WebServiceChartConfigPieConfigPieType } from './WebServiceChartConfigPieConfigPieType.js';
 import {
     WebServiceChartConfigPieConfigPieTypeFromJSON,
     WebServiceChartConfigPieConfigPieTypeFromJSONTyped,
     WebServiceChartConfigPieConfigPieTypeToJSON,
-} from './WebServiceChartConfigPieConfigPieType';
+} from './WebServiceChartConfigPieConfigPieType.js';
 
 /**
  * 
