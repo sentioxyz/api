@@ -1,15 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AnalyticServiceAnalyticServiceExecuteSQLBody.js';
-export * from './AnalyticServiceAnalyticServiceSaveAndRunSQLBody.js';
-export * from './AnalyticServiceExecutionInfo.js';
-export * from './AnalyticServiceExecutionStatus.js';
 export * from './AnalyticServiceLogQueryRequestFilter.js';
 export * from './AnalyticServiceLogQueryRequestSort.js';
 export * from './AnalyticServiceLogQueryResponse.js';
 export * from './AnalyticServiceSQLQuery.js';
-export * from './AnalyticServiceSaveAndRunSQLRequest.js';
-export * from './AnalyticServiceSaveAndRunSQLResponse.js';
 export * from './AnalyticServiceSearchServiceQueryLogBody.js';
 export * from './AnalyticServiceSyncExecuteSQLRequest.js';
 export * from './AnalyticServiceSyncExecuteSQLResponse.js';
@@ -157,10 +152,6 @@ export * from './SolidityServiceSpecializations.js';
 export * from './SolidityServiceStateOverride.js';
 export * from './SolidityServiceStorageSummaryResult.js';
 export * from './SolidityServiceTxIdentifier.js';
-export * from './SolidityServiceUniversalSearchResponse.js';
-export * from './SolidityServiceUniversalSearchResult.js';
-export * from './SolidityServiceUniversalSearchResultContract.js';
-export * from './SolidityServiceUniversalSearchResultTransaction.js';
 export * from './TxindexEvmRawTransaction.js';
 export * from './TxindexEvmSearchTransactionsResponse.js';
 export * from './WebServiceChart.js';

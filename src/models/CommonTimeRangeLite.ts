@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * start and end time of the time range
+ * start and end time of the time range, Find more: https://docs.sentio.xyz/docs/data-api#time-range-configuration-guide
  * @export
  * @interface CommonTimeRangeLite
  */

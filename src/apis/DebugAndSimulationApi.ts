@@ -23,7 +23,6 @@ import type {
   SolidityServiceSimulateTransactionBundleResponse,
   SolidityServiceSimulateTransactionRequest,
   SolidityServiceSimulateTransactionResponse,
-  SolidityServiceUniversalSearchResponse,
   TxindexEvmSearchTransactionsResponse,
 } from '../models/index.js';
 import {
@@ -43,8 +42,6 @@ import {
     SolidityServiceSimulateTransactionRequestToJSON,
     SolidityServiceSimulateTransactionResponseFromJSON,
     SolidityServiceSimulateTransactionResponseToJSON,
-    SolidityServiceUniversalSearchResponseFromJSON,
-    SolidityServiceUniversalSearchResponseToJSON,
     TxindexEvmSearchTransactionsResponseFromJSON,
     TxindexEvmSearchTransactionsResponseToJSON,
 } from '../models/index.js';
@@ -103,11 +100,6 @@ export interface SimulateTransactionRequest {
 
 export interface SimulateTransactionBundleRequest {
     body: SolidityServiceSimulateTransactionBundleRequest;
-}
-
-export interface UniversalSearchRequest {
-    q?: string;
-    limit?: number;
 }
 
 /**
@@ -494,42 +486,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      */
     async simulateTransactionBundle(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const response = await this.simulateTransactionBundleRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async universalSearchRaw(requestParameters: UniversalSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceUniversalSearchResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['q'] != null) {
-            queryParameters['q'] = requestParameters['q'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/solidity/universal_search`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceUniversalSearchResponseFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async universalSearch(requestParameters: UniversalSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceUniversalSearchResponse> {
-        const response = await this.universalSearchRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
