@@ -1,10 +1,15 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './AnalyticServiceAnalyticServiceExecuteSQLBody';
+export * from './AnalyticServiceAnalyticServiceSaveAndRunSQLBody';
+export * from './AnalyticServiceExecutionInfo';
+export * from './AnalyticServiceExecutionStatus';
 export * from './AnalyticServiceLogQueryRequestFilter';
 export * from './AnalyticServiceLogQueryRequestSort';
 export * from './AnalyticServiceLogQueryResponse';
 export * from './AnalyticServiceSQLQuery';
+export * from './AnalyticServiceSaveAndRunSQLRequest';
+export * from './AnalyticServiceSaveAndRunSQLResponse';
 export * from './AnalyticServiceSearchServiceQueryLogBody';
 export * from './AnalyticServiceSyncExecuteSQLRequest';
 export * from './AnalyticServiceSyncExecuteSQLResponse';

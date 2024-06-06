@@ -44,6 +44,29 @@
 				}
 			}
 		},
+		"/api/v1/analytics/sql/save_and_run_query": {
+			"post": {
+				"operationId": "SaveAndRunSQL2",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/analytic_service.SaveAndRunSQLResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/analytic_service.SaveAndRunSQLRequest"
+						}
+					}
+				]
+			}
+		},
 		"/api/v1/analytics/{owner}/{slug}/sql/execute": {
 			"post": {
 				"summary": "Execute SQL",
@@ -88,6 +111,43 @@
 					"description": "find more information here",
 					"url": "https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api"
 				}
+			}
+		},
+		"/api/v1/analytics/{owner}/{slug}/sql/save_and_run_query": {
+			"post": {
+				"operationId": "SaveAndRunSQL",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/analytic_service.SaveAndRunSQLResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "owner",
+						"description": "username or organization name",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "slug",
+						"description": "project slug",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/analytic_service.AnalyticService.SaveAndRunSQLBody"
+						}
+					}
+				]
 			}
 		},
 		"/api/v1/eventlogs/{owner}/{slug}": {
@@ -1442,6 +1502,65 @@
 				}
 			}
 		},
+		"analytic_service.AnalyticService.SaveAndRunSQLBody": {
+			"type": "object",
+			"properties": {
+				"projectId": {
+					"type": "string",
+					"title": "use project id if project_owner and project_slug are not provided"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32",
+					"title": "version of the datasource, default to the active version if not provided"
+				},
+				"sqlQuery": {
+					"$ref": "#/definitions/analytic_service.SQLQuery"
+				}
+			}
+		},
+		"analytic_service.ExecutionInfo": {
+			"type": "object",
+			"properties": {
+				"queryId": {
+					"type": "string"
+				},
+				"executionId": {
+					"type": "string"
+				},
+				"status": {
+					"$ref": "#/definitions/analytic_service.ExecutionStatus"
+				},
+				"scheduledAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"startedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"finishedAt": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"result": {
+					"$ref": "#/definitions/common.TabularData"
+				},
+				"error": {
+					"type": "string"
+				}
+			}
+		},
+		"analytic_service.ExecutionStatus": {
+			"type": "string",
+			"enum": [
+				"PENDING",
+				"RUNNING",
+				"FINISHED",
+				"KILLED"
+			],
+			"default": "PENDING"
+		},
 		"analytic_service.LogQueryRequest.Filter": {
 			"type": "object",
 			"properties": {
@@ -1502,6 +1621,43 @@
 					"type": "integer",
 					"format": "int32",
 					"title": "the limit of the query"
+				}
+			}
+		},
+		"analytic_service.SaveAndRunSQLRequest": {
+			"type": "object",
+			"properties": {
+				"projectOwner": {
+					"type": "string",
+					"title": "username or organization name"
+				},
+				"projectSlug": {
+					"type": "string",
+					"title": "project slug"
+				},
+				"projectId": {
+					"type": "string",
+					"title": "use project id if project_owner and project_slug are not provided"
+				},
+				"version": {
+					"type": "integer",
+					"format": "int32",
+					"title": "version of the datasource, default to the active version if not provided"
+				},
+				"sqlQuery": {
+					"$ref": "#/definitions/analytic_service.SQLQuery"
+				}
+			}
+		},
+		"analytic_service.SaveAndRunSQLResponse": {
+			"type": "object",
+			"properties": {
+				"queueLength": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"executionInfo": {
+					"$ref": "#/definitions/analytic_service.ExecutionInfo"
 				}
 			}
 		},
