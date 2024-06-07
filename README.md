@@ -1,5 +1,7 @@
 # Sentio API
 
+[![npm version](https://badge.fury.io/js/@sentio%2Fapi.svg)](https://npmjs.com/package/@sentio/api) [![Release](https://github.com/sentioxyz/api/actions/workflows/cut-release.yaml/badge.svg)](https://github.com/sentioxyz/api/actions/workflows/cut-release.yaml)
+
 ## Setup
 
 ```

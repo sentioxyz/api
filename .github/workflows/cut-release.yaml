@@ -20,7 +20,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
       - name: Sync Release Branch
         run: |
-          git remote set-url origin https://${{ secrets.ACCESS_TOKEN }}@github.com/sentioxyz/sentio-sdk
+          git remote set-url origin https://${{ secrets.ACCESS_TOKEN }}@github.com/sentioxyz/api
           git checkout -b release
           git log -1
           git push -f --set-upstream origin release
