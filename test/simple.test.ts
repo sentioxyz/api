@@ -7,7 +7,7 @@ test("getProjectList", async () => {
   assert(apiKey, "API key can't be found for the test");
 
   const config = new Configuration({
-    apiKey: apiKey,
+    apiKey,
   });
   const api = new WebApi(config);
   const projects = await api.getProjectList();
