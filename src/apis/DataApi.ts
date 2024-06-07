@@ -172,7 +172,7 @@ export interface Retention2Request {
 export class DataApi extends runtime.BaseAPI {
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api
+     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQLRaw(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceSyncExecuteSQLResponse>> {
@@ -219,7 +219,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api
+     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQL(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
@@ -228,7 +228,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api
+     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQL2Raw(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceSyncExecuteSQLResponse>> {
@@ -261,7 +261,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api
+     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQL2(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {

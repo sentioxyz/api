@@ -15,7 +15,7 @@
 		"/api/v1/analytics/sql/execute": {
 			"post": {
 				"summary": "Execute SQL",
-				"description": "Execute SQL in a project.\nFind more: https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api",
+				"description": "Execute SQL in a project.\nFind more: https://docs.sentio.xyz/docs/data-api#sql-api",
 				"operationId": "ExecuteSQL2",
 				"responses": {
 					"200": {
@@ -47,7 +47,7 @@
 		"/api/v1/analytics/{owner}/{slug}/sql/execute": {
 			"post": {
 				"summary": "Execute SQL",
-				"description": "Execute SQL in a project.\nFind more: https://docs.sentio.xyz/access-sentio-via-apis/data-api#sql-api",
+				"description": "Execute SQL in a project.\nFind more: https://docs.sentio.xyz/docs/data-api#sql-api",
 				"operationId": "ExecuteSQL",
 				"responses": {
 					"200": {
