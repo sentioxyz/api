@@ -108,6 +108,7 @@ export interface SimulateTransactionBundleRequest {
 export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
      * Get indexed call trace
      */
     async getCallTraceRaw(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
@@ -180,6 +181,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
      * Get indexed call trace
      */
     async getCallTrace(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
@@ -410,7 +412,8 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new transaction simulation
+     * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
+     * Single simulation
      */
     async simulateTransactionRaw(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
         if (requestParameters['body'] == null) {
@@ -442,7 +445,8 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new transaction simulation
+     * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
+     * Single simulation
      */
     async simulateTransaction(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
         const response = await this.simulateTransactionRaw(requestParameters, initOverrides);
@@ -450,7 +454,8 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new bundle simulation
+     * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
+     * Bundle simulation
      */
     async simulateTransactionBundleRaw(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
         if (requestParameters['body'] == null) {
@@ -482,7 +487,8 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new bundle simulation
+     * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
+     * Bundle simulation
      */
     async simulateTransactionBundle(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const response = await this.simulateTransactionBundleRaw(requestParameters, initOverrides);

@@ -172,7 +172,7 @@ export interface Retention2Request {
 export class DataApi extends runtime.BaseAPI {
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
+     * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQLRaw(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceSyncExecuteSQLResponse>> {
@@ -219,7 +219,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
+     * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQL(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
@@ -228,7 +228,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
+     * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQL2Raw(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceSyncExecuteSQLResponse>> {
@@ -261,7 +261,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute SQL in a project. Find more: https://docs.sentio.xyz/docs/data-api#sql-api
+     * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/docs/data-api#sql-api
      * Execute SQL
      */
     async executeSQL2(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
@@ -492,6 +492,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
+     * The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)
      * Metric range queries
      */
     async observabilityServiceQueryRangeRaw(requestParameters: ObservabilityServiceQueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceMetricsQueryResponse>> {
@@ -538,6 +539,7 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
+     * The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)
      * Metric range queries
      */
     async observabilityServiceQueryRange(requestParameters: ObservabilityServiceQueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceMetricsQueryResponse> {

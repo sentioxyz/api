@@ -4720,7 +4720,10 @@ ul.nav-tabs {
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">Execute SQL in a project.
+                        <p class="marked">Execute SQL in a project. Go to &quot;Data Studio&quot; -&gt; &quot;SQL Editor&quot;, write your query and then click &quot;Export as cURL&quot;
+
+![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)
+
 Find more: https://docs.sentio.xyz/docs/data-api#sql-api</p>
                         <p></p>
                         <br />
@@ -5221,7 +5224,10 @@ $(document).ready(function() {
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">Execute SQL in a project.
+                        <p class="marked">Execute SQL in a project. Go to &quot;Data Studio&quot; -&gt; &quot;SQL Editor&quot;, write your query and then click &quot;Export as cURL&quot;
+
+![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)
+
 Find more: https://docs.sentio.xyz/docs/data-api#sql-api</p>
                         <p></p>
                         <br />
@@ -7782,7 +7788,9 @@ $(document).ready(function() {
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.
+
+![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/metrics/{owner}/{slug}/query_range</span></code></pre>
@@ -11570,7 +11578,13 @@ $(document).ready(function() {
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">API to get Sentio call trace. It takes &#x60;txId.txHash&#x60; and &#x60;networkId&#x60; arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.
+
+The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional &#x60;startIndex&#x60; and &#x60;startIndex&#x60; on each trace entry even for the LOG, representing the execution order in the trace.
+
+This allows you to build chart that marks the order of fund flow.
+
+![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/call_trace</span></code></pre>
@@ -14423,12 +14437,13 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-simulateTransaction-0" data-group="User" data-name="simulateTransaction" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransaction</h1>
-                          <p>Create a new transaction simulation</p>
+                          <p>Single simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">Create a new transaction simulation. The simulation body should be included in the request body.
+Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/simulate</span></code></pre>
@@ -14548,7 +14563,7 @@ public class DebugAndSimulationApiExample {
 DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
 SolidityServiceSimulateTransactionRequest *body = ; // 
 
-// Create a new transaction simulation
+// Single simulation
 [apiInstance simulateTransactionWith:body
               completionHandler: ^(solidity_service.SimulateTransactionResponse output, NSError* error) {
     if (output) {
@@ -14612,7 +14627,7 @@ namespace Example
             var body = new SolidityServiceSimulateTransactionRequest(); // SolidityServiceSimulateTransactionRequest | 
 
             try {
-                // Create a new transaction simulation
+                // Single simulation
                 solidity_service.SimulateTransactionResponse result = apiInstance.simulateTransaction(body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -14686,7 +14701,7 @@ api_instance = openapi_client.DebugAndSimulationApi()
 body =  # SolidityServiceSimulateTransactionRequest | 
 
 try:
-    # Create a new transaction simulation
+    # Single simulation
     api_response = api_instance.simulate_transaction(body)
     pprint(api_response)
 except ApiException as e:
@@ -14848,12 +14863,12 @@ $(document).ready(function() {
                       <article id="api-DebugAndSimulation-simulateTransactionBundle-0" data-group="User" data-name="simulateTransactionBundle" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransactionBundle</h1>
-                          <p>Create a new bundle simulation</p>
+                          <p>Bundle simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">You could also create bundle simulations so that one transaction could be executed one after another. For &#x60;blockNumber&#x60; &#x60;transactionIndex&#x60; &#x60;networkId&#x60; &#x60;stateOverrides&#x60; and &#x60;blockOverrides&#x60; fields, only the first simulation takes effect.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/simulate_bundle</span></code></pre>
@@ -14973,7 +14988,7 @@ public class DebugAndSimulationApiExample {
 DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
 SolidityServiceSimulateTransactionBundleRequest *body = ; // 
 
-// Create a new bundle simulation
+// Bundle simulation
 [apiInstance simulateTransactionBundleWith:body
               completionHandler: ^(solidity_service.SimulateTransactionBundleResponse output, NSError* error) {
     if (output) {
@@ -15037,7 +15052,7 @@ namespace Example
             var body = new SolidityServiceSimulateTransactionBundleRequest(); // SolidityServiceSimulateTransactionBundleRequest | 
 
             try {
-                // Create a new bundle simulation
+                // Bundle simulation
                 solidity_service.SimulateTransactionBundleResponse result = apiInstance.simulateTransactionBundle(body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -15111,7 +15126,7 @@ api_instance = openapi_client.DebugAndSimulationApi()
 body =  # SolidityServiceSimulateTransactionBundleRequest | 
 
 try:
-    # Create a new bundle simulation
+    # Bundle simulation
     api_response = api_instance.simulate_transaction_bundle(body)
     pprint(api_response)
 except ApiException as e:
