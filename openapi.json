@@ -12,38 +12,6 @@
 		"application/json"
 	],
 	"paths": {
-		"/api/v1/analytics/sql/execute": {
-			"post": {
-				"summary": "Execute SQL",
-				"description": "Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)\n\nFind more: https://docs.sentio.xyz/docs/data-api#sql-api",
-				"operationId": "ExecuteSQL2",
-				"responses": {
-					"200": {
-						"description": "A successful response.",
-						"schema": {
-							"$ref": "#/definitions/analytic_service.SyncExecuteSQLResponse"
-						}
-					}
-				},
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/analytic_service.SyncExecuteSQLRequest"
-						}
-					}
-				],
-				"tags": [
-					"Data"
-				],
-				"externalDocs": {
-					"description": "find more information here",
-					"url": "https://docs.sentio.xyz/docs/data-api#sql-api"
-				}
-			}
-		},
 		"/api/v1/analytics/{owner}/{slug}/sql/execute": {
 			"post": {
 				"summary": "Execute SQL",
@@ -1523,47 +1491,6 @@
 				"version": {
 					"type": "integer",
 					"format": "int32"
-				}
-			}
-		},
-		"analytic_service.SyncExecuteSQLRequest": {
-			"type": "object",
-			"example": {
-				"sqlQuery": {
-					"sql": "SELECT uniq(distinct_id) FROM `Transfer`"
-				}
-			},
-			"properties": {
-				"projectOwner": {
-					"type": "string",
-					"title": "username or organization name"
-				},
-				"projectSlug": {
-					"type": "string",
-					"title": "project slug"
-				},
-				"projectId": {
-					"type": "string",
-					"title": "use project id if project_owner and project_slug are not provided"
-				},
-				"version": {
-					"type": "integer",
-					"format": "int32",
-					"title": "version of the datasource, default to the active version if not provided"
-				},
-				"sqlQuery": {
-					"$ref": "#/definitions/analytic_service.SQLQuery"
-				},
-				"cursor": {
-					"type": "string",
-					"title": "cursor for pagination"
-				},
-				"bypassCache": {
-					"type": "boolean",
-					"title": "deprecated, use cachePolicy instead"
-				},
-				"cachePolicy": {
-					"$ref": "#/definitions/common.CachePolicy"
 				}
 			}
 		},

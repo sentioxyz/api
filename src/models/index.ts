@@ -6,7 +6,6 @@ export * from './AnalyticServiceLogQueryRequestSort.js';
 export * from './AnalyticServiceLogQueryResponse.js';
 export * from './AnalyticServiceSQLQuery.js';
 export * from './AnalyticServiceSearchServiceQueryLogBody.js';
-export * from './AnalyticServiceSyncExecuteSQLRequest.js';
 export * from './AnalyticServiceSyncExecuteSQLResponse.js';
 export * from './CommonAggregate.js';
 export * from './CommonAggregateAggregateOps.js';

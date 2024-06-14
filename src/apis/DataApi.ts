@@ -18,7 +18,6 @@ import type {
   AnalyticServiceAnalyticServiceExecuteSQLBody,
   AnalyticServiceLogQueryResponse,
   AnalyticServiceSearchServiceQueryLogBody,
-  AnalyticServiceSyncExecuteSQLRequest,
   AnalyticServiceSyncExecuteSQLResponse,
   InsightsServiceInsightsServiceQueryBody,
   InsightsServiceInsightsServiceRetentionBody,
@@ -40,8 +39,6 @@ import {
     AnalyticServiceLogQueryResponseToJSON,
     AnalyticServiceSearchServiceQueryLogBodyFromJSON,
     AnalyticServiceSearchServiceQueryLogBodyToJSON,
-    AnalyticServiceSyncExecuteSQLRequestFromJSON,
-    AnalyticServiceSyncExecuteSQLRequestToJSON,
     AnalyticServiceSyncExecuteSQLResponseFromJSON,
     AnalyticServiceSyncExecuteSQLResponseToJSON,
     InsightsServiceInsightsServiceQueryBodyFromJSON,
@@ -74,10 +71,6 @@ export interface ExecuteSQLRequest {
     owner: string;
     slug: string;
     body: AnalyticServiceAnalyticServiceExecuteSQLBody;
-}
-
-export interface ExecuteSQL2Request {
-    body: AnalyticServiceSyncExecuteSQLRequest;
 }
 
 export interface ListCoinsRequest {
@@ -224,48 +217,6 @@ export class DataApi extends runtime.BaseAPI {
      */
     async executeSQL(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
         const response = await this.executeSQLRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/docs/data-api#sql-api
-     * Execute SQL
-     */
-    async executeSQL2Raw(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnalyticServiceSyncExecuteSQLResponse>> {
-        if (requestParameters['body'] == null) {
-            throw new runtime.RequiredError(
-                'body',
-                'Required parameter "body" was null or undefined when calling executeSQL2().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/analytics/sql/execute`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: AnalyticServiceSyncExecuteSQLRequestToJSON(requestParameters['body']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => AnalyticServiceSyncExecuteSQLResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/docs/data-api#sql-api
-     * Execute SQL
-     */
-    async executeSQL2(requestParameters: ExecuteSQL2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
-        const response = await this.executeSQL2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
