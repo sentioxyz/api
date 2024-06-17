@@ -22,7 +22,6 @@ import type {
   InsightsServiceInsightsServiceQueryBody,
   InsightsServiceInsightsServiceRetentionBody,
   InsightsServiceListCoinsResponse,
-  InsightsServiceQueryRequest,
   InsightsServiceQueryResponse,
   InsightsServiceRetentionRequest,
   InsightsServiceRetentionResponse,
@@ -47,8 +46,6 @@ import {
     InsightsServiceInsightsServiceRetentionBodyToJSON,
     InsightsServiceListCoinsResponseFromJSON,
     InsightsServiceListCoinsResponseToJSON,
-    InsightsServiceQueryRequestFromJSON,
-    InsightsServiceQueryRequestToJSON,
     InsightsServiceQueryResponseFromJSON,
     InsightsServiceQueryResponseToJSON,
     InsightsServiceRetentionRequestFromJSON,
@@ -115,10 +112,6 @@ export interface QueryRequest {
     owner: string;
     slug: string;
     body: InsightsServiceInsightsServiceQueryBody;
-}
-
-export interface Query2Request {
-    body: InsightsServiceQueryRequest;
 }
 
 export interface QueryLogRequest {
@@ -551,48 +544,6 @@ export class DataApi extends runtime.BaseAPI {
      */
     async query(requestParameters: QueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceQueryResponse> {
         const response = await this.queryRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Query for metrics,event logs and coin prices in a project.
-     * Insight Query
-     */
-    async query2Raw(requestParameters: Query2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<InsightsServiceQueryResponse>> {
-        if (requestParameters['body'] == null) {
-            throw new runtime.RequiredError(
-                'body',
-                'Required parameter "body" was null or undefined when calling query2().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/insights/query`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: InsightsServiceQueryRequestToJSON(requestParameters['body']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => InsightsServiceQueryResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Query for metrics,event logs and coin prices in a project.
-     * Insight Query
-     */
-    async query2(requestParameters: Query2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceQueryResponse> {
-        const response = await this.query2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

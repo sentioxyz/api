@@ -304,34 +304,6 @@
 				]
 			}
 		},
-		"/api/v1/insights/query": {
-			"post": {
-				"summary": "Insight Query",
-				"description": "Query for metrics,event logs and coin prices in a project.",
-				"operationId": "Query2",
-				"responses": {
-					"200": {
-						"description": "A successful response.",
-						"schema": {
-							"$ref": "#/definitions/insights_service.QueryResponse"
-						}
-					}
-				},
-				"parameters": [
-					{
-						"name": "body",
-						"in": "body",
-						"required": true,
-						"schema": {
-							"$ref": "#/definitions/insights_service.QueryRequest"
-						}
-					}
-				],
-				"tags": [
-					"Data"
-				]
-			}
-		},
 		"/api/v1/insights/retention": {
 			"post": {
 				"summary": "Retention query",
@@ -2679,60 +2651,6 @@
 				},
 				"computeStats": {
 					"$ref": "#/definitions/common.ComputeStats"
-				}
-			}
-		},
-		"insights_service.QueryRequest": {
-			"type": "object",
-			"properties": {
-				"projectOwner": {
-					"type": "string",
-					"title": "username or organization name"
-				},
-				"projectSlug": {
-					"type": "string",
-					"title": "project slug"
-				},
-				"projectId": {
-					"type": "string",
-					"title": "use project id if project_owner and project_slug are not provided"
-				},
-				"version": {
-					"type": "integer",
-					"format": "int32",
-					"title": "version of the datasource, default to the active version if not provided"
-				},
-				"timeRange": {
-					"$ref": "#/definitions/common.TimeRangeLite"
-				},
-				"queries": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"$ref": "#/definitions/insights_service.QueryRequest.Query"
-					}
-				},
-				"formulas": {
-					"type": "array",
-					"items": {
-						"type": "object",
-						"$ref": "#/definitions/common.Formula"
-					}
-				},
-				"limit": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"offset": {
-					"type": "integer",
-					"format": "int32"
-				},
-				"bypassCache": {
-					"type": "boolean",
-					"title": "deprecated, use cachePolicy instead"
-				},
-				"cachePolicy": {
-					"$ref": "#/definitions/common.CachePolicy"
 				}
 			}
 		},
@@ -5346,6 +5264,9 @@
 		}
 	},
 	"host": "app.sentio.xyz",
+	"schemes": [
+		"https"
+	],
 	"securityDefinitions": {
 		"ApiKeyAuth": {
 			"type": "apiKey",

@@ -97,7 +97,6 @@ export * from './InsightsServiceDataSource.js';
 export * from './InsightsServiceInsightsServiceQueryBody.js';
 export * from './InsightsServiceInsightsServiceRetentionBody.js';
 export * from './InsightsServiceListCoinsResponse.js';
-export * from './InsightsServiceQueryRequest.js';
 export * from './InsightsServiceQueryRequestQuery.js';
 export * from './InsightsServiceQueryResponse.js';
 export * from './InsightsServiceQueryResponseResult.js';

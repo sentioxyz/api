@@ -2660,58 +2660,6 @@ ul.nav-tabs {
     }
   }
 };
-    defs["insights_service.QueryRequest"] = {
-  "type" : "object",
-  "properties" : {
-    "projectOwner" : {
-      "title" : "username or organization name",
-      "type" : "string"
-    },
-    "projectSlug" : {
-      "title" : "project slug",
-      "type" : "string"
-    },
-    "projectId" : {
-      "title" : "use project id if project_owner and project_slug are not provided",
-      "type" : "string"
-    },
-    "version" : {
-      "title" : "version of the datasource, default to the active version if not provided",
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "timeRange" : {
-      "$ref" : "#/components/schemas/common.TimeRangeLite"
-    },
-    "queries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/insights_service.QueryRequest.Query"
-      }
-    },
-    "formulas" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Formula"
-      }
-    },
-    "limit" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "offset" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "bypassCache" : {
-      "title" : "deprecated, use cachePolicy instead",
-      "type" : "boolean"
-    },
-    "cachePolicy" : {
-      "$ref" : "#/components/schemas/common.CachePolicy"
-    }
-  }
-};
     defs["insights_service.QueryRequest.Query"] = {
   "type" : "object",
   "properties" : {
@@ -4579,9 +4527,6 @@ ul.nav-tabs {
                     <li data-group="Data" data-name="query" class="">
                       <a href="#api-Data-query">query</a>
                     </li>
-                    <li data-group="Data" data-name="query2" class="">
-                      <a href="#api-Data-query2">query2</a>
-                    </li>
                     <li data-group="Data" data-name="queryLog" class="">
                       <a href="#api-Data-queryLog">queryLog</a>
                     </li>
@@ -4709,7 +4654,7 @@ Find more: https://docs.sentio.xyz/docs/data-api#sql-api</p>
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/execute" \
+ "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/execute" \
  -d ''
 </code></pre>
                           </div>
@@ -5208,7 +5153,7 @@ $(document).ready(function() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/insights/{owner}/{slug}/coins?projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
+ "https://app.sentio.xyz/api/v1/insights/{owner}/{slug}/coins?projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-listCoins-0-java">
@@ -5801,7 +5746,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/insights/coins?projectOwner=projectOwner_example&projectSlug=projectSlug_example&projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
+ "https://app.sentio.xyz/api/v1/insights/coins?projectOwner=projectOwner_example&projectSlug=projectSlug_example&projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-listCoins2-0-java">
@@ -6381,7 +6326,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/metrics?projectId=projectId_example&name=name_example&version=56"
+ "https://app.sentio.xyz/api/v1/metrics?projectId=projectId_example&name=name_example&version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-java">
@@ -6844,7 +6789,7 @@ pub fn main() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query" \
+ "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query" \
  -d ''
 </code></pre>
                           </div>
@@ -7346,7 +7291,7 @@ $(document).ready(function() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query_range" \
+ "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query_range" \
  -d ''
 </code></pre>
                           </div>
@@ -7846,7 +7791,7 @@ $(document).ready(function() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/insights/{owner}/{slug}/query" \
+ "https://app.sentio.xyz/api/v1/insights/{owner}/{slug}/query" \
  -d ''
 </code></pre>
                           </div>
@@ -8308,431 +8253,6 @@ $(document).ready(function() {
                         </article>
                       </div>
                       <hr>
-                    <div id="api-Data-query2">
-                      <article id="api-Data-query2-0" data-group="User" data-name="query2" data-version="0">
-                        <div class="pull-left">
-                          <h1>query2</h1>
-                          <p>Insight Query</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked">Query for metrics,event logs and coin prices in a project.</p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/insights/query</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Data-query2-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-dart">Dart</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Data-query2-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Data-query2-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Data-query2-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Data-query2-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Data-query2-0-rust">Rust</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Data-query2-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
--H "Api-Key: [[apiKey]]" \
- -H "Accept: application/json" \
- -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/insights/query" \
- -d ''
-</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-Data-query2-0-java">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
-import org.openapitools.client.api.DataApi;
-
-import java.io.File;
-import java.util.*;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-        // Configure API key authorization: ApiKeyAuth
-        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-        ApiKeyAuth.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //ApiKeyAuth.setApiKeyPrefix("Token");
-
-        // Create an instance of the API class
-        DataApi apiInstance = new DataApi();
-        InsightsServiceQueryRequest body = ; // InsightsServiceQueryRequest | 
-
-        try {
-            insights_service.QueryResponse result = apiInstance.query2(body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#query2");
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-query2-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final InsightsServiceQueryRequest body = new InsightsServiceQueryRequest(); // InsightsServiceQueryRequest | 
-
-try {
-    final result = await api_instance.query2(body);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->query2: $e\n');
-}
-
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-query2-0-android">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        DataApi apiInstance = new DataApi();
-        InsightsServiceQueryRequest body = ; // InsightsServiceQueryRequest | 
-
-        try {
-            insights_service.QueryResponse result = apiInstance.query2(body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#query2");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-Data-query2-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-Data-query2-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-
-// Configure API key authorization: (authentication scheme: ApiKeyAuth)
-[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"Api-Key"];
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"Api-Key"];
-
-
-// Create an instance of the API class
-DataApi *apiInstance = [[DataApi alloc] init];
-InsightsServiceQueryRequest *body = ; // 
-
-// Insight Query
-[apiInstance query2With:body
-              completionHandler: ^(insights_service.QueryResponse output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
-    if (error) {
-        NSLog(@"Error: %@", error);
-    }
-}];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-query2-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
-var defaultClient = SentioApi.ApiClient.instance;
-
-// Configure API key authorization: ApiKeyAuth
-var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
-ApiKeyAuth.apiKey = "YOUR API KEY";
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//ApiKeyAuth.apiKeyPrefix['Api-Key'] = "Token";
-
-// Create an instance of the API class
-var api = new SentioApi.DataApi()
-var body = ; // {InsightsServiceQueryRequest} 
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.query2(body, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-Data-query2-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-Data-query2-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
-
-namespace Example
-{
-    public class query2Example
-    {
-        public void main()
-        {
-            // Configure API key authorization: ApiKeyAuth
-            Configuration.Default.ApiKey.Add("Api-Key", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.ApiKeyPrefix.Add("Api-Key", "Bearer");
-
-            // Create an instance of the API class
-            var apiInstance = new DataApi();
-            var body = new InsightsServiceQueryRequest(); // InsightsServiceQueryRequest | 
-
-            try {
-                // Insight Query
-                insights_service.QueryResponse result = apiInstance.query2(body);
-                Debug.WriteLine(result);
-            } catch (Exception e) {
-                Debug.Print("Exception when calling DataApi.query2: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-query2-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: ApiKeyAuth
-OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('Api-Key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Api-Key', 'Bearer');
-
-// Create an instance of the API class
-$api_instance = new OpenAPITools\Client\Api\DataApi();
-$body = ; // InsightsServiceQueryRequest | 
-
-try {
-    $result = $api_instance->query2($body);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DataApi->query2: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-query2-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::OPenAPIClient::Configuration;
-use WWW::OPenAPIClient::DataApi;
-
-# Configure API key authorization: ApiKeyAuth
-$WWW::OPenAPIClient::Configuration::api_key->{'Api-Key'} = 'YOUR_API_KEY';
-# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'Api-Key'} = "Bearer";
-
-# Create an instance of the API class
-my $api_instance = WWW::OPenAPIClient::DataApi->new();
-my $body = WWW::OPenAPIClient::Object::InsightsServiceQueryRequest->new(); # InsightsServiceQueryRequest | 
-
-eval {
-    my $result = $api_instance->query2(body => $body);
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling DataApi->query2: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-query2-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: ApiKeyAuth
-openapi_client.configuration.api_key['Api-Key'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# openapi_client.configuration.api_key_prefix['Api-Key'] = 'Bearer'
-
-# Create an instance of the API class
-api_instance = openapi_client.DataApi()
-body =  # InsightsServiceQueryRequest | 
-
-try:
-    # Insight Query
-    api_response = api_instance.query2(body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataApi->query2: %s\n" % e)</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-query2-0-rust">
-                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
-
-pub fn main() {
-    let body = ; // InsightsServiceQueryRequest
-
-    let mut context = DataApi::Context::default();
-    let result = client.query2(body, &context).wait();
-
-    println!("{:?}", result);
-}
-</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Scopes</h2>
-                          <table>
-                            
-                          </table>
-
-                          <h2>Parameters</h2>
-
-
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
-<td>
-<p class="marked"></p>
-<script>
-$(document).ready(function() {
-  var schemaWrapper = {
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/insights_service.QueryRequest"
-      }
-    }
-  },
-  "required" : true
-};
-
-  var schema = findNode('schema',schemaWrapper).schema;
-  if (!schema) {
-    schema = schemaWrapper.schema;
-  }
-  if (schema.$ref != null) {
-    schema = defsParser.$refs.get(schema.$ref);
-  } else {
-    schemaWrapper.definitions = Object.assign({}, defs);
-    $RefParser.dereference(schemaWrapper).catch(function(err) {
-      console.log(err);
-    });
-  }
-
-  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_query2_body');
-  result.empty();
-  result.append(view.render());
-});
-</script>
-<div id="d2e199_query2_body"></div>
-</td>
-</tr>
-
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3 id="examples-Data-query2-title-200"></h3>
-                            <p id="examples-Data-query2-description-200" class="marked"></p>
-                            <script>
-                              var responseData200_description = `A successful response.`;
-                              var responseData200_description_break = responseData200_description.indexOf('\n');
-                              if (responseData200_description_break == -1) {
-                                $("#examples-Data-query2-title-200").text("Status: 200 - " + responseData200_description);
-                              } else {
-                                $("#examples-Data-query2-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
-                                $("#examples-Data-query2-description-200").html(responseData200_description.substring(responseData200_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Data-query2-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Data-query2-200-schema">Schema</a>
-                                </li>
-
-
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Data-query2-200-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Data-query2-200-schema">
-                                <div id="responses-Data-query2-schema-200" class="exampleStyle">
-                                  <script>
-                                    $(document).ready(function() {
-                                      var schemaWrapper = {
-  "description" : "A successful response.",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/insights_service.QueryResponse"
-      }
-    }
-  }
-};
-                                      var schema = findNode('schema',schemaWrapper).schema;
-                                      if (!schema) {
-                                        schema = schemaWrapper.schema;
-                                      }
-                                      if (schema == null) {
-                                        return;
-                                      }
-                                      if (schema.$ref != null) {
-                                        schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
-                                      } else if (schema.items != null && schema.items.$ref != null) {
-                                        schema.items = defsParser.$refs.get(schema.items.$ref);
-                                      } else {
-                                        schemaWrapper.definitions = Object.assign({}, defs);
-                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                          console.log(err);
-                                        });
-                                      }
-
-                                      var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Data-query2-200-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Data-query2-schema-200');
-                                      result.empty();
-                                      result.append(view.render());
-                                    });
-                                  </script>
-                                </div>
-                                <input id='responses-Data-query2-200-schema-data' type='hidden' value=''></input>
-                              </div>
-                            </div>
-                        </article>
-                      </div>
-                      <hr>
                     <div id="api-Data-queryLog">
                       <article id="api-Data-queryLog-0" data-group="User" data-name="queryLog" data-version="0">
                         <div class="pull-left">
@@ -8771,7 +8291,7 @@ $(document).ready(function() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/eventlogs/{owner}/{slug}" \
+ "https://app.sentio.xyz/api/v1/eventlogs/{owner}/{slug}" \
  -d ''
 </code></pre>
                           </div>
@@ -9264,7 +8784,7 @@ $(document).ready(function() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56"
+ "https://app.sentio.xyz/api/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-queryLog2-0-java">
@@ -10212,7 +9732,7 @@ pub fn main() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/insights/{owner}/{slug}/retention" \
+ "https://app.sentio.xyz/api/v1/insights/{owner}/{slug}/retention" \
  -d ''
 </code></pre>
                           </div>
@@ -10706,7 +10226,7 @@ $(document).ready(function() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/insights/retention" \
+ "https://app.sentio.xyz/api/v1/insights/retention" \
  -d ''
 </code></pre>
                           </div>
@@ -11139,7 +10659,7 @@ This allows you to build chart that marks the order of fund flow.
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/solidity/call_trace?projectOwner=projectOwner_example&projectSlug=projectSlug_example&networkId=networkId_example&txId.txHash=txIdPeriodtxHash_example&txId.simulationId=txIdPeriodsimulationId_example&txId.bundleId=txIdPeriodbundleId_example&disableOptimizer=true&withInternalCalls=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/call_trace?projectOwner=projectOwner_example&projectSlug=projectSlug_example&networkId=networkId_example&txId.txHash=txIdPeriodtxHash_example&txId.simulationId=txIdPeriodsimulationId_example&txId.bundleId=txIdPeriodbundleId_example&disableOptimizer=true&withInternalCalls=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTrace-0-java">
@@ -11778,7 +11298,7 @@ Only effective when disableOptimizer&#x3D;true
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/solidity/simulate/{simulationId}?projectOwner=projectOwner_example&projectSlug=projectSlug_example"
+ "https://app.sentio.xyz/api/v1/solidity/simulate/{simulationId}?projectOwner=projectOwner_example&projectSlug=projectSlug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getSimulation-0-java">
@@ -12247,7 +11767,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/solidity/simulate_bundle/{bundleId}?projectOwner=projectOwner_example&projectSlug=projectSlug_example"
+ "https://app.sentio.xyz/api/v1/solidity/simulate_bundle/{bundleId}?projectOwner=projectOwner_example&projectSlug=projectSlug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getSimulationBundle-0-java">
@@ -12716,7 +12236,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/solidity/simulate?projectOwner=projectOwner_example&projectSlug=projectSlug_example&page=56&pageSize=56"
+ "https://app.sentio.xyz/api/v1/solidity/simulate?projectOwner=projectOwner_example&projectSlug=projectSlug_example&page=56&pageSize=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getSimulations-0-java">
@@ -13209,7 +12729,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/solidity/search_transactions?chainId=&address=&includeDirect=true&includeTrace=true&includeIn=true&includeOut=true&startBlock=startBlock_example&endBlock=endBlock_example&startTimestamp=startTimestamp_example&endTimestamp=endTimestamp_example&transactionStatus=&methodSignature=methodSignature_example&limit=56&pageToken=BYTE_ARRAY_DATA_HERE"
+ "https://app.sentio.xyz/api/v1/solidity/search_transactions?chainId=&address=&includeDirect=true&includeTrace=true&includeIn=true&includeOut=true&startBlock=startBlock_example&endBlock=endBlock_example&startTimestamp=startTimestamp_example&endTimestamp=endTimestamp_example&transactionStatus=&methodSignature=methodSignature_example&limit=56&pageToken=BYTE_ARRAY_DATA_HERE"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-searchTransactions-0-java">
@@ -13999,7 +13519,7 @@ Your simulations will be saved, and a unique ID for each simulation is included 
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/solidity/simulate" \
+ "https://app.sentio.xyz/api/v1/solidity/simulate" \
  -d ''
 </code></pre>
                           </div>
@@ -14424,7 +13944,7 @@ $(document).ready(function() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/solidity/simulate_bundle" \
+ "https://app.sentio.xyz/api/v1/solidity/simulate_bundle" \
  -d ''
 </code></pre>
                           </div>
@@ -14851,7 +14371,7 @@ $(document).ready(function() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X DELETE \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
+ "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-deleteDashboard-0-java">
@@ -15360,7 +14880,7 @@ project slug
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/dashboards/{dashboardId}/json"
+ "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}/json"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-exportDashboard-0-java">
@@ -15764,7 +15284,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
+ "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getDashboard-0-java">
@@ -16273,7 +15793,7 @@ project slug
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}?projectId=projectId_example"
+ "https://app.sentio.xyz/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}?projectId=projectId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getDashboard2-0-java">
@@ -16788,7 +16308,7 @@ filter the dashboard by project id
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/project/{owner}/{slug}"
+ "https://app.sentio.xyz/api/v1/project/{owner}/{slug}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getProject-0-java">
@@ -17229,7 +16749,7 @@ project slug
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/projects?userId=userId_example&organizationId=organizationId_example"
+ "https://app.sentio.xyz/api/v1/projects?userId=userId_example&organizationId=organizationId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getProjectList-0-java">
@@ -17661,7 +17181,7 @@ pub fn main() {
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "http://app.sentio.xyz/api/v1/dashboards/json" \
+ "https://app.sentio.xyz/api/v1/dashboards/json" \
  -d ''
 </code></pre>
                           </div>
@@ -18085,7 +17605,7 @@ $(document).ready(function() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/dashboards?dashboardId=dashboardId_example&projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
+ "https://app.sentio.xyz/api/v1/dashboards?dashboardId=dashboardId_example&projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-listDashboards-0-java">
@@ -18584,7 +18104,7 @@ project slug
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "http://app.sentio.xyz/api/v1/projects/{owner}/{slug}/dashboards?dashboardId=dashboardId_example&projectId=projectId_example"
+ "https://app.sentio.xyz/api/v1/projects/{owner}/{slug}/dashboards?dashboardId=dashboardId_example&projectId=projectId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-listDashboards2-0-java">

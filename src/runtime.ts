@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = "http://app.sentio.xyz".replace(/\/+$/, "");
+export const BASE_PATH = "https://app.sentio.xyz".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
