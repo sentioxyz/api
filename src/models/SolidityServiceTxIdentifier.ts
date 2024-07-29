@@ -20,11 +20,11 @@ import { mapValues } from '../runtime.js';
  */
 export interface SolidityServiceTxIdentifier {
     /**
-     * 
+     * One of txHash, simulationId, bundleId is required.
      * @type {string}
      * @memberof SolidityServiceTxIdentifier
      */
-    txHash: string;
+    txHash?: string;
     /**
      * 
      * @type {string}
@@ -43,7 +43,6 @@ export interface SolidityServiceTxIdentifier {
  * Check if a given object implements the SolidityServiceTxIdentifier interface.
  */
 export function instanceOfSolidityServiceTxIdentifier(value: object): boolean {
-    if (!('txHash' in value)) return false;
     return true;
 }
 
@@ -57,7 +56,7 @@ export function SolidityServiceTxIdentifierFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'txHash': json['txHash'],
+        'txHash': json['txHash'] == null ? undefined : json['txHash'],
         'simulationId': json['simulationId'] == null ? undefined : json['simulationId'],
         'bundleId': json['bundleId'] == null ? undefined : json['bundleId'],
     };

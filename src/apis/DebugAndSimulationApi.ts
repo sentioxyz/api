@@ -48,9 +48,9 @@ import {
 
 export interface GetCallTraceRequest {
     networkId: string;
-    txIdTxHash: string;
     projectOwner?: string;
     projectSlug?: string;
+    txIdTxHash?: string;
     txIdSimulationId?: string;
     txIdBundleId?: string;
     disableOptimizer?: boolean;
@@ -116,13 +116,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
             throw new runtime.RequiredError(
                 'networkId',
                 'Required parameter "networkId" was null or undefined when calling getCallTrace().'
-            );
-        }
-
-        if (requestParameters['txIdTxHash'] == null) {
-            throw new runtime.RequiredError(
-                'txIdTxHash',
-                'Required parameter "txIdTxHash" was null or undefined when calling getCallTrace().'
             );
         }
 

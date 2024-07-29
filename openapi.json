@@ -634,8 +634,9 @@
 					},
 					{
 						"name": "txId.txHash",
+						"description": "One of txHash, simulationId, bundleId is required.",
 						"in": "query",
-						"required": true,
+						"required": false,
 						"type": "string"
 					},
 					{
@@ -3861,7 +3862,8 @@
 			"type": "object",
 			"properties": {
 				"txHash": {
-					"type": "string"
+					"type": "string",
+					"description": "One of txHash, simulationId, bundleId is required."
 				},
 				"simulationId": {
 					"type": "string"
@@ -3869,10 +3871,7 @@
 				"bundleId": {
 					"type": "string"
 				}
-			},
-			"required": [
-				"txHash"
-			]
+			}
 		},
 		"txindex.EvmRawTransaction": {
 			"type": "object",

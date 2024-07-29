@@ -3686,11 +3686,11 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.TxIdentifier"] = {
-  "required" : [ "txHash" ],
   "type" : "object",
   "properties" : {
     "txHash" : {
-      "type" : "string"
+      "type" : "string",
+      "description" : "One of txHash, simulationId, bundleId is required."
     },
     "simulationId" : {
       "type" : "string"
@@ -10684,9 +10684,9 @@ public class DebugAndSimulationApiExample {
         // Create an instance of the API class
         DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
         String networkId = networkId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | 
         String projectOwner = projectOwner_example; // String | 
         String projectSlug = projectSlug_example; // String | 
+        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
         String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
         Boolean disableOptimizer = true; // Boolean | 
@@ -10694,7 +10694,7 @@ public class DebugAndSimulationApiExample {
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTrace(networkId, txIdPeriodtxHash, projectOwner, projectSlug, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTrace");
@@ -10711,9 +10711,9 @@ public class DebugAndSimulationApiExample {
 final api_instance = DefaultApi();
 
 final String networkId = new String(); // String | 
-final String txIdPeriodtxHash = new String(); // String | 
 final String projectOwner = new String(); // String | 
 final String projectSlug = new String(); // String | 
+final String txIdPeriodtxHash = new String(); // String | One of txHash, simulationId, bundleId is required.
 final String txIdPeriodsimulationId = new String(); // String | 
 final String txIdPeriodbundleId = new String(); // String | 
 final Boolean disableOptimizer = new Boolean(); // Boolean | 
@@ -10721,7 +10721,7 @@ final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded 
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true
 
 try {
-    final result = await api_instance.getCallTrace(networkId, txIdPeriodtxHash, projectOwner, projectSlug, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+    final result = await api_instance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTrace: $e\n');
@@ -10737,9 +10737,9 @@ public class DebugAndSimulationApiExample {
     public static void main(String[] args) {
         DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
         String networkId = networkId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | 
         String projectOwner = projectOwner_example; // String | 
         String projectSlug = projectSlug_example; // String | 
+        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
         String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
         Boolean disableOptimizer = true; // Boolean | 
@@ -10747,7 +10747,7 @@ public class DebugAndSimulationApiExample {
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTrace(networkId, txIdPeriodtxHash, projectOwner, projectSlug, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTrace");
@@ -10772,9 +10772,9 @@ public class DebugAndSimulationApiExample {
 // Create an instance of the API class
 DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
 String *networkId = networkId_example; //  (default to null)
-String *txIdPeriodtxHash = txIdPeriodtxHash_example; //  (default to null)
 String *projectOwner = projectOwner_example; //  (optional) (default to null)
 String *projectSlug = projectSlug_example; //  (optional) (default to null)
+String *txIdPeriodtxHash = txIdPeriodtxHash_example; // One of txHash, simulationId, bundleId is required. (optional) (default to null)
 String *txIdPeriodsimulationId = txIdPeriodsimulationId_example; //  (optional) (default to null)
 String *txIdPeriodbundleId = txIdPeriodbundleId_example; //  (optional) (default to null)
 Boolean *disableOptimizer = true; //  (optional) (default to null)
@@ -10783,9 +10783,9 @@ Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true (opt
 
 // Get indexed call trace
 [apiInstance getCallTraceWith:networkId
-    txIdPeriodtxHash:txIdPeriodtxHash
     projectOwner:projectOwner
     projectSlug:projectSlug
+    txIdPeriodtxHash:txIdPeriodtxHash
     txIdPeriodsimulationId:txIdPeriodsimulationId
     txIdPeriodbundleId:txIdPeriodbundleId
     disableOptimizer:disableOptimizer
@@ -10815,10 +10815,10 @@ ApiKeyAuth.apiKey = "YOUR API KEY";
 // Create an instance of the API class
 var api = new SentioApi.DebugAndSimulationApi()
 var networkId = networkId_example; // {String} 
-var txIdPeriodtxHash = txIdPeriodtxHash_example; // {String} 
 var opts = {
   'projectOwner': projectOwner_example, // {String} 
   'projectSlug': projectSlug_example, // {String} 
+  'txIdPeriodtxHash': txIdPeriodtxHash_example, // {String} One of txHash, simulationId, bundleId is required.
   'txIdPeriodsimulationId': txIdPeriodsimulationId_example, // {String} 
   'txIdPeriodbundleId': txIdPeriodbundleId_example, // {String} 
   'disableOptimizer': true, // {Boolean} 
@@ -10833,7 +10833,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getCallTrace(networkId, txIdPeriodtxHash, opts, callback);
+api.getCallTrace(networkId, opts, callback);
 </code></pre>
                             </div>
 
@@ -10861,9 +10861,9 @@ namespace Example
             // Create an instance of the API class
             var apiInstance = new DebugAndSimulationApi();
             var networkId = networkId_example;  // String |  (default to null)
-            var txIdPeriodtxHash = txIdPeriodtxHash_example;  // String |  (default to null)
             var projectOwner = projectOwner_example;  // String |  (optional)  (default to null)
             var projectSlug = projectSlug_example;  // String |  (optional)  (default to null)
+            var txIdPeriodtxHash = txIdPeriodtxHash_example;  // String | One of txHash, simulationId, bundleId is required. (optional)  (default to null)
             var txIdPeriodsimulationId = txIdPeriodsimulationId_example;  // String |  (optional)  (default to null)
             var txIdPeriodbundleId = txIdPeriodbundleId_example;  // String |  (optional)  (default to null)
             var disableOptimizer = true;  // Boolean |  (optional)  (default to null)
@@ -10872,7 +10872,7 @@ namespace Example
 
             try {
                 // Get indexed call trace
-                google.api.HttpBody result = apiInstance.getCallTrace(networkId, txIdPeriodtxHash, projectOwner, projectSlug, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+                google.api.HttpBody result = apiInstance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTrace: " + e.Message );
@@ -10895,9 +10895,9 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('Api-Key
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\DebugAndSimulationApi();
 $networkId = networkId_example; // String | 
-$txIdPeriodtxHash = txIdPeriodtxHash_example; // String | 
 $projectOwner = projectOwner_example; // String | 
 $projectSlug = projectSlug_example; // String | 
+$txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
 $txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
 $txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
 $disableOptimizer = true; // Boolean | 
@@ -10905,7 +10905,7 @@ $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true
 
 try {
-    $result = $api_instance->getCallTrace($networkId, $txIdPeriodtxHash, $projectOwner, $projectSlug, $txIdPeriodsimulationId, $txIdPeriodbundleId, $disableOptimizer, $withInternalCalls, $ignoreGasCost);
+    $result = $api_instance->getCallTrace($networkId, $projectOwner, $projectSlug, $txIdPeriodtxHash, $txIdPeriodsimulationId, $txIdPeriodbundleId, $disableOptimizer, $withInternalCalls, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTrace: ', $e->getMessage(), PHP_EOL;
@@ -10926,9 +10926,9 @@ $WWW::OPenAPIClient::Configuration::api_key->{'Api-Key'} = 'YOUR_API_KEY';
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::DebugAndSimulationApi->new();
 my $networkId = networkId_example; # String | 
-my $txIdPeriodtxHash = txIdPeriodtxHash_example; # String | 
 my $projectOwner = projectOwner_example; # String | 
 my $projectSlug = projectSlug_example; # String | 
+my $txIdPeriodtxHash = txIdPeriodtxHash_example; # String | One of txHash, simulationId, bundleId is required.
 my $txIdPeriodsimulationId = txIdPeriodsimulationId_example; # String | 
 my $txIdPeriodbundleId = txIdPeriodbundleId_example; # String | 
 my $disableOptimizer = true; # Boolean | 
@@ -10936,7 +10936,7 @@ my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will gi
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true
 
 eval {
-    my $result = $api_instance->getCallTrace(networkId => $networkId, txIdPeriodtxHash => $txIdPeriodtxHash, projectOwner => $projectOwner, projectSlug => $projectSlug, txIdPeriodsimulationId => $txIdPeriodsimulationId, txIdPeriodbundleId => $txIdPeriodbundleId, disableOptimizer => $disableOptimizer, withInternalCalls => $withInternalCalls, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTrace(networkId => $networkId, projectOwner => $projectOwner, projectSlug => $projectSlug, txIdPeriodtxHash => $txIdPeriodtxHash, txIdPeriodsimulationId => $txIdPeriodsimulationId, txIdPeriodbundleId => $txIdPeriodbundleId, disableOptimizer => $disableOptimizer, withInternalCalls => $withInternalCalls, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -10959,9 +10959,9 @@ openapi_client.configuration.api_key['Api-Key'] = 'YOUR_API_KEY'
 # Create an instance of the API class
 api_instance = openapi_client.DebugAndSimulationApi()
 networkId = networkId_example # String |  (default to null)
-txIdPeriodtxHash = txIdPeriodtxHash_example # String |  (default to null)
 projectOwner = projectOwner_example # String |  (optional) (default to null)
 projectSlug = projectSlug_example # String |  (optional) (default to null)
+txIdPeriodtxHash = txIdPeriodtxHash_example # String | One of txHash, simulationId, bundleId is required. (optional) (default to null)
 txIdPeriodsimulationId = txIdPeriodsimulationId_example # String |  (optional) (default to null)
 txIdPeriodbundleId = txIdPeriodbundleId_example # String |  (optional) (default to null)
 disableOptimizer = true # Boolean |  (optional) (default to null)
@@ -10970,7 +10970,7 @@ ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true (opti
 
 try:
     # Get indexed call trace
-    api_response = api_instance.get_call_trace(networkId, txIdPeriodtxHash, projectOwner=projectOwner, projectSlug=projectSlug, txIdPeriodsimulationId=txIdPeriodsimulationId, txIdPeriodbundleId=txIdPeriodbundleId, disableOptimizer=disableOptimizer, withInternalCalls=withInternalCalls, ignoreGasCost=ignoreGasCost)
+    api_response = api_instance.get_call_trace(networkId, projectOwner=projectOwner, projectSlug=projectSlug, txIdPeriodtxHash=txIdPeriodtxHash, txIdPeriodsimulationId=txIdPeriodsimulationId, txIdPeriodbundleId=txIdPeriodbundleId, disableOptimizer=disableOptimizer, withInternalCalls=withInternalCalls, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTrace: %s\n" % e)</code></pre>
@@ -10981,9 +10981,9 @@ except ApiException as e:
 
 pub fn main() {
     let networkId = networkId_example; // String
-    let txIdPeriodtxHash = txIdPeriodtxHash_example; // String
     let projectOwner = projectOwner_example; // String
     let projectSlug = projectSlug_example; // String
+    let txIdPeriodtxHash = txIdPeriodtxHash_example; // String
     let txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String
     let txIdPeriodbundleId = txIdPeriodbundleId_example; // String
     let disableOptimizer = true; // Boolean
@@ -10991,7 +10991,7 @@ pub fn main() {
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTrace(networkId, txIdPeriodtxHash, projectOwner, projectSlug, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost, &context).wait();
+    let result = client.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -11070,7 +11070,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                <tr><td style="width:150px;">txId.txHash*</td>
+                                <tr><td style="width:150px;">txId.txHash</td>
 <td>
 
 
@@ -11081,10 +11081,10 @@ pub fn main() {
                     String
                 </span>
 
+                    <div class="inner description marked">
+One of txHash, simulationId, bundleId is required.
+                    </div>
             </div>
-                <div class="inner required">
-                    Required
-                </div>
         </div>
     </div>
 </td>
