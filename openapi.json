@@ -15,7 +15,7 @@
 		"/api/v1/analytics/{owner}/{slug}/sql/execute": {
 			"post": {
 				"summary": "Execute SQL",
-				"description": "Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)\n\nFind more: https://docs.sentio.xyz/docs/data-api#sql-api",
+				"description": "Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)\n\nFind more: https://docs.sentio.xyz/reference/data#sql-api",
 				"operationId": "ExecuteSQL",
 				"responses": {
 					"200": {
@@ -54,7 +54,7 @@
 				],
 				"externalDocs": {
 					"description": "find more information here",
-					"url": "https://docs.sentio.xyz/docs/data-api#sql-api"
+					"url": "https://docs.sentio.xyz/reference/data#sql-api"
 				}
 			}
 		},
@@ -2552,11 +2552,11 @@
 					"type": "string"
 				}
 			},
-			"description": "start and end time of the time range, Find more: https://docs.sentio.xyz/docs/data-api#time-range-configuration-guide",
+			"description": "start and end time of the time range, Find more: https://docs.sentio.xyz/reference/data#time-range-configuration-guide",
 			"title": "Time range",
 			"externalDocs": {
 				"description": "Find more about time range here.",
-				"url": "https://docs.sentio.xyz/docs/data-api#time-range-configuration-guide"
+				"url": "https://docs.sentio.xyz/reference/data#time-range-configuration-guide"
 			},
 			"required": [
 				"start",
