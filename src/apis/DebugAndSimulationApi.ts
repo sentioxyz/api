@@ -73,6 +73,7 @@ export interface GetSimulationBundleRequest {
 export interface GetSimulationsRequest {
     projectOwner?: string;
     projectSlug?: string;
+    labelContains?: string;
     page?: number;
     pageSize?: number;
 }
@@ -284,6 +285,10 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         if (requestParameters['projectSlug'] != null) {
             queryParameters['projectSlug'] = requestParameters['projectSlug'];
+        }
+
+        if (requestParameters['labelContains'] != null) {
+            queryParameters['labelContains'] = requestParameters['labelContains'];
         }
 
         if (requestParameters['page'] != null) {

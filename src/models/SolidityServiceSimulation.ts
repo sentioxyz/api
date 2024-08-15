@@ -148,6 +148,12 @@ export interface SolidityServiceSimulation {
     originTxHash?: string;
     /**
      * 
+     * @type {string}
+     * @memberof SolidityServiceSimulation
+     */
+    label?: string;
+    /**
+     * 
      * @type {{ [key: string]: SolidityServiceStateOverride; }}
      * @memberof SolidityServiceSimulation
      */
@@ -212,6 +218,7 @@ export function SolidityServiceSimulationFromJSONTyped(json: any, ignoreDiscrimi
         'value': json['value'] == null ? undefined : json['value'],
         'accessList': json['accessList'] == null ? undefined : ((json['accessList'] as Array<any>).map(EvmAccessListItemFromJSON)),
         'originTxHash': json['originTxHash'] == null ? undefined : json['originTxHash'],
+        'label': json['label'] == null ? undefined : json['label'],
         'stateOverrides': json['stateOverrides'] == null ? undefined : (mapValues(json['stateOverrides'], SolidityServiceStateOverrideFromJSON)),
         'sourceOverrides': json['sourceOverrides'] == null ? undefined : json['sourceOverrides'],
         'blockOverride': json['blockOverride'] == null ? undefined : SolidityServiceBlockOverridesFromJSON(json['blockOverride']),
@@ -243,6 +250,7 @@ export function SolidityServiceSimulationToJSON(value?: SolidityServiceSimulatio
         'value': value['value'],
         'accessList': value['accessList'] == null ? undefined : ((value['accessList'] as Array<any>).map(EvmAccessListItemToJSON)),
         'originTxHash': value['originTxHash'],
+        'label': value['label'],
         'stateOverrides': value['stateOverrides'] == null ? undefined : (mapValues(value['stateOverrides'], SolidityServiceStateOverrideToJSON)),
         'sourceOverrides': value['sourceOverrides'],
         'blockOverride': SolidityServiceBlockOverridesToJSON(value['blockOverride']),

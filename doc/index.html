@@ -3550,6 +3550,9 @@ ul.nav-tabs {
     "originTxHash" : {
       "type" : "string"
     },
+    "label" : {
+      "type" : "string"
+    },
     "stateOverrides" : {
       "type" : "object",
       "additionalProperties" : {
@@ -12236,7 +12239,7 @@ pub fn main() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "Api-Key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/simulate?projectOwner=projectOwner_example&projectSlug=projectSlug_example&page=56&pageSize=56"
+ "https://app.sentio.xyz/api/v1/solidity/simulate?projectOwner=projectOwner_example&projectSlug=projectSlug_example&labelContains=labelContains_example&page=56&pageSize=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getSimulations-0-java">
@@ -12262,11 +12265,12 @@ public class DebugAndSimulationApiExample {
         DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
         String projectOwner = projectOwner_example; // String | 
         String projectSlug = projectSlug_example; // String | 
+        String labelContains = labelContains_example; // String | 
         Integer page = 56; // Integer | 
         Integer pageSize = 56; // Integer | 
 
         try {
-            solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(projectOwner, projectSlug, page, pageSize);
+            solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(projectOwner, projectSlug, labelContains, page, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getSimulations");
@@ -12284,11 +12288,12 @@ final api_instance = DefaultApi();
 
 final String projectOwner = new String(); // String | 
 final String projectSlug = new String(); // String | 
+final String labelContains = new String(); // String | 
 final Integer page = new Integer(); // Integer | 
 final Integer pageSize = new Integer(); // Integer | 
 
 try {
-    final result = await api_instance.getSimulations(projectOwner, projectSlug, page, pageSize);
+    final result = await api_instance.getSimulations(projectOwner, projectSlug, labelContains, page, pageSize);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getSimulations: $e\n');
@@ -12305,11 +12310,12 @@ public class DebugAndSimulationApiExample {
         DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
         String projectOwner = projectOwner_example; // String | 
         String projectSlug = projectSlug_example; // String | 
+        String labelContains = labelContains_example; // String | 
         Integer page = 56; // Integer | 
         Integer pageSize = 56; // Integer | 
 
         try {
-            solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(projectOwner, projectSlug, page, pageSize);
+            solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(projectOwner, projectSlug, labelContains, page, pageSize);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getSimulations");
@@ -12335,12 +12341,14 @@ public class DebugAndSimulationApiExample {
 DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
 String *projectOwner = projectOwner_example; //  (optional) (default to null)
 String *projectSlug = projectSlug_example; //  (optional) (default to null)
+String *labelContains = labelContains_example; //  (optional) (default to null)
 Integer *page = 56; //  (optional) (default to null)
 Integer *pageSize = 56; //  (optional) (default to null)
 
 // Get existing transaction simulations
 [apiInstance getSimulationsWith:projectOwner
     projectSlug:projectSlug
+    labelContains:labelContains
     page:page
     pageSize:pageSize
               completionHandler: ^(solidity_service.GetSimulationsResponse output, NSError* error) {
@@ -12369,6 +12377,7 @@ var api = new SentioApi.DebugAndSimulationApi()
 var opts = {
   'projectOwner': projectOwner_example, // {String} 
   'projectSlug': projectSlug_example, // {String} 
+  'labelContains': labelContains_example, // {String} 
   'page': 56, // {Integer} 
   'pageSize': 56 // {Integer} 
 };
@@ -12409,12 +12418,13 @@ namespace Example
             var apiInstance = new DebugAndSimulationApi();
             var projectOwner = projectOwner_example;  // String |  (optional)  (default to null)
             var projectSlug = projectSlug_example;  // String |  (optional)  (default to null)
+            var labelContains = labelContains_example;  // String |  (optional)  (default to null)
             var page = 56;  // Integer |  (optional)  (default to null)
             var pageSize = 56;  // Integer |  (optional)  (default to null)
 
             try {
                 // Get existing transaction simulations
-                solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(projectOwner, projectSlug, page, pageSize);
+                solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(projectOwner, projectSlug, labelContains, page, pageSize);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getSimulations: " + e.Message );
@@ -12438,11 +12448,12 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('Api-Key
 $api_instance = new OpenAPITools\Client\Api\DebugAndSimulationApi();
 $projectOwner = projectOwner_example; // String | 
 $projectSlug = projectSlug_example; // String | 
+$labelContains = labelContains_example; // String | 
 $page = 56; // Integer | 
 $pageSize = 56; // Integer | 
 
 try {
-    $result = $api_instance->getSimulations($projectOwner, $projectSlug, $page, $pageSize);
+    $result = $api_instance->getSimulations($projectOwner, $projectSlug, $labelContains, $page, $pageSize);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getSimulations: ', $e->getMessage(), PHP_EOL;
@@ -12464,11 +12475,12 @@ $WWW::OPenAPIClient::Configuration::api_key->{'Api-Key'} = 'YOUR_API_KEY';
 my $api_instance = WWW::OPenAPIClient::DebugAndSimulationApi->new();
 my $projectOwner = projectOwner_example; # String | 
 my $projectSlug = projectSlug_example; # String | 
+my $labelContains = labelContains_example; # String | 
 my $page = 56; # Integer | 
 my $pageSize = 56; # Integer | 
 
 eval {
-    my $result = $api_instance->getSimulations(projectOwner => $projectOwner, projectSlug => $projectSlug, page => $page, pageSize => $pageSize);
+    my $result = $api_instance->getSimulations(projectOwner => $projectOwner, projectSlug => $projectSlug, labelContains => $labelContains, page => $page, pageSize => $pageSize);
     print Dumper($result);
 };
 if ($@) {
@@ -12492,12 +12504,13 @@ openapi_client.configuration.api_key['Api-Key'] = 'YOUR_API_KEY'
 api_instance = openapi_client.DebugAndSimulationApi()
 projectOwner = projectOwner_example # String |  (optional) (default to null)
 projectSlug = projectSlug_example # String |  (optional) (default to null)
+labelContains = labelContains_example # String |  (optional) (default to null)
 page = 56 # Integer |  (optional) (default to null)
 pageSize = 56 # Integer |  (optional) (default to null)
 
 try:
     # Get existing transaction simulations
-    api_response = api_instance.get_simulations(projectOwner=projectOwner, projectSlug=projectSlug, page=page, pageSize=pageSize)
+    api_response = api_instance.get_simulations(projectOwner=projectOwner, projectSlug=projectSlug, labelContains=labelContains, page=page, pageSize=pageSize)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getSimulations: %s\n" % e)</code></pre>
@@ -12509,11 +12522,12 @@ except ApiException as e:
 pub fn main() {
     let projectOwner = projectOwner_example; // String
     let projectSlug = projectSlug_example; // String
+    let labelContains = labelContains_example; // String
     let page = 56; // Integer
     let pageSize = 56; // Integer
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getSimulations(projectOwner, projectSlug, page, pageSize, &context).wait();
+    let result = client.getSimulations(projectOwner, projectSlug, labelContains, page, pageSize, &context).wait();
 
     println!("{:?}", result);
 }
@@ -12560,6 +12574,23 @@ pub fn main() {
 
 
     <div id="d2e199_getSimulations_projectSlug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">labelContains</td>
+<td>
+
+
+    <div id="d2e199_getSimulations_labelContains">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">

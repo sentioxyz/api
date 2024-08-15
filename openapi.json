@@ -825,6 +825,12 @@
 						"type": "string"
 					},
 					{
+						"name": "labelContains",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
 						"name": "page",
 						"in": "query",
 						"required": false,
@@ -3724,6 +3730,9 @@
 					}
 				},
 				"originTxHash": {
+					"type": "string"
+				},
+				"label": {
 					"type": "string"
 				},
 				"stateOverrides": {
