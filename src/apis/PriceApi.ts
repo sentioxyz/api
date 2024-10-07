@@ -56,6 +56,7 @@ export interface PriceListCoinsRequest {
 export class PriceApi extends runtime.BaseAPI {
 
     /**
+     * Batch get prices
      */
     async batchGetPricesRaw(requestParameters: BatchGetPricesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PriceServiceBatchGetPricesResponse>> {
         const queryParameters: any = {};
@@ -81,6 +82,7 @@ export class PriceApi extends runtime.BaseAPI {
     }
 
     /**
+     * Batch get prices
      */
     async batchGetPrices(requestParameters: BatchGetPricesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PriceServiceBatchGetPricesResponse> {
         const response = await this.batchGetPricesRaw(requestParameters, initOverrides);
@@ -88,6 +90,7 @@ export class PriceApi extends runtime.BaseAPI {
     }
 
     /**
+     * Check latest price
      */
     async checkLatestPriceRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PriceServiceCheckLatestPriceResponse>> {
         const queryParameters: any = {};
@@ -109,6 +112,7 @@ export class PriceApi extends runtime.BaseAPI {
     }
 
     /**
+     * Check latest price
      */
     async checkLatestPrice(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PriceServiceCheckLatestPriceResponse> {
         const response = await this.checkLatestPriceRaw(initOverrides);
@@ -117,6 +121,7 @@ export class PriceApi extends runtime.BaseAPI {
 
     /**
      * GetPrice returns the price of a given coin identifier, in a best effort way. If we do not have any price data for the given coin, we will return NOT_FOUND error. If we have at least one price data for the given coin, we will return it with the actual timestamp. Client is responsible for checking the timestamp and decide whether to use the price or not.
+     * Get price
      */
     async getPriceRaw(requestParameters: GetPriceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PriceServiceGetPriceResponse>> {
         const queryParameters: any = {};
@@ -159,6 +164,7 @@ export class PriceApi extends runtime.BaseAPI {
 
     /**
      * GetPrice returns the price of a given coin identifier, in a best effort way. If we do not have any price data for the given coin, we will return NOT_FOUND error. If we have at least one price data for the given coin, we will return it with the actual timestamp. Client is responsible for checking the timestamp and decide whether to use the price or not.
+     * Get price
      */
     async getPrice(requestParameters: GetPriceRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PriceServiceGetPriceResponse> {
         const response = await this.getPriceRaw(requestParameters, initOverrides);
@@ -166,6 +172,7 @@ export class PriceApi extends runtime.BaseAPI {
     }
 
     /**
+     * List coins
      */
     async priceListCoinsRaw(requestParameters: PriceListCoinsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PriceServiceListCoinsResponse>> {
         const queryParameters: any = {};
@@ -203,6 +210,7 @@ export class PriceApi extends runtime.BaseAPI {
     }
 
     /**
+     * List coins
      */
     async priceListCoins(requestParameters: PriceListCoinsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PriceServiceListCoinsResponse> {
         const response = await this.priceListCoinsRaw(requestParameters, initOverrides);

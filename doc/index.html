@@ -14525,7 +14525,7 @@ $(document).ready(function() {
                       <article id="api-Price-batchGetPrices-0" data-group="User" data-name="batchGetPrices" data-version="0">
                         <div class="pull-left">
                           <h1>batchGetPrices</h1>
-                          <p></p>
+                          <p>Batch get prices</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -14648,6 +14648,7 @@ public class PriceApiExample {
 PriceApi *apiInstance = [[PriceApi alloc] init];
 array[Date] *timestamps = ; //  (optional) (default to null)
 
+// Batch get prices
 [apiInstance batchGetPricesWith:timestamps
               completionHandler: ^(price_service.BatchGetPricesResponse output, NSError* error) {
     if (output) {
@@ -14713,6 +14714,7 @@ namespace Example
             var timestamps = new array[Date](); // array[Date] |  (optional)  (default to null)
 
             try {
+                // Batch get prices
                 price_service.BatchGetPricesResponse result = apiInstance.batchGetPrices(timestamps);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -14786,6 +14788,7 @@ api_instance = openapi_client.PriceApi()
 timestamps =  # array[Date] |  (optional) (default to null)
 
 try:
+    # Batch get prices
     api_response = api_instance.batch_get_prices(timestamps=timestamps)
     pprint(api_response)
 except ApiException as e:
@@ -14928,7 +14931,7 @@ pub fn main() {
                       <article id="api-Price-checkLatestPrice-0" data-group="User" data-name="checkLatestPrice" data-version="0">
                         <div class="pull-left">
                           <h1>checkLatestPrice</h1>
-                          <p></p>
+                          <p>Check latest price</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -15047,6 +15050,7 @@ public class PriceApiExample {
 // Create an instance of the API class
 PriceApi *apiInstance = [[PriceApi alloc] init];
 
+// Check latest price
 [apiInstance checkLatestPriceWithCompletionHandler: 
               ^(price_service.CheckLatestPriceResponse output, NSError* error) {
     if (output) {
@@ -15107,6 +15111,7 @@ namespace Example
             var apiInstance = new PriceApi();
 
             try {
+                // Check latest price
                 price_service.CheckLatestPriceResponse result = apiInstance.checkLatestPrice();
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -15177,6 +15182,7 @@ openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
 api_instance = openapi_client.PriceApi()
 
 try:
+    # Check latest price
     api_response = api_instance.check_latest_price()
     pprint(api_response)
 except ApiException as e:
@@ -15291,15 +15297,15 @@ pub fn main() {
                       <article id="api-Price-getPrice-0" data-group="User" data-name="getPrice" data-version="0">
                         <div class="pull-left">
                           <h1>getPrice</h1>
-                          <p>GetPrice returns the price of a given coin identifier, in a best effort way.
-If we do not have any price data for the given coin, we will return NOT_FOUND error.
-If we have at least one price data for the given coin, we will return it with the actual timestamp.
-Client is responsible for checking the timestamp and decide whether to use the price or not.</p>
+                          <p>Get price</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">GetPrice returns the price of a given coin identifier, in a best effort way.
+If we do not have any price data for the given coin, we will return NOT_FOUND error.
+If we have at least one price data for the given coin, we will return it with the actual timestamp.
+Client is responsible for checking the timestamp and decide whether to use the price or not.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/prices</span></code></pre>
@@ -15441,10 +15447,7 @@ String *coinIdPeriodaddressPeriodaddress = coinIdPeriodaddressPeriodaddress_exam
 String *coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example; //  (optional) (default to null)
 String *source = source_example; //  (optional) (default to null)
 
-// GetPrice returns the price of a given coin identifier, in a best effort way.
-If we do not have any price data for the given coin, we will return NOT_FOUND error.
-If we have at least one price data for the given coin, we will return it with the actual timestamp.
-Client is responsible for checking the timestamp and decide whether to use the price or not.
+// Get price
 [apiInstance getPriceWith:timestamp
     coinIdPeriodsymbol:coinIdPeriodsymbol
     coinIdPeriodaddressPeriodaddress:coinIdPeriodaddressPeriodaddress
@@ -15526,10 +15529,7 @@ at the closest timestamp. (optional)  (default to null)
             var source = source_example;  // String |  (optional)  (default to null)
 
             try {
-                // GetPrice returns the price of a given coin identifier, in a best effort way.
-If we do not have any price data for the given coin, we will return NOT_FOUND error.
-If we have at least one price data for the given coin, we will return it with the actual timestamp.
-Client is responsible for checking the timestamp and decide whether to use the price or not.
+                // Get price
                 price_service.GetPriceResponse result = apiInstance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -15621,10 +15621,7 @@ coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example # String
 source = source_example # String |  (optional) (default to null)
 
 try:
-    # GetPrice returns the price of a given coin identifier, in a best effort way.
-If we do not have any price data for the given coin, we will return NOT_FOUND error.
-If we have at least one price data for the given coin, we will return it with the actual timestamp.
-Client is responsible for checking the timestamp and decide whether to use the price or not.
+    # Get price
     api_response = api_instance.get_price(timestamp=timestamp, coinIdPeriodsymbol=coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress=coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain=coinIdPeriodaddressPeriodchain, source=source)
     pprint(api_response)
 except ApiException as e:
@@ -15844,7 +15841,7 @@ at the closest timestamp.
                       <article id="api-Price-priceListCoins-0" data-group="User" data-name="priceListCoins" data-version="0">
                         <div class="pull-left">
                           <h1>priceListCoins</h1>
-                          <p></p>
+                          <p>List coins</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -15979,6 +15976,7 @@ Integer *offset = 56; //  (optional) (default to null)
 String *searchQuery = searchQuery_example; //  (optional) (default to null)
 String *chain = chain_example; //  (optional) (default to null)
 
+// List coins
 [apiInstance priceListCoinsWith:limit
     offset:offset
     searchQuery:searchQuery
@@ -16053,6 +16051,7 @@ namespace Example
             var chain = chain_example;  // String |  (optional)  (default to null)
 
             try {
+                // List coins
                 price_service.ListCoinsResponse result = apiInstance.priceListCoins(limit, offset, searchQuery, chain);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -16135,6 +16134,7 @@ searchQuery = searchQuery_example # String |  (optional) (default to null)
 chain = chain_example # String |  (optional) (default to null)
 
 try:
+    # List coins
     api_response = api_instance.price_list_coins(limit=limit, offset=offset, searchQuery=searchQuery, chain=chain)
     pprint(api_response)
 except ApiException as e:

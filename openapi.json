@@ -602,7 +602,8 @@
 		},
 		"/api/v1/prices": {
 			"get": {
-				"summary": "GetPrice returns the price of a given coin identifier, in a best effort way.\nIf we do not have any price data for the given coin, we will return NOT_FOUND error.\nIf we have at least one price data for the given coin, we will return it with the actual timestamp.\nClient is responsible for checking the timestamp and decide whether to use the price or not.",
+				"summary": "Get price",
+				"description": "GetPrice returns the price of a given coin identifier, in a best effort way.\nIf we do not have any price data for the given coin, we will return NOT_FOUND error.\nIf we have at least one price data for the given coin, we will return it with the actual timestamp.\nClient is responsible for checking the timestamp and decide whether to use the price or not.",
 				"operationId": "GetPrice",
 				"responses": {
 					"200": {
@@ -653,6 +654,7 @@
 		},
 		"/api/v1/prices/batch": {
 			"get": {
+				"summary": "Batch get prices",
 				"operationId": "BatchGetPrices",
 				"responses": {
 					"200": {
@@ -682,6 +684,7 @@
 		},
 		"/api/v1/prices/check_latest": {
 			"get": {
+				"summary": "Check latest price",
 				"operationId": "CheckLatestPrice",
 				"responses": {
 					"200": {
@@ -698,6 +701,7 @@
 		},
 		"/api/v1/prices/coins": {
 			"get": {
+				"summary": "List coins",
 				"operationId": "PriceListCoins",
 				"responses": {
 					"200": {
