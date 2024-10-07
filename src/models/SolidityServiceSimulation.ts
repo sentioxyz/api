@@ -67,7 +67,7 @@ export interface SolidityServiceSimulation {
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    networkId?: string;
+    networkId: string;
     /**
      * 
      * @type {string}
@@ -79,43 +79,43 @@ export interface SolidityServiceSimulation {
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    to?: string;
+    to: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    input?: string;
+    input: string;
+    /**
+     * Can be "latest".
+     * @type {string}
+     * @memberof SolidityServiceSimulation
+     */
+    blockNumber: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    blockNumber?: string;
+    transactionIndex: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    transactionIndex?: string;
+    from: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    from?: string;
+    gas: string;
     /**
      * 
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    gas?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SolidityServiceSimulation
-     */
-    gasPrice?: string;
+    gasPrice: string;
     /**
      * 
      * @type {string}
@@ -133,7 +133,7 @@ export interface SolidityServiceSimulation {
      * @type {string}
      * @memberof SolidityServiceSimulation
      */
-    value?: string;
+    value: string;
     /**
      * 
      * @type {Array<EvmAccessListItem>}
@@ -188,6 +188,15 @@ export interface SolidityServiceSimulation {
  * Check if a given object implements the SolidityServiceSimulation interface.
  */
 export function instanceOfSolidityServiceSimulation(value: object): boolean {
+    if (!('networkId' in value)) return false;
+    if (!('to' in value)) return false;
+    if (!('input' in value)) return false;
+    if (!('blockNumber' in value)) return false;
+    if (!('transactionIndex' in value)) return false;
+    if (!('from' in value)) return false;
+    if (!('gas' in value)) return false;
+    if (!('gasPrice' in value)) return false;
+    if (!('value' in value)) return false;
     return true;
 }
 
@@ -204,18 +213,18 @@ export function SolidityServiceSimulationFromJSONTyped(json: any, ignoreDiscrimi
         'id': json['id'] == null ? undefined : json['id'],
         'createAt': json['createAt'] == null ? undefined : json['createAt'],
         'bundleId': json['bundleId'] == null ? undefined : json['bundleId'],
-        'networkId': json['networkId'] == null ? undefined : json['networkId'],
+        'networkId': json['networkId'],
         'chainId': json['chainId'] == null ? undefined : json['chainId'],
-        'to': json['to'] == null ? undefined : json['to'],
-        'input': json['input'] == null ? undefined : json['input'],
-        'blockNumber': json['blockNumber'] == null ? undefined : json['blockNumber'],
-        'transactionIndex': json['transactionIndex'] == null ? undefined : json['transactionIndex'],
-        'from': json['from'] == null ? undefined : json['from'],
-        'gas': json['gas'] == null ? undefined : json['gas'],
-        'gasPrice': json['gasPrice'] == null ? undefined : json['gasPrice'],
+        'to': json['to'],
+        'input': json['input'],
+        'blockNumber': json['blockNumber'],
+        'transactionIndex': json['transactionIndex'],
+        'from': json['from'],
+        'gas': json['gas'],
+        'gasPrice': json['gasPrice'],
         'maxFeePerGas': json['maxFeePerGas'] == null ? undefined : json['maxFeePerGas'],
         'maxPriorityFeePerGas': json['maxPriorityFeePerGas'] == null ? undefined : json['maxPriorityFeePerGas'],
-        'value': json['value'] == null ? undefined : json['value'],
+        'value': json['value'],
         'accessList': json['accessList'] == null ? undefined : ((json['accessList'] as Array<any>).map(EvmAccessListItemFromJSON)),
         'originTxHash': json['originTxHash'] == null ? undefined : json['originTxHash'],
         'label': json['label'] == null ? undefined : json['label'],

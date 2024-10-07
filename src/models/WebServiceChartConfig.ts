@@ -19,6 +19,12 @@ import {
     WebServiceChartConfigBarGaugeConfigFromJSONTyped,
     WebServiceChartConfigBarGaugeConfigToJSON,
 } from './WebServiceChartConfigBarGaugeConfig.js';
+import type { WebServiceChartConfigLineConfig } from './WebServiceChartConfigLineConfig.js';
+import {
+    WebServiceChartConfigLineConfigFromJSON,
+    WebServiceChartConfigLineConfigFromJSONTyped,
+    WebServiceChartConfigLineConfigToJSON,
+} from './WebServiceChartConfigLineConfig.js';
 import type { WebServiceChartConfigMarker } from './WebServiceChartConfigMarker.js';
 import {
     WebServiceChartConfigMarkerFromJSON,
@@ -116,6 +122,12 @@ export interface WebServiceChartConfig {
      * @memberof WebServiceChartConfig
      */
     markers?: Array<WebServiceChartConfigMarker>;
+    /**
+     * 
+     * @type {WebServiceChartConfigLineConfig}
+     * @memberof WebServiceChartConfig
+     */
+    lineConfig?: WebServiceChartConfigLineConfig;
 }
 
 /**
@@ -143,6 +155,7 @@ export function WebServiceChartConfigFromJSONTyped(json: any, ignoreDiscriminato
         'queryValueConfig': json['queryValueConfig'] == null ? undefined : WebServiceChartConfigQueryValueConfigFromJSON(json['queryValueConfig']),
         'pieConfig': json['pieConfig'] == null ? undefined : WebServiceChartConfigPieConfigFromJSON(json['pieConfig']),
         'markers': json['markers'] == null ? undefined : ((json['markers'] as Array<any>).map(WebServiceChartConfigMarkerFromJSON)),
+        'lineConfig': json['lineConfig'] == null ? undefined : WebServiceChartConfigLineConfigFromJSON(json['lineConfig']),
     };
 }
 
@@ -160,6 +173,7 @@ export function WebServiceChartConfigToJSON(value?: WebServiceChartConfig | null
         'queryValueConfig': WebServiceChartConfigQueryValueConfigToJSON(value['queryValueConfig']),
         'pieConfig': WebServiceChartConfigPieConfigToJSON(value['pieConfig']),
         'markers': value['markers'] == null ? undefined : ((value['markers'] as Array<any>).map(WebServiceChartConfigMarkerToJSON)),
+        'lineConfig': WebServiceChartConfigLineConfigToJSON(value['lineConfig']),
     };
 }
 

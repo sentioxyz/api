@@ -190,7 +190,7 @@ export class DataApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -257,7 +257,7 @@ export class DataApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -317,7 +317,7 @@ export class DataApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -360,7 +360,7 @@ export class DataApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -413,7 +413,7 @@ export class DataApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -468,7 +468,7 @@ export class DataApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -524,7 +524,7 @@ export class DataApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -579,7 +579,7 @@ export class DataApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -692,7 +692,7 @@ export class DataApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -746,7 +746,7 @@ export class DataApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({
@@ -788,7 +788,7 @@ export class DataApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
-            headerParameters["Api-Key"] = await this.configuration.apiKey("Api-Key"); // ApiKeyAuth authentication
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
         }
 
         const response = await this.request({

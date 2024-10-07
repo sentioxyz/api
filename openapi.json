@@ -600,6 +600,146 @@
 				]
 			}
 		},
+		"/api/v1/prices": {
+			"get": {
+				"summary": "GetPrice returns the price of a given coin identifier, in a best effort way.\nIf we do not have any price data for the given coin, we will return NOT_FOUND error.\nIf we have at least one price data for the given coin, we will return it with the actual timestamp.\nClient is responsible for checking the timestamp and decide whether to use the price or not.",
+				"operationId": "GetPrice",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/price_service.GetPriceResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "timestamp",
+						"description": "The timestamp we request the price at. Note, the price service may not have\nthe price at the exact timestamp, in which case it will return the price\nat the closest timestamp.",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"format": "date-time"
+					},
+					{
+						"name": "coinId.symbol",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "coinId.address.address",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "coinId.address.chain",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "source",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Price"
+				]
+			}
+		},
+		"/api/v1/prices/batch": {
+			"get": {
+				"operationId": "BatchGetPrices",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/price_service.BatchGetPricesResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "timestamps",
+						"in": "query",
+						"required": false,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"collectionFormat": "multi"
+					}
+				],
+				"tags": [
+					"Price"
+				]
+			}
+		},
+		"/api/v1/prices/check_latest": {
+			"get": {
+				"operationId": "CheckLatestPrice",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/price_service.CheckLatestPriceResponse"
+						}
+					}
+				},
+				"tags": [
+					"Price"
+				]
+			}
+		},
+		"/api/v1/prices/coins": {
+			"get": {
+				"operationId": "PriceListCoins",
+				"responses": {
+					"200": {
+						"description": "A successful response.",
+						"schema": {
+							"$ref": "#/definitions/price_service.ListCoinsResponse"
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "offset",
+						"in": "query",
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "searchQuery",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "chain",
+						"in": "query",
+						"required": false,
+						"type": "string"
+					}
+				],
+				"tags": [
+					"Price"
+				]
+			}
+		},
 		"/api/v1/solidity/call_trace": {
 			"get": {
 				"summary": "Get indexed call trace",
@@ -3100,6 +3240,134 @@
 				}
 			}
 		},
+		"price_service.BatchGetPricesResponse": {
+			"type": "object",
+			"properties": {
+				"prices": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/price_service.BatchGetPricesResponse.CoinPrice"
+					}
+				}
+			}
+		},
+		"price_service.BatchGetPricesResponse.CoinPrice": {
+			"type": "object",
+			"properties": {
+				"coinId": {
+					"$ref": "#/definitions/price_service.CoinID"
+				},
+				"price": {
+					"$ref": "#/definitions/price_service.BatchGetPricesResponse.CoinPrice.Price"
+				},
+				"error": {
+					"type": "string"
+				}
+			}
+		},
+		"price_service.BatchGetPricesResponse.CoinPrice.Price": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/price_service.GetPriceResponse"
+					}
+				}
+			}
+		},
+		"price_service.CheckLatestPriceResponse": {
+			"type": "object",
+			"properties": {
+				"prices": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/price_service.CheckLatestPriceResponse.CoinPrice"
+					}
+				},
+				"latestPrice": {
+					"$ref": "#/definitions/price_service.CheckLatestPriceResponse.CoinPrice"
+				}
+			}
+		},
+		"price_service.CheckLatestPriceResponse.CoinPrice": {
+			"type": "object",
+			"properties": {
+				"coinId": {
+					"$ref": "#/definitions/price_service.CoinID"
+				},
+				"price": {
+					"type": "number",
+					"format": "double"
+				},
+				"timestamp": {
+					"type": "string",
+					"format": "date-time"
+				}
+			}
+		},
+		"price_service.CoinID": {
+			"type": "object",
+			"properties": {
+				"symbol": {
+					"type": "string"
+				},
+				"address": {
+					"$ref": "#/definitions/price_service.CoinID.AddressIdentifier"
+				}
+			},
+			"description": "The identifier of a coin."
+		},
+		"price_service.CoinID.AddressIdentifier": {
+			"type": "object",
+			"properties": {
+				"address": {
+					"type": "string"
+				},
+				"chain": {
+					"type": "string"
+				}
+			},
+			"description": "The coin can be defined as a symbol, e.g. BTC, ETH, etc, or an address + chain.\nThe format of the chain is consistent with the Sentio internal representation."
+		},
+		"price_service.GetPriceResponse": {
+			"type": "object",
+			"properties": {
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in USD."
+				},
+				"timestamp": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The actual timestamp of the price returned."
+				}
+			},
+			"description": "GetPriceResponse is the response for GetPrice."
+		},
+		"price_service.ListCoinsResponse": {
+			"type": "object",
+			"properties": {
+				"coins": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"$ref": "#/definitions/price_service.CoinID"
+					}
+				},
+				"coinAddressesInChain": {
+					"type": "object",
+					"additionalProperties": {
+						"$ref": "#/definitions/price_service.CoinID"
+					},
+					"title": "map from symbol to address, only returned when chain is set"
+				}
+			}
+		},
 		"evm.AccessListItem": {
 			"type": "object",
 			"properties": {
@@ -3625,8 +3893,8 @@
 		"solidity_service.SimulateTransactionRequest": {
 			"type": "object",
 			"example": {
-				"projectOwner": "<USER>",
-				"projectSlug": "<PROJECT>",
+				"projectOwner": "sentio",
+				"projectSlug": "coinbase",
 				"simulation": {
 					"networkId": "1",
 					"blockNumber": "17415072",
@@ -3699,7 +3967,9 @@
 					"type": "string"
 				},
 				"blockNumber": {
-					"type": "string"
+					"type": "string",
+					"description": "Can be \"latest\".",
+					"title": "blockNumber"
 				},
 				"transactionIndex": {
 					"type": "string"
@@ -3758,7 +4028,18 @@
 				"result": {
 					"$ref": "#/definitions/solidity_service.Simulation.Result"
 				}
-			}
+			},
+			"required": [
+				"networkId",
+				"to",
+				"input",
+				"blockNumber",
+				"transactionIndex",
+				"from",
+				"gas",
+				"gasPrice",
+				"value"
+			]
 		},
 		"solidity_service.Simulation.Result": {
 			"type": "object",
@@ -4570,6 +4851,9 @@
 						"type": "object",
 						"$ref": "#/definitions/web_service.ChartConfig.Marker"
 					}
+				},
+				"lineConfig": {
+					"$ref": "#/definitions/web_service.ChartConfig.LineConfig"
 				}
 			}
 		},
@@ -4640,6 +4924,22 @@
 				"VERTICAL"
 			],
 			"default": "HORIZONTAL"
+		},
+		"web_service.ChartConfig.LineConfig": {
+			"type": "object",
+			"properties": {
+				"style": {
+					"$ref": "#/definitions/web_service.ChartConfig.LineConfig.Style"
+				}
+			}
+		},
+		"web_service.ChartConfig.LineConfig.Style": {
+			"type": "string",
+			"enum": [
+				"Solid",
+				"Dotted"
+			],
+			"default": "Solid"
 		},
 		"web_service.ChartConfig.MappingRule": {
 			"type": "object",
@@ -5278,7 +5578,7 @@
 	"securityDefinitions": {
 		"ApiKeyAuth": {
 			"type": "apiKey",
-			"name": "Api-Key",
+			"name": "api-key",
 			"in": "header"
 		}
 	},
