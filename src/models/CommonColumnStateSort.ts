@@ -36,7 +36,7 @@ export interface CommonColumnStateSort {
 /**
  * Check if a given object implements the CommonColumnStateSort interface.
  */
-export function instanceOfCommonColumnStateSort(value: object): boolean {
+export function instanceOfCommonColumnStateSort(value: object): value is CommonColumnStateSort {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function CommonColumnStateSortFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function CommonColumnStateSortToJSON(value?: CommonColumnStateSort | null): any {
+  export function CommonColumnStateSortToJSON(json: any): CommonColumnStateSort {
+      return CommonColumnStateSortToJSONTyped(json, false);
+  }
+
+  export function CommonColumnStateSortToJSONTyped(value?: CommonColumnStateSort | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonSelector } from './CommonSelector.js';
-import {
-    CommonSelectorFromJSON,
-    CommonSelectorFromJSONTyped,
-    CommonSelectorToJSON,
-} from './CommonSelector.js';
 import type { CommonSelectorExprLogicExpr } from './CommonSelectorExprLogicExpr.js';
 import {
     CommonSelectorExprLogicExprFromJSON,
     CommonSelectorExprLogicExprFromJSONTyped,
     CommonSelectorExprLogicExprToJSON,
+    CommonSelectorExprLogicExprToJSONTyped,
 } from './CommonSelectorExprLogicExpr.js';
+import type { CommonSelector } from './CommonSelector.js';
+import {
+    CommonSelectorFromJSON,
+    CommonSelectorFromJSONTyped,
+    CommonSelectorToJSON,
+    CommonSelectorToJSONTyped,
+} from './CommonSelector.js';
 
 /**
  * 
@@ -49,7 +51,7 @@ export interface CommonSelectorExpr {
 /**
  * Check if a given object implements the CommonSelectorExpr interface.
  */
-export function instanceOfCommonSelectorExpr(value: object): boolean {
+export function instanceOfCommonSelectorExpr(value: object): value is CommonSelectorExpr {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function CommonSelectorExprFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function CommonSelectorExprToJSON(value?: CommonSelectorExpr | null): any {
+  export function CommonSelectorExprToJSON(json: any): CommonSelectorExpr {
+      return CommonSelectorExprToJSONTyped(json, false);
+  }
+
+  export function CommonSelectorExprToJSONTyped(value?: CommonSelectorExpr | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'selector': CommonSelectorToJSON(value['selector']),

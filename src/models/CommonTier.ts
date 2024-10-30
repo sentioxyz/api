@@ -28,7 +28,14 @@ export type CommonTier = typeof CommonTier[keyof typeof CommonTier];
 
 
 export function instanceOfCommonTier(value: any): boolean {
-    return Object.values(CommonTier).includes(value);
+    for (const key in CommonTier) {
+        if (Object.prototype.hasOwnProperty.call(CommonTier, key)) {
+            if (CommonTier[key as keyof typeof CommonTier] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonTierFromJSON(json: any): CommonTier {
@@ -41,5 +48,9 @@ export function CommonTierFromJSONTyped(json: any, ignoreDiscriminator: boolean)
 
 export function CommonTierToJSON(value?: CommonTier | null): any {
     return value as any;
+}
+
+export function CommonTierToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonTier {
+    return value as CommonTier;
 }
 

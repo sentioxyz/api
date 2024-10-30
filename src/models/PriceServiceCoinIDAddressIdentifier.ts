@@ -37,7 +37,7 @@ export interface PriceServiceCoinIDAddressIdentifier {
 /**
  * Check if a given object implements the PriceServiceCoinIDAddressIdentifier interface.
  */
-export function instanceOfPriceServiceCoinIDAddressIdentifier(value: object): boolean {
+export function instanceOfPriceServiceCoinIDAddressIdentifier(value: object): value is PriceServiceCoinIDAddressIdentifier {
     return true;
 }
 
@@ -56,10 +56,15 @@ export function PriceServiceCoinIDAddressIdentifierFromJSONTyped(json: any, igno
     };
 }
 
-export function PriceServiceCoinIDAddressIdentifierToJSON(value?: PriceServiceCoinIDAddressIdentifier | null): any {
+  export function PriceServiceCoinIDAddressIdentifierToJSON(json: any): PriceServiceCoinIDAddressIdentifier {
+      return PriceServiceCoinIDAddressIdentifierToJSONTyped(json, false);
+  }
+
+  export function PriceServiceCoinIDAddressIdentifierToJSONTyped(value?: PriceServiceCoinIDAddressIdentifier | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'address': value['address'],

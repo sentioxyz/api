@@ -18,6 +18,7 @@ import {
     InsightsServiceQueryResponseResultFromJSON,
     InsightsServiceQueryResponseResultFromJSONTyped,
     InsightsServiceQueryResponseResultToJSON,
+    InsightsServiceQueryResponseResultToJSONTyped,
 } from './InsightsServiceQueryResponseResult.js';
 
 /**
@@ -37,7 +38,7 @@ export interface InsightsServiceQueryResponse {
 /**
  * Check if a given object implements the InsightsServiceQueryResponse interface.
  */
-export function instanceOfInsightsServiceQueryResponse(value: object): boolean {
+export function instanceOfInsightsServiceQueryResponse(value: object): value is InsightsServiceQueryResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function InsightsServiceQueryResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function InsightsServiceQueryResponseToJSON(value?: InsightsServiceQueryResponse | null): any {
+  export function InsightsServiceQueryResponseToJSON(json: any): InsightsServiceQueryResponse {
+      return InsightsServiceQueryResponseToJSONTyped(json, false);
+  }
+
+  export function InsightsServiceQueryResponseToJSONTyped(value?: InsightsServiceQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'results': value['results'] == null ? undefined : ((value['results'] as Array<any>).map(InsightsServiceQueryResponseResultToJSON)),

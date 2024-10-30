@@ -18,6 +18,7 @@ import {
     WebServiceDashboardLayoutsLayoutFromJSON,
     WebServiceDashboardLayoutsLayoutFromJSONTyped,
     WebServiceDashboardLayoutsLayoutToJSON,
+    WebServiceDashboardLayoutsLayoutToJSONTyped,
 } from './WebServiceDashboardLayoutsLayout.js';
 
 /**
@@ -37,7 +38,7 @@ export interface WebServiceDashboardLayouts {
 /**
  * Check if a given object implements the WebServiceDashboardLayouts interface.
  */
-export function instanceOfWebServiceDashboardLayouts(value: object): boolean {
+export function instanceOfWebServiceDashboardLayouts(value: object): value is WebServiceDashboardLayouts {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function WebServiceDashboardLayoutsFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function WebServiceDashboardLayoutsToJSON(value?: WebServiceDashboardLayouts | null): any {
+  export function WebServiceDashboardLayoutsToJSON(json: any): WebServiceDashboardLayouts {
+      return WebServiceDashboardLayoutsToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardLayoutsToJSONTyped(value?: WebServiceDashboardLayouts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'layouts': value['layouts'] == null ? undefined : ((value['layouts'] as Array<any>).map(WebServiceDashboardLayoutsLayoutToJSON)),

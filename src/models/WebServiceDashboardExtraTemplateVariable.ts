@@ -48,7 +48,7 @@ export interface WebServiceDashboardExtraTemplateVariable {
 /**
  * Check if a given object implements the WebServiceDashboardExtraTemplateVariable interface.
  */
-export function instanceOfWebServiceDashboardExtraTemplateVariable(value: object): boolean {
+export function instanceOfWebServiceDashboardExtraTemplateVariable(value: object): value is WebServiceDashboardExtraTemplateVariable {
     return true;
 }
 
@@ -69,10 +69,15 @@ export function WebServiceDashboardExtraTemplateVariableFromJSONTyped(json: any,
     };
 }
 
-export function WebServiceDashboardExtraTemplateVariableToJSON(value?: WebServiceDashboardExtraTemplateVariable | null): any {
+  export function WebServiceDashboardExtraTemplateVariableToJSON(json: any): WebServiceDashboardExtraTemplateVariable {
+      return WebServiceDashboardExtraTemplateVariableToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardExtraTemplateVariableToJSONTyped(value?: WebServiceDashboardExtraTemplateVariable | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'field': value['field'],

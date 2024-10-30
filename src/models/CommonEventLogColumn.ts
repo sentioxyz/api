@@ -66,7 +66,7 @@ export interface CommonEventLogColumn {
 /**
  * Check if a given object implements the CommonEventLogColumn interface.
  */
-export function instanceOfCommonEventLogColumn(value: object): boolean {
+export function instanceOfCommonEventLogColumn(value: object): value is CommonEventLogColumn {
     return true;
 }
 
@@ -90,10 +90,15 @@ export function CommonEventLogColumnFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function CommonEventLogColumnToJSON(value?: CommonEventLogColumn | null): any {
+  export function CommonEventLogColumnToJSON(json: any): CommonEventLogColumn {
+      return CommonEventLogColumnToJSONTyped(json, false);
+  }
+
+  export function CommonEventLogColumnToJSONTyped(value?: CommonEventLogColumn | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

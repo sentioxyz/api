@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonColumnState } from './CommonColumnState.js';
-import {
-    CommonColumnStateFromJSON,
-    CommonColumnStateFromJSONTyped,
-    CommonColumnStateToJSON,
-} from './CommonColumnState.js';
 import type { CommonEventLogColumn } from './CommonEventLogColumn.js';
 import {
     CommonEventLogColumnFromJSON,
     CommonEventLogColumnFromJSONTyped,
     CommonEventLogColumnToJSON,
+    CommonEventLogColumnToJSONTyped,
 } from './CommonEventLogColumn.js';
+import type { CommonColumnState } from './CommonColumnState.js';
+import {
+    CommonColumnStateFromJSON,
+    CommonColumnStateFromJSONTyped,
+    CommonColumnStateToJSON,
+    CommonColumnStateToJSONTyped,
+} from './CommonColumnState.js';
 
 /**
  * 
@@ -49,7 +51,7 @@ export interface CommonEventLogConfig {
 /**
  * Check if a given object implements the CommonEventLogConfig interface.
  */
-export function instanceOfCommonEventLogConfig(value: object): boolean {
+export function instanceOfCommonEventLogConfig(value: object): value is CommonEventLogConfig {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function CommonEventLogConfigFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function CommonEventLogConfigToJSON(value?: CommonEventLogConfig | null): any {
+  export function CommonEventLogConfigToJSON(json: any): CommonEventLogConfig {
+      return CommonEventLogConfigToJSONTyped(json, false);
+  }
+
+  export function CommonEventLogConfigToJSONTyped(value?: CommonEventLogConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'columns': value['columns'] == null ? undefined : ((value['columns'] as Array<any>).map(CommonEventLogColumnToJSON)),

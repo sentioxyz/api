@@ -25,7 +25,14 @@ export type CommonOrganizationRole = typeof CommonOrganizationRole[keyof typeof 
 
 
 export function instanceOfCommonOrganizationRole(value: any): boolean {
-    return Object.values(CommonOrganizationRole).includes(value);
+    for (const key in CommonOrganizationRole) {
+        if (Object.prototype.hasOwnProperty.call(CommonOrganizationRole, key)) {
+            if (CommonOrganizationRole[key as keyof typeof CommonOrganizationRole] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonOrganizationRoleFromJSON(json: any): CommonOrganizationRole {
@@ -38,5 +45,9 @@ export function CommonOrganizationRoleFromJSONTyped(json: any, ignoreDiscriminat
 
 export function CommonOrganizationRoleToJSON(value?: CommonOrganizationRole | null): any {
     return value as any;
+}
+
+export function CommonOrganizationRoleToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonOrganizationRole {
+    return value as CommonOrganizationRole;
 }
 

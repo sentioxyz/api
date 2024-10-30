@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonComputeStats } from './CommonComputeStats.js';
-import {
-    CommonComputeStatsFromJSON,
-    CommonComputeStatsFromJSONTyped,
-    CommonComputeStatsToJSON,
-} from './CommonComputeStats.js';
 import type { CommonRetentionMatrix } from './CommonRetentionMatrix.js';
 import {
     CommonRetentionMatrixFromJSON,
     CommonRetentionMatrixFromJSONTyped,
     CommonRetentionMatrixToJSON,
+    CommonRetentionMatrixToJSONTyped,
 } from './CommonRetentionMatrix.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
+import {
+    CommonComputeStatsFromJSON,
+    CommonComputeStatsFromJSONTyped,
+    CommonComputeStatsToJSON,
+    CommonComputeStatsToJSONTyped,
+} from './CommonComputeStats.js';
 
 /**
  * 
@@ -55,7 +57,7 @@ export interface InsightsServiceRetentionResponse {
 /**
  * Check if a given object implements the InsightsServiceRetentionResponse interface.
  */
-export function instanceOfInsightsServiceRetentionResponse(value: object): boolean {
+export function instanceOfInsightsServiceRetentionResponse(value: object): value is InsightsServiceRetentionResponse {
     return true;
 }
 
@@ -75,10 +77,15 @@ export function InsightsServiceRetentionResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function InsightsServiceRetentionResponseToJSON(value?: InsightsServiceRetentionResponse | null): any {
+  export function InsightsServiceRetentionResponseToJSON(json: any): InsightsServiceRetentionResponse {
+      return InsightsServiceRetentionResponseToJSONTyped(json, false);
+  }
+
+  export function InsightsServiceRetentionResponseToJSONTyped(value?: InsightsServiceRetentionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'computeStats': CommonComputeStatsToJSON(value['computeStats']),

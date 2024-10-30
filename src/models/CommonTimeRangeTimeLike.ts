@@ -18,6 +18,7 @@ import {
     CommonTimeRangeRelativeTimeFromJSON,
     CommonTimeRangeRelativeTimeFromJSONTyped,
     CommonTimeRangeRelativeTimeToJSON,
+    CommonTimeRangeRelativeTimeToJSONTyped,
 } from './CommonTimeRangeRelativeTime.js';
 
 /**
@@ -43,7 +44,7 @@ export interface CommonTimeRangeTimeLike {
 /**
  * Check if a given object implements the CommonTimeRangeTimeLike interface.
  */
-export function instanceOfCommonTimeRangeTimeLike(value: object): boolean {
+export function instanceOfCommonTimeRangeTimeLike(value: object): value is CommonTimeRangeTimeLike {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function CommonTimeRangeTimeLikeFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function CommonTimeRangeTimeLikeToJSON(value?: CommonTimeRangeTimeLike | null): any {
+  export function CommonTimeRangeTimeLikeToJSON(json: any): CommonTimeRangeTimeLike {
+      return CommonTimeRangeTimeLikeToJSONTyped(json, false);
+  }
+
+  export function CommonTimeRangeTimeLikeToJSONTyped(value?: CommonTimeRangeTimeLike | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'relativeTime': CommonTimeRangeRelativeTimeToJSON(value['relativeTime']),

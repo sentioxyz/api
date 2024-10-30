@@ -30,7 +30,7 @@ export interface SolidityServiceSpecializations {
 /**
  * Check if a given object implements the SolidityServiceSpecializations interface.
  */
-export function instanceOfSolidityServiceSpecializations(value: object): boolean {
+export function instanceOfSolidityServiceSpecializations(value: object): value is SolidityServiceSpecializations {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function SolidityServiceSpecializationsFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SolidityServiceSpecializationsToJSON(value?: SolidityServiceSpecializations | null): any {
+  export function SolidityServiceSpecializationsToJSON(json: any): SolidityServiceSpecializations {
+      return SolidityServiceSpecializationsToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSpecializationsToJSONTyped(value?: SolidityServiceSpecializations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'constructorArguments': value['constructorArguments'],

@@ -18,6 +18,7 @@ import {
     CommonFunctionFromJSON,
     CommonFunctionFromJSONTyped,
     CommonFunctionToJSON,
+    CommonFunctionToJSONTyped,
 } from './CommonFunction.js';
 
 /**
@@ -61,7 +62,7 @@ export interface CommonFormula {
 /**
  * Check if a given object implements the CommonFormula interface.
  */
-export function instanceOfCommonFormula(value: object): boolean {
+export function instanceOfCommonFormula(value: object): value is CommonFormula {
     return true;
 }
 
@@ -83,10 +84,15 @@ export function CommonFormulaFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function CommonFormulaToJSON(value?: CommonFormula | null): any {
+  export function CommonFormulaToJSON(json: any): CommonFormula {
+      return CommonFormulaToJSONTyped(json, false);
+  }
+
+  export function CommonFormulaToJSONTyped(value?: CommonFormula | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'expression': value['expression'],

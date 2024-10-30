@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonAny } from './CommonAny.js';
-import {
-    CommonAnyFromJSON,
-    CommonAnyFromJSONTyped,
-    CommonAnyToJSON,
-} from './CommonAny.js';
 import type { CommonSelectorOperatorType } from './CommonSelectorOperatorType.js';
 import {
     CommonSelectorOperatorTypeFromJSON,
     CommonSelectorOperatorTypeFromJSONTyped,
     CommonSelectorOperatorTypeToJSON,
+    CommonSelectorOperatorTypeToJSONTyped,
 } from './CommonSelectorOperatorType.js';
+import type { CommonAny } from './CommonAny.js';
+import {
+    CommonAnyFromJSON,
+    CommonAnyFromJSONTyped,
+    CommonAnyToJSON,
+    CommonAnyToJSONTyped,
+} from './CommonAny.js';
 
 /**
  * 
@@ -52,10 +54,12 @@ export interface CommonSelector {
     value?: Array<CommonAny>;
 }
 
+
+
 /**
  * Check if a given object implements the CommonSelector interface.
  */
-export function instanceOfCommonSelector(value: object): boolean {
+export function instanceOfCommonSelector(value: object): value is CommonSelector {
     return true;
 }
 
@@ -75,10 +79,15 @@ export function CommonSelectorFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function CommonSelectorToJSON(value?: CommonSelector | null): any {
+  export function CommonSelectorToJSON(json: any): CommonSelector {
+      return CommonSelectorToJSONTyped(json, false);
+  }
+
+  export function CommonSelectorToJSONTyped(value?: CommonSelector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'key': value['key'],

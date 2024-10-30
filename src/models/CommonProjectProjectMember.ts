@@ -18,6 +18,7 @@ import {
     CommonUserInfoFromJSON,
     CommonUserInfoFromJSONTyped,
     CommonUserInfoToJSON,
+    CommonUserInfoToJSONTyped,
 } from './CommonUserInfo.js';
 
 /**
@@ -43,7 +44,7 @@ export interface CommonProjectProjectMember {
 /**
  * Check if a given object implements the CommonProjectProjectMember interface.
  */
-export function instanceOfCommonProjectProjectMember(value: object): boolean {
+export function instanceOfCommonProjectProjectMember(value: object): value is CommonProjectProjectMember {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function CommonProjectProjectMemberFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function CommonProjectProjectMemberToJSON(value?: CommonProjectProjectMember | null): any {
+  export function CommonProjectProjectMemberToJSON(json: any): CommonProjectProjectMember {
+      return CommonProjectProjectMemberToJSONTyped(json, false);
+  }
+
+  export function CommonProjectProjectMemberToJSONTyped(value?: CommonProjectProjectMember | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'user': CommonUserInfoToJSON(value['user']),

@@ -18,12 +18,14 @@ import {
     MetricsServiceMetricsQueryResponseMetricFromJSON,
     MetricsServiceMetricsQueryResponseMetricFromJSONTyped,
     MetricsServiceMetricsQueryResponseMetricToJSON,
+    MetricsServiceMetricsQueryResponseMetricToJSONTyped,
 } from './MetricsServiceMetricsQueryResponseMetric.js';
 import type { MetricsServiceMetricsQueryResponseValue } from './MetricsServiceMetricsQueryResponseValue.js';
 import {
     MetricsServiceMetricsQueryResponseValueFromJSON,
     MetricsServiceMetricsQueryResponseValueFromJSONTyped,
     MetricsServiceMetricsQueryResponseValueToJSON,
+    MetricsServiceMetricsQueryResponseValueToJSONTyped,
 } from './MetricsServiceMetricsQueryResponseValue.js';
 
 /**
@@ -49,7 +51,7 @@ export interface MetricsServiceMetricsQueryResponseSample {
 /**
  * Check if a given object implements the MetricsServiceMetricsQueryResponseSample interface.
  */
-export function instanceOfMetricsServiceMetricsQueryResponseSample(value: object): boolean {
+export function instanceOfMetricsServiceMetricsQueryResponseSample(value: object): value is MetricsServiceMetricsQueryResponseSample {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function MetricsServiceMetricsQueryResponseSampleFromJSONTyped(json: any,
     };
 }
 
-export function MetricsServiceMetricsQueryResponseSampleToJSON(value?: MetricsServiceMetricsQueryResponseSample | null): any {
+  export function MetricsServiceMetricsQueryResponseSampleToJSON(json: any): MetricsServiceMetricsQueryResponseSample {
+      return MetricsServiceMetricsQueryResponseSampleToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricsQueryResponseSampleToJSONTyped(value?: MetricsServiceMetricsQueryResponseSample | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'metric': MetricsServiceMetricsQueryResponseMetricToJSON(value['metric']),

@@ -18,12 +18,14 @@ import {
     MetricsServiceMetricInfoLabelValuesFromJSON,
     MetricsServiceMetricInfoLabelValuesFromJSONTyped,
     MetricsServiceMetricInfoLabelValuesToJSON,
+    MetricsServiceMetricInfoLabelValuesToJSONTyped,
 } from './MetricsServiceMetricInfoLabelValues.js';
 import type { MetricsServiceMetricMetadata } from './MetricsServiceMetricMetadata.js';
 import {
     MetricsServiceMetricMetadataFromJSON,
     MetricsServiceMetricMetadataFromJSONTyped,
     MetricsServiceMetricMetadataToJSON,
+    MetricsServiceMetricMetadataToJSONTyped,
 } from './MetricsServiceMetricMetadata.js';
 
 /**
@@ -85,7 +87,7 @@ export interface MetricsServiceMetricInfo {
 /**
  * Check if a given object implements the MetricsServiceMetricInfo interface.
  */
-export function instanceOfMetricsServiceMetricInfo(value: object): boolean {
+export function instanceOfMetricsServiceMetricInfo(value: object): value is MetricsServiceMetricInfo {
     return true;
 }
 
@@ -110,10 +112,15 @@ export function MetricsServiceMetricInfoFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function MetricsServiceMetricInfoToJSON(value?: MetricsServiceMetricInfo | null): any {
+  export function MetricsServiceMetricInfoToJSON(json: any): MetricsServiceMetricInfo {
+      return MetricsServiceMetricInfoToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricInfoToJSONTyped(value?: MetricsServiceMetricInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'name': value['name'],

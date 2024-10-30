@@ -36,7 +36,7 @@ export interface SolidityServiceGetTraceCallInternalRequestStateContext {
 /**
  * Check if a given object implements the SolidityServiceGetTraceCallInternalRequestStateContext interface.
  */
-export function instanceOfSolidityServiceGetTraceCallInternalRequestStateContext(value: object): boolean {
+export function instanceOfSolidityServiceGetTraceCallInternalRequestStateContext(value: object): value is SolidityServiceGetTraceCallInternalRequestStateContext {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function SolidityServiceGetTraceCallInternalRequestStateContextFromJSONTy
     };
 }
 
-export function SolidityServiceGetTraceCallInternalRequestStateContextToJSON(value?: SolidityServiceGetTraceCallInternalRequestStateContext | null): any {
+  export function SolidityServiceGetTraceCallInternalRequestStateContextToJSON(json: any): SolidityServiceGetTraceCallInternalRequestStateContext {
+      return SolidityServiceGetTraceCallInternalRequestStateContextToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceGetTraceCallInternalRequestStateContextToJSONTyped(value?: SolidityServiceGetTraceCallInternalRequestStateContext | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'blockNumber': value['blockNumber'],

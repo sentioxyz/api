@@ -36,7 +36,7 @@ export interface SolidityServiceOptimizerDetailsYulDetails {
 /**
  * Check if a given object implements the SolidityServiceOptimizerDetailsYulDetails interface.
  */
-export function instanceOfSolidityServiceOptimizerDetailsYulDetails(value: object): boolean {
+export function instanceOfSolidityServiceOptimizerDetailsYulDetails(value: object): value is SolidityServiceOptimizerDetailsYulDetails {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function SolidityServiceOptimizerDetailsYulDetailsFromJSONTyped(json: any
     };
 }
 
-export function SolidityServiceOptimizerDetailsYulDetailsToJSON(value?: SolidityServiceOptimizerDetailsYulDetails | null): any {
+  export function SolidityServiceOptimizerDetailsYulDetailsToJSON(json: any): SolidityServiceOptimizerDetailsYulDetails {
+      return SolidityServiceOptimizerDetailsYulDetailsToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceOptimizerDetailsYulDetailsToJSONTyped(value?: SolidityServiceOptimizerDetailsYulDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'stackAllocation': value['stackAllocation'],

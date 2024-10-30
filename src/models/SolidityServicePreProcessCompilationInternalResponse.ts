@@ -30,7 +30,7 @@ export interface SolidityServicePreProcessCompilationInternalResponse {
 /**
  * Check if a given object implements the SolidityServicePreProcessCompilationInternalResponse interface.
  */
-export function instanceOfSolidityServicePreProcessCompilationInternalResponse(value: object): boolean {
+export function instanceOfSolidityServicePreProcessCompilationInternalResponse(value: object): value is SolidityServicePreProcessCompilationInternalResponse {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function SolidityServicePreProcessCompilationInternalResponseFromJSONType
     };
 }
 
-export function SolidityServicePreProcessCompilationInternalResponseToJSON(value?: SolidityServicePreProcessCompilationInternalResponse | null): any {
+  export function SolidityServicePreProcessCompilationInternalResponseToJSON(json: any): SolidityServicePreProcessCompilationInternalResponse {
+      return SolidityServicePreProcessCompilationInternalResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServicePreProcessCompilationInternalResponseToJSONTyped(value?: SolidityServicePreProcessCompilationInternalResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'preprocessedAddresses': value['preprocessedAddresses'],

@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { AnalyticServiceSQLQuery } from './AnalyticServiceSQLQuery.js';
-import {
-    AnalyticServiceSQLQueryFromJSON,
-    AnalyticServiceSQLQueryFromJSONTyped,
-    AnalyticServiceSQLQueryToJSON,
-} from './AnalyticServiceSQLQuery.js';
 import type { CommonCachePolicy } from './CommonCachePolicy.js';
 import {
     CommonCachePolicyFromJSON,
     CommonCachePolicyFromJSONTyped,
     CommonCachePolicyToJSON,
+    CommonCachePolicyToJSONTyped,
 } from './CommonCachePolicy.js';
+import type { AnalyticServiceSQLQuery } from './AnalyticServiceSQLQuery.js';
+import {
+    AnalyticServiceSQLQueryFromJSON,
+    AnalyticServiceSQLQueryFromJSONTyped,
+    AnalyticServiceSQLQueryToJSON,
+    AnalyticServiceSQLQueryToJSONTyped,
+} from './AnalyticServiceSQLQuery.js';
 
 /**
  * 
@@ -73,7 +75,7 @@ export interface AnalyticServiceAnalyticServiceExecuteSQLBody {
 /**
  * Check if a given object implements the AnalyticServiceAnalyticServiceExecuteSQLBody interface.
  */
-export function instanceOfAnalyticServiceAnalyticServiceExecuteSQLBody(value: object): boolean {
+export function instanceOfAnalyticServiceAnalyticServiceExecuteSQLBody(value: object): value is AnalyticServiceAnalyticServiceExecuteSQLBody {
     return true;
 }
 
@@ -96,10 +98,15 @@ export function AnalyticServiceAnalyticServiceExecuteSQLBodyFromJSONTyped(json: 
     };
 }
 
-export function AnalyticServiceAnalyticServiceExecuteSQLBodyToJSON(value?: AnalyticServiceAnalyticServiceExecuteSQLBody | null): any {
+  export function AnalyticServiceAnalyticServiceExecuteSQLBodyToJSON(json: any): AnalyticServiceAnalyticServiceExecuteSQLBody {
+      return AnalyticServiceAnalyticServiceExecuteSQLBodyToJSONTyped(json, false);
+  }
+
+  export function AnalyticServiceAnalyticServiceExecuteSQLBodyToJSONTyped(value?: AnalyticServiceAnalyticServiceExecuteSQLBody | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'projectId': value['projectId'],

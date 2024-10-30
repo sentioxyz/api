@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonJoinOperator } from './CommonJoinOperator.js';
-import {
-    CommonJoinOperatorFromJSON,
-    CommonJoinOperatorFromJSONTyped,
-    CommonJoinOperatorToJSON,
-} from './CommonJoinOperator.js';
 import type { CommonSegmentationQuerySelectorExpr } from './CommonSegmentationQuerySelectorExpr.js';
 import {
     CommonSegmentationQuerySelectorExprFromJSON,
     CommonSegmentationQuerySelectorExprFromJSONTyped,
     CommonSegmentationQuerySelectorExprToJSON,
+    CommonSegmentationQuerySelectorExprToJSONTyped,
 } from './CommonSegmentationQuerySelectorExpr.js';
+import type { CommonJoinOperator } from './CommonJoinOperator.js';
+import {
+    CommonJoinOperatorFromJSON,
+    CommonJoinOperatorFromJSONTyped,
+    CommonJoinOperatorToJSON,
+    CommonJoinOperatorToJSONTyped,
+} from './CommonJoinOperator.js';
 
 /**
  * 
@@ -46,10 +48,12 @@ export interface CommonSegmentationQuerySelectorExprLogicExpr {
     operator?: CommonJoinOperator;
 }
 
+
+
 /**
  * Check if a given object implements the CommonSegmentationQuerySelectorExprLogicExpr interface.
  */
-export function instanceOfCommonSegmentationQuerySelectorExprLogicExpr(value: object): boolean {
+export function instanceOfCommonSegmentationQuerySelectorExprLogicExpr(value: object): value is CommonSegmentationQuerySelectorExprLogicExpr {
     return true;
 }
 
@@ -68,10 +72,15 @@ export function CommonSegmentationQuerySelectorExprLogicExprFromJSONTyped(json: 
     };
 }
 
-export function CommonSegmentationQuerySelectorExprLogicExprToJSON(value?: CommonSegmentationQuerySelectorExprLogicExpr | null): any {
+  export function CommonSegmentationQuerySelectorExprLogicExprToJSON(json: any): CommonSegmentationQuerySelectorExprLogicExpr {
+      return CommonSegmentationQuerySelectorExprLogicExprToJSONTyped(json, false);
+  }
+
+  export function CommonSegmentationQuerySelectorExprLogicExprToJSONTyped(value?: CommonSegmentationQuerySelectorExprLogicExpr | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'expressions': value['expressions'] == null ? undefined : ((value['expressions'] as Array<any>).map(CommonSegmentationQuerySelectorExprToJSON)),

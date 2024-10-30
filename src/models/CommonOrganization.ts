@@ -13,24 +13,27 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { CommonTier } from './CommonTier.js';
+import {
+    CommonTierFromJSON,
+    CommonTierFromJSONTyped,
+    CommonTierToJSON,
+    CommonTierToJSONTyped,
+} from './CommonTier.js';
 import type { CommonOrganizationMember } from './CommonOrganizationMember.js';
 import {
     CommonOrganizationMemberFromJSON,
     CommonOrganizationMemberFromJSONTyped,
     CommonOrganizationMemberToJSON,
+    CommonOrganizationMemberToJSONTyped,
 } from './CommonOrganizationMember.js';
 import type { CommonProjectInfo } from './CommonProjectInfo.js';
 import {
     CommonProjectInfoFromJSON,
     CommonProjectInfoFromJSONTyped,
     CommonProjectInfoToJSON,
+    CommonProjectInfoToJSONTyped,
 } from './CommonProjectInfo.js';
-import type { CommonTier } from './CommonTier.js';
-import {
-    CommonTierFromJSON,
-    CommonTierFromJSONTyped,
-    CommonTierToJSON,
-} from './CommonTier.js';
 
 /**
  * 
@@ -100,10 +103,12 @@ export interface CommonOrganization {
     tier?: CommonTier;
 }
 
+
+
 /**
  * Check if a given object implements the CommonOrganization interface.
  */
-export function instanceOfCommonOrganization(value: object): boolean {
+export function instanceOfCommonOrganization(value: object): value is CommonOrganization {
     return true;
 }
 
@@ -130,10 +135,15 @@ export function CommonOrganizationFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function CommonOrganizationToJSON(value?: CommonOrganization | null): any {
+  export function CommonOrganizationToJSON(json: any): CommonOrganization {
+      return CommonOrganizationToJSONTyped(json, false);
+  }
+
+  export function CommonOrganizationToJSONTyped(value?: CommonOrganization | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

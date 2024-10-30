@@ -18,6 +18,7 @@ import {
     CommonDurationFromJSON,
     CommonDurationFromJSONTyped,
     CommonDurationToJSON,
+    CommonDurationToJSONTyped,
 } from './CommonDuration.js';
 
 /**
@@ -37,7 +38,7 @@ export interface WebServiceChartConfigCompareTime {
 /**
  * Check if a given object implements the WebServiceChartConfigCompareTime interface.
  */
-export function instanceOfWebServiceChartConfigCompareTime(value: object): boolean {
+export function instanceOfWebServiceChartConfigCompareTime(value: object): value is WebServiceChartConfigCompareTime {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function WebServiceChartConfigCompareTimeFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceChartConfigCompareTimeToJSON(value?: WebServiceChartConfigCompareTime | null): any {
+  export function WebServiceChartConfigCompareTimeToJSON(json: any): WebServiceChartConfigCompareTime {
+      return WebServiceChartConfigCompareTimeToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigCompareTimeToJSONTyped(value?: WebServiceChartConfigCompareTime | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'ago': CommonDurationToJSON(value['ago']),

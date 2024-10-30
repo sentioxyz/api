@@ -36,7 +36,7 @@ export interface PriceServiceGetPriceResponse {
 /**
  * Check if a given object implements the PriceServiceGetPriceResponse interface.
  */
-export function instanceOfPriceServiceGetPriceResponse(value: object): boolean {
+export function instanceOfPriceServiceGetPriceResponse(value: object): value is PriceServiceGetPriceResponse {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function PriceServiceGetPriceResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function PriceServiceGetPriceResponseToJSON(value?: PriceServiceGetPriceResponse | null): any {
+  export function PriceServiceGetPriceResponseToJSON(json: any): PriceServiceGetPriceResponse {
+      return PriceServiceGetPriceResponseToJSONTyped(json, false);
+  }
+
+  export function PriceServiceGetPriceResponseToJSONTyped(value?: PriceServiceGetPriceResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'price': value['price'],

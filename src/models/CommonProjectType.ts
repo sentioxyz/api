@@ -25,7 +25,14 @@ export type CommonProjectType = typeof CommonProjectType[keyof typeof CommonProj
 
 
 export function instanceOfCommonProjectType(value: any): boolean {
-    return Object.values(CommonProjectType).includes(value);
+    for (const key in CommonProjectType) {
+        if (Object.prototype.hasOwnProperty.call(CommonProjectType, key)) {
+            if (CommonProjectType[key as keyof typeof CommonProjectType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonProjectTypeFromJSON(json: any): CommonProjectType {
@@ -38,5 +45,9 @@ export function CommonProjectTypeFromJSONTyped(json: any, ignoreDiscriminator: b
 
 export function CommonProjectTypeToJSON(value?: CommonProjectType | null): any {
     return value as any;
+}
+
+export function CommonProjectTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonProjectType {
+    return value as CommonProjectType;
 }
 

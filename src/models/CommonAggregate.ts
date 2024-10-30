@@ -18,6 +18,7 @@ import {
     CommonAggregateAggregateOpsFromJSON,
     CommonAggregateAggregateOpsFromJSONTyped,
     CommonAggregateAggregateOpsToJSON,
+    CommonAggregateAggregateOpsToJSONTyped,
 } from './CommonAggregateAggregateOps.js';
 
 /**
@@ -40,10 +41,12 @@ export interface CommonAggregate {
     grouping?: Array<string>;
 }
 
+
+
 /**
  * Check if a given object implements the CommonAggregate interface.
  */
-export function instanceOfCommonAggregate(value: object): boolean {
+export function instanceOfCommonAggregate(value: object): value is CommonAggregate {
     return true;
 }
 
@@ -62,10 +65,15 @@ export function CommonAggregateFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function CommonAggregateToJSON(value?: CommonAggregate | null): any {
+  export function CommonAggregateToJSON(json: any): CommonAggregate {
+      return CommonAggregateToJSONTyped(json, false);
+  }
+
+  export function CommonAggregateToJSONTyped(value?: CommonAggregate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'op': CommonAggregateAggregateOpsToJSON(value['op']),

@@ -30,7 +30,7 @@ export interface WebServiceExportDashboardResponse {
 /**
  * Check if a given object implements the WebServiceExportDashboardResponse interface.
  */
-export function instanceOfWebServiceExportDashboardResponse(value: object): boolean {
+export function instanceOfWebServiceExportDashboardResponse(value: object): value is WebServiceExportDashboardResponse {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function WebServiceExportDashboardResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function WebServiceExportDashboardResponseToJSON(value?: WebServiceExportDashboardResponse | null): any {
+  export function WebServiceExportDashboardResponseToJSON(json: any): WebServiceExportDashboardResponse {
+      return WebServiceExportDashboardResponseToJSONTyped(json, false);
+  }
+
+  export function WebServiceExportDashboardResponseToJSONTyped(value?: WebServiceExportDashboardResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'dashboardJson': value['dashboardJson'],

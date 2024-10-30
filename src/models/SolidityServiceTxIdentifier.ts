@@ -42,7 +42,7 @@ export interface SolidityServiceTxIdentifier {
 /**
  * Check if a given object implements the SolidityServiceTxIdentifier interface.
  */
-export function instanceOfSolidityServiceTxIdentifier(value: object): boolean {
+export function instanceOfSolidityServiceTxIdentifier(value: object): value is SolidityServiceTxIdentifier {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function SolidityServiceTxIdentifierFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function SolidityServiceTxIdentifierToJSON(value?: SolidityServiceTxIdentifier | null): any {
+  export function SolidityServiceTxIdentifierToJSON(json: any): SolidityServiceTxIdentifier {
+      return SolidityServiceTxIdentifierToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceTxIdentifierToJSONTyped(value?: SolidityServiceTxIdentifier | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'txHash': value['txHash'],

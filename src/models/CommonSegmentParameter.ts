@@ -36,7 +36,7 @@ export interface CommonSegmentParameter {
 /**
  * Check if a given object implements the CommonSegmentParameter interface.
  */
-export function instanceOfCommonSegmentParameter(value: object): boolean {
+export function instanceOfCommonSegmentParameter(value: object): value is CommonSegmentParameter {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function CommonSegmentParameterFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function CommonSegmentParameterToJSON(value?: CommonSegmentParameter | null): any {
+  export function CommonSegmentParameterToJSON(json: any): CommonSegmentParameter {
+      return CommonSegmentParameterToJSONTyped(json, false);
+  }
+
+  export function CommonSegmentParameterToJSONTyped(value?: CommonSegmentParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'cohortId': value['cohortId'],

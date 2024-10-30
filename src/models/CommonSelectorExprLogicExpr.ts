@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonJoinOperator } from './CommonJoinOperator.js';
-import {
-    CommonJoinOperatorFromJSON,
-    CommonJoinOperatorFromJSONTyped,
-    CommonJoinOperatorToJSON,
-} from './CommonJoinOperator.js';
 import type { CommonSelectorExpr } from './CommonSelectorExpr.js';
 import {
     CommonSelectorExprFromJSON,
     CommonSelectorExprFromJSONTyped,
     CommonSelectorExprToJSON,
+    CommonSelectorExprToJSONTyped,
 } from './CommonSelectorExpr.js';
+import type { CommonJoinOperator } from './CommonJoinOperator.js';
+import {
+    CommonJoinOperatorFromJSON,
+    CommonJoinOperatorFromJSONTyped,
+    CommonJoinOperatorToJSON,
+    CommonJoinOperatorToJSONTyped,
+} from './CommonJoinOperator.js';
 
 /**
  * 
@@ -46,10 +48,12 @@ export interface CommonSelectorExprLogicExpr {
     operator?: CommonJoinOperator;
 }
 
+
+
 /**
  * Check if a given object implements the CommonSelectorExprLogicExpr interface.
  */
-export function instanceOfCommonSelectorExprLogicExpr(value: object): boolean {
+export function instanceOfCommonSelectorExprLogicExpr(value: object): value is CommonSelectorExprLogicExpr {
     return true;
 }
 
@@ -68,10 +72,15 @@ export function CommonSelectorExprLogicExprFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function CommonSelectorExprLogicExprToJSON(value?: CommonSelectorExprLogicExpr | null): any {
+  export function CommonSelectorExprLogicExprToJSON(json: any): CommonSelectorExprLogicExpr {
+      return CommonSelectorExprLogicExprToJSONTyped(json, false);
+  }
+
+  export function CommonSelectorExprLogicExprToJSONTyped(value?: CommonSelectorExprLogicExpr | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'expressions': value['expressions'] == null ? undefined : ((value['expressions'] as Array<any>).map(CommonSelectorExprToJSON)),

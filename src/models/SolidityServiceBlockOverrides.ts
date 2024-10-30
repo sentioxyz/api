@@ -60,7 +60,7 @@ export interface SolidityServiceBlockOverrides {
 /**
  * Check if a given object implements the SolidityServiceBlockOverrides interface.
  */
-export function instanceOfSolidityServiceBlockOverrides(value: object): boolean {
+export function instanceOfSolidityServiceBlockOverrides(value: object): value is SolidityServiceBlockOverrides {
     return true;
 }
 
@@ -83,10 +83,15 @@ export function SolidityServiceBlockOverridesFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function SolidityServiceBlockOverridesToJSON(value?: SolidityServiceBlockOverrides | null): any {
+  export function SolidityServiceBlockOverridesToJSON(json: any): SolidityServiceBlockOverrides {
+      return SolidityServiceBlockOverridesToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceBlockOverridesToJSONTyped(value?: SolidityServiceBlockOverrides | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'blockNumber': value['blockNumber'],

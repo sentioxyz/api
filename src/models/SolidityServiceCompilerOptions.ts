@@ -18,12 +18,14 @@ import {
     SolidityServiceSettingsFromJSON,
     SolidityServiceSettingsFromJSONTyped,
     SolidityServiceSettingsToJSON,
+    SolidityServiceSettingsToJSONTyped,
 } from './SolidityServiceSettings.js';
 import type { SolidityServiceSpecializations } from './SolidityServiceSpecializations.js';
 import {
     SolidityServiceSpecializationsFromJSON,
     SolidityServiceSpecializationsFromJSONTyped,
     SolidityServiceSpecializationsToJSON,
+    SolidityServiceSpecializationsToJSONTyped,
 } from './SolidityServiceSpecializations.js';
 
 /**
@@ -61,7 +63,7 @@ export interface SolidityServiceCompilerOptions {
 /**
  * Check if a given object implements the SolidityServiceCompilerOptions interface.
  */
-export function instanceOfSolidityServiceCompilerOptions(value: object): boolean {
+export function instanceOfSolidityServiceCompilerOptions(value: object): value is SolidityServiceCompilerOptions {
     return true;
 }
 
@@ -82,10 +84,15 @@ export function SolidityServiceCompilerOptionsFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SolidityServiceCompilerOptionsToJSON(value?: SolidityServiceCompilerOptions | null): any {
+  export function SolidityServiceCompilerOptionsToJSON(json: any): SolidityServiceCompilerOptions {
+      return SolidityServiceCompilerOptionsToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceCompilerOptionsToJSONTyped(value?: SolidityServiceCompilerOptions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'language': value['language'],

@@ -42,7 +42,7 @@ export interface CommonProjectSuperset {
 /**
  * Check if a given object implements the CommonProjectSuperset interface.
  */
-export function instanceOfCommonProjectSuperset(value: object): boolean {
+export function instanceOfCommonProjectSuperset(value: object): value is CommonProjectSuperset {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function CommonProjectSupersetFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function CommonProjectSupersetToJSON(value?: CommonProjectSuperset | null): any {
+  export function CommonProjectSupersetToJSON(json: any): CommonProjectSuperset {
+      return CommonProjectSupersetToJSONTyped(json, false);
+  }
+
+  export function CommonProjectSupersetToJSONTyped(value?: CommonProjectSuperset | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'projectId': value['projectId'],

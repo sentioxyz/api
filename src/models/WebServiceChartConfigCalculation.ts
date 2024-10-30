@@ -30,7 +30,14 @@ export type WebServiceChartConfigCalculation = typeof WebServiceChartConfigCalcu
 
 
 export function instanceOfWebServiceChartConfigCalculation(value: any): boolean {
-    return Object.values(WebServiceChartConfigCalculation).includes(value);
+    for (const key in WebServiceChartConfigCalculation) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceChartConfigCalculation, key)) {
+            if (WebServiceChartConfigCalculation[key as keyof typeof WebServiceChartConfigCalculation] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceChartConfigCalculationFromJSON(json: any): WebServiceChartConfigCalculation {
@@ -43,5 +50,9 @@ export function WebServiceChartConfigCalculationFromJSONTyped(json: any, ignoreD
 
 export function WebServiceChartConfigCalculationToJSON(value?: WebServiceChartConfigCalculation | null): any {
     return value as any;
+}
+
+export function WebServiceChartConfigCalculationToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceChartConfigCalculation {
+    return value as WebServiceChartConfigCalculation;
 }
 

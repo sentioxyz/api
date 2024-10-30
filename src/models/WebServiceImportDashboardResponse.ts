@@ -18,6 +18,7 @@ import {
     WebServiceDashboardFromJSON,
     WebServiceDashboardFromJSONTyped,
     WebServiceDashboardToJSON,
+    WebServiceDashboardToJSONTyped,
 } from './WebServiceDashboard.js';
 
 /**
@@ -37,7 +38,7 @@ export interface WebServiceImportDashboardResponse {
 /**
  * Check if a given object implements the WebServiceImportDashboardResponse interface.
  */
-export function instanceOfWebServiceImportDashboardResponse(value: object): boolean {
+export function instanceOfWebServiceImportDashboardResponse(value: object): value is WebServiceImportDashboardResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function WebServiceImportDashboardResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function WebServiceImportDashboardResponseToJSON(value?: WebServiceImportDashboardResponse | null): any {
+  export function WebServiceImportDashboardResponseToJSON(json: any): WebServiceImportDashboardResponse {
+      return WebServiceImportDashboardResponseToJSONTyped(json, false);
+  }
+
+  export function WebServiceImportDashboardResponseToJSONTyped(value?: WebServiceImportDashboardResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'dashboard': WebServiceDashboardToJSON(value['dashboard']),

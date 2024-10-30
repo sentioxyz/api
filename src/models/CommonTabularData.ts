@@ -18,6 +18,7 @@ import {
     CommonTabularDataColumnTypeFromJSON,
     CommonTabularDataColumnTypeFromJSONTyped,
     CommonTabularDataColumnTypeToJSON,
+    CommonTabularDataColumnTypeToJSONTyped,
 } from './CommonTabularDataColumnType.js';
 
 /**
@@ -61,7 +62,7 @@ export interface CommonTabularData {
 /**
  * Check if a given object implements the CommonTabularData interface.
  */
-export function instanceOfCommonTabularData(value: object): boolean {
+export function instanceOfCommonTabularData(value: object): value is CommonTabularData {
     return true;
 }
 
@@ -83,10 +84,15 @@ export function CommonTabularDataFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function CommonTabularDataToJSON(value?: CommonTabularData | null): any {
+  export function CommonTabularDataToJSON(json: any): CommonTabularData {
+      return CommonTabularDataToJSONTyped(json, false);
+  }
+
+  export function CommonTabularDataToJSONTyped(value?: CommonTabularData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'columns': value['columns'],

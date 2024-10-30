@@ -25,7 +25,14 @@ export type CommonSegmentationQueryResourceType = typeof CommonSegmentationQuery
 
 
 export function instanceOfCommonSegmentationQueryResourceType(value: any): boolean {
-    return Object.values(CommonSegmentationQueryResourceType).includes(value);
+    for (const key in CommonSegmentationQueryResourceType) {
+        if (Object.prototype.hasOwnProperty.call(CommonSegmentationQueryResourceType, key)) {
+            if (CommonSegmentationQueryResourceType[key as keyof typeof CommonSegmentationQueryResourceType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonSegmentationQueryResourceTypeFromJSON(json: any): CommonSegmentationQueryResourceType {
@@ -38,5 +45,9 @@ export function CommonSegmentationQueryResourceTypeFromJSONTyped(json: any, igno
 
 export function CommonSegmentationQueryResourceTypeToJSON(value?: CommonSegmentationQueryResourceType | null): any {
     return value as any;
+}
+
+export function CommonSegmentationQueryResourceTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonSegmentationQueryResourceType {
+    return value as CommonSegmentationQueryResourceType;
 }
 

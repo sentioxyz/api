@@ -18,24 +18,28 @@ import {
     CommonCachePolicyFromJSON,
     CommonCachePolicyFromJSONTyped,
     CommonCachePolicyToJSON,
+    CommonCachePolicyToJSONTyped,
 } from './CommonCachePolicy.js';
 import type { CommonFormula } from './CommonFormula.js';
 import {
     CommonFormulaFromJSON,
     CommonFormulaFromJSONTyped,
     CommonFormulaToJSON,
+    CommonFormulaToJSONTyped,
 } from './CommonFormula.js';
 import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
+    CommonTimeRangeLiteToJSONTyped,
 } from './CommonTimeRangeLite.js';
 import type { InsightsServiceQueryRequestQuery } from './InsightsServiceQueryRequestQuery.js';
 import {
     InsightsServiceQueryRequestQueryFromJSON,
     InsightsServiceQueryRequestQueryFromJSONTyped,
     InsightsServiceQueryRequestQueryToJSON,
+    InsightsServiceQueryRequestQueryToJSONTyped,
 } from './InsightsServiceQueryRequestQuery.js';
 
 /**
@@ -103,7 +107,7 @@ export interface InsightsServiceInsightsServiceQueryBody {
 /**
  * Check if a given object implements the InsightsServiceInsightsServiceQueryBody interface.
  */
-export function instanceOfInsightsServiceInsightsServiceQueryBody(value: object): boolean {
+export function instanceOfInsightsServiceInsightsServiceQueryBody(value: object): value is InsightsServiceInsightsServiceQueryBody {
     return true;
 }
 
@@ -129,10 +133,15 @@ export function InsightsServiceInsightsServiceQueryBodyFromJSONTyped(json: any, 
     };
 }
 
-export function InsightsServiceInsightsServiceQueryBodyToJSON(value?: InsightsServiceInsightsServiceQueryBody | null): any {
+  export function InsightsServiceInsightsServiceQueryBodyToJSON(json: any): InsightsServiceInsightsServiceQueryBody {
+      return InsightsServiceInsightsServiceQueryBodyToJSONTyped(json, false);
+  }
+
+  export function InsightsServiceInsightsServiceQueryBodyToJSONTyped(value?: InsightsServiceInsightsServiceQueryBody | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'projectId': value['projectId'],

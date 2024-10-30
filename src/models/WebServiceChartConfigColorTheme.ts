@@ -42,7 +42,7 @@ export interface WebServiceChartConfigColorTheme {
 /**
  * Check if a given object implements the WebServiceChartConfigColorTheme interface.
  */
-export function instanceOfWebServiceChartConfigColorTheme(value: object): boolean {
+export function instanceOfWebServiceChartConfigColorTheme(value: object): value is WebServiceChartConfigColorTheme {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function WebServiceChartConfigColorThemeFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function WebServiceChartConfigColorThemeToJSON(value?: WebServiceChartConfigColorTheme | null): any {
+  export function WebServiceChartConfigColorThemeToJSON(json: any): WebServiceChartConfigColorTheme {
+      return WebServiceChartConfigColorThemeToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigColorThemeToJSONTyped(value?: WebServiceChartConfigColorTheme | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'textColor': value['textColor'],

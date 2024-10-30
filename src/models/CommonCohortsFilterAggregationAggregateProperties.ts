@@ -18,6 +18,7 @@ import {
     CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeFromJSON,
     CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeFromJSONTyped,
     CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeToJSON,
+    CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeToJSONTyped,
 } from './CommonCohortsFilterAggregationAggregatePropertiesAggregationType.js';
 
 /**
@@ -40,10 +41,12 @@ export interface CommonCohortsFilterAggregationAggregateProperties {
     propertyName?: string;
 }
 
+
+
 /**
  * Check if a given object implements the CommonCohortsFilterAggregationAggregateProperties interface.
  */
-export function instanceOfCommonCohortsFilterAggregationAggregateProperties(value: object): boolean {
+export function instanceOfCommonCohortsFilterAggregationAggregateProperties(value: object): value is CommonCohortsFilterAggregationAggregateProperties {
     return true;
 }
 
@@ -62,10 +65,15 @@ export function CommonCohortsFilterAggregationAggregatePropertiesFromJSONTyped(j
     };
 }
 
-export function CommonCohortsFilterAggregationAggregatePropertiesToJSON(value?: CommonCohortsFilterAggregationAggregateProperties | null): any {
+  export function CommonCohortsFilterAggregationAggregatePropertiesToJSON(json: any): CommonCohortsFilterAggregationAggregateProperties {
+      return CommonCohortsFilterAggregationAggregatePropertiesToJSONTyped(json, false);
+  }
+
+  export function CommonCohortsFilterAggregationAggregatePropertiesToJSONTyped(value?: CommonCohortsFilterAggregationAggregateProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'type': CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeToJSON(value['type']),

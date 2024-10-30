@@ -13,36 +13,41 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { WebServiceDashboardDashboardVisibility } from './WebServiceDashboardDashboardVisibility.js';
-import {
-    WebServiceDashboardDashboardVisibilityFromJSON,
-    WebServiceDashboardDashboardVisibilityFromJSONTyped,
-    WebServiceDashboardDashboardVisibilityToJSON,
-} from './WebServiceDashboardDashboardVisibility.js';
 import type { WebServiceDashboardExtra } from './WebServiceDashboardExtra.js';
 import {
     WebServiceDashboardExtraFromJSON,
     WebServiceDashboardExtraFromJSONTyped,
     WebServiceDashboardExtraToJSON,
+    WebServiceDashboardExtraToJSONTyped,
 } from './WebServiceDashboardExtra.js';
+import type { WebServiceDashboardDashboardVisibility } from './WebServiceDashboardDashboardVisibility.js';
+import {
+    WebServiceDashboardDashboardVisibilityFromJSON,
+    WebServiceDashboardDashboardVisibilityFromJSONTyped,
+    WebServiceDashboardDashboardVisibilityToJSON,
+    WebServiceDashboardDashboardVisibilityToJSONTyped,
+} from './WebServiceDashboardDashboardVisibility.js';
 import type { WebServiceDashboardResponsiveLayouts } from './WebServiceDashboardResponsiveLayouts.js';
 import {
     WebServiceDashboardResponsiveLayoutsFromJSON,
     WebServiceDashboardResponsiveLayoutsFromJSONTyped,
     WebServiceDashboardResponsiveLayoutsToJSON,
+    WebServiceDashboardResponsiveLayoutsToJSONTyped,
 } from './WebServiceDashboardResponsiveLayouts.js';
-import type { WebServiceDashboardSharing } from './WebServiceDashboardSharing.js';
-import {
-    WebServiceDashboardSharingFromJSON,
-    WebServiceDashboardSharingFromJSONTyped,
-    WebServiceDashboardSharingToJSON,
-} from './WebServiceDashboardSharing.js';
 import type { WebServicePanel } from './WebServicePanel.js';
 import {
     WebServicePanelFromJSON,
     WebServicePanelFromJSONTyped,
     WebServicePanelToJSON,
+    WebServicePanelToJSONTyped,
 } from './WebServicePanel.js';
+import type { WebServiceDashboardSharing } from './WebServiceDashboardSharing.js';
+import {
+    WebServiceDashboardSharingFromJSON,
+    WebServiceDashboardSharingFromJSONTyped,
+    WebServiceDashboardSharingToJSON,
+    WebServiceDashboardSharingToJSONTyped,
+} from './WebServiceDashboardSharing.js';
 
 /**
  * 
@@ -142,10 +147,12 @@ export interface WebServiceDashboard {
     url?: string;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceDashboard interface.
  */
-export function instanceOfWebServiceDashboard(value: object): boolean {
+export function instanceOfWebServiceDashboard(value: object): value is WebServiceDashboard {
     return true;
 }
 
@@ -177,10 +184,15 @@ export function WebServiceDashboardFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function WebServiceDashboardToJSON(value?: WebServiceDashboard | null): any {
+  export function WebServiceDashboardToJSON(json: any): WebServiceDashboard {
+      return WebServiceDashboardToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardToJSONTyped(value?: WebServiceDashboard | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

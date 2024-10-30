@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonComputeStats } from './CommonComputeStats.js';
-import {
-    CommonComputeStatsFromJSON,
-    CommonComputeStatsFromJSONTyped,
-    CommonComputeStatsToJSON,
-} from './CommonComputeStats.js';
 import type { CommonTabularData } from './CommonTabularData.js';
 import {
     CommonTabularDataFromJSON,
     CommonTabularDataFromJSONTyped,
     CommonTabularDataToJSON,
+    CommonTabularDataToJSONTyped,
 } from './CommonTabularData.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
+import {
+    CommonComputeStatsFromJSON,
+    CommonComputeStatsFromJSONTyped,
+    CommonComputeStatsToJSON,
+    CommonComputeStatsToJSONTyped,
+} from './CommonComputeStats.js';
 
 /**
  * 
@@ -61,7 +63,7 @@ export interface AnalyticServiceSyncExecuteSQLResponse {
 /**
  * Check if a given object implements the AnalyticServiceSyncExecuteSQLResponse interface.
  */
-export function instanceOfAnalyticServiceSyncExecuteSQLResponse(value: object): boolean {
+export function instanceOfAnalyticServiceSyncExecuteSQLResponse(value: object): value is AnalyticServiceSyncExecuteSQLResponse {
     return true;
 }
 
@@ -82,10 +84,15 @@ export function AnalyticServiceSyncExecuteSQLResponseFromJSONTyped(json: any, ig
     };
 }
 
-export function AnalyticServiceSyncExecuteSQLResponseToJSON(value?: AnalyticServiceSyncExecuteSQLResponse | null): any {
+  export function AnalyticServiceSyncExecuteSQLResponseToJSON(json: any): AnalyticServiceSyncExecuteSQLResponse {
+      return AnalyticServiceSyncExecuteSQLResponseToJSONTyped(json, false);
+  }
+
+  export function AnalyticServiceSyncExecuteSQLResponseToJSONTyped(value?: AnalyticServiceSyncExecuteSQLResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'runtimeCost': value['runtimeCost'],

@@ -36,7 +36,7 @@ export interface CommonBigInteger {
 /**
  * Check if a given object implements the CommonBigInteger interface.
  */
-export function instanceOfCommonBigInteger(value: object): boolean {
+export function instanceOfCommonBigInteger(value: object): value is CommonBigInteger {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function CommonBigIntegerFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function CommonBigIntegerToJSON(value?: CommonBigInteger | null): any {
+  export function CommonBigIntegerToJSON(json: any): CommonBigInteger {
+      return CommonBigIntegerToJSONTyped(json, false);
+  }
+
+  export function CommonBigIntegerToJSONTyped(value?: CommonBigInteger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'negative': value['negative'],

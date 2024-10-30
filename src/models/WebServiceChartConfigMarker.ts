@@ -18,6 +18,7 @@ import {
     WebServiceChartConfigMarkerTypeFromJSON,
     WebServiceChartConfigMarkerTypeFromJSONTyped,
     WebServiceChartConfigMarkerTypeToJSON,
+    WebServiceChartConfigMarkerTypeToJSONTyped,
 } from './WebServiceChartConfigMarkerType.js';
 
 /**
@@ -58,10 +59,12 @@ export interface WebServiceChartConfigMarker {
     valueX?: string;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigMarker interface.
  */
-export function instanceOfWebServiceChartConfigMarker(value: object): boolean {
+export function instanceOfWebServiceChartConfigMarker(value: object): value is WebServiceChartConfigMarker {
     return true;
 }
 
@@ -83,10 +86,15 @@ export function WebServiceChartConfigMarkerFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function WebServiceChartConfigMarkerToJSON(value?: WebServiceChartConfigMarker | null): any {
+  export function WebServiceChartConfigMarkerToJSON(json: any): WebServiceChartConfigMarker {
+      return WebServiceChartConfigMarkerToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigMarkerToJSONTyped(value?: WebServiceChartConfigMarker | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'type': WebServiceChartConfigMarkerTypeToJSON(value['type']),

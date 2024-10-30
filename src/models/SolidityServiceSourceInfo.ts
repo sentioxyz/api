@@ -18,6 +18,7 @@ import {
     SolidityServiceCompilerOptionsFromJSON,
     SolidityServiceCompilerOptionsFromJSONTyped,
     SolidityServiceCompilerOptionsToJSON,
+    SolidityServiceCompilerOptionsToJSONTyped,
 } from './SolidityServiceCompilerOptions.js';
 
 /**
@@ -43,7 +44,7 @@ export interface SolidityServiceSourceInfo {
 /**
  * Check if a given object implements the SolidityServiceSourceInfo interface.
  */
-export function instanceOfSolidityServiceSourceInfo(value: object): boolean {
+export function instanceOfSolidityServiceSourceInfo(value: object): value is SolidityServiceSourceInfo {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function SolidityServiceSourceInfoFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SolidityServiceSourceInfoToJSON(value?: SolidityServiceSourceInfo | null): any {
+  export function SolidityServiceSourceInfoToJSON(json: any): SolidityServiceSourceInfo {
+      return SolidityServiceSourceInfoToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSourceInfoToJSONTyped(value?: SolidityServiceSourceInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'contractName': value['contractName'],

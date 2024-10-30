@@ -18,6 +18,7 @@ import {
     WebServiceChartConfigSortByFromJSON,
     WebServiceChartConfigSortByFromJSONTyped,
     WebServiceChartConfigSortByToJSON,
+    WebServiceChartConfigSortByToJSONTyped,
 } from './WebServiceChartConfigSortBy.js';
 
 /**
@@ -40,10 +41,12 @@ export interface WebServiceChartConfigSort {
     orderDesc?: boolean;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigSort interface.
  */
-export function instanceOfWebServiceChartConfigSort(value: object): boolean {
+export function instanceOfWebServiceChartConfigSort(value: object): value is WebServiceChartConfigSort {
     return true;
 }
 
@@ -62,10 +65,15 @@ export function WebServiceChartConfigSortFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function WebServiceChartConfigSortToJSON(value?: WebServiceChartConfigSort | null): any {
+  export function WebServiceChartConfigSortToJSON(json: any): WebServiceChartConfigSort {
+      return WebServiceChartConfigSortToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigSortToJSONTyped(value?: WebServiceChartConfigSort | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'sortBy': WebServiceChartConfigSortByToJSON(value['sortBy']),

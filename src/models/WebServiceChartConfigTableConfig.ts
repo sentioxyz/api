@@ -18,19 +18,22 @@ import {
     WebServiceChartConfigCalculationFromJSON,
     WebServiceChartConfigCalculationFromJSONTyped,
     WebServiceChartConfigCalculationToJSON,
+    WebServiceChartConfigCalculationToJSONTyped,
 } from './WebServiceChartConfigCalculation.js';
-import type { WebServiceChartConfigColumnSort } from './WebServiceChartConfigColumnSort.js';
-import {
-    WebServiceChartConfigColumnSortFromJSON,
-    WebServiceChartConfigColumnSortFromJSONTyped,
-    WebServiceChartConfigColumnSortToJSON,
-} from './WebServiceChartConfigColumnSort.js';
 import type { WebServiceChartConfigValueConfig } from './WebServiceChartConfigValueConfig.js';
 import {
     WebServiceChartConfigValueConfigFromJSON,
     WebServiceChartConfigValueConfigFromJSONTyped,
     WebServiceChartConfigValueConfigToJSON,
+    WebServiceChartConfigValueConfigToJSONTyped,
 } from './WebServiceChartConfigValueConfig.js';
+import type { WebServiceChartConfigColumnSort } from './WebServiceChartConfigColumnSort.js';
+import {
+    WebServiceChartConfigColumnSortFromJSON,
+    WebServiceChartConfigColumnSortFromJSONTyped,
+    WebServiceChartConfigColumnSortToJSON,
+    WebServiceChartConfigColumnSortToJSONTyped,
+} from './WebServiceChartConfigColumnSort.js';
 
 /**
  * 
@@ -94,10 +97,12 @@ export interface WebServiceChartConfigTableConfig {
     rowLimit?: number;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigTableConfig interface.
  */
-export function instanceOfWebServiceChartConfigTableConfig(value: object): boolean {
+export function instanceOfWebServiceChartConfigTableConfig(value: object): value is WebServiceChartConfigTableConfig {
     return true;
 }
 
@@ -123,10 +128,15 @@ export function WebServiceChartConfigTableConfigFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceChartConfigTableConfigToJSON(value?: WebServiceChartConfigTableConfig | null): any {
+  export function WebServiceChartConfigTableConfigToJSON(json: any): WebServiceChartConfigTableConfig {
+      return WebServiceChartConfigTableConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigTableConfigToJSONTyped(value?: WebServiceChartConfigTableConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'calculation': WebServiceChartConfigCalculationToJSON(value['calculation']),

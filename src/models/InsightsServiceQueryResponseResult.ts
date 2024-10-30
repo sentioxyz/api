@@ -13,24 +13,27 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { InsightsServiceDataSource } from './InsightsServiceDataSource.js';
+import {
+    InsightsServiceDataSourceFromJSON,
+    InsightsServiceDataSourceFromJSONTyped,
+    InsightsServiceDataSourceToJSON,
+    InsightsServiceDataSourceToJSONTyped,
+} from './InsightsServiceDataSource.js';
 import type { CommonComputeStats } from './CommonComputeStats.js';
 import {
     CommonComputeStatsFromJSON,
     CommonComputeStatsFromJSONTyped,
     CommonComputeStatsToJSON,
+    CommonComputeStatsToJSONTyped,
 } from './CommonComputeStats.js';
 import type { CommonMatrix } from './CommonMatrix.js';
 import {
     CommonMatrixFromJSON,
     CommonMatrixFromJSONTyped,
     CommonMatrixToJSON,
+    CommonMatrixToJSONTyped,
 } from './CommonMatrix.js';
-import type { InsightsServiceDataSource } from './InsightsServiceDataSource.js';
-import {
-    InsightsServiceDataSourceFromJSON,
-    InsightsServiceDataSourceFromJSONTyped,
-    InsightsServiceDataSourceToJSON,
-} from './InsightsServiceDataSource.js';
 
 /**
  * 
@@ -76,10 +79,12 @@ export interface InsightsServiceQueryResponseResult {
     computeStats?: CommonComputeStats;
 }
 
+
+
 /**
  * Check if a given object implements the InsightsServiceQueryResponseResult interface.
  */
-export function instanceOfInsightsServiceQueryResponseResult(value: object): boolean {
+export function instanceOfInsightsServiceQueryResponseResult(value: object): value is InsightsServiceQueryResponseResult {
     return true;
 }
 
@@ -102,10 +107,15 @@ export function InsightsServiceQueryResponseResultFromJSONTyped(json: any, ignor
     };
 }
 
-export function InsightsServiceQueryResponseResultToJSON(value?: InsightsServiceQueryResponseResult | null): any {
+  export function InsightsServiceQueryResponseResultToJSON(json: any): InsightsServiceQueryResponseResult {
+      return InsightsServiceQueryResponseResultToJSONTyped(json, false);
+  }
+
+  export function InsightsServiceQueryResponseResultToJSONTyped(value?: InsightsServiceQueryResponseResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

@@ -18,12 +18,14 @@ import {
     WebServiceDashboardExtraTemplateVariableFromJSON,
     WebServiceDashboardExtraTemplateVariableFromJSONTyped,
     WebServiceDashboardExtraTemplateVariableToJSON,
+    WebServiceDashboardExtraTemplateVariableToJSONTyped,
 } from './WebServiceDashboardExtraTemplateVariable.js';
 import type { WebServiceDashboardExtraTemplateView } from './WebServiceDashboardExtraTemplateView.js';
 import {
     WebServiceDashboardExtraTemplateViewFromJSON,
     WebServiceDashboardExtraTemplateViewFromJSONTyped,
     WebServiceDashboardExtraTemplateViewToJSON,
+    WebServiceDashboardExtraTemplateViewToJSONTyped,
 } from './WebServiceDashboardExtraTemplateView.js';
 
 /**
@@ -49,7 +51,7 @@ export interface WebServiceDashboardExtra {
 /**
  * Check if a given object implements the WebServiceDashboardExtra interface.
  */
-export function instanceOfWebServiceDashboardExtra(value: object): boolean {
+export function instanceOfWebServiceDashboardExtra(value: object): value is WebServiceDashboardExtra {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function WebServiceDashboardExtraFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function WebServiceDashboardExtraToJSON(value?: WebServiceDashboardExtra | null): any {
+  export function WebServiceDashboardExtraToJSON(json: any): WebServiceDashboardExtra {
+      return WebServiceDashboardExtraToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardExtraToJSONTyped(value?: WebServiceDashboardExtra | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'templateVariables': value['templateVariables'] == null ? undefined : (mapValues(value['templateVariables'], WebServiceDashboardExtraTemplateVariableToJSON)),

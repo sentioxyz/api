@@ -18,18 +18,21 @@ import {
     WebServiceChartConfigMappingRuleFromJSON,
     WebServiceChartConfigMappingRuleFromJSONTyped,
     WebServiceChartConfigMappingRuleToJSON,
+    WebServiceChartConfigMappingRuleToJSONTyped,
 } from './WebServiceChartConfigMappingRule.js';
 import type { WebServiceChartConfigValueConfigStyle } from './WebServiceChartConfigValueConfigStyle.js';
 import {
     WebServiceChartConfigValueConfigStyleFromJSON,
     WebServiceChartConfigValueConfigStyleFromJSONTyped,
     WebServiceChartConfigValueConfigStyleToJSON,
+    WebServiceChartConfigValueConfigStyleToJSONTyped,
 } from './WebServiceChartConfigValueConfigStyle.js';
 import type { WebServiceChartConfigValueFormatter } from './WebServiceChartConfigValueFormatter.js';
 import {
     WebServiceChartConfigValueFormatterFromJSON,
     WebServiceChartConfigValueFormatterFromJSONTyped,
     WebServiceChartConfigValueFormatterToJSON,
+    WebServiceChartConfigValueFormatterToJSONTyped,
 } from './WebServiceChartConfigValueFormatter.js';
 
 /**
@@ -94,10 +97,12 @@ export interface WebServiceChartConfigValueConfig {
     currencySymbol?: string;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigValueConfig interface.
  */
-export function instanceOfWebServiceChartConfigValueConfig(value: object): boolean {
+export function instanceOfWebServiceChartConfigValueConfig(value: object): value is WebServiceChartConfigValueConfig {
     return true;
 }
 
@@ -123,10 +128,15 @@ export function WebServiceChartConfigValueConfigFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceChartConfigValueConfigToJSON(value?: WebServiceChartConfigValueConfig | null): any {
+  export function WebServiceChartConfigValueConfigToJSON(json: any): WebServiceChartConfigValueConfig {
+      return WebServiceChartConfigValueConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigValueConfigToJSONTyped(value?: WebServiceChartConfigValueConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'valueFormatter': WebServiceChartConfigValueFormatterToJSON(value['valueFormatter']),

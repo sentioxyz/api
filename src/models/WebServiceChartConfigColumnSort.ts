@@ -36,7 +36,7 @@ export interface WebServiceChartConfigColumnSort {
 /**
  * Check if a given object implements the WebServiceChartConfigColumnSort interface.
  */
-export function instanceOfWebServiceChartConfigColumnSort(value: object): boolean {
+export function instanceOfWebServiceChartConfigColumnSort(value: object): value is WebServiceChartConfigColumnSort {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function WebServiceChartConfigColumnSortFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function WebServiceChartConfigColumnSortToJSON(value?: WebServiceChartConfigColumnSort | null): any {
+  export function WebServiceChartConfigColumnSortToJSON(json: any): WebServiceChartConfigColumnSort {
+      return WebServiceChartConfigColumnSortToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigColumnSortToJSONTyped(value?: WebServiceChartConfigColumnSort | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'column': value['column'],

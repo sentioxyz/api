@@ -30,7 +30,7 @@ export interface CommonStringList {
 /**
  * Check if a given object implements the CommonStringList interface.
  */
-export function instanceOfCommonStringList(value: object): boolean {
+export function instanceOfCommonStringList(value: object): value is CommonStringList {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function CommonStringListFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function CommonStringListToJSON(value?: CommonStringList | null): any {
+  export function CommonStringListToJSON(json: any): CommonStringList {
+      return CommonStringListToJSONTyped(json, false);
+  }
+
+  export function CommonStringListToJSONTyped(value?: CommonStringList | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'values': value['values'],

@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonSegmentationQuerySelectorExprLogicExpr } from './CommonSegmentationQuerySelectorExprLogicExpr.js';
-import {
-    CommonSegmentationQuerySelectorExprLogicExprFromJSON,
-    CommonSegmentationQuerySelectorExprLogicExprFromJSONTyped,
-    CommonSegmentationQuerySelectorExprLogicExprToJSON,
-} from './CommonSegmentationQuerySelectorExprLogicExpr.js';
 import type { CommonSelector } from './CommonSelector.js';
 import {
     CommonSelectorFromJSON,
     CommonSelectorFromJSONTyped,
     CommonSelectorToJSON,
+    CommonSelectorToJSONTyped,
 } from './CommonSelector.js';
+import type { CommonSegmentationQuerySelectorExprLogicExpr } from './CommonSegmentationQuerySelectorExprLogicExpr.js';
+import {
+    CommonSegmentationQuerySelectorExprLogicExprFromJSON,
+    CommonSegmentationQuerySelectorExprLogicExprFromJSONTyped,
+    CommonSegmentationQuerySelectorExprLogicExprToJSON,
+    CommonSegmentationQuerySelectorExprLogicExprToJSONTyped,
+} from './CommonSegmentationQuerySelectorExprLogicExpr.js';
 
 /**
  * 
@@ -49,7 +51,7 @@ export interface CommonSegmentationQuerySelectorExpr {
 /**
  * Check if a given object implements the CommonSegmentationQuerySelectorExpr interface.
  */
-export function instanceOfCommonSegmentationQuerySelectorExpr(value: object): boolean {
+export function instanceOfCommonSegmentationQuerySelectorExpr(value: object): value is CommonSegmentationQuerySelectorExpr {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function CommonSegmentationQuerySelectorExprFromJSONTyped(json: any, igno
     };
 }
 
-export function CommonSegmentationQuerySelectorExprToJSON(value?: CommonSegmentationQuerySelectorExpr | null): any {
+  export function CommonSegmentationQuerySelectorExprToJSON(json: any): CommonSegmentationQuerySelectorExpr {
+      return CommonSegmentationQuerySelectorExprToJSONTyped(json, false);
+  }
+
+  export function CommonSegmentationQuerySelectorExprToJSONTyped(value?: CommonSegmentationQuerySelectorExpr | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'selector': CommonSelectorToJSON(value['selector']),

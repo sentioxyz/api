@@ -18,6 +18,7 @@ import {
     CommonArgumentFromJSON,
     CommonArgumentFromJSONTyped,
     CommonArgumentToJSON,
+    CommonArgumentToJSONTyped,
 } from './CommonArgument.js';
 
 /**
@@ -43,7 +44,7 @@ export interface CommonFunction {
 /**
  * Check if a given object implements the CommonFunction interface.
  */
-export function instanceOfCommonFunction(value: object): boolean {
+export function instanceOfCommonFunction(value: object): value is CommonFunction {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function CommonFunctionFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function CommonFunctionToJSON(value?: CommonFunction | null): any {
+  export function CommonFunctionToJSON(json: any): CommonFunction {
+      return CommonFunctionToJSONTyped(json, false);
+  }
+
+  export function CommonFunctionToJSONTyped(value?: CommonFunction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'name': value['name'],

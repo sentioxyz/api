@@ -13,23 +13,26 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonCohortsFilterAggregation } from './CommonCohortsFilterAggregation.js';
-import {
-    CommonCohortsFilterAggregationFromJSON,
-    CommonCohortsFilterAggregationFromJSONTyped,
-    CommonCohortsFilterAggregationToJSON,
-} from './CommonCohortsFilterAggregation.js';
 import type { CommonSelectorExpr } from './CommonSelectorExpr.js';
 import {
     CommonSelectorExprFromJSON,
     CommonSelectorExprFromJSONTyped,
     CommonSelectorExprToJSON,
+    CommonSelectorExprToJSONTyped,
 } from './CommonSelectorExpr.js';
+import type { CommonCohortsFilterAggregation } from './CommonCohortsFilterAggregation.js';
+import {
+    CommonCohortsFilterAggregationFromJSON,
+    CommonCohortsFilterAggregationFromJSONTyped,
+    CommonCohortsFilterAggregationToJSON,
+    CommonCohortsFilterAggregationToJSONTyped,
+} from './CommonCohortsFilterAggregation.js';
 import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
+    CommonTimeRangeLiteToJSONTyped,
 } from './CommonTimeRangeLite.js';
 
 /**
@@ -73,7 +76,7 @@ export interface CommonCohortsFilter {
 /**
  * Check if a given object implements the CommonCohortsFilter interface.
  */
-export function instanceOfCommonCohortsFilter(value: object): boolean {
+export function instanceOfCommonCohortsFilter(value: object): value is CommonCohortsFilter {
     return true;
 }
 
@@ -95,10 +98,15 @@ export function CommonCohortsFilterFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function CommonCohortsFilterToJSON(value?: CommonCohortsFilter | null): any {
+  export function CommonCohortsFilterToJSON(json: any): CommonCohortsFilter {
+      return CommonCohortsFilterToJSONTyped(json, false);
+  }
+
+  export function CommonCohortsFilterToJSONTyped(value?: CommonCohortsFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'symbol': value['symbol'],

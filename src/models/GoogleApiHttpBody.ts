@@ -18,6 +18,7 @@ import {
     GoogleProtobufAnyFromJSON,
     GoogleProtobufAnyFromJSONTyped,
     GoogleProtobufAnyToJSON,
+    GoogleProtobufAnyToJSONTyped,
 } from './GoogleProtobufAny.js';
 
 /**
@@ -49,7 +50,7 @@ export interface GoogleApiHttpBody {
 /**
  * Check if a given object implements the GoogleApiHttpBody interface.
  */
-export function instanceOfGoogleApiHttpBody(value: object): boolean {
+export function instanceOfGoogleApiHttpBody(value: object): value is GoogleApiHttpBody {
     return true;
 }
 
@@ -69,10 +70,15 @@ export function GoogleApiHttpBodyFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GoogleApiHttpBodyToJSON(value?: GoogleApiHttpBody | null): any {
+  export function GoogleApiHttpBodyToJSON(json: any): GoogleApiHttpBody {
+      return GoogleApiHttpBodyToJSONTyped(json, false);
+  }
+
+  export function GoogleApiHttpBodyToJSONTyped(value?: GoogleApiHttpBody | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'contentType': value['contentType'],

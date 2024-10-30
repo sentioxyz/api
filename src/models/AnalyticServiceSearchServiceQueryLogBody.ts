@@ -18,24 +18,28 @@ import {
     AnalyticServiceLogQueryRequestFilterFromJSON,
     AnalyticServiceLogQueryRequestFilterFromJSONTyped,
     AnalyticServiceLogQueryRequestFilterToJSON,
+    AnalyticServiceLogQueryRequestFilterToJSONTyped,
 } from './AnalyticServiceLogQueryRequestFilter.js';
-import type { AnalyticServiceLogQueryRequestSort } from './AnalyticServiceLogQueryRequestSort.js';
-import {
-    AnalyticServiceLogQueryRequestSortFromJSON,
-    AnalyticServiceLogQueryRequestSortFromJSONTyped,
-    AnalyticServiceLogQueryRequestSortToJSON,
-} from './AnalyticServiceLogQueryRequestSort.js';
 import type { CommonAny } from './CommonAny.js';
 import {
     CommonAnyFromJSON,
     CommonAnyFromJSONTyped,
     CommonAnyToJSON,
+    CommonAnyToJSONTyped,
 } from './CommonAny.js';
+import type { AnalyticServiceLogQueryRequestSort } from './AnalyticServiceLogQueryRequestSort.js';
+import {
+    AnalyticServiceLogQueryRequestSortFromJSON,
+    AnalyticServiceLogQueryRequestSortFromJSONTyped,
+    AnalyticServiceLogQueryRequestSortToJSON,
+    AnalyticServiceLogQueryRequestSortToJSONTyped,
+} from './AnalyticServiceLogQueryRequestSort.js';
 import type { CommonTimeRange } from './CommonTimeRange.js';
 import {
     CommonTimeRangeFromJSON,
     CommonTimeRangeFromJSONTyped,
     CommonTimeRangeToJSON,
+    CommonTimeRangeToJSONTyped,
 } from './CommonTimeRange.js';
 
 /**
@@ -103,7 +107,7 @@ export interface AnalyticServiceSearchServiceQueryLogBody {
 /**
  * Check if a given object implements the AnalyticServiceSearchServiceQueryLogBody interface.
  */
-export function instanceOfAnalyticServiceSearchServiceQueryLogBody(value: object): boolean {
+export function instanceOfAnalyticServiceSearchServiceQueryLogBody(value: object): value is AnalyticServiceSearchServiceQueryLogBody {
     return true;
 }
 
@@ -129,10 +133,15 @@ export function AnalyticServiceSearchServiceQueryLogBodyFromJSONTyped(json: any,
     };
 }
 
-export function AnalyticServiceSearchServiceQueryLogBodyToJSON(value?: AnalyticServiceSearchServiceQueryLogBody | null): any {
+  export function AnalyticServiceSearchServiceQueryLogBodyToJSON(json: any): AnalyticServiceSearchServiceQueryLogBody {
+      return AnalyticServiceSearchServiceQueryLogBodyToJSONTyped(json, false);
+  }
+
+  export function AnalyticServiceSearchServiceQueryLogBodyToJSONTyped(value?: AnalyticServiceSearchServiceQueryLogBody | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'projectId': value['projectId'],

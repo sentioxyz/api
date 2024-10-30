@@ -18,6 +18,7 @@ import {
     CommonRetentionQueryFilterFromJSON,
     CommonRetentionQueryFilterFromJSONTyped,
     CommonRetentionQueryFilterToJSON,
+    CommonRetentionQueryFilterToJSONTyped,
 } from './CommonRetentionQueryFilter.js';
 
 /**
@@ -43,7 +44,7 @@ export interface CommonRetentionQueryResource {
 /**
  * Check if a given object implements the CommonRetentionQueryResource interface.
  */
-export function instanceOfCommonRetentionQueryResource(value: object): boolean {
+export function instanceOfCommonRetentionQueryResource(value: object): value is CommonRetentionQueryResource {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function CommonRetentionQueryResourceFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function CommonRetentionQueryResourceToJSON(value?: CommonRetentionQueryResource | null): any {
+  export function CommonRetentionQueryResourceToJSON(json: any): CommonRetentionQueryResource {
+      return CommonRetentionQueryResourceToJSONTyped(json, false);
+  }
+
+  export function CommonRetentionQueryResourceToJSONTyped(value?: CommonRetentionQueryResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'eventNames': value['eventNames'],

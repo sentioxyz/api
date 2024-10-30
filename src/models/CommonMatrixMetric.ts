@@ -42,7 +42,7 @@ export interface CommonMatrixMetric {
 /**
  * Check if a given object implements the CommonMatrixMetric interface.
  */
-export function instanceOfCommonMatrixMetric(value: object): boolean {
+export function instanceOfCommonMatrixMetric(value: object): value is CommonMatrixMetric {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function CommonMatrixMetricFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function CommonMatrixMetricToJSON(value?: CommonMatrixMetric | null): any {
+  export function CommonMatrixMetricToJSON(json: any): CommonMatrixMetric {
+      return CommonMatrixMetricToJSONTyped(json, false);
+  }
+
+  export function CommonMatrixMetricToJSONTyped(value?: CommonMatrixMetric | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'name': value['name'],

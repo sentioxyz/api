@@ -18,6 +18,7 @@ import {
     CommonCoinIDFromJSON,
     CommonCoinIDFromJSONTyped,
     CommonCoinIDToJSON,
+    CommonCoinIDToJSONTyped,
 } from './CommonCoinID.js';
 
 /**
@@ -55,7 +56,7 @@ export interface CommonPriceSegmentationQuery {
 /**
  * Check if a given object implements the CommonPriceSegmentationQuery interface.
  */
-export function instanceOfCommonPriceSegmentationQuery(value: object): boolean {
+export function instanceOfCommonPriceSegmentationQuery(value: object): value is CommonPriceSegmentationQuery {
     return true;
 }
 
@@ -76,10 +77,15 @@ export function CommonPriceSegmentationQueryFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function CommonPriceSegmentationQueryToJSON(value?: CommonPriceSegmentationQuery | null): any {
+  export function CommonPriceSegmentationQueryToJSON(json: any): CommonPriceSegmentationQuery {
+      return CommonPriceSegmentationQueryToJSONTyped(json, false);
+  }
+
+  export function CommonPriceSegmentationQueryToJSONTyped(value?: CommonPriceSegmentationQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

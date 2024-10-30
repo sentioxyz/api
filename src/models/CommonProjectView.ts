@@ -18,6 +18,7 @@ import {
     CommonProjectViewProjectViewConfigFromJSON,
     CommonProjectViewProjectViewConfigFromJSONTyped,
     CommonProjectViewProjectViewConfigToJSON,
+    CommonProjectViewProjectViewConfigToJSONTyped,
 } from './CommonProjectViewProjectViewConfig.js';
 
 /**
@@ -55,7 +56,7 @@ export interface CommonProjectView {
 /**
  * Check if a given object implements the CommonProjectView interface.
  */
-export function instanceOfCommonProjectView(value: object): boolean {
+export function instanceOfCommonProjectView(value: object): value is CommonProjectView {
     return true;
 }
 
@@ -76,10 +77,15 @@ export function CommonProjectViewFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function CommonProjectViewToJSON(value?: CommonProjectView | null): any {
+  export function CommonProjectViewToJSON(json: any): CommonProjectView {
+      return CommonProjectViewToJSONTyped(json, false);
+  }
+
+  export function CommonProjectViewToJSONTyped(value?: CommonProjectView | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

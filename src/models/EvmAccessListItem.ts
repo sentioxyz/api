@@ -36,7 +36,7 @@ export interface EvmAccessListItem {
 /**
  * Check if a given object implements the EvmAccessListItem interface.
  */
-export function instanceOfEvmAccessListItem(value: object): boolean {
+export function instanceOfEvmAccessListItem(value: object): value is EvmAccessListItem {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function EvmAccessListItemFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function EvmAccessListItemToJSON(value?: EvmAccessListItem | null): any {
+  export function EvmAccessListItemToJSON(json: any): EvmAccessListItem {
+      return EvmAccessListItemToJSONTyped(json, false);
+  }
+
+  export function EvmAccessListItemToJSONTyped(value?: EvmAccessListItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'address': value['address'],

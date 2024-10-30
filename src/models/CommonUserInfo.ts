@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * 
+ * The same to user but with sensitive data removed.
  * @export
  * @interface CommonUserInfo
  */
@@ -60,7 +60,7 @@ export interface CommonUserInfo {
 /**
  * Check if a given object implements the CommonUserInfo interface.
  */
-export function instanceOfCommonUserInfo(value: object): boolean {
+export function instanceOfCommonUserInfo(value: object): value is CommonUserInfo {
     return true;
 }
 
@@ -83,10 +83,15 @@ export function CommonUserInfoFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function CommonUserInfoToJSON(value?: CommonUserInfo | null): any {
+  export function CommonUserInfoToJSON(json: any): CommonUserInfo {
+      return CommonUserInfoToJSONTyped(json, false);
+  }
+
+  export function CommonUserInfoToJSONTyped(value?: CommonUserInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

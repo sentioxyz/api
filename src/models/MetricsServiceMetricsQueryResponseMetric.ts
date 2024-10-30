@@ -42,7 +42,7 @@ export interface MetricsServiceMetricsQueryResponseMetric {
 /**
  * Check if a given object implements the MetricsServiceMetricsQueryResponseMetric interface.
  */
-export function instanceOfMetricsServiceMetricsQueryResponseMetric(value: object): boolean {
+export function instanceOfMetricsServiceMetricsQueryResponseMetric(value: object): value is MetricsServiceMetricsQueryResponseMetric {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function MetricsServiceMetricsQueryResponseMetricFromJSONTyped(json: any,
     };
 }
 
-export function MetricsServiceMetricsQueryResponseMetricToJSON(value?: MetricsServiceMetricsQueryResponseMetric | null): any {
+  export function MetricsServiceMetricsQueryResponseMetricToJSON(json: any): MetricsServiceMetricsQueryResponseMetric {
+      return MetricsServiceMetricsQueryResponseMetricToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricsQueryResponseMetricToJSONTyped(value?: MetricsServiceMetricsQueryResponseMetric | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'name': value['name'],

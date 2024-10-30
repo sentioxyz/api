@@ -18,6 +18,7 @@ import {
     CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSON,
     CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSONTyped,
     CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeToJSON,
+    CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeToJSONTyped,
 } from './CommonSegmentationQueryAggregationAggregatePropertiesAggregationType.js';
 
 /**
@@ -40,10 +41,12 @@ export interface CommonSegmentationQueryAggregationAggregateProperties {
     propertyName?: string;
 }
 
+
+
 /**
  * Check if a given object implements the CommonSegmentationQueryAggregationAggregateProperties interface.
  */
-export function instanceOfCommonSegmentationQueryAggregationAggregateProperties(value: object): boolean {
+export function instanceOfCommonSegmentationQueryAggregationAggregateProperties(value: object): value is CommonSegmentationQueryAggregationAggregateProperties {
     return true;
 }
 
@@ -62,10 +65,15 @@ export function CommonSegmentationQueryAggregationAggregatePropertiesFromJSONTyp
     };
 }
 
-export function CommonSegmentationQueryAggregationAggregatePropertiesToJSON(value?: CommonSegmentationQueryAggregationAggregateProperties | null): any {
+  export function CommonSegmentationQueryAggregationAggregatePropertiesToJSON(json: any): CommonSegmentationQueryAggregationAggregateProperties {
+      return CommonSegmentationQueryAggregationAggregatePropertiesToJSONTyped(json, false);
+  }
+
+  export function CommonSegmentationQueryAggregationAggregatePropertiesToJSONTyped(value?: CommonSegmentationQueryAggregationAggregateProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'type': CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeToJSON(value['type']),

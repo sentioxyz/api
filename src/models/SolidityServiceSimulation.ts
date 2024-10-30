@@ -18,25 +18,29 @@ import {
     EvmAccessListItemFromJSON,
     EvmAccessListItemFromJSONTyped,
     EvmAccessListItemToJSON,
+    EvmAccessListItemToJSONTyped,
 } from './EvmAccessListItem.js';
-import type { SolidityServiceBlockOverrides } from './SolidityServiceBlockOverrides.js';
-import {
-    SolidityServiceBlockOverridesFromJSON,
-    SolidityServiceBlockOverridesFromJSONTyped,
-    SolidityServiceBlockOverridesToJSON,
-} from './SolidityServiceBlockOverrides.js';
 import type { SolidityServiceSimulationResult } from './SolidityServiceSimulationResult.js';
 import {
     SolidityServiceSimulationResultFromJSON,
     SolidityServiceSimulationResultFromJSONTyped,
     SolidityServiceSimulationResultToJSON,
+    SolidityServiceSimulationResultToJSONTyped,
 } from './SolidityServiceSimulationResult.js';
 import type { SolidityServiceStateOverride } from './SolidityServiceStateOverride.js';
 import {
     SolidityServiceStateOverrideFromJSON,
     SolidityServiceStateOverrideFromJSONTyped,
     SolidityServiceStateOverrideToJSON,
+    SolidityServiceStateOverrideToJSONTyped,
 } from './SolidityServiceStateOverride.js';
+import type { SolidityServiceBlockOverrides } from './SolidityServiceBlockOverrides.js';
+import {
+    SolidityServiceBlockOverridesFromJSON,
+    SolidityServiceBlockOverridesFromJSONTyped,
+    SolidityServiceBlockOverridesToJSON,
+    SolidityServiceBlockOverridesToJSONTyped,
+} from './SolidityServiceBlockOverrides.js';
 
 /**
  * 
@@ -187,16 +191,16 @@ export interface SolidityServiceSimulation {
 /**
  * Check if a given object implements the SolidityServiceSimulation interface.
  */
-export function instanceOfSolidityServiceSimulation(value: object): boolean {
-    if (!('networkId' in value)) return false;
-    if (!('to' in value)) return false;
-    if (!('input' in value)) return false;
-    if (!('blockNumber' in value)) return false;
-    if (!('transactionIndex' in value)) return false;
-    if (!('from' in value)) return false;
-    if (!('gas' in value)) return false;
-    if (!('gasPrice' in value)) return false;
-    if (!('value' in value)) return false;
+export function instanceOfSolidityServiceSimulation(value: object): value is SolidityServiceSimulation {
+    if (!('networkId' in value) || value['networkId'] === undefined) return false;
+    if (!('to' in value) || value['to'] === undefined) return false;
+    if (!('input' in value) || value['input'] === undefined) return false;
+    if (!('blockNumber' in value) || value['blockNumber'] === undefined) return false;
+    if (!('transactionIndex' in value) || value['transactionIndex'] === undefined) return false;
+    if (!('from' in value) || value['from'] === undefined) return false;
+    if (!('gas' in value) || value['gas'] === undefined) return false;
+    if (!('gasPrice' in value) || value['gasPrice'] === undefined) return false;
+    if (!('value' in value) || value['value'] === undefined) return false;
     return true;
 }
 
@@ -236,10 +240,15 @@ export function SolidityServiceSimulationFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SolidityServiceSimulationToJSON(value?: SolidityServiceSimulation | null): any {
+  export function SolidityServiceSimulationToJSON(json: any): SolidityServiceSimulation {
+      return SolidityServiceSimulationToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSimulationToJSONTyped(value?: SolidityServiceSimulation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

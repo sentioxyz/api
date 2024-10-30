@@ -18,6 +18,7 @@ import {
     CommonRetentionQueryIntervalUnitFromJSON,
     CommonRetentionQueryIntervalUnitFromJSONTyped,
     CommonRetentionQueryIntervalUnitToJSON,
+    CommonRetentionQueryIntervalUnitToJSONTyped,
 } from './CommonRetentionQueryIntervalUnit.js';
 
 /**
@@ -40,10 +41,12 @@ export interface CommonRetentionQueryInterval {
     unit?: CommonRetentionQueryIntervalUnit;
 }
 
+
+
 /**
  * Check if a given object implements the CommonRetentionQueryInterval interface.
  */
-export function instanceOfCommonRetentionQueryInterval(value: object): boolean {
+export function instanceOfCommonRetentionQueryInterval(value: object): value is CommonRetentionQueryInterval {
     return true;
 }
 
@@ -62,10 +65,15 @@ export function CommonRetentionQueryIntervalFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function CommonRetentionQueryIntervalToJSON(value?: CommonRetentionQueryInterval | null): any {
+  export function CommonRetentionQueryIntervalToJSON(json: any): CommonRetentionQueryInterval {
+      return CommonRetentionQueryIntervalToJSONTyped(json, false);
+  }
+
+  export function CommonRetentionQueryIntervalToJSONTyped(value?: CommonRetentionQueryInterval | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'value': value['value'],

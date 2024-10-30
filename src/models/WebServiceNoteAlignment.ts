@@ -26,7 +26,14 @@ export type WebServiceNoteAlignment = typeof WebServiceNoteAlignment[keyof typeo
 
 
 export function instanceOfWebServiceNoteAlignment(value: any): boolean {
-    return Object.values(WebServiceNoteAlignment).includes(value);
+    for (const key in WebServiceNoteAlignment) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceNoteAlignment, key)) {
+            if (WebServiceNoteAlignment[key as keyof typeof WebServiceNoteAlignment] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceNoteAlignmentFromJSON(json: any): WebServiceNoteAlignment {
@@ -39,5 +46,9 @@ export function WebServiceNoteAlignmentFromJSONTyped(json: any, ignoreDiscrimina
 
 export function WebServiceNoteAlignmentToJSON(value?: WebServiceNoteAlignment | null): any {
     return value as any;
+}
+
+export function WebServiceNoteAlignmentToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceNoteAlignment {
+    return value as WebServiceNoteAlignment;
 }
 

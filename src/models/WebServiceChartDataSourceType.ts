@@ -30,7 +30,14 @@ export type WebServiceChartDataSourceType = typeof WebServiceChartDataSourceType
 
 
 export function instanceOfWebServiceChartDataSourceType(value: any): boolean {
-    return Object.values(WebServiceChartDataSourceType).includes(value);
+    for (const key in WebServiceChartDataSourceType) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceChartDataSourceType, key)) {
+            if (WebServiceChartDataSourceType[key as keyof typeof WebServiceChartDataSourceType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceChartDataSourceTypeFromJSON(json: any): WebServiceChartDataSourceType {
@@ -43,5 +50,9 @@ export function WebServiceChartDataSourceTypeFromJSONTyped(json: any, ignoreDisc
 
 export function WebServiceChartDataSourceTypeToJSON(value?: WebServiceChartDataSourceType | null): any {
     return value as any;
+}
+
+export function WebServiceChartDataSourceTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceChartDataSourceType {
+    return value as WebServiceChartDataSourceType;
 }
 

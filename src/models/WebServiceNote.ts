@@ -13,24 +13,27 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { WebServiceNoteAlignment } from './WebServiceNoteAlignment.js';
-import {
-    WebServiceNoteAlignmentFromJSON,
-    WebServiceNoteAlignmentFromJSONTyped,
-    WebServiceNoteAlignmentToJSON,
-} from './WebServiceNoteAlignment.js';
 import type { WebServiceNoteFontSize } from './WebServiceNoteFontSize.js';
 import {
     WebServiceNoteFontSizeFromJSON,
     WebServiceNoteFontSizeFromJSONTyped,
     WebServiceNoteFontSizeToJSON,
+    WebServiceNoteFontSizeToJSONTyped,
 } from './WebServiceNoteFontSize.js';
 import type { WebServiceNoteVerticalAlignment } from './WebServiceNoteVerticalAlignment.js';
 import {
     WebServiceNoteVerticalAlignmentFromJSON,
     WebServiceNoteVerticalAlignmentFromJSONTyped,
     WebServiceNoteVerticalAlignmentToJSON,
+    WebServiceNoteVerticalAlignmentToJSONTyped,
 } from './WebServiceNoteVerticalAlignment.js';
+import type { WebServiceNoteAlignment } from './WebServiceNoteAlignment.js';
+import {
+    WebServiceNoteAlignmentFromJSON,
+    WebServiceNoteAlignmentFromJSONTyped,
+    WebServiceNoteAlignmentToJSON,
+    WebServiceNoteAlignmentToJSONTyped,
+} from './WebServiceNoteAlignment.js';
 
 /**
  * 
@@ -76,10 +79,12 @@ export interface WebServiceNote {
     textColor?: string;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceNote interface.
  */
-export function instanceOfWebServiceNote(value: object): boolean {
+export function instanceOfWebServiceNote(value: object): value is WebServiceNote {
     return true;
 }
 
@@ -102,10 +107,15 @@ export function WebServiceNoteFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function WebServiceNoteToJSON(value?: WebServiceNote | null): any {
+  export function WebServiceNoteToJSON(json: any): WebServiceNote {
+      return WebServiceNoteToJSONTyped(json, false);
+  }
+
+  export function WebServiceNoteToJSONTyped(value?: WebServiceNote | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'content': value['content'],

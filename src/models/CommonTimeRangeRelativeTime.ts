@@ -42,7 +42,7 @@ export interface CommonTimeRangeRelativeTime {
 /**
  * Check if a given object implements the CommonTimeRangeRelativeTime interface.
  */
-export function instanceOfCommonTimeRangeRelativeTime(value: object): boolean {
+export function instanceOfCommonTimeRangeRelativeTime(value: object): value is CommonTimeRangeRelativeTime {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function CommonTimeRangeRelativeTimeFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function CommonTimeRangeRelativeTimeToJSON(value?: CommonTimeRangeRelativeTime | null): any {
+  export function CommonTimeRangeRelativeTimeToJSON(json: any): CommonTimeRangeRelativeTime {
+      return CommonTimeRangeRelativeTimeToJSONTyped(json, false);
+  }
+
+  export function CommonTimeRangeRelativeTimeToJSONTyped(value?: CommonTimeRangeRelativeTime | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'unit': value['unit'],

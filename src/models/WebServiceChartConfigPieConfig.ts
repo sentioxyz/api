@@ -18,12 +18,14 @@ import {
     WebServiceChartConfigCalculationFromJSON,
     WebServiceChartConfigCalculationFromJSONTyped,
     WebServiceChartConfigCalculationToJSON,
+    WebServiceChartConfigCalculationToJSONTyped,
 } from './WebServiceChartConfigCalculation.js';
 import type { WebServiceChartConfigPieConfigPieType } from './WebServiceChartConfigPieConfigPieType.js';
 import {
     WebServiceChartConfigPieConfigPieTypeFromJSON,
     WebServiceChartConfigPieConfigPieTypeFromJSONTyped,
     WebServiceChartConfigPieConfigPieTypeToJSON,
+    WebServiceChartConfigPieConfigPieTypeToJSONTyped,
 } from './WebServiceChartConfigPieConfigPieType.js';
 
 /**
@@ -58,10 +60,12 @@ export interface WebServiceChartConfigPieConfig {
     calculation?: WebServiceChartConfigCalculation;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigPieConfig interface.
  */
-export function instanceOfWebServiceChartConfigPieConfig(value: object): boolean {
+export function instanceOfWebServiceChartConfigPieConfig(value: object): value is WebServiceChartConfigPieConfig {
     return true;
 }
 
@@ -82,10 +86,15 @@ export function WebServiceChartConfigPieConfigFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function WebServiceChartConfigPieConfigToJSON(value?: WebServiceChartConfigPieConfig | null): any {
+  export function WebServiceChartConfigPieConfigToJSON(json: any): WebServiceChartConfigPieConfig {
+      return WebServiceChartConfigPieConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigPieConfigToJSONTyped(value?: WebServiceChartConfigPieConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'pieType': WebServiceChartConfigPieConfigPieTypeToJSON(value['pieType']),

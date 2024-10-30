@@ -18,6 +18,7 @@ import {
     CommonRetentionMatrixSampleFromJSON,
     CommonRetentionMatrixSampleFromJSONTyped,
     CommonRetentionMatrixSampleToJSON,
+    CommonRetentionMatrixSampleToJSONTyped,
 } from './CommonRetentionMatrixSample.js';
 
 /**
@@ -37,7 +38,7 @@ export interface CommonRetentionMatrix {
 /**
  * Check if a given object implements the CommonRetentionMatrix interface.
  */
-export function instanceOfCommonRetentionMatrix(value: object): boolean {
+export function instanceOfCommonRetentionMatrix(value: object): value is CommonRetentionMatrix {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function CommonRetentionMatrixFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function CommonRetentionMatrixToJSON(value?: CommonRetentionMatrix | null): any {
+  export function CommonRetentionMatrixToJSON(json: any): CommonRetentionMatrix {
+      return CommonRetentionMatrixToJSONTyped(json, false);
+  }
+
+  export function CommonRetentionMatrixToJSONTyped(value?: CommonRetentionMatrix | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'samples': value['samples'] == null ? undefined : ((value['samples'] as Array<any>).map(CommonRetentionMatrixSampleToJSON)),

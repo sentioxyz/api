@@ -26,7 +26,14 @@ export type CommonRetentionQueryFilterTimeFilterType = typeof CommonRetentionQue
 
 
 export function instanceOfCommonRetentionQueryFilterTimeFilterType(value: any): boolean {
-    return Object.values(CommonRetentionQueryFilterTimeFilterType).includes(value);
+    for (const key in CommonRetentionQueryFilterTimeFilterType) {
+        if (Object.prototype.hasOwnProperty.call(CommonRetentionQueryFilterTimeFilterType, key)) {
+            if (CommonRetentionQueryFilterTimeFilterType[key as keyof typeof CommonRetentionQueryFilterTimeFilterType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonRetentionQueryFilterTimeFilterTypeFromJSON(json: any): CommonRetentionQueryFilterTimeFilterType {
@@ -39,5 +46,9 @@ export function CommonRetentionQueryFilterTimeFilterTypeFromJSONTyped(json: any,
 
 export function CommonRetentionQueryFilterTimeFilterTypeToJSON(value?: CommonRetentionQueryFilterTimeFilterType | null): any {
     return value as any;
+}
+
+export function CommonRetentionQueryFilterTimeFilterTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonRetentionQueryFilterTimeFilterType {
+    return value as CommonRetentionQueryFilterTimeFilterType;
 }
 

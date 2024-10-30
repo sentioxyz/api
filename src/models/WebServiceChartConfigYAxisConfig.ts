@@ -48,7 +48,7 @@ export interface WebServiceChartConfigYAxisConfig {
 /**
  * Check if a given object implements the WebServiceChartConfigYAxisConfig interface.
  */
-export function instanceOfWebServiceChartConfigYAxisConfig(value: object): boolean {
+export function instanceOfWebServiceChartConfigYAxisConfig(value: object): value is WebServiceChartConfigYAxisConfig {
     return true;
 }
 
@@ -69,10 +69,15 @@ export function WebServiceChartConfigYAxisConfigFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceChartConfigYAxisConfigToJSON(value?: WebServiceChartConfigYAxisConfig | null): any {
+  export function WebServiceChartConfigYAxisConfigToJSON(json: any): WebServiceChartConfigYAxisConfig {
+      return WebServiceChartConfigYAxisConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigYAxisConfigToJSONTyped(value?: WebServiceChartConfigYAxisConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'min': value['min'],

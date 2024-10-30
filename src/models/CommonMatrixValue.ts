@@ -36,7 +36,7 @@ export interface CommonMatrixValue {
 /**
  * Check if a given object implements the CommonMatrixValue interface.
  */
-export function instanceOfCommonMatrixValue(value: object): boolean {
+export function instanceOfCommonMatrixValue(value: object): value is CommonMatrixValue {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function CommonMatrixValueFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function CommonMatrixValueToJSON(value?: CommonMatrixValue | null): any {
+  export function CommonMatrixValueToJSON(json: any): CommonMatrixValue {
+      return CommonMatrixValueToJSONTyped(json, false);
+  }
+
+  export function CommonMatrixValueToJSONTyped(value?: CommonMatrixValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'timestamp': value['timestamp'],

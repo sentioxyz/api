@@ -18,12 +18,14 @@ import {
     CommonCoinIDFromJSON,
     CommonCoinIDFromJSONTyped,
     CommonCoinIDToJSON,
+    CommonCoinIDToJSONTyped,
 } from './CommonCoinID.js';
 import type { CommonComputeStats } from './CommonComputeStats.js';
 import {
     CommonComputeStatsFromJSON,
     CommonComputeStatsFromJSONTyped,
     CommonComputeStatsToJSON,
+    CommonComputeStatsToJSONTyped,
 } from './CommonComputeStats.js';
 
 /**
@@ -49,7 +51,7 @@ export interface InsightsServiceListCoinsResponse {
 /**
  * Check if a given object implements the InsightsServiceListCoinsResponse interface.
  */
-export function instanceOfInsightsServiceListCoinsResponse(value: object): boolean {
+export function instanceOfInsightsServiceListCoinsResponse(value: object): value is InsightsServiceListCoinsResponse {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function InsightsServiceListCoinsResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function InsightsServiceListCoinsResponseToJSON(value?: InsightsServiceListCoinsResponse | null): any {
+  export function InsightsServiceListCoinsResponseToJSON(json: any): InsightsServiceListCoinsResponse {
+      return InsightsServiceListCoinsResponseToJSONTyped(json, false);
+  }
+
+  export function InsightsServiceListCoinsResponseToJSONTyped(value?: InsightsServiceListCoinsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'coins': value['coins'] == null ? undefined : ((value['coins'] as Array<any>).map(CommonCoinIDToJSON)),

@@ -26,7 +26,14 @@ export type CommonRetentionQueryIntervalUnit = typeof CommonRetentionQueryInterv
 
 
 export function instanceOfCommonRetentionQueryIntervalUnit(value: any): boolean {
-    return Object.values(CommonRetentionQueryIntervalUnit).includes(value);
+    for (const key in CommonRetentionQueryIntervalUnit) {
+        if (Object.prototype.hasOwnProperty.call(CommonRetentionQueryIntervalUnit, key)) {
+            if (CommonRetentionQueryIntervalUnit[key as keyof typeof CommonRetentionQueryIntervalUnit] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonRetentionQueryIntervalUnitFromJSON(json: any): CommonRetentionQueryIntervalUnit {
@@ -39,5 +46,9 @@ export function CommonRetentionQueryIntervalUnitFromJSONTyped(json: any, ignoreD
 
 export function CommonRetentionQueryIntervalUnitToJSON(value?: CommonRetentionQueryIntervalUnit | null): any {
     return value as any;
+}
+
+export function CommonRetentionQueryIntervalUnitToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonRetentionQueryIntervalUnit {
+    return value as CommonRetentionQueryIntervalUnit;
 }
 

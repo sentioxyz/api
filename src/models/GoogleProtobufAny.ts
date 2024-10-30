@@ -142,7 +142,7 @@ export interface GoogleProtobufAny {
 /**
  * Check if a given object implements the GoogleProtobufAny interface.
  */
-export function instanceOfGoogleProtobufAny(value: object): boolean {
+export function instanceOfGoogleProtobufAny(value: object): value is GoogleProtobufAny {
     return true;
 }
 
@@ -161,10 +161,15 @@ export function GoogleProtobufAnyFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GoogleProtobufAnyToJSON(value?: GoogleProtobufAny | null): any {
+  export function GoogleProtobufAnyToJSON(json: any): GoogleProtobufAny {
+      return GoogleProtobufAnyToJSONTyped(json, false);
+  }
+
+  export function GoogleProtobufAnyToJSONTyped(value?: GoogleProtobufAny | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
             ...value,

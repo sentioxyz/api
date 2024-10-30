@@ -18,6 +18,7 @@ import {
     CommonColumnStateSortFromJSON,
     CommonColumnStateSortFromJSONTyped,
     CommonColumnStateSortToJSON,
+    CommonColumnStateSortToJSONTyped,
 } from './CommonColumnStateSort.js';
 
 /**
@@ -55,7 +56,7 @@ export interface CommonColumnState {
 /**
  * Check if a given object implements the CommonColumnState interface.
  */
-export function instanceOfCommonColumnState(value: object): boolean {
+export function instanceOfCommonColumnState(value: object): value is CommonColumnState {
     return true;
 }
 
@@ -76,10 +77,15 @@ export function CommonColumnStateFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function CommonColumnStateToJSON(value?: CommonColumnState | null): any {
+  export function CommonColumnStateToJSON(json: any): CommonColumnState {
+      return CommonColumnStateToJSONTyped(json, false);
+  }
+
+  export function CommonColumnStateToJSONTyped(value?: CommonColumnState | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'columnSizing': value['columnSizing'],

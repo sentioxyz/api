@@ -18,6 +18,7 @@ import {
     PriceServiceCoinIDAddressIdentifierFromJSON,
     PriceServiceCoinIDAddressIdentifierFromJSONTyped,
     PriceServiceCoinIDAddressIdentifierToJSON,
+    PriceServiceCoinIDAddressIdentifierToJSONTyped,
 } from './PriceServiceCoinIDAddressIdentifier.js';
 
 /**
@@ -43,7 +44,7 @@ export interface PriceServiceCoinID {
 /**
  * Check if a given object implements the PriceServiceCoinID interface.
  */
-export function instanceOfPriceServiceCoinID(value: object): boolean {
+export function instanceOfPriceServiceCoinID(value: object): value is PriceServiceCoinID {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function PriceServiceCoinIDFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function PriceServiceCoinIDToJSON(value?: PriceServiceCoinID | null): any {
+  export function PriceServiceCoinIDToJSON(json: any): PriceServiceCoinID {
+      return PriceServiceCoinIDToJSONTyped(json, false);
+  }
+
+  export function PriceServiceCoinIDToJSONTyped(value?: PriceServiceCoinID | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'symbol': value['symbol'],

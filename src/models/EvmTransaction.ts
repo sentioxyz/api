@@ -18,6 +18,7 @@ import {
     EvmAccessListItemFromJSON,
     EvmAccessListItemFromJSONTyped,
     EvmAccessListItemToJSON,
+    EvmAccessListItemToJSONTyped,
 } from './EvmAccessListItem.js';
 
 /**
@@ -127,7 +128,7 @@ export interface EvmTransaction {
 /**
  * Check if a given object implements the EvmTransaction interface.
  */
-export function instanceOfEvmTransaction(value: object): boolean {
+export function instanceOfEvmTransaction(value: object): value is EvmTransaction {
     return true;
 }
 
@@ -160,10 +161,15 @@ export function EvmTransactionFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function EvmTransactionToJSON(value?: EvmTransaction | null): any {
+  export function EvmTransactionToJSON(json: any): EvmTransaction {
+      return EvmTransactionToJSONTyped(json, false);
+  }
+
+  export function EvmTransactionToJSONTyped(value?: EvmTransaction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'blockNumber': value['blockNumber'],

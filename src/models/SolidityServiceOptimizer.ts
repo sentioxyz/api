@@ -18,6 +18,7 @@ import {
     SolidityServiceOptimizerDetailsFromJSON,
     SolidityServiceOptimizerDetailsFromJSONTyped,
     SolidityServiceOptimizerDetailsToJSON,
+    SolidityServiceOptimizerDetailsToJSONTyped,
 } from './SolidityServiceOptimizerDetails.js';
 
 /**
@@ -49,7 +50,7 @@ export interface SolidityServiceOptimizer {
 /**
  * Check if a given object implements the SolidityServiceOptimizer interface.
  */
-export function instanceOfSolidityServiceOptimizer(value: object): boolean {
+export function instanceOfSolidityServiceOptimizer(value: object): value is SolidityServiceOptimizer {
     return true;
 }
 
@@ -69,10 +70,15 @@ export function SolidityServiceOptimizerFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function SolidityServiceOptimizerToJSON(value?: SolidityServiceOptimizer | null): any {
+  export function SolidityServiceOptimizerToJSON(json: any): SolidityServiceOptimizer {
+      return SolidityServiceOptimizerToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceOptimizerToJSONTyped(value?: SolidityServiceOptimizer | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'enabled': value['enabled'],

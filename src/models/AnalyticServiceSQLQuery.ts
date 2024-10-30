@@ -18,6 +18,7 @@ import {
     CommonRichStructFromJSON,
     CommonRichStructFromJSONTyped,
     CommonRichStructToJSON,
+    CommonRichStructToJSONTyped,
 } from './CommonRichStruct.js';
 
 /**
@@ -55,7 +56,7 @@ export interface AnalyticServiceSQLQuery {
 /**
  * Check if a given object implements the AnalyticServiceSQLQuery interface.
  */
-export function instanceOfAnalyticServiceSQLQuery(value: object): boolean {
+export function instanceOfAnalyticServiceSQLQuery(value: object): value is AnalyticServiceSQLQuery {
     return true;
 }
 
@@ -76,10 +77,15 @@ export function AnalyticServiceSQLQueryFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function AnalyticServiceSQLQueryToJSON(value?: AnalyticServiceSQLQuery | null): any {
+  export function AnalyticServiceSQLQueryToJSON(json: any): AnalyticServiceSQLQuery {
+      return AnalyticServiceSQLQueryToJSONTyped(json, false);
+  }
+
+  export function AnalyticServiceSQLQueryToJSONTyped(value?: AnalyticServiceSQLQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'sql': value['sql'],

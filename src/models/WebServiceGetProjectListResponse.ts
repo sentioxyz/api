@@ -18,6 +18,7 @@ import {
     CommonProjectFromJSON,
     CommonProjectFromJSONTyped,
     CommonProjectToJSON,
+    CommonProjectToJSONTyped,
 } from './CommonProject.js';
 
 /**
@@ -49,7 +50,7 @@ export interface WebServiceGetProjectListResponse {
 /**
  * Check if a given object implements the WebServiceGetProjectListResponse interface.
  */
-export function instanceOfWebServiceGetProjectListResponse(value: object): boolean {
+export function instanceOfWebServiceGetProjectListResponse(value: object): value is WebServiceGetProjectListResponse {
     return true;
 }
 
@@ -69,10 +70,15 @@ export function WebServiceGetProjectListResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceGetProjectListResponseToJSON(value?: WebServiceGetProjectListResponse | null): any {
+  export function WebServiceGetProjectListResponseToJSON(json: any): WebServiceGetProjectListResponse {
+      return WebServiceGetProjectListResponseToJSONTyped(json, false);
+  }
+
+  export function WebServiceGetProjectListResponseToJSONTyped(value?: WebServiceGetProjectListResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'projects': value['projects'] == null ? undefined : ((value['projects'] as Array<any>).map(CommonProjectToJSON)),

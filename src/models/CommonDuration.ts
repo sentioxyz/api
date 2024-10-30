@@ -36,7 +36,7 @@ export interface CommonDuration {
 /**
  * Check if a given object implements the CommonDuration interface.
  */
-export function instanceOfCommonDuration(value: object): boolean {
+export function instanceOfCommonDuration(value: object): value is CommonDuration {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function CommonDurationFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function CommonDurationToJSON(value?: CommonDuration | null): any {
+  export function CommonDurationToJSON(json: any): CommonDuration {
+      return CommonDurationToJSONTyped(json, false);
+  }
+
+  export function CommonDurationToJSONTyped(value?: CommonDuration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'value': value['value'],

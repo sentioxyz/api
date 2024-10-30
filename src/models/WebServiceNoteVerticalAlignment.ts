@@ -26,7 +26,14 @@ export type WebServiceNoteVerticalAlignment = typeof WebServiceNoteVerticalAlign
 
 
 export function instanceOfWebServiceNoteVerticalAlignment(value: any): boolean {
-    return Object.values(WebServiceNoteVerticalAlignment).includes(value);
+    for (const key in WebServiceNoteVerticalAlignment) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceNoteVerticalAlignment, key)) {
+            if (WebServiceNoteVerticalAlignment[key as keyof typeof WebServiceNoteVerticalAlignment] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceNoteVerticalAlignmentFromJSON(json: any): WebServiceNoteVerticalAlignment {
@@ -39,5 +46,9 @@ export function WebServiceNoteVerticalAlignmentFromJSONTyped(json: any, ignoreDi
 
 export function WebServiceNoteVerticalAlignmentToJSON(value?: WebServiceNoteVerticalAlignment | null): any {
     return value as any;
+}
+
+export function WebServiceNoteVerticalAlignmentToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceNoteVerticalAlignment {
+    return value as WebServiceNoteVerticalAlignment;
 }
 

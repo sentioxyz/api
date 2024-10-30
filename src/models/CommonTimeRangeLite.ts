@@ -48,10 +48,10 @@ export interface CommonTimeRangeLite {
 /**
  * Check if a given object implements the CommonTimeRangeLite interface.
  */
-export function instanceOfCommonTimeRangeLite(value: object): boolean {
-    if (!('start' in value)) return false;
-    if (!('end' in value)) return false;
-    if (!('step' in value)) return false;
+export function instanceOfCommonTimeRangeLite(value: object): value is CommonTimeRangeLite {
+    if (!('start' in value) || value['start'] === undefined) return false;
+    if (!('end' in value) || value['end'] === undefined) return false;
+    if (!('step' in value) || value['step'] === undefined) return false;
     return true;
 }
 
@@ -72,10 +72,15 @@ export function CommonTimeRangeLiteFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function CommonTimeRangeLiteToJSON(value?: CommonTimeRangeLite | null): any {
+  export function CommonTimeRangeLiteToJSON(json: any): CommonTimeRangeLite {
+      return CommonTimeRangeLiteToJSONTyped(json, false);
+  }
+
+  export function CommonTimeRangeLiteToJSONTyped(value?: CommonTimeRangeLite | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'start': value['start'],

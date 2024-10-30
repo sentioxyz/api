@@ -18,6 +18,7 @@ import {
     CommonDurationFromJSON,
     CommonDurationFromJSONTyped,
     CommonDurationToJSON,
+    CommonDurationToJSONTyped,
 } from './CommonDuration.js';
 
 /**
@@ -37,7 +38,7 @@ export interface CommonSegmentationQueryAggregationCountUnique {
 /**
  * Check if a given object implements the CommonSegmentationQueryAggregationCountUnique interface.
  */
-export function instanceOfCommonSegmentationQueryAggregationCountUnique(value: object): boolean {
+export function instanceOfCommonSegmentationQueryAggregationCountUnique(value: object): value is CommonSegmentationQueryAggregationCountUnique {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function CommonSegmentationQueryAggregationCountUniqueFromJSONTyped(json:
     };
 }
 
-export function CommonSegmentationQueryAggregationCountUniqueToJSON(value?: CommonSegmentationQueryAggregationCountUnique | null): any {
+  export function CommonSegmentationQueryAggregationCountUniqueToJSON(json: any): CommonSegmentationQueryAggregationCountUnique {
+      return CommonSegmentationQueryAggregationCountUniqueToJSONTyped(json, false);
+  }
+
+  export function CommonSegmentationQueryAggregationCountUniqueToJSONTyped(value?: CommonSegmentationQueryAggregationCountUnique | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'duration': CommonDurationToJSON(value['duration']),

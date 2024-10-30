@@ -42,7 +42,7 @@ export interface SolidityServiceStorageSummaryResult {
 /**
  * Check if a given object implements the SolidityServiceStorageSummaryResult interface.
  */
-export function instanceOfSolidityServiceStorageSummaryResult(value: object): boolean {
+export function instanceOfSolidityServiceStorageSummaryResult(value: object): value is SolidityServiceStorageSummaryResult {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function SolidityServiceStorageSummaryResultFromJSONTyped(json: any, igno
     };
 }
 
-export function SolidityServiceStorageSummaryResultToJSON(value?: SolidityServiceStorageSummaryResult | null): any {
+  export function SolidityServiceStorageSummaryResultToJSON(json: any): SolidityServiceStorageSummaryResult {
+      return SolidityServiceStorageSummaryResultToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceStorageSummaryResultToJSONTyped(value?: SolidityServiceStorageSummaryResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'address': value['address'],

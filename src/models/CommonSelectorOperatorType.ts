@@ -14,7 +14,8 @@
 
 
 /**
- * 
+ * - GT: Numeric operators
+ *  - CONTAINS: String operators
  * @export
  */
 export const CommonSelectorOperatorType = {
@@ -37,7 +38,14 @@ export type CommonSelectorOperatorType = typeof CommonSelectorOperatorType[keyof
 
 
 export function instanceOfCommonSelectorOperatorType(value: any): boolean {
-    return Object.values(CommonSelectorOperatorType).includes(value);
+    for (const key in CommonSelectorOperatorType) {
+        if (Object.prototype.hasOwnProperty.call(CommonSelectorOperatorType, key)) {
+            if (CommonSelectorOperatorType[key as keyof typeof CommonSelectorOperatorType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonSelectorOperatorTypeFromJSON(json: any): CommonSelectorOperatorType {
@@ -50,5 +58,9 @@ export function CommonSelectorOperatorTypeFromJSONTyped(json: any, ignoreDiscrim
 
 export function CommonSelectorOperatorTypeToJSON(value?: CommonSelectorOperatorType | null): any {
     return value as any;
+}
+
+export function CommonSelectorOperatorTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonSelectorOperatorType {
+    return value as CommonSelectorOperatorType;
 }
 

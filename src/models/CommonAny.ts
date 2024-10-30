@@ -18,6 +18,7 @@ import {
     CommonStringListFromJSON,
     CommonStringListFromJSONTyped,
     CommonStringListToJSON,
+    CommonStringListToJSONTyped,
 } from './CommonStringList.js';
 
 /**
@@ -73,7 +74,7 @@ export interface CommonAny {
 /**
  * Check if a given object implements the CommonAny interface.
  */
-export function instanceOfCommonAny(value: object): boolean {
+export function instanceOfCommonAny(value: object): value is CommonAny {
     return true;
 }
 
@@ -97,10 +98,15 @@ export function CommonAnyFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function CommonAnyToJSON(value?: CommonAny | null): any {
+  export function CommonAnyToJSON(json: any): CommonAny {
+      return CommonAnyToJSONTyped(json, false);
+  }
+
+  export function CommonAnyToJSONTyped(value?: CommonAny | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'intValue': value['intValue'],

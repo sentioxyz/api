@@ -18,12 +18,14 @@ import {
     CommonPermissionFromJSON,
     CommonPermissionFromJSONTyped,
     CommonPermissionToJSON,
+    CommonPermissionToJSONTyped,
 } from './CommonPermission.js';
 import type { WebServiceDashboard } from './WebServiceDashboard.js';
 import {
     WebServiceDashboardFromJSON,
     WebServiceDashboardFromJSONTyped,
     WebServiceDashboardToJSON,
+    WebServiceDashboardToJSONTyped,
 } from './WebServiceDashboard.js';
 
 /**
@@ -49,7 +51,7 @@ export interface WebServiceGetDashboardResponse {
 /**
  * Check if a given object implements the WebServiceGetDashboardResponse interface.
  */
-export function instanceOfWebServiceGetDashboardResponse(value: object): boolean {
+export function instanceOfWebServiceGetDashboardResponse(value: object): value is WebServiceGetDashboardResponse {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function WebServiceGetDashboardResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function WebServiceGetDashboardResponseToJSON(value?: WebServiceGetDashboardResponse | null): any {
+  export function WebServiceGetDashboardResponseToJSON(json: any): WebServiceGetDashboardResponse {
+      return WebServiceGetDashboardResponseToJSONTyped(json, false);
+  }
+
+  export function WebServiceGetDashboardResponseToJSONTyped(value?: WebServiceGetDashboardResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'dashboards': value['dashboards'] == null ? undefined : ((value['dashboards'] as Array<any>).map(WebServiceDashboardToJSON)),

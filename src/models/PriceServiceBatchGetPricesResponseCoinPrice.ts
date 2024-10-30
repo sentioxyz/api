@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { PriceServiceBatchGetPricesResponseCoinPricePrice } from './PriceServiceBatchGetPricesResponseCoinPricePrice.js';
-import {
-    PriceServiceBatchGetPricesResponseCoinPricePriceFromJSON,
-    PriceServiceBatchGetPricesResponseCoinPricePriceFromJSONTyped,
-    PriceServiceBatchGetPricesResponseCoinPricePriceToJSON,
-} from './PriceServiceBatchGetPricesResponseCoinPricePrice.js';
 import type { PriceServiceCoinID } from './PriceServiceCoinID.js';
 import {
     PriceServiceCoinIDFromJSON,
     PriceServiceCoinIDFromJSONTyped,
     PriceServiceCoinIDToJSON,
+    PriceServiceCoinIDToJSONTyped,
 } from './PriceServiceCoinID.js';
+import type { PriceServiceBatchGetPricesResponseCoinPricePrice } from './PriceServiceBatchGetPricesResponseCoinPricePrice.js';
+import {
+    PriceServiceBatchGetPricesResponseCoinPricePriceFromJSON,
+    PriceServiceBatchGetPricesResponseCoinPricePriceFromJSONTyped,
+    PriceServiceBatchGetPricesResponseCoinPricePriceToJSON,
+    PriceServiceBatchGetPricesResponseCoinPricePriceToJSONTyped,
+} from './PriceServiceBatchGetPricesResponseCoinPricePrice.js';
 
 /**
  * 
@@ -55,7 +57,7 @@ export interface PriceServiceBatchGetPricesResponseCoinPrice {
 /**
  * Check if a given object implements the PriceServiceBatchGetPricesResponseCoinPrice interface.
  */
-export function instanceOfPriceServiceBatchGetPricesResponseCoinPrice(value: object): boolean {
+export function instanceOfPriceServiceBatchGetPricesResponseCoinPrice(value: object): value is PriceServiceBatchGetPricesResponseCoinPrice {
     return true;
 }
 
@@ -75,10 +77,15 @@ export function PriceServiceBatchGetPricesResponseCoinPriceFromJSONTyped(json: a
     };
 }
 
-export function PriceServiceBatchGetPricesResponseCoinPriceToJSON(value?: PriceServiceBatchGetPricesResponseCoinPrice | null): any {
+  export function PriceServiceBatchGetPricesResponseCoinPriceToJSON(json: any): PriceServiceBatchGetPricesResponseCoinPrice {
+      return PriceServiceBatchGetPricesResponseCoinPriceToJSONTyped(json, false);
+  }
+
+  export function PriceServiceBatchGetPricesResponseCoinPriceToJSONTyped(value?: PriceServiceBatchGetPricesResponseCoinPrice | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'coinId': PriceServiceCoinIDToJSON(value['coinId']),

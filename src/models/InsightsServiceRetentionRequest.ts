@@ -18,12 +18,14 @@ import {
     CommonRetentionQueryFromJSON,
     CommonRetentionQueryFromJSONTyped,
     CommonRetentionQueryToJSON,
+    CommonRetentionQueryToJSONTyped,
 } from './CommonRetentionQuery.js';
 import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
+    CommonTimeRangeLiteToJSONTyped,
 } from './CommonTimeRangeLite.js';
 
 /**
@@ -73,7 +75,7 @@ export interface InsightsServiceRetentionRequest {
 /**
  * Check if a given object implements the InsightsServiceRetentionRequest interface.
  */
-export function instanceOfInsightsServiceRetentionRequest(value: object): boolean {
+export function instanceOfInsightsServiceRetentionRequest(value: object): value is InsightsServiceRetentionRequest {
     return true;
 }
 
@@ -96,10 +98,15 @@ export function InsightsServiceRetentionRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function InsightsServiceRetentionRequestToJSON(value?: InsightsServiceRetentionRequest | null): any {
+  export function InsightsServiceRetentionRequestToJSON(json: any): InsightsServiceRetentionRequest {
+      return InsightsServiceRetentionRequestToJSONTyped(json, false);
+  }
+
+  export function InsightsServiceRetentionRequestToJSONTyped(value?: InsightsServiceRetentionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'projectOwner': value['projectOwner'],

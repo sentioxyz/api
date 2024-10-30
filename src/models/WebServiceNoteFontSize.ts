@@ -28,7 +28,14 @@ export type WebServiceNoteFontSize = typeof WebServiceNoteFontSize[keyof typeof 
 
 
 export function instanceOfWebServiceNoteFontSize(value: any): boolean {
-    return Object.values(WebServiceNoteFontSize).includes(value);
+    for (const key in WebServiceNoteFontSize) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceNoteFontSize, key)) {
+            if (WebServiceNoteFontSize[key as keyof typeof WebServiceNoteFontSize] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceNoteFontSizeFromJSON(json: any): WebServiceNoteFontSize {
@@ -41,5 +48,9 @@ export function WebServiceNoteFontSizeFromJSONTyped(json: any, ignoreDiscriminat
 
 export function WebServiceNoteFontSizeToJSON(value?: WebServiceNoteFontSize | null): any {
     return value as any;
+}
+
+export function WebServiceNoteFontSizeToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceNoteFontSize {
+    return value as WebServiceNoteFontSize;
 }
 

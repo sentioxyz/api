@@ -18,12 +18,14 @@ import {
     SolidityServiceMetadataFromJSON,
     SolidityServiceMetadataFromJSONTyped,
     SolidityServiceMetadataToJSON,
+    SolidityServiceMetadataToJSONTyped,
 } from './SolidityServiceMetadata.js';
 import type { SolidityServiceOptimizer } from './SolidityServiceOptimizer.js';
 import {
     SolidityServiceOptimizerFromJSON,
     SolidityServiceOptimizerFromJSONTyped,
     SolidityServiceOptimizerToJSON,
+    SolidityServiceOptimizerToJSONTyped,
 } from './SolidityServiceOptimizer.js';
 
 /**
@@ -73,7 +75,7 @@ export interface SolidityServiceSettings {
 /**
  * Check if a given object implements the SolidityServiceSettings interface.
  */
-export function instanceOfSolidityServiceSettings(value: object): boolean {
+export function instanceOfSolidityServiceSettings(value: object): value is SolidityServiceSettings {
     return true;
 }
 
@@ -96,10 +98,15 @@ export function SolidityServiceSettingsFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SolidityServiceSettingsToJSON(value?: SolidityServiceSettings | null): any {
+  export function SolidityServiceSettingsToJSON(json: any): SolidityServiceSettings {
+      return SolidityServiceSettingsToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSettingsToJSONTyped(value?: SolidityServiceSettings | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'remappings': value['remappings'],

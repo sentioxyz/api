@@ -26,7 +26,14 @@ export type WebServiceDashboardDashboardVisibility = typeof WebServiceDashboardD
 
 
 export function instanceOfWebServiceDashboardDashboardVisibility(value: any): boolean {
-    return Object.values(WebServiceDashboardDashboardVisibility).includes(value);
+    for (const key in WebServiceDashboardDashboardVisibility) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceDashboardDashboardVisibility, key)) {
+            if (WebServiceDashboardDashboardVisibility[key as keyof typeof WebServiceDashboardDashboardVisibility] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceDashboardDashboardVisibilityFromJSON(json: any): WebServiceDashboardDashboardVisibility {
@@ -39,5 +46,9 @@ export function WebServiceDashboardDashboardVisibilityFromJSONTyped(json: any, i
 
 export function WebServiceDashboardDashboardVisibilityToJSON(value?: WebServiceDashboardDashboardVisibility | null): any {
     return value as any;
+}
+
+export function WebServiceDashboardDashboardVisibilityToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceDashboardDashboardVisibility {
+    return value as WebServiceDashboardDashboardVisibility;
 }
 

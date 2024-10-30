@@ -42,7 +42,7 @@ export interface SolidityServiceGetTraceCallInternalResponse {
 /**
  * Check if a given object implements the SolidityServiceGetTraceCallInternalResponse interface.
  */
-export function instanceOfSolidityServiceGetTraceCallInternalResponse(value: object): boolean {
+export function instanceOfSolidityServiceGetTraceCallInternalResponse(value: object): value is SolidityServiceGetTraceCallInternalResponse {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function SolidityServiceGetTraceCallInternalResponseFromJSONTyped(json: a
     };
 }
 
-export function SolidityServiceGetTraceCallInternalResponseToJSON(value?: SolidityServiceGetTraceCallInternalResponse | null): any {
+  export function SolidityServiceGetTraceCallInternalResponseToJSON(json: any): SolidityServiceGetTraceCallInternalResponse {
+      return SolidityServiceGetTraceCallInternalResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceGetTraceCallInternalResponseToJSONTyped(value?: SolidityServiceGetTraceCallInternalResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'result': value['result'],

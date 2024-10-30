@@ -36,7 +36,7 @@ export interface MetricsServiceMetricsQueryResponseValue {
 /**
  * Check if a given object implements the MetricsServiceMetricsQueryResponseValue interface.
  */
-export function instanceOfMetricsServiceMetricsQueryResponseValue(value: object): boolean {
+export function instanceOfMetricsServiceMetricsQueryResponseValue(value: object): value is MetricsServiceMetricsQueryResponseValue {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function MetricsServiceMetricsQueryResponseValueFromJSONTyped(json: any, 
     };
 }
 
-export function MetricsServiceMetricsQueryResponseValueToJSON(value?: MetricsServiceMetricsQueryResponseValue | null): any {
+  export function MetricsServiceMetricsQueryResponseValueToJSON(json: any): MetricsServiceMetricsQueryResponseValue {
+      return MetricsServiceMetricsQueryResponseValueToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricsQueryResponseValueToJSONTyped(value?: MetricsServiceMetricsQueryResponseValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'timestamp': value['timestamp'],

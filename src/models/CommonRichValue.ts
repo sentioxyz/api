@@ -13,36 +13,41 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonBigDecimal } from './CommonBigDecimal.js';
-import {
-    CommonBigDecimalFromJSON,
-    CommonBigDecimalFromJSONTyped,
-    CommonBigDecimalToJSON,
-} from './CommonBigDecimal.js';
-import type { CommonBigInteger } from './CommonBigInteger.js';
-import {
-    CommonBigIntegerFromJSON,
-    CommonBigIntegerFromJSONTyped,
-    CommonBigIntegerToJSON,
-} from './CommonBigInteger.js';
-import type { CommonRichStruct } from './CommonRichStruct.js';
-import {
-    CommonRichStructFromJSON,
-    CommonRichStructFromJSONTyped,
-    CommonRichStructToJSON,
-} from './CommonRichStruct.js';
-import type { CommonRichValueList } from './CommonRichValueList.js';
-import {
-    CommonRichValueListFromJSON,
-    CommonRichValueListFromJSONTyped,
-    CommonRichValueListToJSON,
-} from './CommonRichValueList.js';
 import type { CommonRichValueNullValue } from './CommonRichValueNullValue.js';
 import {
     CommonRichValueNullValueFromJSON,
     CommonRichValueNullValueFromJSONTyped,
     CommonRichValueNullValueToJSON,
+    CommonRichValueNullValueToJSONTyped,
 } from './CommonRichValueNullValue.js';
+import type { CommonBigInteger } from './CommonBigInteger.js';
+import {
+    CommonBigIntegerFromJSON,
+    CommonBigIntegerFromJSONTyped,
+    CommonBigIntegerToJSON,
+    CommonBigIntegerToJSONTyped,
+} from './CommonBigInteger.js';
+import type { CommonRichValueList } from './CommonRichValueList.js';
+import {
+    CommonRichValueListFromJSON,
+    CommonRichValueListFromJSONTyped,
+    CommonRichValueListToJSON,
+    CommonRichValueListToJSONTyped,
+} from './CommonRichValueList.js';
+import type { CommonRichStruct } from './CommonRichStruct.js';
+import {
+    CommonRichStructFromJSON,
+    CommonRichStructFromJSONTyped,
+    CommonRichStructToJSON,
+    CommonRichStructToJSONTyped,
+} from './CommonRichStruct.js';
+import type { CommonBigDecimal } from './CommonBigDecimal.js';
+import {
+    CommonBigDecimalFromJSON,
+    CommonBigDecimalFromJSONTyped,
+    CommonBigDecimalToJSON,
+    CommonBigDecimalToJSONTyped,
+} from './CommonBigDecimal.js';
 
 /**
  * 
@@ -118,10 +123,12 @@ export interface CommonRichValue {
     structValue?: CommonRichStruct;
 }
 
+
+
 /**
  * Check if a given object implements the CommonRichValue interface.
  */
-export function instanceOfCommonRichValue(value: object): boolean {
+export function instanceOfCommonRichValue(value: object): value is CommonRichValue {
     return true;
 }
 
@@ -149,10 +156,15 @@ export function CommonRichValueFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function CommonRichValueToJSON(value?: CommonRichValue | null): any {
+  export function CommonRichValueToJSON(json: any): CommonRichValue {
+      return CommonRichValueToJSONTyped(json, false);
+  }
+
+  export function CommonRichValueToJSONTyped(value?: CommonRichValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'nullValue': CommonRichValueNullValueToJSON(value['nullValue']),

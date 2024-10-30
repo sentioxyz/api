@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { EvmTransaction } from './EvmTransaction.js';
-import {
-    EvmTransactionFromJSON,
-    EvmTransactionFromJSONTyped,
-    EvmTransactionToJSON,
-} from './EvmTransaction.js';
 import type { EvmTransactionReceipt } from './EvmTransactionReceipt.js';
 import {
     EvmTransactionReceiptFromJSON,
     EvmTransactionReceiptFromJSONTyped,
     EvmTransactionReceiptToJSON,
+    EvmTransactionReceiptToJSONTyped,
 } from './EvmTransactionReceipt.js';
+import type { EvmTransaction } from './EvmTransaction.js';
+import {
+    EvmTransactionFromJSON,
+    EvmTransactionFromJSONTyped,
+    EvmTransactionToJSON,
+    EvmTransactionToJSONTyped,
+} from './EvmTransaction.js';
 
 /**
  * 
@@ -49,7 +51,7 @@ export interface SolidityServiceSimulationResult {
 /**
  * Check if a given object implements the SolidityServiceSimulationResult interface.
  */
-export function instanceOfSolidityServiceSimulationResult(value: object): boolean {
+export function instanceOfSolidityServiceSimulationResult(value: object): value is SolidityServiceSimulationResult {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function SolidityServiceSimulationResultFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function SolidityServiceSimulationResultToJSON(value?: SolidityServiceSimulationResult | null): any {
+  export function SolidityServiceSimulationResultToJSON(json: any): SolidityServiceSimulationResult {
+      return SolidityServiceSimulationResultToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSimulationResultToJSONTyped(value?: SolidityServiceSimulationResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'transaction': EvmTransactionToJSON(value['transaction']),

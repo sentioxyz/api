@@ -18,6 +18,7 @@ import {
     SolidityServiceFailureFromJSON,
     SolidityServiceFailureFromJSONTyped,
     SolidityServiceFailureToJSON,
+    SolidityServiceFailureToJSONTyped,
 } from './SolidityServiceFailure.js';
 
 /**
@@ -37,7 +38,7 @@ export interface SolidityServiceCompileSourceInternalResponse {
 /**
  * Check if a given object implements the SolidityServiceCompileSourceInternalResponse interface.
  */
-export function instanceOfSolidityServiceCompileSourceInternalResponse(value: object): boolean {
+export function instanceOfSolidityServiceCompileSourceInternalResponse(value: object): value is SolidityServiceCompileSourceInternalResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function SolidityServiceCompileSourceInternalResponseFromJSONTyped(json: 
     };
 }
 
-export function SolidityServiceCompileSourceInternalResponseToJSON(value?: SolidityServiceCompileSourceInternalResponse | null): any {
+  export function SolidityServiceCompileSourceInternalResponseToJSON(json: any): SolidityServiceCompileSourceInternalResponse {
+      return SolidityServiceCompileSourceInternalResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceCompileSourceInternalResponseToJSONTyped(value?: SolidityServiceCompileSourceInternalResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'failure': SolidityServiceFailureToJSON(value['failure']),

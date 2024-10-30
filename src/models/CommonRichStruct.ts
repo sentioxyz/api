@@ -18,6 +18,7 @@ import {
     CommonRichValueFromJSON,
     CommonRichValueFromJSONTyped,
     CommonRichValueToJSON,
+    CommonRichValueToJSONTyped,
 } from './CommonRichValue.js';
 
 /**
@@ -37,7 +38,7 @@ export interface CommonRichStruct {
 /**
  * Check if a given object implements the CommonRichStruct interface.
  */
-export function instanceOfCommonRichStruct(value: object): boolean {
+export function instanceOfCommonRichStruct(value: object): value is CommonRichStruct {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function CommonRichStructFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function CommonRichStructToJSON(value?: CommonRichStruct | null): any {
+  export function CommonRichStructToJSON(json: any): CommonRichStruct {
+      return CommonRichStructToJSONTyped(json, false);
+  }
+
+  export function CommonRichStructToJSONTyped(value?: CommonRichStruct | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'fields': value['fields'] == null ? undefined : (mapValues(value['fields'], CommonRichValueToJSON)),

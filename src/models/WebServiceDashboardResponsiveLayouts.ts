@@ -18,6 +18,7 @@ import {
     WebServiceDashboardLayoutsFromJSON,
     WebServiceDashboardLayoutsFromJSONTyped,
     WebServiceDashboardLayoutsToJSON,
+    WebServiceDashboardLayoutsToJSONTyped,
 } from './WebServiceDashboardLayouts.js';
 
 /**
@@ -37,7 +38,7 @@ export interface WebServiceDashboardResponsiveLayouts {
 /**
  * Check if a given object implements the WebServiceDashboardResponsiveLayouts interface.
  */
-export function instanceOfWebServiceDashboardResponsiveLayouts(value: object): boolean {
+export function instanceOfWebServiceDashboardResponsiveLayouts(value: object): value is WebServiceDashboardResponsiveLayouts {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function WebServiceDashboardResponsiveLayoutsFromJSONTyped(json: any, ign
     };
 }
 
-export function WebServiceDashboardResponsiveLayoutsToJSON(value?: WebServiceDashboardResponsiveLayouts | null): any {
+  export function WebServiceDashboardResponsiveLayoutsToJSON(json: any): WebServiceDashboardResponsiveLayouts {
+      return WebServiceDashboardResponsiveLayoutsToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardResponsiveLayoutsToJSONTyped(value?: WebServiceDashboardResponsiveLayouts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'responsiveLayouts': value['responsiveLayouts'] == null ? undefined : (mapValues(value['responsiveLayouts'], WebServiceDashboardLayoutsToJSON)),

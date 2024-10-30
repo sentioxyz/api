@@ -48,7 +48,7 @@ export interface CommonCachePolicy {
 /**
  * Check if a given object implements the CommonCachePolicy interface.
  */
-export function instanceOfCommonCachePolicy(value: object): boolean {
+export function instanceOfCommonCachePolicy(value: object): value is CommonCachePolicy {
     return true;
 }
 
@@ -69,10 +69,15 @@ export function CommonCachePolicyFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function CommonCachePolicyToJSON(value?: CommonCachePolicy | null): any {
+  export function CommonCachePolicyToJSON(json: any): CommonCachePolicy {
+      return CommonCachePolicyToJSONTyped(json, false);
+  }
+
+  export function CommonCachePolicyToJSONTyped(value?: CommonCachePolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'cacheTtlSecs': value['cacheTtlSecs'],

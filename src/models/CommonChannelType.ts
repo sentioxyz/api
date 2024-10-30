@@ -30,7 +30,14 @@ export type CommonChannelType = typeof CommonChannelType[keyof typeof CommonChan
 
 
 export function instanceOfCommonChannelType(value: any): boolean {
-    return Object.values(CommonChannelType).includes(value);
+    for (const key in CommonChannelType) {
+        if (Object.prototype.hasOwnProperty.call(CommonChannelType, key)) {
+            if (CommonChannelType[key as keyof typeof CommonChannelType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonChannelTypeFromJSON(json: any): CommonChannelType {
@@ -43,5 +50,9 @@ export function CommonChannelTypeFromJSONTyped(json: any, ignoreDiscriminator: b
 
 export function CommonChannelTypeToJSON(value?: CommonChannelType | null): any {
     return value as any;
+}
+
+export function CommonChannelTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonChannelType {
+    return value as CommonChannelType;
 }
 

@@ -25,7 +25,14 @@ export type CommonRetentionQueryCriteria = typeof CommonRetentionQueryCriteria[k
 
 
 export function instanceOfCommonRetentionQueryCriteria(value: any): boolean {
-    return Object.values(CommonRetentionQueryCriteria).includes(value);
+    for (const key in CommonRetentionQueryCriteria) {
+        if (Object.prototype.hasOwnProperty.call(CommonRetentionQueryCriteria, key)) {
+            if (CommonRetentionQueryCriteria[key as keyof typeof CommonRetentionQueryCriteria] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonRetentionQueryCriteriaFromJSON(json: any): CommonRetentionQueryCriteria {
@@ -38,5 +45,9 @@ export function CommonRetentionQueryCriteriaFromJSONTyped(json: any, ignoreDiscr
 
 export function CommonRetentionQueryCriteriaToJSON(value?: CommonRetentionQueryCriteria | null): any {
     return value as any;
+}
+
+export function CommonRetentionQueryCriteriaToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonRetentionQueryCriteria {
+    return value as CommonRetentionQueryCriteria;
 }
 

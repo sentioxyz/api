@@ -18,6 +18,7 @@ import {
     SolidityServiceSimulationFromJSON,
     SolidityServiceSimulationFromJSONTyped,
     SolidityServiceSimulationToJSON,
+    SolidityServiceSimulationToJSONTyped,
 } from './SolidityServiceSimulation.js';
 
 /**
@@ -37,7 +38,7 @@ export interface SolidityServiceSimulateTransactionResponse {
 /**
  * Check if a given object implements the SolidityServiceSimulateTransactionResponse interface.
  */
-export function instanceOfSolidityServiceSimulateTransactionResponse(value: object): boolean {
+export function instanceOfSolidityServiceSimulateTransactionResponse(value: object): value is SolidityServiceSimulateTransactionResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function SolidityServiceSimulateTransactionResponseFromJSONTyped(json: an
     };
 }
 
-export function SolidityServiceSimulateTransactionResponseToJSON(value?: SolidityServiceSimulateTransactionResponse | null): any {
+  export function SolidityServiceSimulateTransactionResponseToJSON(json: any): SolidityServiceSimulateTransactionResponse {
+      return SolidityServiceSimulateTransactionResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSimulateTransactionResponseToJSONTyped(value?: SolidityServiceSimulateTransactionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'simulation': SolidityServiceSimulationToJSON(value['simulation']),

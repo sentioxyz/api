@@ -31,7 +31,14 @@ export type CommonCohortsFilterAggregationOperatorType = typeof CommonCohortsFil
 
 
 export function instanceOfCommonCohortsFilterAggregationOperatorType(value: any): boolean {
-    return Object.values(CommonCohortsFilterAggregationOperatorType).includes(value);
+    for (const key in CommonCohortsFilterAggregationOperatorType) {
+        if (Object.prototype.hasOwnProperty.call(CommonCohortsFilterAggregationOperatorType, key)) {
+            if (CommonCohortsFilterAggregationOperatorType[key as keyof typeof CommonCohortsFilterAggregationOperatorType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonCohortsFilterAggregationOperatorTypeFromJSON(json: any): CommonCohortsFilterAggregationOperatorType {
@@ -44,5 +51,9 @@ export function CommonCohortsFilterAggregationOperatorTypeFromJSONTyped(json: an
 
 export function CommonCohortsFilterAggregationOperatorTypeToJSON(value?: CommonCohortsFilterAggregationOperatorType | null): any {
     return value as any;
+}
+
+export function CommonCohortsFilterAggregationOperatorTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonCohortsFilterAggregationOperatorType {
+    return value as CommonCohortsFilterAggregationOperatorType;
 }
 

@@ -66,7 +66,7 @@ export interface EvmTransactionReceipt {
 /**
  * Check if a given object implements the EvmTransactionReceipt interface.
  */
-export function instanceOfEvmTransactionReceipt(value: object): boolean {
+export function instanceOfEvmTransactionReceipt(value: object): value is EvmTransactionReceipt {
     return true;
 }
 
@@ -90,10 +90,15 @@ export function EvmTransactionReceiptFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function EvmTransactionReceiptToJSON(value?: EvmTransactionReceipt | null): any {
+  export function EvmTransactionReceiptToJSON(json: any): EvmTransactionReceipt {
+      return EvmTransactionReceiptToJSONTyped(json, false);
+  }
+
+  export function EvmTransactionReceiptToJSONTyped(value?: EvmTransactionReceipt | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'gasUsed': value['gasUsed'],

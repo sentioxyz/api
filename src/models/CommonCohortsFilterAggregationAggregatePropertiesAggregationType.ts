@@ -31,7 +31,14 @@ export type CommonCohortsFilterAggregationAggregatePropertiesAggregationType = t
 
 
 export function instanceOfCommonCohortsFilterAggregationAggregatePropertiesAggregationType(value: any): boolean {
-    return Object.values(CommonCohortsFilterAggregationAggregatePropertiesAggregationType).includes(value);
+    for (const key in CommonCohortsFilterAggregationAggregatePropertiesAggregationType) {
+        if (Object.prototype.hasOwnProperty.call(CommonCohortsFilterAggregationAggregatePropertiesAggregationType, key)) {
+            if (CommonCohortsFilterAggregationAggregatePropertiesAggregationType[key as keyof typeof CommonCohortsFilterAggregationAggregatePropertiesAggregationType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeFromJSON(json: any): CommonCohortsFilterAggregationAggregatePropertiesAggregationType {
@@ -44,5 +51,9 @@ export function CommonCohortsFilterAggregationAggregatePropertiesAggregationType
 
 export function CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeToJSON(value?: CommonCohortsFilterAggregationAggregatePropertiesAggregationType | null): any {
     return value as any;
+}
+
+export function CommonCohortsFilterAggregationAggregatePropertiesAggregationTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonCohortsFilterAggregationAggregatePropertiesAggregationType {
+    return value as CommonCohortsFilterAggregationAggregatePropertiesAggregationType;
 }
 

@@ -18,18 +18,21 @@ import {
     CommonAnyFromJSON,
     CommonAnyFromJSONTyped,
     CommonAnyToJSON,
+    CommonAnyToJSONTyped,
 } from './CommonAny.js';
 import type { CommonCohortsFilterAggregationAggregateProperties } from './CommonCohortsFilterAggregationAggregateProperties.js';
 import {
     CommonCohortsFilterAggregationAggregatePropertiesFromJSON,
     CommonCohortsFilterAggregationAggregatePropertiesFromJSONTyped,
     CommonCohortsFilterAggregationAggregatePropertiesToJSON,
+    CommonCohortsFilterAggregationAggregatePropertiesToJSONTyped,
 } from './CommonCohortsFilterAggregationAggregateProperties.js';
 import type { CommonCohortsFilterAggregationOperatorType } from './CommonCohortsFilterAggregationOperatorType.js';
 import {
     CommonCohortsFilterAggregationOperatorTypeFromJSON,
     CommonCohortsFilterAggregationOperatorTypeFromJSONTyped,
     CommonCohortsFilterAggregationOperatorTypeToJSON,
+    CommonCohortsFilterAggregationOperatorTypeToJSONTyped,
 } from './CommonCohortsFilterAggregationOperatorType.js';
 
 /**
@@ -64,10 +67,12 @@ export interface CommonCohortsFilterAggregation {
     value?: Array<CommonAny>;
 }
 
+
+
 /**
  * Check if a given object implements the CommonCohortsFilterAggregation interface.
  */
-export function instanceOfCommonCohortsFilterAggregation(value: object): boolean {
+export function instanceOfCommonCohortsFilterAggregation(value: object): value is CommonCohortsFilterAggregation {
     return true;
 }
 
@@ -88,10 +93,15 @@ export function CommonCohortsFilterAggregationFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function CommonCohortsFilterAggregationToJSON(value?: CommonCohortsFilterAggregation | null): any {
+  export function CommonCohortsFilterAggregationToJSON(json: any): CommonCohortsFilterAggregation {
+      return CommonCohortsFilterAggregationToJSONTyped(json, false);
+  }
+
+  export function CommonCohortsFilterAggregationToJSONTyped(value?: CommonCohortsFilterAggregation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'total': value['total'],

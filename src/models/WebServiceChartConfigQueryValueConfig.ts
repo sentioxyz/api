@@ -18,12 +18,14 @@ import {
     WebServiceChartConfigCalculationFromJSON,
     WebServiceChartConfigCalculationFromJSONTyped,
     WebServiceChartConfigCalculationToJSON,
+    WebServiceChartConfigCalculationToJSONTyped,
 } from './WebServiceChartConfigCalculation.js';
 import type { WebServiceChartConfigColorTheme } from './WebServiceChartConfigColorTheme.js';
 import {
     WebServiceChartConfigColorThemeFromJSON,
     WebServiceChartConfigColorThemeFromJSONTyped,
     WebServiceChartConfigColorThemeToJSON,
+    WebServiceChartConfigColorThemeToJSONTyped,
 } from './WebServiceChartConfigColorTheme.js';
 
 /**
@@ -58,10 +60,12 @@ export interface WebServiceChartConfigQueryValueConfig {
     seriesCalculation?: WebServiceChartConfigCalculation;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigQueryValueConfig interface.
  */
-export function instanceOfWebServiceChartConfigQueryValueConfig(value: object): boolean {
+export function instanceOfWebServiceChartConfigQueryValueConfig(value: object): value is WebServiceChartConfigQueryValueConfig {
     return true;
 }
 
@@ -82,10 +86,15 @@ export function WebServiceChartConfigQueryValueConfigFromJSONTyped(json: any, ig
     };
 }
 
-export function WebServiceChartConfigQueryValueConfigToJSON(value?: WebServiceChartConfigQueryValueConfig | null): any {
+  export function WebServiceChartConfigQueryValueConfigToJSON(json: any): WebServiceChartConfigQueryValueConfig {
+      return WebServiceChartConfigQueryValueConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigQueryValueConfigToJSONTyped(value?: WebServiceChartConfigQueryValueConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'colorTheme': WebServiceChartConfigColorThemeToJSON(value['colorTheme']),

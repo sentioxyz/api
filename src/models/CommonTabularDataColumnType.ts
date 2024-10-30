@@ -28,7 +28,14 @@ export type CommonTabularDataColumnType = typeof CommonTabularDataColumnType[key
 
 
 export function instanceOfCommonTabularDataColumnType(value: any): boolean {
-    return Object.values(CommonTabularDataColumnType).includes(value);
+    for (const key in CommonTabularDataColumnType) {
+        if (Object.prototype.hasOwnProperty.call(CommonTabularDataColumnType, key)) {
+            if (CommonTabularDataColumnType[key as keyof typeof CommonTabularDataColumnType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonTabularDataColumnTypeFromJSON(json: any): CommonTabularDataColumnType {
@@ -41,5 +48,9 @@ export function CommonTabularDataColumnTypeFromJSONTyped(json: any, ignoreDiscri
 
 export function CommonTabularDataColumnTypeToJSON(value?: CommonTabularDataColumnType | null): any {
     return value as any;
+}
+
+export function CommonTabularDataColumnTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonTabularDataColumnType {
+    return value as CommonTabularDataColumnType;
 }
 

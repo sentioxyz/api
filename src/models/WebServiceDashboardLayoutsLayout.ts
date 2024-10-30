@@ -54,7 +54,7 @@ export interface WebServiceDashboardLayoutsLayout {
 /**
  * Check if a given object implements the WebServiceDashboardLayoutsLayout interface.
  */
-export function instanceOfWebServiceDashboardLayoutsLayout(value: object): boolean {
+export function instanceOfWebServiceDashboardLayoutsLayout(value: object): value is WebServiceDashboardLayoutsLayout {
     return true;
 }
 
@@ -76,10 +76,15 @@ export function WebServiceDashboardLayoutsLayoutFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceDashboardLayoutsLayoutToJSON(value?: WebServiceDashboardLayoutsLayout | null): any {
+  export function WebServiceDashboardLayoutsLayoutToJSON(json: any): WebServiceDashboardLayoutsLayout {
+      return WebServiceDashboardLayoutsLayoutToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardLayoutsLayoutToJSONTyped(value?: WebServiceDashboardLayoutsLayout | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'i': value['i'],

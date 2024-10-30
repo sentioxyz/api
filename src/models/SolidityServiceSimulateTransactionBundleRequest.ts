@@ -18,6 +18,7 @@ import {
     SolidityServiceSimulationFromJSON,
     SolidityServiceSimulationFromJSONTyped,
     SolidityServiceSimulationToJSON,
+    SolidityServiceSimulationToJSONTyped,
 } from './SolidityServiceSimulation.js';
 
 /**
@@ -49,10 +50,10 @@ export interface SolidityServiceSimulateTransactionBundleRequest {
 /**
  * Check if a given object implements the SolidityServiceSimulateTransactionBundleRequest interface.
  */
-export function instanceOfSolidityServiceSimulateTransactionBundleRequest(value: object): boolean {
-    if (!('projectOwner' in value)) return false;
-    if (!('projectSlug' in value)) return false;
-    if (!('simulations' in value)) return false;
+export function instanceOfSolidityServiceSimulateTransactionBundleRequest(value: object): value is SolidityServiceSimulateTransactionBundleRequest {
+    if (!('projectOwner' in value) || value['projectOwner'] === undefined) return false;
+    if (!('projectSlug' in value) || value['projectSlug'] === undefined) return false;
+    if (!('simulations' in value) || value['simulations'] === undefined) return false;
     return true;
 }
 
@@ -72,10 +73,15 @@ export function SolidityServiceSimulateTransactionBundleRequestFromJSONTyped(jso
     };
 }
 
-export function SolidityServiceSimulateTransactionBundleRequestToJSON(value?: SolidityServiceSimulateTransactionBundleRequest | null): any {
+  export function SolidityServiceSimulateTransactionBundleRequestToJSON(json: any): SolidityServiceSimulateTransactionBundleRequest {
+      return SolidityServiceSimulateTransactionBundleRequestToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSimulateTransactionBundleRequestToJSONTyped(value?: SolidityServiceSimulateTransactionBundleRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'projectOwner': value['projectOwner'],

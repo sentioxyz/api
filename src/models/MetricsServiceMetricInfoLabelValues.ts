@@ -30,7 +30,7 @@ export interface MetricsServiceMetricInfoLabelValues {
 /**
  * Check if a given object implements the MetricsServiceMetricInfoLabelValues interface.
  */
-export function instanceOfMetricsServiceMetricInfoLabelValues(value: object): boolean {
+export function instanceOfMetricsServiceMetricInfoLabelValues(value: object): value is MetricsServiceMetricInfoLabelValues {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function MetricsServiceMetricInfoLabelValuesFromJSONTyped(json: any, igno
     };
 }
 
-export function MetricsServiceMetricInfoLabelValuesToJSON(value?: MetricsServiceMetricInfoLabelValues | null): any {
+  export function MetricsServiceMetricInfoLabelValuesToJSON(json: any): MetricsServiceMetricInfoLabelValues {
+      return MetricsServiceMetricInfoLabelValuesToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricInfoLabelValuesToJSONTyped(value?: MetricsServiceMetricInfoLabelValues | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'values': value['values'],

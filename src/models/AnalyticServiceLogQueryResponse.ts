@@ -18,12 +18,14 @@ import {
     CommonAnyFromJSON,
     CommonAnyFromJSONTyped,
     CommonAnyToJSON,
+    CommonAnyToJSONTyped,
 } from './CommonAny.js';
 import type { CommonEventLogEntry } from './CommonEventLogEntry.js';
 import {
     CommonEventLogEntryFromJSON,
     CommonEventLogEntryFromJSONTyped,
     CommonEventLogEntryToJSON,
+    CommonEventLogEntryToJSONTyped,
 } from './CommonEventLogEntry.js';
 
 /**
@@ -55,7 +57,7 @@ export interface AnalyticServiceLogQueryResponse {
 /**
  * Check if a given object implements the AnalyticServiceLogQueryResponse interface.
  */
-export function instanceOfAnalyticServiceLogQueryResponse(value: object): boolean {
+export function instanceOfAnalyticServiceLogQueryResponse(value: object): value is AnalyticServiceLogQueryResponse {
     return true;
 }
 
@@ -75,10 +77,15 @@ export function AnalyticServiceLogQueryResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function AnalyticServiceLogQueryResponseToJSON(value?: AnalyticServiceLogQueryResponse | null): any {
+  export function AnalyticServiceLogQueryResponseToJSON(json: any): AnalyticServiceLogQueryResponse {
+      return AnalyticServiceLogQueryResponseToJSONTyped(json, false);
+  }
+
+  export function AnalyticServiceLogQueryResponseToJSONTyped(value?: AnalyticServiceLogQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'entries': value['entries'] == null ? undefined : ((value['entries'] as Array<any>).map(CommonEventLogEntryToJSON)),

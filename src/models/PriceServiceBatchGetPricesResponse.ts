@@ -18,6 +18,7 @@ import {
     PriceServiceBatchGetPricesResponseCoinPriceFromJSON,
     PriceServiceBatchGetPricesResponseCoinPriceFromJSONTyped,
     PriceServiceBatchGetPricesResponseCoinPriceToJSON,
+    PriceServiceBatchGetPricesResponseCoinPriceToJSONTyped,
 } from './PriceServiceBatchGetPricesResponseCoinPrice.js';
 
 /**
@@ -37,7 +38,7 @@ export interface PriceServiceBatchGetPricesResponse {
 /**
  * Check if a given object implements the PriceServiceBatchGetPricesResponse interface.
  */
-export function instanceOfPriceServiceBatchGetPricesResponse(value: object): boolean {
+export function instanceOfPriceServiceBatchGetPricesResponse(value: object): value is PriceServiceBatchGetPricesResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function PriceServiceBatchGetPricesResponseFromJSONTyped(json: any, ignor
     };
 }
 
-export function PriceServiceBatchGetPricesResponseToJSON(value?: PriceServiceBatchGetPricesResponse | null): any {
+  export function PriceServiceBatchGetPricesResponseToJSON(json: any): PriceServiceBatchGetPricesResponse {
+      return PriceServiceBatchGetPricesResponseToJSONTyped(json, false);
+  }
+
+  export function PriceServiceBatchGetPricesResponseToJSONTyped(value?: PriceServiceBatchGetPricesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'prices': value['prices'] == null ? undefined : ((value['prices'] as Array<any>).map(PriceServiceBatchGetPricesResponseCoinPriceToJSON)),

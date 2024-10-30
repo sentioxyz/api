@@ -36,7 +36,7 @@ export interface SolidityServiceSourceMultiFile {
 /**
  * Check if a given object implements the SolidityServiceSourceMultiFile interface.
  */
-export function instanceOfSolidityServiceSourceMultiFile(value: object): boolean {
+export function instanceOfSolidityServiceSourceMultiFile(value: object): value is SolidityServiceSourceMultiFile {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function SolidityServiceSourceMultiFileFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SolidityServiceSourceMultiFileToJSON(value?: SolidityServiceSourceMultiFile | null): any {
+  export function SolidityServiceSourceMultiFileToJSON(json: any): SolidityServiceSourceMultiFile {
+      return SolidityServiceSourceMultiFileToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSourceMultiFileToJSONTyped(value?: SolidityServiceSourceMultiFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'source': value['source'],

@@ -18,12 +18,14 @@ import {
     CommonTierFromJSON,
     CommonTierFromJSONTyped,
     CommonTierToJSON,
+    CommonTierToJSONTyped,
 } from './CommonTier.js';
 import type { CommonUserAccountStatus } from './CommonUserAccountStatus.js';
 import {
     CommonUserAccountStatusFromJSON,
     CommonUserAccountStatusFromJSONTyped,
     CommonUserAccountStatusToJSON,
+    CommonUserAccountStatusToJSONTyped,
 } from './CommonUserAccountStatus.js';
 
 /**
@@ -118,10 +120,12 @@ export interface CommonUser {
     tier?: CommonTier;
 }
 
+
+
 /**
  * Check if a given object implements the CommonUser interface.
  */
-export function instanceOfCommonUser(value: object): boolean {
+export function instanceOfCommonUser(value: object): value is CommonUser {
     return true;
 }
 
@@ -152,10 +156,15 @@ export function CommonUserFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function CommonUserToJSON(value?: CommonUser | null): any {
+  export function CommonUserToJSON(json: any): CommonUser {
+      return CommonUserToJSONTyped(json, false);
+  }
+
+  export function CommonUserToJSONTyped(value?: CommonUser | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

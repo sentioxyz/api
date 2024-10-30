@@ -13,23 +13,26 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonFormula } from './CommonFormula.js';
-import {
-    CommonFormulaFromJSON,
-    CommonFormulaFromJSONTyped,
-    CommonFormulaToJSON,
-} from './CommonFormula.js';
 import type { CommonQuery } from './CommonQuery.js';
 import {
     CommonQueryFromJSON,
     CommonQueryFromJSONTyped,
     CommonQueryToJSON,
+    CommonQueryToJSONTyped,
 } from './CommonQuery.js';
+import type { CommonFormula } from './CommonFormula.js';
+import {
+    CommonFormulaFromJSON,
+    CommonFormulaFromJSONTyped,
+    CommonFormulaToJSON,
+    CommonFormulaToJSONTyped,
+} from './CommonFormula.js';
 import type { CommonTimeRangeLite } from './CommonTimeRangeLite.js';
 import {
     CommonTimeRangeLiteFromJSON,
     CommonTimeRangeLiteFromJSONTyped,
     CommonTimeRangeLiteToJSON,
+    CommonTimeRangeLiteToJSONTyped,
 } from './CommonTimeRangeLite.js';
 
 /**
@@ -85,8 +88,8 @@ export interface MetricsServiceObservabilityServiceQueryRangeBody {
 /**
  * Check if a given object implements the MetricsServiceObservabilityServiceQueryRangeBody interface.
  */
-export function instanceOfMetricsServiceObservabilityServiceQueryRangeBody(value: object): boolean {
-    if (!('timeRange' in value)) return false;
+export function instanceOfMetricsServiceObservabilityServiceQueryRangeBody(value: object): value is MetricsServiceObservabilityServiceQueryRangeBody {
+    if (!('timeRange' in value) || value['timeRange'] === undefined) return false;
     return true;
 }
 
@@ -110,10 +113,15 @@ export function MetricsServiceObservabilityServiceQueryRangeBodyFromJSONTyped(js
     };
 }
 
-export function MetricsServiceObservabilityServiceQueryRangeBodyToJSON(value?: MetricsServiceObservabilityServiceQueryRangeBody | null): any {
+  export function MetricsServiceObservabilityServiceQueryRangeBodyToJSON(json: any): MetricsServiceObservabilityServiceQueryRangeBody {
+      return MetricsServiceObservabilityServiceQueryRangeBodyToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceObservabilityServiceQueryRangeBodyToJSONTyped(value?: MetricsServiceObservabilityServiceQueryRangeBody | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'queries': value['queries'] == null ? undefined : ((value['queries'] as Array<any>).map(CommonQueryToJSON)),

@@ -18,6 +18,7 @@ import {
     SolidityServiceSimulationFromJSON,
     SolidityServiceSimulationFromJSONTyped,
     SolidityServiceSimulationToJSON,
+    SolidityServiceSimulationToJSONTyped,
 } from './SolidityServiceSimulation.js';
 
 /**
@@ -49,7 +50,7 @@ export interface SolidityServiceSimulateTransactionBundleResponse {
 /**
  * Check if a given object implements the SolidityServiceSimulateTransactionBundleResponse interface.
  */
-export function instanceOfSolidityServiceSimulateTransactionBundleResponse(value: object): boolean {
+export function instanceOfSolidityServiceSimulateTransactionBundleResponse(value: object): value is SolidityServiceSimulateTransactionBundleResponse {
     return true;
 }
 
@@ -69,10 +70,15 @@ export function SolidityServiceSimulateTransactionBundleResponseFromJSONTyped(js
     };
 }
 
-export function SolidityServiceSimulateTransactionBundleResponseToJSON(value?: SolidityServiceSimulateTransactionBundleResponse | null): any {
+  export function SolidityServiceSimulateTransactionBundleResponseToJSON(json: any): SolidityServiceSimulateTransactionBundleResponse {
+      return SolidityServiceSimulateTransactionBundleResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSimulateTransactionBundleResponseToJSONTyped(value?: SolidityServiceSimulateTransactionBundleResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'bundleId': value['bundleId'],

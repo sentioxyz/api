@@ -18,6 +18,7 @@ import {
     CommonCoinIDAddressIdentifierFromJSON,
     CommonCoinIDAddressIdentifierFromJSONTyped,
     CommonCoinIDAddressIdentifierToJSON,
+    CommonCoinIDAddressIdentifierToJSONTyped,
 } from './CommonCoinIDAddressIdentifier.js';
 
 /**
@@ -43,7 +44,7 @@ export interface CommonCoinID {
 /**
  * Check if a given object implements the CommonCoinID interface.
  */
-export function instanceOfCommonCoinID(value: object): boolean {
+export function instanceOfCommonCoinID(value: object): value is CommonCoinID {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function CommonCoinIDFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function CommonCoinIDToJSON(value?: CommonCoinID | null): any {
+  export function CommonCoinIDToJSON(json: any): CommonCoinID {
+      return CommonCoinIDToJSONTyped(json, false);
+  }
+
+  export function CommonCoinIDToJSONTyped(value?: CommonCoinID | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'symbol': value['symbol'],

@@ -26,7 +26,14 @@ export type WebServiceChartConfigMarkerType = typeof WebServiceChartConfigMarker
 
 
 export function instanceOfWebServiceChartConfigMarkerType(value: any): boolean {
-    return Object.values(WebServiceChartConfigMarkerType).includes(value);
+    for (const key in WebServiceChartConfigMarkerType) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceChartConfigMarkerType, key)) {
+            if (WebServiceChartConfigMarkerType[key as keyof typeof WebServiceChartConfigMarkerType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceChartConfigMarkerTypeFromJSON(json: any): WebServiceChartConfigMarkerType {
@@ -39,5 +46,9 @@ export function WebServiceChartConfigMarkerTypeFromJSONTyped(json: any, ignoreDi
 
 export function WebServiceChartConfigMarkerTypeToJSON(value?: WebServiceChartConfigMarkerType | null): any {
     return value as any;
+}
+
+export function WebServiceChartConfigMarkerTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceChartConfigMarkerType {
+    return value as WebServiceChartConfigMarkerType;
 }
 

@@ -36,7 +36,7 @@ export interface AnalyticServiceLogQueryRequestSort {
 /**
  * Check if a given object implements the AnalyticServiceLogQueryRequestSort interface.
  */
-export function instanceOfAnalyticServiceLogQueryRequestSort(value: object): boolean {
+export function instanceOfAnalyticServiceLogQueryRequestSort(value: object): value is AnalyticServiceLogQueryRequestSort {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function AnalyticServiceLogQueryRequestSortFromJSONTyped(json: any, ignor
     };
 }
 
-export function AnalyticServiceLogQueryRequestSortToJSON(value?: AnalyticServiceLogQueryRequestSort | null): any {
+  export function AnalyticServiceLogQueryRequestSortToJSON(json: any): AnalyticServiceLogQueryRequestSort {
+      return AnalyticServiceLogQueryRequestSortToJSONTyped(json, false);
+  }
+
+  export function AnalyticServiceLogQueryRequestSortToJSONTyped(value?: AnalyticServiceLogQueryRequestSort | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'field': value['field'],

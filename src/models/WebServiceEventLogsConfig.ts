@@ -18,12 +18,14 @@ import {
     CommonEventLogConfigFromJSON,
     CommonEventLogConfigFromJSONTyped,
     CommonEventLogConfigToJSON,
+    CommonEventLogConfigToJSONTyped,
 } from './CommonEventLogConfig.js';
 import type { WebServiceEventLogsConfigTimeRangeOverride } from './WebServiceEventLogsConfigTimeRangeOverride.js';
 import {
     WebServiceEventLogsConfigTimeRangeOverrideFromJSON,
     WebServiceEventLogsConfigTimeRangeOverrideFromJSONTyped,
     WebServiceEventLogsConfigTimeRangeOverrideToJSON,
+    WebServiceEventLogsConfigTimeRangeOverrideToJSONTyped,
 } from './WebServiceEventLogsConfigTimeRangeOverride.js';
 
 /**
@@ -61,7 +63,7 @@ export interface WebServiceEventLogsConfig {
 /**
  * Check if a given object implements the WebServiceEventLogsConfig interface.
  */
-export function instanceOfWebServiceEventLogsConfig(value: object): boolean {
+export function instanceOfWebServiceEventLogsConfig(value: object): value is WebServiceEventLogsConfig {
     return true;
 }
 
@@ -82,10 +84,15 @@ export function WebServiceEventLogsConfigFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function WebServiceEventLogsConfigToJSON(value?: WebServiceEventLogsConfig | null): any {
+  export function WebServiceEventLogsConfigToJSON(json: any): WebServiceEventLogsConfig {
+      return WebServiceEventLogsConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceEventLogsConfigToJSONTyped(value?: WebServiceEventLogsConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'columnsConfig': CommonEventLogConfigToJSON(value['columnsConfig']),

@@ -29,7 +29,14 @@ export type InsightsServiceDataSource = typeof InsightsServiceDataSource[keyof t
 
 
 export function instanceOfInsightsServiceDataSource(value: any): boolean {
-    return Object.values(InsightsServiceDataSource).includes(value);
+    for (const key in InsightsServiceDataSource) {
+        if (Object.prototype.hasOwnProperty.call(InsightsServiceDataSource, key)) {
+            if (InsightsServiceDataSource[key as keyof typeof InsightsServiceDataSource] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function InsightsServiceDataSourceFromJSON(json: any): InsightsServiceDataSource {
@@ -42,5 +49,9 @@ export function InsightsServiceDataSourceFromJSONTyped(json: any, ignoreDiscrimi
 
 export function InsightsServiceDataSourceToJSON(value?: InsightsServiceDataSource | null): any {
     return value as any;
+}
+
+export function InsightsServiceDataSourceToJSONTyped(value: any, ignoreDiscriminator: boolean): InsightsServiceDataSource {
+    return value as InsightsServiceDataSource;
 }
 

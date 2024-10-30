@@ -18,6 +18,7 @@ import {
     WebServiceChartFromJSON,
     WebServiceChartFromJSONTyped,
     WebServiceChartToJSON,
+    WebServiceChartToJSONTyped,
 } from './WebServiceChart.js';
 
 /**
@@ -55,7 +56,7 @@ export interface WebServicePanel {
 /**
  * Check if a given object implements the WebServicePanel interface.
  */
-export function instanceOfWebServicePanel(value: object): boolean {
+export function instanceOfWebServicePanel(value: object): value is WebServicePanel {
     return true;
 }
 
@@ -76,10 +77,15 @@ export function WebServicePanelFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function WebServicePanelToJSON(value?: WebServicePanel | null): any {
+  export function WebServicePanelToJSON(json: any): WebServicePanel {
+      return WebServicePanelToJSONTyped(json, false);
+  }
+
+  export function WebServicePanelToJSONTyped(value?: WebServicePanel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

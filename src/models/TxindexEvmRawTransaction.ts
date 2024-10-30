@@ -18,6 +18,7 @@ import {
     EvmTransactionFromJSON,
     EvmTransactionFromJSONTyped,
     EvmTransactionToJSON,
+    EvmTransactionToJSONTyped,
 } from './EvmTransaction.js';
 
 /**
@@ -97,7 +98,7 @@ export interface TxindexEvmRawTransaction {
 /**
  * Check if a given object implements the TxindexEvmRawTransaction interface.
  */
-export function instanceOfTxindexEvmRawTransaction(value: object): boolean {
+export function instanceOfTxindexEvmRawTransaction(value: object): value is TxindexEvmRawTransaction {
     return true;
 }
 
@@ -125,10 +126,15 @@ export function TxindexEvmRawTransactionFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function TxindexEvmRawTransactionToJSON(value?: TxindexEvmRawTransaction | null): any {
+  export function TxindexEvmRawTransactionToJSON(json: any): TxindexEvmRawTransaction {
+      return TxindexEvmRawTransactionToJSONTyped(json, false);
+  }
+
+  export function TxindexEvmRawTransactionToJSONTyped(value?: TxindexEvmRawTransaction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'hash': value['hash'],

@@ -18,12 +18,14 @@ import {
     CommonOrganizationRoleFromJSON,
     CommonOrganizationRoleFromJSONTyped,
     CommonOrganizationRoleToJSON,
+    CommonOrganizationRoleToJSONTyped,
 } from './CommonOrganizationRole.js';
 import type { CommonUserInfo } from './CommonUserInfo.js';
 import {
     CommonUserInfoFromJSON,
     CommonUserInfoFromJSONTyped,
     CommonUserInfoToJSON,
+    CommonUserInfoToJSONTyped,
 } from './CommonUserInfo.js';
 
 /**
@@ -46,10 +48,12 @@ export interface CommonOrganizationMember {
     role?: CommonOrganizationRole;
 }
 
+
+
 /**
  * Check if a given object implements the CommonOrganizationMember interface.
  */
-export function instanceOfCommonOrganizationMember(value: object): boolean {
+export function instanceOfCommonOrganizationMember(value: object): value is CommonOrganizationMember {
     return true;
 }
 
@@ -68,10 +72,15 @@ export function CommonOrganizationMemberFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function CommonOrganizationMemberToJSON(value?: CommonOrganizationMember | null): any {
+  export function CommonOrganizationMemberToJSON(json: any): CommonOrganizationMember {
+      return CommonOrganizationMemberToJSONTyped(json, false);
+  }
+
+  export function CommonOrganizationMemberToJSONTyped(value?: CommonOrganizationMember | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'user': CommonUserInfoToJSON(value['user']),

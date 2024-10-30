@@ -36,7 +36,7 @@ export interface SolidityServiceContractKeyInfo {
 /**
  * Check if a given object implements the SolidityServiceContractKeyInfo interface.
  */
-export function instanceOfSolidityServiceContractKeyInfo(value: object): boolean {
+export function instanceOfSolidityServiceContractKeyInfo(value: object): value is SolidityServiceContractKeyInfo {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function SolidityServiceContractKeyInfoFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SolidityServiceContractKeyInfoToJSON(value?: SolidityServiceContractKeyInfo | null): any {
+  export function SolidityServiceContractKeyInfoToJSON(json: any): SolidityServiceContractKeyInfo {
+      return SolidityServiceContractKeyInfoToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceContractKeyInfoToJSONTyped(value?: SolidityServiceContractKeyInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'preprocessKey': value['preprocessKey'],

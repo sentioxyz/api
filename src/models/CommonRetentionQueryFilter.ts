@@ -18,12 +18,14 @@ import {
     CommonRetentionQueryFilterTimeFilterFromJSON,
     CommonRetentionQueryFilterTimeFilterFromJSONTyped,
     CommonRetentionQueryFilterTimeFilterToJSON,
+    CommonRetentionQueryFilterTimeFilterToJSONTyped,
 } from './CommonRetentionQueryFilterTimeFilter.js';
 import type { CommonSelectorExpr } from './CommonSelectorExpr.js';
 import {
     CommonSelectorExprFromJSON,
     CommonSelectorExprFromJSONTyped,
     CommonSelectorExprToJSON,
+    CommonSelectorExprToJSONTyped,
 } from './CommonSelectorExpr.js';
 
 /**
@@ -49,7 +51,7 @@ export interface CommonRetentionQueryFilter {
 /**
  * Check if a given object implements the CommonRetentionQueryFilter interface.
  */
-export function instanceOfCommonRetentionQueryFilter(value: object): boolean {
+export function instanceOfCommonRetentionQueryFilter(value: object): value is CommonRetentionQueryFilter {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function CommonRetentionQueryFilterFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function CommonRetentionQueryFilterToJSON(value?: CommonRetentionQueryFilter | null): any {
+  export function CommonRetentionQueryFilterToJSON(json: any): CommonRetentionQueryFilter {
+      return CommonRetentionQueryFilterToJSONTyped(json, false);
+  }
+
+  export function CommonRetentionQueryFilterToJSONTyped(value?: CommonRetentionQueryFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'propertyFilter': CommonSelectorExprToJSON(value['propertyFilter']),

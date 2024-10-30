@@ -13,23 +13,26 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonProjectSuperset } from './CommonProjectSuperset.js';
-import {
-    CommonProjectSupersetFromJSON,
-    CommonProjectSupersetFromJSONTyped,
-    CommonProjectSupersetToJSON,
-} from './CommonProjectSuperset.js';
 import type { CommonProjectType } from './CommonProjectType.js';
 import {
     CommonProjectTypeFromJSON,
     CommonProjectTypeFromJSONTyped,
     CommonProjectTypeToJSON,
+    CommonProjectTypeToJSONTyped,
 } from './CommonProjectType.js';
+import type { CommonProjectSuperset } from './CommonProjectSuperset.js';
+import {
+    CommonProjectSupersetFromJSON,
+    CommonProjectSupersetFromJSONTyped,
+    CommonProjectSupersetToJSON,
+    CommonProjectSupersetToJSONTyped,
+} from './CommonProjectSuperset.js';
 import type { CommonProjectVisibility } from './CommonProjectVisibility.js';
 import {
     CommonProjectVisibilityFromJSON,
     CommonProjectVisibilityFromJSONTyped,
     CommonProjectVisibilityToJSON,
+    CommonProjectVisibilityToJSONTyped,
 } from './CommonProjectVisibility.js';
 
 /**
@@ -124,10 +127,12 @@ export interface CommonProjectInfo {
     enableMaterializedView?: boolean;
 }
 
+
+
 /**
  * Check if a given object implements the CommonProjectInfo interface.
  */
-export function instanceOfCommonProjectInfo(value: object): boolean {
+export function instanceOfCommonProjectInfo(value: object): value is CommonProjectInfo {
     return true;
 }
 
@@ -158,10 +163,15 @@ export function CommonProjectInfoFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function CommonProjectInfoToJSON(value?: CommonProjectInfo | null): any {
+  export function CommonProjectInfoToJSON(json: any): CommonProjectInfo {
+      return CommonProjectInfoToJSONTyped(json, false);
+  }
+
+  export function CommonProjectInfoToJSONTyped(value?: CommonProjectInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

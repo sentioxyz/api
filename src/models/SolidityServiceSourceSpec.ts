@@ -18,6 +18,7 @@ import {
     SolidityServiceSourceMultiFileFromJSON,
     SolidityServiceSourceMultiFileFromJSONTyped,
     SolidityServiceSourceMultiFileToJSON,
+    SolidityServiceSourceMultiFileToJSONTyped,
 } from './SolidityServiceSourceMultiFile.js';
 
 /**
@@ -73,7 +74,7 @@ export interface SolidityServiceSourceSpec {
 /**
  * Check if a given object implements the SolidityServiceSourceSpec interface.
  */
-export function instanceOfSolidityServiceSourceSpec(value: object): boolean {
+export function instanceOfSolidityServiceSourceSpec(value: object): value is SolidityServiceSourceSpec {
     return true;
 }
 
@@ -97,10 +98,15 @@ export function SolidityServiceSourceSpecFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function SolidityServiceSourceSpecToJSON(value?: SolidityServiceSourceSpec | null): any {
+  export function SolidityServiceSourceSpecToJSON(json: any): SolidityServiceSourceSpec {
+      return SolidityServiceSourceSpecToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceSourceSpecToJSONTyped(value?: SolidityServiceSourceSpec | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

@@ -1108,22 +1108,27 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "cacheTtlSecs" : {
+      "title" : "how long the cache will be stored before it is evicted",
       "type" : "integer",
       "format" : "int32"
     },
     "cacheRefreshTtlSecs" : {
+      "title" : "how long the cache will be refreshed in the background",
       "type" : "integer",
       "format" : "int32"
     },
     "forceRefresh" : {
+      "title" : "force refresh the cache now",
       "type" : "boolean"
     },
     "noCache" : {
+      "title" : "do not use cache",
       "type" : "boolean"
     }
   }
 };
     defs["common.Channel"] = {
+  "title" : "TODO, finish this",
   "type" : "object",
   "properties" : {
     "id" : {
@@ -1479,6 +1484,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "alias" : {
+      "title" : "bool enabled = 2;",
       "type" : "string"
     },
     "id" : {
@@ -1696,6 +1702,7 @@ ul.nav-tabs {
       "format" : "int64"
     },
     "slug" : {
+      "title" : "{ownerName}/{slug} is the unique name of the project",
       "type" : "string"
     },
     "ownerId" : {
@@ -1864,12 +1871,15 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "query" : {
+      "title" : "the promql query or the metric name",
       "type" : "string"
     },
     "alias" : {
+      "title" : "the alias of the query",
       "type" : "string"
     },
     "id" : {
+      "title" : "the id of the query",
       "type" : "string"
     },
     "labelSelector" : {
@@ -1888,6 +1898,7 @@ ul.nav-tabs {
       }
     },
     "disabled" : {
+      "title" : "hide the result, usually used for formula, default is false",
       "type" : "boolean"
     }
   },
@@ -1964,6 +1975,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "resources" : {
+      "title" : "only support 2 resources",
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.RetentionQuery.Resource"
@@ -2265,6 +2277,7 @@ ul.nav-tabs {
   }
 };
     defs["common.Selector"] = {
+  "title" : "TODO maybe MetricQuery should use this as well",
   "type" : "object",
   "properties" : {
     "key" : {
@@ -2282,6 +2295,7 @@ ul.nav-tabs {
   }
 };
     defs["common.SelectorExpr"] = {
+  "title" : "TODO migrate segmentationQuery to use this",
   "type" : "object",
   "properties" : {
     "selector" : {
@@ -2307,7 +2321,9 @@ ul.nav-tabs {
   }
 };
     defs["common.Selector.OperatorType"] = {
+  "title" : "TODO add Date Value and List Value and its data type",
   "type" : "string",
+  "description" : "- GT: Numeric operators\n - CONTAINS: String operators",
   "default" : "EQ",
   "enum" : [ "EQ", "NEQ", "EXISTS", "NOT_EXISTS", "GT", "GTE", "LT", "LTE", "BETWEEN", "NOT_BETWEEN", "CONTAINS", "NOT_CONTAINS", "IN_COHORTS", "NOT_IN_COHORTS" ]
 };
@@ -2315,6 +2331,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "values" : {
+      "title" : "JoinOperator operator = 2; // this field should implement in the future",
       "type" : "array",
       "items" : {
         "type" : "string"
@@ -2396,6 +2413,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "step" : {
+      "title" : "interval in seconds between each data point",
       "type" : "integer",
       "format" : "int32"
     },
@@ -2517,7 +2535,8 @@ ul.nav-tabs {
     "username" : {
       "type" : "string"
     }
-  }
+  },
+  "description" : "The same to user but with sensitive data removed."
 };
     defs["evm.AccessListItem"] = {
   "type" : "object",
@@ -2602,6 +2621,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "status" : {
+      "title" : "0x0: failed, 0x1: succeed",
       "type" : "string"
     },
     "error" : {
@@ -4712,6 +4732,7 @@ ul.nav-tabs {
   }
 };
 
+
     var errs = {};
   </script>
 
@@ -5254,6 +5275,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -5325,11 +5348,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -5787,11 +5812,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -6380,11 +6407,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -6960,11 +6989,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -7389,6 +7420,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -7460,11 +7493,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -7889,6 +7924,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -7960,11 +7997,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -8383,6 +8422,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -8454,11 +8495,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -9401,11 +9444,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -9832,6 +9877,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -9903,11 +9950,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -10326,6 +10375,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -10397,11 +10448,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -10751,6 +10804,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -10822,11 +10877,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -11470,11 +11527,13 @@ Only effective when disableOptimizer&#x3D;true
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -11939,11 +11998,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -12408,11 +12469,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -12929,11 +12992,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -13717,11 +13782,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -14072,6 +14139,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -14143,11 +14212,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -14497,6 +14568,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -14568,11 +14641,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -14977,11 +15052,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -15343,11 +15420,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -15887,11 +15966,13 @@ at the closest timestamp.
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -16380,11 +16461,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -16892,11 +16975,13 @@ project slug
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -17296,11 +17381,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -17805,11 +17892,13 @@ project slug
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -18320,11 +18409,13 @@ filter the dashboard by project id
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -18761,11 +18852,13 @@ project slug
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -19192,11 +19285,13 @@ pub fn main() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -19546,6 +19641,8 @@ $(document).ready(function() {
   }
   if (schema.$ref != null) {
     schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
   } else {
     schemaWrapper.definitions = Object.assign({}, defs);
     $RefParser.dereference(schemaWrapper).catch(function(err) {
@@ -19617,11 +19714,13 @@ $(document).ready(function() {
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -20116,11 +20215,13 @@ project slug
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -20628,11 +20729,13 @@ filter the dashboard by project id
                                       }
                                       if (schema.$ref != null) {
                                         schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
                                       } else if (schema.items != null && schema.items.$ref != null) {
                                         schema.items = defsParser.$refs.get(schema.items.$ref);
                                       } else {
@@ -21770,7 +21873,7 @@ var JSONSchemaView = (function () {
     // Determine if a schema is an array
     this.isArray = !this.isAny && this.schema && this.schema.type === 'array';
 
-    this.isObject = this.schema && (this.schema.type === 'object' || this.schema.properties || this.schema.anyOf || this.schema.oneof || this.schema.allOf);
+    this.isObject = this.schema && (this.schema.type === 'object' || this.schema.properties || this.schema.anyOf || this.schema.oneOf || this.schema.allOf);
 
     // Determine if a schema is a primitive
     this.isPrimitive = !this.isAny && !this.isArray && !this.isObject;

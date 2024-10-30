@@ -120,7 +120,7 @@ export interface CommonEventLogEntry {
 /**
  * Check if a given object implements the CommonEventLogEntry interface.
  */
-export function instanceOfCommonEventLogEntry(value: object): boolean {
+export function instanceOfCommonEventLogEntry(value: object): value is CommonEventLogEntry {
     return true;
 }
 
@@ -153,10 +153,15 @@ export function CommonEventLogEntryFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function CommonEventLogEntryToJSON(value?: CommonEventLogEntry | null): any {
+  export function CommonEventLogEntryToJSON(json: any): CommonEventLogEntry {
+      return CommonEventLogEntryToJSONTyped(json, false);
+  }
+
+  export function CommonEventLogEntryToJSONTyped(value?: CommonEventLogEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'message': value['message'],

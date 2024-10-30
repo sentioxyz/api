@@ -42,7 +42,7 @@ export interface SolidityServiceStateOverride {
 /**
  * Check if a given object implements the SolidityServiceStateOverride interface.
  */
-export function instanceOfSolidityServiceStateOverride(value: object): boolean {
+export function instanceOfSolidityServiceStateOverride(value: object): value is SolidityServiceStateOverride {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function SolidityServiceStateOverrideFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function SolidityServiceStateOverrideToJSON(value?: SolidityServiceStateOverride | null): any {
+  export function SolidityServiceStateOverrideToJSON(json: any): SolidityServiceStateOverride {
+      return SolidityServiceStateOverrideToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceStateOverrideToJSONTyped(value?: SolidityServiceStateOverride | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'state': value['state'],

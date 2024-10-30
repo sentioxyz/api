@@ -18,6 +18,7 @@ import {
     SolidityServiceOptimizerDetailsYulDetailsFromJSON,
     SolidityServiceOptimizerDetailsYulDetailsFromJSONTyped,
     SolidityServiceOptimizerDetailsYulDetailsToJSON,
+    SolidityServiceOptimizerDetailsYulDetailsToJSONTyped,
 } from './SolidityServiceOptimizerDetailsYulDetails.js';
 
 /**
@@ -55,7 +56,7 @@ export interface SolidityServiceOptimizerDetails {
 /**
  * Check if a given object implements the SolidityServiceOptimizerDetails interface.
  */
-export function instanceOfSolidityServiceOptimizerDetails(value: object): boolean {
+export function instanceOfSolidityServiceOptimizerDetails(value: object): value is SolidityServiceOptimizerDetails {
     return true;
 }
 
@@ -76,10 +77,15 @@ export function SolidityServiceOptimizerDetailsFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function SolidityServiceOptimizerDetailsToJSON(value?: SolidityServiceOptimizerDetails | null): any {
+  export function SolidityServiceOptimizerDetailsToJSON(json: any): SolidityServiceOptimizerDetails {
+      return SolidityServiceOptimizerDetailsToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceOptimizerDetailsToJSONTyped(value?: SolidityServiceOptimizerDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'peephole': value['peephole'],

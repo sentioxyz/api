@@ -13,30 +13,34 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonPriceSegmentationQuery } from './CommonPriceSegmentationQuery.js';
-import {
-    CommonPriceSegmentationQueryFromJSON,
-    CommonPriceSegmentationQueryFromJSONTyped,
-    CommonPriceSegmentationQueryToJSON,
-} from './CommonPriceSegmentationQuery.js';
-import type { CommonQuery } from './CommonQuery.js';
-import {
-    CommonQueryFromJSON,
-    CommonQueryFromJSONTyped,
-    CommonQueryToJSON,
-} from './CommonQuery.js';
-import type { CommonSegmentationQuery } from './CommonSegmentationQuery.js';
-import {
-    CommonSegmentationQueryFromJSON,
-    CommonSegmentationQueryFromJSONTyped,
-    CommonSegmentationQueryToJSON,
-} from './CommonSegmentationQuery.js';
 import type { InsightsServiceDataSource } from './InsightsServiceDataSource.js';
 import {
     InsightsServiceDataSourceFromJSON,
     InsightsServiceDataSourceFromJSONTyped,
     InsightsServiceDataSourceToJSON,
+    InsightsServiceDataSourceToJSONTyped,
 } from './InsightsServiceDataSource.js';
+import type { CommonQuery } from './CommonQuery.js';
+import {
+    CommonQueryFromJSON,
+    CommonQueryFromJSONTyped,
+    CommonQueryToJSON,
+    CommonQueryToJSONTyped,
+} from './CommonQuery.js';
+import type { CommonPriceSegmentationQuery } from './CommonPriceSegmentationQuery.js';
+import {
+    CommonPriceSegmentationQueryFromJSON,
+    CommonPriceSegmentationQueryFromJSONTyped,
+    CommonPriceSegmentationQueryToJSON,
+    CommonPriceSegmentationQueryToJSONTyped,
+} from './CommonPriceSegmentationQuery.js';
+import type { CommonSegmentationQuery } from './CommonSegmentationQuery.js';
+import {
+    CommonSegmentationQueryFromJSON,
+    CommonSegmentationQueryFromJSONTyped,
+    CommonSegmentationQueryToJSON,
+    CommonSegmentationQueryToJSONTyped,
+} from './CommonSegmentationQuery.js';
 
 /**
  * 
@@ -76,10 +80,12 @@ export interface InsightsServiceQueryRequestQuery {
     sourceName?: string;
 }
 
+
+
 /**
  * Check if a given object implements the InsightsServiceQueryRequestQuery interface.
  */
-export function instanceOfInsightsServiceQueryRequestQuery(value: object): boolean {
+export function instanceOfInsightsServiceQueryRequestQuery(value: object): value is InsightsServiceQueryRequestQuery {
     return true;
 }
 
@@ -101,10 +107,15 @@ export function InsightsServiceQueryRequestQueryFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function InsightsServiceQueryRequestQueryToJSON(value?: InsightsServiceQueryRequestQuery | null): any {
+  export function InsightsServiceQueryRequestQueryToJSON(json: any): InsightsServiceQueryRequestQuery {
+      return InsightsServiceQueryRequestQueryToJSONTyped(json, false);
+  }
+
+  export function InsightsServiceQueryRequestQueryToJSONTyped(value?: InsightsServiceQueryRequestQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'metricsQuery': CommonQueryToJSON(value['metricsQuery']),

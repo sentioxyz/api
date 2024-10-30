@@ -18,6 +18,7 @@ import {
     PriceServiceCoinIDFromJSON,
     PriceServiceCoinIDFromJSONTyped,
     PriceServiceCoinIDToJSON,
+    PriceServiceCoinIDToJSONTyped,
 } from './PriceServiceCoinID.js';
 
 /**
@@ -49,7 +50,7 @@ export interface PriceServiceCheckLatestPriceResponseCoinPrice {
 /**
  * Check if a given object implements the PriceServiceCheckLatestPriceResponseCoinPrice interface.
  */
-export function instanceOfPriceServiceCheckLatestPriceResponseCoinPrice(value: object): boolean {
+export function instanceOfPriceServiceCheckLatestPriceResponseCoinPrice(value: object): value is PriceServiceCheckLatestPriceResponseCoinPrice {
     return true;
 }
 
@@ -69,10 +70,15 @@ export function PriceServiceCheckLatestPriceResponseCoinPriceFromJSONTyped(json:
     };
 }
 
-export function PriceServiceCheckLatestPriceResponseCoinPriceToJSON(value?: PriceServiceCheckLatestPriceResponseCoinPrice | null): any {
+  export function PriceServiceCheckLatestPriceResponseCoinPriceToJSON(json: any): PriceServiceCheckLatestPriceResponseCoinPrice {
+      return PriceServiceCheckLatestPriceResponseCoinPriceToJSONTyped(json, false);
+  }
+
+  export function PriceServiceCheckLatestPriceResponseCoinPriceToJSONTyped(value?: PriceServiceCheckLatestPriceResponseCoinPrice | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'coinId': PriceServiceCoinIDToJSON(value['coinId']),

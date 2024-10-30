@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonComputeStats } from './CommonComputeStats.js';
-import {
-    CommonComputeStatsFromJSON,
-    CommonComputeStatsFromJSONTyped,
-    CommonComputeStatsToJSON,
-} from './CommonComputeStats.js';
 import type { MetricsServiceMetricsQueryResponseMatrix } from './MetricsServiceMetricsQueryResponseMatrix.js';
 import {
     MetricsServiceMetricsQueryResponseMatrixFromJSON,
     MetricsServiceMetricsQueryResponseMatrixFromJSONTyped,
     MetricsServiceMetricsQueryResponseMatrixToJSON,
+    MetricsServiceMetricsQueryResponseMatrixToJSONTyped,
 } from './MetricsServiceMetricsQueryResponseMatrix.js';
+import type { CommonComputeStats } from './CommonComputeStats.js';
+import {
+    CommonComputeStatsFromJSON,
+    CommonComputeStatsFromJSONTyped,
+    CommonComputeStatsToJSON,
+    CommonComputeStatsToJSONTyped,
+} from './CommonComputeStats.js';
 
 /**
  * 
@@ -67,7 +69,7 @@ export interface MetricsServiceMetricsQueryResponseResult {
 /**
  * Check if a given object implements the MetricsServiceMetricsQueryResponseResult interface.
  */
-export function instanceOfMetricsServiceMetricsQueryResponseResult(value: object): boolean {
+export function instanceOfMetricsServiceMetricsQueryResponseResult(value: object): value is MetricsServiceMetricsQueryResponseResult {
     return true;
 }
 
@@ -89,10 +91,15 @@ export function MetricsServiceMetricsQueryResponseResultFromJSONTyped(json: any,
     };
 }
 
-export function MetricsServiceMetricsQueryResponseResultToJSON(value?: MetricsServiceMetricsQueryResponseResult | null): any {
+  export function MetricsServiceMetricsQueryResponseResultToJSON(json: any): MetricsServiceMetricsQueryResponseResult {
+      return MetricsServiceMetricsQueryResponseResultToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricsQueryResponseResultToJSONTyped(value?: MetricsServiceMetricsQueryResponseResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'matrix': MetricsServiceMetricsQueryResponseMatrixToJSON(value['matrix']),

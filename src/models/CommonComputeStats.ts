@@ -60,7 +60,7 @@ export interface CommonComputeStats {
 /**
  * Check if a given object implements the CommonComputeStats interface.
  */
-export function instanceOfCommonComputeStats(value: object): boolean {
+export function instanceOfCommonComputeStats(value: object): value is CommonComputeStats {
     return true;
 }
 
@@ -83,10 +83,15 @@ export function CommonComputeStatsFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function CommonComputeStatsToJSON(value?: CommonComputeStats | null): any {
+  export function CommonComputeStatsToJSON(json: any): CommonComputeStats {
+      return CommonComputeStatsToJSONTyped(json, false);
+  }
+
+  export function CommonComputeStatsToJSONTyped(value?: CommonComputeStats | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'computedAt': value['computedAt'] == null ? undefined : ((value['computedAt']).toISOString()),

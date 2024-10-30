@@ -18,6 +18,7 @@ import {
     WebServiceChartConfigLineConfigStyleFromJSON,
     WebServiceChartConfigLineConfigStyleFromJSONTyped,
     WebServiceChartConfigLineConfigStyleToJSON,
+    WebServiceChartConfigLineConfigStyleToJSONTyped,
 } from './WebServiceChartConfigLineConfigStyle.js';
 
 /**
@@ -34,10 +35,12 @@ export interface WebServiceChartConfigLineConfig {
     style?: WebServiceChartConfigLineConfigStyle;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigLineConfig interface.
  */
-export function instanceOfWebServiceChartConfigLineConfig(value: object): boolean {
+export function instanceOfWebServiceChartConfigLineConfig(value: object): value is WebServiceChartConfigLineConfig {
     return true;
 }
 
@@ -55,10 +58,15 @@ export function WebServiceChartConfigLineConfigFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function WebServiceChartConfigLineConfigToJSON(value?: WebServiceChartConfigLineConfig | null): any {
+  export function WebServiceChartConfigLineConfigToJSON(json: any): WebServiceChartConfigLineConfig {
+      return WebServiceChartConfigLineConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigLineConfigToJSONTyped(value?: WebServiceChartConfigLineConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'style': WebServiceChartConfigLineConfigStyleToJSON(value['style']),

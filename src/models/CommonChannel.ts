@@ -18,6 +18,7 @@ import {
     CommonChannelTypeFromJSON,
     CommonChannelTypeFromJSONTyped,
     CommonChannelTypeToJSON,
+    CommonChannelTypeToJSONTyped,
 } from './CommonChannelType.js';
 
 /**
@@ -106,10 +107,12 @@ export interface CommonChannel {
     pagerdutyConfig?: object;
 }
 
+
+
 /**
  * Check if a given object implements the CommonChannel interface.
  */
-export function instanceOfCommonChannel(value: object): boolean {
+export function instanceOfCommonChannel(value: object): value is CommonChannel {
     return true;
 }
 
@@ -139,10 +142,15 @@ export function CommonChannelFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function CommonChannelToJSON(value?: CommonChannel | null): any {
+  export function CommonChannelToJSON(json: any): CommonChannel {
+      return CommonChannelToJSONTyped(json, false);
+  }
+
+  export function CommonChannelToJSONTyped(value?: CommonChannel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

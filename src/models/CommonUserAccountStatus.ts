@@ -27,7 +27,14 @@ export type CommonUserAccountStatus = typeof CommonUserAccountStatus[keyof typeo
 
 
 export function instanceOfCommonUserAccountStatus(value: any): boolean {
-    return Object.values(CommonUserAccountStatus).includes(value);
+    for (const key in CommonUserAccountStatus) {
+        if (Object.prototype.hasOwnProperty.call(CommonUserAccountStatus, key)) {
+            if (CommonUserAccountStatus[key as keyof typeof CommonUserAccountStatus] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonUserAccountStatusFromJSON(json: any): CommonUserAccountStatus {
@@ -40,5 +47,9 @@ export function CommonUserAccountStatusFromJSONTyped(json: any, ignoreDiscrimina
 
 export function CommonUserAccountStatusToJSON(value?: CommonUserAccountStatus | null): any {
     return value as any;
+}
+
+export function CommonUserAccountStatusToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonUserAccountStatus {
+    return value as CommonUserAccountStatus;
 }
 

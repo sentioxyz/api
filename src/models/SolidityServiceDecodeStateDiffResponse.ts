@@ -30,7 +30,7 @@ export interface SolidityServiceDecodeStateDiffResponse {
 /**
  * Check if a given object implements the SolidityServiceDecodeStateDiffResponse interface.
  */
-export function instanceOfSolidityServiceDecodeStateDiffResponse(value: object): boolean {
+export function instanceOfSolidityServiceDecodeStateDiffResponse(value: object): value is SolidityServiceDecodeStateDiffResponse {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function SolidityServiceDecodeStateDiffResponseFromJSONTyped(json: any, i
     };
 }
 
-export function SolidityServiceDecodeStateDiffResponseToJSON(value?: SolidityServiceDecodeStateDiffResponse | null): any {
+  export function SolidityServiceDecodeStateDiffResponseToJSON(json: any): SolidityServiceDecodeStateDiffResponse {
+      return SolidityServiceDecodeStateDiffResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceDecodeStateDiffResponseToJSONTyped(value?: SolidityServiceDecodeStateDiffResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'result': value['result'],

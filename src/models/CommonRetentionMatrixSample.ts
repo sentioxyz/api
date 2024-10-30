@@ -18,6 +18,7 @@ import {
     CommonSegmentParameterFromJSON,
     CommonSegmentParameterFromJSONTyped,
     CommonSegmentParameterToJSON,
+    CommonSegmentParameterToJSONTyped,
 } from './CommonSegmentParameter.js';
 
 /**
@@ -67,7 +68,7 @@ export interface CommonRetentionMatrixSample {
 /**
  * Check if a given object implements the CommonRetentionMatrixSample interface.
  */
-export function instanceOfCommonRetentionMatrixSample(value: object): boolean {
+export function instanceOfCommonRetentionMatrixSample(value: object): value is CommonRetentionMatrixSample {
     return true;
 }
 
@@ -90,10 +91,15 @@ export function CommonRetentionMatrixSampleFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function CommonRetentionMatrixSampleToJSON(value?: CommonRetentionMatrixSample | null): any {
+  export function CommonRetentionMatrixSampleToJSON(json: any): CommonRetentionMatrixSample {
+      return CommonRetentionMatrixSampleToJSONTyped(json, false);
+  }
+
+  export function CommonRetentionMatrixSampleToJSONTyped(value?: CommonRetentionMatrixSample | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'time': value['time'] == null ? undefined : ((value['time']).toISOString()),

@@ -42,7 +42,7 @@ export interface AnalyticServiceLogQueryRequestFilter {
 /**
  * Check if a given object implements the AnalyticServiceLogQueryRequestFilter interface.
  */
-export function instanceOfAnalyticServiceLogQueryRequestFilter(value: object): boolean {
+export function instanceOfAnalyticServiceLogQueryRequestFilter(value: object): value is AnalyticServiceLogQueryRequestFilter {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function AnalyticServiceLogQueryRequestFilterFromJSONTyped(json: any, ign
     };
 }
 
-export function AnalyticServiceLogQueryRequestFilterToJSON(value?: AnalyticServiceLogQueryRequestFilter | null): any {
+  export function AnalyticServiceLogQueryRequestFilterToJSON(json: any): AnalyticServiceLogQueryRequestFilter {
+      return AnalyticServiceLogQueryRequestFilterToJSONTyped(json, false);
+  }
+
+  export function AnalyticServiceLogQueryRequestFilterToJSONTyped(value?: AnalyticServiceLogQueryRequestFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'field': value['field'],

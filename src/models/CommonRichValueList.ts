@@ -18,6 +18,7 @@ import {
     CommonRichValueFromJSON,
     CommonRichValueFromJSONTyped,
     CommonRichValueToJSON,
+    CommonRichValueToJSONTyped,
 } from './CommonRichValue.js';
 
 /**
@@ -37,7 +38,7 @@ export interface CommonRichValueList {
 /**
  * Check if a given object implements the CommonRichValueList interface.
  */
-export function instanceOfCommonRichValueList(value: object): boolean {
+export function instanceOfCommonRichValueList(value: object): value is CommonRichValueList {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function CommonRichValueListFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function CommonRichValueListToJSON(value?: CommonRichValueList | null): any {
+  export function CommonRichValueListToJSON(json: any): CommonRichValueList {
+      return CommonRichValueListToJSONTyped(json, false);
+  }
+
+  export function CommonRichValueListToJSONTyped(value?: CommonRichValueList | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'values': value['values'] == null ? undefined : ((value['values'] as Array<any>).map(CommonRichValueToJSON)),

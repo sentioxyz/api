@@ -41,7 +41,14 @@ export type CommonSegmentationQueryAggregationAggregatePropertiesAggregationType
 
 
 export function instanceOfCommonSegmentationQueryAggregationAggregatePropertiesAggregationType(value: any): boolean {
-    return Object.values(CommonSegmentationQueryAggregationAggregatePropertiesAggregationType).includes(value);
+    for (const key in CommonSegmentationQueryAggregationAggregatePropertiesAggregationType) {
+        if (Object.prototype.hasOwnProperty.call(CommonSegmentationQueryAggregationAggregatePropertiesAggregationType, key)) {
+            if (CommonSegmentationQueryAggregationAggregatePropertiesAggregationType[key as keyof typeof CommonSegmentationQueryAggregationAggregatePropertiesAggregationType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeFromJSON(json: any): CommonSegmentationQueryAggregationAggregatePropertiesAggregationType {
@@ -54,5 +61,9 @@ export function CommonSegmentationQueryAggregationAggregatePropertiesAggregation
 
 export function CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeToJSON(value?: CommonSegmentationQueryAggregationAggregatePropertiesAggregationType | null): any {
     return value as any;
+}
+
+export function CommonSegmentationQueryAggregationAggregatePropertiesAggregationTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonSegmentationQueryAggregationAggregatePropertiesAggregationType {
+    return value as CommonSegmentationQueryAggregationAggregatePropertiesAggregationType;
 }
 

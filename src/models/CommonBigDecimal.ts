@@ -18,6 +18,7 @@ import {
     CommonBigIntegerFromJSON,
     CommonBigIntegerFromJSONTyped,
     CommonBigIntegerToJSON,
+    CommonBigIntegerToJSONTyped,
 } from './CommonBigInteger.js';
 
 /**
@@ -43,7 +44,7 @@ export interface CommonBigDecimal {
 /**
  * Check if a given object implements the CommonBigDecimal interface.
  */
-export function instanceOfCommonBigDecimal(value: object): boolean {
+export function instanceOfCommonBigDecimal(value: object): value is CommonBigDecimal {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function CommonBigDecimalFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function CommonBigDecimalToJSON(value?: CommonBigDecimal | null): any {
+  export function CommonBigDecimalToJSON(json: any): CommonBigDecimal {
+      return CommonBigDecimalToJSONTyped(json, false);
+  }
+
+  export function CommonBigDecimalToJSONTyped(value?: CommonBigDecimal | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'value': CommonBigIntegerToJSON(value['value']),

@@ -18,12 +18,14 @@ import {
     CommonCohortsQueryFromJSON,
     CommonCohortsQueryFromJSONTyped,
     CommonCohortsQueryToJSON,
+    CommonCohortsQueryToJSONTyped,
 } from './CommonCohortsQuery.js';
 import type { CommonSegmentationQueryResourceType } from './CommonSegmentationQueryResourceType.js';
 import {
     CommonSegmentationQueryResourceTypeFromJSON,
     CommonSegmentationQueryResourceTypeFromJSONTyped,
     CommonSegmentationQueryResourceTypeToJSON,
+    CommonSegmentationQueryResourceTypeToJSONTyped,
 } from './CommonSegmentationQueryResourceType.js';
 
 /**
@@ -58,10 +60,12 @@ export interface CommonSegmentationQueryResource {
     cohortsQuery?: CommonCohortsQuery;
 }
 
+
+
 /**
  * Check if a given object implements the CommonSegmentationQueryResource interface.
  */
-export function instanceOfCommonSegmentationQueryResource(value: object): boolean {
+export function instanceOfCommonSegmentationQueryResource(value: object): value is CommonSegmentationQueryResource {
     return true;
 }
 
@@ -82,10 +86,15 @@ export function CommonSegmentationQueryResourceFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function CommonSegmentationQueryResourceToJSON(value?: CommonSegmentationQueryResource | null): any {
+  export function CommonSegmentationQueryResourceToJSON(json: any): CommonSegmentationQueryResource {
+      return CommonSegmentationQueryResourceToJSONTyped(json, false);
+  }
+
+  export function CommonSegmentationQueryResourceToJSONTyped(value?: CommonSegmentationQueryResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'name': value['name'],

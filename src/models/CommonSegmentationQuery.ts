@@ -13,30 +13,34 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { CommonSegmentationQuerySelectorExpr } from './CommonSegmentationQuerySelectorExpr.js';
+import {
+    CommonSegmentationQuerySelectorExprFromJSON,
+    CommonSegmentationQuerySelectorExprFromJSONTyped,
+    CommonSegmentationQuerySelectorExprToJSON,
+    CommonSegmentationQuerySelectorExprToJSONTyped,
+} from './CommonSegmentationQuerySelectorExpr.js';
+import type { CommonSegmentationQueryResource } from './CommonSegmentationQueryResource.js';
+import {
+    CommonSegmentationQueryResourceFromJSON,
+    CommonSegmentationQueryResourceFromJSONTyped,
+    CommonSegmentationQueryResourceToJSON,
+    CommonSegmentationQueryResourceToJSONTyped,
+} from './CommonSegmentationQueryResource.js';
 import type { CommonFunction } from './CommonFunction.js';
 import {
     CommonFunctionFromJSON,
     CommonFunctionFromJSONTyped,
     CommonFunctionToJSON,
+    CommonFunctionToJSONTyped,
 } from './CommonFunction.js';
 import type { CommonSegmentationQueryAggregation } from './CommonSegmentationQueryAggregation.js';
 import {
     CommonSegmentationQueryAggregationFromJSON,
     CommonSegmentationQueryAggregationFromJSONTyped,
     CommonSegmentationQueryAggregationToJSON,
+    CommonSegmentationQueryAggregationToJSONTyped,
 } from './CommonSegmentationQueryAggregation.js';
-import type { CommonSegmentationQueryResource } from './CommonSegmentationQueryResource.js';
-import {
-    CommonSegmentationQueryResourceFromJSON,
-    CommonSegmentationQueryResourceFromJSONTyped,
-    CommonSegmentationQueryResourceToJSON,
-} from './CommonSegmentationQueryResource.js';
-import type { CommonSegmentationQuerySelectorExpr } from './CommonSegmentationQuerySelectorExpr.js';
-import {
-    CommonSegmentationQuerySelectorExprFromJSON,
-    CommonSegmentationQuerySelectorExprFromJSONTyped,
-    CommonSegmentationQuerySelectorExprToJSON,
-} from './CommonSegmentationQuerySelectorExpr.js';
 
 /**
  * 
@@ -103,7 +107,7 @@ export interface CommonSegmentationQuery {
 /**
  * Check if a given object implements the CommonSegmentationQuery interface.
  */
-export function instanceOfCommonSegmentationQuery(value: object): boolean {
+export function instanceOfCommonSegmentationQuery(value: object): value is CommonSegmentationQuery {
     return true;
 }
 
@@ -129,10 +133,15 @@ export function CommonSegmentationQueryFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function CommonSegmentationQueryToJSON(value?: CommonSegmentationQuery | null): any {
+  export function CommonSegmentationQueryToJSON(json: any): CommonSegmentationQuery {
+      return CommonSegmentationQueryToJSONTyped(json, false);
+  }
+
+  export function CommonSegmentationQueryToJSONTyped(value?: CommonSegmentationQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'resource': CommonSegmentationQueryResourceToJSON(value['resource']),

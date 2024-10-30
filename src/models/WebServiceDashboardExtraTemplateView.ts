@@ -30,7 +30,7 @@ export interface WebServiceDashboardExtraTemplateView {
 /**
  * Check if a given object implements the WebServiceDashboardExtraTemplateView interface.
  */
-export function instanceOfWebServiceDashboardExtraTemplateView(value: object): boolean {
+export function instanceOfWebServiceDashboardExtraTemplateView(value: object): value is WebServiceDashboardExtraTemplateView {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function WebServiceDashboardExtraTemplateViewFromJSONTyped(json: any, ign
     };
 }
 
-export function WebServiceDashboardExtraTemplateViewToJSON(value?: WebServiceDashboardExtraTemplateView | null): any {
+  export function WebServiceDashboardExtraTemplateViewToJSON(json: any): WebServiceDashboardExtraTemplateView {
+      return WebServiceDashboardExtraTemplateViewToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardExtraTemplateViewToJSONTyped(value?: WebServiceDashboardExtraTemplateView | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'values': value['values'],

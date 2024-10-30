@@ -18,19 +18,22 @@ import {
     WebServiceChartConfigCalculationFromJSON,
     WebServiceChartConfigCalculationFromJSONTyped,
     WebServiceChartConfigCalculationToJSON,
+    WebServiceChartConfigCalculationToJSONTyped,
 } from './WebServiceChartConfigCalculation.js';
-import type { WebServiceChartConfigDirection } from './WebServiceChartConfigDirection.js';
-import {
-    WebServiceChartConfigDirectionFromJSON,
-    WebServiceChartConfigDirectionFromJSONTyped,
-    WebServiceChartConfigDirectionToJSON,
-} from './WebServiceChartConfigDirection.js';
 import type { WebServiceChartConfigSort } from './WebServiceChartConfigSort.js';
 import {
     WebServiceChartConfigSortFromJSON,
     WebServiceChartConfigSortFromJSONTyped,
     WebServiceChartConfigSortToJSON,
+    WebServiceChartConfigSortToJSONTyped,
 } from './WebServiceChartConfigSort.js';
+import type { WebServiceChartConfigDirection } from './WebServiceChartConfigDirection.js';
+import {
+    WebServiceChartConfigDirectionFromJSON,
+    WebServiceChartConfigDirectionFromJSONTyped,
+    WebServiceChartConfigDirectionToJSON,
+    WebServiceChartConfigDirectionToJSONTyped,
+} from './WebServiceChartConfigDirection.js';
 
 /**
  * 
@@ -58,10 +61,12 @@ export interface WebServiceChartConfigBarGaugeConfig {
     sort?: WebServiceChartConfigSort;
 }
 
+
+
 /**
  * Check if a given object implements the WebServiceChartConfigBarGaugeConfig interface.
  */
-export function instanceOfWebServiceChartConfigBarGaugeConfig(value: object): boolean {
+export function instanceOfWebServiceChartConfigBarGaugeConfig(value: object): value is WebServiceChartConfigBarGaugeConfig {
     return true;
 }
 
@@ -81,10 +86,15 @@ export function WebServiceChartConfigBarGaugeConfigFromJSONTyped(json: any, igno
     };
 }
 
-export function WebServiceChartConfigBarGaugeConfigToJSON(value?: WebServiceChartConfigBarGaugeConfig | null): any {
+  export function WebServiceChartConfigBarGaugeConfigToJSON(json: any): WebServiceChartConfigBarGaugeConfig {
+      return WebServiceChartConfigBarGaugeConfigToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigBarGaugeConfigToJSONTyped(value?: WebServiceChartConfigBarGaugeConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'direction': WebServiceChartConfigDirectionToJSON(value['direction']),

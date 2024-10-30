@@ -18,12 +18,14 @@ import {
     CommonMatrixMetricFromJSON,
     CommonMatrixMetricFromJSONTyped,
     CommonMatrixMetricToJSON,
+    CommonMatrixMetricToJSONTyped,
 } from './CommonMatrixMetric.js';
 import type { CommonMatrixValue } from './CommonMatrixValue.js';
 import {
     CommonMatrixValueFromJSON,
     CommonMatrixValueFromJSONTyped,
     CommonMatrixValueToJSON,
+    CommonMatrixValueToJSONTyped,
 } from './CommonMatrixValue.js';
 
 /**
@@ -49,7 +51,7 @@ export interface CommonMatrixSample {
 /**
  * Check if a given object implements the CommonMatrixSample interface.
  */
-export function instanceOfCommonMatrixSample(value: object): boolean {
+export function instanceOfCommonMatrixSample(value: object): value is CommonMatrixSample {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function CommonMatrixSampleFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function CommonMatrixSampleToJSON(value?: CommonMatrixSample | null): any {
+  export function CommonMatrixSampleToJSON(json: any): CommonMatrixSample {
+      return CommonMatrixSampleToJSONTyped(json, false);
+  }
+
+  export function CommonMatrixSampleToJSONTyped(value?: CommonMatrixSample | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'metric': CommonMatrixMetricToJSON(value['metric']),

@@ -25,7 +25,14 @@ export type WebServiceChartConfigDirection = typeof WebServiceChartConfigDirecti
 
 
 export function instanceOfWebServiceChartConfigDirection(value: any): boolean {
-    return Object.values(WebServiceChartConfigDirection).includes(value);
+    for (const key in WebServiceChartConfigDirection) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceChartConfigDirection, key)) {
+            if (WebServiceChartConfigDirection[key as keyof typeof WebServiceChartConfigDirection] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceChartConfigDirectionFromJSON(json: any): WebServiceChartConfigDirection {
@@ -38,5 +45,9 @@ export function WebServiceChartConfigDirectionFromJSONTyped(json: any, ignoreDis
 
 export function WebServiceChartConfigDirectionToJSON(value?: WebServiceChartConfigDirection | null): any {
     return value as any;
+}
+
+export function WebServiceChartConfigDirectionToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceChartConfigDirection {
+    return value as WebServiceChartConfigDirection;
 }
 

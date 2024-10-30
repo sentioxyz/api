@@ -25,7 +25,14 @@ export type WebServiceChartConfigPieConfigPieType = typeof WebServiceChartConfig
 
 
 export function instanceOfWebServiceChartConfigPieConfigPieType(value: any): boolean {
-    return Object.values(WebServiceChartConfigPieConfigPieType).includes(value);
+    for (const key in WebServiceChartConfigPieConfigPieType) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceChartConfigPieConfigPieType, key)) {
+            if (WebServiceChartConfigPieConfigPieType[key as keyof typeof WebServiceChartConfigPieConfigPieType] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceChartConfigPieConfigPieTypeFromJSON(json: any): WebServiceChartConfigPieConfigPieType {
@@ -38,5 +45,9 @@ export function WebServiceChartConfigPieConfigPieTypeFromJSONTyped(json: any, ig
 
 export function WebServiceChartConfigPieConfigPieTypeToJSON(value?: WebServiceChartConfigPieConfigPieType | null): any {
     return value as any;
+}
+
+export function WebServiceChartConfigPieConfigPieTypeToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceChartConfigPieConfigPieType {
+    return value as WebServiceChartConfigPieConfigPieType;
 }
 

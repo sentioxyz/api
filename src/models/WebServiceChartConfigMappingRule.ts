@@ -18,6 +18,7 @@ import {
     WebServiceChartConfigColorThemeFromJSON,
     WebServiceChartConfigColorThemeFromJSONTyped,
     WebServiceChartConfigColorThemeToJSON,
+    WebServiceChartConfigColorThemeToJSONTyped,
 } from './WebServiceChartConfigColorTheme.js';
 
 /**
@@ -55,7 +56,7 @@ export interface WebServiceChartConfigMappingRule {
 /**
  * Check if a given object implements the WebServiceChartConfigMappingRule interface.
  */
-export function instanceOfWebServiceChartConfigMappingRule(value: object): boolean {
+export function instanceOfWebServiceChartConfigMappingRule(value: object): value is WebServiceChartConfigMappingRule {
     return true;
 }
 
@@ -76,10 +77,15 @@ export function WebServiceChartConfigMappingRuleFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceChartConfigMappingRuleToJSON(value?: WebServiceChartConfigMappingRule | null): any {
+  export function WebServiceChartConfigMappingRuleToJSON(json: any): WebServiceChartConfigMappingRule {
+      return WebServiceChartConfigMappingRuleToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigMappingRuleToJSONTyped(value?: WebServiceChartConfigMappingRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'comparison': value['comparison'],

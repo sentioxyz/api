@@ -18,6 +18,7 @@ import {
     CommonTimeRangeFromJSON,
     CommonTimeRangeFromJSONTyped,
     CommonTimeRangeToJSON,
+    CommonTimeRangeToJSONTyped,
 } from './CommonTimeRange.js';
 
 /**
@@ -43,7 +44,7 @@ export interface WebServiceEventLogsConfigTimeRangeOverride {
 /**
  * Check if a given object implements the WebServiceEventLogsConfigTimeRangeOverride interface.
  */
-export function instanceOfWebServiceEventLogsConfigTimeRangeOverride(value: object): boolean {
+export function instanceOfWebServiceEventLogsConfigTimeRangeOverride(value: object): value is WebServiceEventLogsConfigTimeRangeOverride {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function WebServiceEventLogsConfigTimeRangeOverrideFromJSONTyped(json: an
     };
 }
 
-export function WebServiceEventLogsConfigTimeRangeOverrideToJSON(value?: WebServiceEventLogsConfigTimeRangeOverride | null): any {
+  export function WebServiceEventLogsConfigTimeRangeOverrideToJSON(json: any): WebServiceEventLogsConfigTimeRangeOverride {
+      return WebServiceEventLogsConfigTimeRangeOverrideToJSONTyped(json, false);
+  }
+
+  export function WebServiceEventLogsConfigTimeRangeOverrideToJSONTyped(value?: WebServiceEventLogsConfigTimeRangeOverride | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'enabled': value['enabled'],

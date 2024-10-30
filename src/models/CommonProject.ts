@@ -18,42 +18,49 @@ import {
     CommonChannelFromJSON,
     CommonChannelFromJSONTyped,
     CommonChannelToJSON,
+    CommonChannelToJSONTyped,
 } from './CommonChannel.js';
+import type { CommonProjectType } from './CommonProjectType.js';
+import {
+    CommonProjectTypeFromJSON,
+    CommonProjectTypeFromJSONTyped,
+    CommonProjectTypeToJSON,
+    CommonProjectTypeToJSONTyped,
+} from './CommonProjectType.js';
+import type { CommonProjectSuperset } from './CommonProjectSuperset.js';
+import {
+    CommonProjectSupersetFromJSON,
+    CommonProjectSupersetFromJSONTyped,
+    CommonProjectSupersetToJSON,
+    CommonProjectSupersetToJSONTyped,
+} from './CommonProjectSuperset.js';
 import type { CommonOwner } from './CommonOwner.js';
 import {
     CommonOwnerFromJSON,
     CommonOwnerFromJSONTyped,
     CommonOwnerToJSON,
+    CommonOwnerToJSONTyped,
 } from './CommonOwner.js';
 import type { CommonProjectProjectMember } from './CommonProjectProjectMember.js';
 import {
     CommonProjectProjectMemberFromJSON,
     CommonProjectProjectMemberFromJSONTyped,
     CommonProjectProjectMemberToJSON,
+    CommonProjectProjectMemberToJSONTyped,
 } from './CommonProjectProjectMember.js';
-import type { CommonProjectSuperset } from './CommonProjectSuperset.js';
-import {
-    CommonProjectSupersetFromJSON,
-    CommonProjectSupersetFromJSONTyped,
-    CommonProjectSupersetToJSON,
-} from './CommonProjectSuperset.js';
-import type { CommonProjectType } from './CommonProjectType.js';
-import {
-    CommonProjectTypeFromJSON,
-    CommonProjectTypeFromJSONTyped,
-    CommonProjectTypeToJSON,
-} from './CommonProjectType.js';
 import type { CommonProjectView } from './CommonProjectView.js';
 import {
     CommonProjectViewFromJSON,
     CommonProjectViewFromJSONTyped,
     CommonProjectViewToJSON,
+    CommonProjectViewToJSONTyped,
 } from './CommonProjectView.js';
 import type { CommonProjectVisibility } from './CommonProjectVisibility.js';
 import {
     CommonProjectVisibilityFromJSON,
     CommonProjectVisibilityFromJSONTyped,
     CommonProjectVisibilityToJSON,
+    CommonProjectVisibilityToJSONTyped,
 } from './CommonProjectVisibility.js';
 
 /**
@@ -178,10 +185,12 @@ export interface CommonProject {
     enableMaterializedView?: boolean;
 }
 
+
+
 /**
  * Check if a given object implements the CommonProject interface.
  */
-export function instanceOfCommonProject(value: object): boolean {
+export function instanceOfCommonProject(value: object): value is CommonProject {
     return true;
 }
 
@@ -217,10 +226,15 @@ export function CommonProjectFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function CommonProjectToJSON(value?: CommonProject | null): any {
+  export function CommonProjectToJSON(json: any): CommonProject {
+      return CommonProjectToJSONTyped(json, false);
+  }
+
+  export function CommonProjectToJSONTyped(value?: CommonProject | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

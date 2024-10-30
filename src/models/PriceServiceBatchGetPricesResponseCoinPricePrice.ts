@@ -18,6 +18,7 @@ import {
     PriceServiceGetPriceResponseFromJSON,
     PriceServiceGetPriceResponseFromJSONTyped,
     PriceServiceGetPriceResponseToJSON,
+    PriceServiceGetPriceResponseToJSONTyped,
 } from './PriceServiceGetPriceResponse.js';
 
 /**
@@ -37,7 +38,7 @@ export interface PriceServiceBatchGetPricesResponseCoinPricePrice {
 /**
  * Check if a given object implements the PriceServiceBatchGetPricesResponseCoinPricePrice interface.
  */
-export function instanceOfPriceServiceBatchGetPricesResponseCoinPricePrice(value: object): boolean {
+export function instanceOfPriceServiceBatchGetPricesResponseCoinPricePrice(value: object): value is PriceServiceBatchGetPricesResponseCoinPricePrice {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function PriceServiceBatchGetPricesResponseCoinPricePriceFromJSONTyped(js
     };
 }
 
-export function PriceServiceBatchGetPricesResponseCoinPricePriceToJSON(value?: PriceServiceBatchGetPricesResponseCoinPricePrice | null): any {
+  export function PriceServiceBatchGetPricesResponseCoinPricePriceToJSON(json: any): PriceServiceBatchGetPricesResponseCoinPricePrice {
+      return PriceServiceBatchGetPricesResponseCoinPricePriceToJSONTyped(json, false);
+  }
+
+  export function PriceServiceBatchGetPricesResponseCoinPricePriceToJSONTyped(value?: PriceServiceBatchGetPricesResponseCoinPricePrice | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'results': value['results'] == null ? undefined : ((value['results'] as Array<any>).map(PriceServiceGetPriceResponseToJSON)),

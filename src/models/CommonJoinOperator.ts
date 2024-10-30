@@ -26,7 +26,14 @@ export type CommonJoinOperator = typeof CommonJoinOperator[keyof typeof CommonJo
 
 
 export function instanceOfCommonJoinOperator(value: any): boolean {
-    return Object.values(CommonJoinOperator).includes(value);
+    for (const key in CommonJoinOperator) {
+        if (Object.prototype.hasOwnProperty.call(CommonJoinOperator, key)) {
+            if (CommonJoinOperator[key as keyof typeof CommonJoinOperator] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonJoinOperatorFromJSON(json: any): CommonJoinOperator {
@@ -39,5 +46,9 @@ export function CommonJoinOperatorFromJSONTyped(json: any, ignoreDiscriminator: 
 
 export function CommonJoinOperatorToJSON(value?: CommonJoinOperator | null): any {
     return value as any;
+}
+
+export function CommonJoinOperatorToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonJoinOperator {
+    return value as CommonJoinOperator;
 }
 

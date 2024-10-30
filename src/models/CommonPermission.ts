@@ -26,7 +26,14 @@ export type CommonPermission = typeof CommonPermission[keyof typeof CommonPermis
 
 
 export function instanceOfCommonPermission(value: any): boolean {
-    return Object.values(CommonPermission).includes(value);
+    for (const key in CommonPermission) {
+        if (Object.prototype.hasOwnProperty.call(CommonPermission, key)) {
+            if (CommonPermission[key as keyof typeof CommonPermission] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonPermissionFromJSON(json: any): CommonPermission {
@@ -39,5 +46,9 @@ export function CommonPermissionFromJSONTyped(json: any, ignoreDiscriminator: bo
 
 export function CommonPermissionToJSON(value?: CommonPermission | null): any {
     return value as any;
+}
+
+export function CommonPermissionToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonPermission {
+    return value as CommonPermission;
 }
 

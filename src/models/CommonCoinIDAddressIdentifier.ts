@@ -36,7 +36,7 @@ export interface CommonCoinIDAddressIdentifier {
 /**
  * Check if a given object implements the CommonCoinIDAddressIdentifier interface.
  */
-export function instanceOfCommonCoinIDAddressIdentifier(value: object): boolean {
+export function instanceOfCommonCoinIDAddressIdentifier(value: object): value is CommonCoinIDAddressIdentifier {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function CommonCoinIDAddressIdentifierFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function CommonCoinIDAddressIdentifierToJSON(value?: CommonCoinIDAddressIdentifier | null): any {
+  export function CommonCoinIDAddressIdentifierToJSON(json: any): CommonCoinIDAddressIdentifier {
+      return CommonCoinIDAddressIdentifierToJSONTyped(json, false);
+  }
+
+  export function CommonCoinIDAddressIdentifierToJSONTyped(value?: CommonCoinIDAddressIdentifier | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'address': value['address'],

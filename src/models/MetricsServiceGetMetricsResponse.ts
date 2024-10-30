@@ -18,6 +18,7 @@ import {
     MetricsServiceMetricInfoFromJSON,
     MetricsServiceMetricInfoFromJSONTyped,
     MetricsServiceMetricInfoToJSON,
+    MetricsServiceMetricInfoToJSONTyped,
 } from './MetricsServiceMetricInfo.js';
 
 /**
@@ -37,7 +38,7 @@ export interface MetricsServiceGetMetricsResponse {
 /**
  * Check if a given object implements the MetricsServiceGetMetricsResponse interface.
  */
-export function instanceOfMetricsServiceGetMetricsResponse(value: object): boolean {
+export function instanceOfMetricsServiceGetMetricsResponse(value: object): value is MetricsServiceGetMetricsResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function MetricsServiceGetMetricsResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function MetricsServiceGetMetricsResponseToJSON(value?: MetricsServiceGetMetricsResponse | null): any {
+  export function MetricsServiceGetMetricsResponseToJSON(json: any): MetricsServiceGetMetricsResponse {
+      return MetricsServiceGetMetricsResponseToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceGetMetricsResponseToJSONTyped(value?: MetricsServiceGetMetricsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'metrics': value['metrics'] == null ? undefined : ((value['metrics'] as Array<any>).map(MetricsServiceMetricInfoToJSON)),

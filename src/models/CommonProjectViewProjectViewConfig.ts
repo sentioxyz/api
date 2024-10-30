@@ -18,6 +18,7 @@ import {
     CommonEventLogConfigFromJSON,
     CommonEventLogConfigFromJSONTyped,
     CommonEventLogConfigToJSON,
+    CommonEventLogConfigToJSONTyped,
 } from './CommonEventLogConfig.js';
 
 /**
@@ -37,7 +38,7 @@ export interface CommonProjectViewProjectViewConfig {
 /**
  * Check if a given object implements the CommonProjectViewProjectViewConfig interface.
  */
-export function instanceOfCommonProjectViewProjectViewConfig(value: object): boolean {
+export function instanceOfCommonProjectViewProjectViewConfig(value: object): value is CommonProjectViewProjectViewConfig {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function CommonProjectViewProjectViewConfigFromJSONTyped(json: any, ignor
     };
 }
 
-export function CommonProjectViewProjectViewConfigToJSON(value?: CommonProjectViewProjectViewConfig | null): any {
+  export function CommonProjectViewProjectViewConfigToJSON(json: any): CommonProjectViewProjectViewConfig {
+      return CommonProjectViewProjectViewConfigToJSONTyped(json, false);
+  }
+
+  export function CommonProjectViewProjectViewConfigToJSONTyped(value?: CommonProjectViewProjectViewConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'eventLog': CommonEventLogConfigToJSON(value['eventLog']),

@@ -48,7 +48,7 @@ export interface WebServiceDashboardSharing {
 /**
  * Check if a given object implements the WebServiceDashboardSharing interface.
  */
-export function instanceOfWebServiceDashboardSharing(value: object): boolean {
+export function instanceOfWebServiceDashboardSharing(value: object): value is WebServiceDashboardSharing {
     return true;
 }
 
@@ -69,10 +69,15 @@ export function WebServiceDashboardSharingFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function WebServiceDashboardSharingToJSON(value?: WebServiceDashboardSharing | null): any {
+  export function WebServiceDashboardSharingToJSON(json: any): WebServiceDashboardSharing {
+      return WebServiceDashboardSharingToJSONTyped(json, false);
+  }
+
+  export function WebServiceDashboardSharingToJSONTyped(value?: WebServiceDashboardSharing | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],

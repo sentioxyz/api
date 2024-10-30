@@ -18,6 +18,7 @@ import {
     SolidityServiceBlockOverridesFromJSON,
     SolidityServiceBlockOverridesFromJSONTyped,
     SolidityServiceBlockOverridesToJSON,
+    SolidityServiceBlockOverridesToJSONTyped,
 } from './SolidityServiceBlockOverrides.js';
 
 /**
@@ -43,7 +44,7 @@ export interface SolidityServiceGetTraceCallInternalRequestBundle {
 /**
  * Check if a given object implements the SolidityServiceGetTraceCallInternalRequestBundle interface.
  */
-export function instanceOfSolidityServiceGetTraceCallInternalRequestBundle(value: object): boolean {
+export function instanceOfSolidityServiceGetTraceCallInternalRequestBundle(value: object): value is SolidityServiceGetTraceCallInternalRequestBundle {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function SolidityServiceGetTraceCallInternalRequestBundleFromJSONTyped(js
     };
 }
 
-export function SolidityServiceGetTraceCallInternalRequestBundleToJSON(value?: SolidityServiceGetTraceCallInternalRequestBundle | null): any {
+  export function SolidityServiceGetTraceCallInternalRequestBundleToJSON(json: any): SolidityServiceGetTraceCallInternalRequestBundle {
+      return SolidityServiceGetTraceCallInternalRequestBundleToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceGetTraceCallInternalRequestBundleToJSONTyped(value?: SolidityServiceGetTraceCallInternalRequestBundle | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'transactions': value['transactions'],

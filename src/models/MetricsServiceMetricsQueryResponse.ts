@@ -18,6 +18,7 @@ import {
     MetricsServiceMetricsQueryResponseResultFromJSON,
     MetricsServiceMetricsQueryResponseResultFromJSONTyped,
     MetricsServiceMetricsQueryResponseResultToJSON,
+    MetricsServiceMetricsQueryResponseResultToJSONTyped,
 } from './MetricsServiceMetricsQueryResponseResult.js';
 
 /**
@@ -37,7 +38,7 @@ export interface MetricsServiceMetricsQueryResponse {
 /**
  * Check if a given object implements the MetricsServiceMetricsQueryResponse interface.
  */
-export function instanceOfMetricsServiceMetricsQueryResponse(value: object): boolean {
+export function instanceOfMetricsServiceMetricsQueryResponse(value: object): value is MetricsServiceMetricsQueryResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function MetricsServiceMetricsQueryResponseFromJSONTyped(json: any, ignor
     };
 }
 
-export function MetricsServiceMetricsQueryResponseToJSON(value?: MetricsServiceMetricsQueryResponse | null): any {
+  export function MetricsServiceMetricsQueryResponseToJSON(json: any): MetricsServiceMetricsQueryResponse {
+      return MetricsServiceMetricsQueryResponseToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricsQueryResponseToJSONTyped(value?: MetricsServiceMetricsQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'results': value['results'] == null ? undefined : ((value['results'] as Array<any>).map(MetricsServiceMetricsQueryResponseResultToJSON)),

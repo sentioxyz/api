@@ -13,18 +13,20 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonCohortsFilter } from './CommonCohortsFilter.js';
-import {
-    CommonCohortsFilterFromJSON,
-    CommonCohortsFilterFromJSONTyped,
-    CommonCohortsFilterToJSON,
-} from './CommonCohortsFilter.js';
 import type { CommonJoinOperator } from './CommonJoinOperator.js';
 import {
     CommonJoinOperatorFromJSON,
     CommonJoinOperatorFromJSONTyped,
     CommonJoinOperatorToJSON,
+    CommonJoinOperatorToJSONTyped,
 } from './CommonJoinOperator.js';
+import type { CommonCohortsFilter } from './CommonCohortsFilter.js';
+import {
+    CommonCohortsFilterFromJSON,
+    CommonCohortsFilterFromJSONTyped,
+    CommonCohortsFilterToJSON,
+    CommonCohortsFilterToJSONTyped,
+} from './CommonCohortsFilter.js';
 
 /**
  * 
@@ -46,10 +48,12 @@ export interface CommonCohortsGroup {
     filters?: Array<CommonCohortsFilter>;
 }
 
+
+
 /**
  * Check if a given object implements the CommonCohortsGroup interface.
  */
-export function instanceOfCommonCohortsGroup(value: object): boolean {
+export function instanceOfCommonCohortsGroup(value: object): value is CommonCohortsGroup {
     return true;
 }
 
@@ -68,10 +72,15 @@ export function CommonCohortsGroupFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function CommonCohortsGroupToJSON(value?: CommonCohortsGroup | null): any {
+  export function CommonCohortsGroupToJSON(json: any): CommonCohortsGroup {
+      return CommonCohortsGroupToJSONTyped(json, false);
+  }
+
+  export function CommonCohortsGroupToJSONTyped(value?: CommonCohortsGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'joinOperator': CommonJoinOperatorToJSON(value['joinOperator']),

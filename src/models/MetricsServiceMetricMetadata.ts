@@ -48,7 +48,7 @@ export interface MetricsServiceMetricMetadata {
 /**
  * Check if a given object implements the MetricsServiceMetricMetadata interface.
  */
-export function instanceOfMetricsServiceMetricMetadata(value: object): boolean {
+export function instanceOfMetricsServiceMetricMetadata(value: object): value is MetricsServiceMetricMetadata {
     return true;
 }
 
@@ -69,10 +69,15 @@ export function MetricsServiceMetricMetadataFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function MetricsServiceMetricMetadataToJSON(value?: MetricsServiceMetricMetadata | null): any {
+  export function MetricsServiceMetricMetadataToJSON(json: any): MetricsServiceMetricMetadata {
+      return MetricsServiceMetricMetadataToJSONTyped(json, false);
+  }
+
+  export function MetricsServiceMetricMetadataToJSONTyped(value?: MetricsServiceMetricMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'type': value['type'],

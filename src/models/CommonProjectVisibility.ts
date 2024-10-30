@@ -25,7 +25,14 @@ export type CommonProjectVisibility = typeof CommonProjectVisibility[keyof typeo
 
 
 export function instanceOfCommonProjectVisibility(value: any): boolean {
-    return Object.values(CommonProjectVisibility).includes(value);
+    for (const key in CommonProjectVisibility) {
+        if (Object.prototype.hasOwnProperty.call(CommonProjectVisibility, key)) {
+            if (CommonProjectVisibility[key as keyof typeof CommonProjectVisibility] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonProjectVisibilityFromJSON(json: any): CommonProjectVisibility {
@@ -38,5 +45,9 @@ export function CommonProjectVisibilityFromJSONTyped(json: any, ignoreDiscrimina
 
 export function CommonProjectVisibilityToJSON(value?: CommonProjectVisibility | null): any {
     return value as any;
+}
+
+export function CommonProjectVisibilityToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonProjectVisibility {
+    return value as CommonProjectVisibility;
 }
 

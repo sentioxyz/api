@@ -18,6 +18,7 @@ import {
     CommonDurationFromJSON,
     CommonDurationFromJSONTyped,
     CommonDurationToJSON,
+    CommonDurationToJSONTyped,
 } from './CommonDuration.js';
 
 /**
@@ -61,7 +62,7 @@ export interface CommonArgument {
 /**
  * Check if a given object implements the CommonArgument interface.
  */
-export function instanceOfCommonArgument(value: object): boolean {
+export function instanceOfCommonArgument(value: object): value is CommonArgument {
     return true;
 }
 
@@ -83,10 +84,15 @@ export function CommonArgumentFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function CommonArgumentToJSON(value?: CommonArgument | null): any {
+  export function CommonArgumentToJSON(json: any): CommonArgument {
+      return CommonArgumentToJSONTyped(json, false);
+  }
+
+  export function CommonArgumentToJSONTyped(value?: CommonArgument | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'stringValue': value['stringValue'],

@@ -42,9 +42,9 @@ export interface WebServiceImportDashboardRequest {
 /**
  * Check if a given object implements the WebServiceImportDashboardRequest interface.
  */
-export function instanceOfWebServiceImportDashboardRequest(value: object): boolean {
-    if (!('dashboardId' in value)) return false;
-    if (!('dashboardJson' in value)) return false;
+export function instanceOfWebServiceImportDashboardRequest(value: object): value is WebServiceImportDashboardRequest {
+    if (!('dashboardId' in value) || value['dashboardId'] === undefined) return false;
+    if (!('dashboardJson' in value) || value['dashboardJson'] === undefined) return false;
     return true;
 }
 
@@ -64,10 +64,15 @@ export function WebServiceImportDashboardRequestFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function WebServiceImportDashboardRequestToJSON(value?: WebServiceImportDashboardRequest | null): any {
+  export function WebServiceImportDashboardRequestToJSON(json: any): WebServiceImportDashboardRequest {
+      return WebServiceImportDashboardRequestToJSONTyped(json, false);
+  }
+
+  export function WebServiceImportDashboardRequestToJSONTyped(value?: WebServiceImportDashboardRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'dashboardId': value['dashboardId'],

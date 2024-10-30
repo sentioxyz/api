@@ -25,7 +25,14 @@ export type WebServiceChartConfigLineConfigStyle = typeof WebServiceChartConfigL
 
 
 export function instanceOfWebServiceChartConfigLineConfigStyle(value: any): boolean {
-    return Object.values(WebServiceChartConfigLineConfigStyle).includes(value);
+    for (const key in WebServiceChartConfigLineConfigStyle) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceChartConfigLineConfigStyle, key)) {
+            if (WebServiceChartConfigLineConfigStyle[key as keyof typeof WebServiceChartConfigLineConfigStyle] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceChartConfigLineConfigStyleFromJSON(json: any): WebServiceChartConfigLineConfigStyle {
@@ -38,5 +45,9 @@ export function WebServiceChartConfigLineConfigStyleFromJSONTyped(json: any, ign
 
 export function WebServiceChartConfigLineConfigStyleToJSON(value?: WebServiceChartConfigLineConfigStyle | null): any {
     return value as any;
+}
+
+export function WebServiceChartConfigLineConfigStyleToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceChartConfigLineConfigStyle {
+    return value as WebServiceChartConfigLineConfigStyle;
 }
 

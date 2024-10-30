@@ -29,7 +29,14 @@ export type GoogleProtobufNullValue = typeof GoogleProtobufNullValue[keyof typeo
 
 
 export function instanceOfGoogleProtobufNullValue(value: any): boolean {
-    return Object.values(GoogleProtobufNullValue).includes(value);
+    for (const key in GoogleProtobufNullValue) {
+        if (Object.prototype.hasOwnProperty.call(GoogleProtobufNullValue, key)) {
+            if (GoogleProtobufNullValue[key as keyof typeof GoogleProtobufNullValue] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function GoogleProtobufNullValueFromJSON(json: any): GoogleProtobufNullValue {
@@ -42,5 +49,9 @@ export function GoogleProtobufNullValueFromJSONTyped(json: any, ignoreDiscrimina
 
 export function GoogleProtobufNullValueToJSON(value?: GoogleProtobufNullValue | null): any {
     return value as any;
+}
+
+export function GoogleProtobufNullValueToJSONTyped(value: any, ignoreDiscriminator: boolean): GoogleProtobufNullValue {
+    return value as GoogleProtobufNullValue;
 }
 

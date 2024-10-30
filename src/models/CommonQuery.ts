@@ -18,12 +18,14 @@ import {
     CommonAggregateFromJSON,
     CommonAggregateFromJSONTyped,
     CommonAggregateToJSON,
+    CommonAggregateToJSONTyped,
 } from './CommonAggregate.js';
 import type { CommonFunction } from './CommonFunction.js';
 import {
     CommonFunctionFromJSON,
     CommonFunctionFromJSONTyped,
     CommonFunctionToJSON,
+    CommonFunctionToJSONTyped,
 } from './CommonFunction.js';
 
 /**
@@ -79,7 +81,7 @@ export interface CommonQuery {
 /**
  * Check if a given object implements the CommonQuery interface.
  */
-export function instanceOfCommonQuery(value: object): boolean {
+export function instanceOfCommonQuery(value: object): value is CommonQuery {
     return true;
 }
 
@@ -103,10 +105,15 @@ export function CommonQueryFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function CommonQueryToJSON(value?: CommonQuery | null): any {
+  export function CommonQueryToJSON(json: any): CommonQuery {
+      return CommonQueryToJSONTyped(json, false);
+  }
+
+  export function CommonQueryToJSONTyped(value?: CommonQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'query': value['query'],

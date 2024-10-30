@@ -36,7 +36,7 @@ export interface SolidityServiceFailure {
 /**
  * Check if a given object implements the SolidityServiceFailure interface.
  */
-export function instanceOfSolidityServiceFailure(value: object): boolean {
+export function instanceOfSolidityServiceFailure(value: object): value is SolidityServiceFailure {
     return true;
 }
 
@@ -55,10 +55,15 @@ export function SolidityServiceFailureFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function SolidityServiceFailureToJSON(value?: SolidityServiceFailure | null): any {
+  export function SolidityServiceFailureToJSON(json: any): SolidityServiceFailure {
+      return SolidityServiceFailureToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceFailureToJSONTyped(value?: SolidityServiceFailure | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'error': value['error'],

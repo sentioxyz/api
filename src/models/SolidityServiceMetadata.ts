@@ -42,7 +42,7 @@ export interface SolidityServiceMetadata {
 /**
  * Check if a given object implements the SolidityServiceMetadata interface.
  */
-export function instanceOfSolidityServiceMetadata(value: object): boolean {
+export function instanceOfSolidityServiceMetadata(value: object): value is SolidityServiceMetadata {
     return true;
 }
 
@@ -62,10 +62,15 @@ export function SolidityServiceMetadataFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SolidityServiceMetadataToJSON(value?: SolidityServiceMetadata | null): any {
+  export function SolidityServiceMetadataToJSON(json: any): SolidityServiceMetadata {
+      return SolidityServiceMetadataToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceMetadataToJSONTyped(value?: SolidityServiceMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'useLiteralContent': value['useLiteralContent'],

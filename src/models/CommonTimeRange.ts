@@ -18,12 +18,14 @@ import {
     CommonDurationFromJSON,
     CommonDurationFromJSONTyped,
     CommonDurationToJSON,
+    CommonDurationToJSONTyped,
 } from './CommonDuration.js';
 import type { CommonTimeRangeTimeLike } from './CommonTimeRangeTimeLike.js';
 import {
     CommonTimeRangeTimeLikeFromJSON,
     CommonTimeRangeTimeLikeFromJSONTyped,
     CommonTimeRangeTimeLikeToJSON,
+    CommonTimeRangeTimeLikeToJSONTyped,
 } from './CommonTimeRangeTimeLike.js';
 
 /**
@@ -67,7 +69,7 @@ export interface CommonTimeRange {
 /**
  * Check if a given object implements the CommonTimeRange interface.
  */
-export function instanceOfCommonTimeRange(value: object): boolean {
+export function instanceOfCommonTimeRange(value: object): value is CommonTimeRange {
     return true;
 }
 
@@ -89,10 +91,15 @@ export function CommonTimeRangeFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function CommonTimeRangeToJSON(value?: CommonTimeRange | null): any {
+  export function CommonTimeRangeToJSON(json: any): CommonTimeRange {
+      return CommonTimeRangeToJSONTyped(json, false);
+  }
+
+  export function CommonTimeRangeToJSONTyped(value?: CommonTimeRange | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'start': CommonTimeRangeTimeLikeToJSON(value['start']),

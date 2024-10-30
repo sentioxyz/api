@@ -18,6 +18,7 @@ import {
     TxindexEvmRawTransactionFromJSON,
     TxindexEvmRawTransactionFromJSONTyped,
     TxindexEvmRawTransactionToJSON,
+    TxindexEvmRawTransactionToJSONTyped,
 } from './TxindexEvmRawTransaction.js';
 
 /**
@@ -43,7 +44,7 @@ export interface TxindexEvmSearchTransactionsResponse {
 /**
  * Check if a given object implements the TxindexEvmSearchTransactionsResponse interface.
  */
-export function instanceOfTxindexEvmSearchTransactionsResponse(value: object): boolean {
+export function instanceOfTxindexEvmSearchTransactionsResponse(value: object): value is TxindexEvmSearchTransactionsResponse {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function TxindexEvmSearchTransactionsResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function TxindexEvmSearchTransactionsResponseToJSON(value?: TxindexEvmSearchTransactionsResponse | null): any {
+  export function TxindexEvmSearchTransactionsResponseToJSON(json: any): TxindexEvmSearchTransactionsResponse {
+      return TxindexEvmSearchTransactionsResponseToJSONTyped(json, false);
+  }
+
+  export function TxindexEvmSearchTransactionsResponseToJSONTyped(value?: TxindexEvmSearchTransactionsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'transactions': value['transactions'] == null ? undefined : ((value['transactions'] as Array<any>).map(TxindexEvmRawTransactionToJSON)),

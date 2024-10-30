@@ -24,7 +24,14 @@ export type CommonRichValueNullValue = typeof CommonRichValueNullValue[keyof typ
 
 
 export function instanceOfCommonRichValueNullValue(value: any): boolean {
-    return Object.values(CommonRichValueNullValue).includes(value);
+    for (const key in CommonRichValueNullValue) {
+        if (Object.prototype.hasOwnProperty.call(CommonRichValueNullValue, key)) {
+            if (CommonRichValueNullValue[key as keyof typeof CommonRichValueNullValue] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonRichValueNullValueFromJSON(json: any): CommonRichValueNullValue {
@@ -37,5 +44,9 @@ export function CommonRichValueNullValueFromJSONTyped(json: any, ignoreDiscrimin
 
 export function CommonRichValueNullValueToJSON(value?: CommonRichValueNullValue | null): any {
     return value as any;
+}
+
+export function CommonRichValueNullValueToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonRichValueNullValue {
+    return value as CommonRichValueNullValue;
 }
 

@@ -13,23 +13,26 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { CommonOrganization } from './CommonOrganization.js';
-import {
-    CommonOrganizationFromJSON,
-    CommonOrganizationFromJSONTyped,
-    CommonOrganizationToJSON,
-} from './CommonOrganization.js';
 import type { CommonTier } from './CommonTier.js';
 import {
     CommonTierFromJSON,
     CommonTierFromJSONTyped,
     CommonTierToJSON,
+    CommonTierToJSONTyped,
 } from './CommonTier.js';
+import type { CommonOrganization } from './CommonOrganization.js';
+import {
+    CommonOrganizationFromJSON,
+    CommonOrganizationFromJSONTyped,
+    CommonOrganizationToJSON,
+    CommonOrganizationToJSONTyped,
+} from './CommonOrganization.js';
 import type { CommonUser } from './CommonUser.js';
 import {
     CommonUserFromJSON,
     CommonUserFromJSONTyped,
     CommonUserToJSON,
+    CommonUserToJSONTyped,
 } from './CommonUser.js';
 
 /**
@@ -58,10 +61,12 @@ export interface CommonOwner {
     tier?: CommonTier;
 }
 
+
+
 /**
  * Check if a given object implements the CommonOwner interface.
  */
-export function instanceOfCommonOwner(value: object): boolean {
+export function instanceOfCommonOwner(value: object): value is CommonOwner {
     return true;
 }
 
@@ -81,10 +86,15 @@ export function CommonOwnerFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function CommonOwnerToJSON(value?: CommonOwner | null): any {
+  export function CommonOwnerToJSON(json: any): CommonOwner {
+      return CommonOwnerToJSONTyped(json, false);
+  }
+
+  export function CommonOwnerToJSONTyped(value?: CommonOwner | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'user': CommonUserToJSON(value['user']),

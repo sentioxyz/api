@@ -28,7 +28,14 @@ export type CommonAggregateAggregateOps = typeof CommonAggregateAggregateOps[key
 
 
 export function instanceOfCommonAggregateAggregateOps(value: any): boolean {
-    return Object.values(CommonAggregateAggregateOps).includes(value);
+    for (const key in CommonAggregateAggregateOps) {
+        if (Object.prototype.hasOwnProperty.call(CommonAggregateAggregateOps, key)) {
+            if (CommonAggregateAggregateOps[key as keyof typeof CommonAggregateAggregateOps] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function CommonAggregateAggregateOpsFromJSON(json: any): CommonAggregateAggregateOps {
@@ -41,5 +48,9 @@ export function CommonAggregateAggregateOpsFromJSONTyped(json: any, ignoreDiscri
 
 export function CommonAggregateAggregateOpsToJSON(value?: CommonAggregateAggregateOps | null): any {
     return value as any;
+}
+
+export function CommonAggregateAggregateOpsToJSONTyped(value: any, ignoreDiscriminator: boolean): CommonAggregateAggregateOps {
+    return value as CommonAggregateAggregateOps;
 }
 

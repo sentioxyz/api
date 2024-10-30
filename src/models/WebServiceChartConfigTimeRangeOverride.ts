@@ -18,12 +18,14 @@ import {
     CommonTimeRangeFromJSON,
     CommonTimeRangeFromJSONTyped,
     CommonTimeRangeToJSON,
+    CommonTimeRangeToJSONTyped,
 } from './CommonTimeRange.js';
 import type { WebServiceChartConfigCompareTime } from './WebServiceChartConfigCompareTime.js';
 import {
     WebServiceChartConfigCompareTimeFromJSON,
     WebServiceChartConfigCompareTimeFromJSONTyped,
     WebServiceChartConfigCompareTimeToJSON,
+    WebServiceChartConfigCompareTimeToJSONTyped,
 } from './WebServiceChartConfigCompareTime.js';
 
 /**
@@ -55,7 +57,7 @@ export interface WebServiceChartConfigTimeRangeOverride {
 /**
  * Check if a given object implements the WebServiceChartConfigTimeRangeOverride interface.
  */
-export function instanceOfWebServiceChartConfigTimeRangeOverride(value: object): boolean {
+export function instanceOfWebServiceChartConfigTimeRangeOverride(value: object): value is WebServiceChartConfigTimeRangeOverride {
     return true;
 }
 
@@ -75,10 +77,15 @@ export function WebServiceChartConfigTimeRangeOverrideFromJSONTyped(json: any, i
     };
 }
 
-export function WebServiceChartConfigTimeRangeOverrideToJSON(value?: WebServiceChartConfigTimeRangeOverride | null): any {
+  export function WebServiceChartConfigTimeRangeOverrideToJSON(json: any): WebServiceChartConfigTimeRangeOverride {
+      return WebServiceChartConfigTimeRangeOverrideToJSONTyped(json, false);
+  }
+
+  export function WebServiceChartConfigTimeRangeOverrideToJSONTyped(value?: WebServiceChartConfigTimeRangeOverride | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'enabled': value['enabled'],

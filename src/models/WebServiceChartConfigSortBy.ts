@@ -25,7 +25,14 @@ export type WebServiceChartConfigSortBy = typeof WebServiceChartConfigSortBy[key
 
 
 export function instanceOfWebServiceChartConfigSortBy(value: any): boolean {
-    return Object.values(WebServiceChartConfigSortBy).includes(value);
+    for (const key in WebServiceChartConfigSortBy) {
+        if (Object.prototype.hasOwnProperty.call(WebServiceChartConfigSortBy, key)) {
+            if (WebServiceChartConfigSortBy[key as keyof typeof WebServiceChartConfigSortBy] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 export function WebServiceChartConfigSortByFromJSON(json: any): WebServiceChartConfigSortBy {
@@ -38,5 +45,9 @@ export function WebServiceChartConfigSortByFromJSONTyped(json: any, ignoreDiscri
 
 export function WebServiceChartConfigSortByToJSON(value?: WebServiceChartConfigSortBy | null): any {
     return value as any;
+}
+
+export function WebServiceChartConfigSortByToJSONTyped(value: any, ignoreDiscriminator: boolean): WebServiceChartConfigSortBy {
+    return value as WebServiceChartConfigSortBy;
 }
 

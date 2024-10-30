@@ -18,6 +18,7 @@ import {
     SolidityServiceStorageSummaryResultFromJSON,
     SolidityServiceStorageSummaryResultFromJSONTyped,
     SolidityServiceStorageSummaryResultToJSON,
+    SolidityServiceStorageSummaryResultToJSONTyped,
 } from './SolidityServiceStorageSummaryResult.js';
 
 /**
@@ -37,7 +38,7 @@ export interface SolidityServiceGetStorageSummaryInternalResponse {
 /**
  * Check if a given object implements the SolidityServiceGetStorageSummaryInternalResponse interface.
  */
-export function instanceOfSolidityServiceGetStorageSummaryInternalResponse(value: object): boolean {
+export function instanceOfSolidityServiceGetStorageSummaryInternalResponse(value: object): value is SolidityServiceGetStorageSummaryInternalResponse {
     return true;
 }
 
@@ -55,10 +56,15 @@ export function SolidityServiceGetStorageSummaryInternalResponseFromJSONTyped(js
     };
 }
 
-export function SolidityServiceGetStorageSummaryInternalResponseToJSON(value?: SolidityServiceGetStorageSummaryInternalResponse | null): any {
+  export function SolidityServiceGetStorageSummaryInternalResponseToJSON(json: any): SolidityServiceGetStorageSummaryInternalResponse {
+      return SolidityServiceGetStorageSummaryInternalResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceGetStorageSummaryInternalResponseToJSONTyped(value?: SolidityServiceGetStorageSummaryInternalResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'results': value['results'] == null ? undefined : ((value['results'] as Array<any>).map(SolidityServiceStorageSummaryResultToJSON)),

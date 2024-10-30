@@ -30,7 +30,7 @@ export interface SolidityServiceGetTraceTransactionInternalResponse {
 /**
  * Check if a given object implements the SolidityServiceGetTraceTransactionInternalResponse interface.
  */
-export function instanceOfSolidityServiceGetTraceTransactionInternalResponse(value: object): boolean {
+export function instanceOfSolidityServiceGetTraceTransactionInternalResponse(value: object): value is SolidityServiceGetTraceTransactionInternalResponse {
     return true;
 }
 
@@ -48,10 +48,15 @@ export function SolidityServiceGetTraceTransactionInternalResponseFromJSONTyped(
     };
 }
 
-export function SolidityServiceGetTraceTransactionInternalResponseToJSON(value?: SolidityServiceGetTraceTransactionInternalResponse | null): any {
+  export function SolidityServiceGetTraceTransactionInternalResponseToJSON(json: any): SolidityServiceGetTraceTransactionInternalResponse {
+      return SolidityServiceGetTraceTransactionInternalResponseToJSONTyped(json, false);
+  }
+
+  export function SolidityServiceGetTraceTransactionInternalResponseToJSONTyped(value?: SolidityServiceGetTraceTransactionInternalResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'result': value['result'],

@@ -18,12 +18,14 @@ import {
     CommonPermissionFromJSON,
     CommonPermissionFromJSONTyped,
     CommonPermissionToJSON,
+    CommonPermissionToJSONTyped,
 } from './CommonPermission.js';
 import type { CommonProject } from './CommonProject.js';
 import {
     CommonProjectFromJSON,
     CommonProjectFromJSONTyped,
     CommonProjectToJSON,
+    CommonProjectToJSONTyped,
 } from './CommonProject.js';
 
 /**
@@ -49,7 +51,7 @@ export interface WebServiceGetProjectResponse {
 /**
  * Check if a given object implements the WebServiceGetProjectResponse interface.
  */
-export function instanceOfWebServiceGetProjectResponse(value: object): boolean {
+export function instanceOfWebServiceGetProjectResponse(value: object): value is WebServiceGetProjectResponse {
     return true;
 }
 
@@ -68,10 +70,15 @@ export function WebServiceGetProjectResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function WebServiceGetProjectResponseToJSON(value?: WebServiceGetProjectResponse | null): any {
+  export function WebServiceGetProjectResponseToJSON(json: any): WebServiceGetProjectResponse {
+      return WebServiceGetProjectResponseToJSONTyped(json, false);
+  }
+
+  export function WebServiceGetProjectResponseToJSONTyped(value?: WebServiceGetProjectResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'project': CommonProjectToJSON(value['project']),

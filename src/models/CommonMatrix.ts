@@ -18,6 +18,7 @@ import {
     CommonMatrixSampleFromJSON,
     CommonMatrixSampleFromJSONTyped,
     CommonMatrixSampleToJSON,
+    CommonMatrixSampleToJSONTyped,
 } from './CommonMatrixSample.js';
 
 /**
@@ -43,7 +44,7 @@ export interface CommonMatrix {
 /**
  * Check if a given object implements the CommonMatrix interface.
  */
-export function instanceOfCommonMatrix(value: object): boolean {
+export function instanceOfCommonMatrix(value: object): value is CommonMatrix {
     return true;
 }
 
@@ -62,10 +63,15 @@ export function CommonMatrixFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function CommonMatrixToJSON(value?: CommonMatrix | null): any {
+  export function CommonMatrixToJSON(json: any): CommonMatrix {
+      return CommonMatrixToJSONTyped(json, false);
+  }
+
+  export function CommonMatrixToJSONTyped(value?: CommonMatrix | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'samples': value['samples'] == null ? undefined : ((value['samples'] as Array<any>).map(CommonMatrixSampleToJSON)),
