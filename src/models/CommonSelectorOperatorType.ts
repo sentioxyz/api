@@ -14,8 +14,7 @@
 
 
 /**
- * - GT: Numeric operators
- *  - CONTAINS: String operators
+ * 
  * @export
  */
 export const CommonSelectorOperatorType = {

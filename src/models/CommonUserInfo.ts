@@ -14,7 +14,7 @@
 
 import { mapValues } from '../runtime.js';
 /**
- * The same to user but with sensitive data removed.
+ * 
  * @export
  * @interface CommonUserInfo
  */

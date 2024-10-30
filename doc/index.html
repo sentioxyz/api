@@ -935,6 +935,13 @@ ul.nav-tabs {
       "title" : "the limit of the query",
       "type" : "integer",
       "format" : "int32"
+    },
+    "parameters" : {
+      "$ref" : "#/components/schemas/common.RichStruct"
+    },
+    "name" : {
+      "title" : "the name of the query",
+      "type" : "string"
     }
   }
 };
@@ -1072,31 +1079,51 @@ ul.nav-tabs {
     }
   }
 };
+    defs["common.BigDecimal"] = {
+  "type" : "object",
+  "properties" : {
+    "value" : {
+      "$ref" : "#/components/schemas/common.BigInteger"
+    },
+    "exp" : {
+      "type" : "integer",
+      "format" : "int32"
+    }
+  }
+};
+    defs["common.BigInteger"] = {
+  "type" : "object",
+  "properties" : {
+    "negative" : {
+      "type" : "boolean"
+    },
+    "data" : {
+      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+      "type" : "string",
+      "format" : "byte"
+    }
+  }
+};
     defs["common.CachePolicy"] = {
   "type" : "object",
   "properties" : {
     "cacheTtlSecs" : {
-      "title" : "how long the cache will be stored before it is evicted",
       "type" : "integer",
       "format" : "int32"
     },
     "cacheRefreshTtlSecs" : {
-      "title" : "how long the cache will be refreshed in the background",
       "type" : "integer",
       "format" : "int32"
     },
     "forceRefresh" : {
-      "title" : "force refresh the cache now",
       "type" : "boolean"
     },
     "noCache" : {
-      "title" : "do not use cache",
       "type" : "boolean"
     }
   }
 };
     defs["common.Channel"] = {
-  "title" : "TODO, finish this",
   "type" : "object",
   "properties" : {
     "id" : {
@@ -1452,7 +1479,6 @@ ul.nav-tabs {
       "type" : "string"
     },
     "alias" : {
-      "title" : "bool enabled = 2;",
       "type" : "string"
     },
     "id" : {
@@ -1670,7 +1696,6 @@ ul.nav-tabs {
       "format" : "int64"
     },
     "slug" : {
-      "title" : "{ownerName}/{slug} is the unique name of the project",
       "type" : "string"
     },
     "ownerId" : {
@@ -1839,15 +1864,12 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "query" : {
-      "title" : "the promql query or the metric name",
       "type" : "string"
     },
     "alias" : {
-      "title" : "the alias of the query",
       "type" : "string"
     },
     "id" : {
-      "title" : "the id of the query",
       "type" : "string"
     },
     "labelSelector" : {
@@ -1866,7 +1888,6 @@ ul.nav-tabs {
       }
     },
     "disabled" : {
-      "title" : "hide the result, usually used for formula, default is false",
       "type" : "boolean"
     }
   },
@@ -1943,7 +1964,6 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "resources" : {
-      "title" : "only support 2 resources",
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.RetentionQuery.Resource"
@@ -2035,6 +2055,76 @@ ul.nav-tabs {
       "$ref" : "#/components/schemas/common.RetentionQuery.Filter"
     }
   }
+};
+    defs["common.RichStruct"] = {
+  "type" : "object",
+  "properties" : {
+    "fields" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "$ref" : "#/components/schemas/common.RichValue"
+      }
+    }
+  }
+};
+    defs["common.RichValue"] = {
+  "type" : "object",
+  "properties" : {
+    "nullValue" : {
+      "$ref" : "#/components/schemas/common.RichValue.NullValue"
+    },
+    "intValue" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "floatValue" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "bytesValue" : {
+      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+      "type" : "string",
+      "format" : "byte"
+    },
+    "boolValue" : {
+      "type" : "boolean"
+    },
+    "stringValue" : {
+      "type" : "string"
+    },
+    "timestampValue" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "bigintValue" : {
+      "$ref" : "#/components/schemas/common.BigInteger"
+    },
+    "bigdecimalValue" : {
+      "$ref" : "#/components/schemas/common.BigDecimal"
+    },
+    "listValue" : {
+      "$ref" : "#/components/schemas/common.RichValueList"
+    },
+    "structValue" : {
+      "$ref" : "#/components/schemas/common.RichStruct"
+    }
+  }
+};
+    defs["common.RichValueList"] = {
+  "type" : "object",
+  "properties" : {
+    "values" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.RichValue"
+      }
+    }
+  }
+};
+    defs["common.RichValue.NullValue"] = {
+  "type" : "string",
+  "default" : "NULL_VALUE",
+  "enum" : [ "NULL_VALUE" ]
 };
     defs["common.SegmentParameter"] = {
   "type" : "object",
@@ -2175,7 +2265,6 @@ ul.nav-tabs {
   }
 };
     defs["common.Selector"] = {
-  "title" : "TODO maybe MetricQuery should use this as well",
   "type" : "object",
   "properties" : {
     "key" : {
@@ -2193,7 +2282,6 @@ ul.nav-tabs {
   }
 };
     defs["common.SelectorExpr"] = {
-  "title" : "TODO migrate segmentationQuery to use this",
   "type" : "object",
   "properties" : {
     "selector" : {
@@ -2219,9 +2307,7 @@ ul.nav-tabs {
   }
 };
     defs["common.Selector.OperatorType"] = {
-  "title" : "TODO add Date Value and List Value and its data type",
   "type" : "string",
-  "description" : "- GT: Numeric operators\n - CONTAINS: String operators",
   "default" : "EQ",
   "enum" : [ "EQ", "NEQ", "EXISTS", "NOT_EXISTS", "GT", "GTE", "LT", "LTE", "BETWEEN", "NOT_BETWEEN", "CONTAINS", "NOT_CONTAINS", "IN_COHORTS", "NOT_IN_COHORTS" ]
 };
@@ -2229,7 +2315,6 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "values" : {
-      "title" : "JoinOperator operator = 2; // this field should implement in the future",
       "type" : "array",
       "items" : {
         "type" : "string"
@@ -2311,7 +2396,6 @@ ul.nav-tabs {
       "type" : "string"
     },
     "step" : {
-      "title" : "interval in seconds between each data point",
       "type" : "integer",
       "format" : "int32"
     },
@@ -2433,8 +2517,7 @@ ul.nav-tabs {
     "username" : {
       "type" : "string"
     }
-  },
-  "description" : "The same to user but with sensitive data removed."
+  }
 };
     defs["evm.AccessListItem"] = {
   "type" : "object",
@@ -2519,7 +2602,6 @@ ul.nav-tabs {
       "type" : "string"
     },
     "status" : {
-      "title" : "0x0: failed, 0x1: succeed",
       "type" : "string"
     },
     "error" : {
@@ -2541,24 +2623,20 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "contentType" : {
-      "type" : "string",
-      "description" : "The HTTP Content-Type header value specifying the content type of the body."
+      "type" : "string"
     },
     "data" : {
       "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
       "type" : "string",
-      "description" : "The HTTP request/response body as raw binary.",
       "format" : "byte"
     },
     "extensions" : {
       "type" : "array",
-      "description" : "Application specific response metadata. Must be set in the first response\nfor streaming APIs.",
       "items" : {
         "$ref" : "#/components/schemas/google.protobuf.Any"
       }
     }
-  },
-  "description" : "Message that represents an arbitrary HTTP body. It should only be used for\npayload formats that can't be represented as JSON, such as raw binary or\nan HTML page.\n\n\nThis message can be used both in streaming and non-streaming API methods in\nthe request as well as the response.\n\nIt can be used as a top-level request field, which is convenient if one\nwants to extract parameters from either the URL or HTTP template into the\nrequest fields and also want access to the raw HTTP body.\n\nExample:\n\n    message GetResourceRequest {\n      // A unique request id.\n      string request_id = 1;\n\n      // The raw HTTP body is bound to this field.\n      google.api.HttpBody http_body = 2;\n\n    }\n\n    service ResourceService {\n      rpc GetResource(GetResourceRequest)\n        returns (google.api.HttpBody);\n      rpc UpdateResource(google.api.HttpBody)\n        returns (google.protobuf.Empty);\n\n    }\n\nExample with streaming methods:\n\n    service CaldavService {\n      rpc GetCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n      rpc UpdateCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n\n    }\n\nUse of this type only changes how the request and response bodies are\nhandled, all other features will continue to work unchanged."
+  }
 };
     defs["google.protobuf.Any"] = {
   "type" : "object",
@@ -2575,7 +2653,7 @@ ul.nav-tabs {
 };
     defs["google.protobuf.NullValue"] = {
   "type" : "string",
-  "description" : "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value.",
+  "description" : "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value.",
   "default" : "NULL_VALUE",
   "enum" : [ "NULL_VALUE" ]
 };
@@ -4655,29 +4733,29 @@ ul.nav-tabs {
                     <li data-group="Data" data-name="executeSQL" class="">
                       <a href="#api-Data-executeSQL">executeSQL</a>
                     </li>
+                    <li data-group="Data" data-name="getMetrics" class="">
+                      <a href="#api-Data-getMetrics">getMetrics</a>
+                    </li>
                     <li data-group="Data" data-name="listCoins" class="">
                       <a href="#api-Data-listCoins">listCoins</a>
                     </li>
                     <li data-group="Data" data-name="listCoins2" class="">
                       <a href="#api-Data-listCoins2">listCoins2</a>
                     </li>
-                    <li data-group="Data" data-name="observabilityServiceGetMetrics" class="">
-                      <a href="#api-Data-observabilityServiceGetMetrics">observabilityServiceGetMetrics</a>
-                    </li>
-                    <li data-group="Data" data-name="observabilityServiceQuery" class="">
-                      <a href="#api-Data-observabilityServiceQuery">observabilityServiceQuery</a>
-                    </li>
-                    <li data-group="Data" data-name="observabilityServiceQueryRange" class="">
-                      <a href="#api-Data-observabilityServiceQueryRange">observabilityServiceQueryRange</a>
-                    </li>
                     <li data-group="Data" data-name="query" class="">
                       <a href="#api-Data-query">query</a>
+                    </li>
+                    <li data-group="Data" data-name="queryInstant" class="">
+                      <a href="#api-Data-queryInstant">queryInstant</a>
                     </li>
                     <li data-group="Data" data-name="queryLog" class="">
                       <a href="#api-Data-queryLog">queryLog</a>
                     </li>
                     <li data-group="Data" data-name="queryLog2" class="">
                       <a href="#api-Data-queryLog2">queryLog2</a>
+                    </li>
+                    <li data-group="Data" data-name="queryRange" class="">
+                      <a href="#api-Data-queryRange">queryRange</a>
                     </li>
                     <li data-group="Data" data-name="retention" class="">
                       <a href="#api-Data-retention">retention</a>
@@ -5270,6 +5348,468 @@ $(document).ready(function() {
                                   </script>
                                 </div>
                                 <input id='responses-Data-executeSQL-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Data-getMetrics">
+                      <article id="api-Data-getMetrics-0" data-group="User" data-name="getMetrics" data-version="0">
+                        <div class="pull-left">
+                          <h1>getMetrics</h1>
+                          <p>Get a list of metrics in a project</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/metrics</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Data-getMetrics-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Data-getMetrics-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Data-getMetrics-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Data-getMetrics-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Data-getMetrics-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Data-getMetrics-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Data-getMetrics-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/metrics?projectId=projectId_example&name=name_example&version=56"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Data-getMetrics-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DataApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DataApi apiInstance = new DataApi();
+        String projectId = projectId_example; // String | 
+        String name = name_example; // String | 
+        Integer version = 56; // Integer | 
+
+        try {
+            metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#getMetrics");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-getMetrics-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String projectId = new String(); // String | 
+final String name = new String(); // String | 
+final Integer version = new Integer(); // Integer | 
+
+try {
+    final result = await api_instance.getMetrics(projectId, name, version);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getMetrics: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-getMetrics-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        DataApi apiInstance = new DataApi();
+        String projectId = projectId_example; // String | 
+        String name = name_example; // String | 
+        Integer version = 56; // Integer | 
+
+        try {
+            metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#getMetrics");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Data-getMetrics-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Data-getMetrics-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DataApi *apiInstance = [[DataApi alloc] init];
+String *projectId = projectId_example; //  (optional) (default to null)
+String *name = name_example; //  (optional) (default to null)
+Integer *version = 56; //  (optional) (default to null)
+
+// Get a list of metrics in a project
+[apiInstance getMetricsWith:projectId
+    name:name
+    version:version
+              completionHandler: ^(metrics_service.GetMetricsResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getMetrics-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DataApi()
+var opts = {
+  'projectId': projectId_example, // {String} 
+  'name': name_example, // {String} 
+  'version': 56 // {Integer} 
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getMetrics(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Data-getMetrics-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Data-getMetrics-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getMetricsExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DataApi();
+            var projectId = projectId_example;  // String |  (optional)  (default to null)
+            var name = name_example;  // String |  (optional)  (default to null)
+            var version = 56;  // Integer |  (optional)  (default to null)
+
+            try {
+                // Get a list of metrics in a project
+                metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DataApi.getMetrics: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getMetrics-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DataApi();
+$projectId = projectId_example; // String | 
+$name = name_example; // String | 
+$version = 56; // Integer | 
+
+try {
+    $result = $api_instance->getMetrics($projectId, $name, $version);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DataApi->getMetrics: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getMetrics-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DataApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DataApi->new();
+my $projectId = projectId_example; # String | 
+my $name = name_example; # String | 
+my $version = 56; # Integer | 
+
+eval {
+    my $result = $api_instance->getMetrics(projectId => $projectId, name => $name, version => $version);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DataApi->getMetrics: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getMetrics-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DataApi()
+projectId = projectId_example # String |  (optional) (default to null)
+name = name_example # String |  (optional) (default to null)
+version = 56 # Integer |  (optional) (default to null)
+
+try:
+    # Get a list of metrics in a project
+    api_response = api_instance.get_metrics(projectId=projectId, name=name, version=version)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->getMetrics: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getMetrics-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
+
+pub fn main() {
+    let projectId = projectId_example; // String
+    let name = name_example; // String
+    let version = 56; // Integer
+
+    let mut context = DataApi::Context::default();
+    let result = client.getMetrics(projectId, name, version, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">projectId</td>
+<td>
+
+
+    <div id="d2e199_getMetrics_projectId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">name</td>
+<td>
+
+
+    <div id="d2e199_getMetrics_name">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">version</td>
+<td>
+
+
+    <div id="d2e199_getMetrics_version">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Data-getMetrics-title-200"></h3>
+                            <p id="examples-Data-getMetrics-description-200" class="marked"></p>
+                            <script>
+                              var responseData200_description = `A successful response.`;
+                              var responseData200_description_break = responseData200_description.indexOf('\n');
+                              if (responseData200_description_break == -1) {
+                                $("#examples-Data-getMetrics-title-200").text("Status: 200 - " + responseData200_description);
+                              } else {
+                                $("#examples-Data-getMetrics-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
+                                $("#examples-Data-getMetrics-description-200").html(responseData200_description.substring(responseData200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Data-getMetrics-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Data-getMetrics-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Data-getMetrics-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Data-getMetrics-200-schema">
+                                <div id="responses-Data-getMetrics-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/metrics_service.GetMetricsResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        Object.keys(schema.properties).forEach( (item) => {
+                                          if (schema.properties[item].$ref != null) {
+                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                          }
+                                        });
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Data-getMetrics-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Data-getMetrics-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Data-getMetrics-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>
@@ -6448,1470 +6988,6 @@ pub fn main() {
                         </article>
                       </div>
                       <hr>
-                    <div id="api-Data-observabilityServiceGetMetrics">
-                      <article id="api-Data-observabilityServiceGetMetrics-0" data-group="User" data-name="observabilityServiceGetMetrics" data-version="0">
-                        <div class="pull-left">
-                          <h1>observabilityServiceGetMetrics</h1>
-                          <p>Get a list of metrics in a project</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/metrics</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Data-observabilityServiceGetMetrics-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-dart">Dart</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceGetMetrics-0-rust">Rust</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Data-observabilityServiceGetMetrics-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
--H "api-key: [[apiKey]]" \
- -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/metrics?projectId=projectId_example&name=name_example&version=56"
-</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-java">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
-import org.openapitools.client.api.DataApi;
-
-import java.io.File;
-import java.util.*;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-        // Configure API key authorization: ApiKeyAuth
-        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-        ApiKeyAuth.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //ApiKeyAuth.setApiKeyPrefix("Token");
-
-        // Create an instance of the API class
-        DataApi apiInstance = new DataApi();
-        String projectId = projectId_example; // String | 
-        String name = name_example; // String | 
-        Integer version = 56; // Integer | 
-
-        try {
-            metrics_service.GetMetricsResponse result = apiInstance.observabilityServiceGetMetrics(projectId, name, version);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#observabilityServiceGetMetrics");
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String projectId = new String(); // String | 
-final String name = new String(); // String | 
-final Integer version = new Integer(); // Integer | 
-
-try {
-    final result = await api_instance.observabilityServiceGetMetrics(projectId, name, version);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->observabilityServiceGetMetrics: $e\n');
-}
-
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-android">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        DataApi apiInstance = new DataApi();
-        String projectId = projectId_example; // String | 
-        String name = name_example; // String | 
-        Integer version = 56; // Integer | 
-
-        try {
-            metrics_service.GetMetricsResponse result = apiInstance.observabilityServiceGetMetrics(projectId, name, version);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#observabilityServiceGetMetrics");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-
-// Configure API key authorization: (authentication scheme: ApiKeyAuth)
-[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
-
-
-// Create an instance of the API class
-DataApi *apiInstance = [[DataApi alloc] init];
-String *projectId = projectId_example; //  (optional) (default to null)
-String *name = name_example; //  (optional) (default to null)
-Integer *version = 56; //  (optional) (default to null)
-
-// Get a list of metrics in a project
-[apiInstance observabilityServiceGetMetricsWith:projectId
-    name:name
-    version:version
-              completionHandler: ^(metrics_service.GetMetricsResponse output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
-    if (error) {
-        NSLog(@"Error: %@", error);
-    }
-}];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
-var defaultClient = SentioApi.ApiClient.instance;
-
-// Configure API key authorization: ApiKeyAuth
-var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
-ApiKeyAuth.apiKey = "YOUR API KEY";
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
-
-// Create an instance of the API class
-var api = new SentioApi.DataApi()
-var opts = {
-  'projectId': projectId_example, // {String} 
-  'name': name_example, // {String} 
-  'version': 56 // {Integer} 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.observabilityServiceGetMetrics(opts, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
-
-namespace Example
-{
-    public class observabilityServiceGetMetricsExample
-    {
-        public void main()
-        {
-            // Configure API key authorization: ApiKeyAuth
-            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
-
-            // Create an instance of the API class
-            var apiInstance = new DataApi();
-            var projectId = projectId_example;  // String |  (optional)  (default to null)
-            var name = name_example;  // String |  (optional)  (default to null)
-            var version = 56;  // Integer |  (optional)  (default to null)
-
-            try {
-                // Get a list of metrics in a project
-                metrics_service.GetMetricsResponse result = apiInstance.observabilityServiceGetMetrics(projectId, name, version);
-                Debug.WriteLine(result);
-            } catch (Exception e) {
-                Debug.Print("Exception when calling DataApi.observabilityServiceGetMetrics: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: ApiKeyAuth
-OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
-
-// Create an instance of the API class
-$api_instance = new OpenAPITools\Client\Api\DataApi();
-$projectId = projectId_example; // String | 
-$name = name_example; // String | 
-$version = 56; // Integer | 
-
-try {
-    $result = $api_instance->observabilityServiceGetMetrics($projectId, $name, $version);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DataApi->observabilityServiceGetMetrics: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::OPenAPIClient::Configuration;
-use WWW::OPenAPIClient::DataApi;
-
-# Configure API key authorization: ApiKeyAuth
-$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
-# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
-
-# Create an instance of the API class
-my $api_instance = WWW::OPenAPIClient::DataApi->new();
-my $projectId = projectId_example; # String | 
-my $name = name_example; # String | 
-my $version = 56; # Integer | 
-
-eval {
-    my $result = $api_instance->observabilityServiceGetMetrics(projectId => $projectId, name => $name, version => $version);
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling DataApi->observabilityServiceGetMetrics: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: ApiKeyAuth
-openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
-
-# Create an instance of the API class
-api_instance = openapi_client.DataApi()
-projectId = projectId_example # String |  (optional) (default to null)
-name = name_example # String |  (optional) (default to null)
-version = 56 # Integer |  (optional) (default to null)
-
-try:
-    # Get a list of metrics in a project
-    api_response = api_instance.observability_service_get_metrics(projectId=projectId, name=name, version=version)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataApi->observabilityServiceGetMetrics: %s\n" % e)</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceGetMetrics-0-rust">
-                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
-
-pub fn main() {
-    let projectId = projectId_example; // String
-    let name = name_example; // String
-    let version = 56; // Integer
-
-    let mut context = DataApi::Context::default();
-    let result = client.observabilityServiceGetMetrics(projectId, name, version, &context).wait();
-
-    println!("{:?}", result);
-}
-</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Scopes</h2>
-                          <table>
-                            
-                          </table>
-
-                          <h2>Parameters</h2>
-
-
-
-
-
-                            <div class="methodsubtabletitle">Query parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">projectId</td>
-<td>
-
-
-    <div id="d2e199_observabilityServiceGetMetrics_projectId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">name</td>
-<td>
-
-
-    <div id="d2e199_observabilityServiceGetMetrics_name">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">version</td>
-<td>
-
-
-    <div id="d2e199_observabilityServiceGetMetrics_version">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    Integer
-                </span>
-                    <span class="format">
-                        (int32)
-                    </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                            </table>
-
-                          <h2>Responses</h2>
-                            <h3 id="examples-Data-observabilityServiceGetMetrics-title-200"></h3>
-                            <p id="examples-Data-observabilityServiceGetMetrics-description-200" class="marked"></p>
-                            <script>
-                              var responseData200_description = `A successful response.`;
-                              var responseData200_description_break = responseData200_description.indexOf('\n');
-                              if (responseData200_description_break == -1) {
-                                $("#examples-Data-observabilityServiceGetMetrics-title-200").text("Status: 200 - " + responseData200_description);
-                              } else {
-                                $("#examples-Data-observabilityServiceGetMetrics-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
-                                $("#examples-Data-observabilityServiceGetMetrics-description-200").html(responseData200_description.substring(responseData200_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Data-observabilityServiceGetMetrics-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Data-observabilityServiceGetMetrics-200-schema">Schema</a>
-                                </li>
-
-
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Data-observabilityServiceGetMetrics-200-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Data-observabilityServiceGetMetrics-200-schema">
-                                <div id="responses-Data-observabilityServiceGetMetrics-schema-200" class="exampleStyle">
-                                  <script>
-                                    $(document).ready(function() {
-                                      var schemaWrapper = {
-  "description" : "A successful response.",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/metrics_service.GetMetricsResponse"
-      }
-    }
-  }
-};
-                                      var schema = findNode('schema',schemaWrapper).schema;
-                                      if (!schema) {
-                                        schema = schemaWrapper.schema;
-                                      }
-                                      if (schema == null) {
-                                        return;
-                                      }
-                                      if (schema.$ref != null) {
-                                        schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
-                                      } else if (schema.items != null && schema.items.$ref != null) {
-                                        schema.items = defsParser.$refs.get(schema.items.$ref);
-                                      } else {
-                                        schemaWrapper.definitions = Object.assign({}, defs);
-                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                          console.log(err);
-                                        });
-                                      }
-
-                                      var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Data-observabilityServiceGetMetrics-200-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Data-observabilityServiceGetMetrics-schema-200');
-                                      result.empty();
-                                      result.append(view.render());
-                                    });
-                                  </script>
-                                </div>
-                                <input id='responses-Data-observabilityServiceGetMetrics-200-schema-data' type='hidden' value=''></input>
-                              </div>
-                            </div>
-                        </article>
-                      </div>
-                      <hr>
-                    <div id="api-Data-observabilityServiceQuery">
-                      <article id="api-Data-observabilityServiceQuery-0" data-group="User" data-name="observabilityServiceQuery" data-version="0">
-                        <div class="pull-left">
-                          <h1>observabilityServiceQuery</h1>
-                          <p>Metric instant queries</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked"></p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/metrics/{owner}/{slug}/query</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Data-observabilityServiceQuery-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-dart">Dart</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Data-observabilityServiceQuery-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Data-observabilityServiceQuery-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQuery-0-rust">Rust</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Data-observabilityServiceQuery-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
--H "api-key: [[apiKey]]" \
- -H "Accept: application/json" \
- -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query" \
- -d ''
-</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-java">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
-import org.openapitools.client.api.DataApi;
-
-import java.io.File;
-import java.util.*;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-        // Configure API key authorization: ApiKeyAuth
-        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-        ApiKeyAuth.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //ApiKeyAuth.setApiKeyPrefix("Token");
-
-        // Create an instance of the API class
-        DataApi apiInstance = new DataApi();
-        String owner = owner_example; // String | username or organization name
-        String slug = slug_example; // String | project slug
-        MetricsServiceObservabilityServiceQueryBody body = ; // MetricsServiceObservabilityServiceQueryBody | 
-
-        try {
-            metrics_service.QueryValueResponse result = apiInstance.observabilityServiceQuery(owner, slug, body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#observabilityServiceQuery");
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String owner = new String(); // String | username or organization name
-final String slug = new String(); // String | project slug
-final MetricsServiceObservabilityServiceQueryBody body = new MetricsServiceObservabilityServiceQueryBody(); // MetricsServiceObservabilityServiceQueryBody | 
-
-try {
-    final result = await api_instance.observabilityServiceQuery(owner, slug, body);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->observabilityServiceQuery: $e\n');
-}
-
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-android">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        DataApi apiInstance = new DataApi();
-        String owner = owner_example; // String | username or organization name
-        String slug = slug_example; // String | project slug
-        MetricsServiceObservabilityServiceQueryBody body = ; // MetricsServiceObservabilityServiceQueryBody | 
-
-        try {
-            metrics_service.QueryValueResponse result = apiInstance.observabilityServiceQuery(owner, slug, body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#observabilityServiceQuery");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-
-// Configure API key authorization: (authentication scheme: ApiKeyAuth)
-[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
-
-
-// Create an instance of the API class
-DataApi *apiInstance = [[DataApi alloc] init];
-String *owner = owner_example; // username or organization name (default to null)
-String *slug = slug_example; // project slug (default to null)
-MetricsServiceObservabilityServiceQueryBody *body = ; // 
-
-// Metric instant queries
-[apiInstance observabilityServiceQueryWith:owner
-    slug:slug
-    body:body
-              completionHandler: ^(metrics_service.QueryValueResponse output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
-    if (error) {
-        NSLog(@"Error: %@", error);
-    }
-}];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
-var defaultClient = SentioApi.ApiClient.instance;
-
-// Configure API key authorization: ApiKeyAuth
-var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
-ApiKeyAuth.apiKey = "YOUR API KEY";
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
-
-// Create an instance of the API class
-var api = new SentioApi.DataApi()
-var owner = owner_example; // {String} username or organization name
-var slug = slug_example; // {String} project slug
-var body = ; // {MetricsServiceObservabilityServiceQueryBody} 
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.observabilityServiceQuery(owner, slug, body, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
-
-namespace Example
-{
-    public class observabilityServiceQueryExample
-    {
-        public void main()
-        {
-            // Configure API key authorization: ApiKeyAuth
-            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
-
-            // Create an instance of the API class
-            var apiInstance = new DataApi();
-            var owner = owner_example;  // String | username or organization name (default to null)
-            var slug = slug_example;  // String | project slug (default to null)
-            var body = new MetricsServiceObservabilityServiceQueryBody(); // MetricsServiceObservabilityServiceQueryBody | 
-
-            try {
-                // Metric instant queries
-                metrics_service.QueryValueResponse result = apiInstance.observabilityServiceQuery(owner, slug, body);
-                Debug.WriteLine(result);
-            } catch (Exception e) {
-                Debug.Print("Exception when calling DataApi.observabilityServiceQuery: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: ApiKeyAuth
-OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
-
-// Create an instance of the API class
-$api_instance = new OpenAPITools\Client\Api\DataApi();
-$owner = owner_example; // String | username or organization name
-$slug = slug_example; // String | project slug
-$body = ; // MetricsServiceObservabilityServiceQueryBody | 
-
-try {
-    $result = $api_instance->observabilityServiceQuery($owner, $slug, $body);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DataApi->observabilityServiceQuery: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::OPenAPIClient::Configuration;
-use WWW::OPenAPIClient::DataApi;
-
-# Configure API key authorization: ApiKeyAuth
-$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
-# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
-
-# Create an instance of the API class
-my $api_instance = WWW::OPenAPIClient::DataApi->new();
-my $owner = owner_example; # String | username or organization name
-my $slug = slug_example; # String | project slug
-my $body = WWW::OPenAPIClient::Object::MetricsServiceObservabilityServiceQueryBody->new(); # MetricsServiceObservabilityServiceQueryBody | 
-
-eval {
-    my $result = $api_instance->observabilityServiceQuery(owner => $owner, slug => $slug, body => $body);
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling DataApi->observabilityServiceQuery: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: ApiKeyAuth
-openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
-
-# Create an instance of the API class
-api_instance = openapi_client.DataApi()
-owner = owner_example # String | username or organization name (default to null)
-slug = slug_example # String | project slug (default to null)
-body =  # MetricsServiceObservabilityServiceQueryBody | 
-
-try:
-    # Metric instant queries
-    api_response = api_instance.observability_service_query(owner, slug, body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataApi->observabilityServiceQuery: %s\n" % e)</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQuery-0-rust">
-                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
-
-pub fn main() {
-    let owner = owner_example; // String
-    let slug = slug_example; // String
-    let body = ; // MetricsServiceObservabilityServiceQueryBody
-
-    let mut context = DataApi::Context::default();
-    let result = client.observabilityServiceQuery(owner, slug, body, &context).wait();
-
-    println!("{:?}", result);
-}
-</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Scopes</h2>
-                          <table>
-                            
-                          </table>
-
-                          <h2>Parameters</h2>
-
-                            <div class="methodsubtabletitle">Path parameters</div>
-                            <table id="methodsubtable">
-                                <tr>
-                                  <th width="150px">Name</th>
-                                  <th>Description</th>
-                                </tr>
-                                  <tr><td style="width:150px;">owner*</td>
-<td>
-
-
-    <div id="d2e199_observabilityServiceQuery_owner">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-username or organization name
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                  <tr><td style="width:150px;">slug*</td>
-<td>
-
-
-    <div id="d2e199_observabilityServiceQuery_slug">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-project slug
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                            </table>
-
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
-<td>
-<p class="marked"></p>
-<script>
-$(document).ready(function() {
-  var schemaWrapper = {
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/metrics_service.ObservabilityService.QueryBody"
-      }
-    }
-  },
-  "required" : true
-};
-
-  var schema = findNode('schema',schemaWrapper).schema;
-  if (!schema) {
-    schema = schemaWrapper.schema;
-  }
-  if (schema.$ref != null) {
-    schema = defsParser.$refs.get(schema.$ref);
-  } else {
-    schemaWrapper.definitions = Object.assign({}, defs);
-    $RefParser.dereference(schemaWrapper).catch(function(err) {
-      console.log(err);
-    });
-  }
-
-  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_observabilityServiceQuery_body');
-  result.empty();
-  result.append(view.render());
-});
-</script>
-<div id="d2e199_observabilityServiceQuery_body"></div>
-</td>
-</tr>
-
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3 id="examples-Data-observabilityServiceQuery-title-200"></h3>
-                            <p id="examples-Data-observabilityServiceQuery-description-200" class="marked"></p>
-                            <script>
-                              var responseData200_description = `A successful response.`;
-                              var responseData200_description_break = responseData200_description.indexOf('\n');
-                              if (responseData200_description_break == -1) {
-                                $("#examples-Data-observabilityServiceQuery-title-200").text("Status: 200 - " + responseData200_description);
-                              } else {
-                                $("#examples-Data-observabilityServiceQuery-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
-                                $("#examples-Data-observabilityServiceQuery-description-200").html(responseData200_description.substring(responseData200_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Data-observabilityServiceQuery-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Data-observabilityServiceQuery-200-schema">Schema</a>
-                                </li>
-
-
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Data-observabilityServiceQuery-200-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Data-observabilityServiceQuery-200-schema">
-                                <div id="responses-Data-observabilityServiceQuery-schema-200" class="exampleStyle">
-                                  <script>
-                                    $(document).ready(function() {
-                                      var schemaWrapper = {
-  "description" : "A successful response.",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/metrics_service.QueryValueResponse"
-      }
-    }
-  }
-};
-                                      var schema = findNode('schema',schemaWrapper).schema;
-                                      if (!schema) {
-                                        schema = schemaWrapper.schema;
-                                      }
-                                      if (schema == null) {
-                                        return;
-                                      }
-                                      if (schema.$ref != null) {
-                                        schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
-                                      } else if (schema.items != null && schema.items.$ref != null) {
-                                        schema.items = defsParser.$refs.get(schema.items.$ref);
-                                      } else {
-                                        schemaWrapper.definitions = Object.assign({}, defs);
-                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                          console.log(err);
-                                        });
-                                      }
-
-                                      var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Data-observabilityServiceQuery-200-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Data-observabilityServiceQuery-schema-200');
-                                      result.empty();
-                                      result.append(view.render());
-                                    });
-                                  </script>
-                                </div>
-                                <input id='responses-Data-observabilityServiceQuery-200-schema-data' type='hidden' value=''></input>
-                              </div>
-                            </div>
-                        </article>
-                      </div>
-                      <hr>
-                    <div id="api-Data-observabilityServiceQueryRange">
-                      <article id="api-Data-observabilityServiceQueryRange-0" data-group="User" data-name="observabilityServiceQueryRange" data-version="0">
-                        <div class="pull-left">
-                          <h1>observabilityServiceQueryRange</h1>
-                          <p>Metric range queries</p>
-                        </div>
-                        <div class="pull-right"></div>
-                        <div class="clearfix"></div>
-                        <p></p>
-                        <p class="marked">The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.
-
-![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)</p>
-                        <p></p>
-                        <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/metrics/{owner}/{slug}/query_range</span></code></pre>
-                        <p>
-                          <h3>Usage and SDK Samples</h3>
-                        </p>
-                        <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Data-observabilityServiceQueryRange-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-dart">Dart</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-python">Python</a></li>
-                          <li class=""><a href="#examples-Data-observabilityServiceQueryRange-0-rust">Rust</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Data-observabilityServiceQueryRange-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
--H "api-key: [[apiKey]]" \
- -H "Accept: application/json" \
- -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query_range" \
- -d ''
-</code></pre>
-                          </div>
-                          <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-java">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
-import org.openapitools.client.auth.*;
-import org.openapitools.client.model.*;
-import org.openapitools.client.api.DataApi;
-
-import java.io.File;
-import java.util.*;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-        // Configure API key authorization: ApiKeyAuth
-        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-        ApiKeyAuth.setApiKey("YOUR API KEY");
-        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-        //ApiKeyAuth.setApiKeyPrefix("Token");
-
-        // Create an instance of the API class
-        DataApi apiInstance = new DataApi();
-        String owner = owner_example; // String | username or organization name
-        String slug = slug_example; // String | project slug
-        MetricsServiceObservabilityServiceQueryRangeBody body = ; // MetricsServiceObservabilityServiceQueryRangeBody | 
-
-        try {
-            metrics_service.MetricsQueryResponse result = apiInstance.observabilityServiceQueryRange(owner, slug, body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#observabilityServiceQueryRange");
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String owner = new String(); // String | username or organization name
-final String slug = new String(); // String | project slug
-final MetricsServiceObservabilityServiceQueryRangeBody body = new MetricsServiceObservabilityServiceQueryRangeBody(); // MetricsServiceObservabilityServiceQueryRangeBody | 
-
-try {
-    final result = await api_instance.observabilityServiceQueryRange(owner, slug, body);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->observabilityServiceQueryRange: $e\n');
-}
-
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-android">
-                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
-
-public class DataApiExample {
-    public static void main(String[] args) {
-        DataApi apiInstance = new DataApi();
-        String owner = owner_example; // String | username or organization name
-        String slug = slug_example; // String | project slug
-        MetricsServiceObservabilityServiceQueryRangeBody body = ; // MetricsServiceObservabilityServiceQueryRangeBody | 
-
-        try {
-            metrics_service.MetricsQueryResponse result = apiInstance.observabilityServiceQueryRange(owner, slug, body);
-            System.out.println(result);
-        } catch (ApiException e) {
-            System.err.println("Exception when calling DataApi#observabilityServiceQueryRange");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                          </div>
-  <!--
-  <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-groovy">
-  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-  </div> -->
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
-
-// Configure API key authorization: (authentication scheme: ApiKeyAuth)
-[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
-
-
-// Create an instance of the API class
-DataApi *apiInstance = [[DataApi alloc] init];
-String *owner = owner_example; // username or organization name (default to null)
-String *slug = slug_example; // project slug (default to null)
-MetricsServiceObservabilityServiceQueryRangeBody *body = ; // 
-
-// Metric range queries
-[apiInstance observabilityServiceQueryRangeWith:owner
-    slug:slug
-    body:body
-              completionHandler: ^(metrics_service.MetricsQueryResponse output, NSError* error) {
-    if (output) {
-        NSLog(@"%@", output);
-    }
-    if (error) {
-        NSLog(@"Error: %@", error);
-    }
-}];
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
-var defaultClient = SentioApi.ApiClient.instance;
-
-// Configure API key authorization: ApiKeyAuth
-var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
-ApiKeyAuth.apiKey = "YOUR API KEY";
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
-
-// Create an instance of the API class
-var api = new SentioApi.DataApi()
-var owner = owner_example; // {String} username or organization name
-var slug = slug_example; // {String} project slug
-var body = ; // {MetricsServiceObservabilityServiceQueryRangeBody} 
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.observabilityServiceQueryRange(owner, slug, body, callback);
-</code></pre>
-                            </div>
-
-                            <!--<div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-angular">
-              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
-            </div>-->
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-csharp">
-                              <pre class="prettyprint"><code class="language-cs">using System;
-using System.Diagnostics;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
-
-namespace Example
-{
-    public class observabilityServiceQueryRangeExample
-    {
-        public void main()
-        {
-            // Configure API key authorization: ApiKeyAuth
-            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
-
-            // Create an instance of the API class
-            var apiInstance = new DataApi();
-            var owner = owner_example;  // String | username or organization name (default to null)
-            var slug = slug_example;  // String | project slug (default to null)
-            var body = new MetricsServiceObservabilityServiceQueryRangeBody(); // MetricsServiceObservabilityServiceQueryRangeBody | 
-
-            try {
-                // Metric range queries
-                metrics_service.MetricsQueryResponse result = apiInstance.observabilityServiceQueryRange(owner, slug, body);
-                Debug.WriteLine(result);
-            } catch (Exception e) {
-                Debug.Print("Exception when calling DataApi.observabilityServiceQueryRange: " + e.Message );
-            }
-        }
-    }
-}
-</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-php">
-                              <pre class="prettyprint"><code class="language-php"><&#63;php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: ApiKeyAuth
-OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
-
-// Create an instance of the API class
-$api_instance = new OpenAPITools\Client\Api\DataApi();
-$owner = owner_example; // String | username or organization name
-$slug = slug_example; // String | project slug
-$body = ; // MetricsServiceObservabilityServiceQueryRangeBody | 
-
-try {
-    $result = $api_instance->observabilityServiceQueryRange($owner, $slug, $body);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling DataApi->observabilityServiceQueryRange: ', $e->getMessage(), PHP_EOL;
-}
-?></code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-perl">
-                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
-use WWW::OPenAPIClient::Configuration;
-use WWW::OPenAPIClient::DataApi;
-
-# Configure API key authorization: ApiKeyAuth
-$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
-# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
-
-# Create an instance of the API class
-my $api_instance = WWW::OPenAPIClient::DataApi->new();
-my $owner = owner_example; # String | username or organization name
-my $slug = slug_example; # String | project slug
-my $body = WWW::OPenAPIClient::Object::MetricsServiceObservabilityServiceQueryRangeBody->new(); # MetricsServiceObservabilityServiceQueryRangeBody | 
-
-eval {
-    my $result = $api_instance->observabilityServiceQueryRange(owner => $owner, slug => $slug, body => $body);
-    print Dumper($result);
-};
-if ($@) {
-    warn "Exception when calling DataApi->observabilityServiceQueryRange: $@\n";
-}</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-python">
-                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
-import time
-import openapi_client
-from openapi_client.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: ApiKeyAuth
-openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
-
-# Create an instance of the API class
-api_instance = openapi_client.DataApi()
-owner = owner_example # String | username or organization name (default to null)
-slug = slug_example # String | project slug (default to null)
-body =  # MetricsServiceObservabilityServiceQueryRangeBody | 
-
-try:
-    # Metric range queries
-    api_response = api_instance.observability_service_query_range(owner, slug, body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataApi->observabilityServiceQueryRange: %s\n" % e)</code></pre>
-                            </div>
-
-                            <div class="tab-pane" id="examples-Data-observabilityServiceQueryRange-0-rust">
-                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
-
-pub fn main() {
-    let owner = owner_example; // String
-    let slug = slug_example; // String
-    let body = ; // MetricsServiceObservabilityServiceQueryRangeBody
-
-    let mut context = DataApi::Context::default();
-    let result = client.observabilityServiceQueryRange(owner, slug, body, &context).wait();
-
-    println!("{:?}", result);
-}
-</code></pre>
-                            </div>
-                          </div>
-
-                          <h2>Scopes</h2>
-                          <table>
-                            
-                          </table>
-
-                          <h2>Parameters</h2>
-
-                            <div class="methodsubtabletitle">Path parameters</div>
-                            <table id="methodsubtable">
-                                <tr>
-                                  <th width="150px">Name</th>
-                                  <th>Description</th>
-                                </tr>
-                                  <tr><td style="width:150px;">owner*</td>
-<td>
-
-
-    <div id="d2e199_observabilityServiceQueryRange_owner">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-username or organization name
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                  <tr><td style="width:150px;">slug*</td>
-<td>
-
-
-    <div id="d2e199_observabilityServiceQueryRange_slug">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-project slug
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                            </table>
-
-
-                            <div class="methodsubtabletitle">Body parameters</div>
-                            <table id="methodsubtable">
-                              <tr>
-                                <th width="150px">Name</th>
-                                <th>Description</th>
-                              </tr>
-                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
-<td>
-<p class="marked"></p>
-<script>
-$(document).ready(function() {
-  var schemaWrapper = {
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/metrics_service.ObservabilityService.QueryRangeBody"
-      }
-    }
-  },
-  "required" : true
-};
-
-  var schema = findNode('schema',schemaWrapper).schema;
-  if (!schema) {
-    schema = schemaWrapper.schema;
-  }
-  if (schema.$ref != null) {
-    schema = defsParser.$refs.get(schema.$ref);
-  } else {
-    schemaWrapper.definitions = Object.assign({}, defs);
-    $RefParser.dereference(schemaWrapper).catch(function(err) {
-      console.log(err);
-    });
-  }
-
-  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_observabilityServiceQueryRange_body');
-  result.empty();
-  result.append(view.render());
-});
-</script>
-<div id="d2e199_observabilityServiceQueryRange_body"></div>
-</td>
-</tr>
-
-                            </table>
-
-
-
-                          <h2>Responses</h2>
-                            <h3 id="examples-Data-observabilityServiceQueryRange-title-200"></h3>
-                            <p id="examples-Data-observabilityServiceQueryRange-description-200" class="marked"></p>
-                            <script>
-                              var responseData200_description = `A successful response.`;
-                              var responseData200_description_break = responseData200_description.indexOf('\n');
-                              if (responseData200_description_break == -1) {
-                                $("#examples-Data-observabilityServiceQueryRange-title-200").text("Status: 200 - " + responseData200_description);
-                              } else {
-                                $("#examples-Data-observabilityServiceQueryRange-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
-                                $("#examples-Data-observabilityServiceQueryRange-description-200").html(responseData200_description.substring(responseData200_description_break));
-                              }
-                            </script>
-
-
-                            <ul id="responses-detail-Data-observabilityServiceQueryRange-200" class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-Data-observabilityServiceQueryRange-200-schema">Schema</a>
-                                </li>
-
-
-
-
-                            </ul>
-
-
-                            <div class="tab-content" id="responses-Data-observabilityServiceQueryRange-200-wrapper" style='margin-bottom: 10px;'>
-                              <div class="tab-pane active" id="responses-Data-observabilityServiceQueryRange-200-schema">
-                                <div id="responses-Data-observabilityServiceQueryRange-schema-200" class="exampleStyle">
-                                  <script>
-                                    $(document).ready(function() {
-                                      var schemaWrapper = {
-  "description" : "A successful response.",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/metrics_service.MetricsQueryResponse"
-      }
-    }
-  }
-};
-                                      var schema = findNode('schema',schemaWrapper).schema;
-                                      if (!schema) {
-                                        schema = schemaWrapper.schema;
-                                      }
-                                      if (schema == null) {
-                                        return;
-                                      }
-                                      if (schema.$ref != null) {
-                                        schema = defsParser.$refs.get(schema.$ref);
-                                        Object.keys(schema.properties).forEach( (item) => {
-                                          if (schema.properties[item].$ref != null) {
-                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
-                                          }
-                                        });
-                                      } else if (schema.items != null && schema.items.$ref != null) {
-                                        schema.items = defsParser.$refs.get(schema.items.$ref);
-                                      } else {
-                                        schemaWrapper.definitions = Object.assign({}, defs);
-                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                          console.log(err);
-                                        });
-                                      }
-
-                                      var view = new JSONSchemaView(schema, 3);
-                                      $('#responses-Data-observabilityServiceQueryRange-200-schema-data').val(JSON.stringify(schema));
-                                      var result = $('#responses-Data-observabilityServiceQueryRange-schema-200');
-                                      result.empty();
-                                      result.append(view.render());
-                                    });
-                                  </script>
-                                </div>
-                                <input id='responses-Data-observabilityServiceQueryRange-200-schema-data' type='hidden' value=''></input>
-                              </div>
-                            </div>
-                        </article>
-                      </div>
-                      <hr>
                     <div id="api-Data-query">
                       <article id="api-Data-query-0" data-group="User" data-name="query" data-version="0">
                         <div class="pull-left">
@@ -8407,6 +7483,506 @@ $(document).ready(function() {
                                   </script>
                                 </div>
                                 <input id='responses-Data-query-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Data-queryInstant">
+                      <article id="api-Data-queryInstant-0" data-group="User" data-name="queryInstant" data-version="0">
+                        <div class="pull-left">
+                          <h1>queryInstant</h1>
+                          <p>Metric instant queries</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/metrics/{owner}/{slug}/query</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Data-queryInstant-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Data-queryInstant-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Data-queryInstant-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Data-queryInstant-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Data-queryInstant-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Data-queryInstant-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Data-queryInstant-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Data-queryInstant-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DataApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DataApi apiInstance = new DataApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        MetricsServiceObservabilityServiceQueryBody body = ; // MetricsServiceObservabilityServiceQueryBody | 
+
+        try {
+            metrics_service.QueryValueResponse result = apiInstance.queryInstant(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#queryInstant");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-queryInstant-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String owner = new String(); // String | username or organization name
+final String slug = new String(); // String | project slug
+final MetricsServiceObservabilityServiceQueryBody body = new MetricsServiceObservabilityServiceQueryBody(); // MetricsServiceObservabilityServiceQueryBody | 
+
+try {
+    final result = await api_instance.queryInstant(owner, slug, body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->queryInstant: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-queryInstant-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        DataApi apiInstance = new DataApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        MetricsServiceObservabilityServiceQueryBody body = ; // MetricsServiceObservabilityServiceQueryBody | 
+
+        try {
+            metrics_service.QueryValueResponse result = apiInstance.queryInstant(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#queryInstant");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Data-queryInstant-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Data-queryInstant-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DataApi *apiInstance = [[DataApi alloc] init];
+String *owner = owner_example; // username or organization name (default to null)
+String *slug = slug_example; // project slug (default to null)
+MetricsServiceObservabilityServiceQueryBody *body = ; // 
+
+// Metric instant queries
+[apiInstance queryInstantWith:owner
+    slug:slug
+    body:body
+              completionHandler: ^(metrics_service.QueryValueResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryInstant-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DataApi()
+var owner = owner_example; // {String} username or organization name
+var slug = slug_example; // {String} project slug
+var body = ; // {MetricsServiceObservabilityServiceQueryBody} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.queryInstant(owner, slug, body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Data-queryInstant-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Data-queryInstant-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class queryInstantExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DataApi();
+            var owner = owner_example;  // String | username or organization name (default to null)
+            var slug = slug_example;  // String | project slug (default to null)
+            var body = new MetricsServiceObservabilityServiceQueryBody(); // MetricsServiceObservabilityServiceQueryBody | 
+
+            try {
+                // Metric instant queries
+                metrics_service.QueryValueResponse result = apiInstance.queryInstant(owner, slug, body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DataApi.queryInstant: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryInstant-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DataApi();
+$owner = owner_example; // String | username or organization name
+$slug = slug_example; // String | project slug
+$body = ; // MetricsServiceObservabilityServiceQueryBody | 
+
+try {
+    $result = $api_instance->queryInstant($owner, $slug, $body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DataApi->queryInstant: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryInstant-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DataApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DataApi->new();
+my $owner = owner_example; # String | username or organization name
+my $slug = slug_example; # String | project slug
+my $body = WWW::OPenAPIClient::Object::MetricsServiceObservabilityServiceQueryBody->new(); # MetricsServiceObservabilityServiceQueryBody | 
+
+eval {
+    my $result = $api_instance->queryInstant(owner => $owner, slug => $slug, body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DataApi->queryInstant: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryInstant-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DataApi()
+owner = owner_example # String | username or organization name (default to null)
+slug = slug_example # String | project slug (default to null)
+body =  # MetricsServiceObservabilityServiceQueryBody | 
+
+try:
+    # Metric instant queries
+    api_response = api_instance.query_instant(owner, slug, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->queryInstant: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryInstant-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+    let body = ; // MetricsServiceObservabilityServiceQueryBody
+
+    let mut context = DataApi::Context::default();
+    let result = client.queryInstant(owner, slug, body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_queryInstant_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+username or organization name
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_queryInstant_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+project slug
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/metrics_service.ObservabilityService.QueryBody"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_queryInstant_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_queryInstant_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Data-queryInstant-title-200"></h3>
+                            <p id="examples-Data-queryInstant-description-200" class="marked"></p>
+                            <script>
+                              var responseData200_description = `A successful response.`;
+                              var responseData200_description_break = responseData200_description.indexOf('\n');
+                              if (responseData200_description_break == -1) {
+                                $("#examples-Data-queryInstant-title-200").text("Status: 200 - " + responseData200_description);
+                              } else {
+                                $("#examples-Data-queryInstant-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
+                                $("#examples-Data-queryInstant-description-200").html(responseData200_description.substring(responseData200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Data-queryInstant-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Data-queryInstant-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Data-queryInstant-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Data-queryInstant-200-schema">
+                                <div id="responses-Data-queryInstant-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/metrics_service.QueryValueResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        Object.keys(schema.properties).forEach( (item) => {
+                                          if (schema.properties[item].$ref != null) {
+                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                          }
+                                        });
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Data-queryInstant-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Data-queryInstant-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Data-queryInstant-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>
@@ -9848,6 +9424,508 @@ pub fn main() {
                                   </script>
                                 </div>
                                 <input id='responses-Data-queryLog2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Data-queryRange">
+                      <article id="api-Data-queryRange-0" data-group="User" data-name="queryRange" data-version="0">
+                        <div class="pull-left">
+                          <h1>queryRange</h1>
+                          <p>Metric range queries</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.
+
+![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/metrics/{owner}/{slug}/query_range</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Data-queryRange-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Data-queryRange-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Data-queryRange-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Data-queryRange-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Data-queryRange-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Data-queryRange-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Data-queryRange-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query_range" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Data-queryRange-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DataApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DataApi apiInstance = new DataApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        MetricsServiceObservabilityServiceQueryRangeBody body = ; // MetricsServiceObservabilityServiceQueryRangeBody | 
+
+        try {
+            metrics_service.MetricsQueryResponse result = apiInstance.queryRange(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#queryRange");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-queryRange-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String owner = new String(); // String | username or organization name
+final String slug = new String(); // String | project slug
+final MetricsServiceObservabilityServiceQueryRangeBody body = new MetricsServiceObservabilityServiceQueryRangeBody(); // MetricsServiceObservabilityServiceQueryRangeBody | 
+
+try {
+    final result = await api_instance.queryRange(owner, slug, body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->queryRange: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-queryRange-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        DataApi apiInstance = new DataApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        MetricsServiceObservabilityServiceQueryRangeBody body = ; // MetricsServiceObservabilityServiceQueryRangeBody | 
+
+        try {
+            metrics_service.MetricsQueryResponse result = apiInstance.queryRange(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#queryRange");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Data-queryRange-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Data-queryRange-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DataApi *apiInstance = [[DataApi alloc] init];
+String *owner = owner_example; // username or organization name (default to null)
+String *slug = slug_example; // project slug (default to null)
+MetricsServiceObservabilityServiceQueryRangeBody *body = ; // 
+
+// Metric range queries
+[apiInstance queryRangeWith:owner
+    slug:slug
+    body:body
+              completionHandler: ^(metrics_service.MetricsQueryResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryRange-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DataApi()
+var owner = owner_example; // {String} username or organization name
+var slug = slug_example; // {String} project slug
+var body = ; // {MetricsServiceObservabilityServiceQueryRangeBody} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.queryRange(owner, slug, body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Data-queryRange-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Data-queryRange-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class queryRangeExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DataApi();
+            var owner = owner_example;  // String | username or organization name (default to null)
+            var slug = slug_example;  // String | project slug (default to null)
+            var body = new MetricsServiceObservabilityServiceQueryRangeBody(); // MetricsServiceObservabilityServiceQueryRangeBody | 
+
+            try {
+                // Metric range queries
+                metrics_service.MetricsQueryResponse result = apiInstance.queryRange(owner, slug, body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DataApi.queryRange: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryRange-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DataApi();
+$owner = owner_example; // String | username or organization name
+$slug = slug_example; // String | project slug
+$body = ; // MetricsServiceObservabilityServiceQueryRangeBody | 
+
+try {
+    $result = $api_instance->queryRange($owner, $slug, $body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DataApi->queryRange: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryRange-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DataApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DataApi->new();
+my $owner = owner_example; # String | username or organization name
+my $slug = slug_example; # String | project slug
+my $body = WWW::OPenAPIClient::Object::MetricsServiceObservabilityServiceQueryRangeBody->new(); # MetricsServiceObservabilityServiceQueryRangeBody | 
+
+eval {
+    my $result = $api_instance->queryRange(owner => $owner, slug => $slug, body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DataApi->queryRange: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryRange-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DataApi()
+owner = owner_example # String | username or organization name (default to null)
+slug = slug_example # String | project slug (default to null)
+body =  # MetricsServiceObservabilityServiceQueryRangeBody | 
+
+try:
+    # Metric range queries
+    api_response = api_instance.query_range(owner, slug, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->queryRange: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-queryRange-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+    let body = ; // MetricsServiceObservabilityServiceQueryRangeBody
+
+    let mut context = DataApi::Context::default();
+    let result = client.queryRange(owner, slug, body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_queryRange_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+username or organization name
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_queryRange_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+project slug
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/metrics_service.ObservabilityService.QueryRangeBody"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_queryRange_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_queryRange_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Data-queryRange-title-200"></h3>
+                            <p id="examples-Data-queryRange-description-200" class="marked"></p>
+                            <script>
+                              var responseData200_description = `A successful response.`;
+                              var responseData200_description_break = responseData200_description.indexOf('\n');
+                              if (responseData200_description_break == -1) {
+                                $("#examples-Data-queryRange-title-200").text("Status: 200 - " + responseData200_description);
+                              } else {
+                                $("#examples-Data-queryRange-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
+                                $("#examples-Data-queryRange-description-200").html(responseData200_description.substring(responseData200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Data-queryRange-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Data-queryRange-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Data-queryRange-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Data-queryRange-200-schema">
+                                <div id="responses-Data-queryRange-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/metrics_service.MetricsQueryResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        Object.keys(schema.properties).forEach( (item) => {
+                                          if (schema.properties[item].$ref != null) {
+                                            schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                          }
+                                        });
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Data-queryRange-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Data-queryRange-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Data-queryRange-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { CommonRichStruct } from './CommonRichStruct.js';
+import {
+    CommonRichStructFromJSON,
+    CommonRichStructFromJSONTyped,
+    CommonRichStructToJSON,
+} from './CommonRichStruct.js';
+
 /**
  * 
  * @export
@@ -31,6 +38,18 @@ export interface AnalyticServiceSQLQuery {
      * @memberof AnalyticServiceSQLQuery
      */
     size?: number;
+    /**
+     * 
+     * @type {CommonRichStruct}
+     * @memberof AnalyticServiceSQLQuery
+     */
+    parameters?: CommonRichStruct;
+    /**
+     * 
+     * @type {string}
+     * @memberof AnalyticServiceSQLQuery
+     */
+    name?: string;
 }
 
 /**
@@ -52,6 +71,8 @@ export function AnalyticServiceSQLQueryFromJSONTyped(json: any, ignoreDiscrimina
         
         'sql': json['sql'] == null ? undefined : json['sql'],
         'size': json['size'] == null ? undefined : json['size'],
+        'parameters': json['parameters'] == null ? undefined : CommonRichStructFromJSON(json['parameters']),
+        'name': json['name'] == null ? undefined : json['name'],
     };
 }
 
@@ -63,6 +84,8 @@ export function AnalyticServiceSQLQueryToJSON(value?: AnalyticServiceSQLQuery | 
         
         'sql': value['sql'],
         'size': value['size'],
+        'parameters': CommonRichStructToJSON(value['parameters']),
+        'name': value['name'],
     };
 }
 

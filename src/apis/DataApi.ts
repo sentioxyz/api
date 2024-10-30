@@ -70,6 +70,12 @@ export interface ExecuteSQLRequest {
     body: AnalyticServiceAnalyticServiceExecuteSQLBody;
 }
 
+export interface GetMetricsRequest {
+    projectId?: string;
+    name?: string;
+    version?: number;
+}
+
 export interface ListCoinsRequest {
     owner: string;
     slug: string;
@@ -90,28 +96,16 @@ export interface ListCoins2Request {
     searchQuery?: string;
 }
 
-export interface ObservabilityServiceGetMetricsRequest {
-    projectId?: string;
-    name?: string;
-    version?: number;
-}
-
-export interface ObservabilityServiceQueryRequest {
-    owner: string;
-    slug: string;
-    body: MetricsServiceObservabilityServiceQueryBody;
-}
-
-export interface ObservabilityServiceQueryRangeRequest {
-    owner: string;
-    slug: string;
-    body: MetricsServiceObservabilityServiceQueryRangeBody;
-}
-
 export interface QueryRequest {
     owner: string;
     slug: string;
     body: InsightsServiceInsightsServiceQueryBody;
+}
+
+export interface QueryInstantRequest {
+    owner: string;
+    slug: string;
+    body: MetricsServiceObservabilityServiceQueryBody;
 }
 
 export interface QueryLogRequest {
@@ -140,6 +134,12 @@ export interface QueryLog2Request {
     limit?: number;
     offset?: number;
     version?: number;
+}
+
+export interface QueryRangeRequest {
+    owner: string;
+    slug: string;
+    body: MetricsServiceObservabilityServiceQueryRangeBody;
 }
 
 export interface RetentionRequest {
@@ -210,6 +210,48 @@ export class DataApi extends runtime.BaseAPI {
      */
     async executeSQL(requestParameters: ExecuteSQLRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceSyncExecuteSQLResponse> {
         const response = await this.executeSQLRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a list of metrics in a project
+     */
+    async getMetricsRaw(requestParameters: GetMetricsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceGetMetricsResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['projectId'] != null) {
+            queryParameters['projectId'] = requestParameters['projectId'];
+        }
+
+        if (requestParameters['name'] != null) {
+            queryParameters['name'] = requestParameters['name'];
+        }
+
+        if (requestParameters['version'] != null) {
+            queryParameters['version'] = requestParameters['version'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/metrics`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceGetMetricsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of metrics in a project
+     */
+    async getMetrics(requestParameters: GetMetricsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceGetMetricsResponse> {
+        const response = await this.getMetricsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -340,158 +382,6 @@ export class DataApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of metrics in a project
-     */
-    async observabilityServiceGetMetricsRaw(requestParameters: ObservabilityServiceGetMetricsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceGetMetricsResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['projectId'] != null) {
-            queryParameters['projectId'] = requestParameters['projectId'];
-        }
-
-        if (requestParameters['name'] != null) {
-            queryParameters['name'] = requestParameters['name'];
-        }
-
-        if (requestParameters['version'] != null) {
-            queryParameters['version'] = requestParameters['version'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/metrics`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceGetMetricsResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Get a list of metrics in a project
-     */
-    async observabilityServiceGetMetrics(requestParameters: ObservabilityServiceGetMetricsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceGetMetricsResponse> {
-        const response = await this.observabilityServiceGetMetricsRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Metric instant queries
-     */
-    async observabilityServiceQueryRaw(requestParameters: ObservabilityServiceQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceQueryValueResponse>> {
-        if (requestParameters['owner'] == null) {
-            throw new runtime.RequiredError(
-                'owner',
-                'Required parameter "owner" was null or undefined when calling observabilityServiceQuery().'
-            );
-        }
-
-        if (requestParameters['slug'] == null) {
-            throw new runtime.RequiredError(
-                'slug',
-                'Required parameter "slug" was null or undefined when calling observabilityServiceQuery().'
-            );
-        }
-
-        if (requestParameters['body'] == null) {
-            throw new runtime.RequiredError(
-                'body',
-                'Required parameter "body" was null or undefined when calling observabilityServiceQuery().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/metrics/{owner}/{slug}/query`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: MetricsServiceObservabilityServiceQueryBodyToJSON(requestParameters['body']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceQueryValueResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Metric instant queries
-     */
-    async observabilityServiceQuery(requestParameters: ObservabilityServiceQueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceQueryValueResponse> {
-        const response = await this.observabilityServiceQueryRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)
-     * Metric range queries
-     */
-    async observabilityServiceQueryRangeRaw(requestParameters: ObservabilityServiceQueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceMetricsQueryResponse>> {
-        if (requestParameters['owner'] == null) {
-            throw new runtime.RequiredError(
-                'owner',
-                'Required parameter "owner" was null or undefined when calling observabilityServiceQueryRange().'
-            );
-        }
-
-        if (requestParameters['slug'] == null) {
-            throw new runtime.RequiredError(
-                'slug',
-                'Required parameter "slug" was null or undefined when calling observabilityServiceQueryRange().'
-            );
-        }
-
-        if (requestParameters['body'] == null) {
-            throw new runtime.RequiredError(
-                'body',
-                'Required parameter "body" was null or undefined when calling observabilityServiceQueryRange().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/metrics/{owner}/{slug}/query_range`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: MetricsServiceObservabilityServiceQueryRangeBodyToJSON(requestParameters['body']),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceMetricsQueryResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)
-     * Metric range queries
-     */
-    async observabilityServiceQueryRange(requestParameters: ObservabilityServiceQueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceMetricsQueryResponse> {
-        const response = await this.observabilityServiceQueryRangeRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * Query for metrics,event logs and coin prices in a project.
      * Insight Query
      */
@@ -544,6 +434,60 @@ export class DataApi extends runtime.BaseAPI {
      */
     async query(requestParameters: QueryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<InsightsServiceQueryResponse> {
         const response = await this.queryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Metric instant queries
+     */
+    async queryInstantRaw(requestParameters: QueryInstantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceQueryValueResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling queryInstant().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling queryInstant().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling queryInstant().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/metrics/{owner}/{slug}/query`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: MetricsServiceObservabilityServiceQueryBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceQueryValueResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Metric instant queries
+     */
+    async queryInstant(requestParameters: QueryInstantRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceQueryValueResponse> {
+        const response = await this.queryInstantRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -710,6 +654,62 @@ export class DataApi extends runtime.BaseAPI {
      */
     async queryLog2(requestParameters: QueryLog2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnalyticServiceLogQueryResponse> {
         const response = await this.queryLog2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)
+     * Metric range queries
+     */
+    async queryRangeRaw(requestParameters: QueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MetricsServiceMetricsQueryResponse>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling queryRange().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling queryRange().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling queryRange().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/metrics/{owner}/{slug}/query_range`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: MetricsServiceObservabilityServiceQueryRangeBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MetricsServiceMetricsQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)
+     * Metric range queries
+     */
+    async queryRange(requestParameters: QueryRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MetricsServiceMetricsQueryResponse> {
+        const response = await this.queryRangeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
