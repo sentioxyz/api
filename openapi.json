@@ -4131,6 +4131,36 @@
         }
       }
     },
+    "solidity_service.BaseChainConfig": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "type": "string"
+        },
+        "debugEndpoint": {
+          "type": "string"
+        },
+        "sourceFetcherType": {
+          "type": "string"
+        },
+        "sourceFetcherEndpoint": {
+          "type": "string"
+        },
+        "sourceFetcherTimeout": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sourceFetcherApiKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "oklinkChainShortName": {
+          "type": "string"
+        }
+      }
+    },
     "solidity_service.BlockOverrides": {
       "type": "object",
       "properties": {
