@@ -19,7 +19,8 @@
  */
 export const CommonProjectType = {
     Sentio: 'SENTIO',
-    Subgraph: 'SUBGRAPH'
+    Subgraph: 'SUBGRAPH',
+    Action: 'ACTION'
 } as const;
 export type CommonProjectType = typeof CommonProjectType[keyof typeof CommonProjectType];
 

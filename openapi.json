@@ -2468,7 +2468,8 @@
       "type": "string",
       "enum": [
         "SENTIO",
-        "SUBGRAPH"
+        "SUBGRAPH",
+        "ACTION"
       ],
       "default": "SENTIO"
     },
