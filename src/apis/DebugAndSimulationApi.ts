@@ -47,9 +47,11 @@ import {
 } from '../models/index.js';
 
 export interface GetCallTraceRequest {
-    networkId: string;
     projectOwner?: string;
     projectSlug?: string;
+    networkId?: string;
+    chainSpecChainId?: string;
+    chainSpecForkId?: string;
     txIdTxHash?: string;
     txIdSimulationId?: string;
     txIdBundleId?: string;
@@ -113,13 +115,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTraceRaw(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['networkId'] == null) {
-            throw new runtime.RequiredError(
-                'networkId',
-                'Required parameter "networkId" was null or undefined when calling getCallTrace().'
-            );
-        }
-
         const queryParameters: any = {};
 
         if (requestParameters['projectOwner'] != null) {
@@ -132,6 +127,14 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         if (requestParameters['networkId'] != null) {
             queryParameters['networkId'] = requestParameters['networkId'];
+        }
+
+        if (requestParameters['chainSpecChainId'] != null) {
+            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
+        }
+
+        if (requestParameters['chainSpecForkId'] != null) {
+            queryParameters['chainSpec.forkId'] = requestParameters['chainSpecForkId'];
         }
 
         if (requestParameters['txIdTxHash'] != null) {
@@ -178,7 +181,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
      * Get indexed call trace
      */
-    async getCallTrace(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+    async getCallTrace(requestParameters: GetCallTraceRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceRaw(requestParameters, initOverrides);
         return await response.value();
     }

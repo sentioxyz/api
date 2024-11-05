@@ -34,6 +34,13 @@ import {
     SolidityServiceStateOverrideToJSON,
     SolidityServiceStateOverrideToJSONTyped,
 } from './SolidityServiceStateOverride.js';
+import type { SolidityServiceChainIdentifier } from './SolidityServiceChainIdentifier.js';
+import {
+    SolidityServiceChainIdentifierFromJSON,
+    SolidityServiceChainIdentifierFromJSONTyped,
+    SolidityServiceChainIdentifierToJSON,
+    SolidityServiceChainIdentifierToJSONTyped,
+} from './SolidityServiceChainIdentifier.js';
 import type { SolidityServiceBlockOverrides } from './SolidityServiceBlockOverrides.js';
 import {
     SolidityServiceBlockOverridesFromJSON,
@@ -78,6 +85,12 @@ export interface SolidityServiceSimulation {
      * @memberof SolidityServiceSimulation
      */
     chainId?: string;
+    /**
+     * 
+     * @type {SolidityServiceChainIdentifier}
+     * @memberof SolidityServiceSimulation
+     */
+    chainSpec: SolidityServiceChainIdentifier;
     /**
      * 
      * @type {string}
@@ -193,6 +206,7 @@ export interface SolidityServiceSimulation {
  */
 export function instanceOfSolidityServiceSimulation(value: object): value is SolidityServiceSimulation {
     if (!('networkId' in value) || value['networkId'] === undefined) return false;
+    if (!('chainSpec' in value) || value['chainSpec'] === undefined) return false;
     if (!('to' in value) || value['to'] === undefined) return false;
     if (!('input' in value) || value['input'] === undefined) return false;
     if (!('blockNumber' in value) || value['blockNumber'] === undefined) return false;
@@ -219,6 +233,7 @@ export function SolidityServiceSimulationFromJSONTyped(json: any, ignoreDiscrimi
         'bundleId': json['bundleId'] == null ? undefined : json['bundleId'],
         'networkId': json['networkId'],
         'chainId': json['chainId'] == null ? undefined : json['chainId'],
+        'chainSpec': SolidityServiceChainIdentifierFromJSON(json['chainSpec']),
         'to': json['to'],
         'input': json['input'],
         'blockNumber': json['blockNumber'],
@@ -256,6 +271,7 @@ export function SolidityServiceSimulationFromJSONTyped(json: any, ignoreDiscrimi
         'bundleId': value['bundleId'],
         'networkId': value['networkId'],
         'chainId': value['chainId'],
+        'chainSpec': SolidityServiceChainIdentifierToJSON(value['chainSpec']),
         'to': value['to'],
         'input': value['input'],
         'blockNumber': value['blockNumber'],

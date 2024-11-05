@@ -3346,6 +3346,17 @@ ul.nav-tabs {
     }
   }
 };
+    defs["solidity_service.ChainIdentifier"] = {
+  "type" : "object",
+  "properties" : {
+    "chainId" : {
+      "type" : "string"
+    },
+    "forkId" : {
+      "type" : "string"
+    }
+  }
+};
     defs["solidity_service.CompileSourceInternalResponse"] = {
   "type" : "object",
   "properties" : {
@@ -3745,7 +3756,7 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.Simulation"] = {
-  "required" : [ "blockNumber", "from", "gas", "gasPrice", "input", "networkId", "to", "transactionIndex", "value" ],
+  "required" : [ "blockNumber", "chainSpec", "from", "gas", "gasPrice", "input", "networkId", "to", "transactionIndex", "value" ],
   "type" : "object",
   "properties" : {
     "id" : {
@@ -3763,6 +3774,9 @@ ul.nav-tabs {
     "chainId" : {
       "title" : "we should use chain_id in favor of network_id",
       "type" : "string"
+    },
+    "chainSpec" : {
+      "$ref" : "#/components/schemas/solidity_service.ChainIdentifier"
     },
     "to" : {
       "type" : "string"
@@ -10983,7 +10997,7 @@ This allows you to build chart that marks the order of fund flow.
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/call_trace?projectOwner=projectOwner_example&projectSlug=projectSlug_example&networkId=networkId_example&txId.txHash=txIdPeriodtxHash_example&txId.simulationId=txIdPeriodsimulationId_example&txId.bundleId=txIdPeriodbundleId_example&disableOptimizer=true&withInternalCalls=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/call_trace?projectOwner=projectOwner_example&projectSlug=projectSlug_example&networkId=networkId_example&chainSpec.chainId=chainSpecPeriodchainId_example&chainSpec.forkId=chainSpecPeriodforkId_example&txId.txHash=txIdPeriodtxHash_example&txId.simulationId=txIdPeriodsimulationId_example&txId.bundleId=txIdPeriodbundleId_example&disableOptimizer=true&withInternalCalls=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTrace-0-java">
@@ -11007,9 +11021,11 @@ public class DebugAndSimulationApiExample {
 
         // Create an instance of the API class
         DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
+        String projectOwner = projectOwner_example; // String | Required if fork id is specified
+        String projectSlug = projectSlug_example; // String | Required if fork id is specified
         String networkId = networkId_example; // String | 
-        String projectOwner = projectOwner_example; // String | 
-        String projectSlug = projectSlug_example; // String | 
+        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
+        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
         String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
         String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
@@ -11018,7 +11034,7 @@ public class DebugAndSimulationApiExample {
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTrace(projectOwner, projectSlug, networkId, chainSpecPeriodchainId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTrace");
@@ -11034,9 +11050,11 @@ public class DebugAndSimulationApiExample {
 
 final api_instance = DefaultApi();
 
+final String projectOwner = new String(); // String | Required if fork id is specified
+final String projectSlug = new String(); // String | Required if fork id is specified
 final String networkId = new String(); // String | 
-final String projectOwner = new String(); // String | 
-final String projectSlug = new String(); // String | 
+final String chainSpecPeriodchainId = new String(); // String | 
+final String chainSpecPeriodforkId = new String(); // String | 
 final String txIdPeriodtxHash = new String(); // String | One of txHash, simulationId, bundleId is required.
 final String txIdPeriodsimulationId = new String(); // String | 
 final String txIdPeriodbundleId = new String(); // String | 
@@ -11045,7 +11063,7 @@ final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded 
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true
 
 try {
-    final result = await api_instance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+    final result = await api_instance.getCallTrace(projectOwner, projectSlug, networkId, chainSpecPeriodchainId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTrace: $e\n');
@@ -11060,9 +11078,11 @@ try {
 public class DebugAndSimulationApiExample {
     public static void main(String[] args) {
         DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
+        String projectOwner = projectOwner_example; // String | Required if fork id is specified
+        String projectSlug = projectSlug_example; // String | Required if fork id is specified
         String networkId = networkId_example; // String | 
-        String projectOwner = projectOwner_example; // String | 
-        String projectSlug = projectSlug_example; // String | 
+        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
+        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
         String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
         String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
@@ -11071,7 +11091,7 @@ public class DebugAndSimulationApiExample {
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTrace(projectOwner, projectSlug, networkId, chainSpecPeriodchainId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTrace");
@@ -11095,9 +11115,11 @@ public class DebugAndSimulationApiExample {
 
 // Create an instance of the API class
 DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
-String *networkId = networkId_example; //  (default to null)
-String *projectOwner = projectOwner_example; //  (optional) (default to null)
-String *projectSlug = projectSlug_example; //  (optional) (default to null)
+String *projectOwner = projectOwner_example; // Required if fork id is specified (optional) (default to null)
+String *projectSlug = projectSlug_example; // Required if fork id is specified (optional) (default to null)
+String *networkId = networkId_example; //  (optional) (default to null)
+String *chainSpecPeriodchainId = chainSpecPeriodchainId_example; //  (optional) (default to null)
+String *chainSpecPeriodforkId = chainSpecPeriodforkId_example; //  (optional) (default to null)
 String *txIdPeriodtxHash = txIdPeriodtxHash_example; // One of txHash, simulationId, bundleId is required. (optional) (default to null)
 String *txIdPeriodsimulationId = txIdPeriodsimulationId_example; //  (optional) (default to null)
 String *txIdPeriodbundleId = txIdPeriodbundleId_example; //  (optional) (default to null)
@@ -11106,9 +11128,11 @@ Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give y
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true (optional) (default to null)
 
 // Get indexed call trace
-[apiInstance getCallTraceWith:networkId
-    projectOwner:projectOwner
+[apiInstance getCallTraceWith:projectOwner
     projectSlug:projectSlug
+    networkId:networkId
+    chainSpecPeriodchainId:chainSpecPeriodchainId
+    chainSpecPeriodforkId:chainSpecPeriodforkId
     txIdPeriodtxHash:txIdPeriodtxHash
     txIdPeriodsimulationId:txIdPeriodsimulationId
     txIdPeriodbundleId:txIdPeriodbundleId
@@ -11138,10 +11162,12 @@ ApiKeyAuth.apiKey = "YOUR API KEY";
 
 // Create an instance of the API class
 var api = new SentioApi.DebugAndSimulationApi()
-var networkId = networkId_example; // {String} 
 var opts = {
-  'projectOwner': projectOwner_example, // {String} 
-  'projectSlug': projectSlug_example, // {String} 
+  'projectOwner': projectOwner_example, // {String} Required if fork id is specified
+  'projectSlug': projectSlug_example, // {String} Required if fork id is specified
+  'networkId': networkId_example, // {String} 
+  'chainSpecPeriodchainId': chainSpecPeriodchainId_example, // {String} 
+  'chainSpecPeriodforkId': chainSpecPeriodforkId_example, // {String} 
   'txIdPeriodtxHash': txIdPeriodtxHash_example, // {String} One of txHash, simulationId, bundleId is required.
   'txIdPeriodsimulationId': txIdPeriodsimulationId_example, // {String} 
   'txIdPeriodbundleId': txIdPeriodbundleId_example, // {String} 
@@ -11157,7 +11183,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getCallTrace(networkId, opts, callback);
+api.getCallTrace(opts, callback);
 </code></pre>
                             </div>
 
@@ -11184,9 +11210,11 @@ namespace Example
 
             // Create an instance of the API class
             var apiInstance = new DebugAndSimulationApi();
-            var networkId = networkId_example;  // String |  (default to null)
-            var projectOwner = projectOwner_example;  // String |  (optional)  (default to null)
-            var projectSlug = projectSlug_example;  // String |  (optional)  (default to null)
+            var projectOwner = projectOwner_example;  // String | Required if fork id is specified (optional)  (default to null)
+            var projectSlug = projectSlug_example;  // String | Required if fork id is specified (optional)  (default to null)
+            var networkId = networkId_example;  // String |  (optional)  (default to null)
+            var chainSpecPeriodchainId = chainSpecPeriodchainId_example;  // String |  (optional)  (default to null)
+            var chainSpecPeriodforkId = chainSpecPeriodforkId_example;  // String |  (optional)  (default to null)
             var txIdPeriodtxHash = txIdPeriodtxHash_example;  // String | One of txHash, simulationId, bundleId is required. (optional)  (default to null)
             var txIdPeriodsimulationId = txIdPeriodsimulationId_example;  // String |  (optional)  (default to null)
             var txIdPeriodbundleId = txIdPeriodbundleId_example;  // String |  (optional)  (default to null)
@@ -11196,7 +11224,7 @@ namespace Example
 
             try {
                 // Get indexed call trace
-                google.api.HttpBody result = apiInstance.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
+                google.api.HttpBody result = apiInstance.getCallTrace(projectOwner, projectSlug, networkId, chainSpecPeriodchainId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTrace: " + e.Message );
@@ -11218,9 +11246,11 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key
 
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\DebugAndSimulationApi();
+$projectOwner = projectOwner_example; // String | Required if fork id is specified
+$projectSlug = projectSlug_example; // String | Required if fork id is specified
 $networkId = networkId_example; // String | 
-$projectOwner = projectOwner_example; // String | 
-$projectSlug = projectSlug_example; // String | 
+$chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
+$chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
 $txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
 $txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
 $txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
@@ -11229,7 +11259,7 @@ $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true
 
 try {
-    $result = $api_instance->getCallTrace($networkId, $projectOwner, $projectSlug, $txIdPeriodtxHash, $txIdPeriodsimulationId, $txIdPeriodbundleId, $disableOptimizer, $withInternalCalls, $ignoreGasCost);
+    $result = $api_instance->getCallTrace($projectOwner, $projectSlug, $networkId, $chainSpecPeriodchainId, $chainSpecPeriodforkId, $txIdPeriodtxHash, $txIdPeriodsimulationId, $txIdPeriodbundleId, $disableOptimizer, $withInternalCalls, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTrace: ', $e->getMessage(), PHP_EOL;
@@ -11249,9 +11279,11 @@ $WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
 
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::DebugAndSimulationApi->new();
+my $projectOwner = projectOwner_example; # String | Required if fork id is specified
+my $projectSlug = projectSlug_example; # String | Required if fork id is specified
 my $networkId = networkId_example; # String | 
-my $projectOwner = projectOwner_example; # String | 
-my $projectSlug = projectSlug_example; # String | 
+my $chainSpecPeriodchainId = chainSpecPeriodchainId_example; # String | 
+my $chainSpecPeriodforkId = chainSpecPeriodforkId_example; # String | 
 my $txIdPeriodtxHash = txIdPeriodtxHash_example; # String | One of txHash, simulationId, bundleId is required.
 my $txIdPeriodsimulationId = txIdPeriodsimulationId_example; # String | 
 my $txIdPeriodbundleId = txIdPeriodbundleId_example; # String | 
@@ -11260,7 +11292,7 @@ my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will gi
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true
 
 eval {
-    my $result = $api_instance->getCallTrace(networkId => $networkId, projectOwner => $projectOwner, projectSlug => $projectSlug, txIdPeriodtxHash => $txIdPeriodtxHash, txIdPeriodsimulationId => $txIdPeriodsimulationId, txIdPeriodbundleId => $txIdPeriodbundleId, disableOptimizer => $disableOptimizer, withInternalCalls => $withInternalCalls, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTrace(projectOwner => $projectOwner, projectSlug => $projectSlug, networkId => $networkId, chainSpecPeriodchainId => $chainSpecPeriodchainId, chainSpecPeriodforkId => $chainSpecPeriodforkId, txIdPeriodtxHash => $txIdPeriodtxHash, txIdPeriodsimulationId => $txIdPeriodsimulationId, txIdPeriodbundleId => $txIdPeriodbundleId, disableOptimizer => $disableOptimizer, withInternalCalls => $withInternalCalls, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -11282,9 +11314,11 @@ openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
 
 # Create an instance of the API class
 api_instance = openapi_client.DebugAndSimulationApi()
-networkId = networkId_example # String |  (default to null)
-projectOwner = projectOwner_example # String |  (optional) (default to null)
-projectSlug = projectSlug_example # String |  (optional) (default to null)
+projectOwner = projectOwner_example # String | Required if fork id is specified (optional) (default to null)
+projectSlug = projectSlug_example # String | Required if fork id is specified (optional) (default to null)
+networkId = networkId_example # String |  (optional) (default to null)
+chainSpecPeriodchainId = chainSpecPeriodchainId_example # String |  (optional) (default to null)
+chainSpecPeriodforkId = chainSpecPeriodforkId_example # String |  (optional) (default to null)
 txIdPeriodtxHash = txIdPeriodtxHash_example # String | One of txHash, simulationId, bundleId is required. (optional) (default to null)
 txIdPeriodsimulationId = txIdPeriodsimulationId_example # String |  (optional) (default to null)
 txIdPeriodbundleId = txIdPeriodbundleId_example # String |  (optional) (default to null)
@@ -11294,7 +11328,7 @@ ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true (opti
 
 try:
     # Get indexed call trace
-    api_response = api_instance.get_call_trace(networkId, projectOwner=projectOwner, projectSlug=projectSlug, txIdPeriodtxHash=txIdPeriodtxHash, txIdPeriodsimulationId=txIdPeriodsimulationId, txIdPeriodbundleId=txIdPeriodbundleId, disableOptimizer=disableOptimizer, withInternalCalls=withInternalCalls, ignoreGasCost=ignoreGasCost)
+    api_response = api_instance.get_call_trace(projectOwner=projectOwner, projectSlug=projectSlug, networkId=networkId, chainSpecPeriodchainId=chainSpecPeriodchainId, chainSpecPeriodforkId=chainSpecPeriodforkId, txIdPeriodtxHash=txIdPeriodtxHash, txIdPeriodsimulationId=txIdPeriodsimulationId, txIdPeriodbundleId=txIdPeriodbundleId, disableOptimizer=disableOptimizer, withInternalCalls=withInternalCalls, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTrace: %s\n" % e)</code></pre>
@@ -11304,9 +11338,11 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate DebugAndSimulationApi;
 
 pub fn main() {
-    let networkId = networkId_example; // String
     let projectOwner = projectOwner_example; // String
     let projectSlug = projectSlug_example; // String
+    let networkId = networkId_example; // String
+    let chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String
+    let chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String
     let txIdPeriodtxHash = txIdPeriodtxHash_example; // String
     let txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String
     let txIdPeriodbundleId = txIdPeriodbundleId_example; // String
@@ -11315,7 +11351,7 @@ pub fn main() {
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTrace(networkId, projectOwner, projectSlug, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost, &context).wait();
+    let result = client.getCallTrace(projectOwner, projectSlug, networkId, chainSpecPeriodchainId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, txIdPeriodbundleId, disableOptimizer, withInternalCalls, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -11351,6 +11387,9 @@ pub fn main() {
                     String
                 </span>
 
+                    <div class="inner description marked">
+Required if fork id is specified
+                    </div>
             </div>
         </div>
     </div>
@@ -11368,13 +11407,16 @@ pub fn main() {
                     String
                 </span>
 
+                    <div class="inner description marked">
+Required if fork id is specified
+                    </div>
             </div>
         </div>
     </div>
 </td>
 </tr>
 
-                                <tr><td style="width:150px;">networkId*</td>
+                                <tr><td style="width:150px;">networkId</td>
 <td>
 
 
@@ -11386,9 +11428,40 @@ pub fn main() {
                 </span>
 
             </div>
-                <div class="inner required">
-                    Required
-                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">chainSpec.chainId</td>
+<td>
+
+
+    <div id="d2e199_getCallTrace_chainSpecPeriodchainId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">chainSpec.forkId</td>
+<td>
+
+
+    <div id="d2e199_getCallTrace_chainSpecPeriodforkId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
         </div>
     </div>
 </td>

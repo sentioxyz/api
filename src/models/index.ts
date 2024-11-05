@@ -133,6 +133,7 @@ export * from './PriceServiceGetPriceResponse.js';
 export * from './PriceServiceListCoinsResponse.js';
 export * from './SolidityServiceBaseChainConfig.js';
 export * from './SolidityServiceBlockOverrides.js';
+export * from './SolidityServiceChainIdentifier.js';
 export * from './SolidityServiceCompileSourceInternalResponse.js';
 export * from './SolidityServiceCompilerOptions.js';
 export * from './SolidityServiceContractKeyInfo.js';

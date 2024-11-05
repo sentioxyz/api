@@ -1113,12 +1113,14 @@
         "parameters": [
           {
             "name": "projectOwner",
+            "description": "Required if fork id is specified",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "projectSlug",
+            "description": "Required if fork id is specified",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1126,7 +1128,19 @@
           {
             "name": "networkId",
             "in": "query",
-            "required": true,
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.chainId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.forkId",
+            "in": "query",
+            "required": false,
             "type": "string"
           },
           {
@@ -4188,6 +4202,17 @@
         }
       }
     },
+    "solidity_service.ChainIdentifier": {
+      "type": "object",
+      "properties": {
+        "chainId": {
+          "type": "string"
+        },
+        "forkId": {
+          "type": "string"
+        }
+      }
+    },
     "solidity_service.CompileSourceInternalResponse": {
       "type": "object",
       "properties": {
@@ -4619,6 +4644,9 @@
           "type": "string",
           "title": "we should use chain_id in favor of network_id"
         },
+        "chainSpec": {
+          "$ref": "#/definitions/solidity_service.ChainIdentifier"
+        },
         "to": {
           "type": "string"
         },
@@ -4690,6 +4718,7 @@
       },
       "required": [
         "networkId",
+        "chainSpec",
         "to",
         "input",
         "blockNumber",
