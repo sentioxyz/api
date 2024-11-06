@@ -3166,6 +3166,25 @@ ul.nav-tabs {
     }
   }
 };
+    defs["price_service.BatchGetPricesRequest"] = {
+  "title" : "GetPricesRequest is the request for GetPrices.\nreturn every price on every given timestamp (if exact exists) for the given coin",
+  "type" : "object",
+  "properties" : {
+    "timestamps" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
+    },
+    "coinIds" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.CoinID"
+      }
+    }
+  }
+};
     defs["price_service.BatchGetPricesResponse"] = {
   "type" : "object",
   "properties" : {
@@ -23135,7 +23154,7 @@ $(document).ready(function() {
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/prices/batch</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/prices/batch</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -23157,10 +23176,12 @@ $(document).ready(function() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Price-batchGetPrices-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/prices/batch?timestamps="
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/prices/batch" \
+ -d ''
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Price-batchGetPrices-0-java">
@@ -23184,10 +23205,10 @@ public class PriceApiExample {
 
         // Create an instance of the API class
         PriceApi apiInstance = new PriceApi();
-        array[Date] timestamps = ; // array[Date] | 
+        PriceServiceBatchGetPricesRequest body = ; // PriceServiceBatchGetPricesRequest | 
 
         try {
-            price_service.BatchGetPricesResponse result = apiInstance.batchGetPrices(timestamps);
+            price_service.BatchGetPricesResponse result = apiInstance.batchGetPrices(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PriceApi#batchGetPrices");
@@ -23203,10 +23224,10 @@ public class PriceApiExample {
 
 final api_instance = DefaultApi();
 
-final array[Date] timestamps = new array[Date](); // array[Date] | 
+final PriceServiceBatchGetPricesRequest body = new PriceServiceBatchGetPricesRequest(); // PriceServiceBatchGetPricesRequest | 
 
 try {
-    final result = await api_instance.batchGetPrices(timestamps);
+    final result = await api_instance.batchGetPrices(body);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->batchGetPrices: $e\n');
@@ -23221,10 +23242,10 @@ try {
 public class PriceApiExample {
     public static void main(String[] args) {
         PriceApi apiInstance = new PriceApi();
-        array[Date] timestamps = ; // array[Date] | 
+        PriceServiceBatchGetPricesRequest body = ; // PriceServiceBatchGetPricesRequest | 
 
         try {
-            price_service.BatchGetPricesResponse result = apiInstance.batchGetPrices(timestamps);
+            price_service.BatchGetPricesResponse result = apiInstance.batchGetPrices(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PriceApi#batchGetPrices");
@@ -23248,10 +23269,10 @@ public class PriceApiExample {
 
 // Create an instance of the API class
 PriceApi *apiInstance = [[PriceApi alloc] init];
-array[Date] *timestamps = ; //  (optional) (default to null)
+PriceServiceBatchGetPricesRequest *body = ; // 
 
 // Batch get prices
-[apiInstance batchGetPricesWith:timestamps
+[apiInstance batchGetPricesWith:body
               completionHandler: ^(price_service.BatchGetPricesResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -23275,9 +23296,7 @@ ApiKeyAuth.apiKey = "YOUR API KEY";
 
 // Create an instance of the API class
 var api = new SentioApi.PriceApi()
-var opts = {
-  'timestamps':  // {array[Date]} 
-};
+var body = ; // {PriceServiceBatchGetPricesRequest} 
 
 var callback = function(error, data, response) {
   if (error) {
@@ -23286,7 +23305,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.batchGetPrices(opts, callback);
+api.batchGetPrices(body, callback);
 </code></pre>
                             </div>
 
@@ -23313,11 +23332,11 @@ namespace Example
 
             // Create an instance of the API class
             var apiInstance = new PriceApi();
-            var timestamps = new array[Date](); // array[Date] |  (optional)  (default to null)
+            var body = new PriceServiceBatchGetPricesRequest(); // PriceServiceBatchGetPricesRequest | 
 
             try {
                 // Batch get prices
-                price_service.BatchGetPricesResponse result = apiInstance.batchGetPrices(timestamps);
+                price_service.BatchGetPricesResponse result = apiInstance.batchGetPrices(body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling PriceApi.batchGetPrices: " + e.Message );
@@ -23339,10 +23358,10 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key
 
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\PriceApi();
-$timestamps = ; // array[Date] | 
+$body = ; // PriceServiceBatchGetPricesRequest | 
 
 try {
-    $result = $api_instance->batchGetPrices($timestamps);
+    $result = $api_instance->batchGetPrices($body);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PriceApi->batchGetPrices: ', $e->getMessage(), PHP_EOL;
@@ -23362,10 +23381,10 @@ $WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
 
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::PriceApi->new();
-my $timestamps = []; # array[Date] | 
+my $body = WWW::OPenAPIClient::Object::PriceServiceBatchGetPricesRequest->new(); # PriceServiceBatchGetPricesRequest | 
 
 eval {
-    my $result = $api_instance->batchGetPrices(timestamps => $timestamps);
+    my $result = $api_instance->batchGetPrices(body => $body);
     print Dumper($result);
 };
 if ($@) {
@@ -23387,11 +23406,11 @@ openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
 
 # Create an instance of the API class
 api_instance = openapi_client.PriceApi()
-timestamps =  # array[Date] |  (optional) (default to null)
+body =  # PriceServiceBatchGetPricesRequest | 
 
 try:
     # Batch get prices
-    api_response = api_instance.batch_get_prices(timestamps=timestamps)
+    api_response = api_instance.batch_get_prices(body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PriceApi->batchGetPrices: %s\n" % e)</code></pre>
@@ -23401,10 +23420,10 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate PriceApi;
 
 pub fn main() {
-    let timestamps = ; // array[Date]
+    let body = ; // PriceServiceBatchGetPricesRequest
 
     let mut context = PriceApi::Context::default();
-    let result = client.batchGetPrices(timestamps, &context).wait();
+    let result = client.batchGetPrices(body, &context).wait();
 
     println!("{:?}", result);
 }
@@ -23421,35 +23440,56 @@ pub fn main() {
 
 
 
-
-
-                            <div class="methodsubtabletitle">Query parameters</div>
+                            <div class="methodsubtabletitle">Body parameters</div>
                             <table id="methodsubtable">
                               <tr>
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">timestamps</td>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
 <td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.BatchGetPricesRequest"
+      }
+    }
+  },
+  "required" : true
+};
 
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
 
-    <div id="d2e199_batchGetPrices_timestamps">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    array[Date]
-                </span>
-                    <span class="format">
-                        (date-time)
-                    </span>
-
-            </div>
-        </div>
-    </div>
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_batchGetPrices_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_batchGetPrices_body"></div>
 </td>
 </tr>
 
                             </table>
+
+
 
                           <h2>Responses</h2>
                             <h3 id="examples-Price-batchGetPrices-title-200"></h3>

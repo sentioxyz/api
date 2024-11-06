@@ -122,6 +122,7 @@ export * from './MetricsServiceObservabilityServiceQueryBody.js';
 export * from './MetricsServiceObservabilityServiceQueryRangeBody.js';
 export * from './MetricsServiceQueryValueResponse.js';
 export * from './MetricsServiceQueryValueResponseResult.js';
+export * from './PriceServiceBatchGetPricesRequest.js';
 export * from './PriceServiceBatchGetPricesResponse.js';
 export * from './PriceServiceBatchGetPricesResponseCoinPrice.js';
 export * from './PriceServiceBatchGetPricesResponseCoinPricePrice.js';

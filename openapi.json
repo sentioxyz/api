@@ -848,7 +848,7 @@
       }
     },
     "/api/v1/prices/batch": {
-      "get": {
+      "post": {
         "summary": "Batch get prices",
         "operationId": "BatchGetPrices",
         "responses": {
@@ -861,15 +861,12 @@
         },
         "parameters": [
           {
-            "name": "timestamps",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "collectionFormat": "multi"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/price_service.BatchGetPricesRequest"
+            }
           }
         ],
         "tags": [
@@ -4821,6 +4818,26 @@
           "type": "string"
         }
       }
+    },
+    "price_service.BatchGetPricesRequest": {
+      "type": "object",
+      "properties": {
+        "timestamps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "coinIds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/price_service.CoinID"
+          }
+        }
+      },
+      "title": "GetPricesRequest is the request for GetPrices.\nreturn every price on every given timestamp (if exact exists) for the given coin"
     },
     "price_service.BatchGetPricesResponse": {
       "type": "object",

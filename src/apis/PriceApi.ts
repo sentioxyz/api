@@ -15,12 +15,15 @@
 
 import * as runtime from '../runtime.js';
 import type {
+  PriceServiceBatchGetPricesRequest,
   PriceServiceBatchGetPricesResponse,
   PriceServiceCheckLatestPriceResponse,
   PriceServiceGetPriceResponse,
   PriceServiceListCoinsResponse,
 } from '../models/index.js';
 import {
+    PriceServiceBatchGetPricesRequestFromJSON,
+    PriceServiceBatchGetPricesRequestToJSON,
     PriceServiceBatchGetPricesResponseFromJSON,
     PriceServiceBatchGetPricesResponseToJSON,
     PriceServiceCheckLatestPriceResponseFromJSON,
@@ -32,7 +35,7 @@ import {
 } from '../models/index.js';
 
 export interface BatchGetPricesRequest {
-    timestamps?: Array<Date>;
+    body: PriceServiceBatchGetPricesRequest;
 }
 
 export interface GetPriceRequest {
@@ -59,13 +62,18 @@ export class PriceApi extends runtime.BaseAPI {
      * Batch get prices
      */
     async batchGetPricesRaw(requestParameters: BatchGetPricesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PriceServiceBatchGetPricesResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters['timestamps'] != null) {
-            queryParameters['timestamps'] = requestParameters['timestamps'];
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling batchGetPrices().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.apiKey) {
             headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
@@ -73,9 +81,10 @@ export class PriceApi extends runtime.BaseAPI {
 
         const response = await this.request({
             path: `/api/v1/prices/batch`,
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: PriceServiceBatchGetPricesRequestToJSON(requestParameters['body']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PriceServiceBatchGetPricesResponseFromJSON(jsonValue));
@@ -84,7 +93,7 @@ export class PriceApi extends runtime.BaseAPI {
     /**
      * Batch get prices
      */
-    async batchGetPrices(requestParameters: BatchGetPricesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PriceServiceBatchGetPricesResponse> {
+    async batchGetPrices(requestParameters: BatchGetPricesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PriceServiceBatchGetPricesResponse> {
         const response = await this.batchGetPricesRaw(requestParameters, initOverrides);
         return await response.value();
     }
