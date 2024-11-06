@@ -18,6 +18,7 @@ import type {
   SolidityServiceCreateForkResponse,
   SolidityServiceForkServiceCreateForkBody,
   SolidityServiceForkServiceUpdateForkBody,
+  SolidityServiceGetForkInfoResponse,
   SolidityServiceGetForkResponse,
   SolidityServiceListForksResponse,
   SolidityServiceUpdateForkResponse,
@@ -29,6 +30,8 @@ import {
     SolidityServiceForkServiceCreateForkBodyToJSON,
     SolidityServiceForkServiceUpdateForkBodyFromJSON,
     SolidityServiceForkServiceUpdateForkBodyToJSON,
+    SolidityServiceGetForkInfoResponseFromJSON,
+    SolidityServiceGetForkInfoResponseToJSON,
     SolidityServiceGetForkResponseFromJSON,
     SolidityServiceGetForkResponseToJSON,
     SolidityServiceListForksResponseFromJSON,
@@ -230,7 +233,7 @@ export class ForksApi extends runtime.BaseAPI {
 
     /**
      */
-    async getForkInfoRaw(requestParameters: GetForkInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+    async getForkInfoRaw(requestParameters: GetForkInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetForkInfoResponse>> {
         if (requestParameters['projectOwner'] == null) {
             throw new runtime.RequiredError(
                 'projectOwner',
@@ -267,12 +270,12 @@ export class ForksApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse<any>(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceGetForkInfoResponseFromJSON(jsonValue));
     }
 
     /**
      */
-    async getForkInfo(requestParameters: GetForkInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
+    async getForkInfo(requestParameters: GetForkInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetForkInfoResponse> {
         const response = await this.getForkInfoRaw(requestParameters, initOverrides);
         return await response.value();
     }

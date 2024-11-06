@@ -1656,6 +1656,40 @@
         ]
       }
     },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}/state": {
+      "get": {
+        "summary": "option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {\n    };",
+        "operationId": "GetForkState",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/google.api.HttpBody"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
     "/api/v1/solidity/{projectOwner}/{projectSlug}/search_transactions": {
       "get": {
         "summary": "Search for transactions",
@@ -5143,7 +5177,31 @@
       "default": "MANAGED"
     },
     "solidity_service.GetForkInfoResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "currentBlockNumber": {
+          "type": "string"
+        },
+        "currentBlockTimestamp": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "currentBlockHash": {
+          "type": "string"
+        },
+        "hardFork": {
+          "type": "string"
+        },
+        "transactionOrder": {
+          "type": "string"
+        },
+        "environment": {
+          "$ref": "#/definitions/solidity_service.NodeEnvironment"
+        },
+        "forkConfig": {
+          "$ref": "#/definitions/solidity_service.NodeForkConfig"
+        }
+      }
     },
     "solidity_service.GetForkResponse": {
       "type": "object",
@@ -5310,6 +5368,40 @@
         },
         "appendCBOR": {
           "type": "boolean"
+        }
+      }
+    },
+    "solidity_service.NodeEnvironment": {
+      "type": "object",
+      "properties": {
+        "chainId": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "baseFee": {
+          "type": "string"
+        },
+        "gasLimit": {
+          "type": "string"
+        },
+        "gasPrice": {
+          "type": "string"
+        }
+      }
+    },
+    "solidity_service.NodeForkConfig": {
+      "type": "object",
+      "properties": {
+        "forkUrl": {
+          "type": "string"
+        },
+        "forkBlockNumber": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "forkRetryBackoff": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
