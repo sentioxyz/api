@@ -19,10 +19,10 @@ import type {
   SolidityServiceGetSimulationBundleResponse,
   SolidityServiceGetSimulationResponse,
   SolidityServiceGetSimulationsResponse,
-  SolidityServiceSimulateTransactionBundleRequest,
   SolidityServiceSimulateTransactionBundleResponse,
-  SolidityServiceSimulateTransactionRequest,
   SolidityServiceSimulateTransactionResponse,
+  SolidityServiceSolidityAPIServiceSimulateTransactionBody,
+  SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody,
   TxindexEvmSearchTransactionsResponse,
 } from '../models/index.js';
 import {
@@ -34,53 +34,119 @@ import {
     SolidityServiceGetSimulationResponseToJSON,
     SolidityServiceGetSimulationsResponseFromJSON,
     SolidityServiceGetSimulationsResponseToJSON,
-    SolidityServiceSimulateTransactionBundleRequestFromJSON,
-    SolidityServiceSimulateTransactionBundleRequestToJSON,
     SolidityServiceSimulateTransactionBundleResponseFromJSON,
     SolidityServiceSimulateTransactionBundleResponseToJSON,
-    SolidityServiceSimulateTransactionRequestFromJSON,
-    SolidityServiceSimulateTransactionRequestToJSON,
     SolidityServiceSimulateTransactionResponseFromJSON,
     SolidityServiceSimulateTransactionResponseToJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionBodyFromJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionBodyToJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyFromJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyToJSON,
     TxindexEvmSearchTransactionsResponseFromJSON,
     TxindexEvmSearchTransactionsResponseToJSON,
 } from '../models/index.js';
 
 export interface GetCallTraceRequest {
-    projectOwner?: string;
-    projectSlug?: string;
-    networkId?: string;
-    chainSpecChainId?: string;
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecChainId: string;
+    txIdTxHash: string;
+    chainSpecForkId?: string;
+    txIdSimulationId?: string;
+    txIdBundleId?: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTrace2Request {
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecChainId: string;
+    txIdSimulationId: string;
+    chainSpecForkId?: string;
+    txIdTxHash?: string;
+    txIdBundleId?: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTrace3Request {
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecChainId: string;
+    txIdBundleId: string;
     chainSpecForkId?: string;
     txIdTxHash?: string;
     txIdSimulationId?: string;
-    txIdBundleId?: string;
-    disableOptimizer?: boolean;
     withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTrace4Request {
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecForkId: string;
+    txIdTxHash: string;
+    chainSpecChainId?: string;
+    txIdSimulationId?: string;
+    txIdBundleId?: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTrace5Request {
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecForkId: string;
+    txIdSimulationId: string;
+    chainSpecChainId?: string;
+    txIdTxHash?: string;
+    txIdBundleId?: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTrace6Request {
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecForkId: string;
+    txIdBundleId: string;
+    chainSpecChainId?: string;
+    txIdTxHash?: string;
+    txIdSimulationId?: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
 }
 
 export interface GetSimulationRequest {
+    projectOwner: string;
+    projectSlug: string;
     simulationId: string;
-    projectOwner?: string;
-    projectSlug?: string;
 }
 
-export interface GetSimulationBundleRequest {
+export interface GetSimulationBundleInProjectRequest {
+    projectOwner: string;
+    projectSlug: string;
     bundleId: string;
-    projectOwner?: string;
-    projectSlug?: string;
 }
 
 export interface GetSimulationsRequest {
-    projectOwner?: string;
-    projectSlug?: string;
+    projectOwner: string;
+    projectSlug: string;
     labelContains?: string;
     page?: number;
     pageSize?: number;
 }
 
 export interface SearchTransactionsRequest {
+    projectOwner: string;
+    projectSlug: string;
     chainId?: Array<string>;
     address?: Array<string>;
     includeDirect?: boolean;
@@ -98,11 +164,31 @@ export interface SearchTransactionsRequest {
 }
 
 export interface SimulateTransactionRequest {
-    body: SolidityServiceSimulateTransactionRequest;
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecChainId: string;
+    body: SolidityServiceSolidityAPIServiceSimulateTransactionBody;
+}
+
+export interface SimulateTransaction2Request {
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecForkId: string;
+    body: SolidityServiceSolidityAPIServiceSimulateTransactionBody;
 }
 
 export interface SimulateTransactionBundleRequest {
-    body: SolidityServiceSimulateTransactionBundleRequest;
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecChainId: string;
+    body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody;
+}
+
+export interface SimulateTransactionBundle2Request {
+    projectOwner: string;
+    projectSlug: string;
+    chainSpecForkId: string;
+    body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody;
 }
 
 /**
@@ -115,30 +201,38 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTraceRaw(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getCallTrace().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getCallTrace().'
+            );
+        }
+
+        if (requestParameters['chainSpecChainId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecChainId',
+                'Required parameter "chainSpecChainId" was null or undefined when calling getCallTrace().'
+            );
+        }
+
+        if (requestParameters['txIdTxHash'] == null) {
+            throw new runtime.RequiredError(
+                'txIdTxHash',
+                'Required parameter "txIdTxHash" was null or undefined when calling getCallTrace().'
+            );
+        }
+
         const queryParameters: any = {};
-
-        if (requestParameters['projectOwner'] != null) {
-            queryParameters['projectOwner'] = requestParameters['projectOwner'];
-        }
-
-        if (requestParameters['projectSlug'] != null) {
-            queryParameters['projectSlug'] = requestParameters['projectSlug'];
-        }
-
-        if (requestParameters['networkId'] != null) {
-            queryParameters['networkId'] = requestParameters['networkId'];
-        }
-
-        if (requestParameters['chainSpecChainId'] != null) {
-            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
-        }
 
         if (requestParameters['chainSpecForkId'] != null) {
             queryParameters['chainSpec.forkId'] = requestParameters['chainSpecForkId'];
-        }
-
-        if (requestParameters['txIdTxHash'] != null) {
-            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
         }
 
         if (requestParameters['txIdSimulationId'] != null) {
@@ -149,12 +243,12 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
             queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
         }
 
-        if (requestParameters['disableOptimizer'] != null) {
-            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
-        }
-
         if (requestParameters['withInternalCalls'] != null) {
             queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
         }
 
         if (requestParameters['ignoreGasCost'] != null) {
@@ -168,7 +262,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/call_trace`,
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/transaction/{txId.txHash}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))).replace(`{${"txId.txHash"}}`, encodeURIComponent(String(requestParameters['txIdTxHash']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -181,30 +275,68 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
      * Get indexed call trace
      */
-    async getCallTrace(requestParameters: GetCallTraceRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+    async getCallTrace(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * Get a simulation by id
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
      */
-    async getSimulationRaw(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationResponse>> {
-        if (requestParameters['simulationId'] == null) {
+    async getCallTrace2Raw(requestParameters: GetCallTrace2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['projectOwner'] == null) {
             throw new runtime.RequiredError(
-                'simulationId',
-                'Required parameter "simulationId" was null or undefined when calling getSimulation().'
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getCallTrace2().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getCallTrace2().'
+            );
+        }
+
+        if (requestParameters['chainSpecChainId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecChainId',
+                'Required parameter "chainSpecChainId" was null or undefined when calling getCallTrace2().'
+            );
+        }
+
+        if (requestParameters['txIdSimulationId'] == null) {
+            throw new runtime.RequiredError(
+                'txIdSimulationId',
+                'Required parameter "txIdSimulationId" was null or undefined when calling getCallTrace2().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['projectOwner'] != null) {
-            queryParameters['projectOwner'] = requestParameters['projectOwner'];
+        if (requestParameters['chainSpecForkId'] != null) {
+            queryParameters['chainSpec.forkId'] = requestParameters['chainSpecForkId'];
         }
 
-        if (requestParameters['projectSlug'] != null) {
-            queryParameters['projectSlug'] = requestParameters['projectSlug'];
+        if (requestParameters['txIdTxHash'] != null) {
+            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
+        }
+
+        if (requestParameters['txIdBundleId'] != null) {
+            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
+        }
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -214,7 +346,395 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/simulate/{simulationId}`.replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation/{txId.simulationId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))).replace(`{${"txId.simulationId"}}`, encodeURIComponent(String(requestParameters['txIdSimulationId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace2(requestParameters: GetCallTrace2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTrace2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace3Raw(requestParameters: GetCallTrace3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getCallTrace3().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getCallTrace3().'
+            );
+        }
+
+        if (requestParameters['chainSpecChainId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecChainId',
+                'Required parameter "chainSpecChainId" was null or undefined when calling getCallTrace3().'
+            );
+        }
+
+        if (requestParameters['txIdBundleId'] == null) {
+            throw new runtime.RequiredError(
+                'txIdBundleId',
+                'Required parameter "txIdBundleId" was null or undefined when calling getCallTrace3().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['chainSpecForkId'] != null) {
+            queryParameters['chainSpec.forkId'] = requestParameters['chainSpecForkId'];
+        }
+
+        if (requestParameters['txIdTxHash'] != null) {
+            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
+        }
+
+        if (requestParameters['txIdSimulationId'] != null) {
+            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
+        }
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle/{txId.bundleId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))).replace(`{${"txId.bundleId"}}`, encodeURIComponent(String(requestParameters['txIdBundleId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace3(requestParameters: GetCallTrace3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTrace3Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace4Raw(requestParameters: GetCallTrace4Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getCallTrace4().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getCallTrace4().'
+            );
+        }
+
+        if (requestParameters['chainSpecForkId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecForkId',
+                'Required parameter "chainSpecForkId" was null or undefined when calling getCallTrace4().'
+            );
+        }
+
+        if (requestParameters['txIdTxHash'] == null) {
+            throw new runtime.RequiredError(
+                'txIdTxHash',
+                'Required parameter "txIdTxHash" was null or undefined when calling getCallTrace4().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['chainSpecChainId'] != null) {
+            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
+        }
+
+        if (requestParameters['txIdSimulationId'] != null) {
+            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
+        }
+
+        if (requestParameters['txIdBundleId'] != null) {
+            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
+        }
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/transaction/{txId.txHash}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))).replace(`{${"txId.txHash"}}`, encodeURIComponent(String(requestParameters['txIdTxHash']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace4(requestParameters: GetCallTrace4Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTrace4Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace5Raw(requestParameters: GetCallTrace5Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getCallTrace5().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getCallTrace5().'
+            );
+        }
+
+        if (requestParameters['chainSpecForkId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecForkId',
+                'Required parameter "chainSpecForkId" was null or undefined when calling getCallTrace5().'
+            );
+        }
+
+        if (requestParameters['txIdSimulationId'] == null) {
+            throw new runtime.RequiredError(
+                'txIdSimulationId',
+                'Required parameter "txIdSimulationId" was null or undefined when calling getCallTrace5().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['chainSpecChainId'] != null) {
+            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
+        }
+
+        if (requestParameters['txIdTxHash'] != null) {
+            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
+        }
+
+        if (requestParameters['txIdBundleId'] != null) {
+            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
+        }
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation/{txId.simulationId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))).replace(`{${"txId.simulationId"}}`, encodeURIComponent(String(requestParameters['txIdSimulationId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace5(requestParameters: GetCallTrace5Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTrace5Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace6Raw(requestParameters: GetCallTrace6Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getCallTrace6().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getCallTrace6().'
+            );
+        }
+
+        if (requestParameters['chainSpecForkId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecForkId',
+                'Required parameter "chainSpecForkId" was null or undefined when calling getCallTrace6().'
+            );
+        }
+
+        if (requestParameters['txIdBundleId'] == null) {
+            throw new runtime.RequiredError(
+                'txIdBundleId',
+                'Required parameter "txIdBundleId" was null or undefined when calling getCallTrace6().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['chainSpecChainId'] != null) {
+            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
+        }
+
+        if (requestParameters['txIdTxHash'] != null) {
+            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
+        }
+
+        if (requestParameters['txIdSimulationId'] != null) {
+            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
+        }
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle/{txId.bundleId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))).replace(`{${"txId.bundleId"}}`, encodeURIComponent(String(requestParameters['txIdBundleId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * Get indexed call trace
+     */
+    async getCallTrace6(requestParameters: GetCallTrace6Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTrace6Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a simulation by id
+     */
+    async getSimulationRaw(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getSimulation().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getSimulation().'
+            );
+        }
+
+        if (requestParameters['simulationId'] == null) {
+            throw new runtime.RequiredError(
+                'simulationId',
+                'Required parameter "simulationId" was null or undefined when calling getSimulation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/simulation/{simulationId}`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -234,23 +754,29 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     /**
      * Get a bundle simulation by id
      */
-    async getSimulationBundleRaw(requestParameters: GetSimulationBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationBundleResponse>> {
+    async getSimulationBundleInProjectRaw(requestParameters: GetSimulationBundleInProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationBundleResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getSimulationBundleInProject().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getSimulationBundleInProject().'
+            );
+        }
+
         if (requestParameters['bundleId'] == null) {
             throw new runtime.RequiredError(
                 'bundleId',
-                'Required parameter "bundleId" was null or undefined when calling getSimulationBundle().'
+                'Required parameter "bundleId" was null or undefined when calling getSimulationBundleInProject().'
             );
         }
 
         const queryParameters: any = {};
-
-        if (requestParameters['projectOwner'] != null) {
-            queryParameters['projectOwner'] = requestParameters['projectOwner'];
-        }
-
-        if (requestParameters['projectSlug'] != null) {
-            queryParameters['projectSlug'] = requestParameters['projectSlug'];
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -259,7 +785,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/simulate_bundle/{bundleId}`.replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/simulation_bundle/{bundleId}`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -271,8 +797,8 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     /**
      * Get a bundle simulation by id
      */
-    async getSimulationBundle(requestParameters: GetSimulationBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationBundleResponse> {
-        const response = await this.getSimulationBundleRaw(requestParameters, initOverrides);
+    async getSimulationBundleInProject(requestParameters: GetSimulationBundleInProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationBundleResponse> {
+        const response = await this.getSimulationBundleInProjectRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -280,15 +806,21 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get existing transaction simulations
      */
     async getSimulationsRaw(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationsResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling getSimulations().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling getSimulations().'
+            );
+        }
+
         const queryParameters: any = {};
-
-        if (requestParameters['projectOwner'] != null) {
-            queryParameters['projectOwner'] = requestParameters['projectOwner'];
-        }
-
-        if (requestParameters['projectSlug'] != null) {
-            queryParameters['projectSlug'] = requestParameters['projectSlug'];
-        }
 
         if (requestParameters['labelContains'] != null) {
             queryParameters['labelContains'] = requestParameters['labelContains'];
@@ -309,7 +841,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/simulate`,
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/simulation`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -321,7 +853,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     /**
      * Get existing transaction simulations
      */
-    async getSimulations(requestParameters: GetSimulationsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationsResponse> {
+    async getSimulations(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationsResponse> {
         const response = await this.getSimulationsRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -330,6 +862,20 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Search for transactions
      */
     async searchTransactionsRaw(requestParameters: SearchTransactionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TxindexEvmSearchTransactionsResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling searchTransactions().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling searchTransactions().'
+            );
+        }
+
         const queryParameters: any = {};
 
         if (requestParameters['chainId'] != null) {
@@ -395,7 +941,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/search_transactions`,
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/search_transactions`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -407,7 +953,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     /**
      * Search for transactions
      */
-    async searchTransactions(requestParameters: SearchTransactionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TxindexEvmSearchTransactionsResponse> {
+    async searchTransactions(requestParameters: SearchTransactionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TxindexEvmSearchTransactionsResponse> {
         const response = await this.searchTransactionsRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -417,6 +963,27 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Single simulation
      */
     async simulateTransactionRaw(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling simulateTransaction().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling simulateTransaction().'
+            );
+        }
+
+        if (requestParameters['chainSpecChainId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecChainId',
+                'Required parameter "chainSpecChainId" was null or undefined when calling simulateTransaction().'
+            );
+        }
+
         if (requestParameters['body'] == null) {
             throw new runtime.RequiredError(
                 'body',
@@ -435,11 +1002,11 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/simulate`,
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SolidityServiceSimulateTransactionRequestToJSON(requestParameters['body']),
+            body: SolidityServiceSolidityAPIServiceSimulateTransactionBodyToJSON(requestParameters['body']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionResponseFromJSON(jsonValue));
@@ -455,10 +1022,94 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
+     * Single simulation
+     */
+    async simulateTransaction2Raw(requestParameters: SimulateTransaction2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling simulateTransaction2().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling simulateTransaction2().'
+            );
+        }
+
+        if (requestParameters['chainSpecForkId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecForkId',
+                'Required parameter "chainSpecForkId" was null or undefined when calling simulateTransaction2().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling simulateTransaction2().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SolidityServiceSolidityAPIServiceSimulateTransactionBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
+     * Single simulation
+     */
+    async simulateTransaction2(requestParameters: SimulateTransaction2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
+        const response = await this.simulateTransaction2Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
      * Bundle simulation
      */
     async simulateTransactionBundleRaw(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling simulateTransactionBundle().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling simulateTransactionBundle().'
+            );
+        }
+
+        if (requestParameters['chainSpecChainId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecChainId',
+                'Required parameter "chainSpecChainId" was null or undefined when calling simulateTransactionBundle().'
+            );
+        }
+
         if (requestParameters['body'] == null) {
             throw new runtime.RequiredError(
                 'body',
@@ -477,11 +1128,11 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/simulate_bundle`,
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SolidityServiceSimulateTransactionBundleRequestToJSON(requestParameters['body']),
+            body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyToJSON(requestParameters['body']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionBundleResponseFromJSON(jsonValue));
@@ -493,6 +1144,69 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      */
     async simulateTransactionBundle(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const response = await this.simulateTransactionBundleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
+     * Bundle simulation
+     */
+    async simulateTransactionBundle2Raw(requestParameters: SimulateTransactionBundle2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
+        if (requestParameters['projectOwner'] == null) {
+            throw new runtime.RequiredError(
+                'projectOwner',
+                'Required parameter "projectOwner" was null or undefined when calling simulateTransactionBundle2().'
+            );
+        }
+
+        if (requestParameters['projectSlug'] == null) {
+            throw new runtime.RequiredError(
+                'projectSlug',
+                'Required parameter "projectSlug" was null or undefined when calling simulateTransactionBundle2().'
+            );
+        }
+
+        if (requestParameters['chainSpecForkId'] == null) {
+            throw new runtime.RequiredError(
+                'chainSpecForkId',
+                'Required parameter "chainSpecForkId" was null or undefined when calling simulateTransactionBundle2().'
+            );
+        }
+
+        if (requestParameters['body'] == null) {
+            throw new runtime.RequiredError(
+                'body',
+                'Required parameter "body" was null or undefined when calling simulateTransactionBundle2().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyToJSON(requestParameters['body']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionBundleResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
+     * Bundle simulation
+     */
+    async simulateTransactionBundle2(requestParameters: SimulateTransactionBundle2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
+        const response = await this.simulateTransactionBundle2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime.js';
+import type { SolidityServiceSourceFetcherType } from './SolidityServiceSourceFetcherType.js';
+import {
+    SolidityServiceSourceFetcherTypeFromJSON,
+    SolidityServiceSourceFetcherTypeFromJSONTyped,
+    SolidityServiceSourceFetcherTypeToJSON,
+    SolidityServiceSourceFetcherTypeToJSONTyped,
+} from './SolidityServiceSourceFetcherType.js';
+
 /**
  * 
  * @export
@@ -33,10 +41,10 @@ export interface SolidityServiceBaseChainConfig {
     debugEndpoint?: string;
     /**
      * 
-     * @type {string}
+     * @type {SolidityServiceSourceFetcherType}
      * @memberof SolidityServiceBaseChainConfig
      */
-    sourceFetcherType?: string;
+    sourceFetcherType?: SolidityServiceSourceFetcherType;
     /**
      * 
      * @type {string}
@@ -63,6 +71,8 @@ export interface SolidityServiceBaseChainConfig {
     oklinkChainShortName?: string;
 }
 
+
+
 /**
  * Check if a given object implements the SolidityServiceBaseChainConfig interface.
  */
@@ -82,7 +92,7 @@ export function SolidityServiceBaseChainConfigFromJSONTyped(json: any, ignoreDis
         
         'endpoint': json['endpoint'] == null ? undefined : json['endpoint'],
         'debugEndpoint': json['debugEndpoint'] == null ? undefined : json['debugEndpoint'],
-        'sourceFetcherType': json['sourceFetcherType'] == null ? undefined : json['sourceFetcherType'],
+        'sourceFetcherType': json['sourceFetcherType'] == null ? undefined : SolidityServiceSourceFetcherTypeFromJSON(json['sourceFetcherType']),
         'sourceFetcherEndpoint': json['sourceFetcherEndpoint'] == null ? undefined : json['sourceFetcherEndpoint'],
         'sourceFetcherTimeout': json['sourceFetcherTimeout'] == null ? undefined : json['sourceFetcherTimeout'],
         'sourceFetcherApiKeys': json['sourceFetcherApiKeys'] == null ? undefined : json['sourceFetcherApiKeys'],
@@ -103,7 +113,7 @@ export function SolidityServiceBaseChainConfigFromJSONTyped(json: any, ignoreDis
         
         'endpoint': value['endpoint'],
         'debugEndpoint': value['debugEndpoint'],
-        'sourceFetcherType': value['sourceFetcherType'],
+        'sourceFetcherType': SolidityServiceSourceFetcherTypeToJSON(value['sourceFetcherType']),
         'sourceFetcherEndpoint': value['sourceFetcherEndpoint'],
         'sourceFetcherTimeout': value['sourceFetcherTimeout'],
         'sourceFetcherApiKeys': value['sourceFetcherApiKeys'],

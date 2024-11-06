@@ -1097,11 +1097,123 @@
         ]
       }
     },
-    "/api/v1/solidity/call_trace": {
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork": {
+      "get": {
+        "operationId": "ListForks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.ListForksResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Forks"
+        ]
+      },
+      "post": {
+        "operationId": "CreateFork",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.CreateForkResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/solidity_service.ForkService.CreateForkBody"
+            }
+          }
+        ],
+        "tags": [
+          "Forks"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation": {
+      "post": {
+        "summary": "Single simulation",
+        "description": "Create a new transaction simulation. The simulation body should be included in the request body.\nYour simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.",
+        "operationId": "SimulateTransaction2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.SimulateTransactionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.forkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionBody"
+            }
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation/{txId.simulationId}/call_trace": {
       "get": {
         "summary": "Get indexed call trace",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
-        "operationId": "GetCallTrace",
+        "operationId": "GetCallTrace5",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1113,22 +1225,26 @@
         "parameters": [
           {
             "name": "projectOwner",
-            "description": "Required if fork id is specified",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "projectSlug",
-            "description": "Required if fork id is specified",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
-            "name": "networkId",
-            "in": "query",
-            "required": false,
+            "name": "chainSpec.forkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "txId.simulationId",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -1138,7 +1254,131 @@
             "type": "string"
           },
           {
+            "name": "txId.txHash",
+            "description": "One of txHash, simulationId, bundleId is required.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txId.bundleId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "withInternalCalls",
+            "description": "Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "disableOptimizer",
+            "description": "Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "ignoreGasCost",
+            "description": "Only effective when disableOptimizer=true.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle": {
+      "post": {
+        "summary": "Bundle simulation",
+        "description": "You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.",
+        "operationId": "SimulateTransactionBundle2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.SimulateTransactionBundleResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "chainSpec.forkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionBundleBody"
+            }
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle/{txId.bundleId}/call_trace": {
+      "get": {
+        "summary": "Get indexed call trace",
+        "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
+        "operationId": "GetCallTrace6",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/google.api.HttpBody"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.forkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "txId.bundleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.chainId",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1157,18 +1397,6 @@
             "type": "string"
           },
           {
-            "name": "txId.bundleId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "disableOptimizer",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
             "name": "withInternalCalls",
             "description": "Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.",
             "in": "query",
@@ -1176,8 +1404,15 @@
             "type": "boolean"
           },
           {
+            "name": "disableOptimizer",
+            "description": "Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
             "name": "ignoreGasCost",
-            "description": "Only effective when disableOptimizer=true",
+            "description": "Only effective when disableOptimizer=true.",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -1188,7 +1423,240 @@
         ]
       }
     },
-    "/api/v1/solidity/search_transactions": {
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/transaction/{txId.txHash}/call_trace": {
+      "get": {
+        "summary": "Get indexed call trace",
+        "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
+        "operationId": "GetCallTrace4",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/google.api.HttpBody"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.forkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "txId.txHash",
+            "description": "One of txHash, simulationId, bundleId is required.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.chainId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txId.simulationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txId.bundleId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "withInternalCalls",
+            "description": "Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "disableOptimizer",
+            "description": "Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "ignoreGasCost",
+            "description": "Only effective when disableOptimizer=true.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}": {
+      "get": {
+        "operationId": "GetFork",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.GetForkResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Forks"
+        ]
+      },
+      "delete": {
+        "operationId": "DeleteFork",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Forks"
+        ]
+      },
+      "put": {
+        "operationId": "UpdateFork",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.UpdateForkResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/solidity_service.ForkService.UpdateForkBody"
+            }
+          }
+        ],
+        "tags": [
+          "Forks"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}/info": {
+      "get": {
+        "operationId": "GetForkInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.GetForkInfoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Forks"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/search_transactions": {
       "get": {
         "summary": "Search for transactions",
         "operationId": "SearchTransactions",
@@ -1201,6 +1669,18 @@
           }
         },
         "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "chainId",
             "in": "query",
@@ -1310,7 +1790,7 @@
         ]
       }
     },
-    "/api/v1/solidity/simulate": {
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/simulation": {
       "get": {
         "summary": "Get existing transaction simulations",
         "operationId": "GetSimulations",
@@ -1325,14 +1805,14 @@
         "parameters": [
           {
             "name": "projectOwner",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "projectSlug",
-            "in": "query",
-            "required": false,
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -1359,7 +1839,83 @@
         "tags": [
           "Debug and Simulation"
         ]
-      },
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/simulation/{simulationId}": {
+      "get": {
+        "summary": "Get a simulation by id",
+        "operationId": "GetSimulation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.GetSimulationResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "simulationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/simulation_bundle/{bundleId}": {
+      "get": {
+        "summary": "Get a bundle simulation by id",
+        "operationId": "GetSimulationBundleInProject",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/solidity_service.GetSimulationBundleResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bundleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation": {
       "post": {
         "summary": "Single simulation",
         "description": "Create a new transaction simulation. The simulation body should be included in the request body.\nYour simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.",
@@ -1374,49 +1930,30 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/solidity_service.SimulateTransactionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Debug and Simulation"
-        ]
-      }
-    },
-    "/api/v1/solidity/simulate/{simulationId}": {
-      "get": {
-        "summary": "Get a simulation by id",
-        "operationId": "GetSimulation",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/solidity_service.GetSimulationResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "simulationId",
+            "name": "projectOwner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectOwner",
-            "in": "query",
-            "required": false,
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
-            "in": "query",
-            "required": false,
+            "name": "chainSpec.chainId",
+            "in": "path",
+            "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionBody"
+            }
           }
         ],
         "tags": [
@@ -1424,7 +1961,91 @@
         ]
       }
     },
-    "/api/v1/solidity/simulate_bundle": {
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation/{txId.simulationId}/call_trace": {
+      "get": {
+        "summary": "Get indexed call trace",
+        "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
+        "operationId": "GetCallTrace2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/google.api.HttpBody"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.chainId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "txId.simulationId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.forkId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txId.txHash",
+            "description": "One of txHash, simulationId, bundleId is required.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txId.bundleId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "withInternalCalls",
+            "description": "Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "disableOptimizer",
+            "description": "Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "ignoreGasCost",
+            "description": "Only effective when disableOptimizer=true.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle": {
       "post": {
         "summary": "Bundle simulation",
         "description": "You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.",
@@ -1439,11 +2060,29 @@
         },
         "parameters": [
           {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.chainId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/solidity_service.SimulateTransactionBundleRequest"
+              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionBundleBody"
             }
           }
         ],
@@ -1452,36 +2091,167 @@
         ]
       }
     },
-    "/api/v1/solidity/simulate_bundle/{bundleId}": {
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle/{txId.bundleId}/call_trace": {
       "get": {
-        "summary": "Get a bundle simulation by id",
-        "operationId": "GetSimulationBundle",
+        "summary": "Get indexed call trace",
+        "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
+        "operationId": "GetCallTrace3",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/solidity_service.GetSimulationBundleResponse"
+              "$ref": "#/definitions/google.api.HttpBody"
             }
           }
         },
         "parameters": [
           {
-            "name": "bundleId",
+            "name": "projectOwner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectOwner",
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.chainId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "txId.bundleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.forkId",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "txId.txHash",
+            "description": "One of txHash, simulationId, bundleId is required.",
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "txId.simulationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "withInternalCalls",
+            "description": "Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "disableOptimizer",
+            "description": "Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "ignoreGasCost",
+            "description": "Only effective when disableOptimizer=true.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Debug and Simulation"
+        ]
+      }
+    },
+    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/transaction/{txId.txHash}/call_trace": {
+      "get": {
+        "summary": "Get indexed call trace",
+        "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
+        "operationId": "GetCallTrace",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/google.api.HttpBody"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.chainId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "txId.txHash",
+            "description": "One of txHash, simulationId, bundleId is required.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "chainSpec.forkId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txId.simulationId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txId.bundleId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "withInternalCalls",
+            "description": "Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "disableOptimizer",
+            "description": "Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "ignoreGasCost",
+            "description": "Only effective when disableOptimizer=true.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -4156,7 +4926,7 @@
           "type": "string"
         },
         "sourceFetcherType": {
-          "type": "string"
+          "$ref": "#/definitions/solidity_service.SourceFetcherType"
         },
         "sourceFetcherEndpoint": {
           "type": "string"
@@ -4172,7 +4942,8 @@
           }
         },
         "oklinkChainShortName": {
-          "type": "string"
+          "type": "string",
+          "title": "Required if source_fetcher_type is OKLINK"
         }
       }
     },
@@ -4251,11 +5022,31 @@
         }
       }
     },
+    "solidity_service.CreateForkResponse": {
+      "type": "object",
+      "properties": {
+        "fork": {
+          "$ref": "#/definitions/solidity_service.Fork"
+        }
+      }
+    },
     "solidity_service.DecodeStateDiffResponse": {
       "type": "object",
       "properties": {
         "result": {
           "type": "string"
+        }
+      }
+    },
+    "solidity_service.ExternalFork": {
+      "type": "object",
+      "properties": {
+        "chainConfig": {
+          "$ref": "#/definitions/solidity_service.BaseChainConfig"
+        },
+        "nodeAdditionalHeaders": {
+          "type": "string",
+          "title": "Additional headers for node requests"
         }
       }
     },
@@ -4284,6 +5075,81 @@
           "additionalProperties": {
             "$ref": "#/definitions/solidity_service.Failure"
           }
+        }
+      }
+    },
+    "solidity_service.Fork": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/solidity_service.ForkType",
+          "title": "Currently only external fork is supported"
+        },
+        "name": {
+          "type": "string"
+        },
+        "extra": {
+          "type": "string"
+        },
+        "managedFork": {
+          "$ref": "#/definitions/solidity_service.ManagedFork",
+          "title": "presents if type = managed_fork"
+        },
+        "externalFork": {
+          "$ref": "#/definitions/solidity_service.ExternalFork",
+          "title": "presents if type = external_fork"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "solidity_service.ForkService.CreateForkBody": {
+      "type": "object",
+      "properties": {
+        "fork": {
+          "$ref": "#/definitions/solidity_service.Fork"
+        }
+      },
+      "required": [
+        "fork"
+      ]
+    },
+    "solidity_service.ForkService.UpdateForkBody": {
+      "type": "object",
+      "properties": {
+        "fork": {
+          "$ref": "#/definitions/solidity_service.Fork"
+        }
+      },
+      "required": [
+        "fork"
+      ]
+    },
+    "solidity_service.ForkType": {
+      "type": "string",
+      "enum": [
+        "MANAGED",
+        "EXTERNAL"
+      ],
+      "default": "MANAGED"
+    },
+    "solidity_service.GetForkInfoResponse": {
+      "type": "object"
+    },
+    "solidity_service.GetForkResponse": {
+      "type": "object",
+      "properties": {
+        "fork": {
+          "$ref": "#/definitions/solidity_service.Fork"
         }
       }
     },
@@ -4406,6 +5272,33 @@
         }
       }
     },
+    "solidity_service.ListForksResponse": {
+      "type": "object",
+      "properties": {
+        "forks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/solidity_service.Fork"
+          }
+        }
+      }
+    },
+    "solidity_service.ManagedFork": {
+      "type": "object",
+      "properties": {
+        "chainSpec": {
+          "$ref": "#/definitions/solidity_service.ChainIdentifier"
+        },
+        "rpcEndpoint": {
+          "type": "string"
+        },
+        "parentBlockNumber": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "solidity_service.Metadata": {
       "type": "object",
       "properties": {
@@ -4505,57 +5398,6 @@
       },
       "title": "partial"
     },
-    "solidity_service.SimulateTransactionBundleRequest": {
-      "type": "object",
-      "example": {
-        "projectOwner": "\u003cUSER\u003e",
-        "projectSlug": "\u003cPROJECT\u003e",
-        "simulations": [
-          {
-            "blockNumber": "17415072",
-            "transactionIndex": "97",
-            "network_id": "1",
-            "from": "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
-            "to": "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
-            "gas": "0x31ae2",
-            "gasPrice": "0xe59a1adbe",
-            "input": "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
-            "value": "0x0"
-          },
-          {
-            "from": "0x99922ca65188cc218a5d316969dc66d8672994f2",
-            "to": "0xae96a46b64e08861cf2af8c7d954b722e0725a0c",
-            "gas": "0x52",
-            "gasPrice": "0xe5909173e",
-            "maxPriorityFeePerGas": "0x3b023380",
-            "maxFeePerGas": "0x147d03",
-            "input": "0x",
-            "value": "0xbe32c0faed7400"
-          }
-        ]
-      },
-      "properties": {
-        "projectOwner": {
-          "type": "string"
-        },
-        "projectSlug": {
-          "type": "string"
-        },
-        "simulations": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/solidity_service.Simulation"
-          },
-          "description": "For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect."
-        }
-      },
-      "required": [
-        "projectOwner",
-        "projectSlug",
-        "simulations"
-      ]
-    },
     "solidity_service.SimulateTransactionBundleResponse": {
       "type": "object",
       "properties": {
@@ -4573,49 +5415,6 @@
           "type": "string"
         }
       }
-    },
-    "solidity_service.SimulateTransactionRequest": {
-      "type": "object",
-      "example": {
-        "projectOwner": "sentio",
-        "projectSlug": "coinbase",
-        "simulation": {
-          "networkId": "1",
-          "blockNumber": "17415072",
-          "transactionIndex": "97",
-          "from": "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
-          "to": "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
-          "value": "0x0",
-          "gas": "0x31ae2",
-          "gasPrice": "0xe59a1adbe",
-          "input": "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
-          "stateOverrides": {
-            "0x0811fd1808e14f0b93f0514313965a5f142c5539": {
-              "balance": "0x1111111111111111"
-            }
-          },
-          "blockOverride": {
-            "baseFee": "0x0"
-          }
-        }
-      },
-      "properties": {
-        "projectOwner": {
-          "type": "string"
-        },
-        "projectSlug": {
-          "type": "string"
-        },
-        "simulation": {
-          "$ref": "#/definitions/solidity_service.Simulation",
-          "title": "bool save = 4;\n  bool save_if_fails = 5;"
-        }
-      },
-      "required": [
-        "projectOwner",
-        "projectSlug",
-        "simulation"
-      ]
     },
     "solidity_service.SimulateTransactionResponse": {
       "type": "object",
@@ -4740,6 +5539,104 @@
         }
       }
     },
+    "solidity_service.SolidityAPIService.SimulateTransactionBody": {
+      "type": "object",
+      "example": {
+        "simulation": {
+          "networkId": "1",
+          "blockNumber": "17415072",
+          "transactionIndex": "97",
+          "from": "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
+          "to": "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+          "value": "0x0",
+          "gas": "0x31ae2",
+          "gasPrice": "0xe59a1adbe",
+          "input": "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+          "stateOverrides": {
+            "0x0811fd1808e14f0b93f0514313965a5f142c5539": {
+              "balance": "0x1111111111111111"
+            }
+          },
+          "blockOverride": {
+            "baseFee": "0x0"
+          }
+        }
+      },
+      "properties": {
+        "chainSpec": {
+          "type": "object",
+          "properties": {
+            "chainId": {
+              "type": "string"
+            }
+          }
+        },
+        "simulation": {
+          "$ref": "#/definitions/solidity_service.Simulation"
+        }
+      },
+      "required": [
+        "simulation"
+      ]
+    },
+    "solidity_service.SolidityAPIService.SimulateTransactionBundleBody": {
+      "type": "object",
+      "example": {
+        "simulations": [
+          {
+            "blockNumber": "17415072",
+            "transactionIndex": "97",
+            "network_id": "1",
+            "from": "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
+            "to": "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+            "gas": "0x31ae2",
+            "gasPrice": "0xe59a1adbe",
+            "input": "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+            "value": "0x0"
+          },
+          {
+            "from": "0x99922ca65188cc218a5d316969dc66d8672994f2",
+            "to": "0xae96a46b64e08861cf2af8c7d954b722e0725a0c",
+            "gas": "0x52",
+            "gasPrice": "0xe5909173e",
+            "maxPriorityFeePerGas": "0x3b023380",
+            "maxFeePerGas": "0x147d03",
+            "input": "0x",
+            "value": "0xbe32c0faed7400"
+          }
+        ]
+      },
+      "properties": {
+        "chainSpec": {
+          "type": "object",
+          "properties": {
+            "chainId": {
+              "type": "string"
+            }
+          }
+        },
+        "simulations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/solidity_service.Simulation"
+          },
+          "description": "For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect."
+        }
+      },
+      "required": [
+        "simulations"
+      ]
+    },
+    "solidity_service.SourceFetcherType": {
+      "type": "string",
+      "enum": [
+        "ETHERSCAN",
+        "BLOCKSCOUT",
+        "OKLINK"
+      ],
+      "default": "ETHERSCAN"
+    },
     "solidity_service.SourceInfo": {
       "type": "object",
       "properties": {
@@ -4848,6 +5745,14 @@
         },
         "bundleId": {
           "type": "string"
+        }
+      }
+    },
+    "solidity_service.UpdateForkResponse": {
+      "type": "object",
+      "properties": {
+        "fork": {
+          "$ref": "#/definitions/solidity_service.Fork"
         }
       }
     },
