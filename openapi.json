@@ -1096,6 +1096,7 @@
     },
     "/api/v1/solidity/{projectOwner}/{projectSlug}/fork": {
       "get": {
+        "summary": "List all forks by project",
         "operationId": "ListForks",
         "responses": {
           "200": {
@@ -1124,6 +1125,7 @@
         ]
       },
       "post": {
+        "summary": "Create a fork",
         "operationId": "CreateFork",
         "responses": {
           "200": {
@@ -1506,6 +1508,7 @@
     },
     "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}": {
       "get": {
+        "summary": "Get a fork by id",
         "operationId": "GetFork",
         "responses": {
           "200": {
@@ -1540,6 +1543,7 @@
         ]
       },
       "delete": {
+        "summary": "Delete a fork by id",
         "operationId": "DeleteFork",
         "responses": {
           "200": {
@@ -1575,6 +1579,7 @@
         ]
       },
       "put": {
+        "summary": "Update a fork by id",
         "operationId": "UpdateFork",
         "responses": {
           "200": {
@@ -1619,6 +1624,7 @@
     },
     "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}/info": {
       "get": {
+        "summary": "Get fork info by id",
         "operationId": "GetForkInfo",
         "responses": {
           "200": {
@@ -1650,40 +1656,6 @@
         ],
         "tags": [
           "Forks"
-        ]
-      }
-    },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}/state": {
-      "get": {
-        "summary": "option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {\n    };",
-        "operationId": "GetForkState",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/google.api.HttpBody"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "projectOwner",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectSlug",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
         ]
       }
     },
