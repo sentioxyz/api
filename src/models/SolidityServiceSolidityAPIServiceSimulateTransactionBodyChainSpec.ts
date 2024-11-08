@@ -24,7 +24,7 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSp
      * @type {string}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec
      */
-    chainId?: string;
+    forkId?: string;
 }
 
 /**
@@ -44,7 +44,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpe
     }
     return {
         
-        'chainId': json['chainId'] == null ? undefined : json['chainId'],
+        'forkId': json['forkId'] == null ? undefined : json['forkId'],
     };
 }
 
@@ -59,7 +59,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpe
 
     return {
         
-        'chainId': value['chainId'],
+        'forkId': value['forkId'],
     };
 }
 
