@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime.js';
-import type { SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec } from './SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec.js';
-import {
-    SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecFromJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecFromJSONTyped,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecToJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecToJSONTyped,
-} from './SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec.js';
 import type { SolidityServiceSimulation } from './SolidityServiceSimulation.js';
 import {
     SolidityServiceSimulationFromJSON,
@@ -36,10 +29,10 @@ import {
 export interface SolidityServiceSolidityAPIServiceSimulateTransactionBody {
     /**
      * 
-     * @type {SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec}
+     * @type {object}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBody
      */
-    chainSpec: SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec;
+    chainSpec?: object;
     /**
      * 
      * @type {SolidityServiceSimulation}
@@ -52,7 +45,6 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBody {
  * Check if a given object implements the SolidityServiceSolidityAPIServiceSimulateTransactionBody interface.
  */
 export function instanceOfSolidityServiceSolidityAPIServiceSimulateTransactionBody(value: object): value is SolidityServiceSolidityAPIServiceSimulateTransactionBody {
-    if (!('chainSpec' in value) || value['chainSpec'] === undefined) return false;
     if (!('simulation' in value) || value['simulation'] === undefined) return false;
     return true;
 }
@@ -67,7 +59,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBodyFromJSON
     }
     return {
         
-        'chainSpec': SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecFromJSON(json['chainSpec']),
+        'chainSpec': json['chainSpec'] == null ? undefined : json['chainSpec'],
         'simulation': SolidityServiceSimulationFromJSON(json['simulation']),
     };
 }
@@ -83,7 +75,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBodyFromJSON
 
     return {
         
-        'chainSpec': SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecToJSON(value['chainSpec']),
+        'chainSpec': value['chainSpec'],
         'simulation': SolidityServiceSimulationToJSON(value['simulation']),
     };
 }

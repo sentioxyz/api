@@ -5524,19 +5524,13 @@
       },
       "properties": {
         "chainSpec": {
-          "type": "object",
-          "properties": {
-            "forkId": {
-              "type": "string"
-            }
-          }
+          "type": "object"
         },
         "simulation": {
           "$ref": "#/definitions/solidity_service.Simulation"
         }
       },
       "required": [
-        "chainSpec",
         "simulation"
       ]
     },
@@ -5569,12 +5563,7 @@
       },
       "properties": {
         "chainSpec": {
-          "type": "object",
-          "properties": {
-            "forkId": {
-              "type": "string"
-            }
-          }
+          "type": "object"
         },
         "simulations": {
           "type": "array",
@@ -5586,7 +5575,6 @@
         }
       },
       "required": [
-        "chainSpec",
         "simulations"
       ]
     },
@@ -5619,12 +5607,7 @@
       },
       "properties": {
         "chainSpec": {
-          "type": "object",
-          "properties": {
-            "chainId": {
-              "type": "string"
-            }
-          }
+          "type": "object"
         },
         "simulations": {
           "type": "array",
@@ -5636,7 +5619,6 @@
         }
       },
       "required": [
-        "chainSpec",
         "simulations"
       ]
     },
@@ -5665,19 +5647,13 @@
       },
       "properties": {
         "chainSpec": {
-          "type": "object",
-          "properties": {
-            "chainId": {
-              "type": "string"
-            }
-          }
+          "type": "object"
         },
         "simulation": {
           "$ref": "#/definitions/solidity_service.Simulation"
         }
       },
       "required": [
-        "chainSpec",
         "simulation"
       ]
     },

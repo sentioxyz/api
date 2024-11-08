@@ -20,13 +20,6 @@ import {
     SolidityServiceSimulationToJSON,
     SolidityServiceSimulationToJSONTyped,
 } from './SolidityServiceSimulation.js';
-import type { SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec } from './SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec.js';
-import {
-    SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecFromJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecFromJSONTyped,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecToJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecToJSONTyped,
-} from './SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec.js';
 
 /**
  * 
@@ -36,10 +29,10 @@ import {
 export interface SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody {
     /**
      * 
-     * @type {SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec}
+     * @type {object}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody
      */
-    chainSpec: SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec;
+    chainSpec?: object;
     /**
      * For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect.
      * @type {Array<SolidityServiceSimulation>}
@@ -52,7 +45,6 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBundleByFor
  * Check if a given object implements the SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody interface.
  */
 export function instanceOfSolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody(value: object): value is SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody {
-    if (!('chainSpec' in value) || value['chainSpec'] === undefined) return false;
     if (!('simulations' in value) || value['simulations'] === undefined) return false;
     return true;
 }
@@ -67,7 +59,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBundleByFork
     }
     return {
         
-        'chainSpec': SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecFromJSON(json['chainSpec']),
+        'chainSpec': json['chainSpec'] == null ? undefined : json['chainSpec'],
         'simulations': ((json['simulations'] as Array<any>).map(SolidityServiceSimulationFromJSON)),
     };
 }
@@ -83,7 +75,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBundleByFork
 
     return {
         
-        'chainSpec': SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecToJSON(value['chainSpec']),
+        'chainSpec': value['chainSpec'],
         'simulations': ((value['simulations'] as Array<any>).map(SolidityServiceSimulationToJSON)),
     };
 }

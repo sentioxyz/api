@@ -3967,11 +3967,12 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.SolidityAPIService.SimulateTransactionBody"] = {
-  "required" : [ "chainSpec", "simulation" ],
+  "required" : [ "simulation" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
-      "$ref" : "#/components/schemas/solidity_service_SolidityAPIService_SimulateTransactionBody_chainSpec"
+      "type" : "object",
+      "properties" : { }
     },
     "simulation" : {
       "$ref" : "#/components/schemas/solidity_service.Simulation"
@@ -3999,20 +4000,13 @@ ul.nav-tabs {
     }
   }
 };
-    defs["solidity_service_SolidityAPIService_SimulateTransactionBody_chainSpec"] = {
-  "type" : "object",
-  "properties" : {
-    "forkId" : {
-      "type" : "string"
-    }
-  }
-};
     defs["solidity_service.SolidityAPIService.SimulateTransactionBundleBody"] = {
-  "required" : [ "chainSpec", "simulations" ],
+  "required" : [ "simulations" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
-      "$ref" : "#/components/schemas/solidity_service_SolidityAPIService_SimulateTransactionBody_chainSpec"
+      "type" : "object",
+      "properties" : { }
     },
     "simulations" : {
       "type" : "array",
@@ -4046,11 +4040,12 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.SolidityAPIService.SimulateTransactionBundleByForkBody"] = {
-  "required" : [ "chainSpec", "simulations" ],
+  "required" : [ "simulations" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
-      "$ref" : "#/components/schemas/solidity_service_SolidityAPIService_SimulateTransactionBundleByForkBody_chainSpec"
+      "type" : "object",
+      "properties" : { }
     },
     "simulations" : {
       "type" : "array",
@@ -4083,20 +4078,13 @@ ul.nav-tabs {
     } ]
   }
 };
-    defs["solidity_service_SolidityAPIService_SimulateTransactionBundleByForkBody_chainSpec"] = {
-  "type" : "object",
-  "properties" : {
-    "chainId" : {
-      "type" : "string"
-    }
-  }
-};
     defs["solidity_service.SolidityAPIService.SimulateTransactionByForkBody"] = {
-  "required" : [ "chainSpec", "simulation" ],
+  "required" : [ "simulation" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
-      "$ref" : "#/components/schemas/solidity_service_SolidityAPIService_SimulateTransactionBundleByForkBody_chainSpec"
+      "type" : "object",
+      "properties" : { }
     },
     "simulation" : {
       "$ref" : "#/components/schemas/solidity_service.Simulation"
