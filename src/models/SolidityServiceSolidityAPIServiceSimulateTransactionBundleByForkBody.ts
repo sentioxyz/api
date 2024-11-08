@@ -39,7 +39,7 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBundleByFor
      * @type {SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody
      */
-    chainSpec?: SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec;
+    chainSpec: SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpec;
     /**
      * For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect.
      * @type {Array<SolidityServiceSimulation>}
@@ -52,6 +52,7 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBundleByFor
  * Check if a given object implements the SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody interface.
  */
 export function instanceOfSolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody(value: object): value is SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody {
+    if (!('chainSpec' in value) || value['chainSpec'] === undefined) return false;
     if (!('simulations' in value) || value['simulations'] === undefined) return false;
     return true;
 }
@@ -66,7 +67,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBundleByFork
     }
     return {
         
-        'chainSpec': json['chainSpec'] == null ? undefined : SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecFromJSON(json['chainSpec']),
+        'chainSpec': SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyChainSpecFromJSON(json['chainSpec']),
         'simulations': ((json['simulations'] as Array<any>).map(SolidityServiceSimulationFromJSON)),
     };
 }

@@ -57,9 +57,6 @@ export interface GetCallTraceByBundleRequest {
     slug: string;
     chainId: string;
     bundleId: string;
-    chainSpecForkId?: string;
-    txIdTxHash?: string;
-    txIdSimulationId?: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
@@ -70,9 +67,6 @@ export interface GetCallTraceByForkBundleRequest {
     slug: string;
     forkId: string;
     bundleId: string;
-    chainSpecChainId?: string;
-    txIdTxHash?: string;
-    txIdSimulationId?: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
@@ -83,9 +77,6 @@ export interface GetCallTraceByForkSimulationRequest {
     slug: string;
     forkId: string;
     simulationId: string;
-    chainSpecChainId?: string;
-    txIdTxHash?: string;
-    txIdBundleId?: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
@@ -96,9 +87,6 @@ export interface GetCallTraceByForkTransactionRequest {
     slug: string;
     forkId: string;
     txHash: string;
-    chainSpecChainId?: string;
-    txIdSimulationId?: string;
-    txIdBundleId?: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
@@ -109,9 +97,6 @@ export interface GetCallTraceBySimulationRequest {
     slug: string;
     chainId: string;
     simulationId: string;
-    chainSpecForkId?: string;
-    txIdTxHash?: string;
-    txIdBundleId?: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
@@ -122,9 +107,6 @@ export interface GetCallTraceByTransactionRequest {
     slug: string;
     chainId: string;
     txHash: string;
-    chainSpecForkId?: string;
-    txIdSimulationId?: string;
-    txIdBundleId?: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
@@ -203,6 +185,7 @@ export interface SimulateTransactionByForkRequest {
 export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
+     * Get Call Trace by Bundle Simulation
      */
     async getCallTraceByBundleRaw(requestParameters: GetCallTraceByBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -235,18 +218,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['chainSpecForkId'] != null) {
-            queryParameters['chainSpec.forkId'] = requestParameters['chainSpecForkId'];
-        }
-
-        if (requestParameters['txIdTxHash'] != null) {
-            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
-        }
-
-        if (requestParameters['txIdSimulationId'] != null) {
-            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
-        }
-
         if (requestParameters['withInternalCalls'] != null) {
             queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
         }
@@ -266,7 +237,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/bundle/{bundle_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"bundle_id"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chainId"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -276,6 +247,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Bundle Simulation
      */
     async getCallTraceByBundle(requestParameters: GetCallTraceByBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByBundleRaw(requestParameters, initOverrides);
@@ -283,6 +255,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Bundle Simulation on Fork
      */
     async getCallTraceByForkBundleRaw(requestParameters: GetCallTraceByForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -315,18 +288,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['chainSpecChainId'] != null) {
-            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
-        }
-
-        if (requestParameters['txIdTxHash'] != null) {
-            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
-        }
-
-        if (requestParameters['txIdSimulationId'] != null) {
-            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
-        }
-
         if (requestParameters['withInternalCalls'] != null) {
             queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
         }
@@ -346,7 +307,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/bundle/{bundle_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"bundle_id"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -356,6 +317,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Bundle Simulation on Fork
      */
     async getCallTraceByForkBundle(requestParameters: GetCallTraceByForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByForkBundleRaw(requestParameters, initOverrides);
@@ -363,6 +325,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Simulation on Fork
      */
     async getCallTraceByForkSimulationRaw(requestParameters: GetCallTraceByForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -395,18 +358,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['chainSpecChainId'] != null) {
-            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
-        }
-
-        if (requestParameters['txIdTxHash'] != null) {
-            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
-        }
-
-        if (requestParameters['txIdBundleId'] != null) {
-            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
-        }
-
         if (requestParameters['withInternalCalls'] != null) {
             queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
         }
@@ -426,7 +377,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation/{simulation_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"simulation_id"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -436,6 +387,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Simulation on Fork
      */
     async getCallTraceByForkSimulation(requestParameters: GetCallTraceByForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByForkSimulationRaw(requestParameters, initOverrides);
@@ -443,6 +395,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Transaction on Fork
      */
     async getCallTraceByForkTransactionRaw(requestParameters: GetCallTraceByForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -475,18 +428,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['chainSpecChainId'] != null) {
-            queryParameters['chainSpec.chainId'] = requestParameters['chainSpecChainId'];
-        }
-
-        if (requestParameters['txIdSimulationId'] != null) {
-            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
-        }
-
-        if (requestParameters['txIdBundleId'] != null) {
-            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
-        }
-
         if (requestParameters['withInternalCalls'] != null) {
             queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
         }
@@ -506,7 +447,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/transaction/{tx_hash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"tx_hash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"txHash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -516,6 +457,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Transaction on Fork
      */
     async getCallTraceByForkTransaction(requestParameters: GetCallTraceByForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByForkTransactionRaw(requestParameters, initOverrides);
@@ -523,6 +465,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Simulation
      */
     async getCallTraceBySimulationRaw(requestParameters: GetCallTraceBySimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -555,18 +498,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['chainSpecForkId'] != null) {
-            queryParameters['chainSpec.forkId'] = requestParameters['chainSpecForkId'];
-        }
-
-        if (requestParameters['txIdTxHash'] != null) {
-            queryParameters['txId.txHash'] = requestParameters['txIdTxHash'];
-        }
-
-        if (requestParameters['txIdBundleId'] != null) {
-            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
-        }
-
         if (requestParameters['withInternalCalls'] != null) {
             queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
         }
@@ -586,7 +517,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation/{simulation_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"simulation_id"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chainId"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -596,6 +527,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get Call Trace by Simulation
      */
     async getCallTraceBySimulation(requestParameters: GetCallTraceBySimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceBySimulationRaw(requestParameters, initOverrides);
@@ -604,7 +536,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
-     * Get indexed call trace
+     * Get Call Trace by Transaction
      */
     async getCallTraceByTransactionRaw(requestParameters: GetCallTraceByTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -637,18 +569,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['chainSpecForkId'] != null) {
-            queryParameters['chainSpec.forkId'] = requestParameters['chainSpecForkId'];
-        }
-
-        if (requestParameters['txIdSimulationId'] != null) {
-            queryParameters['txId.simulationId'] = requestParameters['txIdSimulationId'];
-        }
-
-        if (requestParameters['txIdBundleId'] != null) {
-            queryParameters['txId.bundleId'] = requestParameters['txIdBundleId'];
-        }
-
         if (requestParameters['withInternalCalls'] != null) {
             queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
         }
@@ -668,7 +588,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/transaction/{tx_hash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"tx_hash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chainId"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"txHash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -679,7 +599,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
-     * Get indexed call trace
+     * Get Call Trace by Transaction
      */
     async getCallTraceByTransaction(requestParameters: GetCallTraceByTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByTransactionRaw(requestParameters, initOverrides);
@@ -687,7 +607,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a simulation by id
+     * Get Simulation by ID
      */
     async getSimulationRaw(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationResponse>> {
         if (requestParameters['owner'] == null) {
@@ -730,7 +650,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a simulation by id
+     * Get Simulation by ID
      */
     async getSimulation(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationResponse> {
         const response = await this.getSimulationRaw(requestParameters, initOverrides);
@@ -738,7 +658,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a bundle simulation by id
+     * Get Bundle Simulation by ID
      */
     async getSimulationBundleInProjectRaw(requestParameters: GetSimulationBundleInProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationBundleResponse>> {
         if (requestParameters['owner'] == null) {
@@ -781,7 +701,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a bundle simulation by id
+     * Get Bundle Simulation by ID
      */
     async getSimulationBundleInProject(requestParameters: GetSimulationBundleInProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationBundleResponse> {
         const response = await this.getSimulationBundleInProjectRaw(requestParameters, initOverrides);
@@ -789,7 +709,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get existing transaction simulations
+     * Get Existied Simulations
      */
     async getSimulationsRaw(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationsResponse>> {
         if (requestParameters['owner'] == null) {
@@ -837,7 +757,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get existing transaction simulations
+     * Get Existied Simulations
      */
     async getSimulations(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationsResponse> {
         const response = await this.getSimulationsRaw(requestParameters, initOverrides);
@@ -845,7 +765,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for transactions
+     * Search transactions
      */
     async searchTransactionsRaw(requestParameters: SearchTransactionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TxindexEvmSearchTransactionsResponse>> {
         if (requestParameters['owner'] == null) {
@@ -937,7 +857,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for transactions
+     * Search transactions
      */
     async searchTransactions(requestParameters: SearchTransactionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TxindexEvmSearchTransactionsResponse> {
         const response = await this.searchTransactionsRaw(requestParameters, initOverrides);
@@ -946,7 +866,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
-     * Single simulation
+     * Run Simulation
      */
     async simulateTransactionRaw(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
         if (requestParameters['owner'] == null) {
@@ -988,7 +908,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chainId}/simulation`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chainId"}}`, encodeURIComponent(String(requestParameters['chainId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1000,7 +920,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
-     * Single simulation
+     * Run Simulation
      */
     async simulateTransaction(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
         const response = await this.simulateTransactionRaw(requestParameters, initOverrides);
@@ -1009,7 +929,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
-     * Bundle simulation
+     * Run Bundle simulation
      */
     async simulateTransactionBundleRaw(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
         if (requestParameters['owner'] == null) {
@@ -1051,7 +971,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation_bundle`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chainId"}}`, encodeURIComponent(String(requestParameters['chainId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1063,7 +983,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
-     * Bundle simulation
+     * Run Bundle simulation
      */
     async simulateTransactionBundle(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const response = await this.simulateTransactionBundleRaw(requestParameters, initOverrides);
@@ -1071,6 +991,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Run Bundle simulation on Fork
      */
     async simulateTransactionBundleByForkRaw(requestParameters: SimulateTransactionBundleByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
         if (requestParameters['owner'] == null) {
@@ -1112,7 +1033,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation_bundle`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1123,6 +1044,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Run Bundle simulation on Fork
      */
     async simulateTransactionBundleByFork(requestParameters: SimulateTransactionBundleByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const response = await this.simulateTransactionBundleByForkRaw(requestParameters, initOverrides);
@@ -1130,6 +1052,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Run Simulation on Fork
      */
     async simulateTransactionByForkRaw(requestParameters: SimulateTransactionByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
         if (requestParameters['owner'] == null) {
@@ -1171,7 +1094,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1182,6 +1105,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Run Simulation on Fork
      */
     async simulateTransactionByFork(requestParameters: SimulateTransactionByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
         const response = await this.simulateTransactionByForkRaw(requestParameters, initOverrides);

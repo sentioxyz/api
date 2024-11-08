@@ -20,7 +20,7 @@ import { mapValues } from '../runtime.js';
  */
 export interface SolidityServiceTxIdentifier {
     /**
-     * One of txHash, simulationId, bundleId is required.
+     * 
      * @type {string}
      * @memberof SolidityServiceTxIdentifier
      */

@@ -39,7 +39,7 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody 
      * @type {SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody
      */
-    chainSpec?: SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec;
+    chainSpec: SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec;
     /**
      * For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect.
      * @type {Array<SolidityServiceSimulation>}
@@ -52,6 +52,7 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody 
  * Check if a given object implements the SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody interface.
  */
 export function instanceOfSolidityServiceSolidityAPIServiceSimulateTransactionBundleBody(value: object): value is SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody {
+    if (!('chainSpec' in value) || value['chainSpec'] === undefined) return false;
     if (!('simulations' in value) || value['simulations'] === undefined) return false;
     return true;
 }
@@ -66,7 +67,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyFr
     }
     return {
         
-        'chainSpec': json['chainSpec'] == null ? undefined : SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecFromJSON(json['chainSpec']),
+        'chainSpec': SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecFromJSON(json['chainSpec']),
         'simulations': ((json['simulations'] as Array<any>).map(SolidityServiceSimulationFromJSON)),
     };
 }

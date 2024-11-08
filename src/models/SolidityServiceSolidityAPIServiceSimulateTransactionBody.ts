@@ -39,7 +39,7 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBody {
      * @type {SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBody
      */
-    chainSpec?: SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec;
+    chainSpec: SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpec;
     /**
      * 
      * @type {SolidityServiceSimulation}
@@ -52,6 +52,7 @@ export interface SolidityServiceSolidityAPIServiceSimulateTransactionBody {
  * Check if a given object implements the SolidityServiceSolidityAPIServiceSimulateTransactionBody interface.
  */
 export function instanceOfSolidityServiceSolidityAPIServiceSimulateTransactionBody(value: object): value is SolidityServiceSolidityAPIServiceSimulateTransactionBody {
+    if (!('chainSpec' in value) || value['chainSpec'] === undefined) return false;
     if (!('simulation' in value) || value['simulation'] === undefined) return false;
     return true;
 }
@@ -66,7 +67,7 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBodyFromJSON
     }
     return {
         
-        'chainSpec': json['chainSpec'] == null ? undefined : SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecFromJSON(json['chainSpec']),
+        'chainSpec': SolidityServiceSolidityAPIServiceSimulateTransactionBodyChainSpecFromJSON(json['chainSpec']),
         'simulation': SolidityServiceSimulationFromJSON(json['simulation']),
     };
 }

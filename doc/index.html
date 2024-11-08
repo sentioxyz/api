@@ -3967,7 +3967,7 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.SolidityAPIService.SimulateTransactionBody"] = {
-  "required" : [ "simulation" ],
+  "required" : [ "chainSpec", "simulation" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
@@ -4008,7 +4008,7 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.SolidityAPIService.SimulateTransactionBundleBody"] = {
-  "required" : [ "simulations" ],
+  "required" : [ "chainSpec", "simulations" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
@@ -4046,7 +4046,7 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.SolidityAPIService.SimulateTransactionBundleByForkBody"] = {
-  "required" : [ "simulations" ],
+  "required" : [ "chainSpec", "simulations" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
@@ -4092,7 +4092,7 @@ ul.nav-tabs {
   }
 };
     defs["solidity_service.SolidityAPIService.SimulateTransactionByForkBody"] = {
-  "required" : [ "simulation" ],
+  "required" : [ "chainSpec", "simulation" ],
   "type" : "object",
   "properties" : {
     "chainSpec" : {
@@ -4232,8 +4232,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "txHash" : {
-      "type" : "string",
-      "description" : "One of txHash, simulationId, bundleId is required."
+      "type" : "string"
     },
     "simulationId" : {
       "type" : "string"
@@ -11277,7 +11276,7 @@ $(document).ready(function() {
                       <article id="api-DebugAndSimulation-getCallTraceByBundle-0" data-group="User" data-name="getCallTraceByBundle" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceByBundle</h1>
-                          <p></p>
+                          <p>Get Call Trace by Bundle Simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -11285,7 +11284,7 @@ $(document).ready(function() {
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chain_id}/bundle/{bundle_id}/call_trace</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -11310,7 +11309,7 @@ $(document).ready(function() {
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chain_id}/bundle/{bundle_id}/call_trace?chainSpec.forkId=chainSpecPeriodforkId_example&txId.txHash=txIdPeriodtxHash_example&txId.simulationId=txIdPeriodsimulationId_example&withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceByBundle-0-java">
@@ -11338,15 +11337,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String chainId = chainId_example; // String | 
         String bundleId = bundleId_example; // String | 
-        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByBundle(owner, slug, chainId, bundleId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByBundle(owner, slug, chainId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByBundle");
@@ -11366,15 +11362,12 @@ final String owner = new String(); // String |
 final String slug = new String(); // String | 
 final String chainId = new String(); // String | 
 final String bundleId = new String(); // String | 
-final String chainSpecPeriodforkId = new String(); // String | 
-final String txIdPeriodtxHash = new String(); // String | One of txHash, simulationId, bundleId is required.
-final String txIdPeriodsimulationId = new String(); // String | 
 final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 final Boolean disableOptimizer = new Boolean(); // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    final result = await api_instance.getCallTraceByBundle(owner, slug, chainId, bundleId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+    final result = await api_instance.getCallTraceByBundle(owner, slug, chainId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTraceByBundle: $e\n');
@@ -11393,15 +11386,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String chainId = chainId_example; // String | 
         String bundleId = bundleId_example; // String | 
-        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByBundle(owner, slug, chainId, bundleId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByBundle(owner, slug, chainId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByBundle");
@@ -11429,20 +11419,15 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *chainId = chainId_example; //  (default to null)
 String *bundleId = bundleId_example; //  (default to null)
-String *chainSpecPeriodforkId = chainSpecPeriodforkId_example; //  (optional) (default to null)
-String *txIdPeriodtxHash = txIdPeriodtxHash_example; // One of txHash, simulationId, bundleId is required. (optional) (default to null)
-String *txIdPeriodsimulationId = txIdPeriodsimulationId_example; //  (optional) (default to null)
 Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
+// Get Call Trace by Bundle Simulation
 [apiInstance getCallTraceByBundleWith:owner
     slug:slug
     chainId:chainId
     bundleId:bundleId
-    chainSpecPeriodforkId:chainSpecPeriodforkId
-    txIdPeriodtxHash:txIdPeriodtxHash
-    txIdPeriodsimulationId:txIdPeriodsimulationId
     withInternalCalls:withInternalCalls
     disableOptimizer:disableOptimizer
     ignoreGasCost:ignoreGasCost
@@ -11474,9 +11459,6 @@ var slug = slug_example; // {String}
 var chainId = chainId_example; // {String} 
 var bundleId = bundleId_example; // {String} 
 var opts = {
-  'chainSpecPeriodforkId': chainSpecPeriodforkId_example, // {String} 
-  'txIdPeriodtxHash': txIdPeriodtxHash_example, // {String} One of txHash, simulationId, bundleId is required.
-  'txIdPeriodsimulationId': txIdPeriodsimulationId_example, // {String} 
   'withInternalCalls': true, // {Boolean} Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
   'disableOptimizer': true, // {Boolean} Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
   'ignoreGasCost': true // {Boolean} Only effective when disableOptimizer=true.
@@ -11520,15 +11502,13 @@ namespace Example
             var slug = slug_example;  // String |  (default to null)
             var chainId = chainId_example;  // String |  (default to null)
             var bundleId = bundleId_example;  // String |  (default to null)
-            var chainSpecPeriodforkId = chainSpecPeriodforkId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodtxHash = txIdPeriodtxHash_example;  // String | One of txHash, simulationId, bundleId is required. (optional)  (default to null)
-            var txIdPeriodsimulationId = txIdPeriodsimulationId_example;  // String |  (optional)  (default to null)
             var withInternalCalls = true;  // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional)  (default to null)
             var disableOptimizer = true;  // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional)  (default to null)
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                google.api.HttpBody result = apiInstance.getCallTraceByBundle(owner, slug, chainId, bundleId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+                // Get Call Trace by Bundle Simulation
+                google.api.HttpBody result = apiInstance.getCallTraceByBundle(owner, slug, chainId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTraceByBundle: " + e.Message );
@@ -11554,15 +11534,12 @@ $owner = owner_example; // String |
 $slug = slug_example; // String | 
 $chainId = chainId_example; // String | 
 $bundleId = bundleId_example; // String | 
-$chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-$txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-$txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
 $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 $disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    $result = $api_instance->getCallTraceByBundle($owner, $slug, $chainId, $bundleId, $chainSpecPeriodforkId, $txIdPeriodtxHash, $txIdPeriodsimulationId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
+    $result = $api_instance->getCallTraceByBundle($owner, $slug, $chainId, $bundleId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTraceByBundle: ', $e->getMessage(), PHP_EOL;
@@ -11586,15 +11563,12 @@ my $owner = owner_example; # String |
 my $slug = slug_example; # String | 
 my $chainId = chainId_example; # String | 
 my $bundleId = bundleId_example; # String | 
-my $chainSpecPeriodforkId = chainSpecPeriodforkId_example; # String | 
-my $txIdPeriodtxHash = txIdPeriodtxHash_example; # String | One of txHash, simulationId, bundleId is required.
-my $txIdPeriodsimulationId = txIdPeriodsimulationId_example; # String | 
 my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 my $disableOptimizer = true; # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true.
 
 eval {
-    my $result = $api_instance->getCallTraceByBundle(owner => $owner, slug => $slug, chainId => $chainId, bundleId => $bundleId, chainSpecPeriodforkId => $chainSpecPeriodforkId, txIdPeriodtxHash => $txIdPeriodtxHash, txIdPeriodsimulationId => $txIdPeriodsimulationId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTraceByBundle(owner => $owner, slug => $slug, chainId => $chainId, bundleId => $bundleId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -11620,15 +11594,13 @@ owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 chainId = chainId_example # String |  (default to null)
 bundleId = bundleId_example # String |  (default to null)
-chainSpecPeriodforkId = chainSpecPeriodforkId_example # String |  (optional) (default to null)
-txIdPeriodtxHash = txIdPeriodtxHash_example # String | One of txHash, simulationId, bundleId is required. (optional) (default to null)
-txIdPeriodsimulationId = txIdPeriodsimulationId_example # String |  (optional) (default to null)
 withInternalCalls = true # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 disableOptimizer = true # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    api_response = api_instance.get_call_trace_by_bundle(owner, slug, chainId, bundleId, chainSpecPeriodforkId=chainSpecPeriodforkId, txIdPeriodtxHash=txIdPeriodtxHash, txIdPeriodsimulationId=txIdPeriodsimulationId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
+    # Get Call Trace by Bundle Simulation
+    api_response = api_instance.get_call_trace_by_bundle(owner, slug, chainId, bundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTraceByBundle: %s\n" % e)</code></pre>
@@ -11642,15 +11614,12 @@ pub fn main() {
     let slug = slug_example; // String
     let chainId = chainId_example; // String
     let bundleId = bundleId_example; // String
-    let chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String
-    let txIdPeriodtxHash = txIdPeriodtxHash_example; // String
-    let txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String
     let withInternalCalls = true; // Boolean
     let disableOptimizer = true; // Boolean
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTraceByBundle(owner, slug, chainId, bundleId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
+    let result = client.getCallTraceByBundle(owner, slug, chainId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -11711,7 +11680,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">chain_id*</td>
+                                  <tr><td style="width:150px;">chainId*</td>
 <td>
 
 
@@ -11731,7 +11700,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">bundle_id*</td>
+                                  <tr><td style="width:150px;">bundleId*</td>
 <td>
 
 
@@ -11762,60 +11731,6 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">chainSpec.forkId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByBundle_chainSpecPeriodforkId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.txHash</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByBundle_txIdPeriodtxHash">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-One of txHash, simulationId, bundleId is required.
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.simulationId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByBundle_txIdPeriodsimulationId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
                                 <tr><td style="width:150px;">withInternalCalls</td>
 <td>
 
@@ -11962,7 +11877,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getCallTraceByForkBundle-0" data-group="User" data-name="getCallTraceByForkBundle" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceByForkBundle</h1>
-                          <p></p>
+                          <p>Get Call Trace by Bundle Simulation on Fork</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -11970,7 +11885,7 @@ Only effective when disableOptimizer&#x3D;true.
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/bundle/{bundle_id}/call_trace</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -11995,7 +11910,7 @@ Only effective when disableOptimizer&#x3D;true.
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/bundle/{bundle_id}/call_trace?chainSpec.chainId=chainSpecPeriodchainId_example&txId.txHash=txIdPeriodtxHash_example&txId.simulationId=txIdPeriodsimulationId_example&withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceByForkBundle-0-java">
@@ -12023,15 +11938,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String forkId = forkId_example; // String | 
         String bundleId = bundleId_example; // String | 
-        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByForkBundle");
@@ -12051,15 +11963,12 @@ final String owner = new String(); // String |
 final String slug = new String(); // String | 
 final String forkId = new String(); // String | 
 final String bundleId = new String(); // String | 
-final String chainSpecPeriodchainId = new String(); // String | 
-final String txIdPeriodtxHash = new String(); // String | One of txHash, simulationId, bundleId is required.
-final String txIdPeriodsimulationId = new String(); // String | 
 final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 final Boolean disableOptimizer = new Boolean(); // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    final result = await api_instance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+    final result = await api_instance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTraceByForkBundle: $e\n');
@@ -12078,15 +11987,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String forkId = forkId_example; // String | 
         String bundleId = bundleId_example; // String | 
-        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByForkBundle");
@@ -12114,20 +12020,15 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *forkId = forkId_example; //  (default to null)
 String *bundleId = bundleId_example; //  (default to null)
-String *chainSpecPeriodchainId = chainSpecPeriodchainId_example; //  (optional) (default to null)
-String *txIdPeriodtxHash = txIdPeriodtxHash_example; // One of txHash, simulationId, bundleId is required. (optional) (default to null)
-String *txIdPeriodsimulationId = txIdPeriodsimulationId_example; //  (optional) (default to null)
 Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
+// Get Call Trace by Bundle Simulation on Fork
 [apiInstance getCallTraceByForkBundleWith:owner
     slug:slug
     forkId:forkId
     bundleId:bundleId
-    chainSpecPeriodchainId:chainSpecPeriodchainId
-    txIdPeriodtxHash:txIdPeriodtxHash
-    txIdPeriodsimulationId:txIdPeriodsimulationId
     withInternalCalls:withInternalCalls
     disableOptimizer:disableOptimizer
     ignoreGasCost:ignoreGasCost
@@ -12159,9 +12060,6 @@ var slug = slug_example; // {String}
 var forkId = forkId_example; // {String} 
 var bundleId = bundleId_example; // {String} 
 var opts = {
-  'chainSpecPeriodchainId': chainSpecPeriodchainId_example, // {String} 
-  'txIdPeriodtxHash': txIdPeriodtxHash_example, // {String} One of txHash, simulationId, bundleId is required.
-  'txIdPeriodsimulationId': txIdPeriodsimulationId_example, // {String} 
   'withInternalCalls': true, // {Boolean} Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
   'disableOptimizer': true, // {Boolean} Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
   'ignoreGasCost': true // {Boolean} Only effective when disableOptimizer=true.
@@ -12205,15 +12103,13 @@ namespace Example
             var slug = slug_example;  // String |  (default to null)
             var forkId = forkId_example;  // String |  (default to null)
             var bundleId = bundleId_example;  // String |  (default to null)
-            var chainSpecPeriodchainId = chainSpecPeriodchainId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodtxHash = txIdPeriodtxHash_example;  // String | One of txHash, simulationId, bundleId is required. (optional)  (default to null)
-            var txIdPeriodsimulationId = txIdPeriodsimulationId_example;  // String |  (optional)  (default to null)
             var withInternalCalls = true;  // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional)  (default to null)
             var disableOptimizer = true;  // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional)  (default to null)
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                google.api.HttpBody result = apiInstance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
+                // Get Call Trace by Bundle Simulation on Fork
+                google.api.HttpBody result = apiInstance.getCallTraceByForkBundle(owner, slug, forkId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTraceByForkBundle: " + e.Message );
@@ -12239,15 +12135,12 @@ $owner = owner_example; // String |
 $slug = slug_example; // String | 
 $forkId = forkId_example; // String | 
 $bundleId = bundleId_example; // String | 
-$chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-$txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-$txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
 $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 $disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    $result = $api_instance->getCallTraceByForkBundle($owner, $slug, $forkId, $bundleId, $chainSpecPeriodchainId, $txIdPeriodtxHash, $txIdPeriodsimulationId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
+    $result = $api_instance->getCallTraceByForkBundle($owner, $slug, $forkId, $bundleId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTraceByForkBundle: ', $e->getMessage(), PHP_EOL;
@@ -12271,15 +12164,12 @@ my $owner = owner_example; # String |
 my $slug = slug_example; # String | 
 my $forkId = forkId_example; # String | 
 my $bundleId = bundleId_example; # String | 
-my $chainSpecPeriodchainId = chainSpecPeriodchainId_example; # String | 
-my $txIdPeriodtxHash = txIdPeriodtxHash_example; # String | One of txHash, simulationId, bundleId is required.
-my $txIdPeriodsimulationId = txIdPeriodsimulationId_example; # String | 
 my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 my $disableOptimizer = true; # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true.
 
 eval {
-    my $result = $api_instance->getCallTraceByForkBundle(owner => $owner, slug => $slug, forkId => $forkId, bundleId => $bundleId, chainSpecPeriodchainId => $chainSpecPeriodchainId, txIdPeriodtxHash => $txIdPeriodtxHash, txIdPeriodsimulationId => $txIdPeriodsimulationId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTraceByForkBundle(owner => $owner, slug => $slug, forkId => $forkId, bundleId => $bundleId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -12305,15 +12195,13 @@ owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 forkId = forkId_example # String |  (default to null)
 bundleId = bundleId_example # String |  (default to null)
-chainSpecPeriodchainId = chainSpecPeriodchainId_example # String |  (optional) (default to null)
-txIdPeriodtxHash = txIdPeriodtxHash_example # String | One of txHash, simulationId, bundleId is required. (optional) (default to null)
-txIdPeriodsimulationId = txIdPeriodsimulationId_example # String |  (optional) (default to null)
 withInternalCalls = true # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 disableOptimizer = true # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    api_response = api_instance.get_call_trace_by_fork_bundle(owner, slug, forkId, bundleId, chainSpecPeriodchainId=chainSpecPeriodchainId, txIdPeriodtxHash=txIdPeriodtxHash, txIdPeriodsimulationId=txIdPeriodsimulationId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
+    # Get Call Trace by Bundle Simulation on Fork
+    api_response = api_instance.get_call_trace_by_fork_bundle(owner, slug, forkId, bundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTraceByForkBundle: %s\n" % e)</code></pre>
@@ -12327,15 +12215,12 @@ pub fn main() {
     let slug = slug_example; // String
     let forkId = forkId_example; // String
     let bundleId = bundleId_example; // String
-    let chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String
-    let txIdPeriodtxHash = txIdPeriodtxHash_example; // String
-    let txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String
     let withInternalCalls = true; // Boolean
     let disableOptimizer = true; // Boolean
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTraceByForkBundle(owner, slug, forkId, bundleId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodsimulationId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
+    let result = client.getCallTraceByForkBundle(owner, slug, forkId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -12396,7 +12281,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">fork_id*</td>
+                                  <tr><td style="width:150px;">forkId*</td>
 <td>
 
 
@@ -12416,7 +12301,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">bundle_id*</td>
+                                  <tr><td style="width:150px;">bundleId*</td>
 <td>
 
 
@@ -12447,60 +12332,6 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">chainSpec.chainId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkBundle_chainSpecPeriodchainId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.txHash</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkBundle_txIdPeriodtxHash">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-One of txHash, simulationId, bundleId is required.
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.simulationId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkBundle_txIdPeriodsimulationId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
                                 <tr><td style="width:150px;">withInternalCalls</td>
 <td>
 
@@ -12647,7 +12478,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getCallTraceByForkSimulation-0" data-group="User" data-name="getCallTraceByForkSimulation" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceByForkSimulation</h1>
-                          <p></p>
+                          <p>Get Call Trace by Simulation on Fork</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -12655,7 +12486,7 @@ Only effective when disableOptimizer&#x3D;true.
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation/{simulation_id}/call_trace</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -12680,7 +12511,7 @@ Only effective when disableOptimizer&#x3D;true.
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation/{simulation_id}/call_trace?chainSpec.chainId=chainSpecPeriodchainId_example&txId.txHash=txIdPeriodtxHash_example&txId.bundleId=txIdPeriodbundleId_example&withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceByForkSimulation-0-java">
@@ -12708,15 +12539,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String forkId = forkId_example; // String | 
         String simulationId = simulationId_example; // String | 
-        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByForkSimulation");
@@ -12736,15 +12564,12 @@ final String owner = new String(); // String |
 final String slug = new String(); // String | 
 final String forkId = new String(); // String | 
 final String simulationId = new String(); // String | 
-final String chainSpecPeriodchainId = new String(); // String | 
-final String txIdPeriodtxHash = new String(); // String | One of txHash, simulationId, bundleId is required.
-final String txIdPeriodbundleId = new String(); // String | 
 final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 final Boolean disableOptimizer = new Boolean(); // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    final result = await api_instance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+    final result = await api_instance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTraceByForkSimulation: $e\n');
@@ -12763,15 +12588,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String forkId = forkId_example; // String | 
         String simulationId = simulationId_example; // String | 
-        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByForkSimulation");
@@ -12799,20 +12621,15 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *forkId = forkId_example; //  (default to null)
 String *simulationId = simulationId_example; //  (default to null)
-String *chainSpecPeriodchainId = chainSpecPeriodchainId_example; //  (optional) (default to null)
-String *txIdPeriodtxHash = txIdPeriodtxHash_example; // One of txHash, simulationId, bundleId is required. (optional) (default to null)
-String *txIdPeriodbundleId = txIdPeriodbundleId_example; //  (optional) (default to null)
 Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
+// Get Call Trace by Simulation on Fork
 [apiInstance getCallTraceByForkSimulationWith:owner
     slug:slug
     forkId:forkId
     simulationId:simulationId
-    chainSpecPeriodchainId:chainSpecPeriodchainId
-    txIdPeriodtxHash:txIdPeriodtxHash
-    txIdPeriodbundleId:txIdPeriodbundleId
     withInternalCalls:withInternalCalls
     disableOptimizer:disableOptimizer
     ignoreGasCost:ignoreGasCost
@@ -12844,9 +12661,6 @@ var slug = slug_example; // {String}
 var forkId = forkId_example; // {String} 
 var simulationId = simulationId_example; // {String} 
 var opts = {
-  'chainSpecPeriodchainId': chainSpecPeriodchainId_example, // {String} 
-  'txIdPeriodtxHash': txIdPeriodtxHash_example, // {String} One of txHash, simulationId, bundleId is required.
-  'txIdPeriodbundleId': txIdPeriodbundleId_example, // {String} 
   'withInternalCalls': true, // {Boolean} Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
   'disableOptimizer': true, // {Boolean} Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
   'ignoreGasCost': true // {Boolean} Only effective when disableOptimizer=true.
@@ -12890,15 +12704,13 @@ namespace Example
             var slug = slug_example;  // String |  (default to null)
             var forkId = forkId_example;  // String |  (default to null)
             var simulationId = simulationId_example;  // String |  (default to null)
-            var chainSpecPeriodchainId = chainSpecPeriodchainId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodtxHash = txIdPeriodtxHash_example;  // String | One of txHash, simulationId, bundleId is required. (optional)  (default to null)
-            var txIdPeriodbundleId = txIdPeriodbundleId_example;  // String |  (optional)  (default to null)
             var withInternalCalls = true;  // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional)  (default to null)
             var disableOptimizer = true;  // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional)  (default to null)
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                google.api.HttpBody result = apiInstance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+                // Get Call Trace by Simulation on Fork
+                google.api.HttpBody result = apiInstance.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTraceByForkSimulation: " + e.Message );
@@ -12924,15 +12736,12 @@ $owner = owner_example; // String |
 $slug = slug_example; // String | 
 $forkId = forkId_example; // String | 
 $simulationId = simulationId_example; // String | 
-$chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-$txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-$txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
 $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 $disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    $result = $api_instance->getCallTraceByForkSimulation($owner, $slug, $forkId, $simulationId, $chainSpecPeriodchainId, $txIdPeriodtxHash, $txIdPeriodbundleId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
+    $result = $api_instance->getCallTraceByForkSimulation($owner, $slug, $forkId, $simulationId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTraceByForkSimulation: ', $e->getMessage(), PHP_EOL;
@@ -12956,15 +12765,12 @@ my $owner = owner_example; # String |
 my $slug = slug_example; # String | 
 my $forkId = forkId_example; # String | 
 my $simulationId = simulationId_example; # String | 
-my $chainSpecPeriodchainId = chainSpecPeriodchainId_example; # String | 
-my $txIdPeriodtxHash = txIdPeriodtxHash_example; # String | One of txHash, simulationId, bundleId is required.
-my $txIdPeriodbundleId = txIdPeriodbundleId_example; # String | 
 my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 my $disableOptimizer = true; # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true.
 
 eval {
-    my $result = $api_instance->getCallTraceByForkSimulation(owner => $owner, slug => $slug, forkId => $forkId, simulationId => $simulationId, chainSpecPeriodchainId => $chainSpecPeriodchainId, txIdPeriodtxHash => $txIdPeriodtxHash, txIdPeriodbundleId => $txIdPeriodbundleId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTraceByForkSimulation(owner => $owner, slug => $slug, forkId => $forkId, simulationId => $simulationId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -12990,15 +12796,13 @@ owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 forkId = forkId_example # String |  (default to null)
 simulationId = simulationId_example # String |  (default to null)
-chainSpecPeriodchainId = chainSpecPeriodchainId_example # String |  (optional) (default to null)
-txIdPeriodtxHash = txIdPeriodtxHash_example # String | One of txHash, simulationId, bundleId is required. (optional) (default to null)
-txIdPeriodbundleId = txIdPeriodbundleId_example # String |  (optional) (default to null)
 withInternalCalls = true # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 disableOptimizer = true # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    api_response = api_instance.get_call_trace_by_fork_simulation(owner, slug, forkId, simulationId, chainSpecPeriodchainId=chainSpecPeriodchainId, txIdPeriodtxHash=txIdPeriodtxHash, txIdPeriodbundleId=txIdPeriodbundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
+    # Get Call Trace by Simulation on Fork
+    api_response = api_instance.get_call_trace_by_fork_simulation(owner, slug, forkId, simulationId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTraceByForkSimulation: %s\n" % e)</code></pre>
@@ -13012,15 +12816,12 @@ pub fn main() {
     let slug = slug_example; // String
     let forkId = forkId_example; // String
     let simulationId = simulationId_example; // String
-    let chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String
-    let txIdPeriodtxHash = txIdPeriodtxHash_example; // String
-    let txIdPeriodbundleId = txIdPeriodbundleId_example; // String
     let withInternalCalls = true; // Boolean
     let disableOptimizer = true; // Boolean
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, chainSpecPeriodchainId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
+    let result = client.getCallTraceByForkSimulation(owner, slug, forkId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -13081,7 +12882,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">fork_id*</td>
+                                  <tr><td style="width:150px;">forkId*</td>
 <td>
 
 
@@ -13101,7 +12902,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">simulation_id*</td>
+                                  <tr><td style="width:150px;">simulationId*</td>
 <td>
 
 
@@ -13132,60 +12933,6 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">chainSpec.chainId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkSimulation_chainSpecPeriodchainId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.txHash</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkSimulation_txIdPeriodtxHash">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-One of txHash, simulationId, bundleId is required.
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.bundleId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkSimulation_txIdPeriodbundleId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
                                 <tr><td style="width:150px;">withInternalCalls</td>
 <td>
 
@@ -13332,7 +13079,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getCallTraceByForkTransaction-0" data-group="User" data-name="getCallTraceByForkTransaction" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceByForkTransaction</h1>
-                          <p></p>
+                          <p>Get Call Trace by Transaction on Fork</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -13340,7 +13087,7 @@ Only effective when disableOptimizer&#x3D;true.
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/transaction/{tx_hash}/call_trace</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -13365,7 +13112,7 @@ Only effective when disableOptimizer&#x3D;true.
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/transaction/{tx_hash}/call_trace?chainSpec.chainId=chainSpecPeriodchainId_example&txId.simulationId=txIdPeriodsimulationId_example&txId.bundleId=txIdPeriodbundleId_example&withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceByForkTransaction-0-java">
@@ -13392,16 +13139,13 @@ public class DebugAndSimulationApiExample {
         String owner = owner_example; // String | 
         String slug = slug_example; // String | 
         String forkId = forkId_example; // String | 
-        String txHash = txHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
+        String txHash = txHash_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, chainSpecPeriodchainId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByForkTransaction");
@@ -13420,16 +13164,13 @@ final api_instance = DefaultApi();
 final String owner = new String(); // String | 
 final String slug = new String(); // String | 
 final String forkId = new String(); // String | 
-final String txHash = new String(); // String | One of txHash, simulationId, bundleId is required.
-final String chainSpecPeriodchainId = new String(); // String | 
-final String txIdPeriodsimulationId = new String(); // String | 
-final String txIdPeriodbundleId = new String(); // String | 
+final String txHash = new String(); // String | 
 final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 final Boolean disableOptimizer = new Boolean(); // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    final result = await api_instance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, chainSpecPeriodchainId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+    final result = await api_instance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTraceByForkTransaction: $e\n');
@@ -13447,16 +13188,13 @@ public class DebugAndSimulationApiExample {
         String owner = owner_example; // String | 
         String slug = slug_example; // String | 
         String forkId = forkId_example; // String | 
-        String txHash = txHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
+        String txHash = txHash_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, chainSpecPeriodchainId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByForkTransaction");
@@ -13483,21 +13221,16 @@ DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
 String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *forkId = forkId_example; //  (default to null)
-String *txHash = txHash_example; // One of txHash, simulationId, bundleId is required. (default to null)
-String *chainSpecPeriodchainId = chainSpecPeriodchainId_example; //  (optional) (default to null)
-String *txIdPeriodsimulationId = txIdPeriodsimulationId_example; //  (optional) (default to null)
-String *txIdPeriodbundleId = txIdPeriodbundleId_example; //  (optional) (default to null)
+String *txHash = txHash_example; //  (default to null)
 Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
+// Get Call Trace by Transaction on Fork
 [apiInstance getCallTraceByForkTransactionWith:owner
     slug:slug
     forkId:forkId
     txHash:txHash
-    chainSpecPeriodchainId:chainSpecPeriodchainId
-    txIdPeriodsimulationId:txIdPeriodsimulationId
-    txIdPeriodbundleId:txIdPeriodbundleId
     withInternalCalls:withInternalCalls
     disableOptimizer:disableOptimizer
     ignoreGasCost:ignoreGasCost
@@ -13527,11 +13260,8 @@ var api = new SentioApi.DebugAndSimulationApi()
 var owner = owner_example; // {String} 
 var slug = slug_example; // {String} 
 var forkId = forkId_example; // {String} 
-var txHash = txHash_example; // {String} One of txHash, simulationId, bundleId is required.
+var txHash = txHash_example; // {String} 
 var opts = {
-  'chainSpecPeriodchainId': chainSpecPeriodchainId_example, // {String} 
-  'txIdPeriodsimulationId': txIdPeriodsimulationId_example, // {String} 
-  'txIdPeriodbundleId': txIdPeriodbundleId_example, // {String} 
   'withInternalCalls': true, // {Boolean} Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
   'disableOptimizer': true, // {Boolean} Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
   'ignoreGasCost': true // {Boolean} Only effective when disableOptimizer=true.
@@ -13574,16 +13304,14 @@ namespace Example
             var owner = owner_example;  // String |  (default to null)
             var slug = slug_example;  // String |  (default to null)
             var forkId = forkId_example;  // String |  (default to null)
-            var txHash = txHash_example;  // String | One of txHash, simulationId, bundleId is required. (default to null)
-            var chainSpecPeriodchainId = chainSpecPeriodchainId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodsimulationId = txIdPeriodsimulationId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodbundleId = txIdPeriodbundleId_example;  // String |  (optional)  (default to null)
+            var txHash = txHash_example;  // String |  (default to null)
             var withInternalCalls = true;  // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional)  (default to null)
             var disableOptimizer = true;  // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional)  (default to null)
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                google.api.HttpBody result = apiInstance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, chainSpecPeriodchainId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+                // Get Call Trace by Transaction on Fork
+                google.api.HttpBody result = apiInstance.getCallTraceByForkTransaction(owner, slug, forkId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTraceByForkTransaction: " + e.Message );
@@ -13608,16 +13336,13 @@ $api_instance = new OpenAPITools\Client\Api\DebugAndSimulationApi();
 $owner = owner_example; // String | 
 $slug = slug_example; // String | 
 $forkId = forkId_example; // String | 
-$txHash = txHash_example; // String | One of txHash, simulationId, bundleId is required.
-$chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String | 
-$txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
-$txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
+$txHash = txHash_example; // String | 
 $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 $disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    $result = $api_instance->getCallTraceByForkTransaction($owner, $slug, $forkId, $txHash, $chainSpecPeriodchainId, $txIdPeriodsimulationId, $txIdPeriodbundleId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
+    $result = $api_instance->getCallTraceByForkTransaction($owner, $slug, $forkId, $txHash, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTraceByForkTransaction: ', $e->getMessage(), PHP_EOL;
@@ -13640,16 +13365,13 @@ my $api_instance = WWW::OPenAPIClient::DebugAndSimulationApi->new();
 my $owner = owner_example; # String | 
 my $slug = slug_example; # String | 
 my $forkId = forkId_example; # String | 
-my $txHash = txHash_example; # String | One of txHash, simulationId, bundleId is required.
-my $chainSpecPeriodchainId = chainSpecPeriodchainId_example; # String | 
-my $txIdPeriodsimulationId = txIdPeriodsimulationId_example; # String | 
-my $txIdPeriodbundleId = txIdPeriodbundleId_example; # String | 
+my $txHash = txHash_example; # String | 
 my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 my $disableOptimizer = true; # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true.
 
 eval {
-    my $result = $api_instance->getCallTraceByForkTransaction(owner => $owner, slug => $slug, forkId => $forkId, txHash => $txHash, chainSpecPeriodchainId => $chainSpecPeriodchainId, txIdPeriodsimulationId => $txIdPeriodsimulationId, txIdPeriodbundleId => $txIdPeriodbundleId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTraceByForkTransaction(owner => $owner, slug => $slug, forkId => $forkId, txHash => $txHash, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -13674,16 +13396,14 @@ api_instance = openapi_client.DebugAndSimulationApi()
 owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 forkId = forkId_example # String |  (default to null)
-txHash = txHash_example # String | One of txHash, simulationId, bundleId is required. (default to null)
-chainSpecPeriodchainId = chainSpecPeriodchainId_example # String |  (optional) (default to null)
-txIdPeriodsimulationId = txIdPeriodsimulationId_example # String |  (optional) (default to null)
-txIdPeriodbundleId = txIdPeriodbundleId_example # String |  (optional) (default to null)
+txHash = txHash_example # String |  (default to null)
 withInternalCalls = true # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 disableOptimizer = true # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    api_response = api_instance.get_call_trace_by_fork_transaction(owner, slug, forkId, txHash, chainSpecPeriodchainId=chainSpecPeriodchainId, txIdPeriodsimulationId=txIdPeriodsimulationId, txIdPeriodbundleId=txIdPeriodbundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
+    # Get Call Trace by Transaction on Fork
+    api_response = api_instance.get_call_trace_by_fork_transaction(owner, slug, forkId, txHash, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTraceByForkTransaction: %s\n" % e)</code></pre>
@@ -13697,15 +13417,12 @@ pub fn main() {
     let slug = slug_example; // String
     let forkId = forkId_example; // String
     let txHash = txHash_example; // String
-    let chainSpecPeriodchainId = chainSpecPeriodchainId_example; // String
-    let txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String
-    let txIdPeriodbundleId = txIdPeriodbundleId_example; // String
     let withInternalCalls = true; // Boolean
     let disableOptimizer = true; // Boolean
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTraceByForkTransaction(owner, slug, forkId, txHash, chainSpecPeriodchainId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
+    let result = client.getCallTraceByForkTransaction(owner, slug, forkId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -13766,7 +13483,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">fork_id*</td>
+                                  <tr><td style="width:150px;">forkId*</td>
 <td>
 
 
@@ -13786,7 +13503,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">tx_hash*</td>
+                                  <tr><td style="width:150px;">txHash*</td>
 <td>
 
 
@@ -13797,9 +13514,6 @@ pub fn main() {
                     String
                 </span>
 
-                    <div class="inner description marked">
-One of txHash, simulationId, bundleId is required.
-                    </div>
             </div>
                 <div class="inner required">
                     Required
@@ -13820,57 +13534,6 @@ One of txHash, simulationId, bundleId is required.
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">chainSpec.chainId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkTransaction_chainSpecPeriodchainId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.simulationId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkTransaction_txIdPeriodsimulationId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.bundleId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByForkTransaction_txIdPeriodbundleId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
                                 <tr><td style="width:150px;">withInternalCalls</td>
 <td>
 
@@ -14017,7 +13680,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getCallTraceBySimulation-0" data-group="User" data-name="getCallTraceBySimulation" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceBySimulation</h1>
-                          <p></p>
+                          <p>Get Call Trace by Simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -14025,7 +13688,7 @@ Only effective when disableOptimizer&#x3D;true.
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation/{simulation_id}/call_trace</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -14050,7 +13713,7 @@ Only effective when disableOptimizer&#x3D;true.
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation/{simulation_id}/call_trace?chainSpec.forkId=chainSpecPeriodforkId_example&txId.txHash=txIdPeriodtxHash_example&txId.bundleId=txIdPeriodbundleId_example&withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceBySimulation-0-java">
@@ -14078,15 +13741,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String chainId = chainId_example; // String | 
         String simulationId = simulationId_example; // String | 
-        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceBySimulation(owner, slug, chainId, simulationId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceBySimulation(owner, slug, chainId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceBySimulation");
@@ -14106,15 +13766,12 @@ final String owner = new String(); // String |
 final String slug = new String(); // String | 
 final String chainId = new String(); // String | 
 final String simulationId = new String(); // String | 
-final String chainSpecPeriodforkId = new String(); // String | 
-final String txIdPeriodtxHash = new String(); // String | One of txHash, simulationId, bundleId is required.
-final String txIdPeriodbundleId = new String(); // String | 
 final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 final Boolean disableOptimizer = new Boolean(); // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    final result = await api_instance.getCallTraceBySimulation(owner, slug, chainId, simulationId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+    final result = await api_instance.getCallTraceBySimulation(owner, slug, chainId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTraceBySimulation: $e\n');
@@ -14133,15 +13790,12 @@ public class DebugAndSimulationApiExample {
         String slug = slug_example; // String | 
         String chainId = chainId_example; // String | 
         String simulationId = simulationId_example; // String | 
-        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-        String txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceBySimulation(owner, slug, chainId, simulationId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceBySimulation(owner, slug, chainId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceBySimulation");
@@ -14169,20 +13823,15 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *chainId = chainId_example; //  (default to null)
 String *simulationId = simulationId_example; //  (default to null)
-String *chainSpecPeriodforkId = chainSpecPeriodforkId_example; //  (optional) (default to null)
-String *txIdPeriodtxHash = txIdPeriodtxHash_example; // One of txHash, simulationId, bundleId is required. (optional) (default to null)
-String *txIdPeriodbundleId = txIdPeriodbundleId_example; //  (optional) (default to null)
 Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
+// Get Call Trace by Simulation
 [apiInstance getCallTraceBySimulationWith:owner
     slug:slug
     chainId:chainId
     simulationId:simulationId
-    chainSpecPeriodforkId:chainSpecPeriodforkId
-    txIdPeriodtxHash:txIdPeriodtxHash
-    txIdPeriodbundleId:txIdPeriodbundleId
     withInternalCalls:withInternalCalls
     disableOptimizer:disableOptimizer
     ignoreGasCost:ignoreGasCost
@@ -14214,9 +13863,6 @@ var slug = slug_example; // {String}
 var chainId = chainId_example; // {String} 
 var simulationId = simulationId_example; // {String} 
 var opts = {
-  'chainSpecPeriodforkId': chainSpecPeriodforkId_example, // {String} 
-  'txIdPeriodtxHash': txIdPeriodtxHash_example, // {String} One of txHash, simulationId, bundleId is required.
-  'txIdPeriodbundleId': txIdPeriodbundleId_example, // {String} 
   'withInternalCalls': true, // {Boolean} Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
   'disableOptimizer': true, // {Boolean} Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
   'ignoreGasCost': true // {Boolean} Only effective when disableOptimizer=true.
@@ -14260,15 +13906,13 @@ namespace Example
             var slug = slug_example;  // String |  (default to null)
             var chainId = chainId_example;  // String |  (default to null)
             var simulationId = simulationId_example;  // String |  (default to null)
-            var chainSpecPeriodforkId = chainSpecPeriodforkId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodtxHash = txIdPeriodtxHash_example;  // String | One of txHash, simulationId, bundleId is required. (optional)  (default to null)
-            var txIdPeriodbundleId = txIdPeriodbundleId_example;  // String |  (optional)  (default to null)
             var withInternalCalls = true;  // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional)  (default to null)
             var disableOptimizer = true;  // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional)  (default to null)
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                google.api.HttpBody result = apiInstance.getCallTraceBySimulation(owner, slug, chainId, simulationId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+                // Get Call Trace by Simulation
+                google.api.HttpBody result = apiInstance.getCallTraceBySimulation(owner, slug, chainId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTraceBySimulation: " + e.Message );
@@ -14294,15 +13938,12 @@ $owner = owner_example; // String |
 $slug = slug_example; // String | 
 $chainId = chainId_example; // String | 
 $simulationId = simulationId_example; // String | 
-$chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-$txIdPeriodtxHash = txIdPeriodtxHash_example; // String | One of txHash, simulationId, bundleId is required.
-$txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
 $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 $disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    $result = $api_instance->getCallTraceBySimulation($owner, $slug, $chainId, $simulationId, $chainSpecPeriodforkId, $txIdPeriodtxHash, $txIdPeriodbundleId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
+    $result = $api_instance->getCallTraceBySimulation($owner, $slug, $chainId, $simulationId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTraceBySimulation: ', $e->getMessage(), PHP_EOL;
@@ -14326,15 +13967,12 @@ my $owner = owner_example; # String |
 my $slug = slug_example; # String | 
 my $chainId = chainId_example; # String | 
 my $simulationId = simulationId_example; # String | 
-my $chainSpecPeriodforkId = chainSpecPeriodforkId_example; # String | 
-my $txIdPeriodtxHash = txIdPeriodtxHash_example; # String | One of txHash, simulationId, bundleId is required.
-my $txIdPeriodbundleId = txIdPeriodbundleId_example; # String | 
 my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 my $disableOptimizer = true; # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true.
 
 eval {
-    my $result = $api_instance->getCallTraceBySimulation(owner => $owner, slug => $slug, chainId => $chainId, simulationId => $simulationId, chainSpecPeriodforkId => $chainSpecPeriodforkId, txIdPeriodtxHash => $txIdPeriodtxHash, txIdPeriodbundleId => $txIdPeriodbundleId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTraceBySimulation(owner => $owner, slug => $slug, chainId => $chainId, simulationId => $simulationId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -14360,15 +13998,13 @@ owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 chainId = chainId_example # String |  (default to null)
 simulationId = simulationId_example # String |  (default to null)
-chainSpecPeriodforkId = chainSpecPeriodforkId_example # String |  (optional) (default to null)
-txIdPeriodtxHash = txIdPeriodtxHash_example # String | One of txHash, simulationId, bundleId is required. (optional) (default to null)
-txIdPeriodbundleId = txIdPeriodbundleId_example # String |  (optional) (default to null)
 withInternalCalls = true # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 disableOptimizer = true # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    api_response = api_instance.get_call_trace_by_simulation(owner, slug, chainId, simulationId, chainSpecPeriodforkId=chainSpecPeriodforkId, txIdPeriodtxHash=txIdPeriodtxHash, txIdPeriodbundleId=txIdPeriodbundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
+    # Get Call Trace by Simulation
+    api_response = api_instance.get_call_trace_by_simulation(owner, slug, chainId, simulationId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTraceBySimulation: %s\n" % e)</code></pre>
@@ -14382,15 +14018,12 @@ pub fn main() {
     let slug = slug_example; // String
     let chainId = chainId_example; // String
     let simulationId = simulationId_example; // String
-    let chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String
-    let txIdPeriodtxHash = txIdPeriodtxHash_example; // String
-    let txIdPeriodbundleId = txIdPeriodbundleId_example; // String
     let withInternalCalls = true; // Boolean
     let disableOptimizer = true; // Boolean
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTraceBySimulation(owner, slug, chainId, simulationId, chainSpecPeriodforkId, txIdPeriodtxHash, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
+    let result = client.getCallTraceBySimulation(owner, slug, chainId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -14451,7 +14084,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">chain_id*</td>
+                                  <tr><td style="width:150px;">chainId*</td>
 <td>
 
 
@@ -14471,7 +14104,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">simulation_id*</td>
+                                  <tr><td style="width:150px;">simulationId*</td>
 <td>
 
 
@@ -14502,60 +14135,6 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">chainSpec.forkId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceBySimulation_chainSpecPeriodforkId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.txHash</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceBySimulation_txIdPeriodtxHash">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-One of txHash, simulationId, bundleId is required.
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.bundleId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceBySimulation_txIdPeriodbundleId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
                                 <tr><td style="width:150px;">withInternalCalls</td>
 <td>
 
@@ -14702,7 +14281,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getCallTraceByTransaction-0" data-group="User" data-name="getCallTraceByTransaction" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceByTransaction</h1>
-                          <p>Get indexed call trace</p>
+                          <p>Get Call Trace by Transaction</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -14716,7 +14295,7 @@ This allows you to build chart that marks the order of fund flow.
 ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chain_id}/transaction/{tx_hash}/call_trace</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -14741,7 +14320,7 @@ This allows you to build chart that marks the order of fund flow.
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET \
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chain_id}/transaction/{tx_hash}/call_trace?chainSpec.forkId=chainSpecPeriodforkId_example&txId.simulationId=txIdPeriodsimulationId_example&txId.bundleId=txIdPeriodbundleId_example&withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceByTransaction-0-java">
@@ -14768,16 +14347,13 @@ public class DebugAndSimulationApiExample {
         String owner = owner_example; // String | 
         String slug = slug_example; // String | 
         String chainId = chainId_example; // String | 
-        String txHash = txHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
+        String txHash = txHash_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByTransaction(owner, slug, chainId, txHash, chainSpecPeriodforkId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByTransaction(owner, slug, chainId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByTransaction");
@@ -14796,16 +14372,13 @@ final api_instance = DefaultApi();
 final String owner = new String(); // String | 
 final String slug = new String(); // String | 
 final String chainId = new String(); // String | 
-final String txHash = new String(); // String | One of txHash, simulationId, bundleId is required.
-final String chainSpecPeriodforkId = new String(); // String | 
-final String txIdPeriodsimulationId = new String(); // String | 
-final String txIdPeriodbundleId = new String(); // String | 
+final String txHash = new String(); // String | 
 final Boolean withInternalCalls = new Boolean(); // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 final Boolean disableOptimizer = new Boolean(); // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 final Boolean ignoreGasCost = new Boolean(); // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    final result = await api_instance.getCallTraceByTransaction(owner, slug, chainId, txHash, chainSpecPeriodforkId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+    final result = await api_instance.getCallTraceByTransaction(owner, slug, chainId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getCallTraceByTransaction: $e\n');
@@ -14823,16 +14396,13 @@ public class DebugAndSimulationApiExample {
         String owner = owner_example; // String | 
         String slug = slug_example; // String | 
         String chainId = chainId_example; // String | 
-        String txHash = txHash_example; // String | One of txHash, simulationId, bundleId is required.
-        String chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-        String txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
-        String txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
+        String txHash = txHash_example; // String | 
         Boolean withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
         Boolean disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
         Boolean ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
         try {
-            google.api.HttpBody result = apiInstance.getCallTraceByTransaction(owner, slug, chainId, txHash, chainSpecPeriodforkId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+            google.api.HttpBody result = apiInstance.getCallTraceByTransaction(owner, slug, chainId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#getCallTraceByTransaction");
@@ -14859,22 +14429,16 @@ DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
 String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *chainId = chainId_example; //  (default to null)
-String *txHash = txHash_example; // One of txHash, simulationId, bundleId is required. (default to null)
-String *chainSpecPeriodforkId = chainSpecPeriodforkId_example; //  (optional) (default to null)
-String *txIdPeriodsimulationId = txIdPeriodsimulationId_example; //  (optional) (default to null)
-String *txIdPeriodbundleId = txIdPeriodbundleId_example; //  (optional) (default to null)
+String *txHash = txHash_example; //  (default to null)
 Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
-// Get indexed call trace
+// Get Call Trace by Transaction
 [apiInstance getCallTraceByTransactionWith:owner
     slug:slug
     chainId:chainId
     txHash:txHash
-    chainSpecPeriodforkId:chainSpecPeriodforkId
-    txIdPeriodsimulationId:txIdPeriodsimulationId
-    txIdPeriodbundleId:txIdPeriodbundleId
     withInternalCalls:withInternalCalls
     disableOptimizer:disableOptimizer
     ignoreGasCost:ignoreGasCost
@@ -14904,11 +14468,8 @@ var api = new SentioApi.DebugAndSimulationApi()
 var owner = owner_example; // {String} 
 var slug = slug_example; // {String} 
 var chainId = chainId_example; // {String} 
-var txHash = txHash_example; // {String} One of txHash, simulationId, bundleId is required.
+var txHash = txHash_example; // {String} 
 var opts = {
-  'chainSpecPeriodforkId': chainSpecPeriodforkId_example, // {String} 
-  'txIdPeriodsimulationId': txIdPeriodsimulationId_example, // {String} 
-  'txIdPeriodbundleId': txIdPeriodbundleId_example, // {String} 
   'withInternalCalls': true, // {Boolean} Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
   'disableOptimizer': true, // {Boolean} Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
   'ignoreGasCost': true // {Boolean} Only effective when disableOptimizer=true.
@@ -14951,17 +14512,14 @@ namespace Example
             var owner = owner_example;  // String |  (default to null)
             var slug = slug_example;  // String |  (default to null)
             var chainId = chainId_example;  // String |  (default to null)
-            var txHash = txHash_example;  // String | One of txHash, simulationId, bundleId is required. (default to null)
-            var chainSpecPeriodforkId = chainSpecPeriodforkId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodsimulationId = txIdPeriodsimulationId_example;  // String |  (optional)  (default to null)
-            var txIdPeriodbundleId = txIdPeriodbundleId_example;  // String |  (optional)  (default to null)
+            var txHash = txHash_example;  // String |  (default to null)
             var withInternalCalls = true;  // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional)  (default to null)
             var disableOptimizer = true;  // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional)  (default to null)
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                // Get indexed call trace
-                google.api.HttpBody result = apiInstance.getCallTraceByTransaction(owner, slug, chainId, txHash, chainSpecPeriodforkId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
+                // Get Call Trace by Transaction
+                google.api.HttpBody result = apiInstance.getCallTraceByTransaction(owner, slug, chainId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.getCallTraceByTransaction: " + e.Message );
@@ -14986,16 +14544,13 @@ $api_instance = new OpenAPITools\Client\Api\DebugAndSimulationApi();
 $owner = owner_example; // String | 
 $slug = slug_example; // String | 
 $chainId = chainId_example; // String | 
-$txHash = txHash_example; // String | One of txHash, simulationId, bundleId is required.
-$chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String | 
-$txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String | 
-$txIdPeriodbundleId = txIdPeriodbundleId_example; // String | 
+$txHash = txHash_example; // String | 
 $withInternalCalls = true; // Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 $disableOptimizer = true; // Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 $ignoreGasCost = true; // Boolean | Only effective when disableOptimizer=true.
 
 try {
-    $result = $api_instance->getCallTraceByTransaction($owner, $slug, $chainId, $txHash, $chainSpecPeriodforkId, $txIdPeriodsimulationId, $txIdPeriodbundleId, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
+    $result = $api_instance->getCallTraceByTransaction($owner, $slug, $chainId, $txHash, $withInternalCalls, $disableOptimizer, $ignoreGasCost);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DebugAndSimulationApi->getCallTraceByTransaction: ', $e->getMessage(), PHP_EOL;
@@ -15018,16 +14573,13 @@ my $api_instance = WWW::OPenAPIClient::DebugAndSimulationApi->new();
 my $owner = owner_example; # String | 
 my $slug = slug_example; # String | 
 my $chainId = chainId_example; # String | 
-my $txHash = txHash_example; # String | One of txHash, simulationId, bundleId is required.
-my $chainSpecPeriodforkId = chainSpecPeriodforkId_example; # String | 
-my $txIdPeriodsimulationId = txIdPeriodsimulationId_example; # String | 
-my $txIdPeriodbundleId = txIdPeriodbundleId_example; # String | 
+my $txHash = txHash_example; # String | 
 my $withInternalCalls = true; # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace.
 my $disableOptimizer = true; # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution.
 my $ignoreGasCost = true; # Boolean | Only effective when disableOptimizer=true.
 
 eval {
-    my $result = $api_instance->getCallTraceByTransaction(owner => $owner, slug => $slug, chainId => $chainId, txHash => $txHash, chainSpecPeriodforkId => $chainSpecPeriodforkId, txIdPeriodsimulationId => $txIdPeriodsimulationId, txIdPeriodbundleId => $txIdPeriodbundleId, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
+    my $result = $api_instance->getCallTraceByTransaction(owner => $owner, slug => $slug, chainId => $chainId, txHash => $txHash, withInternalCalls => $withInternalCalls, disableOptimizer => $disableOptimizer, ignoreGasCost => $ignoreGasCost);
     print Dumper($result);
 };
 if ($@) {
@@ -15052,17 +14604,14 @@ api_instance = openapi_client.DebugAndSimulationApi()
 owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 chainId = chainId_example # String |  (default to null)
-txHash = txHash_example # String | One of txHash, simulationId, bundleId is required. (default to null)
-chainSpecPeriodforkId = chainSpecPeriodforkId_example # String |  (optional) (default to null)
-txIdPeriodsimulationId = txIdPeriodsimulationId_example # String |  (optional) (default to null)
-txIdPeriodbundleId = txIdPeriodbundleId_example # String |  (optional) (default to null)
+txHash = txHash_example # String |  (default to null)
 withInternalCalls = true # Boolean | Fetch the decoded trace, which will give you the function info, decoded parameters of both external and internal call trace. (optional) (default to null)
 disableOptimizer = true # Boolean | Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    # Get indexed call trace
-    api_response = api_instance.get_call_trace_by_transaction(owner, slug, chainId, txHash, chainSpecPeriodforkId=chainSpecPeriodforkId, txIdPeriodsimulationId=txIdPeriodsimulationId, txIdPeriodbundleId=txIdPeriodbundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
+    # Get Call Trace by Transaction
+    api_response = api_instance.get_call_trace_by_transaction(owner, slug, chainId, txHash, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DebugAndSimulationApi->getCallTraceByTransaction: %s\n" % e)</code></pre>
@@ -15076,15 +14625,12 @@ pub fn main() {
     let slug = slug_example; // String
     let chainId = chainId_example; // String
     let txHash = txHash_example; // String
-    let chainSpecPeriodforkId = chainSpecPeriodforkId_example; // String
-    let txIdPeriodsimulationId = txIdPeriodsimulationId_example; // String
-    let txIdPeriodbundleId = txIdPeriodbundleId_example; // String
     let withInternalCalls = true; // Boolean
     let disableOptimizer = true; // Boolean
     let ignoreGasCost = true; // Boolean
 
     let mut context = DebugAndSimulationApi::Context::default();
-    let result = client.getCallTraceByTransaction(owner, slug, chainId, txHash, chainSpecPeriodforkId, txIdPeriodsimulationId, txIdPeriodbundleId, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
+    let result = client.getCallTraceByTransaction(owner, slug, chainId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost, &context).wait();
 
     println!("{:?}", result);
 }
@@ -15145,7 +14691,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">chain_id*</td>
+                                  <tr><td style="width:150px;">chainId*</td>
 <td>
 
 
@@ -15165,7 +14711,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">tx_hash*</td>
+                                  <tr><td style="width:150px;">txHash*</td>
 <td>
 
 
@@ -15176,9 +14722,6 @@ pub fn main() {
                     String
                 </span>
 
-                    <div class="inner description marked">
-One of txHash, simulationId, bundleId is required.
-                    </div>
             </div>
                 <div class="inner required">
                     Required
@@ -15199,57 +14742,6 @@ One of txHash, simulationId, bundleId is required.
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">chainSpec.forkId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByTransaction_chainSpecPeriodforkId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.simulationId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByTransaction_txIdPeriodsimulationId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">txId.bundleId</td>
-<td>
-
-
-    <div id="d2e199_getCallTraceByTransaction_txIdPeriodbundleId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
                                 <tr><td style="width:150px;">withInternalCalls</td>
 <td>
 
@@ -15396,7 +14888,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getSimulation-0" data-group="User" data-name="getSimulation" data-version="0">
                         <div class="pull-left">
                           <h1>getSimulation</h1>
-                          <p>Get a simulation by id</p>
+                          <p>Get Simulation by ID</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -15527,7 +15019,7 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *simulationId = simulationId_example; //  (default to null)
 
-// Get a simulation by id
+// Get Simulation by ID
 [apiInstance getSimulationWith:owner
     slug:slug
     simulationId:simulationId
@@ -15597,7 +15089,7 @@ namespace Example
             var simulationId = simulationId_example;  // String |  (default to null)
 
             try {
-                // Get a simulation by id
+                // Get Simulation by ID
                 solidity_service.GetSimulationResponse result = apiInstance.getSimulation(owner, slug, simulationId);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -15677,7 +15169,7 @@ slug = slug_example # String |  (default to null)
 simulationId = simulationId_example # String |  (default to null)
 
 try:
-    # Get a simulation by id
+    # Get Simulation by ID
     api_response = api_instance.get_simulation(owner, slug, simulationId)
     pprint(api_response)
 except ApiException as e:
@@ -15864,7 +15356,7 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-getSimulationBundleInProject-0" data-group="User" data-name="getSimulationBundleInProject" data-version="0">
                         <div class="pull-left">
                           <h1>getSimulationBundleInProject</h1>
-                          <p>Get a bundle simulation by id</p>
+                          <p>Get Bundle Simulation by ID</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -15995,7 +15487,7 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *bundleId = bundleId_example; //  (default to null)
 
-// Get a bundle simulation by id
+// Get Bundle Simulation by ID
 [apiInstance getSimulationBundleInProjectWith:owner
     slug:slug
     bundleId:bundleId
@@ -16065,7 +15557,7 @@ namespace Example
             var bundleId = bundleId_example;  // String |  (default to null)
 
             try {
-                // Get a bundle simulation by id
+                // Get Bundle Simulation by ID
                 solidity_service.GetSimulationBundleResponse result = apiInstance.getSimulationBundleInProject(owner, slug, bundleId);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -16145,7 +15637,7 @@ slug = slug_example # String |  (default to null)
 bundleId = bundleId_example # String |  (default to null)
 
 try:
-    # Get a bundle simulation by id
+    # Get Bundle Simulation by ID
     api_response = api_instance.get_simulation_bundle_in_project(owner, slug, bundleId)
     pprint(api_response)
 except ApiException as e:
@@ -16332,7 +15824,7 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-getSimulations-0" data-group="User" data-name="getSimulations" data-version="0">
                         <div class="pull-left">
                           <h1>getSimulations</h1>
-                          <p>Get existing transaction simulations</p>
+                          <p>Get Existied Simulations</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -16471,7 +15963,7 @@ String *labelContains = labelContains_example; //  (optional) (default to null)
 Integer *page = 56; //  (optional) (default to null)
 Integer *pageSize = 56; //  (optional) (default to null)
 
-// Get existing transaction simulations
+// Get Existied Simulations
 [apiInstance getSimulationsWith:owner
     slug:slug
     labelContains:labelContains
@@ -16549,7 +16041,7 @@ namespace Example
             var pageSize = 56;  // Integer |  (optional)  (default to null)
 
             try {
-                // Get existing transaction simulations
+                // Get Existied Simulations
                 solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(owner, slug, labelContains, page, pageSize);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -16635,7 +16127,7 @@ page = 56 # Integer |  (optional) (default to null)
 pageSize = 56 # Integer |  (optional) (default to null)
 
 try:
-    # Get existing transaction simulations
+    # Get Existied Simulations
     api_response = api_instance.get_simulations(owner, slug, labelContains=labelContains, page=page, pageSize=pageSize)
     pprint(api_response)
 except ApiException as e:
@@ -16868,7 +16360,7 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-searchTransactions-0" data-group="User" data-name="searchTransactions" data-version="0">
                         <div class="pull-left">
                           <h1>searchTransactions</h1>
-                          <p>Search for transactions</p>
+                          <p>Search transactions</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -17051,7 +16543,7 @@ String *methodSignature = methodSignature_example; //  (optional) (default to nu
 Integer *limit = 56; //  (optional) (default to null)
 byte[] *pageToken = BYTE_ARRAY_DATA_HERE; //  (optional) (default to null)
 
-// Search for transactions
+// Search transactions
 [apiInstance searchTransactionsWith:owner
     slug:slug
     chainId:chainId
@@ -17162,7 +16654,7 @@ namespace Example
             var pageToken = BYTE_ARRAY_DATA_HERE;  // byte[] |  (optional)  (default to null)
 
             try {
-                // Search for transactions
+                // Search transactions
                 txindex.EvmSearchTransactionsResponse result = apiInstance.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -17281,7 +16773,7 @@ limit = 56 # Integer |  (optional) (default to null)
 pageToken = BYTE_ARRAY_DATA_HERE # byte[] |  (optional) (default to null)
 
 try:
-    # Search for transactions
+    # Search transactions
     api_response = api_instance.search_transactions(owner, slug, chainId=chainId, address=address, includeDirect=includeDirect, includeTrace=includeTrace, includeIn=includeIn, includeOut=includeOut, startBlock=startBlock, endBlock=endBlock, startTimestamp=startTimestamp, endTimestamp=endTimestamp, transactionStatus=transactionStatus, methodSignature=methodSignature, limit=limit, pageToken=pageToken)
     pprint(api_response)
 except ApiException as e:
@@ -17727,7 +17219,7 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-simulateTransaction-0" data-group="User" data-name="simulateTransaction" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransaction</h1>
-                          <p>Single simulation</p>
+                          <p>Run Simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -17736,7 +17228,7 @@ pub fn main() {
 Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chainId}/simulation</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -17762,7 +17254,7 @@ Your simulations will be saved, and a unique ID for each simulation is included 
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation" \
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/simulation" \
  -d ''
 </code></pre>
                           </div>
@@ -17865,7 +17357,7 @@ String *slug = slug_example; //  (default to null)
 String *chainId = chainId_example; //  (default to null)
 SolidityServiceSolidityAPIServiceSimulateTransactionBody *body = ; // 
 
-// Single simulation
+// Run Simulation
 [apiInstance simulateTransactionWith:owner
     slug:slug
     chainId:chainId
@@ -17938,7 +17430,7 @@ namespace Example
             var body = new SolidityServiceSolidityAPIServiceSimulateTransactionBody(); // SolidityServiceSolidityAPIServiceSimulateTransactionBody | 
 
             try {
-                // Single simulation
+                // Run Simulation
                 solidity_service.SimulateTransactionResponse result = apiInstance.simulateTransaction(owner, slug, chainId, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -18021,7 +17513,7 @@ chainId = chainId_example # String |  (default to null)
 body =  # SolidityServiceSolidityAPIServiceSimulateTransactionBody | 
 
 try:
-    # Single simulation
+    # Run Simulation
     api_response = api_instance.simulate_transaction(owner, slug, chainId, body)
     pprint(api_response)
 except ApiException as e:
@@ -18099,7 +17591,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">chain_id*</td>
+                                  <tr><td style="width:150px;">chainId*</td>
 <td>
 
 
@@ -18257,7 +17749,7 @@ $(document).ready(function() {
                       <article id="api-DebugAndSimulation-simulateTransactionBundle-0" data-group="User" data-name="simulateTransactionBundle" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransactionBundle</h1>
-                          <p>Bundle simulation</p>
+                          <p>Run Bundle simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -18265,7 +17757,7 @@ $(document).ready(function() {
                         <p class="marked">You could also create bundle simulations so that one transaction could be executed one after another. For &#x60;blockNumber&#x60; &#x60;transactionIndex&#x60; &#x60;networkId&#x60; &#x60;stateOverrides&#x60; and &#x60;blockOverrides&#x60; fields, only the first simulation takes effect.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation_bundle</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -18291,7 +17783,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation_bundle" \
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle" \
  -d ''
 </code></pre>
                           </div>
@@ -18394,7 +17886,7 @@ String *slug = slug_example; //  (default to null)
 String *chainId = chainId_example; //  (default to null)
 SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody *body = ; // 
 
-// Bundle simulation
+// Run Bundle simulation
 [apiInstance simulateTransactionBundleWith:owner
     slug:slug
     chainId:chainId
@@ -18467,7 +17959,7 @@ namespace Example
             var body = new SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody(); // SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody | 
 
             try {
-                // Bundle simulation
+                // Run Bundle simulation
                 solidity_service.SimulateTransactionBundleResponse result = apiInstance.simulateTransactionBundle(owner, slug, chainId, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -18550,7 +18042,7 @@ chainId = chainId_example # String |  (default to null)
 body =  # SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody | 
 
 try:
-    # Bundle simulation
+    # Run Bundle simulation
     api_response = api_instance.simulate_transaction_bundle(owner, slug, chainId, body)
     pprint(api_response)
 except ApiException as e:
@@ -18628,7 +18120,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">chain_id*</td>
+                                  <tr><td style="width:150px;">chainId*</td>
 <td>
 
 
@@ -18786,7 +18278,7 @@ $(document).ready(function() {
                       <article id="api-DebugAndSimulation-simulateTransactionBundleByFork-0" data-group="User" data-name="simulateTransactionBundleByFork" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransactionBundleByFork</h1>
-                          <p></p>
+                          <p>Run Bundle simulation on Fork</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -18794,7 +18286,7 @@ $(document).ready(function() {
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation_bundle</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -18820,7 +18312,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation_bundle" \
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle" \
  -d ''
 </code></pre>
                           </div>
@@ -18923,6 +18415,7 @@ String *slug = slug_example; //  (default to null)
 String *forkId = forkId_example; //  (default to null)
 SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody *body = ; // 
 
+// Run Bundle simulation on Fork
 [apiInstance simulateTransactionBundleByForkWith:owner
     slug:slug
     forkId:forkId
@@ -18995,6 +18488,7 @@ namespace Example
             var body = new SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody(); // SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody | 
 
             try {
+                // Run Bundle simulation on Fork
                 solidity_service.SimulateTransactionBundleResponse result = apiInstance.simulateTransactionBundleByFork(owner, slug, forkId, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -19077,6 +18571,7 @@ forkId = forkId_example # String |  (default to null)
 body =  # SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody | 
 
 try:
+    # Run Bundle simulation on Fork
     api_response = api_instance.simulate_transaction_bundle_by_fork(owner, slug, forkId, body)
     pprint(api_response)
 except ApiException as e:
@@ -19154,7 +18649,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">fork_id*</td>
+                                  <tr><td style="width:150px;">forkId*</td>
 <td>
 
 
@@ -19312,7 +18807,7 @@ $(document).ready(function() {
                       <article id="api-DebugAndSimulation-simulateTransactionByFork-0" data-group="User" data-name="simulateTransactionByFork" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransactionByFork</h1>
-                          <p></p>
+                          <p>Run Simulation on Fork</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -19320,7 +18815,7 @@ $(document).ready(function() {
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -19346,7 +18841,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation" \
+ "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation" \
  -d ''
 </code></pre>
                           </div>
@@ -19449,6 +18944,7 @@ String *slug = slug_example; //  (default to null)
 String *forkId = forkId_example; //  (default to null)
 SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody *body = ; // 
 
+// Run Simulation on Fork
 [apiInstance simulateTransactionByForkWith:owner
     slug:slug
     forkId:forkId
@@ -19521,6 +19017,7 @@ namespace Example
             var body = new SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody(); // SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody | 
 
             try {
+                // Run Simulation on Fork
                 solidity_service.SimulateTransactionResponse result = apiInstance.simulateTransactionByFork(owner, slug, forkId, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -19603,6 +19100,7 @@ forkId = forkId_example # String |  (default to null)
 body =  # SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody | 
 
 try:
+    # Run Simulation on Fork
     api_response = api_instance.simulate_transaction_by_fork(owner, slug, forkId, body)
     pprint(api_response)
 except ApiException as e:
@@ -19680,7 +19178,7 @@ pub fn main() {
 </td>
 </tr>
 
-                                  <tr><td style="width:150px;">fork_id*</td>
+                                  <tr><td style="width:150px;">forkId*</td>
 <td>
 
 
