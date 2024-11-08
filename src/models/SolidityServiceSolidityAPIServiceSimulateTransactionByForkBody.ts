@@ -29,12 +29,6 @@ import {
 export interface SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody {
     /**
      * 
-     * @type {object}
-     * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody
-     */
-    chainSpec?: object;
-    /**
-     * 
      * @type {SolidityServiceSimulation}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody
      */
@@ -59,7 +53,6 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionByForkBodyFr
     }
     return {
         
-        'chainSpec': json['chainSpec'] == null ? undefined : json['chainSpec'],
         'simulation': SolidityServiceSimulationFromJSON(json['simulation']),
     };
 }
@@ -75,7 +68,6 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionByForkBodyFr
 
     return {
         
-        'chainSpec': value['chainSpec'],
         'simulation': SolidityServiceSimulationToJSON(value['simulation']),
     };
 }

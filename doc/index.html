@@ -3970,10 +3970,6 @@ ul.nav-tabs {
   "required" : [ "simulation" ],
   "type" : "object",
   "properties" : {
-    "chainSpec" : {
-      "type" : "object",
-      "properties" : { }
-    },
     "simulation" : {
       "$ref" : "#/components/schemas/solidity_service.Simulation"
     }
@@ -4004,10 +4000,6 @@ ul.nav-tabs {
   "required" : [ "simulations" ],
   "type" : "object",
   "properties" : {
-    "chainSpec" : {
-      "type" : "object",
-      "properties" : { }
-    },
     "simulations" : {
       "type" : "array",
       "description" : "For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect.",
@@ -4043,10 +4035,6 @@ ul.nav-tabs {
   "required" : [ "simulations" ],
   "type" : "object",
   "properties" : {
-    "chainSpec" : {
-      "type" : "object",
-      "properties" : { }
-    },
     "simulations" : {
       "type" : "array",
       "description" : "For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect.",
@@ -4082,10 +4070,6 @@ ul.nav-tabs {
   "required" : [ "simulation" ],
   "type" : "object",
   "properties" : {
-    "chainSpec" : {
-      "type" : "object",
-      "properties" : { }
-    },
     "simulation" : {
       "$ref" : "#/components/schemas/solidity_service.Simulation"
     }
@@ -4213,20 +4197,6 @@ ul.nav-tabs {
         "type" : "object",
         "properties" : { }
       }
-    }
-  }
-};
-    defs["solidity_service.TxIdentifier"] = {
-  "type" : "object",
-  "properties" : {
-    "txHash" : {
-      "type" : "string"
-    },
-    "simulationId" : {
-      "type" : "string"
-    },
-    "bundleId" : {
-      "type" : "string"
     }
   }
 };

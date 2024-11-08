@@ -182,7 +182,6 @@ export * from './SolidityServiceSourceSpec.js';
 export * from './SolidityServiceSpecializations.js';
 export * from './SolidityServiceStateOverride.js';
 export * from './SolidityServiceStorageSummaryResult.js';
-export * from './SolidityServiceTxIdentifier.js';
 export * from './SolidityServiceUpdateForkResponse.js';
 export * from './TxindexEvmRawTransaction.js';
 export * from './TxindexEvmSearchTransactionsResponse.js';

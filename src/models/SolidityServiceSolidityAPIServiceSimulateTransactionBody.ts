@@ -29,12 +29,6 @@ import {
 export interface SolidityServiceSolidityAPIServiceSimulateTransactionBody {
     /**
      * 
-     * @type {object}
-     * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBody
-     */
-    chainSpec?: object;
-    /**
-     * 
      * @type {SolidityServiceSimulation}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBody
      */
@@ -59,7 +53,6 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBodyFromJSON
     }
     return {
         
-        'chainSpec': json['chainSpec'] == null ? undefined : json['chainSpec'],
         'simulation': SolidityServiceSimulationFromJSON(json['simulation']),
     };
 }
@@ -75,7 +68,6 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBodyFromJSON
 
     return {
         
-        'chainSpec': value['chainSpec'],
         'simulation': SolidityServiceSimulationToJSON(value['simulation']),
     };
 }

@@ -5523,9 +5523,6 @@
         }
       },
       "properties": {
-        "chainSpec": {
-          "type": "object"
-        },
         "simulation": {
           "$ref": "#/definitions/solidity_service.Simulation"
         }
@@ -5562,9 +5559,6 @@
         ]
       },
       "properties": {
-        "chainSpec": {
-          "type": "object"
-        },
         "simulations": {
           "type": "array",
           "items": {
@@ -5606,9 +5600,6 @@
         ]
       },
       "properties": {
-        "chainSpec": {
-          "type": "object"
-        },
         "simulations": {
           "type": "array",
           "items": {
@@ -5646,9 +5637,6 @@
         }
       },
       "properties": {
-        "chainSpec": {
-          "type": "object"
-        },
         "simulation": {
           "$ref": "#/definitions/solidity_service.Simulation"
         }
@@ -5759,20 +5747,6 @@
           "items": {
             "type": "object"
           }
-        }
-      }
-    },
-    "solidity_service.TxIdentifier": {
-      "type": "object",
-      "properties": {
-        "txHash": {
-          "type": "string"
-        },
-        "simulationId": {
-          "type": "string"
-        },
-        "bundleId": {
-          "type": "string"
         }
       }
     },

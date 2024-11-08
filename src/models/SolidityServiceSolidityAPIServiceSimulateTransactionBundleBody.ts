@@ -28,12 +28,6 @@ import {
  */
 export interface SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody {
     /**
-     * 
-     * @type {object}
-     * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody
-     */
-    chainSpec?: object;
-    /**
      * For blockNumber, transactionIndex, networkId, stateOverrides and blockOverrides fields, only the first simulation takes effect.
      * @type {Array<SolidityServiceSimulation>}
      * @memberof SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody
@@ -59,7 +53,6 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyFr
     }
     return {
         
-        'chainSpec': json['chainSpec'] == null ? undefined : json['chainSpec'],
         'simulations': ((json['simulations'] as Array<any>).map(SolidityServiceSimulationFromJSON)),
     };
 }
@@ -75,7 +68,6 @@ export function SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyFr
 
     return {
         
-        'chainSpec': value['chainSpec'],
         'simulations': ((value['simulations'] as Array<any>).map(SolidityServiceSimulationToJSON)),
     };
 }
