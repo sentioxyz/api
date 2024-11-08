@@ -1165,7 +1165,7 @@
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace": {
       "get": {
         "summary": "Get Call Trace by Bundle Simulation on Fork",
-        "operationId": "GetCallTraceByForkBundle",
+        "operationId": "GetCallTraceOnForkBundle",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1229,7 +1229,7 @@
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation": {
       "post": {
         "summary": "Run Simulation on Fork",
-        "operationId": "SimulateTransactionByFork",
+        "operationId": "SimulateTransactionOnFork",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1262,7 +1262,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionByForkBody"
+              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionOnForkBody"
             }
           }
         ],
@@ -1274,7 +1274,7 @@
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace": {
       "get": {
         "summary": "Get Call Trace by Simulation on Fork",
-        "operationId": "GetCallTraceByForkSimulation",
+        "operationId": "GetCallTraceOnForkSimulation",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1338,7 +1338,7 @@
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle": {
       "post": {
         "summary": "Run Bundle simulation on Fork",
-        "operationId": "SimulateTransactionBundleByFork",
+        "operationId": "SimulateTransactionBundleOnFork",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1371,7 +1371,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionBundleByForkBody"
+              "$ref": "#/definitions/solidity_service.SolidityAPIService.SimulateTransactionBundleOnForkBody"
             }
           }
         ],
@@ -1383,7 +1383,7 @@
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace": {
       "get": {
         "summary": "Get Call Trace by Transaction on Fork",
-        "operationId": "GetCallTraceByForkTransaction",
+        "operationId": "GetCallTraceOnForkTransaction",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -5572,7 +5572,7 @@
         "simulations"
       ]
     },
-    "solidity_service.SolidityAPIService.SimulateTransactionBundleByForkBody": {
+    "solidity_service.SolidityAPIService.SimulateTransactionBundleOnForkBody": {
       "type": "object",
       "example": {
         "simulations": [
@@ -5613,7 +5613,7 @@
         "simulations"
       ]
     },
-    "solidity_service.SolidityAPIService.SimulateTransactionByForkBody": {
+    "solidity_service.SolidityAPIService.SimulateTransactionOnForkBody": {
       "type": "object",
       "example": {
         "simulation": {

@@ -23,8 +23,8 @@ import type {
   SolidityServiceSimulateTransactionResponse,
   SolidityServiceSolidityAPIServiceSimulateTransactionBody,
   SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody,
-  SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody,
-  SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody,
+  SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody,
+  SolidityServiceSolidityAPIServiceSimulateTransactionOnForkBody,
   TxindexEvmSearchTransactionsResponse,
 } from '../models/index.js';
 import {
@@ -44,10 +44,10 @@ import {
     SolidityServiceSolidityAPIServiceSimulateTransactionBodyToJSON,
     SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyFromJSON,
     SolidityServiceSolidityAPIServiceSimulateTransactionBundleBodyToJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyFromJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyToJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionByForkBodyFromJSON,
-    SolidityServiceSolidityAPIServiceSimulateTransactionByForkBodyToJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBodyFromJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBodyToJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionOnForkBodyFromJSON,
+    SolidityServiceSolidityAPIServiceSimulateTransactionOnForkBodyToJSON,
     TxindexEvmSearchTransactionsResponseFromJSON,
     TxindexEvmSearchTransactionsResponseToJSON,
 } from '../models/index.js';
@@ -57,36 +57,6 @@ export interface GetCallTraceByBundleRequest {
     slug: string;
     chainId: string;
     bundleId: string;
-    withInternalCalls?: boolean;
-    disableOptimizer?: boolean;
-    ignoreGasCost?: boolean;
-}
-
-export interface GetCallTraceByForkBundleRequest {
-    owner: string;
-    slug: string;
-    forkId: string;
-    bundleId: string;
-    withInternalCalls?: boolean;
-    disableOptimizer?: boolean;
-    ignoreGasCost?: boolean;
-}
-
-export interface GetCallTraceByForkSimulationRequest {
-    owner: string;
-    slug: string;
-    forkId: string;
-    simulationId: string;
-    withInternalCalls?: boolean;
-    disableOptimizer?: boolean;
-    ignoreGasCost?: boolean;
-}
-
-export interface GetCallTraceByForkTransactionRequest {
-    owner: string;
-    slug: string;
-    forkId: string;
-    txHash: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
     ignoreGasCost?: boolean;
@@ -106,6 +76,36 @@ export interface GetCallTraceByTransactionRequest {
     owner: string;
     slug: string;
     chainId: string;
+    txHash: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTraceOnForkBundleRequest {
+    owner: string;
+    slug: string;
+    forkId: string;
+    bundleId: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTraceOnForkSimulationRequest {
+    owner: string;
+    slug: string;
+    forkId: string;
+    simulationId: string;
+    withInternalCalls?: boolean;
+    disableOptimizer?: boolean;
+    ignoreGasCost?: boolean;
+}
+
+export interface GetCallTraceOnForkTransactionRequest {
+    owner: string;
+    slug: string;
+    forkId: string;
     txHash: string;
     withInternalCalls?: boolean;
     disableOptimizer?: boolean;
@@ -165,18 +165,18 @@ export interface SimulateTransactionBundleRequest {
     body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody;
 }
 
-export interface SimulateTransactionBundleByForkRequest {
+export interface SimulateTransactionBundleOnForkRequest {
     owner: string;
     slug: string;
     forkId: string;
-    body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBody;
+    body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody;
 }
 
-export interface SimulateTransactionByForkRequest {
+export interface SimulateTransactionOnForkRequest {
     owner: string;
     slug: string;
     forkId: string;
-    body: SolidityServiceSolidityAPIServiceSimulateTransactionByForkBody;
+    body: SolidityServiceSolidityAPIServiceSimulateTransactionOnForkBody;
 }
 
 /**
@@ -251,216 +251,6 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      */
     async getCallTraceByBundle(requestParameters: GetCallTraceByBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByBundleRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get Call Trace by Bundle Simulation on Fork
-     */
-    async getCallTraceByForkBundleRaw(requestParameters: GetCallTraceByForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['owner'] == null) {
-            throw new runtime.RequiredError(
-                'owner',
-                'Required parameter "owner" was null or undefined when calling getCallTraceByForkBundle().'
-            );
-        }
-
-        if (requestParameters['slug'] == null) {
-            throw new runtime.RequiredError(
-                'slug',
-                'Required parameter "slug" was null or undefined when calling getCallTraceByForkBundle().'
-            );
-        }
-
-        if (requestParameters['forkId'] == null) {
-            throw new runtime.RequiredError(
-                'forkId',
-                'Required parameter "forkId" was null or undefined when calling getCallTraceByForkBundle().'
-            );
-        }
-
-        if (requestParameters['bundleId'] == null) {
-            throw new runtime.RequiredError(
-                'bundleId',
-                'Required parameter "bundleId" was null or undefined when calling getCallTraceByForkBundle().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['withInternalCalls'] != null) {
-            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
-        }
-
-        if (requestParameters['disableOptimizer'] != null) {
-            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
-        }
-
-        if (requestParameters['ignoreGasCost'] != null) {
-            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
-    }
-
-    /**
-     * Get Call Trace by Bundle Simulation on Fork
-     */
-    async getCallTraceByForkBundle(requestParameters: GetCallTraceByForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
-        const response = await this.getCallTraceByForkBundleRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get Call Trace by Simulation on Fork
-     */
-    async getCallTraceByForkSimulationRaw(requestParameters: GetCallTraceByForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['owner'] == null) {
-            throw new runtime.RequiredError(
-                'owner',
-                'Required parameter "owner" was null or undefined when calling getCallTraceByForkSimulation().'
-            );
-        }
-
-        if (requestParameters['slug'] == null) {
-            throw new runtime.RequiredError(
-                'slug',
-                'Required parameter "slug" was null or undefined when calling getCallTraceByForkSimulation().'
-            );
-        }
-
-        if (requestParameters['forkId'] == null) {
-            throw new runtime.RequiredError(
-                'forkId',
-                'Required parameter "forkId" was null or undefined when calling getCallTraceByForkSimulation().'
-            );
-        }
-
-        if (requestParameters['simulationId'] == null) {
-            throw new runtime.RequiredError(
-                'simulationId',
-                'Required parameter "simulationId" was null or undefined when calling getCallTraceByForkSimulation().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['withInternalCalls'] != null) {
-            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
-        }
-
-        if (requestParameters['disableOptimizer'] != null) {
-            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
-        }
-
-        if (requestParameters['ignoreGasCost'] != null) {
-            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
-    }
-
-    /**
-     * Get Call Trace by Simulation on Fork
-     */
-    async getCallTraceByForkSimulation(requestParameters: GetCallTraceByForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
-        const response = await this.getCallTraceByForkSimulationRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get Call Trace by Transaction on Fork
-     */
-    async getCallTraceByForkTransactionRaw(requestParameters: GetCallTraceByForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['owner'] == null) {
-            throw new runtime.RequiredError(
-                'owner',
-                'Required parameter "owner" was null or undefined when calling getCallTraceByForkTransaction().'
-            );
-        }
-
-        if (requestParameters['slug'] == null) {
-            throw new runtime.RequiredError(
-                'slug',
-                'Required parameter "slug" was null or undefined when calling getCallTraceByForkTransaction().'
-            );
-        }
-
-        if (requestParameters['forkId'] == null) {
-            throw new runtime.RequiredError(
-                'forkId',
-                'Required parameter "forkId" was null or undefined when calling getCallTraceByForkTransaction().'
-            );
-        }
-
-        if (requestParameters['txHash'] == null) {
-            throw new runtime.RequiredError(
-                'txHash',
-                'Required parameter "txHash" was null or undefined when calling getCallTraceByForkTransaction().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['withInternalCalls'] != null) {
-            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
-        }
-
-        if (requestParameters['disableOptimizer'] != null) {
-            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
-        }
-
-        if (requestParameters['ignoreGasCost'] != null) {
-            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
-        }
-
-        const response = await this.request({
-            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"txHash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
-    }
-
-    /**
-     * Get Call Trace by Transaction on Fork
-     */
-    async getCallTraceByForkTransaction(requestParameters: GetCallTraceByForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
-        const response = await this.getCallTraceByForkTransactionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -603,6 +393,216 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      */
     async getCallTraceByTransaction(requestParameters: GetCallTraceByTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByTransactionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Call Trace by Bundle Simulation on Fork
+     */
+    async getCallTraceOnForkBundleRaw(requestParameters: GetCallTraceOnForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTraceOnForkBundle().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTraceOnForkBundle().'
+            );
+        }
+
+        if (requestParameters['forkId'] == null) {
+            throw new runtime.RequiredError(
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling getCallTraceOnForkBundle().'
+            );
+        }
+
+        if (requestParameters['bundleId'] == null) {
+            throw new runtime.RequiredError(
+                'bundleId',
+                'Required parameter "bundleId" was null or undefined when calling getCallTraceOnForkBundle().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Call Trace by Bundle Simulation on Fork
+     */
+    async getCallTraceOnForkBundle(requestParameters: GetCallTraceOnForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTraceOnForkBundleRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Call Trace by Simulation on Fork
+     */
+    async getCallTraceOnForkSimulationRaw(requestParameters: GetCallTraceOnForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTraceOnForkSimulation().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTraceOnForkSimulation().'
+            );
+        }
+
+        if (requestParameters['forkId'] == null) {
+            throw new runtime.RequiredError(
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling getCallTraceOnForkSimulation().'
+            );
+        }
+
+        if (requestParameters['simulationId'] == null) {
+            throw new runtime.RequiredError(
+                'simulationId',
+                'Required parameter "simulationId" was null or undefined when calling getCallTraceOnForkSimulation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Call Trace by Simulation on Fork
+     */
+    async getCallTraceOnForkSimulation(requestParameters: GetCallTraceOnForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTraceOnForkSimulationRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Call Trace by Transaction on Fork
+     */
+    async getCallTraceOnForkTransactionRaw(requestParameters: GetCallTraceOnForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
+        if (requestParameters['owner'] == null) {
+            throw new runtime.RequiredError(
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTraceOnForkTransaction().'
+            );
+        }
+
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTraceOnForkTransaction().'
+            );
+        }
+
+        if (requestParameters['forkId'] == null) {
+            throw new runtime.RequiredError(
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling getCallTraceOnForkTransaction().'
+            );
+        }
+
+        if (requestParameters['txHash'] == null) {
+            throw new runtime.RequiredError(
+                'txHash',
+                'Required parameter "txHash" was null or undefined when calling getCallTraceOnForkTransaction().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['withInternalCalls'] != null) {
+            queryParameters['withInternalCalls'] = requestParameters['withInternalCalls'];
+        }
+
+        if (requestParameters['disableOptimizer'] != null) {
+            queryParameters['disableOptimizer'] = requestParameters['disableOptimizer'];
+        }
+
+        if (requestParameters['ignoreGasCost'] != null) {
+            queryParameters['ignoreGasCost'] = requestParameters['ignoreGasCost'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["api-key"] = await this.configuration.apiKey("api-key"); // ApiKeyAuth authentication
+        }
+
+        const response = await this.request({
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"forkId"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"txHash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GoogleApiHttpBodyFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Call Trace by Transaction on Fork
+     */
+    async getCallTraceOnForkTransaction(requestParameters: GetCallTraceOnForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
+        const response = await this.getCallTraceOnForkTransactionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -993,32 +993,32 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     /**
      * Run Bundle simulation on Fork
      */
-    async simulateTransactionBundleByForkRaw(requestParameters: SimulateTransactionBundleByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
+    async simulateTransactionBundleOnForkRaw(requestParameters: SimulateTransactionBundleOnForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
         if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
                 'owner',
-                'Required parameter "owner" was null or undefined when calling simulateTransactionBundleByFork().'
+                'Required parameter "owner" was null or undefined when calling simulateTransactionBundleOnFork().'
             );
         }
 
         if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
                 'slug',
-                'Required parameter "slug" was null or undefined when calling simulateTransactionBundleByFork().'
+                'Required parameter "slug" was null or undefined when calling simulateTransactionBundleOnFork().'
             );
         }
 
         if (requestParameters['forkId'] == null) {
             throw new runtime.RequiredError(
                 'forkId',
-                'Required parameter "forkId" was null or undefined when calling simulateTransactionBundleByFork().'
+                'Required parameter "forkId" was null or undefined when calling simulateTransactionBundleOnFork().'
             );
         }
 
         if (requestParameters['body'] == null) {
             throw new runtime.RequiredError(
                 'body',
-                'Required parameter "body" was null or undefined when calling simulateTransactionBundleByFork().'
+                'Required parameter "body" was null or undefined when calling simulateTransactionBundleOnFork().'
             );
         }
 
@@ -1037,7 +1037,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleByForkBodyToJSON(requestParameters['body']),
+            body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBodyToJSON(requestParameters['body']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionBundleResponseFromJSON(jsonValue));
@@ -1046,40 +1046,40 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     /**
      * Run Bundle simulation on Fork
      */
-    async simulateTransactionBundleByFork(requestParameters: SimulateTransactionBundleByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
-        const response = await this.simulateTransactionBundleByForkRaw(requestParameters, initOverrides);
+    async simulateTransactionBundleOnFork(requestParameters: SimulateTransactionBundleOnForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
+        const response = await this.simulateTransactionBundleOnForkRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Run Simulation on Fork
      */
-    async simulateTransactionByForkRaw(requestParameters: SimulateTransactionByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
+    async simulateTransactionOnForkRaw(requestParameters: SimulateTransactionOnForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
         if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
                 'owner',
-                'Required parameter "owner" was null or undefined when calling simulateTransactionByFork().'
+                'Required parameter "owner" was null or undefined when calling simulateTransactionOnFork().'
             );
         }
 
         if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
                 'slug',
-                'Required parameter "slug" was null or undefined when calling simulateTransactionByFork().'
+                'Required parameter "slug" was null or undefined when calling simulateTransactionOnFork().'
             );
         }
 
         if (requestParameters['forkId'] == null) {
             throw new runtime.RequiredError(
                 'forkId',
-                'Required parameter "forkId" was null or undefined when calling simulateTransactionByFork().'
+                'Required parameter "forkId" was null or undefined when calling simulateTransactionOnFork().'
             );
         }
 
         if (requestParameters['body'] == null) {
             throw new runtime.RequiredError(
                 'body',
-                'Required parameter "body" was null or undefined when calling simulateTransactionByFork().'
+                'Required parameter "body" was null or undefined when calling simulateTransactionOnFork().'
             );
         }
 
@@ -1098,7 +1098,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SolidityServiceSolidityAPIServiceSimulateTransactionByForkBodyToJSON(requestParameters['body']),
+            body: SolidityServiceSolidityAPIServiceSimulateTransactionOnForkBodyToJSON(requestParameters['body']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SolidityServiceSimulateTransactionResponseFromJSON(jsonValue));
@@ -1107,8 +1107,8 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     /**
      * Run Simulation on Fork
      */
-    async simulateTransactionByFork(requestParameters: SimulateTransactionByForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
-        const response = await this.simulateTransactionByForkRaw(requestParameters, initOverrides);
+    async simulateTransactionOnFork(requestParameters: SimulateTransactionOnForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
+        const response = await this.simulateTransactionOnForkRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
