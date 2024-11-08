@@ -1094,7 +1094,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork": {
+    "/api/v1/solidity/{owner}/{slug}/fork": {
       "get": {
         "summary": "List all forks by project",
         "operationId": "ListForks",
@@ -1108,13 +1108,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1137,13 +1137,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1162,7 +1162,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation": {
       "post": {
         "summary": "Single simulation",
         "description": "Create a new transaction simulation. The simulation body should be included in the request body.\nYour simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.",
@@ -1177,19 +1177,19 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.forkId",
+            "name": "fork_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1208,7 +1208,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation/{txId.simulationId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation/{simulation_id}/call_trace": {
       "get": {
         "summary": "Get indexed call trace",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
@@ -1223,25 +1223,25 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.forkId",
+            "name": "fork_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "txId.simulationId",
+            "name": "simulation_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1292,7 +1292,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation_bundle": {
       "post": {
         "summary": "Bundle simulation",
         "description": "You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.",
@@ -1307,19 +1307,19 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.forkId",
+            "name": "fork_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1338,7 +1338,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle/{txId.bundleId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation_bundle/{bundle_id}/call_trace": {
       "get": {
         "summary": "Get indexed call trace",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
@@ -1353,25 +1353,25 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.forkId",
+            "name": "fork_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "txId.bundleId",
+            "name": "bundle_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1422,7 +1422,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/transaction/{txId.txHash}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/transaction/{tx_hash}/call_trace": {
       "get": {
         "summary": "Get indexed call trace",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
@@ -1437,25 +1437,25 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.forkId",
+            "name": "fork_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "txId.txHash",
+            "name": "tx_hash",
             "description": "One of txHash, simulationId, bundleId is required.",
             "in": "path",
             "required": true,
@@ -1506,7 +1506,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{id}": {
       "get": {
         "summary": "Get a fork by id",
         "operationId": "GetFork",
@@ -1520,13 +1520,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1556,13 +1556,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1591,13 +1591,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1622,7 +1622,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}/info": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{id}/info": {
       "get": {
         "summary": "Get fork info by id",
         "operationId": "GetForkInfo",
@@ -1636,13 +1636,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1659,7 +1659,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/search_transactions": {
+    "/api/v1/solidity/{owner}/{slug}/search_transactions": {
       "get": {
         "summary": "Search for transactions",
         "operationId": "SearchTransactions",
@@ -1673,13 +1673,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1793,7 +1793,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/simulation": {
+    "/api/v1/solidity/{owner}/{slug}/simulation": {
       "get": {
         "summary": "Get existing transaction simulations",
         "operationId": "GetSimulations",
@@ -1807,13 +1807,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1844,7 +1844,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/simulation/{simulationId}": {
+    "/api/v1/solidity/{owner}/{slug}/simulation/{simulationId}": {
       "get": {
         "summary": "Get a simulation by id",
         "operationId": "GetSimulation",
@@ -1858,13 +1858,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1881,7 +1881,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/simulation_bundle/{bundleId}": {
+    "/api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}": {
       "get": {
         "summary": "Get a bundle simulation by id",
         "operationId": "GetSimulationBundleInProject",
@@ -1895,13 +1895,13 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1918,7 +1918,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation": {
+    "/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation": {
       "post": {
         "summary": "Single simulation",
         "description": "Create a new transaction simulation. The simulation body should be included in the request body.\nYour simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.",
@@ -1933,19 +1933,19 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.chainId",
+            "name": "chain_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1964,7 +1964,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation/{txId.simulationId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation/{simulation_id}/call_trace": {
       "get": {
         "summary": "Get indexed call trace",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
@@ -1979,25 +1979,25 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.chainId",
+            "name": "chain_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "txId.simulationId",
+            "name": "simulation_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2048,7 +2048,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle": {
+    "/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation_bundle": {
       "post": {
         "summary": "Bundle simulation",
         "description": "You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.",
@@ -2063,19 +2063,19 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.chainId",
+            "name": "chain_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2094,7 +2094,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle/{txId.bundleId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation_bundle/{bundle_id}/call_trace": {
       "get": {
         "summary": "Get indexed call trace",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
@@ -2109,25 +2109,25 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.chainId",
+            "name": "chain_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "txId.bundleId",
+            "name": "bundle_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -2178,7 +2178,7 @@
         ]
       }
     },
-    "/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/transaction/{txId.txHash}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/{chain_id}/transaction/{tx_hash}/call_trace": {
       "get": {
         "summary": "Get indexed call trace",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `networkId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
@@ -2193,25 +2193,25 @@
         },
         "parameters": [
           {
-            "name": "projectOwner",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "projectSlug",
+            "name": "slug",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "chainSpec.chainId",
+            "name": "chain_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "txId.txHash",
+            "name": "tx_hash",
             "description": "One of txHash, simulationId, bundleId is required.",
             "in": "path",
             "required": true,

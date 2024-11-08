@@ -47,10 +47,10 @@ import {
 } from '../models/index.js';
 
 export interface GetCallTraceRequest {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecChainId: string;
-    txIdTxHash: string;
+    owner: string;
+    slug: string;
+    chainId: string;
+    txHash: string;
     chainSpecForkId?: string;
     txIdSimulationId?: string;
     txIdBundleId?: string;
@@ -60,10 +60,10 @@ export interface GetCallTraceRequest {
 }
 
 export interface GetCallTrace2Request {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecChainId: string;
-    txIdSimulationId: string;
+    owner: string;
+    slug: string;
+    chainId: string;
+    simulationId: string;
     chainSpecForkId?: string;
     txIdTxHash?: string;
     txIdBundleId?: string;
@@ -73,10 +73,10 @@ export interface GetCallTrace2Request {
 }
 
 export interface GetCallTrace3Request {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecChainId: string;
-    txIdBundleId: string;
+    owner: string;
+    slug: string;
+    chainId: string;
+    bundleId: string;
     chainSpecForkId?: string;
     txIdTxHash?: string;
     txIdSimulationId?: string;
@@ -86,10 +86,10 @@ export interface GetCallTrace3Request {
 }
 
 export interface GetCallTrace4Request {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecForkId: string;
-    txIdTxHash: string;
+    owner: string;
+    slug: string;
+    forkId: string;
+    txHash: string;
     chainSpecChainId?: string;
     txIdSimulationId?: string;
     txIdBundleId?: string;
@@ -99,10 +99,10 @@ export interface GetCallTrace4Request {
 }
 
 export interface GetCallTrace5Request {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecForkId: string;
-    txIdSimulationId: string;
+    owner: string;
+    slug: string;
+    forkId: string;
+    simulationId: string;
     chainSpecChainId?: string;
     txIdTxHash?: string;
     txIdBundleId?: string;
@@ -112,10 +112,10 @@ export interface GetCallTrace5Request {
 }
 
 export interface GetCallTrace6Request {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecForkId: string;
-    txIdBundleId: string;
+    owner: string;
+    slug: string;
+    forkId: string;
+    bundleId: string;
     chainSpecChainId?: string;
     txIdTxHash?: string;
     txIdSimulationId?: string;
@@ -125,28 +125,28 @@ export interface GetCallTrace6Request {
 }
 
 export interface GetSimulationRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     simulationId: string;
 }
 
 export interface GetSimulationBundleInProjectRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     bundleId: string;
 }
 
 export interface GetSimulationsRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     labelContains?: string;
     page?: number;
     pageSize?: number;
 }
 
 export interface SearchTransactionsRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     chainId?: Array<string>;
     address?: Array<string>;
     includeDirect?: boolean;
@@ -164,30 +164,30 @@ export interface SearchTransactionsRequest {
 }
 
 export interface SimulateTransactionRequest {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecChainId: string;
+    owner: string;
+    slug: string;
+    chainId: string;
     body: SolidityServiceSolidityAPIServiceSimulateTransactionBody;
 }
 
 export interface SimulateTransaction2Request {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecForkId: string;
+    owner: string;
+    slug: string;
+    forkId: string;
     body: SolidityServiceSolidityAPIServiceSimulateTransactionBody;
 }
 
 export interface SimulateTransactionBundleRequest {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecChainId: string;
+    owner: string;
+    slug: string;
+    chainId: string;
     body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody;
 }
 
 export interface SimulateTransactionBundle2Request {
-    projectOwner: string;
-    projectSlug: string;
-    chainSpecForkId: string;
+    owner: string;
+    slug: string;
+    forkId: string;
     body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody;
 }
 
@@ -201,31 +201,31 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTraceRaw(requestParameters: GetCallTraceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getCallTrace().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTrace().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getCallTrace().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTrace().'
             );
         }
 
-        if (requestParameters['chainSpecChainId'] == null) {
+        if (requestParameters['chainId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecChainId',
-                'Required parameter "chainSpecChainId" was null or undefined when calling getCallTrace().'
+                'chainId',
+                'Required parameter "chainId" was null or undefined when calling getCallTrace().'
             );
         }
 
-        if (requestParameters['txIdTxHash'] == null) {
+        if (requestParameters['txHash'] == null) {
             throw new runtime.RequiredError(
-                'txIdTxHash',
-                'Required parameter "txIdTxHash" was null or undefined when calling getCallTrace().'
+                'txHash',
+                'Required parameter "txHash" was null or undefined when calling getCallTrace().'
             );
         }
 
@@ -262,7 +262,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/transaction/{txId.txHash}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))).replace(`{${"txId.txHash"}}`, encodeURIComponent(String(requestParameters['txIdTxHash']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/transaction/{tx_hash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"tx_hash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -285,31 +285,31 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTrace2Raw(requestParameters: GetCallTrace2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getCallTrace2().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTrace2().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getCallTrace2().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTrace2().'
             );
         }
 
-        if (requestParameters['chainSpecChainId'] == null) {
+        if (requestParameters['chainId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecChainId',
-                'Required parameter "chainSpecChainId" was null or undefined when calling getCallTrace2().'
+                'chainId',
+                'Required parameter "chainId" was null or undefined when calling getCallTrace2().'
             );
         }
 
-        if (requestParameters['txIdSimulationId'] == null) {
+        if (requestParameters['simulationId'] == null) {
             throw new runtime.RequiredError(
-                'txIdSimulationId',
-                'Required parameter "txIdSimulationId" was null or undefined when calling getCallTrace2().'
+                'simulationId',
+                'Required parameter "simulationId" was null or undefined when calling getCallTrace2().'
             );
         }
 
@@ -346,7 +346,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation/{txId.simulationId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))).replace(`{${"txId.simulationId"}}`, encodeURIComponent(String(requestParameters['txIdSimulationId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation/{simulation_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"simulation_id"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -369,31 +369,31 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTrace3Raw(requestParameters: GetCallTrace3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getCallTrace3().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTrace3().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getCallTrace3().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTrace3().'
             );
         }
 
-        if (requestParameters['chainSpecChainId'] == null) {
+        if (requestParameters['chainId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecChainId',
-                'Required parameter "chainSpecChainId" was null or undefined when calling getCallTrace3().'
+                'chainId',
+                'Required parameter "chainId" was null or undefined when calling getCallTrace3().'
             );
         }
 
-        if (requestParameters['txIdBundleId'] == null) {
+        if (requestParameters['bundleId'] == null) {
             throw new runtime.RequiredError(
-                'txIdBundleId',
-                'Required parameter "txIdBundleId" was null or undefined when calling getCallTrace3().'
+                'bundleId',
+                'Required parameter "bundleId" was null or undefined when calling getCallTrace3().'
             );
         }
 
@@ -430,7 +430,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle/{txId.bundleId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))).replace(`{${"txId.bundleId"}}`, encodeURIComponent(String(requestParameters['txIdBundleId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation_bundle/{bundle_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))).replace(`{${"bundle_id"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -453,31 +453,31 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTrace4Raw(requestParameters: GetCallTrace4Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getCallTrace4().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTrace4().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getCallTrace4().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTrace4().'
             );
         }
 
-        if (requestParameters['chainSpecForkId'] == null) {
+        if (requestParameters['forkId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecForkId',
-                'Required parameter "chainSpecForkId" was null or undefined when calling getCallTrace4().'
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling getCallTrace4().'
             );
         }
 
-        if (requestParameters['txIdTxHash'] == null) {
+        if (requestParameters['txHash'] == null) {
             throw new runtime.RequiredError(
-                'txIdTxHash',
-                'Required parameter "txIdTxHash" was null or undefined when calling getCallTrace4().'
+                'txHash',
+                'Required parameter "txHash" was null or undefined when calling getCallTrace4().'
             );
         }
 
@@ -514,7 +514,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/transaction/{txId.txHash}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))).replace(`{${"txId.txHash"}}`, encodeURIComponent(String(requestParameters['txIdTxHash']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/transaction/{tx_hash}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"tx_hash"}}`, encodeURIComponent(String(requestParameters['txHash']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -537,31 +537,31 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTrace5Raw(requestParameters: GetCallTrace5Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getCallTrace5().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTrace5().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getCallTrace5().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTrace5().'
             );
         }
 
-        if (requestParameters['chainSpecForkId'] == null) {
+        if (requestParameters['forkId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecForkId',
-                'Required parameter "chainSpecForkId" was null or undefined when calling getCallTrace5().'
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling getCallTrace5().'
             );
         }
 
-        if (requestParameters['txIdSimulationId'] == null) {
+        if (requestParameters['simulationId'] == null) {
             throw new runtime.RequiredError(
-                'txIdSimulationId',
-                'Required parameter "txIdSimulationId" was null or undefined when calling getCallTrace5().'
+                'simulationId',
+                'Required parameter "simulationId" was null or undefined when calling getCallTrace5().'
             );
         }
 
@@ -598,7 +598,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation/{txId.simulationId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))).replace(`{${"txId.simulationId"}}`, encodeURIComponent(String(requestParameters['txIdSimulationId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation/{simulation_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"simulation_id"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -621,31 +621,31 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get indexed call trace
      */
     async getCallTrace6Raw(requestParameters: GetCallTrace6Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getCallTrace6().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getCallTrace6().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getCallTrace6().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getCallTrace6().'
             );
         }
 
-        if (requestParameters['chainSpecForkId'] == null) {
+        if (requestParameters['forkId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecForkId',
-                'Required parameter "chainSpecForkId" was null or undefined when calling getCallTrace6().'
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling getCallTrace6().'
             );
         }
 
-        if (requestParameters['txIdBundleId'] == null) {
+        if (requestParameters['bundleId'] == null) {
             throw new runtime.RequiredError(
-                'txIdBundleId',
-                'Required parameter "txIdBundleId" was null or undefined when calling getCallTrace6().'
+                'bundleId',
+                'Required parameter "bundleId" was null or undefined when calling getCallTrace6().'
             );
         }
 
@@ -682,7 +682,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle/{txId.bundleId}/call_trace`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))).replace(`{${"txId.bundleId"}}`, encodeURIComponent(String(requestParameters['txIdBundleId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation_bundle/{bundle_id}/call_trace`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))).replace(`{${"bundle_id"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -704,17 +704,17 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get a simulation by id
      */
     async getSimulationRaw(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getSimulation().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getSimulation().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getSimulation().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getSimulation().'
             );
         }
 
@@ -734,7 +734,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/simulation/{simulationId}`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/simulation/{simulationId}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"simulationId"}}`, encodeURIComponent(String(requestParameters['simulationId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -755,17 +755,17 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get a bundle simulation by id
      */
     async getSimulationBundleInProjectRaw(requestParameters: GetSimulationBundleInProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationBundleResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getSimulationBundleInProject().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getSimulationBundleInProject().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getSimulationBundleInProject().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getSimulationBundleInProject().'
             );
         }
 
@@ -785,7 +785,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/simulation_bundle/{bundleId}`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"bundleId"}}`, encodeURIComponent(String(requestParameters['bundleId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -806,17 +806,17 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Get existing transaction simulations
      */
     async getSimulationsRaw(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationsResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getSimulations().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getSimulations().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getSimulations().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getSimulations().'
             );
         }
 
@@ -841,7 +841,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/simulation`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))),
+            path: `/api/v1/solidity/{owner}/{slug}/simulation`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -862,17 +862,17 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Search for transactions
      */
     async searchTransactionsRaw(requestParameters: SearchTransactionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TxindexEvmSearchTransactionsResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling searchTransactions().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling searchTransactions().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling searchTransactions().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling searchTransactions().'
             );
         }
 
@@ -941,7 +941,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/search_transactions`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))),
+            path: `/api/v1/solidity/{owner}/{slug}/search_transactions`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -963,24 +963,24 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Single simulation
      */
     async simulateTransactionRaw(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling simulateTransaction().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling simulateTransaction().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling simulateTransaction().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling simulateTransaction().'
             );
         }
 
-        if (requestParameters['chainSpecChainId'] == null) {
+        if (requestParameters['chainId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecChainId',
-                'Required parameter "chainSpecChainId" was null or undefined when calling simulateTransaction().'
+                'chainId',
+                'Required parameter "chainId" was null or undefined when calling simulateTransaction().'
             );
         }
 
@@ -1002,7 +1002,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1026,24 +1026,24 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Single simulation
      */
     async simulateTransaction2Raw(requestParameters: SimulateTransaction2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling simulateTransaction2().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling simulateTransaction2().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling simulateTransaction2().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling simulateTransaction2().'
             );
         }
 
-        if (requestParameters['chainSpecForkId'] == null) {
+        if (requestParameters['forkId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecForkId',
-                'Required parameter "chainSpecForkId" was null or undefined when calling simulateTransaction2().'
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling simulateTransaction2().'
             );
         }
 
@@ -1065,7 +1065,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1089,24 +1089,24 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Bundle simulation
      */
     async simulateTransactionBundleRaw(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling simulateTransactionBundle().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling simulateTransactionBundle().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling simulateTransactionBundle().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling simulateTransactionBundle().'
             );
         }
 
-        if (requestParameters['chainSpecChainId'] == null) {
+        if (requestParameters['chainId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecChainId',
-                'Required parameter "chainSpecChainId" was null or undefined when calling simulateTransactionBundle().'
+                'chainId',
+                'Required parameter "chainId" was null or undefined when calling simulateTransactionBundle().'
             );
         }
 
@@ -1128,7 +1128,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/{chainSpec.chainId}/simulation_bundle`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.chainId"}}`, encodeURIComponent(String(requestParameters['chainSpecChainId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/{chain_id}/simulation_bundle`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"chain_id"}}`, encodeURIComponent(String(requestParameters['chainId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -1152,24 +1152,24 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
      * Bundle simulation
      */
     async simulateTransactionBundle2Raw(requestParameters: SimulateTransactionBundle2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling simulateTransactionBundle2().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling simulateTransactionBundle2().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling simulateTransactionBundle2().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling simulateTransactionBundle2().'
             );
         }
 
-        if (requestParameters['chainSpecForkId'] == null) {
+        if (requestParameters['forkId'] == null) {
             throw new runtime.RequiredError(
-                'chainSpecForkId',
-                'Required parameter "chainSpecForkId" was null or undefined when calling simulateTransactionBundle2().'
+                'forkId',
+                'Required parameter "forkId" was null or undefined when calling simulateTransactionBundle2().'
             );
         }
 
@@ -1191,7 +1191,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{chainSpec.forkId}/simulation_bundle`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"chainSpec.forkId"}}`, encodeURIComponent(String(requestParameters['chainSpecForkId']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{fork_id}/simulation_bundle`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"fork_id"}}`, encodeURIComponent(String(requestParameters['forkId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

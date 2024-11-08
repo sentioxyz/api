@@ -41,37 +41,37 @@ import {
 } from '../models/index.js';
 
 export interface CreateForkRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     body: SolidityServiceForkServiceCreateForkBody;
 }
 
 export interface DeleteForkRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     id: string;
 }
 
 export interface GetForkRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     id: string;
 }
 
 export interface GetForkInfoRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     id: string;
 }
 
 export interface ListForksRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
 }
 
 export interface UpdateForkRequest {
-    projectOwner: string;
-    projectSlug: string;
+    owner: string;
+    slug: string;
     id: string;
     body: SolidityServiceForkServiceUpdateForkBody;
 }
@@ -85,17 +85,17 @@ export class ForksApi extends runtime.BaseAPI {
      * Create a fork
      */
     async createForkRaw(requestParameters: CreateForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceCreateForkResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling createFork().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling createFork().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling createFork().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling createFork().'
             );
         }
 
@@ -117,7 +117,7 @@ export class ForksApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -139,17 +139,17 @@ export class ForksApi extends runtime.BaseAPI {
      * Delete a fork by id
      */
     async deleteForkRaw(requestParameters: DeleteForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling deleteFork().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling deleteFork().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling deleteFork().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling deleteFork().'
             );
         }
 
@@ -169,7 +169,7 @@ export class ForksApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{id}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -190,17 +190,17 @@ export class ForksApi extends runtime.BaseAPI {
      * Get a fork by id
      */
     async getForkRaw(requestParameters: GetForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetForkResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getFork().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getFork().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getFork().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getFork().'
             );
         }
 
@@ -220,7 +220,7 @@ export class ForksApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{id}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -241,17 +241,17 @@ export class ForksApi extends runtime.BaseAPI {
      * Get fork info by id
      */
     async getForkInfoRaw(requestParameters: GetForkInfoRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetForkInfoResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling getForkInfo().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling getForkInfo().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling getForkInfo().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getForkInfo().'
             );
         }
 
@@ -271,7 +271,7 @@ export class ForksApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}/info`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{id}/info`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -292,17 +292,17 @@ export class ForksApi extends runtime.BaseAPI {
      * List all forks by project
      */
     async listForksRaw(requestParameters: ListForksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceListForksResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling listForks().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling listForks().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling listForks().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling listForks().'
             );
         }
 
@@ -315,7 +315,7 @@ export class ForksApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -336,17 +336,17 @@ export class ForksApi extends runtime.BaseAPI {
      * Update a fork by id
      */
     async updateForkRaw(requestParameters: UpdateForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceUpdateForkResponse>> {
-        if (requestParameters['projectOwner'] == null) {
+        if (requestParameters['owner'] == null) {
             throw new runtime.RequiredError(
-                'projectOwner',
-                'Required parameter "projectOwner" was null or undefined when calling updateFork().'
+                'owner',
+                'Required parameter "owner" was null or undefined when calling updateFork().'
             );
         }
 
-        if (requestParameters['projectSlug'] == null) {
+        if (requestParameters['slug'] == null) {
             throw new runtime.RequiredError(
-                'projectSlug',
-                'Required parameter "projectSlug" was null or undefined when calling updateFork().'
+                'slug',
+                'Required parameter "slug" was null or undefined when calling updateFork().'
             );
         }
 
@@ -375,7 +375,7 @@ export class ForksApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/solidity/{projectOwner}/{projectSlug}/fork/{id}`.replace(`{${"projectOwner"}}`, encodeURIComponent(String(requestParameters['projectOwner']))).replace(`{${"projectSlug"}}`, encodeURIComponent(String(requestParameters['projectSlug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: `/api/v1/solidity/{owner}/{slug}/fork/{id}`.replace(`{${"owner"}}`, encodeURIComponent(String(requestParameters['owner']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
