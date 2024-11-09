@@ -11234,7 +11234,7 @@ $(document).ready(function() {
                       <article id="api-DebugAndSimulation-getCallTraceByBundle-0" data-group="User" data-name="getCallTraceByBundle" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceByBundle</h1>
-                          <p>Get Call Trace by Bundle Simulation</p>
+                          <p>Get trace by bundle simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -11381,7 +11381,7 @@ Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give y
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
-// Get Call Trace by Bundle Simulation
+// Get trace by bundle simulation
 [apiInstance getCallTraceByBundleWith:owner
     slug:slug
     chainId:chainId
@@ -11465,7 +11465,7 @@ namespace Example
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                // Get Call Trace by Bundle Simulation
+                // Get trace by bundle simulation
                 google.api.HttpBody result = apiInstance.getCallTraceByBundle(owner, slug, chainId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -11557,7 +11557,7 @@ disableOptimizer = true # Boolean | Disable optimizations to make internal calls
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    # Get Call Trace by Bundle Simulation
+    # Get trace by bundle simulation
     api_response = api_instance.get_call_trace_by_bundle(owner, slug, chainId, bundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
@@ -11835,7 +11835,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getCallTraceBySimulation-0" data-group="User" data-name="getCallTraceBySimulation" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceBySimulation</h1>
-                          <p>Get Call Trace by Simulation</p>
+                          <p>Get trace by simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -11982,7 +11982,7 @@ Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give y
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
-// Get Call Trace by Simulation
+// Get trace by simulation
 [apiInstance getCallTraceBySimulationWith:owner
     slug:slug
     chainId:chainId
@@ -12066,7 +12066,7 @@ namespace Example
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                // Get Call Trace by Simulation
+                // Get trace by simulation
                 google.api.HttpBody result = apiInstance.getCallTraceBySimulation(owner, slug, chainId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -12158,7 +12158,7 @@ disableOptimizer = true # Boolean | Disable optimizations to make internal calls
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    # Get Call Trace by Simulation
+    # Get trace by simulation
     api_response = api_instance.get_call_trace_by_simulation(owner, slug, chainId, simulationId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
@@ -12436,7 +12436,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getCallTraceByTransaction-0" data-group="User" data-name="getCallTraceByTransaction" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceByTransaction</h1>
-                          <p>Get Call Trace by Transaction</p>
+                          <p>Get trace by transaction</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -12589,7 +12589,7 @@ Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give y
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
-// Get Call Trace by Transaction
+// Get trace by transaction
 [apiInstance getCallTraceByTransactionWith:owner
     slug:slug
     chainId:chainId
@@ -12673,7 +12673,7 @@ namespace Example
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                // Get Call Trace by Transaction
+                // Get trace by transaction
                 google.api.HttpBody result = apiInstance.getCallTraceByTransaction(owner, slug, chainId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -12765,7 +12765,7 @@ disableOptimizer = true # Boolean | Disable optimizations to make internal calls
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    # Get Call Trace by Transaction
+    # Get trace by transaction
     api_response = api_instance.get_call_trace_by_transaction(owner, slug, chainId, txHash, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
@@ -13043,7 +13043,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-DebugAndSimulation-getSimulation-0" data-group="User" data-name="getSimulation" data-version="0">
                         <div class="pull-left">
                           <h1>getSimulation</h1>
-                          <p>Get Simulation by ID</p>
+                          <p>Get simulation by ID</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -13174,7 +13174,7 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *simulationId = simulationId_example; //  (default to null)
 
-// Get Simulation by ID
+// Get simulation by ID
 [apiInstance getSimulationWith:owner
     slug:slug
     simulationId:simulationId
@@ -13244,7 +13244,7 @@ namespace Example
             var simulationId = simulationId_example;  // String |  (default to null)
 
             try {
-                // Get Simulation by ID
+                // Get simulation by ID
                 solidity_service.GetSimulationResponse result = apiInstance.getSimulation(owner, slug, simulationId);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -13324,7 +13324,7 @@ slug = slug_example # String |  (default to null)
 simulationId = simulationId_example # String |  (default to null)
 
 try:
-    # Get Simulation by ID
+    # Get simulation by ID
     api_response = api_instance.get_simulation(owner, slug, simulationId)
     pprint(api_response)
 except ApiException as e:
@@ -13511,7 +13511,7 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-getSimulationBundleInProject-0" data-group="User" data-name="getSimulationBundleInProject" data-version="0">
                         <div class="pull-left">
                           <h1>getSimulationBundleInProject</h1>
-                          <p>Get Bundle Simulation by ID</p>
+                          <p>Get bundle simulation by ID</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -13642,7 +13642,7 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *bundleId = bundleId_example; //  (default to null)
 
-// Get Bundle Simulation by ID
+// Get bundle simulation by ID
 [apiInstance getSimulationBundleInProjectWith:owner
     slug:slug
     bundleId:bundleId
@@ -13712,7 +13712,7 @@ namespace Example
             var bundleId = bundleId_example;  // String |  (default to null)
 
             try {
-                // Get Bundle Simulation by ID
+                // Get bundle simulation by ID
                 solidity_service.GetSimulationBundleResponse result = apiInstance.getSimulationBundleInProject(owner, slug, bundleId);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -13792,7 +13792,7 @@ slug = slug_example # String |  (default to null)
 bundleId = bundleId_example # String |  (default to null)
 
 try:
-    # Get Bundle Simulation by ID
+    # Get bundle simulation by ID
     api_response = api_instance.get_simulation_bundle_in_project(owner, slug, bundleId)
     pprint(api_response)
 except ApiException as e:
@@ -13979,7 +13979,7 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-getSimulations-0" data-group="User" data-name="getSimulations" data-version="0">
                         <div class="pull-left">
                           <h1>getSimulations</h1>
-                          <p>Get Existied Simulations</p>
+                          <p>Get list of simulations</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -14118,7 +14118,7 @@ String *labelContains = labelContains_example; //  (optional) (default to null)
 Integer *page = 56; //  (optional) (default to null)
 Integer *pageSize = 56; //  (optional) (default to null)
 
-// Get Existied Simulations
+// Get list of simulations
 [apiInstance getSimulationsWith:owner
     slug:slug
     labelContains:labelContains
@@ -14196,7 +14196,7 @@ namespace Example
             var pageSize = 56;  // Integer |  (optional)  (default to null)
 
             try {
-                // Get Existied Simulations
+                // Get list of simulations
                 solidity_service.GetSimulationsResponse result = apiInstance.getSimulations(owner, slug, labelContains, page, pageSize);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -14282,7 +14282,7 @@ page = 56 # Integer |  (optional) (default to null)
 pageSize = 56 # Integer |  (optional) (default to null)
 
 try:
-    # Get Existied Simulations
+    # Get list of simulations
     api_response = api_instance.get_simulations(owner, slug, labelContains=labelContains, page=page, pageSize=pageSize)
     pprint(api_response)
 except ApiException as e:
@@ -15374,7 +15374,7 @@ pub fn main() {
                       <article id="api-DebugAndSimulation-simulateTransaction-0" data-group="User" data-name="simulateTransaction" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransaction</h1>
-                          <p>Run Simulation</p>
+                          <p>Run simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -15512,7 +15512,7 @@ String *slug = slug_example; //  (default to null)
 String *chainId = chainId_example; //  (default to null)
 SolidityServiceSolidityAPIServiceSimulateTransactionBody *body = ; // 
 
-// Run Simulation
+// Run simulation
 [apiInstance simulateTransactionWith:owner
     slug:slug
     chainId:chainId
@@ -15585,7 +15585,7 @@ namespace Example
             var body = new SolidityServiceSolidityAPIServiceSimulateTransactionBody(); // SolidityServiceSolidityAPIServiceSimulateTransactionBody | 
 
             try {
-                // Run Simulation
+                // Run simulation
                 solidity_service.SimulateTransactionResponse result = apiInstance.simulateTransaction(owner, slug, chainId, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -15668,7 +15668,7 @@ chainId = chainId_example # String |  (default to null)
 body =  # SolidityServiceSolidityAPIServiceSimulateTransactionBody | 
 
 try:
-    # Run Simulation
+    # Run simulation
     api_response = api_instance.simulate_transaction(owner, slug, chainId, body)
     pprint(api_response)
 except ApiException as e:
@@ -15904,7 +15904,7 @@ $(document).ready(function() {
                       <article id="api-DebugAndSimulation-simulateTransactionBundle-0" data-group="User" data-name="simulateTransactionBundle" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransactionBundle</h1>
-                          <p>Run Bundle simulation</p>
+                          <p>Run bundle simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -16041,7 +16041,7 @@ String *slug = slug_example; //  (default to null)
 String *chainId = chainId_example; //  (default to null)
 SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody *body = ; // 
 
-// Run Bundle simulation
+// Run bundle simulation
 [apiInstance simulateTransactionBundleWith:owner
     slug:slug
     chainId:chainId
@@ -16114,7 +16114,7 @@ namespace Example
             var body = new SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody(); // SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody | 
 
             try {
-                // Run Bundle simulation
+                // Run bundle simulation
                 solidity_service.SimulateTransactionBundleResponse result = apiInstance.simulateTransactionBundle(owner, slug, chainId, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -16197,7 +16197,7 @@ chainId = chainId_example # String |  (default to null)
 body =  # SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody | 
 
 try:
-    # Run Bundle simulation
+    # Run bundle simulation
     api_response = api_instance.simulate_transaction_bundle(owner, slug, chainId, body)
     pprint(api_response)
 except ApiException as e:
@@ -16934,7 +16934,7 @@ $(document).ready(function() {
                       <article id="api-Forks-deleteFork-0" data-group="User" data-name="deleteFork" data-version="0">
                         <div class="pull-left">
                           <h1>deleteFork</h1>
-                          <p>Delete a fork by id</p>
+                          <p>Delete fork by id</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -17065,7 +17065,7 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *id = id_example; //  (default to null)
 
-// Delete a fork by id
+// Delete fork by id
 [apiInstance deleteForkWith:owner
     slug:slug
     id:id
@@ -17135,7 +17135,7 @@ namespace Example
             var id = id_example;  // String |  (default to null)
 
             try {
-                // Delete a fork by id
+                // Delete fork by id
                 Object result = apiInstance.deleteFork(owner, slug, id);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -17215,7 +17215,7 @@ slug = slug_example # String |  (default to null)
 id = id_example # String |  (default to null)
 
 try:
-    # Delete a fork by id
+    # Delete fork by id
     api_response = api_instance.delete_fork(owner, slug, id)
     pprint(api_response)
 except ApiException as e:
@@ -17402,7 +17402,7 @@ pub fn main() {
                       <article id="api-Forks-getCallTraceOnForkBundle-0" data-group="User" data-name="getCallTraceOnForkBundle" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceOnForkBundle</h1>
-                          <p>Get Call Trace by Bundle Simulation</p>
+                          <p>Get trace by bundle simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -17549,7 +17549,7 @@ Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give y
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
-// Get Call Trace by Bundle Simulation
+// Get trace by bundle simulation
 [apiInstance getCallTraceOnForkBundleWith:owner
     slug:slug
     forkId:forkId
@@ -17633,7 +17633,7 @@ namespace Example
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                // Get Call Trace by Bundle Simulation
+                // Get trace by bundle simulation
                 google.api.HttpBody result = apiInstance.getCallTraceOnForkBundle(owner, slug, forkId, bundleId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -17725,7 +17725,7 @@ disableOptimizer = true # Boolean | Disable optimizations to make internal calls
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    # Get Call Trace by Bundle Simulation
+    # Get trace by bundle simulation
     api_response = api_instance.get_call_trace_on_fork_bundle(owner, slug, forkId, bundleId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
@@ -18003,7 +18003,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-Forks-getCallTraceOnForkSimulation-0" data-group="User" data-name="getCallTraceOnForkSimulation" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceOnForkSimulation</h1>
-                          <p>Get Call Trace by Simulation</p>
+                          <p>Get trace by simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -18150,7 +18150,7 @@ Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give y
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
-// Get Call Trace by Simulation
+// Get trace by simulation
 [apiInstance getCallTraceOnForkSimulationWith:owner
     slug:slug
     forkId:forkId
@@ -18234,7 +18234,7 @@ namespace Example
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                // Get Call Trace by Simulation
+                // Get trace by simulation
                 google.api.HttpBody result = apiInstance.getCallTraceOnForkSimulation(owner, slug, forkId, simulationId, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -18326,7 +18326,7 @@ disableOptimizer = true # Boolean | Disable optimizations to make internal calls
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    # Get Call Trace by Simulation
+    # Get trace by simulation
     api_response = api_instance.get_call_trace_on_fork_simulation(owner, slug, forkId, simulationId, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
@@ -18604,7 +18604,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-Forks-getCallTraceOnForkTransaction-0" data-group="User" data-name="getCallTraceOnForkTransaction" data-version="0">
                         <div class="pull-left">
                           <h1>getCallTraceOnForkTransaction</h1>
-                          <p>Get Call Trace by Transaction</p>
+                          <p>Get trace by transaction</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -18751,7 +18751,7 @@ Boolean *withInternalCalls = true; // Fetch the decoded trace, which will give y
 Boolean *disableOptimizer = true; // Disable optimizations to make internal calls more accurate, but gas costs will differ from the actual execution. (optional) (default to null)
 Boolean *ignoreGasCost = true; // Only effective when disableOptimizer=true. (optional) (default to null)
 
-// Get Call Trace by Transaction
+// Get trace by transaction
 [apiInstance getCallTraceOnForkTransactionWith:owner
     slug:slug
     forkId:forkId
@@ -18835,7 +18835,7 @@ namespace Example
             var ignoreGasCost = true;  // Boolean | Only effective when disableOptimizer=true. (optional)  (default to null)
 
             try {
-                // Get Call Trace by Transaction
+                // Get trace by transaction
                 google.api.HttpBody result = apiInstance.getCallTraceOnForkTransaction(owner, slug, forkId, txHash, withInternalCalls, disableOptimizer, ignoreGasCost);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -18927,7 +18927,7 @@ disableOptimizer = true # Boolean | Disable optimizations to make internal calls
 ignoreGasCost = true # Boolean | Only effective when disableOptimizer=true. (optional) (default to null)
 
 try:
-    # Get Call Trace by Transaction
+    # Get trace by transaction
     api_response = api_instance.get_call_trace_on_fork_transaction(owner, slug, forkId, txHash, withInternalCalls=withInternalCalls, disableOptimizer=disableOptimizer, ignoreGasCost=ignoreGasCost)
     pprint(api_response)
 except ApiException as e:
@@ -19205,7 +19205,7 @@ Only effective when disableOptimizer&#x3D;true.
                       <article id="api-Forks-getFork-0" data-group="User" data-name="getFork" data-version="0">
                         <div class="pull-left">
                           <h1>getFork</h1>
-                          <p>Get a fork by id</p>
+                          <p>Get fork by id</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -19336,7 +19336,7 @@ String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 String *id = id_example; //  (default to null)
 
-// Get a fork by id
+// Get fork by id
 [apiInstance getForkWith:owner
     slug:slug
     id:id
@@ -19406,7 +19406,7 @@ namespace Example
             var id = id_example;  // String |  (default to null)
 
             try {
-                // Get a fork by id
+                // Get fork by id
                 solidity_service.GetForkResponse result = apiInstance.getFork(owner, slug, id);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -19486,7 +19486,7 @@ slug = slug_example # String |  (default to null)
 id = id_example # String |  (default to null)
 
 try:
-    # Get a fork by id
+    # Get fork by id
     api_response = api_instance.get_fork(owner, slug, id)
     pprint(api_response)
 except ApiException as e:
@@ -20141,7 +20141,7 @@ pub fn main() {
                       <article id="api-Forks-listForks-0" data-group="User" data-name="listForks" data-version="0">
                         <div class="pull-left">
                           <h1>listForks</h1>
-                          <p>List all forks by project</p>
+                          <p>List all forks</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -20268,7 +20268,7 @@ ForksApi *apiInstance = [[ForksApi alloc] init];
 String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 
-// List all forks by project
+// List all forks
 [apiInstance listForksWith:owner
     slug:slug
               completionHandler: ^(solidity_service.ListForksResponse output, NSError* error) {
@@ -20335,7 +20335,7 @@ namespace Example
             var slug = slug_example;  // String |  (default to null)
 
             try {
-                // List all forks by project
+                // List all forks
                 solidity_service.ListForksResponse result = apiInstance.listForks(owner, slug);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -20412,7 +20412,7 @@ owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 
 try:
-    # List all forks by project
+    # List all forks
     api_response = api_instance.list_forks(owner, slug)
     pprint(api_response)
 except ApiException as e:
@@ -20578,7 +20578,7 @@ pub fn main() {
                       <article id="api-Forks-simulateTransactionBundleOnFork-0" data-group="User" data-name="simulateTransactionBundleOnFork" data-version="0">
                         <div class="pull-left">
                           <h1>simulateTransactionBundleOnFork</h1>
-                          <p>Run Bundle Simulation</p>
+                          <p>Run bundle simulation</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -20715,7 +20715,7 @@ String *slug = slug_example; //  (default to null)
 String *forkId = forkId_example; //  (default to null)
 SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody *body = ; // 
 
-// Run Bundle Simulation
+// Run bundle simulation
 [apiInstance simulateTransactionBundleOnForkWith:owner
     slug:slug
     forkId:forkId
@@ -20788,7 +20788,7 @@ namespace Example
             var body = new SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody(); // SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody | 
 
             try {
-                // Run Bundle Simulation
+                // Run bundle simulation
                 solidity_service.SimulateTransactionBundleResponse result = apiInstance.simulateTransactionBundleOnFork(owner, slug, forkId, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -20871,7 +20871,7 @@ forkId = forkId_example # String |  (default to null)
 body =  # SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody | 
 
 try:
-    # Run Bundle Simulation
+    # Run bundle simulation
     api_response = api_instance.simulate_transaction_bundle_on_fork(owner, slug, forkId, body)
     pprint(api_response)
 except ApiException as e:
@@ -21636,7 +21636,7 @@ $(document).ready(function() {
                       <article id="api-Forks-updateFork-0" data-group="User" data-name="updateFork" data-version="0">
                         <div class="pull-left">
                           <h1>updateFork</h1>
-                          <p>Update a fork by id</p>
+                          <p>Update fork by id</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -21773,7 +21773,7 @@ String *slug = slug_example; //  (default to null)
 String *id = id_example; //  (default to null)
 SolidityServiceForkServiceUpdateForkBody *body = ; // 
 
-// Update a fork by id
+// Update fork by id
 [apiInstance updateForkWith:owner
     slug:slug
     id:id
@@ -21846,7 +21846,7 @@ namespace Example
             var body = new SolidityServiceForkServiceUpdateForkBody(); // SolidityServiceForkServiceUpdateForkBody | 
 
             try {
-                // Update a fork by id
+                // Update fork by id
                 solidity_service.UpdateForkResponse result = apiInstance.updateFork(owner, slug, id, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -21929,7 +21929,7 @@ id = id_example # String |  (default to null)
 body =  # SolidityServiceForkServiceUpdateForkBody | 
 
 try:
-    # Update a fork by id
+    # Update fork by id
     api_response = api_instance.update_fork(owner, slug, id, body)
     pprint(api_response)
 except ApiException as e:

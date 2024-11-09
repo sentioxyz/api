@@ -195,7 +195,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a fork by id
+     * Delete fork by id
      */
     async deleteForkRaw(requestParameters: DeleteForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
         if (requestParameters['owner'] == null) {
@@ -238,7 +238,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a fork by id
+     * Delete fork by id
      */
     async deleteFork(requestParameters: DeleteForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
         const response = await this.deleteForkRaw(requestParameters, initOverrides);
@@ -246,7 +246,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Bundle Simulation
+     * Get trace by bundle simulation
      */
     async getCallTraceOnForkBundleRaw(requestParameters: GetCallTraceOnForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -308,7 +308,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Bundle Simulation
+     * Get trace by bundle simulation
      */
     async getCallTraceOnForkBundle(requestParameters: GetCallTraceOnForkBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceOnForkBundleRaw(requestParameters, initOverrides);
@@ -316,7 +316,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Simulation
+     * Get trace by simulation
      */
     async getCallTraceOnForkSimulationRaw(requestParameters: GetCallTraceOnForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -378,7 +378,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Simulation
+     * Get trace by simulation
      */
     async getCallTraceOnForkSimulation(requestParameters: GetCallTraceOnForkSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceOnForkSimulationRaw(requestParameters, initOverrides);
@@ -386,7 +386,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Transaction
+     * Get trace by transaction
      */
     async getCallTraceOnForkTransactionRaw(requestParameters: GetCallTraceOnForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -448,7 +448,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Transaction
+     * Get trace by transaction
      */
     async getCallTraceOnForkTransaction(requestParameters: GetCallTraceOnForkTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceOnForkTransactionRaw(requestParameters, initOverrides);
@@ -456,7 +456,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a fork by id
+     * Get fork by id
      */
     async getForkRaw(requestParameters: GetForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetForkResponse>> {
         if (requestParameters['owner'] == null) {
@@ -499,7 +499,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a fork by id
+     * Get fork by id
      */
     async getFork(requestParameters: GetForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetForkResponse> {
         const response = await this.getForkRaw(requestParameters, initOverrides);
@@ -558,7 +558,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * List all forks by project
+     * List all forks
      */
     async listForksRaw(requestParameters: ListForksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceListForksResponse>> {
         if (requestParameters['owner'] == null) {
@@ -594,7 +594,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * List all forks by project
+     * List all forks
      */
     async listForks(requestParameters: ListForksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceListForksResponse> {
         const response = await this.listForksRaw(requestParameters, initOverrides);
@@ -602,7 +602,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Run Bundle Simulation
+     * Run bundle simulation
      */
     async simulateTransactionBundleOnForkRaw(requestParameters: SimulateTransactionBundleOnForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
         if (requestParameters['owner'] == null) {
@@ -655,7 +655,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Run Bundle Simulation
+     * Run bundle simulation
      */
     async simulateTransactionBundleOnFork(requestParameters: SimulateTransactionBundleOnForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const response = await this.simulateTransactionBundleOnForkRaw(requestParameters, initOverrides);
@@ -724,7 +724,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a fork by id
+     * Update fork by id
      */
     async updateForkRaw(requestParameters: UpdateForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceUpdateForkResponse>> {
         if (requestParameters['owner'] == null) {
@@ -777,7 +777,7 @@ export class ForksApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a fork by id
+     * Update fork by id
      */
     async updateFork(requestParameters: UpdateForkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceUpdateForkResponse> {
         const response = await this.updateForkRaw(requestParameters, initOverrides);

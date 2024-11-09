@@ -1096,7 +1096,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/fork": {
       "get": {
-        "summary": "List all forks by project",
+        "summary": "List all forks",
         "operationId": "ListForks",
         "responses": {
           "200": {
@@ -1164,7 +1164,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace": {
       "get": {
-        "summary": "Get Call Trace by Bundle Simulation",
+        "summary": "Get trace by bundle simulation",
         "operationId": "GetCallTraceOnForkBundle",
         "responses": {
           "200": {
@@ -1273,7 +1273,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace": {
       "get": {
-        "summary": "Get Call Trace by Simulation",
+        "summary": "Get trace by simulation",
         "operationId": "GetCallTraceOnForkSimulation",
         "responses": {
           "200": {
@@ -1337,7 +1337,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle": {
       "post": {
-        "summary": "Run Bundle Simulation",
+        "summary": "Run bundle simulation",
         "operationId": "SimulateTransactionBundleOnFork",
         "responses": {
           "200": {
@@ -1382,7 +1382,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace": {
       "get": {
-        "summary": "Get Call Trace by Transaction",
+        "summary": "Get trace by transaction",
         "operationId": "GetCallTraceOnForkTransaction",
         "responses": {
           "200": {
@@ -1446,7 +1446,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/fork/{id}": {
       "get": {
-        "summary": "Get a fork by id",
+        "summary": "Get fork by id",
         "operationId": "GetFork",
         "responses": {
           "200": {
@@ -1481,7 +1481,7 @@
         ]
       },
       "delete": {
-        "summary": "Delete a fork by id",
+        "summary": "Delete fork by id",
         "operationId": "DeleteFork",
         "responses": {
           "200": {
@@ -1517,7 +1517,7 @@
         ]
       },
       "put": {
-        "summary": "Update a fork by id",
+        "summary": "Update fork by id",
         "operationId": "UpdateFork",
         "responses": {
           "200": {
@@ -1733,7 +1733,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/simulation": {
       "get": {
-        "summary": "Get Existied Simulations",
+        "summary": "Get list of simulations",
         "operationId": "GetSimulations",
         "responses": {
           "200": {
@@ -1784,7 +1784,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/simulation/{simulationId}": {
       "get": {
-        "summary": "Get Simulation by ID",
+        "summary": "Get simulation by ID",
         "operationId": "GetSimulation",
         "responses": {
           "200": {
@@ -1821,7 +1821,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}": {
       "get": {
-        "summary": "Get Bundle Simulation by ID",
+        "summary": "Get bundle simulation by ID",
         "operationId": "GetSimulationBundleInProject",
         "responses": {
           "200": {
@@ -1858,7 +1858,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace": {
       "get": {
-        "summary": "Get Call Trace by Bundle Simulation",
+        "summary": "Get trace by bundle simulation",
         "operationId": "GetCallTraceByBundle",
         "responses": {
           "200": {
@@ -1922,7 +1922,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/{chainId}/simulation": {
       "post": {
-        "summary": "Run Simulation",
+        "summary": "Run simulation",
         "description": "Create a new transaction simulation. The simulation body should be included in the request body.\nYour simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.",
         "operationId": "SimulateTransaction",
         "responses": {
@@ -1968,7 +1968,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace": {
       "get": {
-        "summary": "Get Call Trace by Simulation",
+        "summary": "Get trace by simulation",
         "operationId": "GetCallTraceBySimulation",
         "responses": {
           "200": {
@@ -2032,7 +2032,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle": {
       "post": {
-        "summary": "Run Bundle simulation",
+        "summary": "Run bundle simulation",
         "description": "You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.",
         "operationId": "SimulateTransactionBundle",
         "responses": {
@@ -2078,7 +2078,7 @@
     },
     "/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace": {
       "get": {
-        "summary": "Get Call Trace by Transaction",
+        "summary": "Get trace by transaction",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
         "operationId": "GetCallTraceByTransaction",
         "responses": {

@@ -135,7 +135,7 @@ export interface SimulateTransactionBundleRequest {
 export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
-     * Get Call Trace by Bundle Simulation
+     * Get trace by bundle simulation
      */
     async getCallTraceByBundleRaw(requestParameters: GetCallTraceByBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -197,7 +197,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Bundle Simulation
+     * Get trace by bundle simulation
      */
     async getCallTraceByBundle(requestParameters: GetCallTraceByBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByBundleRaw(requestParameters, initOverrides);
@@ -205,7 +205,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Simulation
+     * Get trace by simulation
      */
     async getCallTraceBySimulationRaw(requestParameters: GetCallTraceBySimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -267,7 +267,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Call Trace by Simulation
+     * Get trace by simulation
      */
     async getCallTraceBySimulation(requestParameters: GetCallTraceBySimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceBySimulationRaw(requestParameters, initOverrides);
@@ -276,7 +276,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
-     * Get Call Trace by Transaction
+     * Get trace by transaction
      */
     async getCallTraceByTransactionRaw(requestParameters: GetCallTraceByTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GoogleApiHttpBody>> {
         if (requestParameters['owner'] == null) {
@@ -339,7 +339,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.  The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.  This allows you to build chart that marks the order of fund flow.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)
-     * Get Call Trace by Transaction
+     * Get trace by transaction
      */
     async getCallTraceByTransaction(requestParameters: GetCallTraceByTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GoogleApiHttpBody> {
         const response = await this.getCallTraceByTransactionRaw(requestParameters, initOverrides);
@@ -347,7 +347,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Simulation by ID
+     * Get simulation by ID
      */
     async getSimulationRaw(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationResponse>> {
         if (requestParameters['owner'] == null) {
@@ -390,7 +390,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Simulation by ID
+     * Get simulation by ID
      */
     async getSimulation(requestParameters: GetSimulationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationResponse> {
         const response = await this.getSimulationRaw(requestParameters, initOverrides);
@@ -398,7 +398,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Bundle Simulation by ID
+     * Get bundle simulation by ID
      */
     async getSimulationBundleInProjectRaw(requestParameters: GetSimulationBundleInProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationBundleResponse>> {
         if (requestParameters['owner'] == null) {
@@ -441,7 +441,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Bundle Simulation by ID
+     * Get bundle simulation by ID
      */
     async getSimulationBundleInProject(requestParameters: GetSimulationBundleInProjectRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationBundleResponse> {
         const response = await this.getSimulationBundleInProjectRaw(requestParameters, initOverrides);
@@ -449,7 +449,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Existied Simulations
+     * Get list of simulations
      */
     async getSimulationsRaw(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceGetSimulationsResponse>> {
         if (requestParameters['owner'] == null) {
@@ -497,7 +497,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Existied Simulations
+     * Get list of simulations
      */
     async getSimulations(requestParameters: GetSimulationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceGetSimulationsResponse> {
         const response = await this.getSimulationsRaw(requestParameters, initOverrides);
@@ -606,7 +606,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
-     * Run Simulation
+     * Run simulation
      */
     async simulateTransactionRaw(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionResponse>> {
         if (requestParameters['owner'] == null) {
@@ -660,7 +660,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * Create a new transaction simulation. The simulation body should be included in the request body. Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
-     * Run Simulation
+     * Run simulation
      */
     async simulateTransaction(requestParameters: SimulateTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionResponse> {
         const response = await this.simulateTransactionRaw(requestParameters, initOverrides);
@@ -669,7 +669,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
-     * Run Bundle simulation
+     * Run bundle simulation
      */
     async simulateTransactionBundleRaw(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SolidityServiceSimulateTransactionBundleResponse>> {
         if (requestParameters['owner'] == null) {
@@ -723,7 +723,7 @@ export class DebugAndSimulationApi extends runtime.BaseAPI {
 
     /**
      * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
-     * Run Bundle simulation
+     * Run bundle simulation
      */
     async simulateTransactionBundle(requestParameters: SimulateTransactionBundleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const response = await this.simulateTransactionBundleRaw(requestParameters, initOverrides);
