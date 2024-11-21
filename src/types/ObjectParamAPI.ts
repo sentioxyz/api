@@ -1,6 +1,27 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.js';
 import { Configuration} from '../configuration.js'
 
+import { AlertServiceAlert } from '../models/AlertServiceAlert.js';
+import { AlertServiceAlertAlertState } from '../models/AlertServiceAlertAlertState.js';
+import { AlertServiceAlertRule } from '../models/AlertServiceAlertRule.js';
+import { AlertServiceAlertRuleState } from '../models/AlertServiceAlertRuleState.js';
+import { AlertServiceAlertServiceSaveAlertRuleBody } from '../models/AlertServiceAlertServiceSaveAlertRuleBody.js';
+import { AlertServiceAlertServiceUpdateMuteBody } from '../models/AlertServiceAlertServiceUpdateMuteBody.js';
+import { AlertServiceAlertType } from '../models/AlertServiceAlertType.js';
+import { AlertServiceCondition } from '../models/AlertServiceCondition.js';
+import { AlertServiceConditionInsightQuery } from '../models/AlertServiceConditionInsightQuery.js';
+import { AlertServiceCreateMuteRequest } from '../models/AlertServiceCreateMuteRequest.js';
+import { AlertServiceGetAlertResponse } from '../models/AlertServiceGetAlertResponse.js';
+import { AlertServiceGetAlertRulesResponse } from '../models/AlertServiceGetAlertRulesResponse.js';
+import { AlertServiceGetChannelResponse } from '../models/AlertServiceGetChannelResponse.js';
+import { AlertServiceLogCondition } from '../models/AlertServiceLogCondition.js';
+import { AlertServiceMute } from '../models/AlertServiceMute.js';
+import { AlertServiceSample } from '../models/AlertServiceSample.js';
+import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
+import { AlertServiceSaveChannelRequest } from '../models/AlertServiceSaveChannelRequest.js';
+import { AlertServiceSaveChannelResponse } from '../models/AlertServiceSaveChannelResponse.js';
+import { AlertServiceSaveSlackChannelRequest } from '../models/AlertServiceSaveSlackChannelRequest.js';
+import { AlertServiceTestAlertRequest } from '../models/AlertServiceTestAlertRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
@@ -109,6 +130,7 @@ import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResp
 import { InsightsServiceQueryResponseResult } from '../models/InsightsServiceQueryResponseResult.js';
 import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
 import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
+import { MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell } from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -234,6 +256,84 @@ import { WebServiceNoteAlignment } from '../models/WebServiceNoteAlignment.js';
 import { WebServiceNoteFontSize } from '../models/WebServiceNoteFontSize.js';
 import { WebServiceNoteVerticalAlignment } from '../models/WebServiceNoteVerticalAlignment.js';
 import { WebServicePanel } from '../models/WebServicePanel.js';
+
+import { ObservableAlertsApi } from "./ObservableAPI.js";
+import { AlertsApiRequestFactory, AlertsApiResponseProcessor} from "../apis/AlertsApi.js";
+
+export interface AlertsApiGetAlertRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof AlertsApigetAlert
+     */
+    ruleId: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof AlertsApigetAlert
+     */
+    page?: number
+    /**
+     * 
+     * Defaults to: undefined
+     * @type number
+     * @memberof AlertsApigetAlert
+     */
+    pageSize?: number
+}
+
+export interface AlertsApiGetAlertRulesRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof AlertsApigetAlertRules
+     */
+    projectId: string
+}
+
+export class ObjectAlertsApi {
+    private api: ObservableAlertsApi
+
+    public constructor(configuration: Configuration, requestFactory?: AlertsApiRequestFactory, responseProcessor?: AlertsApiResponseProcessor) {
+        this.api = new ObservableAlertsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Find an alert rule by id, and list all alerts for this rule
+     * @param param the request object
+     */
+    public getAlertWithHttpInfo(param: AlertsApiGetAlertRequest, options?: Configuration): Promise<HttpInfo<AlertServiceGetAlertResponse>> {
+        return this.api.getAlertWithHttpInfo(param.ruleId, param.page, param.pageSize,  options).toPromise();
+    }
+
+    /**
+     * Find an alert rule by id, and list all alerts for this rule
+     * @param param the request object
+     */
+    public getAlert(param: AlertsApiGetAlertRequest, options?: Configuration): Promise<AlertServiceGetAlertResponse> {
+        return this.api.getAlert(param.ruleId, param.page, param.pageSize,  options).toPromise();
+    }
+
+    /**
+     * List all alert rules for a project
+     * @param param the request object
+     */
+    public getAlertRulesWithHttpInfo(param: AlertsApiGetAlertRulesRequest, options?: Configuration): Promise<HttpInfo<AlertServiceGetAlertRulesResponse>> {
+        return this.api.getAlertRulesWithHttpInfo(param.projectId,  options).toPromise();
+    }
+
+    /**
+     * List all alert rules for a project
+     * @param param the request object
+     */
+    public getAlertRules(param: AlertsApiGetAlertRulesRequest, options?: Configuration): Promise<AlertServiceGetAlertRulesResponse> {
+        return this.api.getAlertRules(param.projectId,  options).toPromise();
+    }
+
+}
 
 import { ObservableDataApi } from "./ObservableAPI.js";
 import { DataApiRequestFactory, DataApiResponseProcessor} from "../apis/DataApi.js";
@@ -1423,6 +1523,337 @@ export class ObjectDebugAndSimulationApi {
      */
     public simulateTransactionBundle(param: DebugAndSimulationApiSimulateTransactionBundleRequest, options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         return this.api.simulateTransactionBundle(param.owner, param.slug, param.chainId, param.body,  options).toPromise();
+    }
+
+}
+
+import { ObservableDefaultApi } from "./ObservableAPI.js";
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+
+export interface DefaultApiCreateMuteRequest {
+    /**
+     * 
+     * @type AlertServiceCreateMuteRequest
+     * @memberof DefaultApicreateMute
+     */
+    body: AlertServiceCreateMuteRequest
+}
+
+export interface DefaultApiDeleteAlertRuleRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApideleteAlertRule
+     */
+    id: string
+}
+
+export interface DefaultApiDeleteChannelRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApideleteChannel
+     */
+    id: string
+}
+
+export interface DefaultApiGetChannelRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApigetChannel
+     */
+    channelId: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApigetChannel
+     */
+    projectId?: string
+}
+
+export interface DefaultApiGetChannelsRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApigetChannels
+     */
+    projectId: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApigetChannels
+     */
+    channelId?: string
+}
+
+export interface DefaultApiResolveAlertRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApiresolveAlert
+     */
+    alertId: string
+    /**
+     * 
+     * @type any
+     * @memberof DefaultApiresolveAlert
+     */
+    body: any
+}
+
+export interface DefaultApiSaveAlertRuleRequest {
+    /**
+     * 
+     * @type AlertServiceSaveAlertRuleRequest
+     * @memberof DefaultApisaveAlertRule
+     */
+    body: AlertServiceSaveAlertRuleRequest
+}
+
+export interface DefaultApiSaveAlertRule2Request {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApisaveAlertRule2
+     */
+    ruleId: string
+    /**
+     * 
+     * @type AlertServiceAlertServiceSaveAlertRuleBody
+     * @memberof DefaultApisaveAlertRule2
+     */
+    body: AlertServiceAlertServiceSaveAlertRuleBody
+}
+
+export interface DefaultApiSaveChannelRequest {
+    /**
+     * 
+     * @type AlertServiceSaveChannelRequest
+     * @memberof DefaultApisaveChannel
+     */
+    body: AlertServiceSaveChannelRequest
+}
+
+export interface DefaultApiSaveSlackChannelRequest {
+    /**
+     * 
+     * @type AlertServiceSaveSlackChannelRequest
+     * @memberof DefaultApisaveSlackChannel
+     */
+    body: AlertServiceSaveSlackChannelRequest
+}
+
+export interface DefaultApiTestAlertRequest {
+    /**
+     * 
+     * @type AlertServiceTestAlertRequest
+     * @memberof DefaultApitestAlert
+     */
+    body: AlertServiceTestAlertRequest
+}
+
+export interface DefaultApiUpdateMuteRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApiupdateMute
+     */
+    muteId: string
+    /**
+     * 
+     * @type AlertServiceAlertServiceUpdateMuteBody
+     * @memberof DefaultApiupdateMute
+     */
+    body: AlertServiceAlertServiceUpdateMuteBody
+}
+
+export class ObjectDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * low priority
+     * @param param the request object
+     */
+    public createMuteWithHttpInfo(param: DefaultApiCreateMuteRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.createMuteWithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * low priority
+     * @param param the request object
+     */
+    public createMute(param: DefaultApiCreateMuteRequest, options?: Configuration): Promise<any> {
+        return this.api.createMute(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteAlertRuleWithHttpInfo(param: DefaultApiDeleteAlertRuleRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.deleteAlertRuleWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteAlertRule(param: DefaultApiDeleteAlertRuleRequest, options?: Configuration): Promise<any> {
+        return this.api.deleteAlertRule(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteChannelWithHttpInfo(param: DefaultApiDeleteChannelRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.deleteChannelWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteChannel(param: DefaultApiDeleteChannelRequest, options?: Configuration): Promise<any> {
+        return this.api.deleteChannel(param.id,  options).toPromise();
+    }
+
+    /**
+     * TODO move channel related APIs somewhere else
+     * @param param the request object
+     */
+    public getChannelWithHttpInfo(param: DefaultApiGetChannelRequest, options?: Configuration): Promise<HttpInfo<AlertServiceGetChannelResponse>> {
+        return this.api.getChannelWithHttpInfo(param.channelId, param.projectId,  options).toPromise();
+    }
+
+    /**
+     * TODO move channel related APIs somewhere else
+     * @param param the request object
+     */
+    public getChannel(param: DefaultApiGetChannelRequest, options?: Configuration): Promise<AlertServiceGetChannelResponse> {
+        return this.api.getChannel(param.channelId, param.projectId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getChannelsWithHttpInfo(param: DefaultApiGetChannelsRequest, options?: Configuration): Promise<HttpInfo<AlertServiceGetChannelResponse>> {
+        return this.api.getChannelsWithHttpInfo(param.projectId, param.channelId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public getChannels(param: DefaultApiGetChannelsRequest, options?: Configuration): Promise<AlertServiceGetChannelResponse> {
+        return this.api.getChannels(param.projectId, param.channelId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public resolveAlertWithHttpInfo(param: DefaultApiResolveAlertRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.resolveAlertWithHttpInfo(param.alertId, param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public resolveAlert(param: DefaultApiResolveAlertRequest, options?: Configuration): Promise<any> {
+        return this.api.resolveAlert(param.alertId, param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRuleWithHttpInfo(param: DefaultApiSaveAlertRuleRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.saveAlertRuleWithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRule(param: DefaultApiSaveAlertRuleRequest, options?: Configuration): Promise<any> {
+        return this.api.saveAlertRule(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRule2WithHttpInfo(param: DefaultApiSaveAlertRule2Request, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.saveAlertRule2WithHttpInfo(param.ruleId, param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRule2(param: DefaultApiSaveAlertRule2Request, options?: Configuration): Promise<any> {
+        return this.api.saveAlertRule2(param.ruleId, param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveChannelWithHttpInfo(param: DefaultApiSaveChannelRequest, options?: Configuration): Promise<HttpInfo<AlertServiceSaveChannelResponse>> {
+        return this.api.saveChannelWithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveChannel(param: DefaultApiSaveChannelRequest, options?: Configuration): Promise<AlertServiceSaveChannelResponse> {
+        return this.api.saveChannel(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveSlackChannelWithHttpInfo(param: DefaultApiSaveSlackChannelRequest, options?: Configuration): Promise<HttpInfo<AlertServiceSaveChannelResponse>> {
+        return this.api.saveSlackChannelWithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveSlackChannel(param: DefaultApiSaveSlackChannelRequest, options?: Configuration): Promise<AlertServiceSaveChannelResponse> {
+        return this.api.saveSlackChannel(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public testAlertWithHttpInfo(param: DefaultApiTestAlertRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.testAlertWithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public testAlert(param: DefaultApiTestAlertRequest, options?: Configuration): Promise<any> {
+        return this.api.testAlert(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateMuteWithHttpInfo(param: DefaultApiUpdateMuteRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.updateMuteWithHttpInfo(param.muteId, param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public updateMute(param: DefaultApiUpdateMuteRequest, options?: Configuration): Promise<any> {
+        return this.api.updateMute(param.muteId, param.body,  options).toPromise();
     }
 
 }

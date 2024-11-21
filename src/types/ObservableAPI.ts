@@ -2,6 +2,27 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration} from '../configuration.js'
 import { Observable, of, from } from '../rxjsStub.js';
 import {mergeMap, map} from  '../rxjsStub.js';
+import { AlertServiceAlert } from '../models/AlertServiceAlert.js';
+import { AlertServiceAlertAlertState } from '../models/AlertServiceAlertAlertState.js';
+import { AlertServiceAlertRule } from '../models/AlertServiceAlertRule.js';
+import { AlertServiceAlertRuleState } from '../models/AlertServiceAlertRuleState.js';
+import { AlertServiceAlertServiceSaveAlertRuleBody } from '../models/AlertServiceAlertServiceSaveAlertRuleBody.js';
+import { AlertServiceAlertServiceUpdateMuteBody } from '../models/AlertServiceAlertServiceUpdateMuteBody.js';
+import { AlertServiceAlertType } from '../models/AlertServiceAlertType.js';
+import { AlertServiceCondition } from '../models/AlertServiceCondition.js';
+import { AlertServiceConditionInsightQuery } from '../models/AlertServiceConditionInsightQuery.js';
+import { AlertServiceCreateMuteRequest } from '../models/AlertServiceCreateMuteRequest.js';
+import { AlertServiceGetAlertResponse } from '../models/AlertServiceGetAlertResponse.js';
+import { AlertServiceGetAlertRulesResponse } from '../models/AlertServiceGetAlertRulesResponse.js';
+import { AlertServiceGetChannelResponse } from '../models/AlertServiceGetChannelResponse.js';
+import { AlertServiceLogCondition } from '../models/AlertServiceLogCondition.js';
+import { AlertServiceMute } from '../models/AlertServiceMute.js';
+import { AlertServiceSample } from '../models/AlertServiceSample.js';
+import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
+import { AlertServiceSaveChannelRequest } from '../models/AlertServiceSaveChannelRequest.js';
+import { AlertServiceSaveChannelResponse } from '../models/AlertServiceSaveChannelResponse.js';
+import { AlertServiceSaveSlackChannelRequest } from '../models/AlertServiceSaveSlackChannelRequest.js';
+import { AlertServiceTestAlertRequest } from '../models/AlertServiceTestAlertRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
@@ -110,6 +131,7 @@ import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResp
 import { InsightsServiceQueryResponseResult } from '../models/InsightsServiceQueryResponseResult.js';
 import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
 import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
+import { MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell } from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -235,6 +257,90 @@ import { WebServiceNoteAlignment } from '../models/WebServiceNoteAlignment.js';
 import { WebServiceNoteFontSize } from '../models/WebServiceNoteFontSize.js';
 import { WebServiceNoteVerticalAlignment } from '../models/WebServiceNoteVerticalAlignment.js';
 import { WebServicePanel } from '../models/WebServicePanel.js';
+
+import { AlertsApiRequestFactory, AlertsApiResponseProcessor} from "../apis/AlertsApi.js";
+export class ObservableAlertsApi {
+    private requestFactory: AlertsApiRequestFactory;
+    private responseProcessor: AlertsApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: AlertsApiRequestFactory,
+        responseProcessor?: AlertsApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new AlertsApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new AlertsApiResponseProcessor();
+    }
+
+    /**
+     * Find an alert rule by id, and list all alerts for this rule
+     * @param ruleId
+     * @param [page]
+     * @param [pageSize]
+     */
+    public getAlertWithHttpInfo(ruleId: string, page?: number, pageSize?: number, _options?: Configuration): Observable<HttpInfo<AlertServiceGetAlertResponse>> {
+        const requestContextPromise = this.requestFactory.getAlert(ruleId, page, pageSize, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getAlertWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Find an alert rule by id, and list all alerts for this rule
+     * @param ruleId
+     * @param [page]
+     * @param [pageSize]
+     */
+    public getAlert(ruleId: string, page?: number, pageSize?: number, _options?: Configuration): Observable<AlertServiceGetAlertResponse> {
+        return this.getAlertWithHttpInfo(ruleId, page, pageSize, _options).pipe(map((apiResponse: HttpInfo<AlertServiceGetAlertResponse>) => apiResponse.data));
+    }
+
+    /**
+     * List all alert rules for a project
+     * @param projectId
+     */
+    public getAlertRulesWithHttpInfo(projectId: string, _options?: Configuration): Observable<HttpInfo<AlertServiceGetAlertRulesResponse>> {
+        const requestContextPromise = this.requestFactory.getAlertRules(projectId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getAlertRulesWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * List all alert rules for a project
+     * @param projectId
+     */
+    public getAlertRules(projectId: string, _options?: Configuration): Observable<AlertServiceGetAlertRulesResponse> {
+        return this.getAlertRulesWithHttpInfo(projectId, _options).pipe(map((apiResponse: HttpInfo<AlertServiceGetAlertRulesResponse>) => apiResponse.data));
+    }
+
+}
 
 import { DataApiRequestFactory, DataApiResponseProcessor} from "../apis/DataApi.js";
 export class ObservableDataApi {
@@ -1090,6 +1196,386 @@ export class ObservableDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Observable<SolidityServiceSimulateTransactionBundleResponse> {
         return this.simulateTransactionBundleWithHttpInfo(owner, slug, chainId, body, _options).pipe(map((apiResponse: HttpInfo<SolidityServiceSimulateTransactionBundleResponse>) => apiResponse.data));
+    }
+
+}
+
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+export class ObservableDefaultApi {
+    private requestFactory: DefaultApiRequestFactory;
+    private responseProcessor: DefaultApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DefaultApiRequestFactory,
+        responseProcessor?: DefaultApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new DefaultApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new DefaultApiResponseProcessor();
+    }
+
+    /**
+     * low priority
+     * @param body
+     */
+    public createMuteWithHttpInfo(body: AlertServiceCreateMuteRequest, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.createMute(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.createMuteWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * low priority
+     * @param body
+     */
+    public createMute(body: AlertServiceCreateMuteRequest, _options?: Configuration): Observable<any> {
+        return this.createMuteWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteAlertRuleWithHttpInfo(id: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.deleteAlertRule(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteAlertRuleWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteAlertRule(id: string, _options?: Configuration): Observable<any> {
+        return this.deleteAlertRuleWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteChannelWithHttpInfo(id: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.deleteChannel(id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteChannelWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     */
+    public deleteChannel(id: string, _options?: Configuration): Observable<any> {
+        return this.deleteChannelWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * TODO move channel related APIs somewhere else
+     * @param channelId
+     * @param [projectId]
+     */
+    public getChannelWithHttpInfo(channelId: string, projectId?: string, _options?: Configuration): Observable<HttpInfo<AlertServiceGetChannelResponse>> {
+        const requestContextPromise = this.requestFactory.getChannel(channelId, projectId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getChannelWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * TODO move channel related APIs somewhere else
+     * @param channelId
+     * @param [projectId]
+     */
+    public getChannel(channelId: string, projectId?: string, _options?: Configuration): Observable<AlertServiceGetChannelResponse> {
+        return this.getChannelWithHttpInfo(channelId, projectId, _options).pipe(map((apiResponse: HttpInfo<AlertServiceGetChannelResponse>) => apiResponse.data));
+    }
+
+    /**
+     * @param projectId
+     * @param [channelId]
+     */
+    public getChannelsWithHttpInfo(projectId: string, channelId?: string, _options?: Configuration): Observable<HttpInfo<AlertServiceGetChannelResponse>> {
+        const requestContextPromise = this.requestFactory.getChannels(projectId, channelId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getChannelsWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param projectId
+     * @param [channelId]
+     */
+    public getChannels(projectId: string, channelId?: string, _options?: Configuration): Observable<AlertServiceGetChannelResponse> {
+        return this.getChannelsWithHttpInfo(projectId, channelId, _options).pipe(map((apiResponse: HttpInfo<AlertServiceGetChannelResponse>) => apiResponse.data));
+    }
+
+    /**
+     * @param alertId
+     * @param body
+     */
+    public resolveAlertWithHttpInfo(alertId: string, body: any, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.resolveAlert(alertId, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.resolveAlertWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param alertId
+     * @param body
+     */
+    public resolveAlert(alertId: string, body: any, _options?: Configuration): Observable<any> {
+        return this.resolveAlertWithHttpInfo(alertId, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * @param body
+     */
+    public saveAlertRuleWithHttpInfo(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.saveAlertRule(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveAlertRuleWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param body
+     */
+    public saveAlertRule(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Observable<any> {
+        return this.saveAlertRuleWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * @param ruleId
+     * @param body
+     */
+    public saveAlertRule2WithHttpInfo(ruleId: string, body: AlertServiceAlertServiceSaveAlertRuleBody, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.saveAlertRule2(ruleId, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveAlertRule2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param ruleId
+     * @param body
+     */
+    public saveAlertRule2(ruleId: string, body: AlertServiceAlertServiceSaveAlertRuleBody, _options?: Configuration): Observable<any> {
+        return this.saveAlertRule2WithHttpInfo(ruleId, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * @param body
+     */
+    public saveChannelWithHttpInfo(body: AlertServiceSaveChannelRequest, _options?: Configuration): Observable<HttpInfo<AlertServiceSaveChannelResponse>> {
+        const requestContextPromise = this.requestFactory.saveChannel(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveChannelWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param body
+     */
+    public saveChannel(body: AlertServiceSaveChannelRequest, _options?: Configuration): Observable<AlertServiceSaveChannelResponse> {
+        return this.saveChannelWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<AlertServiceSaveChannelResponse>) => apiResponse.data));
+    }
+
+    /**
+     * @param body
+     */
+    public saveSlackChannelWithHttpInfo(body: AlertServiceSaveSlackChannelRequest, _options?: Configuration): Observable<HttpInfo<AlertServiceSaveChannelResponse>> {
+        const requestContextPromise = this.requestFactory.saveSlackChannel(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveSlackChannelWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param body
+     */
+    public saveSlackChannel(body: AlertServiceSaveSlackChannelRequest, _options?: Configuration): Observable<AlertServiceSaveChannelResponse> {
+        return this.saveSlackChannelWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<AlertServiceSaveChannelResponse>) => apiResponse.data));
+    }
+
+    /**
+     * @param body
+     */
+    public testAlertWithHttpInfo(body: AlertServiceTestAlertRequest, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.testAlert(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.testAlertWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param body
+     */
+    public testAlert(body: AlertServiceTestAlertRequest, _options?: Configuration): Observable<any> {
+        return this.testAlertWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * @param muteId
+     * @param body
+     */
+    public updateMuteWithHttpInfo(muteId: string, body: AlertServiceAlertServiceUpdateMuteBody, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.updateMute(muteId, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateMuteWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param muteId
+     * @param body
+     */
+    public updateMute(muteId: string, body: AlertServiceAlertServiceUpdateMuteBody, _options?: Configuration): Observable<any> {
+        return this.updateMuteWithHttpInfo(muteId, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
 }

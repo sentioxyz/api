@@ -16,6 +16,378 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/alerts/channels": {
+      "post": {
+        "operationId": "SaveChannel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alert_service.SaveChannelResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.SaveChannelRequest"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/channels/slack": {
+      "post": {
+        "operationId": "SaveSlackChannel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alert_service.SaveChannelResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.SaveSlackChannelRequest"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/channels/{channelId}": {
+      "get": {
+        "summary": "TODO move channel related APIs somewhere else",
+        "operationId": "GetChannel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alert_service.GetChannelResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "channelId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/channels/{id}": {
+      "delete": {
+        "operationId": "DeleteChannel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/mute": {
+      "post": {
+        "summary": "low priority",
+        "operationId": "CreateMute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.CreateMuteRequest"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/mute/{muteId}": {
+      "put": {
+        "operationId": "UpdateMute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "muteId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.AlertService.UpdateMuteBody"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/project/{projectId}/channels": {
+      "get": {
+        "operationId": "GetChannels",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alert_service.GetChannelResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channelId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/resolve/{alertId}": {
+      "post": {
+        "operationId": "ResolveAlert",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "alertId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.AlertService.ResolveAlertBody"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/rule": {
+      "post": {
+        "operationId": "SaveAlertRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.SaveAlertRuleRequest"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/rule/project/{projectId}": {
+      "get": {
+        "summary": "List all alert rules for a project",
+        "operationId": "GetAlertRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alert_service.GetAlertRulesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Alerts"
+        ]
+      }
+    },
+    "/api/v1/alerts/rule/{id}": {
+      "delete": {
+        "operationId": "DeleteAlertRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/rule/{rule.id}": {
+      "put": {
+        "operationId": "SaveAlertRule2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rule.id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.AlertService.SaveAlertRuleBody"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/test": {
+      "post": {
+        "operationId": "TestAlert",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.TestAlertRequest"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/alerts/{ruleId}": {
+      "get": {
+        "summary": "Find an alert rule by id, and list all alerts for this rule",
+        "operationId": "GetAlert",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/alert_service.GetAlertResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ruleId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alerts"
+        ]
+      }
+    },
     "/api/v1/analytics/{owner}/{slug}/sql/execute": {
       "post": {
         "summary": "Execute SQL",
@@ -2143,6 +2515,479 @@
     }
   },
   "definitions": {
+    "alert_service.Alert": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "ruleId": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "query": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastNotified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createState": {
+          "$ref": "#/definitions/alert_service.Alert.AlertState"
+        },
+        "lastState": {
+          "$ref": "#/definitions/alert_service.Alert.AlertState"
+        }
+      }
+    },
+    "alert_service.Alert.AlertState": {
+      "type": "object",
+      "properties": {
+        "condition": {
+          "$ref": "#/definitions/alert_service.Condition"
+        },
+        "samples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/alert_service.Sample"
+          }
+        },
+        "subject": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "logCondition": {
+          "$ref": "#/definitions/alert_service.LogCondition"
+        },
+        "logSamples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.EventLogEntry"
+          }
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "state": {
+          "$ref": "#/definitions/alert_service.AlertRule.State"
+        },
+        "queryTimeRange": {
+          "$ref": "#/definitions/common.TimeRangeLite"
+        }
+      }
+    },
+    "alert_service.AlertRule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string",
+          "title": "project it belongs to"
+        },
+        "state": {
+          "$ref": "#/definitions/alert_service.AlertRule.State"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "for": {
+          "$ref": "#/definitions/common.Duration"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.Channel"
+          }
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "condition": {
+          "$ref": "#/definitions/alert_service.Condition"
+        },
+        "renotifyDuration": {
+          "$ref": "#/definitions/common.Duration"
+        },
+        "renotifyLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "alertType": {
+          "$ref": "#/definitions/alert_service.AlertType"
+        },
+        "logCondition": {
+          "$ref": "#/definitions/alert_service.LogCondition"
+        },
+        "lastQueryTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mute": {
+          "type": "boolean"
+        },
+        "interval": {
+          "$ref": "#/definitions/common.Duration"
+        }
+      },
+      "title": "maybe need to extract to common so it could used by web as well"
+    },
+    "alert_service.AlertRule.State": {
+      "type": "string",
+      "enum": [
+        "NO_DATA",
+        "FIRING",
+        "NORMAL"
+      ],
+      "default": "NO_DATA"
+    },
+    "alert_service.AlertService.ResolveAlertBody": {
+      "type": "object"
+    },
+    "alert_service.AlertService.SaveAlertRuleBody": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "type": "object",
+          "properties": {
+            "projectId": {
+              "type": "string",
+              "title": "project it belongs to"
+            },
+            "state": {
+              "$ref": "#/definitions/alert_service.AlertRule.State"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "group": {
+              "type": "string"
+            },
+            "query": {
+              "type": "string"
+            },
+            "for": {
+              "$ref": "#/definitions/common.Duration"
+            },
+            "channels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/common.Channel"
+              }
+            },
+            "updateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "condition": {
+              "$ref": "#/definitions/alert_service.Condition"
+            },
+            "renotifyDuration": {
+              "$ref": "#/definitions/common.Duration"
+            },
+            "renotifyLimit": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "alertType": {
+              "$ref": "#/definitions/alert_service.AlertType"
+            },
+            "logCondition": {
+              "$ref": "#/definitions/alert_service.LogCondition"
+            },
+            "lastQueryTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "mute": {
+              "type": "boolean"
+            },
+            "interval": {
+              "$ref": "#/definitions/common.Duration"
+            }
+          },
+          "title": "maybe need to extract to common so it could used by web as well"
+        }
+      }
+    },
+    "alert_service.AlertService.UpdateMuteBody": {
+      "type": "object",
+      "properties": {
+        "unmute": {
+          "type": "boolean"
+        },
+        "mute": {
+          "$ref": "#/definitions/alert_service.Mute"
+        }
+      }
+    },
+    "alert_service.AlertType": {
+      "type": "string",
+      "enum": [
+        "METRIC",
+        "LOG"
+      ],
+      "default": "METRIC"
+    },
+    "alert_service.Condition": {
+      "type": "object",
+      "properties": {
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.Query"
+          },
+          "title": "to be deprecated"
+        },
+        "formula": {
+          "$ref": "#/definitions/common.Formula"
+        },
+        "comparisonOp": {
+          "type": "string"
+        },
+        "threshold": {
+          "type": "number",
+          "format": "double"
+        },
+        "eventsQueries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.SegmentationQuery"
+          },
+          "title": "to be deprecated"
+        },
+        "priceQueries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.PriceSegmentationQuery"
+          },
+          "title": "to be deprecated"
+        },
+        "insightQueries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/alert_service.Condition.InsightQuery"
+          }
+        }
+      }
+    },
+    "alert_service.Condition.InsightQuery": {
+      "type": "object",
+      "properties": {
+        "metricsQuery": {
+          "$ref": "#/definitions/common.Query"
+        },
+        "eventsQuery": {
+          "$ref": "#/definitions/common.SegmentationQuery"
+        },
+        "priceQuery": {
+          "$ref": "#/definitions/common.PriceSegmentationQuery"
+        },
+        "sourceName": {
+          "type": "string"
+        }
+      }
+    },
+    "alert_service.CreateMuteRequest": {
+      "type": "object",
+      "properties": {
+        "mute": {
+          "$ref": "#/definitions/alert_service.Mute"
+        }
+      }
+    },
+    "alert_service.GetAlertResponse": {
+      "type": "object",
+      "properties": {
+        "alertRule": {
+          "$ref": "#/definitions/alert_service.AlertRule"
+        },
+        "alerts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/alert_service.Alert"
+          }
+        },
+        "mute": {
+          "$ref": "#/definitions/alert_service.Mute"
+        }
+      }
+    },
+    "alert_service.GetAlertRulesResponse": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/alert_service.AlertRule"
+          }
+        }
+      }
+    },
+    "alert_service.GetChannelResponse": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.Channel"
+          }
+        }
+      }
+    },
+    "alert_service.LogCondition": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "comparisonOp": {
+          "type": "string"
+        },
+        "threshold": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "alert_service.Mute": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "ruleId": {
+          "type": "string",
+          "title": "can be valid alert id or empty meanning match all alerts"
+        },
+        "group": {
+          "type": "string",
+          "title": "if alert id is empty, then group could be used to select a list of alerts"
+        },
+        "active": {
+          "type": "boolean",
+          "title": "unmute api will make it inactive"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "alert_service.Sample": {
+      "type": "object",
+      "properties": {
+        "metric": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "alert_service.SaveAlertRuleRequest": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "$ref": "#/definitions/alert_service.AlertRule"
+        }
+      }
+    },
+    "alert_service.SaveChannelRequest": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "$ref": "#/definitions/common.Channel"
+        }
+      }
+    },
+    "alert_service.SaveChannelResponse": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "$ref": "#/definitions/common.Channel"
+        }
+      }
+    },
+    "alert_service.SaveSlackChannelRequest": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "$ref": "#/definitions/common.Channel"
+        },
+        "code": {
+          "type": "string"
+        },
+        "redirectUri": {
+          "type": "string"
+        }
+      }
+    },
+    "alert_service.TestAlertRequest": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "$ref": "#/definitions/alert_service.AlertRule"
+        },
+        "timeRange": {
+          "$ref": "#/definitions/common.TimeRangeLite"
+        }
+      }
+    },
     "analytic_service.AnalyticService.ExecuteSQLBody": {
       "type": "object",
       "example": {

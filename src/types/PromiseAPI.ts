@@ -1,6 +1,27 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.js';
 import { Configuration} from '../configuration.js'
 
+import { AlertServiceAlert } from '../models/AlertServiceAlert.js';
+import { AlertServiceAlertAlertState } from '../models/AlertServiceAlertAlertState.js';
+import { AlertServiceAlertRule } from '../models/AlertServiceAlertRule.js';
+import { AlertServiceAlertRuleState } from '../models/AlertServiceAlertRuleState.js';
+import { AlertServiceAlertServiceSaveAlertRuleBody } from '../models/AlertServiceAlertServiceSaveAlertRuleBody.js';
+import { AlertServiceAlertServiceUpdateMuteBody } from '../models/AlertServiceAlertServiceUpdateMuteBody.js';
+import { AlertServiceAlertType } from '../models/AlertServiceAlertType.js';
+import { AlertServiceCondition } from '../models/AlertServiceCondition.js';
+import { AlertServiceConditionInsightQuery } from '../models/AlertServiceConditionInsightQuery.js';
+import { AlertServiceCreateMuteRequest } from '../models/AlertServiceCreateMuteRequest.js';
+import { AlertServiceGetAlertResponse } from '../models/AlertServiceGetAlertResponse.js';
+import { AlertServiceGetAlertRulesResponse } from '../models/AlertServiceGetAlertRulesResponse.js';
+import { AlertServiceGetChannelResponse } from '../models/AlertServiceGetChannelResponse.js';
+import { AlertServiceLogCondition } from '../models/AlertServiceLogCondition.js';
+import { AlertServiceMute } from '../models/AlertServiceMute.js';
+import { AlertServiceSample } from '../models/AlertServiceSample.js';
+import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
+import { AlertServiceSaveChannelRequest } from '../models/AlertServiceSaveChannelRequest.js';
+import { AlertServiceSaveChannelResponse } from '../models/AlertServiceSaveChannelResponse.js';
+import { AlertServiceSaveSlackChannelRequest } from '../models/AlertServiceSaveSlackChannelRequest.js';
+import { AlertServiceTestAlertRequest } from '../models/AlertServiceTestAlertRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
@@ -109,6 +130,7 @@ import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResp
 import { InsightsServiceQueryResponseResult } from '../models/InsightsServiceQueryResponseResult.js';
 import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
 import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
+import { MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell } from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -234,6 +256,65 @@ import { WebServiceNoteAlignment } from '../models/WebServiceNoteAlignment.js';
 import { WebServiceNoteFontSize } from '../models/WebServiceNoteFontSize.js';
 import { WebServiceNoteVerticalAlignment } from '../models/WebServiceNoteVerticalAlignment.js';
 import { WebServicePanel } from '../models/WebServicePanel.js';
+import { ObservableAlertsApi } from './ObservableAPI.js';
+
+import { AlertsApiRequestFactory, AlertsApiResponseProcessor} from "../apis/AlertsApi.js";
+export class PromiseAlertsApi {
+    private api: ObservableAlertsApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: AlertsApiRequestFactory,
+        responseProcessor?: AlertsApiResponseProcessor
+    ) {
+        this.api = new ObservableAlertsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Find an alert rule by id, and list all alerts for this rule
+     * @param ruleId
+     * @param [page]
+     * @param [pageSize]
+     */
+    public getAlertWithHttpInfo(ruleId: string, page?: number, pageSize?: number, _options?: Configuration): Promise<HttpInfo<AlertServiceGetAlertResponse>> {
+        const result = this.api.getAlertWithHttpInfo(ruleId, page, pageSize, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Find an alert rule by id, and list all alerts for this rule
+     * @param ruleId
+     * @param [page]
+     * @param [pageSize]
+     */
+    public getAlert(ruleId: string, page?: number, pageSize?: number, _options?: Configuration): Promise<AlertServiceGetAlertResponse> {
+        const result = this.api.getAlert(ruleId, page, pageSize, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * List all alert rules for a project
+     * @param projectId
+     */
+    public getAlertRulesWithHttpInfo(projectId: string, _options?: Configuration): Promise<HttpInfo<AlertServiceGetAlertRulesResponse>> {
+        const result = this.api.getAlertRulesWithHttpInfo(projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * List all alert rules for a project
+     * @param projectId
+     */
+    public getAlertRules(projectId: string, _options?: Configuration): Promise<AlertServiceGetAlertRulesResponse> {
+        const result = this.api.getAlertRules(projectId, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
 import { ObservableDataApi } from './ObservableAPI.js';
 
 import { DataApiRequestFactory, DataApiResponseProcessor} from "../apis/DataApi.js";
@@ -826,6 +907,231 @@ export class PromiseDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const result = this.api.simulateTransactionBundle(owner, slug, chainId, body, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableDefaultApi } from './ObservableAPI.js';
+
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+export class PromiseDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DefaultApiRequestFactory,
+        responseProcessor?: DefaultApiResponseProcessor
+    ) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * low priority
+     * @param body
+     */
+    public createMuteWithHttpInfo(body: AlertServiceCreateMuteRequest, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.createMuteWithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * low priority
+     * @param body
+     */
+    public createMute(body: AlertServiceCreateMuteRequest, _options?: Configuration): Promise<any> {
+        const result = this.api.createMute(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteAlertRuleWithHttpInfo(id: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.deleteAlertRuleWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteAlertRule(id: string, _options?: Configuration): Promise<any> {
+        const result = this.api.deleteAlertRule(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteChannelWithHttpInfo(id: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.deleteChannelWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteChannel(id: string, _options?: Configuration): Promise<any> {
+        const result = this.api.deleteChannel(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * TODO move channel related APIs somewhere else
+     * @param channelId
+     * @param [projectId]
+     */
+    public getChannelWithHttpInfo(channelId: string, projectId?: string, _options?: Configuration): Promise<HttpInfo<AlertServiceGetChannelResponse>> {
+        const result = this.api.getChannelWithHttpInfo(channelId, projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * TODO move channel related APIs somewhere else
+     * @param channelId
+     * @param [projectId]
+     */
+    public getChannel(channelId: string, projectId?: string, _options?: Configuration): Promise<AlertServiceGetChannelResponse> {
+        const result = this.api.getChannel(channelId, projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param projectId
+     * @param [channelId]
+     */
+    public getChannelsWithHttpInfo(projectId: string, channelId?: string, _options?: Configuration): Promise<HttpInfo<AlertServiceGetChannelResponse>> {
+        const result = this.api.getChannelsWithHttpInfo(projectId, channelId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param projectId
+     * @param [channelId]
+     */
+    public getChannels(projectId: string, channelId?: string, _options?: Configuration): Promise<AlertServiceGetChannelResponse> {
+        const result = this.api.getChannels(projectId, channelId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param alertId
+     * @param body
+     */
+    public resolveAlertWithHttpInfo(alertId: string, body: any, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.resolveAlertWithHttpInfo(alertId, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param alertId
+     * @param body
+     */
+    public resolveAlert(alertId: string, body: any, _options?: Configuration): Promise<any> {
+        const result = this.api.resolveAlert(alertId, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public saveAlertRuleWithHttpInfo(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.saveAlertRuleWithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public saveAlertRule(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Promise<any> {
+        const result = this.api.saveAlertRule(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param ruleId
+     * @param body
+     */
+    public saveAlertRule2WithHttpInfo(ruleId: string, body: AlertServiceAlertServiceSaveAlertRuleBody, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.saveAlertRule2WithHttpInfo(ruleId, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param ruleId
+     * @param body
+     */
+    public saveAlertRule2(ruleId: string, body: AlertServiceAlertServiceSaveAlertRuleBody, _options?: Configuration): Promise<any> {
+        const result = this.api.saveAlertRule2(ruleId, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public saveChannelWithHttpInfo(body: AlertServiceSaveChannelRequest, _options?: Configuration): Promise<HttpInfo<AlertServiceSaveChannelResponse>> {
+        const result = this.api.saveChannelWithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public saveChannel(body: AlertServiceSaveChannelRequest, _options?: Configuration): Promise<AlertServiceSaveChannelResponse> {
+        const result = this.api.saveChannel(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public saveSlackChannelWithHttpInfo(body: AlertServiceSaveSlackChannelRequest, _options?: Configuration): Promise<HttpInfo<AlertServiceSaveChannelResponse>> {
+        const result = this.api.saveSlackChannelWithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public saveSlackChannel(body: AlertServiceSaveSlackChannelRequest, _options?: Configuration): Promise<AlertServiceSaveChannelResponse> {
+        const result = this.api.saveSlackChannel(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public testAlertWithHttpInfo(body: AlertServiceTestAlertRequest, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.testAlertWithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public testAlert(body: AlertServiceTestAlertRequest, _options?: Configuration): Promise<any> {
+        const result = this.api.testAlert(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param muteId
+     * @param body
+     */
+    public updateMuteWithHttpInfo(muteId: string, body: AlertServiceAlertServiceUpdateMuteBody, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.updateMuteWithHttpInfo(muteId, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param muteId
+     * @param body
+     */
+    public updateMute(muteId: string, body: AlertServiceAlertServiceUpdateMuteBody, _options?: Configuration): Promise<any> {
+        const result = this.api.updateMute(muteId, body, _options);
         return result.toPromise();
     }
 

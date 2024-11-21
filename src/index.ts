@@ -8,5 +8,5 @@ export * from "./servers.js";
 export { RequiredError } from "./apis/baseapi.js";
 
 export type { PromiseMiddleware as Middleware } from './middleware.js';
-export { PromiseDataApi as DataApi,  PromiseDebugAndSimulationApi as DebugAndSimulationApi,  PromiseForksApi as ForksApi,  PromisePriceApi as PriceApi,  PromiseWebApi as WebApi } from './types/PromiseAPI.js';
+export { PromiseAlertsApi as AlertsApi,  PromiseDataApi as DataApi,  PromiseDebugAndSimulationApi as DebugAndSimulationApi,  PromiseDefaultApi as DefaultApi,  PromiseForksApi as ForksApi,  PromisePriceApi as PriceApi,  PromiseWebApi as WebApi } from './types/PromiseAPI.js';
 
