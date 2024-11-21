@@ -16,6 +16,33 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/alerts/rule": {
+      "post": {
+        "operationId": "SaveAlertRule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.SaveAlertRuleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Alerts"
+        ]
+      }
+    },
     "/api/v1/alerts/rule/project/{projectId}": {
       "get": {
         "summary": "List all alert rules for a project",
@@ -34,6 +61,39 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "Alerts"
+        ]
+      }
+    },
+    "/api/v1/alerts/rule/{id}": {
+      "put": {
+        "operationId": "SaveAlertRule2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert_service.AlertService.SaveAlertRuleBody"
+            }
           }
         ],
         "tags": [
@@ -2360,6 +2420,76 @@
       ],
       "default": "NO_DATA"
     },
+    "alert_service.AlertService.SaveAlertRuleBody": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "type": "object",
+          "properties": {
+            "projectId": {
+              "type": "string",
+              "title": "project it belongs to"
+            },
+            "state": {
+              "$ref": "#/definitions/alert_service.AlertRule.State"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "group": {
+              "type": "string"
+            },
+            "query": {
+              "type": "string"
+            },
+            "for": {
+              "$ref": "#/definitions/common.Duration"
+            },
+            "channels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/common.Channel"
+              }
+            },
+            "updateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "condition": {
+              "$ref": "#/definitions/alert_service.Condition"
+            },
+            "renotifyDuration": {
+              "$ref": "#/definitions/common.Duration"
+            },
+            "renotifyLimit": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "alertType": {
+              "$ref": "#/definitions/alert_service.AlertType"
+            },
+            "logCondition": {
+              "$ref": "#/definitions/alert_service.LogCondition"
+            },
+            "lastQueryTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "mute": {
+              "type": "boolean"
+            },
+            "interval": {
+              "$ref": "#/definitions/common.Duration"
+            }
+          },
+          "title": "maybe need to extract to common so it could used by web as well"
+        }
+      }
+    },
     "alert_service.AlertType": {
       "type": "string",
       "enum": [
@@ -2524,6 +2654,14 @@
         "timestamp": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "alert_service.SaveAlertRuleRequest": {
+      "type": "object",
+      "properties": {
+        "rule": {
+          "$ref": "#/definitions/alert_service.AlertRule"
         }
       }
     },

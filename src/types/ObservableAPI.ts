@@ -6,6 +6,7 @@ import { AlertServiceAlert } from '../models/AlertServiceAlert.js';
 import { AlertServiceAlertAlertState } from '../models/AlertServiceAlertAlertState.js';
 import { AlertServiceAlertRule } from '../models/AlertServiceAlertRule.js';
 import { AlertServiceAlertRuleState } from '../models/AlertServiceAlertRuleState.js';
+import { AlertServiceAlertServiceSaveAlertRuleBody } from '../models/AlertServiceAlertServiceSaveAlertRuleBody.js';
 import { AlertServiceAlertType } from '../models/AlertServiceAlertType.js';
 import { AlertServiceCondition } from '../models/AlertServiceCondition.js';
 import { AlertServiceConditionInsightQuery } from '../models/AlertServiceConditionInsightQuery.js';
@@ -14,6 +15,7 @@ import { AlertServiceGetAlertRulesResponse } from '../models/AlertServiceGetAler
 import { AlertServiceLogCondition } from '../models/AlertServiceLogCondition.js';
 import { AlertServiceMute } from '../models/AlertServiceMute.js';
 import { AlertServiceSample } from '../models/AlertServiceSample.js';
+import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
@@ -122,6 +124,7 @@ import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResp
 import { InsightsServiceQueryResponseResult } from '../models/InsightsServiceQueryResponseResult.js';
 import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
 import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
+import { MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell } from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -328,6 +331,66 @@ export class ObservableAlertsApi {
      */
     public getAlertRules(projectId: string, _options?: Configuration): Observable<AlertServiceGetAlertRulesResponse> {
         return this.getAlertRulesWithHttpInfo(projectId, _options).pipe(map((apiResponse: HttpInfo<AlertServiceGetAlertRulesResponse>) => apiResponse.data));
+    }
+
+    /**
+     * @param body
+     */
+    public saveAlertRuleWithHttpInfo(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.saveAlertRule(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveAlertRuleWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param body
+     */
+    public saveAlertRule(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Observable<any> {
+        return this.saveAlertRuleWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * @param id
+     * @param body
+     */
+    public saveAlertRule2WithHttpInfo(id: string, body: AlertServiceAlertServiceSaveAlertRuleBody, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.saveAlertRule2(id, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveAlertRule2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param id
+     * @param body
+     */
+    public saveAlertRule2(id: string, body: AlertServiceAlertServiceSaveAlertRuleBody, _options?: Configuration): Observable<any> {
+        return this.saveAlertRule2WithHttpInfo(id, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
 }

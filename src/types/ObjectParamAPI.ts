@@ -5,6 +5,7 @@ import { AlertServiceAlert } from '../models/AlertServiceAlert.js';
 import { AlertServiceAlertAlertState } from '../models/AlertServiceAlertAlertState.js';
 import { AlertServiceAlertRule } from '../models/AlertServiceAlertRule.js';
 import { AlertServiceAlertRuleState } from '../models/AlertServiceAlertRuleState.js';
+import { AlertServiceAlertServiceSaveAlertRuleBody } from '../models/AlertServiceAlertServiceSaveAlertRuleBody.js';
 import { AlertServiceAlertType } from '../models/AlertServiceAlertType.js';
 import { AlertServiceCondition } from '../models/AlertServiceCondition.js';
 import { AlertServiceConditionInsightQuery } from '../models/AlertServiceConditionInsightQuery.js';
@@ -13,6 +14,7 @@ import { AlertServiceGetAlertRulesResponse } from '../models/AlertServiceGetAler
 import { AlertServiceLogCondition } from '../models/AlertServiceLogCondition.js';
 import { AlertServiceMute } from '../models/AlertServiceMute.js';
 import { AlertServiceSample } from '../models/AlertServiceSample.js';
+import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
@@ -121,6 +123,7 @@ import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResp
 import { InsightsServiceQueryResponseResult } from '../models/InsightsServiceQueryResponseResult.js';
 import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
 import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
+import { MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell } from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -284,6 +287,31 @@ export interface AlertsApiGetAlertRulesRequest {
     projectId: string
 }
 
+export interface AlertsApiSaveAlertRuleRequest {
+    /**
+     * 
+     * @type AlertServiceSaveAlertRuleRequest
+     * @memberof AlertsApisaveAlertRule
+     */
+    body: AlertServiceSaveAlertRuleRequest
+}
+
+export interface AlertsApiSaveAlertRule2Request {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof AlertsApisaveAlertRule2
+     */
+    id: string
+    /**
+     * 
+     * @type AlertServiceAlertServiceSaveAlertRuleBody
+     * @memberof AlertsApisaveAlertRule2
+     */
+    body: AlertServiceAlertServiceSaveAlertRuleBody
+}
+
 export class ObjectAlertsApi {
     private api: ObservableAlertsApi
 
@@ -321,6 +349,34 @@ export class ObjectAlertsApi {
      */
     public getAlertRules(param: AlertsApiGetAlertRulesRequest, options?: Configuration): Promise<AlertServiceGetAlertRulesResponse> {
         return this.api.getAlertRules(param.projectId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRuleWithHttpInfo(param: AlertsApiSaveAlertRuleRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.saveAlertRuleWithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRule(param: AlertsApiSaveAlertRuleRequest, options?: Configuration): Promise<any> {
+        return this.api.saveAlertRule(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRule2WithHttpInfo(param: AlertsApiSaveAlertRule2Request, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.saveAlertRule2WithHttpInfo(param.id, param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public saveAlertRule2(param: AlertsApiSaveAlertRule2Request, options?: Configuration): Promise<any> {
+        return this.api.saveAlertRule2(param.id, param.body,  options).toPromise();
     }
 
 }

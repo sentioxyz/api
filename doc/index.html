@@ -990,6 +990,14 @@ ul.nav-tabs {
   "default" : "NO_DATA",
   "enum" : [ "NO_DATA", "FIRING", "NORMAL" ]
 };
+    defs["alert_service.AlertService.SaveAlertRuleBody"] = {
+  "type" : "object",
+  "properties" : {
+    "rule" : {
+      "$ref" : "#/components/schemas/maybe_need_to_extract_to_common_so_it_could_used_by_web_as_well"
+    }
+  }
+};
     defs["alert_service.AlertType"] = {
   "type" : "string",
   "default" : "METRIC",
@@ -1145,6 +1153,14 @@ ul.nav-tabs {
     "timestamp" : {
       "type" : "string",
       "format" : "date-time"
+    }
+  }
+};
+    defs["alert_service.SaveAlertRuleRequest"] = {
+  "type" : "object",
+  "properties" : {
+    "rule" : {
+      "$ref" : "#/components/schemas/alert_service.AlertRule"
     }
   }
 };
@@ -3152,6 +3168,70 @@ ul.nav-tabs {
     },
     "error" : {
       "type" : "string"
+    }
+  }
+};
+    defs["maybe_need_to_extract_to_common_so_it_could_used_by_web_as_well"] = {
+  "title" : "maybe need to extract to common so it could used by web as well",
+  "type" : "object",
+  "properties" : {
+    "projectId" : {
+      "title" : "project it belongs to",
+      "type" : "string"
+    },
+    "state" : {
+      "$ref" : "#/components/schemas/alert_service.AlertRule.State"
+    },
+    "subject" : {
+      "type" : "string"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "group" : {
+      "type" : "string"
+    },
+    "query" : {
+      "type" : "string"
+    },
+    "for" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "channels" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Channel"
+      }
+    },
+    "updateTime" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "condition" : {
+      "$ref" : "#/components/schemas/alert_service.Condition"
+    },
+    "renotifyDuration" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "renotifyLimit" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "alertType" : {
+      "$ref" : "#/components/schemas/alert_service.AlertType"
+    },
+    "logCondition" : {
+      "$ref" : "#/components/schemas/alert_service.LogCondition"
+    },
+    "lastQueryTime" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "mute" : {
+      "type" : "boolean"
+    },
+    "interval" : {
+      "$ref" : "#/components/schemas/common.Duration"
     }
   }
 };
@@ -5341,6 +5421,12 @@ ul.nav-tabs {
                     <li data-group="Alerts" data-name="getAlertRules" class="">
                       <a href="#api-Alerts-getAlertRules">getAlertRules</a>
                     </li>
+                    <li data-group="Alerts" data-name="saveAlertRule" class="">
+                      <a href="#api-Alerts-saveAlertRule">saveAlertRule</a>
+                    </li>
+                    <li data-group="Alerts" data-name="saveAlertRule2" class="">
+                      <a href="#api-Alerts-saveAlertRule2">saveAlertRule2</a>
+                    </li>
                   <li class="nav-header" data-group="Data"><a href="#api-Data">API Methods - Data</a></li>
                     <li data-group="Data" data-name="executeSQL" class="">
                       <a href="#api-Data-executeSQL">executeSQL</a>
@@ -6379,6 +6465,896 @@ pub fn main() {
                                   </script>
                                 </div>
                                 <input id='responses-Alerts-getAlertRules-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Alerts-saveAlertRule">
+                      <article id="api-Alerts-saveAlertRule-0" data-group="User" data-name="saveAlertRule" data-version="0">
+                        <div class="pull-left">
+                          <h1>saveAlertRule</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/alerts/rule</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Alerts-saveAlertRule-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Alerts-saveAlertRule-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Alerts-saveAlertRule-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Alerts-saveAlertRule-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/alerts/rule" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.AlertsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AlertsApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        AlertsApi apiInstance = new AlertsApi();
+        AlertServiceSaveAlertRuleRequest body = ; // AlertServiceSaveAlertRuleRequest | 
+
+        try {
+            Object result = apiInstance.saveAlertRule(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AlertsApi#saveAlertRule");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final AlertServiceSaveAlertRuleRequest body = new AlertServiceSaveAlertRuleRequest(); // AlertServiceSaveAlertRuleRequest | 
+
+try {
+    final result = await api_instance.saveAlertRule(body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->saveAlertRule: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.AlertsApi;
+
+public class AlertsApiExample {
+    public static void main(String[] args) {
+        AlertsApi apiInstance = new AlertsApi();
+        AlertServiceSaveAlertRuleRequest body = ; // AlertServiceSaveAlertRuleRequest | 
+
+        try {
+            Object result = apiInstance.saveAlertRule(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AlertsApi#saveAlertRule");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+AlertsApi *apiInstance = [[AlertsApi alloc] init];
+AlertServiceSaveAlertRuleRequest *body = ; // 
+
+[apiInstance saveAlertRuleWith:body
+              completionHandler: ^(Object output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.AlertsApi()
+var body = ; // {AlertServiceSaveAlertRuleRequest} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.saveAlertRule(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Alerts-saveAlertRule-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class saveAlertRuleExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new AlertsApi();
+            var body = new AlertServiceSaveAlertRuleRequest(); // AlertServiceSaveAlertRuleRequest | 
+
+            try {
+                Object result = apiInstance.saveAlertRule(body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling AlertsApi.saveAlertRule: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\AlertsApi();
+$body = ; // AlertServiceSaveAlertRuleRequest | 
+
+try {
+    $result = $api_instance->saveAlertRule($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AlertsApi->saveAlertRule: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::AlertsApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::AlertsApi->new();
+my $body = WWW::OPenAPIClient::Object::AlertServiceSaveAlertRuleRequest->new(); # AlertServiceSaveAlertRuleRequest | 
+
+eval {
+    my $result = $api_instance->saveAlertRule(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AlertsApi->saveAlertRule: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.AlertsApi()
+body =  # AlertServiceSaveAlertRuleRequest | 
+
+try:
+    api_response = api_instance.save_alert_rule(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AlertsApi->saveAlertRule: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate AlertsApi;
+
+pub fn main() {
+    let body = ; // AlertServiceSaveAlertRuleRequest
+
+    let mut context = AlertsApi::Context::default();
+    let result = client.saveAlertRule(body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/alert_service.SaveAlertRuleRequest"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_saveAlertRule_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_saveAlertRule_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Alerts-saveAlertRule-title-200"></h3>
+                            <p id="examples-Alerts-saveAlertRule-description-200" class="marked"></p>
+                            <script>
+                              var responseAlerts200_description = `A successful response.`;
+                              var responseAlerts200_description_break = responseAlerts200_description.indexOf('\n');
+                              if (responseAlerts200_description_break == -1) {
+                                $("#examples-Alerts-saveAlertRule-title-200").text("Status: 200 - " + responseAlerts200_description);
+                              } else {
+                                $("#examples-Alerts-saveAlertRule-title-200").text("Status: 200 - " + responseAlerts200_description.substring(0, responseAlerts200_description_break));
+                                $("#examples-Alerts-saveAlertRule-description-200").html(responseAlerts200_description.substring(responseAlerts200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Alerts-saveAlertRule-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Alerts-saveAlertRule-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Alerts-saveAlertRule-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Alerts-saveAlertRule-200-schema">
+                                <div id="responses-Alerts-saveAlertRule-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "object"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Alerts-saveAlertRule-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Alerts-saveAlertRule-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Alerts-saveAlertRule-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Alerts-saveAlertRule2">
+                      <article id="api-Alerts-saveAlertRule2-0" data-group="User" data-name="saveAlertRule2" data-version="0">
+                        <div class="pull-left">
+                          <h1>saveAlertRule2</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/api/v1/alerts/rule/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Alerts-saveAlertRule2-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Alerts-saveAlertRule2-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Alerts-saveAlertRule2-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Alerts-saveAlertRule2-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Alerts-saveAlertRule2-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT \
+-H "api-key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/alerts/rule/{id}" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.AlertsApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AlertsApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        AlertsApi apiInstance = new AlertsApi();
+        String id = id_example; // String | 
+        AlertServiceAlertServiceSaveAlertRuleBody body = ; // AlertServiceAlertServiceSaveAlertRuleBody | 
+
+        try {
+            Object result = apiInstance.saveAlertRule2(id, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AlertsApi#saveAlertRule2");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String id = new String(); // String | 
+final AlertServiceAlertServiceSaveAlertRuleBody body = new AlertServiceAlertServiceSaveAlertRuleBody(); // AlertServiceAlertServiceSaveAlertRuleBody | 
+
+try {
+    final result = await api_instance.saveAlertRule2(id, body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->saveAlertRule2: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.AlertsApi;
+
+public class AlertsApiExample {
+    public static void main(String[] args) {
+        AlertsApi apiInstance = new AlertsApi();
+        String id = id_example; // String | 
+        AlertServiceAlertServiceSaveAlertRuleBody body = ; // AlertServiceAlertServiceSaveAlertRuleBody | 
+
+        try {
+            Object result = apiInstance.saveAlertRule2(id, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AlertsApi#saveAlertRule2");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+AlertsApi *apiInstance = [[AlertsApi alloc] init];
+String *id = id_example; //  (default to null)
+AlertServiceAlertServiceSaveAlertRuleBody *body = ; // 
+
+[apiInstance saveAlertRule2With:id
+    body:body
+              completionHandler: ^(Object output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.AlertsApi()
+var id = id_example; // {String} 
+var body = ; // {AlertServiceAlertServiceSaveAlertRuleBody} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.saveAlertRule2(id, body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class saveAlertRule2Example
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new AlertsApi();
+            var id = id_example;  // String |  (default to null)
+            var body = new AlertServiceAlertServiceSaveAlertRuleBody(); // AlertServiceAlertServiceSaveAlertRuleBody | 
+
+            try {
+                Object result = apiInstance.saveAlertRule2(id, body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling AlertsApi.saveAlertRule2: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\AlertsApi();
+$id = id_example; // String | 
+$body = ; // AlertServiceAlertServiceSaveAlertRuleBody | 
+
+try {
+    $result = $api_instance->saveAlertRule2($id, $body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AlertsApi->saveAlertRule2: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::AlertsApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::AlertsApi->new();
+my $id = id_example; # String | 
+my $body = WWW::OPenAPIClient::Object::AlertServiceAlertServiceSaveAlertRuleBody->new(); # AlertServiceAlertServiceSaveAlertRuleBody | 
+
+eval {
+    my $result = $api_instance->saveAlertRule2(id => $id, body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AlertsApi->saveAlertRule2: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.AlertsApi()
+id = id_example # String |  (default to null)
+body =  # AlertServiceAlertServiceSaveAlertRuleBody | 
+
+try:
+    api_response = api_instance.save_alert_rule2(id, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AlertsApi->saveAlertRule2: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Alerts-saveAlertRule2-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate AlertsApi;
+
+pub fn main() {
+    let id = id_example; // String
+    let body = ; // AlertServiceAlertServiceSaveAlertRuleBody
+
+    let mut context = AlertsApi::Context::default();
+    let result = client.saveAlertRule2(id, body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_saveAlertRule2_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/alert_service.AlertService.SaveAlertRuleBody"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_saveAlertRule2_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_saveAlertRule2_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Alerts-saveAlertRule2-title-200"></h3>
+                            <p id="examples-Alerts-saveAlertRule2-description-200" class="marked"></p>
+                            <script>
+                              var responseAlerts200_description = `A successful response.`;
+                              var responseAlerts200_description_break = responseAlerts200_description.indexOf('\n');
+                              if (responseAlerts200_description_break == -1) {
+                                $("#examples-Alerts-saveAlertRule2-title-200").text("Status: 200 - " + responseAlerts200_description);
+                              } else {
+                                $("#examples-Alerts-saveAlertRule2-title-200").text("Status: 200 - " + responseAlerts200_description.substring(0, responseAlerts200_description_break));
+                                $("#examples-Alerts-saveAlertRule2-description-200").html(responseAlerts200_description.substring(responseAlerts200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Alerts-saveAlertRule2-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Alerts-saveAlertRule2-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Alerts-saveAlertRule2-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Alerts-saveAlertRule2-200-schema">
+                                <div id="responses-Alerts-saveAlertRule2-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "object"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Alerts-saveAlertRule2-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Alerts-saveAlertRule2-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Alerts-saveAlertRule2-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>
