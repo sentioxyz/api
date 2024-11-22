@@ -304,6 +304,7 @@ export class PromiseAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param body
      */
     public saveAlertRuleWithHttpInfo(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Promise<HttpInfo<any>> {
@@ -312,6 +313,7 @@ export class PromiseAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param body
      */
     public saveAlertRule(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Promise<any> {
@@ -320,6 +322,7 @@ export class PromiseAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param id
      * @param body
      */
@@ -329,6 +332,7 @@ export class PromiseAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param id
      * @param body
      */

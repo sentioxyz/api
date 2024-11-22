@@ -107,6 +107,7 @@ export class AlertsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Save an alert rule
      * @param body 
      */
     public async saveAlertRule(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Promise<RequestContext> {
@@ -153,6 +154,7 @@ export class AlertsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Save an alert rule
      * @param id 
      * @param body 
      */

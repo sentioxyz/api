@@ -352,6 +352,7 @@ export class ObjectAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param param the request object
      */
     public saveAlertRuleWithHttpInfo(param: AlertsApiSaveAlertRuleRequest, options?: Configuration): Promise<HttpInfo<any>> {
@@ -359,6 +360,7 @@ export class ObjectAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param param the request object
      */
     public saveAlertRule(param: AlertsApiSaveAlertRuleRequest, options?: Configuration): Promise<any> {
@@ -366,6 +368,7 @@ export class ObjectAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param param the request object
      */
     public saveAlertRule2WithHttpInfo(param: AlertsApiSaveAlertRule2Request, options?: Configuration): Promise<HttpInfo<any>> {
@@ -373,6 +376,7 @@ export class ObjectAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param param the request object
      */
     public saveAlertRule2(param: AlertsApiSaveAlertRule2Request, options?: Configuration): Promise<any> {

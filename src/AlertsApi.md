@@ -6,8 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAlert**](AlertsApi.md#getAlert) | **GET** /api/v1/alerts/{ruleId} | Find an alert rule by id, and list all alerts for this rule
 [**getAlertRules**](AlertsApi.md#getAlertRules) | **GET** /api/v1/alerts/rule/project/{projectId} | List all alert rules for a project
-[**saveAlertRule**](AlertsApi.md#saveAlertRule) | **POST** /api/v1/alerts/rule | 
-[**saveAlertRule2**](AlertsApi.md#saveAlertRule2) | **PUT** /api/v1/alerts/rule/{id} | 
+[**saveAlertRule**](AlertsApi.md#saveAlertRule) | **POST** /api/v1/alerts/rule | Save an alert rule
+[**saveAlertRule2**](AlertsApi.md#saveAlertRule2) | **PUT** /api/v1/alerts/rule/{id} | Save an alert rule
 
 
 # **getAlert**

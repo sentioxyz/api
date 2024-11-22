@@ -6474,7 +6474,7 @@ pub fn main() {
                       <article id="api-Alerts-saveAlertRule-0" data-group="User" data-name="saveAlertRule" data-version="0">
                         <div class="pull-left">
                           <h1>saveAlertRule</h1>
-                          <p></p>
+                          <p>Save an alert rule</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -6599,6 +6599,7 @@ public class AlertsApiExample {
 AlertsApi *apiInstance = [[AlertsApi alloc] init];
 AlertServiceSaveAlertRuleRequest *body = ; // 
 
+// Save an alert rule
 [apiInstance saveAlertRuleWith:body
               completionHandler: ^(Object output, NSError* error) {
     if (output) {
@@ -6662,6 +6663,7 @@ namespace Example
             var body = new AlertServiceSaveAlertRuleRequest(); // AlertServiceSaveAlertRuleRequest | 
 
             try {
+                // Save an alert rule
                 Object result = apiInstance.saveAlertRule(body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -6735,6 +6737,7 @@ api_instance = openapi_client.AlertsApi()
 body =  # AlertServiceSaveAlertRuleRequest | 
 
 try:
+    # Save an alert rule
     api_response = api_instance.save_alert_rule(body)
     pprint(api_response)
 except ApiException as e:
@@ -6900,7 +6903,7 @@ $(document).ready(function() {
                       <article id="api-Alerts-saveAlertRule2-0" data-group="User" data-name="saveAlertRule2" data-version="0">
                         <div class="pull-left">
                           <h1>saveAlertRule2</h1>
-                          <p></p>
+                          <p>Save an alert rule</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -7029,6 +7032,7 @@ AlertsApi *apiInstance = [[AlertsApi alloc] init];
 String *id = id_example; //  (default to null)
 AlertServiceAlertServiceSaveAlertRuleBody *body = ; // 
 
+// Save an alert rule
 [apiInstance saveAlertRule2With:id
     body:body
               completionHandler: ^(Object output, NSError* error) {
@@ -7095,6 +7099,7 @@ namespace Example
             var body = new AlertServiceAlertServiceSaveAlertRuleBody(); // AlertServiceAlertServiceSaveAlertRuleBody | 
 
             try {
+                // Save an alert rule
                 Object result = apiInstance.saveAlertRule2(id, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -7171,6 +7176,7 @@ id = id_example # String |  (default to null)
 body =  # AlertServiceAlertServiceSaveAlertRuleBody | 
 
 try:
+    # Save an alert rule
     api_response = api_instance.save_alert_rule2(id, body)
     pprint(api_response)
 except ApiException as e:

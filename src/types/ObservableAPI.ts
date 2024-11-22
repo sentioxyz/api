@@ -334,6 +334,7 @@ export class ObservableAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param body
      */
     public saveAlertRuleWithHttpInfo(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Observable<HttpInfo<any>> {
@@ -356,6 +357,7 @@ export class ObservableAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param body
      */
     public saveAlertRule(body: AlertServiceSaveAlertRuleRequest, _options?: Configuration): Observable<any> {
@@ -363,6 +365,7 @@ export class ObservableAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param id
      * @param body
      */
@@ -386,6 +389,7 @@ export class ObservableAlertsApi {
     }
 
     /**
+     * Save an alert rule
      * @param id
      * @param body
      */
