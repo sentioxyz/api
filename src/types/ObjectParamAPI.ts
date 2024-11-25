@@ -1577,6 +1577,42 @@ export class ObjectDebugAndSimulationApi {
 
 }
 
+import { ObservableDefaultApi } from "./ObservableAPI.js";
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+
+export interface DefaultApiDeleteAlertRuleRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApideleteAlertRule
+     */
+    id: string
+}
+
+export class ObjectDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteAlertRuleWithHttpInfo(param: DefaultApiDeleteAlertRuleRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.deleteAlertRuleWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public deleteAlertRule(param: DefaultApiDeleteAlertRuleRequest, options?: Configuration): Promise<any> {
+        return this.api.deleteAlertRule(param.id,  options).toPromise();
+    }
+
+}
+
 import { ObservableForksApi } from "./ObservableAPI.js";
 import { ForksApiRequestFactory, ForksApiResponseProcessor} from "../apis/ForksApi.js";
 

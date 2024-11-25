@@ -946,6 +946,41 @@ export class PromiseDebugAndSimulationApi {
 
 
 
+import { ObservableDefaultApi } from './ObservableAPI.js';
+
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+export class PromiseDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DefaultApiRequestFactory,
+        responseProcessor?: DefaultApiResponseProcessor
+    ) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param id
+     */
+    public deleteAlertRuleWithHttpInfo(id: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.deleteAlertRuleWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param id
+     */
+    public deleteAlertRule(id: string, _options?: Configuration): Promise<any> {
+        const result = this.api.deleteAlertRule(id, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
 import { ObservableForksApi } from './ObservableAPI.js';
 
 import { ForksApiRequestFactory, ForksApiResponseProcessor} from "../apis/ForksApi.js";
