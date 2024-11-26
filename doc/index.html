@@ -2439,6 +2439,9 @@ ul.nav-tabs {
     },
     "structValue" : {
       "$ref" : "#/components/schemas/common.RichStruct"
+    },
+    "tokenValue" : {
+      "$ref" : "#/components/schemas/common.TokenAmount"
     }
   }
 };
@@ -2777,6 +2780,22 @@ ul.nav-tabs {
     "absoluteTime" : {
       "type" : "string",
       "format" : "int64"
+    }
+  }
+};
+    defs["common.TokenAmount"] = {
+  "type" : "object",
+  "properties" : {
+    "token" : {
+      "$ref" : "#/components/schemas/common.CoinID"
+    },
+    "amount" : {
+      "$ref" : "#/components/schemas/common.BigDecimal"
+    },
+    "specifiedAt" : {
+      "title" : "optional, if not specified, it will use block_time in eventlogs",
+      "type" : "string",
+      "format" : "date-time"
     }
   }
 };

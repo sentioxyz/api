@@ -15,6 +15,7 @@ import { CommonBigInteger } from '../models/CommonBigInteger.js';
 import { CommonRichStruct } from '../models/CommonRichStruct.js';
 import { CommonRichValueList } from '../models/CommonRichValueList.js';
 import { CommonRichValueNullValue } from '../models/CommonRichValueNullValue.js';
+import { CommonTokenAmount } from '../models/CommonTokenAmount.js';
 import { HttpFile } from '../http/http.js';
 
 export class CommonRichValue {
@@ -29,6 +30,7 @@ export class CommonRichValue {
     'bigdecimalValue'?: CommonBigDecimal;
     'listValue'?: CommonRichValueList;
     'structValue'?: CommonRichStruct;
+    'tokenValue'?: CommonTokenAmount;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -99,6 +101,12 @@ export class CommonRichValue {
             "name": "structValue",
             "baseName": "structValue",
             "type": "CommonRichStruct",
+            "format": ""
+        },
+        {
+            "name": "tokenValue",
+            "baseName": "tokenValue",
+            "type": "CommonTokenAmount",
             "format": ""
         }    ];
 

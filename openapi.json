@@ -4053,6 +4053,9 @@
         },
         "structValue": {
           "$ref": "#/definitions/common.RichStruct"
+        },
+        "tokenValue": {
+          "$ref": "#/definitions/common.TokenAmount"
         }
       }
     },
@@ -4461,6 +4464,22 @@
         "end",
         "step"
       ]
+    },
+    "common.TokenAmount": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/common.CoinID"
+        },
+        "amount": {
+          "$ref": "#/definitions/common.BigDecimal"
+        },
+        "specifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "optional, if not specified, it will use block_time in eventlogs"
+        }
+      }
     },
     "common.User": {
       "type": "object",

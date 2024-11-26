@@ -71,6 +71,23 @@ const request: DataApiExecuteSQLRequest = {
               ],
             },
             structValue: ,
+            tokenValue: {
+              token: {
+                symbol: "symbol_example",
+                address: {
+                  address: "address_example",
+                  chain: "chain_example",
+                },
+              },
+              amount: {
+                value: {
+                  negative: true,
+                  data: 'YQ==',
+                },
+                exp: 1,
+              },
+              specifiedAt: new Date('1970-01-01T00:00:00.00Z'),
+            },
           },
         },
       },
