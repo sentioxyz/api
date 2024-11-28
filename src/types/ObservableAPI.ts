@@ -17,11 +17,21 @@ import { AlertServiceMute } from '../models/AlertServiceMute.js';
 import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
+import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
+import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
+import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
+import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecutionStatus.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
+import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
+import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
+import { AnalyticServiceSaveSQLRequest } from '../models/AnalyticServiceSaveSQLRequest.js';
+import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
+import { AnalyticServiceSource } from '../models/AnalyticServiceSource.js';
 import { AnalyticServiceSyncExecuteSQLResponse } from '../models/AnalyticServiceSyncExecuteSQLResponse.js';
 import { CommonAggregate } from '../models/CommonAggregate.js';
 import { CommonAggregateAggregateOps } from '../models/CommonAggregateAggregateOps.js';
@@ -790,6 +800,158 @@ export class ObservableDataApi {
     }
 
     /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResultWithHttpInfo(owner: string, slug: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Observable<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
+        const requestContextPromise = this.requestFactory.querySQLResult(owner, slug, projectId, version, executionId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.querySQLResultWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResult(owner: string, slug: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Observable<AnalyticServiceQuerySQLResultResponse> {
+        return this.querySQLResultWithHttpInfo(owner, slug, projectId, version, executionId, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceQuerySQLResultResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param [projectOwner] username or organization name
+     * @param [projectSlug] project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResult2WithHttpInfo(projectOwner?: string, projectSlug?: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Observable<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
+        const requestContextPromise = this.requestFactory.querySQLResult2(projectOwner, projectSlug, projectId, version, executionId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.querySQLResult2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param [projectOwner] username or organization name
+     * @param [projectSlug] project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResult2(projectOwner?: string, projectSlug?: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Observable<AnalyticServiceQuerySQLResultResponse> {
+        return this.querySQLResult2WithHttpInfo(projectOwner, projectSlug, projectId, version, executionId, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceQuerySQLResultResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public rerunSQLQueryWithHttpInfo(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Observable<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        const requestContextPromise = this.requestFactory.rerunSQLQuery(owner, slug, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.rerunSQLQueryWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public rerunSQLQuery(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Observable<AnalyticServiceRerunSQLQueryResponse> {
+        return this.rerunSQLQueryWithHttpInfo(owner, slug, body, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceRerunSQLQueryResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param body
+     */
+    public rerunSQLQuery2WithHttpInfo(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Observable<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        const requestContextPromise = this.requestFactory.rerunSQLQuery2(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.rerunSQLQuery2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param body
+     */
+    public rerunSQLQuery2(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Observable<AnalyticServiceRerunSQLQueryResponse> {
+        return this.rerunSQLQuery2WithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceRerunSQLQueryResponse>) => apiResponse.data));
+    }
+
+    /**
      * Query for retention.
      * Retention query
      * @param owner
@@ -857,6 +1019,76 @@ export class ObservableDataApi {
      */
     public retention2(body: InsightsServiceRetentionRequest, _options?: Configuration): Observable<InsightsServiceRetentionResponse> {
         return this.retention2WithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<InsightsServiceRetentionResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public saveSQLWithHttpInfo(owner: string, slug: string, body: AnalyticServiceAnalyticServiceSaveSQLBody, _options?: Configuration): Observable<HttpInfo<AnalyticServiceSaveSQLResponse>> {
+        const requestContextPromise = this.requestFactory.saveSQL(owner, slug, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveSQLWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public saveSQL(owner: string, slug: string, body: AnalyticServiceAnalyticServiceSaveSQLBody, _options?: Configuration): Observable<AnalyticServiceSaveSQLResponse> {
+        return this.saveSQLWithHttpInfo(owner, slug, body, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceSaveSQLResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param body
+     */
+    public saveSQL2WithHttpInfo(body: AnalyticServiceSaveSQLRequest, _options?: Configuration): Observable<HttpInfo<AnalyticServiceSaveSQLResponse>> {
+        const requestContextPromise = this.requestFactory.saveSQL2(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.saveSQL2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param body
+     */
+    public saveSQL2(body: AnalyticServiceSaveSQLRequest, _options?: Configuration): Observable<AnalyticServiceSaveSQLResponse> {
+        return this.saveSQL2WithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceSaveSQLResponse>) => apiResponse.data));
     }
 
 }

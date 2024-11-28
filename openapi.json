@@ -162,6 +162,117 @@
         ]
       }
     },
+    "/api/v1/analytics/sql/query_result": {
+      "get": {
+        "summary": "Query SQL Result",
+        "description": "Query the result of a SQL query by execution_id.",
+        "operationId": "QuerySQLResult2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QuerySQLResultResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "description": "username or organization name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "description": "project slug",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "use project id if project_owner and project_slug are not provided",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": "version of the datasource, default to the active version if not provided",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "executionId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/sql/rerun_query": {
+      "post": {
+        "summary": "Rerun SQL",
+        "description": "Rerun your SQL query by query_id, you can also update the query and run it.\n\nIt will return execution_id, use it to query the result.",
+        "operationId": "RerunSQLQuery2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.RerunSQLQueryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/analytic_service.RerunSQLQueryRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/sql/save_query": {
+      "post": {
+        "summary": "Save SQL",
+        "description": "Save your SQL query, and you can run it immediately or later.\n\nIt will return query_id, you can use it to rerun the query.\nif you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.",
+        "operationId": "SaveSQL2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.SaveSQLResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/analytic_service.SaveSQLRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
     "/api/v1/analytics/{owner}/{slug}/sql/execute": {
       "post": {
         "summary": "Execute SQL",
@@ -206,6 +317,145 @@
           "description": "find more information here",
           "url": "https://docs.sentio.xyz/reference/data#sql-api"
         }
+      }
+    },
+    "/api/v1/analytics/{owner}/{slug}/sql/query_result": {
+      "get": {
+        "summary": "Query SQL Result",
+        "description": "Query the result of a SQL query by execution_id.",
+        "operationId": "QuerySQLResult",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QuerySQLResultResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "use project id if project_owner and project_slug are not provided",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": "version of the datasource, default to the active version if not provided",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "executionId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/{owner}/{slug}/sql/rerun_query": {
+      "post": {
+        "summary": "Rerun SQL",
+        "description": "Rerun your SQL query by query_id, you can also update the query and run it.\n\nIt will return execution_id, use it to query the result.",
+        "operationId": "RerunSQLQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.RerunSQLQueryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/analytic_service.AnalyticService.RerunSQLQueryBody"
+            }
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/{owner}/{slug}/sql/save_query": {
+      "post": {
+        "summary": "Save SQL",
+        "description": "Save your SQL query, and you can run it immediately or later.\n\nIt will return query_id, you can use it to rerun the query.\nif you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.",
+        "operationId": "SaveSQL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.SaveSQLResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/analytic_service.AnalyticService.SaveSQLBody"
+            }
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
       }
     },
     "/api/v1/dashboards": {
@@ -2720,6 +2970,103 @@
         }
       }
     },
+    "analytic_service.AnalyticService.RerunSQLQueryBody": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "title": "use project id if project_owner and project_slug are not provided"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "title": "version of the datasource, default to the active version if not provided"
+        },
+        "queryId": {
+          "type": "string"
+        },
+        "sqlQuery": {
+          "$ref": "#/definitions/analytic_service.SQLQuery"
+        }
+      }
+    },
+    "analytic_service.AnalyticService.SaveSQLBody": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "title": "use project id if project_owner and project_slug are not provided"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "title": "version of the datasource, default to the active version if not provided"
+        },
+        "sqlQuery": {
+          "$ref": "#/definitions/analytic_service.SQLQuery"
+        },
+        "source": {
+          "$ref": "#/definitions/analytic_service.Source"
+        },
+        "runImmediately": {
+          "type": "boolean",
+          "title": "run the query immediately or not"
+        },
+        "queryId": {
+          "type": "string",
+          "title": "the query id to save the query"
+        }
+      }
+    },
+    "analytic_service.ExecutionInfo": {
+      "type": "object",
+      "properties": {
+        "queryId": {
+          "type": "string"
+        },
+        "executionId": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/analytic_service.ExecutionStatus"
+        },
+        "scheduledAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "finishedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "result": {
+          "$ref": "#/definitions/common.TabularData"
+        },
+        "error": {
+          "type": "string"
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
+        },
+        "processorVersion": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "analytic_service.ExecutionStatus": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "RUNNING",
+        "FINISHED",
+        "KILLED"
+      ],
+      "default": "PENDING"
+    },
     "analytic_service.LogQueryRequest.Filter": {
       "type": "object",
       "properties": {
@@ -2769,6 +3116,54 @@
         }
       }
     },
+    "analytic_service.QuerySQLResultResponse": {
+      "type": "object",
+      "properties": {
+        "executionInfo": {
+          "$ref": "#/definitions/analytic_service.ExecutionInfo"
+        }
+      }
+    },
+    "analytic_service.RerunSQLQueryRequest": {
+      "type": "object",
+      "properties": {
+        "projectOwner": {
+          "type": "string",
+          "title": "username or organization name"
+        },
+        "projectSlug": {
+          "type": "string",
+          "title": "project slug"
+        },
+        "projectId": {
+          "type": "string",
+          "title": "use project id if project_owner and project_slug are not provided"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "title": "version of the datasource, default to the active version if not provided"
+        },
+        "queryId": {
+          "type": "string"
+        },
+        "sqlQuery": {
+          "$ref": "#/definitions/analytic_service.SQLQuery"
+        }
+      }
+    },
+    "analytic_service.RerunSQLQueryResponse": {
+      "type": "object",
+      "properties": {
+        "queueLength": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "executionInfo": {
+          "$ref": "#/definitions/analytic_service.ExecutionInfo"
+        }
+      }
+    },
     "analytic_service.SQLQuery": {
       "type": "object",
       "properties": {
@@ -2788,6 +3183,58 @@
         "name": {
           "type": "string",
           "title": "the name of the query"
+        }
+      }
+    },
+    "analytic_service.SaveSQLRequest": {
+      "type": "object",
+      "properties": {
+        "projectOwner": {
+          "type": "string",
+          "title": "username or organization name"
+        },
+        "projectSlug": {
+          "type": "string",
+          "title": "project slug"
+        },
+        "projectId": {
+          "type": "string",
+          "title": "use project id if project_owner and project_slug are not provided"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "title": "version of the datasource, default to the active version if not provided"
+        },
+        "sqlQuery": {
+          "$ref": "#/definitions/analytic_service.SQLQuery"
+        },
+        "source": {
+          "$ref": "#/definitions/analytic_service.Source"
+        },
+        "runImmediately": {
+          "type": "boolean",
+          "title": "run the query immediately or not"
+        },
+        "queryId": {
+          "type": "string",
+          "title": "the query id to save the query"
+        }
+      }
+    },
+    "analytic_service.SaveSQLResponse": {
+      "type": "object",
+      "properties": {
+        "queueLength": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "executionInfo": {
+          "$ref": "#/definitions/analytic_service.ExecutionInfo",
+          "title": "the execution info of the query, return nil if run_immediately is false"
+        },
+        "queryId": {
+          "type": "string"
         }
       }
     },
@@ -2838,6 +3285,17 @@
           "format": "int32"
         }
       }
+    },
+    "analytic_service.Source": {
+      "type": "string",
+      "enum": [
+        "SQL_EDITOR",
+        "DASHBOARD",
+        "ASYNC_TRIGGER",
+        "CURL",
+        "ENDPOINT"
+      ],
+      "default": "SQL_EDITOR"
     },
     "analytic_service.SyncExecuteSQLResponse": {
       "type": "object",

@@ -16,11 +16,21 @@ import { AlertServiceMute } from '../models/AlertServiceMute.js';
 import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
+import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
+import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
+import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
+import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecutionStatus.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
+import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
+import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
+import { AnalyticServiceSaveSQLRequest } from '../models/AnalyticServiceSaveSQLRequest.js';
+import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
+import { AnalyticServiceSource } from '../models/AnalyticServiceSource.js';
 import { AnalyticServiceSyncExecuteSQLResponse } from '../models/AnalyticServiceSyncExecuteSQLResponse.js';
 import { CommonAggregate } from '../models/CommonAggregate.js';
 import { CommonAggregateAggregateOps } from '../models/CommonAggregateAggregateOps.js';
@@ -618,6 +628,106 @@ export class PromiseDataApi {
     }
 
     /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResultWithHttpInfo(owner: string, slug: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
+        const result = this.api.querySQLResultWithHttpInfo(owner, slug, projectId, version, executionId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResult(owner: string, slug: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Promise<AnalyticServiceQuerySQLResultResponse> {
+        const result = this.api.querySQLResult(owner, slug, projectId, version, executionId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param [projectOwner] username or organization name
+     * @param [projectSlug] project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResult2WithHttpInfo(projectOwner?: string, projectSlug?: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
+        const result = this.api.querySQLResult2WithHttpInfo(projectOwner, projectSlug, projectId, version, executionId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param [projectOwner] username or organization name
+     * @param [projectSlug] project slug
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     * @param [executionId]
+     */
+    public querySQLResult2(projectOwner?: string, projectSlug?: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Promise<AnalyticServiceQuerySQLResultResponse> {
+        const result = this.api.querySQLResult2(projectOwner, projectSlug, projectId, version, executionId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public rerunSQLQueryWithHttpInfo(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        const result = this.api.rerunSQLQueryWithHttpInfo(owner, slug, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public rerunSQLQuery(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
+        const result = this.api.rerunSQLQuery(owner, slug, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param body
+     */
+    public rerunSQLQuery2WithHttpInfo(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        const result = this.api.rerunSQLQuery2WithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param body
+     */
+    public rerunSQLQuery2(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
+        const result = this.api.rerunSQLQuery2(body, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Query for retention.
      * Retention query
      * @param owner
@@ -658,6 +768,50 @@ export class PromiseDataApi {
      */
     public retention2(body: InsightsServiceRetentionRequest, _options?: Configuration): Promise<InsightsServiceRetentionResponse> {
         const result = this.api.retention2(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public saveSQLWithHttpInfo(owner: string, slug: string, body: AnalyticServiceAnalyticServiceSaveSQLBody, _options?: Configuration): Promise<HttpInfo<AnalyticServiceSaveSQLResponse>> {
+        const result = this.api.saveSQLWithHttpInfo(owner, slug, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body
+     */
+    public saveSQL(owner: string, slug: string, body: AnalyticServiceAnalyticServiceSaveSQLBody, _options?: Configuration): Promise<AnalyticServiceSaveSQLResponse> {
+        const result = this.api.saveSQL(owner, slug, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param body
+     */
+    public saveSQL2WithHttpInfo(body: AnalyticServiceSaveSQLRequest, _options?: Configuration): Promise<HttpInfo<AnalyticServiceSaveSQLResponse>> {
+        const result = this.api.saveSQL2WithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param body
+     */
+    public saveSQL2(body: AnalyticServiceSaveSQLRequest, _options?: Configuration): Promise<AnalyticServiceSaveSQLResponse> {
+        const result = this.api.saveSQL2(body, _options);
         return result.toPromise();
     }
 

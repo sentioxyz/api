@@ -16,11 +16,21 @@ import { AlertServiceMute } from '../models/AlertServiceMute.js';
 import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
+import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
+import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
+import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
+import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecutionStatus.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
+import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
+import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
+import { AnalyticServiceSaveSQLRequest } from '../models/AnalyticServiceSaveSQLRequest.js';
+import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
+import { AnalyticServiceSource } from '../models/AnalyticServiceSource.js';
 import { AnalyticServiceSyncExecuteSQLResponse } from '../models/AnalyticServiceSyncExecuteSQLResponse.js';
 import { CommonAggregate } from '../models/CommonAggregate.js';
 import { CommonAggregateAggregateOps } from '../models/CommonAggregateAggregateOps.js';
@@ -768,6 +778,114 @@ export interface DataApiQueryRangeRequest {
     body: MetricsServiceObservabilityServiceQueryRangeBody
 }
 
+export interface DataApiQuerySQLResultRequest {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult
+     */
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult
+     */
+    slug: string
+    /**
+     * use project id if project_owner and project_slug are not provided
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult
+     */
+    projectId?: string
+    /**
+     * version of the datasource, default to the active version if not provided
+     * Defaults to: undefined
+     * @type number
+     * @memberof DataApiquerySQLResult
+     */
+    version?: number
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult
+     */
+    executionId?: string
+}
+
+export interface DataApiQuerySQLResult2Request {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult2
+     */
+    projectOwner?: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult2
+     */
+    projectSlug?: string
+    /**
+     * use project id if project_owner and project_slug are not provided
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult2
+     */
+    projectId?: string
+    /**
+     * version of the datasource, default to the active version if not provided
+     * Defaults to: undefined
+     * @type number
+     * @memberof DataApiquerySQLResult2
+     */
+    version?: number
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult2
+     */
+    executionId?: string
+}
+
+export interface DataApiRerunSQLQueryRequest {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApirerunSQLQuery
+     */
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApirerunSQLQuery
+     */
+    slug: string
+    /**
+     * 
+     * @type AnalyticServiceAnalyticServiceRerunSQLQueryBody
+     * @memberof DataApirerunSQLQuery
+     */
+    body: AnalyticServiceAnalyticServiceRerunSQLQueryBody
+}
+
+export interface DataApiRerunSQLQuery2Request {
+    /**
+     * 
+     * @type AnalyticServiceRerunSQLQueryRequest
+     * @memberof DataApirerunSQLQuery2
+     */
+    body: AnalyticServiceRerunSQLQueryRequest
+}
+
 export interface DataApiRetentionRequest {
     /**
      * 
@@ -798,6 +916,38 @@ export interface DataApiRetention2Request {
      * @memberof DataApiretention2
      */
     body: InsightsServiceRetentionRequest
+}
+
+export interface DataApiSaveSQLRequest {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApisaveSQL
+     */
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApisaveSQL
+     */
+    slug: string
+    /**
+     * 
+     * @type AnalyticServiceAnalyticServiceSaveSQLBody
+     * @memberof DataApisaveSQL
+     */
+    body: AnalyticServiceAnalyticServiceSaveSQLBody
+}
+
+export interface DataApiSaveSQL2Request {
+    /**
+     * 
+     * @type AnalyticServiceSaveSQLRequest
+     * @memberof DataApisaveSQL2
+     */
+    body: AnalyticServiceSaveSQLRequest
 }
 
 export class ObjectDataApi {
@@ -962,6 +1112,78 @@ export class ObjectDataApi {
     }
 
     /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param param the request object
+     */
+    public querySQLResultWithHttpInfo(param: DataApiQuerySQLResultRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
+        return this.api.querySQLResultWithHttpInfo(param.owner, param.slug, param.projectId, param.version, param.executionId,  options).toPromise();
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param param the request object
+     */
+    public querySQLResult(param: DataApiQuerySQLResultRequest, options?: Configuration): Promise<AnalyticServiceQuerySQLResultResponse> {
+        return this.api.querySQLResult(param.owner, param.slug, param.projectId, param.version, param.executionId,  options).toPromise();
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param param the request object
+     */
+    public querySQLResult2WithHttpInfo(param: DataApiQuerySQLResult2Request = {}, options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
+        return this.api.querySQLResult2WithHttpInfo(param.projectOwner, param.projectSlug, param.projectId, param.version, param.executionId,  options).toPromise();
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param param the request object
+     */
+    public querySQLResult2(param: DataApiQuerySQLResult2Request = {}, options?: Configuration): Promise<AnalyticServiceQuerySQLResultResponse> {
+        return this.api.querySQLResult2(param.projectOwner, param.projectSlug, param.projectId, param.version, param.executionId,  options).toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param param the request object
+     */
+    public rerunSQLQueryWithHttpInfo(param: DataApiRerunSQLQueryRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        return this.api.rerunSQLQueryWithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param param the request object
+     */
+    public rerunSQLQuery(param: DataApiRerunSQLQueryRequest, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
+        return this.api.rerunSQLQuery(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param param the request object
+     */
+    public rerunSQLQuery2WithHttpInfo(param: DataApiRerunSQLQuery2Request, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        return this.api.rerunSQLQuery2WithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param param the request object
+     */
+    public rerunSQLQuery2(param: DataApiRerunSQLQuery2Request, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
+        return this.api.rerunSQLQuery2(param.body,  options).toPromise();
+    }
+
+    /**
      * Query for retention.
      * Retention query
      * @param param the request object
@@ -995,6 +1217,42 @@ export class ObjectDataApi {
      */
     public retention2(param: DataApiRetention2Request, options?: Configuration): Promise<InsightsServiceRetentionResponse> {
         return this.api.retention2(param.body,  options).toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param param the request object
+     */
+    public saveSQLWithHttpInfo(param: DataApiSaveSQLRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceSaveSQLResponse>> {
+        return this.api.saveSQLWithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param param the request object
+     */
+    public saveSQL(param: DataApiSaveSQLRequest, options?: Configuration): Promise<AnalyticServiceSaveSQLResponse> {
+        return this.api.saveSQL(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param param the request object
+     */
+    public saveSQL2WithHttpInfo(param: DataApiSaveSQL2Request, options?: Configuration): Promise<HttpInfo<AnalyticServiceSaveSQLResponse>> {
+        return this.api.saveSQL2WithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param param the request object
+     */
+    public saveSQL2(param: DataApiSaveSQL2Request, options?: Configuration): Promise<AnalyticServiceSaveSQLResponse> {
+        return this.api.saveSQL2(param.body,  options).toPromise();
     }
 
 }

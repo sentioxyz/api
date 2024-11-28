@@ -13,8 +13,14 @@ Method | HTTP request | Description
 [**queryLog**](DataApi.md#queryLog) | **POST** /api/v1/eventlogs/{owner}/{slug} | Query event logs
 [**queryLog2**](DataApi.md#queryLog2) | **GET** /api/v1/eventlogs/{owner}/{slug}/query | Query event logs
 [**queryRange**](DataApi.md#queryRange) | **POST** /api/v1/metrics/{owner}/{slug}/query_range | Metric range queries
+[**querySQLResult**](DataApi.md#querySQLResult) | **GET** /api/v1/analytics/{owner}/{slug}/sql/query_result | Query SQL Result
+[**querySQLResult2**](DataApi.md#querySQLResult2) | **GET** /api/v1/analytics/sql/query_result | Query SQL Result
+[**rerunSQLQuery**](DataApi.md#rerunSQLQuery) | **POST** /api/v1/analytics/{owner}/{slug}/sql/rerun_query | Rerun SQL
+[**rerunSQLQuery2**](DataApi.md#rerunSQLQuery2) | **POST** /api/v1/analytics/sql/rerun_query | Rerun SQL
 [**retention**](DataApi.md#retention) | **POST** /api/v1/insights/{owner}/{slug}/retention | Retention query
 [**retention2**](DataApi.md#retention2) | **POST** /api/v1/insights/retention | Retention query
+[**saveSQL**](DataApi.md#saveSQL) | **POST** /api/v1/analytics/{owner}/{slug}/sql/save_query | Save SQL
+[**saveSQL2**](DataApi.md#saveSQL2) | **POST** /api/v1/analytics/sql/save_query | Save SQL
 
 
 # **executeSQL**
@@ -1111,6 +1117,362 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **querySQLResult**
+> AnalyticServiceQuerySQLResultResponse querySQLResult()
+
+Query the result of a SQL query by execution_id.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiQuerySQLResultRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiQuerySQLResultRequest = {
+    // username or organization name
+  owner: "owner_example",
+    // project slug
+  slug: "slug_example",
+    // use project id if project_owner and project_slug are not provided (optional)
+  projectId: "projectId_example",
+    // version of the datasource, default to the active version if not provided (optional)
+  version: 1,
+  
+  executionId: "executionId_example",
+};
+
+const data = await apiInstance.querySQLResult(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **owner** | [**string**] | username or organization name | defaults to undefined
+ **slug** | [**string**] | project slug | defaults to undefined
+ **projectId** | [**string**] | use project id if project_owner and project_slug are not provided | (optional) defaults to undefined
+ **version** | [**number**] | version of the datasource, default to the active version if not provided | (optional) defaults to undefined
+ **executionId** | [**string**] |  | (optional) defaults to undefined
+
+
+### Return type
+
+**AnalyticServiceQuerySQLResultResponse**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **querySQLResult2**
+> AnalyticServiceQuerySQLResultResponse querySQLResult2()
+
+Query the result of a SQL query by execution_id.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiQuerySQLResult2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiQuerySQLResult2Request = {
+    // username or organization name (optional)
+  projectOwner: "projectOwner_example",
+    // project slug (optional)
+  projectSlug: "projectSlug_example",
+    // use project id if project_owner and project_slug are not provided (optional)
+  projectId: "projectId_example",
+    // version of the datasource, default to the active version if not provided (optional)
+  version: 1,
+  
+  executionId: "executionId_example",
+};
+
+const data = await apiInstance.querySQLResult2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectOwner** | [**string**] | username or organization name | (optional) defaults to undefined
+ **projectSlug** | [**string**] | project slug | (optional) defaults to undefined
+ **projectId** | [**string**] | use project id if project_owner and project_slug are not provided | (optional) defaults to undefined
+ **version** | [**number**] | version of the datasource, default to the active version if not provided | (optional) defaults to undefined
+ **executionId** | [**string**] |  | (optional) defaults to undefined
+
+
+### Return type
+
+**AnalyticServiceQuerySQLResultResponse**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **rerunSQLQuery**
+> AnalyticServiceRerunSQLQueryResponse rerunSQLQuery(body)
+
+Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiRerunSQLQueryRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiRerunSQLQueryRequest = {
+    // username or organization name
+  owner: "owner_example",
+    // project slug
+  slug: "slug_example",
+  
+  body: {
+    projectId: "projectId_example",
+    version: 1,
+    queryId: "queryId_example",
+    sqlQuery: {
+      sql: "sql_example",
+      size: 1,
+      parameters: {
+        fields: {
+          "key": {
+            nullValue: "NULL_VALUE",
+            intValue: 1,
+            floatValue: 3.14,
+            bytesValue: 'YQ==',
+            boolValue: true,
+            stringValue: "stringValue_example",
+            timestampValue: new Date('1970-01-01T00:00:00.00Z'),
+            bigintValue: {
+              negative: true,
+              data: 'YQ==',
+            },
+            bigdecimalValue: {
+              value: {
+                negative: true,
+                data: 'YQ==',
+              },
+              exp: 1,
+            },
+            listValue: {
+              values: [
+                ,
+              ],
+            },
+            structValue: ,
+            tokenValue: {
+              token: {
+                symbol: "symbol_example",
+                address: {
+                  address: "address_example",
+                  chain: "chain_example",
+                },
+              },
+              amount: {
+                value: {
+                  negative: true,
+                  data: 'YQ==',
+                },
+                exp: 1,
+              },
+              specifiedAt: new Date('1970-01-01T00:00:00.00Z'),
+            },
+          },
+        },
+      },
+      name: "name_example",
+    },
+  },
+};
+
+const data = await apiInstance.rerunSQLQuery(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **AnalyticServiceAnalyticServiceRerunSQLQueryBody**|  |
+ **owner** | [**string**] | username or organization name | defaults to undefined
+ **slug** | [**string**] | project slug | defaults to undefined
+
+
+### Return type
+
+**AnalyticServiceRerunSQLQueryResponse**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **rerunSQLQuery2**
+> AnalyticServiceRerunSQLQueryResponse rerunSQLQuery2(body)
+
+Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiRerunSQLQuery2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiRerunSQLQuery2Request = {
+  
+  body: {
+    projectOwner: "projectOwner_example",
+    projectSlug: "projectSlug_example",
+    projectId: "projectId_example",
+    version: 1,
+    queryId: "queryId_example",
+    sqlQuery: {
+      sql: "sql_example",
+      size: 1,
+      parameters: {
+        fields: {
+          "key": {
+            nullValue: "NULL_VALUE",
+            intValue: 1,
+            floatValue: 3.14,
+            bytesValue: 'YQ==',
+            boolValue: true,
+            stringValue: "stringValue_example",
+            timestampValue: new Date('1970-01-01T00:00:00.00Z'),
+            bigintValue: {
+              negative: true,
+              data: 'YQ==',
+            },
+            bigdecimalValue: {
+              value: {
+                negative: true,
+                data: 'YQ==',
+              },
+              exp: 1,
+            },
+            listValue: {
+              values: [
+                ,
+              ],
+            },
+            structValue: ,
+            tokenValue: {
+              token: {
+                symbol: "symbol_example",
+                address: {
+                  address: "address_example",
+                  chain: "chain_example",
+                },
+              },
+              amount: {
+                value: {
+                  negative: true,
+                  data: 'YQ==',
+                },
+                exp: 1,
+              },
+              specifiedAt: new Date('1970-01-01T00:00:00.00Z'),
+            },
+          },
+        },
+      },
+      name: "name_example",
+    },
+  },
+};
+
+const data = await apiInstance.rerunSQLQuery2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **AnalyticServiceRerunSQLQueryRequest**|  |
+
+
+### Return type
+
+**AnalyticServiceRerunSQLQueryResponse**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **retention**
 > InsightsServiceRetentionResponse retention(body)
 
@@ -1391,6 +1753,236 @@ Name | Type | Description  | Notes
 ### Return type
 
 **InsightsServiceRetentionResponse**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **saveSQL**
+> AnalyticServiceSaveSQLResponse saveSQL(body)
+
+Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiSaveSQLRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiSaveSQLRequest = {
+    // username or organization name
+  owner: "owner_example",
+    // project slug
+  slug: "slug_example",
+  
+  body: {
+    projectId: "projectId_example",
+    version: 1,
+    sqlQuery: {
+      sql: "sql_example",
+      size: 1,
+      parameters: {
+        fields: {
+          "key": {
+            nullValue: "NULL_VALUE",
+            intValue: 1,
+            floatValue: 3.14,
+            bytesValue: 'YQ==',
+            boolValue: true,
+            stringValue: "stringValue_example",
+            timestampValue: new Date('1970-01-01T00:00:00.00Z'),
+            bigintValue: {
+              negative: true,
+              data: 'YQ==',
+            },
+            bigdecimalValue: {
+              value: {
+                negative: true,
+                data: 'YQ==',
+              },
+              exp: 1,
+            },
+            listValue: {
+              values: [
+                ,
+              ],
+            },
+            structValue: ,
+            tokenValue: {
+              token: {
+                symbol: "symbol_example",
+                address: {
+                  address: "address_example",
+                  chain: "chain_example",
+                },
+              },
+              amount: {
+                value: {
+                  negative: true,
+                  data: 'YQ==',
+                },
+                exp: 1,
+              },
+              specifiedAt: new Date('1970-01-01T00:00:00.00Z'),
+            },
+          },
+        },
+      },
+      name: "name_example",
+    },
+    source: "SQL_EDITOR",
+    runImmediately: true,
+    queryId: "queryId_example",
+  },
+};
+
+const data = await apiInstance.saveSQL(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **AnalyticServiceAnalyticServiceSaveSQLBody**|  |
+ **owner** | [**string**] | username or organization name | defaults to undefined
+ **slug** | [**string**] | project slug | defaults to undefined
+
+
+### Return type
+
+**AnalyticServiceSaveSQLResponse**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **saveSQL2**
+> AnalyticServiceSaveSQLResponse saveSQL2(body)
+
+Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiSaveSQL2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiSaveSQL2Request = {
+  
+  body: {
+    projectOwner: "projectOwner_example",
+    projectSlug: "projectSlug_example",
+    projectId: "projectId_example",
+    version: 1,
+    sqlQuery: {
+      sql: "sql_example",
+      size: 1,
+      parameters: {
+        fields: {
+          "key": {
+            nullValue: "NULL_VALUE",
+            intValue: 1,
+            floatValue: 3.14,
+            bytesValue: 'YQ==',
+            boolValue: true,
+            stringValue: "stringValue_example",
+            timestampValue: new Date('1970-01-01T00:00:00.00Z'),
+            bigintValue: {
+              negative: true,
+              data: 'YQ==',
+            },
+            bigdecimalValue: {
+              value: {
+                negative: true,
+                data: 'YQ==',
+              },
+              exp: 1,
+            },
+            listValue: {
+              values: [
+                ,
+              ],
+            },
+            structValue: ,
+            tokenValue: {
+              token: {
+                symbol: "symbol_example",
+                address: {
+                  address: "address_example",
+                  chain: "chain_example",
+                },
+              },
+              amount: {
+                value: {
+                  negative: true,
+                  data: 'YQ==',
+                },
+                exp: 1,
+              },
+              specifiedAt: new Date('1970-01-01T00:00:00.00Z'),
+            },
+          },
+        },
+      },
+      name: "name_example",
+    },
+    source: "SQL_EDITOR",
+    runImmediately: true,
+    queryId: "queryId_example",
+  },
+};
+
+const data = await apiInstance.saveSQL2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **AnalyticServiceSaveSQLRequest**|  |
+
+
+### Return type
+
+**AnalyticServiceSaveSQLResponse**
 
 ### Authorization
 

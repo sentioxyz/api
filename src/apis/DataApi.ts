@@ -9,7 +9,14 @@ import {SecurityAuthentication} from '../auth/auth.js';
 
 
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
+import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
+import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
+import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
+import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
+import { AnalyticServiceSaveSQLRequest } from '../models/AnalyticServiceSaveSQLRequest.js';
+import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
 import { AnalyticServiceSyncExecuteSQLResponse } from '../models/AnalyticServiceSyncExecuteSQLResponse.js';
 import { InsightsServiceInsightsServiceQueryBody } from '../models/InsightsServiceInsightsServiceQueryBody.js';
@@ -722,6 +729,250 @@ export class DataApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param projectId use project id if project_owner and project_slug are not provided
+     * @param version version of the datasource, default to the active version if not provided
+     * @param executionId 
+     */
+    public async querySQLResult(owner: string, slug: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'owner' is not null or undefined
+        if (owner === null || owner === undefined) {
+            throw new RequiredError("DataApi", "querySQLResult", "owner");
+        }
+
+
+        // verify required parameter 'slug' is not null or undefined
+        if (slug === null || slug === undefined) {
+            throw new RequiredError("DataApi", "querySQLResult", "slug");
+        }
+
+
+
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/{owner}/{slug}/sql/query_result'
+            .replace('{' + 'owner' + '}', encodeURIComponent(String(owner)))
+            .replace('{' + 'slug' + '}', encodeURIComponent(String(slug)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (projectId !== undefined) {
+            requestContext.setQueryParam("projectId", ObjectSerializer.serialize(projectId, "string", ""));
+        }
+
+        // Query Params
+        if (version !== undefined) {
+            requestContext.setQueryParam("version", ObjectSerializer.serialize(version, "number", "int32"));
+        }
+
+        // Query Params
+        if (executionId !== undefined) {
+            requestContext.setQueryParam("executionId", ObjectSerializer.serialize(executionId, "string", ""));
+        }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Query the result of a SQL query by execution_id.
+     * Query SQL Result
+     * @param projectOwner username or organization name
+     * @param projectSlug project slug
+     * @param projectId use project id if project_owner and project_slug are not provided
+     * @param version version of the datasource, default to the active version if not provided
+     * @param executionId 
+     */
+    public async querySQLResult2(projectOwner?: string, projectSlug?: string, projectId?: string, version?: number, executionId?: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+
+
+
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/sql/query_result';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (projectOwner !== undefined) {
+            requestContext.setQueryParam("projectOwner", ObjectSerializer.serialize(projectOwner, "string", ""));
+        }
+
+        // Query Params
+        if (projectSlug !== undefined) {
+            requestContext.setQueryParam("projectSlug", ObjectSerializer.serialize(projectSlug, "string", ""));
+        }
+
+        // Query Params
+        if (projectId !== undefined) {
+            requestContext.setQueryParam("projectId", ObjectSerializer.serialize(projectId, "string", ""));
+        }
+
+        // Query Params
+        if (version !== undefined) {
+            requestContext.setQueryParam("version", ObjectSerializer.serialize(version, "number", "int32"));
+        }
+
+        // Query Params
+        if (executionId !== undefined) {
+            requestContext.setQueryParam("executionId", ObjectSerializer.serialize(executionId, "string", ""));
+        }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body 
+     */
+    public async rerunSQLQuery(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'owner' is not null or undefined
+        if (owner === null || owner === undefined) {
+            throw new RequiredError("DataApi", "rerunSQLQuery", "owner");
+        }
+
+
+        // verify required parameter 'slug' is not null or undefined
+        if (slug === null || slug === undefined) {
+            throw new RequiredError("DataApi", "rerunSQLQuery", "slug");
+        }
+
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("DataApi", "rerunSQLQuery", "body");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/{owner}/{slug}/sql/rerun_query'
+            .replace('{' + 'owner' + '}', encodeURIComponent(String(owner)))
+            .replace('{' + 'slug' + '}', encodeURIComponent(String(slug)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "AnalyticServiceAnalyticServiceRerunSQLQueryBody", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
+     * Rerun SQL
+     * @param body 
+     */
+    public async rerunSQLQuery2(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("DataApi", "rerunSQLQuery2", "body");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/sql/rerun_query';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "AnalyticServiceRerunSQLQueryRequest", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Query for retention.
      * Retention query
      * @param owner 
@@ -814,6 +1065,118 @@ export class DataApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
             ObjectSerializer.serialize(body, "InsightsServiceRetentionRequest", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param body 
+     */
+    public async saveSQL(owner: string, slug: string, body: AnalyticServiceAnalyticServiceSaveSQLBody, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'owner' is not null or undefined
+        if (owner === null || owner === undefined) {
+            throw new RequiredError("DataApi", "saveSQL", "owner");
+        }
+
+
+        // verify required parameter 'slug' is not null or undefined
+        if (slug === null || slug === undefined) {
+            throw new RequiredError("DataApi", "saveSQL", "slug");
+        }
+
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("DataApi", "saveSQL", "body");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/{owner}/{slug}/sql/save_query'
+            .replace('{' + 'owner' + '}', encodeURIComponent(String(owner)))
+            .replace('{' + 'slug' + '}', encodeURIComponent(String(slug)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "AnalyticServiceAnalyticServiceSaveSQLBody", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save SQL
+     * @param body 
+     */
+    public async saveSQL2(body: AnalyticServiceSaveSQLRequest, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("DataApi", "saveSQL2", "body");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/sql/save_query';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "AnalyticServiceSaveSQLRequest", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -1102,6 +1465,122 @@ export class DataApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to querySQLResult
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async querySQLResultWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: AnalyticServiceQuerySQLResultResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceQuerySQLResultResponse", ""
+            ) as AnalyticServiceQuerySQLResultResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: AnalyticServiceQuerySQLResultResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceQuerySQLResultResponse", ""
+            ) as AnalyticServiceQuerySQLResultResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to querySQLResult2
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async querySQLResult2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: AnalyticServiceQuerySQLResultResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceQuerySQLResultResponse", ""
+            ) as AnalyticServiceQuerySQLResultResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: AnalyticServiceQuerySQLResultResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceQuerySQLResultResponse", ""
+            ) as AnalyticServiceQuerySQLResultResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to rerunSQLQuery
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async rerunSQLQueryWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: AnalyticServiceRerunSQLQueryResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceRerunSQLQueryResponse", ""
+            ) as AnalyticServiceRerunSQLQueryResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: AnalyticServiceRerunSQLQueryResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceRerunSQLQueryResponse", ""
+            ) as AnalyticServiceRerunSQLQueryResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to rerunSQLQuery2
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async rerunSQLQuery2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: AnalyticServiceRerunSQLQueryResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceRerunSQLQueryResponse", ""
+            ) as AnalyticServiceRerunSQLQueryResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: AnalyticServiceRerunSQLQueryResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceRerunSQLQueryResponse", ""
+            ) as AnalyticServiceRerunSQLQueryResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to retention
      * @throws ApiException if the response code was not in [200, 299]
      */
@@ -1150,6 +1629,64 @@ export class DataApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "InsightsServiceRetentionResponse", ""
             ) as InsightsServiceRetentionResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to saveSQL
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async saveSQLWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AnalyticServiceSaveSQLResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: AnalyticServiceSaveSQLResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceSaveSQLResponse", ""
+            ) as AnalyticServiceSaveSQLResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: AnalyticServiceSaveSQLResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceSaveSQLResponse", ""
+            ) as AnalyticServiceSaveSQLResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to saveSQL2
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async saveSQL2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<AnalyticServiceSaveSQLResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: AnalyticServiceSaveSQLResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceSaveSQLResponse", ""
+            ) as AnalyticServiceSaveSQLResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: AnalyticServiceSaveSQLResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceSaveSQLResponse", ""
+            ) as AnalyticServiceSaveSQLResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
