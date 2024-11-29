@@ -275,6 +275,24 @@ export class PromiseAlertsApi {
     }
 
     /**
+     * Delete an alert rule
+     * @param id
+     */
+    public deleteAlertRuleWithHttpInfo(id: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.deleteAlertRuleWithHttpInfo(id, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Delete an alert rule
+     * @param id
+     */
+    public deleteAlertRule(id: string, _options?: Configuration): Promise<any> {
+        const result = this.api.deleteAlertRule(id, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Find an alert rule by id, and list all alerts for this rule
      * @param ruleId
      * @param [page]
@@ -1093,41 +1111,6 @@ export class PromiseDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const result = this.api.simulateTransactionBundle(owner, slug, chainId, body, _options);
-        return result.toPromise();
-    }
-
-
-}
-
-
-
-import { ObservableDefaultApi } from './ObservableAPI.js';
-
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-export class PromiseDefaultApi {
-    private api: ObservableDefaultApi
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: DefaultApiRequestFactory,
-        responseProcessor?: DefaultApiResponseProcessor
-    ) {
-        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * @param id
-     */
-    public deleteAlertRuleWithHttpInfo(id: string, _options?: Configuration): Promise<HttpInfo<any>> {
-        const result = this.api.deleteAlertRuleWithHttpInfo(id, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * @param id
-     */
-    public deleteAlertRule(id: string, _options?: Configuration): Promise<any> {
-        const result = this.api.deleteAlertRule(id, _options);
         return result.toPromise();
     }
 

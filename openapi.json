@@ -71,6 +71,7 @@
     },
     "/api/v1/alerts/rule/{id}": {
       "delete": {
+        "summary": "Delete an alert rule",
         "operationId": "DeleteAlertRule",
         "responses": {
           "200": {
@@ -88,6 +89,9 @@
             "required": true,
             "type": "string"
           }
+        ],
+        "tags": [
+          "Alerts"
         ]
       },
       "put": {

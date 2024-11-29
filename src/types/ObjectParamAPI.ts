@@ -264,6 +264,16 @@ import { WebServicePanel } from '../models/WebServicePanel.js';
 import { ObservableAlertsApi } from "./ObservableAPI.js";
 import { AlertsApiRequestFactory, AlertsApiResponseProcessor} from "../apis/AlertsApi.js";
 
+export interface AlertsApiDeleteAlertRuleRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof AlertsApideleteAlertRule
+     */
+    id: string
+}
+
 export interface AlertsApiGetAlertRequest {
     /**
      * 
@@ -328,6 +338,22 @@ export class ObjectAlertsApi {
 
     public constructor(configuration: Configuration, requestFactory?: AlertsApiRequestFactory, responseProcessor?: AlertsApiResponseProcessor) {
         this.api = new ObservableAlertsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Delete an alert rule
+     * @param param the request object
+     */
+    public deleteAlertRuleWithHttpInfo(param: AlertsApiDeleteAlertRuleRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.deleteAlertRuleWithHttpInfo(param.id,  options).toPromise();
+    }
+
+    /**
+     * Delete an alert rule
+     * @param param the request object
+     */
+    public deleteAlertRule(param: AlertsApiDeleteAlertRuleRequest, options?: Configuration): Promise<any> {
+        return this.api.deleteAlertRule(param.id,  options).toPromise();
     }
 
     /**
@@ -1832,42 +1858,6 @@ export class ObjectDebugAndSimulationApi {
      */
     public simulateTransactionBundle(param: DebugAndSimulationApiSimulateTransactionBundleRequest, options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         return this.api.simulateTransactionBundle(param.owner, param.slug, param.chainId, param.body,  options).toPromise();
-    }
-
-}
-
-import { ObservableDefaultApi } from "./ObservableAPI.js";
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-
-export interface DefaultApiDeleteAlertRuleRequest {
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DefaultApideleteAlertRule
-     */
-    id: string
-}
-
-export class ObjectDefaultApi {
-    private api: ObservableDefaultApi
-
-    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
-        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * @param param the request object
-     */
-    public deleteAlertRuleWithHttpInfo(param: DefaultApiDeleteAlertRuleRequest, options?: Configuration): Promise<HttpInfo<any>> {
-        return this.api.deleteAlertRuleWithHttpInfo(param.id,  options).toPromise();
-    }
-
-    /**
-     * @param param the request object
-     */
-    public deleteAlertRule(param: DefaultApiDeleteAlertRuleRequest, options?: Configuration): Promise<any> {
-        return this.api.deleteAlertRule(param.id,  options).toPromise();
     }
 
 }

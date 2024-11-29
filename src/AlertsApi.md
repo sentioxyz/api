@@ -4,11 +4,64 @@ All URIs are relative to *https://app.sentio.xyz*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**deleteAlertRule**](AlertsApi.md#deleteAlertRule) | **DELETE** /api/v1/alerts/rule/{id} | Delete an alert rule
 [**getAlert**](AlertsApi.md#getAlert) | **GET** /api/v1/alerts/{ruleId} | Find an alert rule by id, and list all alerts for this rule
 [**getAlertRules**](AlertsApi.md#getAlertRules) | **GET** /api/v1/alerts/rule/project/{projectId} | List all alert rules for a project
 [**saveAlertRule**](AlertsApi.md#saveAlertRule) | **POST** /api/v1/alerts/rule | Save an alert rule
 [**saveAlertRule2**](AlertsApi.md#saveAlertRule2) | **PUT** /api/v1/alerts/rule/{id} | Save an alert rule
 
+
+# **deleteAlertRule**
+> any deleteAlertRule()
+
+
+### Example
+
+
+```typescript
+import { createConfiguration, AlertsApi } from '';
+import type { AlertsApiDeleteAlertRuleRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new AlertsApi(configuration);
+
+const request: AlertsApiDeleteAlertRuleRequest = {
+  
+  id: "id_example",
+};
+
+const data = await apiInstance.deleteAlertRule(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] |  | defaults to undefined
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **getAlert**
 > AlertServiceGetAlertResponse getAlert()
