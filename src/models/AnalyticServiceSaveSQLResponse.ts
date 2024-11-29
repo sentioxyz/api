@@ -10,12 +10,9 @@
  * Do not edit the class manually.
  */
 
-import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
 import { HttpFile } from '../http/http.js';
 
 export class AnalyticServiceSaveSQLResponse {
-    'queueLength'?: number;
-    'executionInfo'?: AnalyticServiceExecutionInfo;
     'queryId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
@@ -23,18 +20,6 @@ export class AnalyticServiceSaveSQLResponse {
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "queueLength",
-            "baseName": "queueLength",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "executionInfo",
-            "baseName": "executionInfo",
-            "type": "AnalyticServiceExecutionInfo",
-            "format": ""
-        },
         {
             "name": "queryId",
             "baseName": "queryId",

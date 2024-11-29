@@ -16,9 +16,11 @@ import { AlertServiceLogCondition } from '../models/AlertServiceLogCondition.js'
 import { AlertServiceMute } from '../models/AlertServiceMute.js';
 import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
+import { AnalyticServiceAnalyticServiceExecuteSQLAsyncBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
 import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
+import { AnalyticServiceAsyncExecuteSQLResponse } from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
 import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecutionStatus.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
@@ -28,7 +30,6 @@ import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticService
 import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
 import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
-import { AnalyticServiceSaveSQLRequest } from '../models/AnalyticServiceSaveSQLRequest.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
 import { AnalyticServiceSource } from '../models/AnalyticServiceSource.js';
@@ -448,6 +449,29 @@ export interface DataApiExecuteSQLRequest {
     body: AnalyticServiceAnalyticServiceExecuteSQLBody
 }
 
+export interface DataApiExecuteSQLAsyncRequest {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiexecuteSQLAsync
+     */
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiexecuteSQLAsync
+     */
+    slug: string
+    /**
+     * 
+     * @type AnalyticServiceAnalyticServiceExecuteSQLAsyncBody
+     * @memberof DataApiexecuteSQLAsync
+     */
+    body: AnalyticServiceAnalyticServiceExecuteSQLAsyncBody
+}
+
 export interface DataApiGetMetricsRequest {
     /**
      * 
@@ -820,6 +844,13 @@ export interface DataApiQuerySQLResultRequest {
      */
     slug: string
     /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLResult
+     */
+    executionId: string
+    /**
      * use project id if project_owner and project_slug are not provided
      * Defaults to: undefined
      * @type string
@@ -833,83 +864,6 @@ export interface DataApiQuerySQLResultRequest {
      * @memberof DataApiquerySQLResult
      */
     version?: number
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApiquerySQLResult
-     */
-    executionId?: string
-}
-
-export interface DataApiQuerySQLResult2Request {
-    /**
-     * username or organization name
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApiquerySQLResult2
-     */
-    projectOwner?: string
-    /**
-     * project slug
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApiquerySQLResult2
-     */
-    projectSlug?: string
-    /**
-     * use project id if project_owner and project_slug are not provided
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApiquerySQLResult2
-     */
-    projectId?: string
-    /**
-     * version of the datasource, default to the active version if not provided
-     * Defaults to: undefined
-     * @type number
-     * @memberof DataApiquerySQLResult2
-     */
-    version?: number
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApiquerySQLResult2
-     */
-    executionId?: string
-}
-
-export interface DataApiRerunSQLQueryRequest {
-    /**
-     * username or organization name
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApirerunSQLQuery
-     */
-    owner: string
-    /**
-     * project slug
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApirerunSQLQuery
-     */
-    slug: string
-    /**
-     * 
-     * @type AnalyticServiceAnalyticServiceRerunSQLQueryBody
-     * @memberof DataApirerunSQLQuery
-     */
-    body: AnalyticServiceAnalyticServiceRerunSQLQueryBody
-}
-
-export interface DataApiRerunSQLQuery2Request {
-    /**
-     * 
-     * @type AnalyticServiceRerunSQLQueryRequest
-     * @memberof DataApirerunSQLQuery2
-     */
-    body: AnalyticServiceRerunSQLQueryRequest
 }
 
 export interface DataApiRetentionRequest {
@@ -969,11 +923,25 @@ export interface DataApiSaveSQLRequest {
 
 export interface DataApiSaveSQL2Request {
     /**
-     * 
-     * @type AnalyticServiceSaveSQLRequest
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
      * @memberof DataApisaveSQL2
      */
-    body: AnalyticServiceSaveSQLRequest
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApisaveSQL2
+     */
+    slug: string
+    /**
+     * 
+     * @type AnalyticServiceAnalyticServiceSaveSQLBody
+     * @memberof DataApisaveSQL2
+     */
+    body: AnalyticServiceAnalyticServiceSaveSQLBody
 }
 
 export class ObjectDataApi {
@@ -999,6 +967,24 @@ export class ObjectDataApi {
      */
     public executeSQL(param: DataApiExecuteSQLRequest, options?: Configuration): Promise<AnalyticServiceSyncExecuteSQLResponse> {
         return this.api.executeSQL(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * Execute SQL in a project asynchronously.
+     * Execute SQL by Async
+     * @param param the request object
+     */
+    public executeSQLAsyncWithHttpInfo(param: DataApiExecuteSQLAsyncRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceAsyncExecuteSQLResponse>> {
+        return this.api.executeSQLAsyncWithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * Execute SQL in a project asynchronously.
+     * Execute SQL by Async
+     * @param param the request object
+     */
+    public executeSQLAsync(param: DataApiExecuteSQLAsyncRequest, options?: Configuration): Promise<AnalyticServiceAsyncExecuteSQLResponse> {
+        return this.api.executeSQLAsync(param.owner, param.slug, param.body,  options).toPromise();
     }
 
     /**
@@ -1143,7 +1129,7 @@ export class ObjectDataApi {
      * @param param the request object
      */
     public querySQLResultWithHttpInfo(param: DataApiQuerySQLResultRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
-        return this.api.querySQLResultWithHttpInfo(param.owner, param.slug, param.projectId, param.version, param.executionId,  options).toPromise();
+        return this.api.querySQLResultWithHttpInfo(param.owner, param.slug, param.executionId, param.projectId, param.version,  options).toPromise();
     }
 
     /**
@@ -1152,61 +1138,7 @@ export class ObjectDataApi {
      * @param param the request object
      */
     public querySQLResult(param: DataApiQuerySQLResultRequest, options?: Configuration): Promise<AnalyticServiceQuerySQLResultResponse> {
-        return this.api.querySQLResult(param.owner, param.slug, param.projectId, param.version, param.executionId,  options).toPromise();
-    }
-
-    /**
-     * Query the result of a SQL query by execution_id.
-     * Query SQL Result
-     * @param param the request object
-     */
-    public querySQLResult2WithHttpInfo(param: DataApiQuerySQLResult2Request = {}, options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLResultResponse>> {
-        return this.api.querySQLResult2WithHttpInfo(param.projectOwner, param.projectSlug, param.projectId, param.version, param.executionId,  options).toPromise();
-    }
-
-    /**
-     * Query the result of a SQL query by execution_id.
-     * Query SQL Result
-     * @param param the request object
-     */
-    public querySQLResult2(param: DataApiQuerySQLResult2Request = {}, options?: Configuration): Promise<AnalyticServiceQuerySQLResultResponse> {
-        return this.api.querySQLResult2(param.projectOwner, param.projectSlug, param.projectId, param.version, param.executionId,  options).toPromise();
-    }
-
-    /**
-     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
-     * Rerun SQL
-     * @param param the request object
-     */
-    public rerunSQLQueryWithHttpInfo(param: DataApiRerunSQLQueryRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        return this.api.rerunSQLQueryWithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
-    }
-
-    /**
-     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
-     * Rerun SQL
-     * @param param the request object
-     */
-    public rerunSQLQuery(param: DataApiRerunSQLQueryRequest, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
-        return this.api.rerunSQLQuery(param.owner, param.slug, param.body,  options).toPromise();
-    }
-
-    /**
-     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
-     * Rerun SQL
-     * @param param the request object
-     */
-    public rerunSQLQuery2WithHttpInfo(param: DataApiRerunSQLQuery2Request, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        return this.api.rerunSQLQuery2WithHttpInfo(param.body,  options).toPromise();
-    }
-
-    /**
-     * Rerun your SQL query by query_id, you can also update the query and run it.  It will return execution_id, use it to query the result.
-     * Rerun SQL
-     * @param param the request object
-     */
-    public rerunSQLQuery2(param: DataApiRerunSQLQuery2Request, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
-        return this.api.rerunSQLQuery2(param.body,  options).toPromise();
+        return this.api.querySQLResult(param.owner, param.slug, param.executionId, param.projectId, param.version,  options).toPromise();
     }
 
     /**
@@ -1246,7 +1178,7 @@ export class ObjectDataApi {
     }
 
     /**
-     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save or update a SQL query in a project.
      * Save SQL
      * @param param the request object
      */
@@ -1255,7 +1187,7 @@ export class ObjectDataApi {
     }
 
     /**
-     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save or update a SQL query in a project.
      * Save SQL
      * @param param the request object
      */
@@ -1264,21 +1196,21 @@ export class ObjectDataApi {
     }
 
     /**
-     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save or update a SQL query in a project.
      * Save SQL
      * @param param the request object
      */
     public saveSQL2WithHttpInfo(param: DataApiSaveSQL2Request, options?: Configuration): Promise<HttpInfo<AnalyticServiceSaveSQLResponse>> {
-        return this.api.saveSQL2WithHttpInfo(param.body,  options).toPromise();
+        return this.api.saveSQL2WithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
     }
 
     /**
-     * Save your SQL query, and you can run it immediately or later.  It will return query_id, you can use it to rerun the query. if you enable the \"run_immediately\" field, it will run the query immediately, and return execution_id, use it to query the result.
+     * Save or update a SQL query in a project.
      * Save SQL
      * @param param the request object
      */
     public saveSQL2(param: DataApiSaveSQL2Request, options?: Configuration): Promise<AnalyticServiceSaveSQLResponse> {
-        return this.api.saveSQL2(param.body,  options).toPromise();
+        return this.api.saveSQL2(param.owner, param.slug, param.body,  options).toPromise();
     }
 
 }
@@ -1858,6 +1790,82 @@ export class ObjectDebugAndSimulationApi {
      */
     public simulateTransactionBundle(param: DebugAndSimulationApiSimulateTransactionBundleRequest, options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         return this.api.simulateTransactionBundle(param.owner, param.slug, param.chainId, param.body,  options).toPromise();
+    }
+
+}
+
+import { ObservableDefaultApi } from "./ObservableAPI.js";
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+
+export interface DefaultApiRerunSQLQueryRequest {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApirerunSQLQuery
+     */
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApirerunSQLQuery
+     */
+    slug: string
+    /**
+     * 
+     * @type AnalyticServiceAnalyticServiceRerunSQLQueryBody
+     * @memberof DefaultApirerunSQLQuery
+     */
+    body: AnalyticServiceAnalyticServiceRerunSQLQueryBody
+}
+
+export interface DefaultApiRerunSQLQuery2Request {
+    /**
+     * Deprecated: will drop in the future.
+     * @type AnalyticServiceRerunSQLQueryRequest
+     * @memberof DefaultApirerunSQLQuery2
+     */
+    body: AnalyticServiceRerunSQLQueryRequest
+}
+
+export class ObjectDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * deprecated
+     * @param param the request object
+     */
+    public rerunSQLQueryWithHttpInfo(param: DefaultApiRerunSQLQueryRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        return this.api.rerunSQLQueryWithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * deprecated
+     * @param param the request object
+     */
+    public rerunSQLQuery(param: DefaultApiRerunSQLQueryRequest, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
+        return this.api.rerunSQLQuery(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * deprecated
+     * @param param the request object
+     */
+    public rerunSQLQuery2WithHttpInfo(param: DefaultApiRerunSQLQuery2Request, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
+        return this.api.rerunSQLQuery2WithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * deprecated
+     * @param param the request object
+     */
+    public rerunSQLQuery2(param: DefaultApiRerunSQLQuery2Request, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
+        return this.api.rerunSQLQuery2(param.body,  options).toPromise();
     }
 
 }

@@ -13,9 +13,11 @@ export * from '../models/AlertServiceLogCondition.js';
 export * from '../models/AlertServiceMute.js';
 export * from '../models/AlertServiceSample.js';
 export * from '../models/AlertServiceSaveAlertRuleRequest.js';
+export * from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 export * from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 export * from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
 export * from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
+export * from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 export * from '../models/AnalyticServiceExecutionInfo.js';
 export * from '../models/AnalyticServiceExecutionStatus.js';
 export * from '../models/AnalyticServiceLogQueryRequestFilter.js';
@@ -25,7 +27,6 @@ export * from '../models/AnalyticServiceQuerySQLResultResponse.js';
 export * from '../models/AnalyticServiceRerunSQLQueryRequest.js';
 export * from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 export * from '../models/AnalyticServiceSQLQuery.js';
-export * from '../models/AnalyticServiceSaveSQLRequest.js';
 export * from '../models/AnalyticServiceSaveSQLResponse.js';
 export * from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
 export * from '../models/AnalyticServiceSource.js';
@@ -273,9 +274,11 @@ import { AlertServiceLogCondition } from '../models/AlertServiceLogCondition.js'
 import { AlertServiceMute } from '../models/AlertServiceMute.js';
 import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
+import { AnalyticServiceAnalyticServiceExecuteSQLAsyncBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
 import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
-import { AnalyticServiceAnalyticServiceSaveSQLBody       } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
+import { AnalyticServiceAnalyticServiceSaveSQLBody     } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
+import { AnalyticServiceAsyncExecuteSQLResponse } from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 import { AnalyticServiceExecutionInfo           } from '../models/AnalyticServiceExecutionInfo.js';
 import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecutionStatus.js';
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
@@ -285,7 +288,6 @@ import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticService
 import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
 import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
-import { AnalyticServiceSaveSQLRequest         } from '../models/AnalyticServiceSaveSQLRequest.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
 import { AnalyticServiceSource } from '../models/AnalyticServiceSource.js';
@@ -588,9 +590,11 @@ let typeMap: {[index: string]: any} = {
     "AlertServiceMute": AlertServiceMute,
     "AlertServiceSample": AlertServiceSample,
     "AlertServiceSaveAlertRuleRequest": AlertServiceSaveAlertRuleRequest,
+    "AnalyticServiceAnalyticServiceExecuteSQLAsyncBody": AnalyticServiceAnalyticServiceExecuteSQLAsyncBody,
     "AnalyticServiceAnalyticServiceExecuteSQLBody": AnalyticServiceAnalyticServiceExecuteSQLBody,
     "AnalyticServiceAnalyticServiceRerunSQLQueryBody": AnalyticServiceAnalyticServiceRerunSQLQueryBody,
     "AnalyticServiceAnalyticServiceSaveSQLBody": AnalyticServiceAnalyticServiceSaveSQLBody,
+    "AnalyticServiceAsyncExecuteSQLResponse": AnalyticServiceAsyncExecuteSQLResponse,
     "AnalyticServiceExecutionInfo": AnalyticServiceExecutionInfo,
     "AnalyticServiceLogQueryRequestFilter": AnalyticServiceLogQueryRequestFilter,
     "AnalyticServiceLogQueryRequestSort": AnalyticServiceLogQueryRequestSort,
@@ -599,7 +603,6 @@ let typeMap: {[index: string]: any} = {
     "AnalyticServiceRerunSQLQueryRequest": AnalyticServiceRerunSQLQueryRequest,
     "AnalyticServiceRerunSQLQueryResponse": AnalyticServiceRerunSQLQueryResponse,
     "AnalyticServiceSQLQuery": AnalyticServiceSQLQuery,
-    "AnalyticServiceSaveSQLRequest": AnalyticServiceSaveSQLRequest,
     "AnalyticServiceSaveSQLResponse": AnalyticServiceSaveSQLResponse,
     "AnalyticServiceSearchServiceQueryLogBody": AnalyticServiceSearchServiceQueryLogBody,
     "AnalyticServiceSyncExecuteSQLResponse": AnalyticServiceSyncExecuteSQLResponse,

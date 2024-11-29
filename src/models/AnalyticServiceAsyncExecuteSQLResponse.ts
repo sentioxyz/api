@@ -13,10 +13,9 @@
 import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
 import { HttpFile } from '../http/http.js';
 
-/**
-* Deprecated: will drop in the future.
-*/
-export class AnalyticServiceRerunSQLQueryResponse {
+export class AnalyticServiceAsyncExecuteSQLResponse {
+    'queryId'?: string;
+    'executionId'?: string;
     'queueLength'?: number;
     'executionInfo'?: AnalyticServiceExecutionInfo;
 
@@ -25,6 +24,18 @@ export class AnalyticServiceRerunSQLQueryResponse {
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "queryId",
+            "baseName": "queryId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "executionId",
+            "baseName": "executionId",
+            "type": "string",
+            "format": ""
+        },
         {
             "name": "queueLength",
             "baseName": "queueLength",
@@ -39,7 +50,7 @@ export class AnalyticServiceRerunSQLQueryResponse {
         }    ];
 
     static getAttributeTypeMap() {
-        return AnalyticServiceRerunSQLQueryResponse.attributeTypeMap;
+        return AnalyticServiceAsyncExecuteSQLResponse.attributeTypeMap;
     }
 
     public constructor() {

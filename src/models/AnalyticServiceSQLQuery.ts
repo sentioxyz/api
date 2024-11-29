@@ -17,7 +17,14 @@ export class AnalyticServiceSQLQuery {
     'sql'?: string;
     'size'?: number;
     'parameters'?: CommonRichStruct;
+    /**
+    * the name of the query, if sql is empty and name not empty, the query will be fetched by the name.
+    */
     'name'?: string;
+    /**
+    * the id of the query, if sql and name both empty, the query will be fetched by the id.
+    */
+    'queryId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -45,6 +52,12 @@ export class AnalyticServiceSQLQuery {
         {
             "name": "name",
             "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "queryId",
+            "baseName": "queryId",
             "type": "string",
             "format": ""
         }    ];

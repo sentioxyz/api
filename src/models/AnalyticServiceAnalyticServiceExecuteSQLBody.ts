@@ -19,7 +19,6 @@ export class AnalyticServiceAnalyticServiceExecuteSQLBody {
     'version'?: number;
     'sqlQuery'?: AnalyticServiceSQLQuery;
     'cursor'?: string;
-    'bypassCache'?: boolean;
     'cachePolicy'?: CommonCachePolicy;
 
     static readonly discriminator: string | undefined = undefined;
@@ -49,12 +48,6 @@ export class AnalyticServiceAnalyticServiceExecuteSQLBody {
             "name": "cursor",
             "baseName": "cursor",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "bypassCache",
-            "baseName": "bypassCache",
-            "type": "boolean",
             "format": ""
         },
         {

@@ -11,36 +11,21 @@
  */
 
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
-import { AnalyticServiceSource } from '../models/AnalyticServiceSource.js';
+import { CommonCachePolicy } from '../models/CommonCachePolicy.js';
 import { HttpFile } from '../http/http.js';
 
-export class AnalyticServiceSaveSQLRequest {
-    'projectOwner'?: string;
-    'projectSlug'?: string;
+export class AnalyticServiceAnalyticServiceExecuteSQLAsyncBody {
     'projectId'?: string;
     'version'?: number;
     'sqlQuery'?: AnalyticServiceSQLQuery;
-    'source'?: AnalyticServiceSource;
-    'runImmediately'?: boolean;
-    'queryId'?: string;
+    'cursor'?: string;
+    'cachePolicy'?: CommonCachePolicy;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "projectOwner",
-            "baseName": "projectOwner",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "projectSlug",
-            "baseName": "projectSlug",
-            "type": "string",
-            "format": ""
-        },
         {
             "name": "projectId",
             "baseName": "projectId",
@@ -60,30 +45,22 @@ export class AnalyticServiceSaveSQLRequest {
             "format": ""
         },
         {
-            "name": "source",
-            "baseName": "source",
-            "type": "AnalyticServiceSource",
-            "format": ""
-        },
-        {
-            "name": "runImmediately",
-            "baseName": "runImmediately",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "queryId",
-            "baseName": "queryId",
+            "name": "cursor",
+            "baseName": "cursor",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "cachePolicy",
+            "baseName": "cachePolicy",
+            "type": "CommonCachePolicy",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AnalyticServiceSaveSQLRequest.attributeTypeMap;
+        return AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-
-

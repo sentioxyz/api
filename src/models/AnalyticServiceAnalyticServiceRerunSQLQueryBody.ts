@@ -13,6 +13,9 @@
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { HttpFile } from '../http/http.js';
 
+/**
+* Deprecated: will drop in the future.
+*/
 export class AnalyticServiceAnalyticServiceRerunSQLQueryBody {
     'projectId'?: string;
     'version'?: number;

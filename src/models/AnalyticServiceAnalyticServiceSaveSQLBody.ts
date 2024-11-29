@@ -19,8 +19,6 @@ export class AnalyticServiceAnalyticServiceSaveSQLBody {
     'version'?: number;
     'sqlQuery'?: AnalyticServiceSQLQuery;
     'source'?: AnalyticServiceSource;
-    'runImmediately'?: boolean;
-    'queryId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -49,18 +47,6 @@ export class AnalyticServiceAnalyticServiceSaveSQLBody {
             "name": "source",
             "baseName": "source",
             "type": "AnalyticServiceSource",
-            "format": ""
-        },
-        {
-            "name": "runImmediately",
-            "baseName": "runImmediately",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "queryId",
-            "baseName": "queryId",
-            "type": "string",
             "format": ""
         }    ];
 
