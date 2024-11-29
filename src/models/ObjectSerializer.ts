@@ -3,6 +3,7 @@ export * from '../models/AlertServiceAlertAlertState.js';
 export * from '../models/AlertServiceAlertRule.js';
 export * from '../models/AlertServiceAlertRuleState.js';
 export * from '../models/AlertServiceAlertServiceSaveAlertRuleBody.js';
+export * from '../models/AlertServiceAlertServiceSaveAlertRuleBodyRule.js';
 export * from '../models/AlertServiceAlertType.js';
 export * from '../models/AlertServiceCondition.js';
 export * from '../models/AlertServiceConditionInsightQuery.js';
@@ -131,7 +132,6 @@ export * from '../models/InsightsServiceQueryResponse.js';
 export * from '../models/InsightsServiceQueryResponseResult.js';
 export * from '../models/InsightsServiceRetentionRequest.js';
 export * from '../models/InsightsServiceRetentionResponse.js';
-export * from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
 export * from '../models/MetricsServiceGetMetricsResponse.js';
 export * from '../models/MetricsServiceMetricInfo.js';
 export * from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -263,6 +263,7 @@ import { AlertServiceAlertAlertState          } from '../models/AlertServiceAler
 import { AlertServiceAlertRule                   } from '../models/AlertServiceAlertRule.js';
 import { AlertServiceAlertRuleState } from '../models/AlertServiceAlertRuleState.js';
 import { AlertServiceAlertServiceSaveAlertRuleBody } from '../models/AlertServiceAlertServiceSaveAlertRuleBody.js';
+import { AlertServiceAlertServiceSaveAlertRuleBodyRule                  } from '../models/AlertServiceAlertServiceSaveAlertRuleBodyRule.js';
 import { AlertServiceAlertType } from '../models/AlertServiceAlertType.js';
 import { AlertServiceCondition } from '../models/AlertServiceCondition.js';
 import { AlertServiceConditionInsightQuery } from '../models/AlertServiceConditionInsightQuery.js';
@@ -391,7 +392,6 @@ import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResp
 import { InsightsServiceQueryResponseResult       } from '../models/InsightsServiceQueryResponseResult.js';
 import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
 import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
-import { MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell                  } from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -579,6 +579,7 @@ let typeMap: {[index: string]: any} = {
     "AlertServiceAlertAlertState": AlertServiceAlertAlertState,
     "AlertServiceAlertRule": AlertServiceAlertRule,
     "AlertServiceAlertServiceSaveAlertRuleBody": AlertServiceAlertServiceSaveAlertRuleBody,
+    "AlertServiceAlertServiceSaveAlertRuleBodyRule": AlertServiceAlertServiceSaveAlertRuleBodyRule,
     "AlertServiceCondition": AlertServiceCondition,
     "AlertServiceConditionInsightQuery": AlertServiceConditionInsightQuery,
     "AlertServiceGetAlertResponse": AlertServiceGetAlertResponse,
@@ -683,7 +684,6 @@ let typeMap: {[index: string]: any} = {
     "InsightsServiceQueryResponseResult": InsightsServiceQueryResponseResult,
     "InsightsServiceRetentionRequest": InsightsServiceRetentionRequest,
     "InsightsServiceRetentionResponse": InsightsServiceRetentionResponse,
-    "MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell": MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell,
     "MetricsServiceGetMetricsResponse": MetricsServiceGetMetricsResponse,
     "MetricsServiceMetricInfo": MetricsServiceMetricInfo,
     "MetricsServiceMetricInfoLabelValues": MetricsServiceMetricInfoLabelValues,

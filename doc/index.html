@@ -919,7 +919,6 @@ ul.nav-tabs {
   }
 };
     defs["alert_service.AlertRule"] = {
-  "title" : "maybe need to extract to common so it could used by web as well",
   "type" : "object",
   "properties" : {
     "id" : {
@@ -994,7 +993,70 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "rule" : {
-      "$ref" : "#/components/schemas/maybe_need_to_extract_to_common_so_it_could_used_by_web_as_well"
+      "$ref" : "#/components/schemas/alert_service_AlertService_SaveAlertRuleBody_rule"
+    }
+  }
+};
+    defs["alert_service_AlertService_SaveAlertRuleBody_rule"] = {
+  "type" : "object",
+  "properties" : {
+    "projectId" : {
+      "title" : "project it belongs to",
+      "type" : "string"
+    },
+    "state" : {
+      "$ref" : "#/components/schemas/alert_service.AlertRule.State"
+    },
+    "subject" : {
+      "type" : "string"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "group" : {
+      "type" : "string"
+    },
+    "query" : {
+      "type" : "string"
+    },
+    "for" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "channels" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Channel"
+      }
+    },
+    "updateTime" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "condition" : {
+      "$ref" : "#/components/schemas/alert_service.Condition"
+    },
+    "renotifyDuration" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "renotifyLimit" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "alertType" : {
+      "$ref" : "#/components/schemas/alert_service.AlertType"
+    },
+    "logCondition" : {
+      "$ref" : "#/components/schemas/alert_service.LogCondition"
+    },
+    "lastQueryTime" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "mute" : {
+      "type" : "boolean"
+    },
+    "interval" : {
+      "$ref" : "#/components/schemas/common.Duration"
     }
   }
 };
@@ -3383,70 +3445,6 @@ ul.nav-tabs {
     },
     "error" : {
       "type" : "string"
-    }
-  }
-};
-    defs["maybe_need_to_extract_to_common_so_it_could_used_by_web_as_well"] = {
-  "title" : "maybe need to extract to common so it could used by web as well",
-  "type" : "object",
-  "properties" : {
-    "projectId" : {
-      "title" : "project it belongs to",
-      "type" : "string"
-    },
-    "state" : {
-      "$ref" : "#/components/schemas/alert_service.AlertRule.State"
-    },
-    "subject" : {
-      "type" : "string"
-    },
-    "message" : {
-      "type" : "string"
-    },
-    "group" : {
-      "type" : "string"
-    },
-    "query" : {
-      "type" : "string"
-    },
-    "for" : {
-      "$ref" : "#/components/schemas/common.Duration"
-    },
-    "channels" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Channel"
-      }
-    },
-    "updateTime" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "condition" : {
-      "$ref" : "#/components/schemas/alert_service.Condition"
-    },
-    "renotifyDuration" : {
-      "$ref" : "#/components/schemas/common.Duration"
-    },
-    "renotifyLimit" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "alertType" : {
-      "$ref" : "#/components/schemas/alert_service.AlertType"
-    },
-    "logCondition" : {
-      "$ref" : "#/components/schemas/alert_service.LogCondition"
-    },
-    "lastQueryTime" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "mute" : {
-      "type" : "boolean"
-    },
-    "interval" : {
-      "$ref" : "#/components/schemas/common.Duration"
     }
   }
 };

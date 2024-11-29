@@ -2684,8 +2684,7 @@
         "interval": {
           "$ref": "#/definitions/common.Duration"
         }
-      },
-      "title": "maybe need to extract to common so it could used by web as well"
+      }
     },
     "alert_service.AlertRule.State": {
       "type": "string",
@@ -2761,8 +2760,7 @@
             "interval": {
               "$ref": "#/definitions/common.Duration"
             }
-          },
-          "title": "maybe need to extract to common so it could used by web as well"
+          }
         }
       }
     },

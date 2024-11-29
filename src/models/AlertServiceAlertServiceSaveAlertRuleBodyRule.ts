@@ -18,7 +18,7 @@ import { CommonChannel } from '../models/CommonChannel.js';
 import { CommonDuration } from '../models/CommonDuration.js';
 import { HttpFile } from '../http/http.js';
 
-export class MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell {
+export class AlertServiceAlertServiceSaveAlertRuleBodyRule {
     'projectId'?: string;
     'state'?: AlertServiceAlertRuleState;
     'subject'?: string;
@@ -146,7 +146,7 @@ export class MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell {
         }    ];
 
     static getAttributeTypeMap() {
-        return MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.attributeTypeMap;
+        return AlertServiceAlertServiceSaveAlertRuleBodyRule.attributeTypeMap;
     }
 
     public constructor() {

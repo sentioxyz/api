@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell } from '../models/MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell.js';
+import { AlertServiceAlertServiceSaveAlertRuleBodyRule } from '../models/AlertServiceAlertServiceSaveAlertRuleBodyRule.js';
 import { HttpFile } from '../http/http.js';
 
 export class AlertServiceAlertServiceSaveAlertRuleBody {
-    'rule'?: MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell;
+    'rule'?: AlertServiceAlertServiceSaveAlertRuleBodyRule;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,7 +24,7 @@ export class AlertServiceAlertServiceSaveAlertRuleBody {
         {
             "name": "rule",
             "baseName": "rule",
-            "type": "MaybeNeedToExtractToCommonSoItCouldUsedByWebAsWell",
+            "type": "AlertServiceAlertServiceSaveAlertRuleBodyRule",
             "format": ""
         }    ];
 
