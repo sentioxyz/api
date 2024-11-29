@@ -166,31 +166,6 @@
         ]
       }
     },
-    "/api/v1/analytics/sql/rerun_query": {
-      "post": {
-        "summary": "deprecated",
-        "operationId": "RerunSQLQuery2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/analytic_service.RerunSQLQueryResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Deprecated: will drop in the future.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/analytic_service.RerunSQLQueryRequest"
-            }
-          }
-        ]
-      }
-    },
     "/api/v1/analytics/{owner}/{slug}/sql/execute": {
       "post": {
         "summary": "Execute SQL",
@@ -331,44 +306,6 @@
         ],
         "tags": [
           "Data"
-        ]
-      }
-    },
-    "/api/v1/analytics/{owner}/{slug}/sql/rerun_query": {
-      "post": {
-        "summary": "deprecated",
-        "operationId": "RerunSQLQuery",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/analytic_service.RerunSQLQueryResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "owner",
-            "description": "username or organization name",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "slug",
-            "description": "project slug",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/analytic_service.AnalyticService.RerunSQLQueryBody"
-            }
-          }
         ]
       }
     },
@@ -2989,27 +2926,6 @@
         }
       }
     },
-    "analytic_service.AnalyticService.RerunSQLQueryBody": {
-      "type": "object",
-      "properties": {
-        "projectId": {
-          "type": "string",
-          "title": "use project id if project_owner and project_slug are not provided"
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32",
-          "title": "version of the datasource, default to the active version if not provided"
-        },
-        "queryId": {
-          "type": "string"
-        },
-        "sqlQuery": {
-          "$ref": "#/definitions/analytic_service.SQLQuery"
-        }
-      },
-      "description": "Deprecated: will drop in the future."
-    },
     "analytic_service.AnalyticService.SaveSQLBody": {
       "type": "object",
       "properties": {
@@ -3153,48 +3069,6 @@
           "$ref": "#/definitions/analytic_service.ExecutionInfo"
         }
       }
-    },
-    "analytic_service.RerunSQLQueryRequest": {
-      "type": "object",
-      "properties": {
-        "projectOwner": {
-          "type": "string",
-          "title": "username or organization name"
-        },
-        "projectSlug": {
-          "type": "string",
-          "title": "project slug"
-        },
-        "projectId": {
-          "type": "string",
-          "title": "use project id if project_owner and project_slug are not provided"
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32",
-          "title": "version of the datasource, default to the active version if not provided"
-        },
-        "queryId": {
-          "type": "string"
-        },
-        "sqlQuery": {
-          "$ref": "#/definitions/analytic_service.SQLQuery"
-        }
-      },
-      "description": "Deprecated: will drop in the future."
-    },
-    "analytic_service.RerunSQLQueryResponse": {
-      "type": "object",
-      "properties": {
-        "queueLength": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "executionInfo": {
-          "$ref": "#/definitions/analytic_service.ExecutionInfo"
-        }
-      },
-      "description": "Deprecated: will drop in the future."
     },
     "analytic_service.SQLQuery": {
       "type": "object",

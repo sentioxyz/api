@@ -18,7 +18,6 @@ import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLAsyncBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
-import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
 import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
 import { AnalyticServiceAsyncExecuteSQLResponse } from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
@@ -27,8 +26,6 @@ import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceL
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
-import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
-import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
@@ -1068,65 +1065,6 @@ export class PromiseDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const result = this.api.simulateTransactionBundle(owner, slug, chainId, body, _options);
-        return result.toPromise();
-    }
-
-
-}
-
-
-
-import { ObservableDefaultApi } from './ObservableAPI.js';
-
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-export class PromiseDefaultApi {
-    private api: ObservableDefaultApi
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: DefaultApiRequestFactory,
-        responseProcessor?: DefaultApiResponseProcessor
-    ) {
-        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * deprecated
-     * @param owner username or organization name
-     * @param slug project slug
-     * @param body
-     */
-    public rerunSQLQueryWithHttpInfo(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        const result = this.api.rerunSQLQueryWithHttpInfo(owner, slug, body, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * deprecated
-     * @param owner username or organization name
-     * @param slug project slug
-     * @param body
-     */
-    public rerunSQLQuery(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
-        const result = this.api.rerunSQLQuery(owner, slug, body, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * deprecated
-     * @param body Deprecated: will drop in the future.
-     */
-    public rerunSQLQuery2WithHttpInfo(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        const result = this.api.rerunSQLQuery2WithHttpInfo(body, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * deprecated
-     * @param body Deprecated: will drop in the future.
-     */
-    public rerunSQLQuery2(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
-        const result = this.api.rerunSQLQuery2(body, _options);
         return result.toPromise();
     }
 

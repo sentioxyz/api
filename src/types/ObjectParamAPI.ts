@@ -18,7 +18,6 @@ import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLAsyncBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
-import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
 import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
 import { AnalyticServiceAsyncExecuteSQLResponse } from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
@@ -27,8 +26,6 @@ import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceL
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
-import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
-import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
@@ -1790,82 +1787,6 @@ export class ObjectDebugAndSimulationApi {
      */
     public simulateTransactionBundle(param: DebugAndSimulationApiSimulateTransactionBundleRequest, options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         return this.api.simulateTransactionBundle(param.owner, param.slug, param.chainId, param.body,  options).toPromise();
-    }
-
-}
-
-import { ObservableDefaultApi } from "./ObservableAPI.js";
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-
-export interface DefaultApiRerunSQLQueryRequest {
-    /**
-     * username or organization name
-     * Defaults to: undefined
-     * @type string
-     * @memberof DefaultApirerunSQLQuery
-     */
-    owner: string
-    /**
-     * project slug
-     * Defaults to: undefined
-     * @type string
-     * @memberof DefaultApirerunSQLQuery
-     */
-    slug: string
-    /**
-     * 
-     * @type AnalyticServiceAnalyticServiceRerunSQLQueryBody
-     * @memberof DefaultApirerunSQLQuery
-     */
-    body: AnalyticServiceAnalyticServiceRerunSQLQueryBody
-}
-
-export interface DefaultApiRerunSQLQuery2Request {
-    /**
-     * Deprecated: will drop in the future.
-     * @type AnalyticServiceRerunSQLQueryRequest
-     * @memberof DefaultApirerunSQLQuery2
-     */
-    body: AnalyticServiceRerunSQLQueryRequest
-}
-
-export class ObjectDefaultApi {
-    private api: ObservableDefaultApi
-
-    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
-        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * deprecated
-     * @param param the request object
-     */
-    public rerunSQLQueryWithHttpInfo(param: DefaultApiRerunSQLQueryRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        return this.api.rerunSQLQueryWithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
-    }
-
-    /**
-     * deprecated
-     * @param param the request object
-     */
-    public rerunSQLQuery(param: DefaultApiRerunSQLQueryRequest, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
-        return this.api.rerunSQLQuery(param.owner, param.slug, param.body,  options).toPromise();
-    }
-
-    /**
-     * deprecated
-     * @param param the request object
-     */
-    public rerunSQLQuery2WithHttpInfo(param: DefaultApiRerunSQLQuery2Request, options?: Configuration): Promise<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        return this.api.rerunSQLQuery2WithHttpInfo(param.body,  options).toPromise();
-    }
-
-    /**
-     * deprecated
-     * @param param the request object
-     */
-    public rerunSQLQuery2(param: DefaultApiRerunSQLQuery2Request, options?: Configuration): Promise<AnalyticServiceRerunSQLQueryResponse> {
-        return this.api.rerunSQLQuery2(param.body,  options).toPromise();
     }
 
 }

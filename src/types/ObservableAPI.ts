@@ -19,7 +19,6 @@ import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLAsyncBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
-import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
 import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
 import { AnalyticServiceAsyncExecuteSQLResponse } from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
@@ -28,8 +27,6 @@ import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceL
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
-import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
-import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
@@ -1448,90 +1445,6 @@ export class ObservableDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Observable<SolidityServiceSimulateTransactionBundleResponse> {
         return this.simulateTransactionBundleWithHttpInfo(owner, slug, chainId, body, _options).pipe(map((apiResponse: HttpInfo<SolidityServiceSimulateTransactionBundleResponse>) => apiResponse.data));
-    }
-
-}
-
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-export class ObservableDefaultApi {
-    private requestFactory: DefaultApiRequestFactory;
-    private responseProcessor: DefaultApiResponseProcessor;
-    private configuration: Configuration;
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: DefaultApiRequestFactory,
-        responseProcessor?: DefaultApiResponseProcessor
-    ) {
-        this.configuration = configuration;
-        this.requestFactory = requestFactory || new DefaultApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new DefaultApiResponseProcessor();
-    }
-
-    /**
-     * deprecated
-     * @param owner username or organization name
-     * @param slug project slug
-     * @param body
-     */
-    public rerunSQLQueryWithHttpInfo(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Observable<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        const requestContextPromise = this.requestFactory.rerunSQLQuery(owner, slug, body, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.rerunSQLQueryWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * deprecated
-     * @param owner username or organization name
-     * @param slug project slug
-     * @param body
-     */
-    public rerunSQLQuery(owner: string, slug: string, body: AnalyticServiceAnalyticServiceRerunSQLQueryBody, _options?: Configuration): Observable<AnalyticServiceRerunSQLQueryResponse> {
-        return this.rerunSQLQueryWithHttpInfo(owner, slug, body, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceRerunSQLQueryResponse>) => apiResponse.data));
-    }
-
-    /**
-     * deprecated
-     * @param body Deprecated: will drop in the future.
-     */
-    public rerunSQLQuery2WithHttpInfo(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Observable<HttpInfo<AnalyticServiceRerunSQLQueryResponse>> {
-        const requestContextPromise = this.requestFactory.rerunSQLQuery2(body, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.rerunSQLQuery2WithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * deprecated
-     * @param body Deprecated: will drop in the future.
-     */
-    public rerunSQLQuery2(body: AnalyticServiceRerunSQLQueryRequest, _options?: Configuration): Observable<AnalyticServiceRerunSQLQueryResponse> {
-        return this.rerunSQLQuery2WithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceRerunSQLQueryResponse>) => apiResponse.data));
     }
 
 }

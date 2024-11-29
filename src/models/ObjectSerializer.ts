@@ -15,7 +15,6 @@ export * from '../models/AlertServiceSample.js';
 export * from '../models/AlertServiceSaveAlertRuleRequest.js';
 export * from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 export * from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
-export * from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
 export * from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
 export * from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 export * from '../models/AnalyticServiceExecutionInfo.js';
@@ -24,8 +23,6 @@ export * from '../models/AnalyticServiceLogQueryRequestFilter.js';
 export * from '../models/AnalyticServiceLogQueryRequestSort.js';
 export * from '../models/AnalyticServiceLogQueryResponse.js';
 export * from '../models/AnalyticServiceQuerySQLResultResponse.js';
-export * from '../models/AnalyticServiceRerunSQLQueryRequest.js';
-export * from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 export * from '../models/AnalyticServiceSQLQuery.js';
 export * from '../models/AnalyticServiceSaveSQLResponse.js';
 export * from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
@@ -276,7 +273,6 @@ import { AlertServiceSample } from '../models/AlertServiceSample.js';
 import { AlertServiceSaveAlertRuleRequest } from '../models/AlertServiceSaveAlertRuleRequest.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLAsyncBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLAsyncBody.js';
 import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/AnalyticServiceAnalyticServiceExecuteSQLBody.js';
-import { AnalyticServiceAnalyticServiceRerunSQLQueryBody } from '../models/AnalyticServiceAnalyticServiceRerunSQLQueryBody.js';
 import { AnalyticServiceAnalyticServiceSaveSQLBody     } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
 import { AnalyticServiceAsyncExecuteSQLResponse } from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 import { AnalyticServiceExecutionInfo           } from '../models/AnalyticServiceExecutionInfo.js';
@@ -285,8 +281,6 @@ import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceL
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
-import { AnalyticServiceRerunSQLQueryRequest } from '../models/AnalyticServiceRerunSQLQueryRequest.js';
-import { AnalyticServiceRerunSQLQueryResponse } from '../models/AnalyticServiceRerunSQLQueryResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
@@ -592,7 +586,6 @@ let typeMap: {[index: string]: any} = {
     "AlertServiceSaveAlertRuleRequest": AlertServiceSaveAlertRuleRequest,
     "AnalyticServiceAnalyticServiceExecuteSQLAsyncBody": AnalyticServiceAnalyticServiceExecuteSQLAsyncBody,
     "AnalyticServiceAnalyticServiceExecuteSQLBody": AnalyticServiceAnalyticServiceExecuteSQLBody,
-    "AnalyticServiceAnalyticServiceRerunSQLQueryBody": AnalyticServiceAnalyticServiceRerunSQLQueryBody,
     "AnalyticServiceAnalyticServiceSaveSQLBody": AnalyticServiceAnalyticServiceSaveSQLBody,
     "AnalyticServiceAsyncExecuteSQLResponse": AnalyticServiceAsyncExecuteSQLResponse,
     "AnalyticServiceExecutionInfo": AnalyticServiceExecutionInfo,
@@ -600,8 +593,6 @@ let typeMap: {[index: string]: any} = {
     "AnalyticServiceLogQueryRequestSort": AnalyticServiceLogQueryRequestSort,
     "AnalyticServiceLogQueryResponse": AnalyticServiceLogQueryResponse,
     "AnalyticServiceQuerySQLResultResponse": AnalyticServiceQuerySQLResultResponse,
-    "AnalyticServiceRerunSQLQueryRequest": AnalyticServiceRerunSQLQueryRequest,
-    "AnalyticServiceRerunSQLQueryResponse": AnalyticServiceRerunSQLQueryResponse,
     "AnalyticServiceSQLQuery": AnalyticServiceSQLQuery,
     "AnalyticServiceSaveSQLResponse": AnalyticServiceSaveSQLResponse,
     "AnalyticServiceSearchServiceQueryLogBody": AnalyticServiceSearchServiceQueryLogBody,
