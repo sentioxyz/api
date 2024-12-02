@@ -10,14 +10,12 @@
  * Do not edit the class manually.
  */
 
-import { AnalyticServiceExecutionInfo } from '../models/AnalyticServiceExecutionInfo.js';
 import { HttpFile } from '../http/http.js';
 
 export class AnalyticServiceAsyncExecuteSQLResponse {
     'queryId'?: string;
     'executionId'?: string;
     'queueLength'?: number;
-    'executionInfo'?: AnalyticServiceExecutionInfo;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -41,12 +39,6 @@ export class AnalyticServiceAsyncExecuteSQLResponse {
             "baseName": "queueLength",
             "type": "number",
             "format": "int32"
-        },
-        {
-            "name": "executionInfo",
-            "baseName": "executionInfo",
-            "type": "AnalyticServiceExecutionInfo",
-            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

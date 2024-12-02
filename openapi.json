@@ -2958,9 +2958,6 @@
         "queueLength": {
           "type": "integer",
           "format": "int32"
-        },
-        "executionInfo": {
-          "$ref": "#/definitions/analytic_service.ExecutionInfo"
         }
       }
     },
