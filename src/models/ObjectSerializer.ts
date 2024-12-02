@@ -491,7 +491,7 @@ import { WebServiceChartConfigValueConfigStyle } from '../models/WebServiceChart
 import { WebServiceChartConfigValueFormatter } from '../models/WebServiceChartConfigValueFormatter.js';
 import { WebServiceChartConfigYAxisConfig } from '../models/WebServiceChartConfigYAxisConfig.js';
 import { WebServiceChartDataSourceType } from '../models/WebServiceChartDataSourceType.js';
-import { WebServiceDashboard                } from '../models/WebServiceDashboard.js';
+import { WebServiceDashboard                  } from '../models/WebServiceDashboard.js';
 import { WebServiceDashboardDashboardVisibility } from '../models/WebServiceDashboardDashboardVisibility.js';
 import { WebServiceDashboardExtra } from '../models/WebServiceDashboardExtra.js';
 import { WebServiceDashboardExtraTemplateVariable } from '../models/WebServiceDashboardExtraTemplateVariable.js';

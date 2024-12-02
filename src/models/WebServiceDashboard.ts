@@ -33,6 +33,8 @@ export class WebServiceDashboard {
     'ownerId'?: string;
     'tags'?: Array<string>;
     'url'?: string;
+    'projectOwner'?: string;
+    'projectSlug'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -126,6 +128,18 @@ export class WebServiceDashboard {
         {
             "name": "url",
             "baseName": "url",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "projectOwner",
+            "baseName": "projectOwner",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "projectSlug",
+            "baseName": "projectSlug",
             "type": "string",
             "format": ""
         }    ];

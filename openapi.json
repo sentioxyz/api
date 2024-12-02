@@ -7209,6 +7209,12 @@
         },
         "url": {
           "type": "string"
+        },
+        "projectOwner": {
+          "type": "string"
+        },
+        "projectSlug": {
+          "type": "string"
         }
       }
     },
