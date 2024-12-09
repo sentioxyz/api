@@ -2619,6 +2619,16 @@ export interface WebApiGetProjectRequest {
     slug: string
 }
 
+export interface WebApiGetProjectByIdRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof WebApigetProjectById
+     */
+    projectId: string
+}
+
 export interface WebApiGetProjectListRequest {
     /**
      * 
@@ -2792,6 +2802,22 @@ export class ObjectWebApi {
      */
     public getProject(param: WebApiGetProjectRequest, options?: Configuration): Promise<WebServiceGetProjectResponse> {
         return this.api.getProject(param.owner, param.slug,  options).toPromise();
+    }
+
+    /**
+     * Get project details
+     * @param param the request object
+     */
+    public getProjectByIdWithHttpInfo(param: WebApiGetProjectByIdRequest, options?: Configuration): Promise<HttpInfo<CommonProjectInfo>> {
+        return this.api.getProjectByIdWithHttpInfo(param.projectId,  options).toPromise();
+    }
+
+    /**
+     * Get project details
+     * @param param the request object
+     */
+    public getProjectById(param: WebApiGetProjectByIdRequest, options?: Configuration): Promise<CommonProjectInfo> {
+        return this.api.getProjectById(param.projectId,  options).toPromise();
     }
 
     /**

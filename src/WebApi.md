@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**getDashboard**](WebApi.md#getDashboard) | **GET** /api/v1/dashboards/{dashboardId} | Get a dashboard by id
 [**getDashboard2**](WebApi.md#getDashboard2) | **GET** /api/v1/projects/{owner}/{slug}/dashboards/{dashboardId} | Get a dashboard by id
 [**getProject**](WebApi.md#getProject) | **GET** /api/v1/project/{owner}/{slug} | Get project details
+[**getProjectById**](WebApi.md#getProjectById) | **GET** /api/v1/project/{projectId} | Get project details
 [**getProjectList**](WebApi.md#getProjectList) | **GET** /api/v1/projects | Get project list
 [**importDashboard**](WebApi.md#importDashboard) | **POST** /api/v1/dashboards/json | Import a dashboard to another dashboard
 [**listDashboards**](WebApi.md#listDashboards) | **GET** /api/v1/dashboards | List all dashboards in a project
@@ -287,6 +288,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 **WebServiceGetProjectResponse**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **getProjectById**
+> CommonProjectInfo getProjectById()
+
+
+### Example
+
+
+```typescript
+import { createConfiguration, WebApi } from '';
+import type { WebApiGetProjectByIdRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new WebApi(configuration);
+
+const request: WebApiGetProjectByIdRequest = {
+  
+  projectId: "projectId_example",
+};
+
+const data = await apiInstance.getProjectById(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectId** | [**string**] |  | defaults to undefined
+
+
+### Return type
+
+**CommonProjectInfo**
 
 ### Authorization
 

@@ -1592,6 +1592,24 @@ export class PromiseWebApi {
     }
 
     /**
+     * Get project details
+     * @param projectId
+     */
+    public getProjectByIdWithHttpInfo(projectId: string, _options?: Configuration): Promise<HttpInfo<CommonProjectInfo>> {
+        const result = this.api.getProjectByIdWithHttpInfo(projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get project details
+     * @param projectId
+     */
+    public getProjectById(projectId: string, _options?: Configuration): Promise<CommonProjectInfo> {
+        const result = this.api.getProjectById(projectId, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Get project list
      * @param [userId]
      * @param [organizationId]

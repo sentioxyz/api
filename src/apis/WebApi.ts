@@ -8,6 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util.js';
 import {SecurityAuthentication} from '../auth/auth.js';
 
 
+import { CommonProjectInfo } from '../models/CommonProjectInfo.js';
 import { WebServiceDashboard } from '../models/WebServiceDashboard.js';
 import { WebServiceExportDashboardResponse } from '../models/WebServiceExportDashboardResponse.js';
 import { WebServiceGetDashboardResponse } from '../models/WebServiceGetDashboardResponse.js';
@@ -258,6 +259,43 @@ export class WebApiRequestFactory extends BaseAPIRequestFactory {
         const localVarPath = '/api/v1/project/{owner}/{slug}'
             .replace('{' + 'owner' + '}', encodeURIComponent(String(owner)))
             .replace('{' + 'slug' + '}', encodeURIComponent(String(slug)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Get project details
+     * @param projectId 
+     */
+    public async getProjectById(projectId: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'projectId' is not null or undefined
+        if (projectId === null || projectId === undefined) {
+            throw new RequiredError("WebApi", "getProjectById", "projectId");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/project/{projectId}'
+            .replace('{' + 'projectId' + '}', encodeURIComponent(String(projectId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -628,6 +666,35 @@ export class WebApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "WebServiceGetProjectResponse", ""
             ) as WebServiceGetProjectResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to getProjectById
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async getProjectByIdWithHttpInfo(response: ResponseContext): Promise<HttpInfo<CommonProjectInfo >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: CommonProjectInfo = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "CommonProjectInfo", ""
+            ) as CommonProjectInfo;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: CommonProjectInfo = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "CommonProjectInfo", ""
+            ) as CommonProjectInfo;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

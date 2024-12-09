@@ -2228,6 +2228,37 @@ export class ObservableWebApi {
     }
 
     /**
+     * Get project details
+     * @param projectId
+     */
+    public getProjectByIdWithHttpInfo(projectId: string, _options?: Configuration): Observable<HttpInfo<CommonProjectInfo>> {
+        const requestContextPromise = this.requestFactory.getProjectById(projectId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProjectByIdWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get project details
+     * @param projectId
+     */
+    public getProjectById(projectId: string, _options?: Configuration): Observable<CommonProjectInfo> {
+        return this.getProjectByIdWithHttpInfo(projectId, _options).pipe(map((apiResponse: HttpInfo<CommonProjectInfo>) => apiResponse.data));
+    }
+
+    /**
      * Get project list
      * @param [userId]
      * @param [organizationId]

@@ -1298,6 +1298,31 @@
         ]
       }
     },
+    "/api/v1/project/{projectId}": {
+      "get": {
+        "summary": "Get project details",
+        "operationId": "GetProjectById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/common.ProjectInfo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Web"
+        ]
+      }
+    },
     "/api/v1/projects": {
       "get": {
         "summary": "Get project list",
