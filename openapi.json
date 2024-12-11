@@ -4006,6 +4006,9 @@
         },
         "enableMaterializedView": {
           "type": "boolean"
+        },
+        "defaultTimerange": {
+          "$ref": "#/definitions/common.TimeRangeLite"
         }
       }
     },
@@ -4083,6 +4086,9 @@
         },
         "enableMaterializedView": {
           "type": "boolean"
+        },
+        "defaultTimerange": {
+          "$ref": "#/definitions/common.TimeRangeLite"
         }
       }
     },

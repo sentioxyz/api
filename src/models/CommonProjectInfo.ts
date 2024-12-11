@@ -13,6 +13,7 @@
 import { CommonProjectSuperset } from '../models/CommonProjectSuperset.js';
 import { CommonProjectType } from '../models/CommonProjectType.js';
 import { CommonProjectVisibility } from '../models/CommonProjectVisibility.js';
+import { CommonTimeRangeLite } from '../models/CommonTimeRangeLite.js';
 import { HttpFile } from '../http/http.js';
 
 export class CommonProjectInfo {
@@ -30,6 +31,7 @@ export class CommonProjectInfo {
     'superset'?: CommonProjectSuperset;
     'enableDisk'?: boolean;
     'enableMaterializedView'?: boolean;
+    'defaultTimerange'?: CommonTimeRangeLite;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -118,6 +120,12 @@ export class CommonProjectInfo {
             "name": "enableMaterializedView",
             "baseName": "enableMaterializedView",
             "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "defaultTimerange",
+            "baseName": "defaultTimerange",
+            "type": "CommonTimeRangeLite",
             "format": ""
         }    ];
 
