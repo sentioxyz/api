@@ -231,6 +231,7 @@ export * from '../models/WebServiceChartConfigTimeRangeOverride.js';
 export * from '../models/WebServiceChartConfigValueConfig.js';
 export * from '../models/WebServiceChartConfigValueConfigStyle.js';
 export * from '../models/WebServiceChartConfigValueFormatter.js';
+export * from '../models/WebServiceChartConfigXAxisConfig.js';
 export * from '../models/WebServiceChartConfigYAxisConfig.js';
 export * from '../models/WebServiceChartDataSourceType.js';
 export * from '../models/WebServiceDashboard.js';
@@ -489,6 +490,7 @@ import { WebServiceChartConfigTimeRangeOverride } from '../models/WebServiceChar
 import { WebServiceChartConfigValueConfig          } from '../models/WebServiceChartConfigValueConfig.js';
 import { WebServiceChartConfigValueConfigStyle } from '../models/WebServiceChartConfigValueConfigStyle.js';
 import { WebServiceChartConfigValueFormatter } from '../models/WebServiceChartConfigValueFormatter.js';
+import { WebServiceChartConfigXAxisConfig } from '../models/WebServiceChartConfigXAxisConfig.js';
 import { WebServiceChartConfigYAxisConfig } from '../models/WebServiceChartConfigYAxisConfig.js';
 import { WebServiceChartDataSourceType } from '../models/WebServiceChartDataSourceType.js';
 import { WebServiceDashboard                  } from '../models/WebServiceDashboard.js';
@@ -768,6 +770,7 @@ let typeMap: {[index: string]: any} = {
     "WebServiceChartConfigTableConfig": WebServiceChartConfigTableConfig,
     "WebServiceChartConfigTimeRangeOverride": WebServiceChartConfigTimeRangeOverride,
     "WebServiceChartConfigValueConfig": WebServiceChartConfigValueConfig,
+    "WebServiceChartConfigXAxisConfig": WebServiceChartConfigXAxisConfig,
     "WebServiceChartConfigYAxisConfig": WebServiceChartConfigYAxisConfig,
     "WebServiceDashboard": WebServiceDashboard,
     "WebServiceDashboardExtra": WebServiceDashboardExtra,

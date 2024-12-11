@@ -12,11 +12,12 @@
 
 import { HttpFile } from '../http/http.js';
 
-export class WebServiceChartConfigYAxisConfig {
+export class WebServiceChartConfigXAxisConfig {
+    'type'?: string;
     'min'?: string;
     'max'?: string;
     'scale'?: boolean;
-    'stacked'?: string;
+    'name'?: string;
     'column'?: string;
 
     static readonly discriminator: string | undefined = undefined;
@@ -24,6 +25,12 @@ export class WebServiceChartConfigYAxisConfig {
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "string",
+            "format": ""
+        },
         {
             "name": "min",
             "baseName": "min",
@@ -43,8 +50,8 @@ export class WebServiceChartConfigYAxisConfig {
             "format": ""
         },
         {
-            "name": "stacked",
-            "baseName": "stacked",
+            "name": "name",
+            "baseName": "name",
             "type": "string",
             "format": ""
         },
@@ -56,7 +63,7 @@ export class WebServiceChartConfigYAxisConfig {
         }    ];
 
     static getAttributeTypeMap() {
-        return WebServiceChartConfigYAxisConfig.attributeTypeMap;
+        return WebServiceChartConfigXAxisConfig.attributeTypeMap;
     }
 
     public constructor() {

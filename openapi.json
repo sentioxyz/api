@@ -6844,6 +6844,9 @@
         },
         "lineConfig": {
           "$ref": "#/definitions/web_service.ChartConfig.LineConfig"
+        },
+        "xAxis": {
+          "$ref": "#/definitions/web_service.ChartConfig.XAxisConfig"
         }
       }
     },
@@ -7168,6 +7171,29 @@
       ],
       "default": "NumberFormatter"
     },
+    "web_service.ChartConfig.XAxisConfig": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "min": {
+          "type": "string"
+        },
+        "max": {
+          "type": "string"
+        },
+        "scale": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "column": {
+          "type": "string"
+        }
+      }
+    },
     "web_service.ChartConfig.YAxisConfig": {
       "type": "object",
       "properties": {
@@ -7181,6 +7207,9 @@
           "type": "boolean"
         },
         "stacked": {
+          "type": "string"
+        },
+        "column": {
           "type": "string"
         }
       }

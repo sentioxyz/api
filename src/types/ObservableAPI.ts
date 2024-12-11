@@ -235,6 +235,7 @@ import { WebServiceChartConfigTimeRangeOverride } from '../models/WebServiceChar
 import { WebServiceChartConfigValueConfig } from '../models/WebServiceChartConfigValueConfig.js';
 import { WebServiceChartConfigValueConfigStyle } from '../models/WebServiceChartConfigValueConfigStyle.js';
 import { WebServiceChartConfigValueFormatter } from '../models/WebServiceChartConfigValueFormatter.js';
+import { WebServiceChartConfigXAxisConfig } from '../models/WebServiceChartConfigXAxisConfig.js';
 import { WebServiceChartConfigYAxisConfig } from '../models/WebServiceChartConfigYAxisConfig.js';
 import { WebServiceChartDataSourceType } from '../models/WebServiceChartDataSourceType.js';
 import { WebServiceDashboard } from '../models/WebServiceDashboard.js';
