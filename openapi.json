@@ -4717,7 +4717,8 @@
         "NUMBER",
         "BOOLEAN",
         "LIST",
-        "TIME"
+        "TIME",
+        "MAP"
       ],
       "default": "STRING"
     },
