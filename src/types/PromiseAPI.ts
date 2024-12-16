@@ -147,6 +147,9 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
+import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
+import { PriceServiceAddCoinByGeckoResponse } from '../models/PriceServiceAddCoinByGeckoResponse.js';
+import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -1066,6 +1069,41 @@ export class PromiseDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         const result = this.api.simulateTransactionBundle(owner, slug, chainId, body, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableDefaultApi } from './ObservableAPI.js';
+
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+export class PromiseDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DefaultApiRequestFactory,
+        responseProcessor?: DefaultApiResponseProcessor
+    ) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param body
+     */
+    public addCoinByGeckoWithHttpInfo(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Promise<HttpInfo<PriceServiceAddCoinByGeckoResponse>> {
+        const result = this.api.addCoinByGeckoWithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * @param body
+     */
+    public addCoinByGecko(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Promise<PriceServiceAddCoinByGeckoResponse> {
+        const result = this.api.addCoinByGecko(body, _options);
         return result.toPromise();
     }
 

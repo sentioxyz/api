@@ -1176,6 +1176,29 @@
         ]
       }
     },
+    "/api/v1/prices/add_coin_by_gecko": {
+      "post": {
+        "operationId": "AddCoinByGecko",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/price_service.AddCoinByGeckoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/price_service.AddCoinByGeckoRequest"
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/prices/batch": {
       "post": {
         "summary": "Batch get prices",
@@ -5585,6 +5608,54 @@
           "type": "string"
         }
       }
+    },
+    "price_service.AddCoinByGeckoRequest": {
+      "type": "object",
+      "properties": {
+        "coingeckoId": {
+          "type": "string"
+        }
+      }
+    },
+    "price_service.AddCoinByGeckoResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/price_service.AddCoinByGeckoResponse.Status"
+        },
+        "message": {
+          "type": "string"
+        },
+        "currentPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "coins": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/price_service.CoinID"
+          }
+        }
+      }
+    },
+    "price_service.AddCoinByGeckoResponse.Status": {
+      "type": "string",
+      "enum": [
+        "OK",
+        "ALREADY_EXISTS",
+        "MISMATCH_WITH_EXISTING",
+        "GECKO_NOT_FOUND",
+        "GECKO_RETURN_NON_SUPPORTED_CHAIN"
+      ],
+      "default": "OK"
     },
     "price_service.BatchGetPricesRequest": {
       "type": "object",

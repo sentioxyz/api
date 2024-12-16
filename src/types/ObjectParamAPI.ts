@@ -147,6 +147,9 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
+import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
+import { PriceServiceAddCoinByGeckoResponse } from '../models/PriceServiceAddCoinByGeckoResponse.js';
+import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -1788,6 +1791,41 @@ export class ObjectDebugAndSimulationApi {
      */
     public simulateTransactionBundle(param: DebugAndSimulationApiSimulateTransactionBundleRequest, options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         return this.api.simulateTransactionBundle(param.owner, param.slug, param.chainId, param.body,  options).toPromise();
+    }
+
+}
+
+import { ObservableDefaultApi } from "./ObservableAPI.js";
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+
+export interface DefaultApiAddCoinByGeckoRequest {
+    /**
+     * 
+     * @type PriceServiceAddCoinByGeckoRequest
+     * @memberof DefaultApiaddCoinByGecko
+     */
+    body: PriceServiceAddCoinByGeckoRequest
+}
+
+export class ObjectDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * @param param the request object
+     */
+    public addCoinByGeckoWithHttpInfo(param: DefaultApiAddCoinByGeckoRequest, options?: Configuration): Promise<HttpInfo<PriceServiceAddCoinByGeckoResponse>> {
+        return this.api.addCoinByGeckoWithHttpInfo(param.body,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public addCoinByGecko(param: DefaultApiAddCoinByGeckoRequest, options?: Configuration): Promise<PriceServiceAddCoinByGeckoResponse> {
+        return this.api.addCoinByGecko(param.body,  options).toPromise();
     }
 
 }

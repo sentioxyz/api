@@ -148,6 +148,9 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
+import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
+import { PriceServiceAddCoinByGeckoResponse } from '../models/PriceServiceAddCoinByGeckoResponse.js';
+import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -1446,6 +1449,53 @@ export class ObservableDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Observable<SolidityServiceSimulateTransactionBundleResponse> {
         return this.simulateTransactionBundleWithHttpInfo(owner, slug, chainId, body, _options).pipe(map((apiResponse: HttpInfo<SolidityServiceSimulateTransactionBundleResponse>) => apiResponse.data));
+    }
+
+}
+
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+export class ObservableDefaultApi {
+    private requestFactory: DefaultApiRequestFactory;
+    private responseProcessor: DefaultApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DefaultApiRequestFactory,
+        responseProcessor?: DefaultApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new DefaultApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new DefaultApiResponseProcessor();
+    }
+
+    /**
+     * @param body
+     */
+    public addCoinByGeckoWithHttpInfo(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Observable<HttpInfo<PriceServiceAddCoinByGeckoResponse>> {
+        const requestContextPromise = this.requestFactory.addCoinByGecko(body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.addCoinByGeckoWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * @param body
+     */
+    public addCoinByGecko(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Observable<PriceServiceAddCoinByGeckoResponse> {
+        return this.addCoinByGeckoWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<PriceServiceAddCoinByGeckoResponse>) => apiResponse.data));
     }
 
 }
