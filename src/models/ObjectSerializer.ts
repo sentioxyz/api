@@ -159,12 +159,14 @@ export * from '../models/PriceServiceGetPriceResponse.js';
 export * from '../models/PriceServiceListCoinsResponse.js';
 export * from '../models/SolidityServiceBaseChainConfig.js';
 export * from '../models/SolidityServiceBlockOverrides.js';
+export * from '../models/SolidityServiceBlockPrice.js';
 export * from '../models/SolidityServiceChainIdentifier.js';
 export * from '../models/SolidityServiceCompileSourceInternalResponse.js';
 export * from '../models/SolidityServiceCompilerOptions.js';
 export * from '../models/SolidityServiceContractKeyInfo.js';
 export * from '../models/SolidityServiceCreateForkResponse.js';
 export * from '../models/SolidityServiceDecodeStateDiffResponse.js';
+export * from '../models/SolidityServiceEstimatedPrice.js';
 export * from '../models/SolidityServiceExternalFork.js';
 export * from '../models/SolidityServiceFailure.js';
 export * from '../models/SolidityServiceFetchAndCompileInternalResponse.js';
@@ -172,6 +174,7 @@ export * from '../models/SolidityServiceFork.js';
 export * from '../models/SolidityServiceForkServiceCreateForkBody.js';
 export * from '../models/SolidityServiceForkServiceUpdateForkBody.js';
 export * from '../models/SolidityServiceForkType.js';
+export * from '../models/SolidityServiceGetEstimatedGasPriceResponse.js';
 export * from '../models/SolidityServiceGetForkInfoResponse.js';
 export * from '../models/SolidityServiceGetForkResponse.js';
 export * from '../models/SolidityServiceGetSimulationBundleResponse.js';
@@ -421,12 +424,14 @@ import { PriceServiceGetPriceResponse } from '../models/PriceServiceGetPriceResp
 import { PriceServiceListCoinsResponse } from '../models/PriceServiceListCoinsResponse.js';
 import { SolidityServiceBaseChainConfig        } from '../models/SolidityServiceBaseChainConfig.js';
 import { SolidityServiceBlockOverrides } from '../models/SolidityServiceBlockOverrides.js';
+import { SolidityServiceBlockPrice } from '../models/SolidityServiceBlockPrice.js';
 import { SolidityServiceChainIdentifier } from '../models/SolidityServiceChainIdentifier.js';
 import { SolidityServiceCompileSourceInternalResponse } from '../models/SolidityServiceCompileSourceInternalResponse.js';
 import { SolidityServiceCompilerOptions } from '../models/SolidityServiceCompilerOptions.js';
 import { SolidityServiceContractKeyInfo } from '../models/SolidityServiceContractKeyInfo.js';
 import { SolidityServiceCreateForkResponse } from '../models/SolidityServiceCreateForkResponse.js';
 import { SolidityServiceDecodeStateDiffResponse } from '../models/SolidityServiceDecodeStateDiffResponse.js';
+import { SolidityServiceEstimatedPrice } from '../models/SolidityServiceEstimatedPrice.js';
 import { SolidityServiceExternalFork } from '../models/SolidityServiceExternalFork.js';
 import { SolidityServiceFailure } from '../models/SolidityServiceFailure.js';
 import { SolidityServiceFetchAndCompileInternalResponse } from '../models/SolidityServiceFetchAndCompileInternalResponse.js';
@@ -434,6 +439,7 @@ import { SolidityServiceFork         } from '../models/SolidityServiceFork.js';
 import { SolidityServiceForkServiceCreateForkBody } from '../models/SolidityServiceForkServiceCreateForkBody.js';
 import { SolidityServiceForkServiceUpdateForkBody } from '../models/SolidityServiceForkServiceUpdateForkBody.js';
 import { SolidityServiceForkType } from '../models/SolidityServiceForkType.js';
+import { SolidityServiceGetEstimatedGasPriceResponse } from '../models/SolidityServiceGetEstimatedGasPriceResponse.js';
 import { SolidityServiceGetForkInfoResponse } from '../models/SolidityServiceGetForkInfoResponse.js';
 import { SolidityServiceGetForkResponse } from '../models/SolidityServiceGetForkResponse.js';
 import { SolidityServiceGetSimulationBundleResponse } from '../models/SolidityServiceGetSimulationBundleResponse.js';
@@ -715,18 +721,21 @@ let typeMap: {[index: string]: any} = {
     "PriceServiceListCoinsResponse": PriceServiceListCoinsResponse,
     "SolidityServiceBaseChainConfig": SolidityServiceBaseChainConfig,
     "SolidityServiceBlockOverrides": SolidityServiceBlockOverrides,
+    "SolidityServiceBlockPrice": SolidityServiceBlockPrice,
     "SolidityServiceChainIdentifier": SolidityServiceChainIdentifier,
     "SolidityServiceCompileSourceInternalResponse": SolidityServiceCompileSourceInternalResponse,
     "SolidityServiceCompilerOptions": SolidityServiceCompilerOptions,
     "SolidityServiceContractKeyInfo": SolidityServiceContractKeyInfo,
     "SolidityServiceCreateForkResponse": SolidityServiceCreateForkResponse,
     "SolidityServiceDecodeStateDiffResponse": SolidityServiceDecodeStateDiffResponse,
+    "SolidityServiceEstimatedPrice": SolidityServiceEstimatedPrice,
     "SolidityServiceExternalFork": SolidityServiceExternalFork,
     "SolidityServiceFailure": SolidityServiceFailure,
     "SolidityServiceFetchAndCompileInternalResponse": SolidityServiceFetchAndCompileInternalResponse,
     "SolidityServiceFork": SolidityServiceFork,
     "SolidityServiceForkServiceCreateForkBody": SolidityServiceForkServiceCreateForkBody,
     "SolidityServiceForkServiceUpdateForkBody": SolidityServiceForkServiceUpdateForkBody,
+    "SolidityServiceGetEstimatedGasPriceResponse": SolidityServiceGetEstimatedGasPriceResponse,
     "SolidityServiceGetForkInfoResponse": SolidityServiceGetForkInfoResponse,
     "SolidityServiceGetForkResponse": SolidityServiceGetForkResponse,
     "SolidityServiceGetSimulationBundleResponse": SolidityServiceGetSimulationBundleResponse,

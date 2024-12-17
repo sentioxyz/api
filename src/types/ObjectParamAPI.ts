@@ -162,12 +162,14 @@ import { PriceServiceGetPriceResponse } from '../models/PriceServiceGetPriceResp
 import { PriceServiceListCoinsResponse } from '../models/PriceServiceListCoinsResponse.js';
 import { SolidityServiceBaseChainConfig } from '../models/SolidityServiceBaseChainConfig.js';
 import { SolidityServiceBlockOverrides } from '../models/SolidityServiceBlockOverrides.js';
+import { SolidityServiceBlockPrice } from '../models/SolidityServiceBlockPrice.js';
 import { SolidityServiceChainIdentifier } from '../models/SolidityServiceChainIdentifier.js';
 import { SolidityServiceCompileSourceInternalResponse } from '../models/SolidityServiceCompileSourceInternalResponse.js';
 import { SolidityServiceCompilerOptions } from '../models/SolidityServiceCompilerOptions.js';
 import { SolidityServiceContractKeyInfo } from '../models/SolidityServiceContractKeyInfo.js';
 import { SolidityServiceCreateForkResponse } from '../models/SolidityServiceCreateForkResponse.js';
 import { SolidityServiceDecodeStateDiffResponse } from '../models/SolidityServiceDecodeStateDiffResponse.js';
+import { SolidityServiceEstimatedPrice } from '../models/SolidityServiceEstimatedPrice.js';
 import { SolidityServiceExternalFork } from '../models/SolidityServiceExternalFork.js';
 import { SolidityServiceFailure } from '../models/SolidityServiceFailure.js';
 import { SolidityServiceFetchAndCompileInternalResponse } from '../models/SolidityServiceFetchAndCompileInternalResponse.js';
@@ -175,6 +177,7 @@ import { SolidityServiceFork } from '../models/SolidityServiceFork.js';
 import { SolidityServiceForkServiceCreateForkBody } from '../models/SolidityServiceForkServiceCreateForkBody.js';
 import { SolidityServiceForkServiceUpdateForkBody } from '../models/SolidityServiceForkServiceUpdateForkBody.js';
 import { SolidityServiceForkType } from '../models/SolidityServiceForkType.js';
+import { SolidityServiceGetEstimatedGasPriceResponse } from '../models/SolidityServiceGetEstimatedGasPriceResponse.js';
 import { SolidityServiceGetForkInfoResponse } from '../models/SolidityServiceGetForkInfoResponse.js';
 import { SolidityServiceGetForkResponse } from '../models/SolidityServiceGetForkResponse.js';
 import { SolidityServiceGetSimulationBundleResponse } from '../models/SolidityServiceGetSimulationBundleResponse.js';
@@ -1375,6 +1378,16 @@ export interface DebugAndSimulationApiGetCallTraceByTransactionRequest {
     ignoreGasCost?: boolean
 }
 
+export interface DebugAndSimulationApiGetEstimatedGasPriceRequest {
+    /**
+     * Current support chain id: 1
+     * Defaults to: undefined
+     * @type string
+     * @memberof DebugAndSimulationApigetEstimatedGasPrice
+     */
+    chainId?: string
+}
+
 export interface DebugAndSimulationApiGetSimulationRequest {
     /**
      * 
@@ -1691,6 +1704,22 @@ export class ObjectDebugAndSimulationApi {
      */
     public getCallTraceByTransaction(param: DebugAndSimulationApiGetCallTraceByTransactionRequest, options?: Configuration): Promise<GoogleApiHttpBody> {
         return this.api.getCallTraceByTransaction(param.owner, param.slug, param.chainId, param.txHash, param.withInternalCalls, param.disableOptimizer, param.ignoreGasCost,  options).toPromise();
+    }
+
+    /**
+     * Estimate gas price
+     * @param param the request object
+     */
+    public getEstimatedGasPriceWithHttpInfo(param: DebugAndSimulationApiGetEstimatedGasPriceRequest = {}, options?: Configuration): Promise<HttpInfo<SolidityServiceGetEstimatedGasPriceResponse>> {
+        return this.api.getEstimatedGasPriceWithHttpInfo(param.chainId,  options).toPromise();
+    }
+
+    /**
+     * Estimate gas price
+     * @param param the request object
+     */
+    public getEstimatedGasPrice(param: DebugAndSimulationApiGetEstimatedGasPriceRequest = {}, options?: Configuration): Promise<SolidityServiceGetEstimatedGasPriceResponse> {
+        return this.api.getEstimatedGasPrice(param.chainId,  options).toPromise();
     }
 
     /**

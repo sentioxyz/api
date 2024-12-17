@@ -3943,6 +3943,33 @@ ul.nav-tabs {
     }
   }
 };
+    defs["solidity_service.BlockPrice"] = {
+  "type" : "object",
+  "properties" : {
+    "blockNumber" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "estimatedTransactionCount" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "baseFeePerGas" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "blobBaseFeePerGas" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "estimatedPrices" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/solidity_service.EstimatedPrice"
+      }
+    }
+  }
+};
     defs["solidity_service.ChainIdentifier"] = {
   "type" : "object",
   "properties" : {
@@ -4005,6 +4032,27 @@ ul.nav-tabs {
   "properties" : {
     "result" : {
       "type" : "string"
+    }
+  }
+};
+    defs["solidity_service.EstimatedPrice"] = {
+  "type" : "object",
+  "properties" : {
+    "confidence" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "price" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "maxPriorityFeePerGas" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "maxFeePerGas" : {
+      "type" : "number",
+      "format" : "double"
     }
   }
 };
@@ -4101,6 +4149,38 @@ ul.nav-tabs {
   "type" : "string",
   "default" : "MANAGED",
   "enum" : [ "MANAGED", "EXTERNAL" ]
+};
+    defs["solidity_service.GetEstimatedGasPriceResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "system" : {
+      "type" : "string"
+    },
+    "network" : {
+      "type" : "string"
+    },
+    "unit" : {
+      "type" : "string"
+    },
+    "maxPrice" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "currentBlockNumber" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "msSinceLastBlock" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "blockPrices" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/solidity_service.BlockPrice"
+      }
+    }
+  }
 };
     defs["solidity_service.GetForkInfoResponse"] = {
   "type" : "object",
@@ -5713,6 +5793,9 @@ ul.nav-tabs {
                     </li>
                     <li data-group="DebugAndSimulation" data-name="getCallTraceByTransaction" class="">
                       <a href="#api-DebugAndSimulation-getCallTraceByTransaction">getCallTraceByTransaction</a>
+                    </li>
+                    <li data-group="DebugAndSimulation" data-name="getEstimatedGasPrice" class="">
+                      <a href="#api-DebugAndSimulation-getEstimatedGasPrice">getEstimatedGasPrice</a>
                     </li>
                     <li data-group="DebugAndSimulation" data-name="getSimulation" class="">
                       <a href="#api-DebugAndSimulation-getSimulation">getSimulation</a>
@@ -17929,6 +18012,414 @@ Only effective when disableOptimizer&#x3D;true.
                                   </script>
                                 </div>
                                 <input id='responses-DebugAndSimulation-getCallTraceByTransaction-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-DebugAndSimulation-getEstimatedGasPrice">
+                      <article id="api-DebugAndSimulation-getEstimatedGasPrice-0" data-group="User" data-name="getEstimatedGasPrice" data-version="0">
+                        <div class="pull-left">
+                          <h1>getEstimatedGasPrice</h1>
+                          <p>Estimate gas price</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/solidity/estimated_gas_price</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-java">Java</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-python">Python</a></li>
+                          <li class=""><a href="#examples-DebugAndSimulation-getEstimatedGasPrice-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/solidity/estimated_gas_price?chainId=chainId_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DebugAndSimulationApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DebugAndSimulationApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyAuth
+        ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+        ApiKeyAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
+        String chainId = chainId_example; // String | Current support chain id: 1
+
+        try {
+            solidity_service.GetEstimatedGasPriceResponse result = apiInstance.getEstimatedGasPrice(chainId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DebugAndSimulationApi#getEstimatedGasPrice");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String chainId = new String(); // String | Current support chain id: 1
+
+try {
+    final result = await api_instance.getEstimatedGasPrice(chainId);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getEstimatedGasPrice: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DebugAndSimulationApi;
+
+public class DebugAndSimulationApiExample {
+    public static void main(String[] args) {
+        DebugAndSimulationApi apiInstance = new DebugAndSimulationApi();
+        String chainId = chainId_example; // String | Current support chain id: 1
+
+        try {
+            solidity_service.GetEstimatedGasPriceResponse result = apiInstance.getEstimatedGasPrice(chainId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DebugAndSimulationApi#getEstimatedGasPrice");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DebugAndSimulationApi *apiInstance = [[DebugAndSimulationApi alloc] init];
+String *chainId = chainId_example; // Current support chain id: 1 (optional) (default to null)
+
+// Estimate gas price
+[apiInstance getEstimatedGasPriceWith:chainId
+              completionHandler: ^(solidity_service.GetEstimatedGasPriceResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyAuth
+var ApiKeyAuth = defaultClient.authentications['ApiKeyAuth'];
+ApiKeyAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DebugAndSimulationApi()
+var opts = {
+  'chainId': chainId_example // {String} Current support chain id: 1
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getEstimatedGasPrice(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getEstimatedGasPriceExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DebugAndSimulationApi();
+            var chainId = chainId_example;  // String | Current support chain id: 1 (optional)  (default to null)
+
+            try {
+                // Estimate gas price
+                solidity_service.GetEstimatedGasPriceResponse result = apiInstance.getEstimatedGasPrice(chainId);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DebugAndSimulationApi.getEstimatedGasPrice: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DebugAndSimulationApi();
+$chainId = chainId_example; // String | Current support chain id: 1
+
+try {
+    $result = $api_instance->getEstimatedGasPrice($chainId);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DebugAndSimulationApi->getEstimatedGasPrice: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DebugAndSimulationApi;
+
+# Configure API key authorization: ApiKeyAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DebugAndSimulationApi->new();
+my $chainId = chainId_example; # String | Current support chain id: 1
+
+eval {
+    my $result = $api_instance->getEstimatedGasPrice(chainId => $chainId);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DebugAndSimulationApi->getEstimatedGasPrice: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DebugAndSimulationApi()
+chainId = chainId_example # String | Current support chain id: 1 (optional) (default to null)
+
+try:
+    # Estimate gas price
+    api_response = api_instance.get_estimated_gas_price(chainId=chainId)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DebugAndSimulationApi->getEstimatedGasPrice: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DebugAndSimulationApi;
+
+pub fn main() {
+    let chainId = chainId_example; // String
+
+    let mut context = DebugAndSimulationApi::Context::default();
+    let result = client.getEstimatedGasPrice(chainId, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">chainId</td>
+<td>
+
+
+    <div id="d2e199_getEstimatedGasPrice_chainId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Current support chain id: 1
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-DebugAndSimulation-getEstimatedGasPrice-title-200"></h3>
+                            <p id="examples-DebugAndSimulation-getEstimatedGasPrice-description-200" class="marked"></p>
+                            <script>
+                              var responseDebugAndSimulation200_description = `A successful response.`;
+                              var responseDebugAndSimulation200_description_break = responseDebugAndSimulation200_description.indexOf('\n');
+                              if (responseDebugAndSimulation200_description_break == -1) {
+                                $("#examples-DebugAndSimulation-getEstimatedGasPrice-title-200").text("Status: 200 - " + responseDebugAndSimulation200_description);
+                              } else {
+                                $("#examples-DebugAndSimulation-getEstimatedGasPrice-title-200").text("Status: 200 - " + responseDebugAndSimulation200_description.substring(0, responseDebugAndSimulation200_description_break));
+                                $("#examples-DebugAndSimulation-getEstimatedGasPrice-description-200").html(responseDebugAndSimulation200_description.substring(responseDebugAndSimulation200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-DebugAndSimulation-getEstimatedGasPrice-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-DebugAndSimulation-getEstimatedGasPrice-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-DebugAndSimulation-getEstimatedGasPrice-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-DebugAndSimulation-getEstimatedGasPrice-200-schema">
+                                <div id="responses-DebugAndSimulation-getEstimatedGasPrice-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/solidity_service.GetEstimatedGasPriceResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-DebugAndSimulation-getEstimatedGasPrice-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-DebugAndSimulation-getEstimatedGasPrice-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-DebugAndSimulation-getEstimatedGasPrice-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

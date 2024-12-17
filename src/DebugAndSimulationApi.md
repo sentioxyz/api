@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**getCallTraceByBundle**](DebugAndSimulationApi.md#getCallTraceByBundle) | **GET** /api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace | Get trace by bundle simulation
 [**getCallTraceBySimulation**](DebugAndSimulationApi.md#getCallTraceBySimulation) | **GET** /api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace | Get trace by simulation
 [**getCallTraceByTransaction**](DebugAndSimulationApi.md#getCallTraceByTransaction) | **GET** /api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace | Get trace by transaction
+[**getEstimatedGasPrice**](DebugAndSimulationApi.md#getEstimatedGasPrice) | **GET** /api/v1/solidity/estimated_gas_price | Estimate gas price
 [**getSimulation**](DebugAndSimulationApi.md#getSimulation) | **GET** /api/v1/solidity/{owner}/{slug}/simulation/{simulationId} | Get simulation by ID
 [**getSimulationBundleInProject**](DebugAndSimulationApi.md#getSimulationBundleInProject) | **GET** /api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId} | Get bundle simulation by ID
 [**getSimulations**](DebugAndSimulationApi.md#getSimulations) | **GET** /api/v1/solidity/{owner}/{slug}/simulation | Get list of simulations
@@ -208,6 +209,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 **GoogleApiHttpBody**
+
+### Authorization
+
+[ApiKeyAuth](README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **getEstimatedGasPrice**
+> SolidityServiceGetEstimatedGasPriceResponse getEstimatedGasPrice()
+
+
+### Example
+
+
+```typescript
+import { createConfiguration, DebugAndSimulationApi } from '';
+import type { DebugAndSimulationApiGetEstimatedGasPriceRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DebugAndSimulationApi(configuration);
+
+const request: DebugAndSimulationApiGetEstimatedGasPriceRequest = {
+    // Current support chain id: 1 (optional)
+  chainId: "chainId_example",
+};
+
+const data = await apiInstance.getEstimatedGasPrice(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **chainId** | [**string**] | Current support chain id: 1 | (optional) defaults to undefined
+
+
+### Return type
+
+**SolidityServiceGetEstimatedGasPriceResponse**
 
 ### Authorization
 
