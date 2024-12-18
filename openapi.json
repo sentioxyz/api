@@ -828,34 +828,6 @@
         ]
       }
     },
-    "/api/v1/insights/retention": {
-      "post": {
-        "summary": "Retention query",
-        "description": "Query for retention.",
-        "operationId": "Retention2",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/insights_service.RetentionResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/insights_service.RetentionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Data"
-        ]
-      }
-    },
     "/api/v1/insights/{owner}/{slug}/coins": {
       "get": {
         "summary": "List coins",
@@ -955,46 +927,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/insights_service.InsightsService.QueryBody"
-            }
-          }
-        ],
-        "tags": [
-          "Data"
-        ]
-      }
-    },
-    "/api/v1/insights/{owner}/{slug}/retention": {
-      "post": {
-        "summary": "Retention query",
-        "description": "Query for retention.",
-        "operationId": "Retention",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/insights_service.RetentionResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "owner",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "slug",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/insights_service.InsightsService.RetentionBody"
             }
           }
         ],
@@ -1173,29 +1105,6 @@
         ],
         "tags": [
           "Price"
-        ]
-      }
-    },
-    "/api/v1/prices/add_coin_by_gecko": {
-      "post": {
-        "operationId": "AddCoinByGecko",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/price_service.AddCoinByGeckoResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/price_service.AddCoinByGeckoRequest"
-            }
-          }
         ]
       }
     },
@@ -4246,54 +4155,6 @@
         "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/"
       }
     },
-    "common.RetentionMatrix": {
-      "type": "object",
-      "properties": {
-        "samples": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.RetentionMatrix.Sample"
-          }
-        }
-      }
-    },
-    "common.RetentionMatrix.Sample": {
-      "type": "object",
-      "properties": {
-        "time": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "segmentParameter": {
-          "$ref": "#/definitions/common.SegmentParameter"
-        },
-        "labels": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "totalCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "counts": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "rates": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "format": "double"
-          }
-        }
-      }
-    },
     "common.RetentionQuery": {
       "type": "object",
       "properties": {
@@ -5163,24 +5024,6 @@
         }
       }
     },
-    "insights_service.InsightsService.RetentionBody": {
-      "type": "object",
-      "properties": {
-        "projectId": {
-          "type": "string"
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "timeRange": {
-          "$ref": "#/definitions/common.TimeRangeLite"
-        },
-        "query": {
-          "$ref": "#/definitions/common.RetentionQuery"
-        }
-      }
-    },
     "insights_service.ListCoinsResponse": {
       "type": "object",
       "properties": {
@@ -5253,44 +5096,6 @@
         },
         "computeStats": {
           "$ref": "#/definitions/common.ComputeStats"
-        }
-      }
-    },
-    "insights_service.RetentionRequest": {
-      "type": "object",
-      "properties": {
-        "projectOwner": {
-          "type": "string"
-        },
-        "projectSlug": {
-          "type": "string"
-        },
-        "projectId": {
-          "type": "string"
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "timeRange": {
-          "$ref": "#/definitions/common.TimeRangeLite"
-        },
-        "query": {
-          "$ref": "#/definitions/common.RetentionQuery"
-        }
-      }
-    },
-    "insights_service.RetentionResponse": {
-      "type": "object",
-      "properties": {
-        "computeStats": {
-          "$ref": "#/definitions/common.ComputeStats"
-        },
-        "results": {
-          "$ref": "#/definitions/common.RetentionMatrix"
-        },
-        "error": {
-          "type": "string"
         }
       }
     },
@@ -5634,54 +5439,6 @@
           "type": "string"
         }
       }
-    },
-    "price_service.AddCoinByGeckoRequest": {
-      "type": "object",
-      "properties": {
-        "coingeckoId": {
-          "type": "string"
-        }
-      }
-    },
-    "price_service.AddCoinByGeckoResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "$ref": "#/definitions/price_service.AddCoinByGeckoResponse.Status"
-        },
-        "message": {
-          "type": "string"
-        },
-        "currentPrice": {
-          "type": "number",
-          "format": "double"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "symbol": {
-          "type": "string"
-        },
-        "coins": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/price_service.CoinID"
-          }
-        }
-      }
-    },
-    "price_service.AddCoinByGeckoResponse.Status": {
-      "type": "string",
-      "enum": [
-        "OK",
-        "ALREADY_EXISTS",
-        "MISMATCH_WITH_EXISTING",
-        "GECKO_NOT_FOUND",
-        "GECKO_RETURN_NON_SUPPORTED_CHAIN"
-      ],
-      "default": "OK"
     },
     "price_service.BatchGetPricesRequest": {
       "type": "object",
@@ -7777,15 +7534,23 @@
     }
   },
   "securityDefinitions": {
-    "ApiKeyAuth": {
+    "ApiKeyHeaderAuth": {
       "type": "apiKey",
       "name": "api-key",
       "in": "header"
+    },
+    "ApiKeyQueryAuth": {
+      "type": "apiKey",
+      "name": "api-key",
+      "in": "query"
     }
   },
   "security": [
     {
-      "ApiKeyAuth": []
+      "ApiKeyHeaderAuth": []
+    },
+    {
+      "ApiKeyQueryAuth": []
     },
     {
       "": []

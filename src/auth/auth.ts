@@ -24,7 +24,7 @@ export interface TokenProvider {
 /**
  * Applies apiKey authentication to the request context.
  */
-export class ApiKeyAuthAuthentication implements SecurityAuthentication {
+export class ApiKeyHeaderAuthAuthentication implements SecurityAuthentication {
     /**
      * Configures this api key authentication with the necessary properties
      *
@@ -33,7 +33,7 @@ export class ApiKeyAuthAuthentication implements SecurityAuthentication {
     public constructor(private apiKey: string) {}
 
     public getName(): string {
-        return "ApiKeyAuth";
+        return "ApiKeyHeaderAuth";
     }
 
     public applySecurityAuthentication(context: RequestContext) {
@@ -41,10 +41,31 @@ export class ApiKeyAuthAuthentication implements SecurityAuthentication {
     }
 }
 
+/**
+ * Applies apiKey authentication to the request context.
+ */
+export class ApiKeyQueryAuthAuthentication implements SecurityAuthentication {
+    /**
+     * Configures this api key authentication with the necessary properties
+     *
+     * @param apiKey: The api key to be used for every request
+     */
+    public constructor(private apiKey: string) {}
+
+    public getName(): string {
+        return "ApiKeyQueryAuth";
+    }
+
+    public applySecurityAuthentication(context: RequestContext) {
+        context.setQueryParam("api-key", this.apiKey);
+    }
+}
+
 
 export type AuthMethods = {
     "default"?: SecurityAuthentication,
-    "ApiKeyAuth"?: SecurityAuthentication
+    "ApiKeyHeaderAuth"?: SecurityAuthentication,
+    "ApiKeyQueryAuth"?: SecurityAuthentication
 }
 
 export type ApiKeyConfiguration = string;
@@ -54,7 +75,8 @@ export type OAuth2Configuration = { accessToken: string };
 
 export type AuthMethodsConfiguration = {
     "default"?: SecurityAuthentication,
-    "ApiKeyAuth"?: ApiKeyConfiguration
+    "ApiKeyHeaderAuth"?: ApiKeyConfiguration,
+    "ApiKeyQueryAuth"?: ApiKeyConfiguration
 }
 
 /**
@@ -69,9 +91,15 @@ export function configureAuthMethods(config: AuthMethodsConfiguration | undefine
     }
     authMethods["default"] = config["default"]
 
-    if (config["ApiKeyAuth"]) {
-        authMethods["ApiKeyAuth"] = new ApiKeyAuthAuthentication(
-            config["ApiKeyAuth"]
+    if (config["ApiKeyHeaderAuth"]) {
+        authMethods["ApiKeyHeaderAuth"] = new ApiKeyHeaderAuthAuthentication(
+            config["ApiKeyHeaderAuth"]
+        );
+    }
+
+    if (config["ApiKeyQueryAuth"]) {
+        authMethods["ApiKeyQueryAuth"] = new ApiKeyQueryAuthAuthentication(
+            config["ApiKeyQueryAuth"]
         );
     }
 

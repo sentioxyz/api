@@ -79,8 +79,6 @@ import { CommonProjectView } from '../models/CommonProjectView.js';
 import { CommonProjectViewProjectViewConfig } from '../models/CommonProjectViewProjectViewConfig.js';
 import { CommonProjectVisibility } from '../models/CommonProjectVisibility.js';
 import { CommonQuery } from '../models/CommonQuery.js';
-import { CommonRetentionMatrix } from '../models/CommonRetentionMatrix.js';
-import { CommonRetentionMatrixSample } from '../models/CommonRetentionMatrixSample.js';
 import { CommonRetentionQuery } from '../models/CommonRetentionQuery.js';
 import { CommonRetentionQueryCriteria } from '../models/CommonRetentionQueryCriteria.js';
 import { CommonRetentionQueryFilter } from '../models/CommonRetentionQueryFilter.js';
@@ -127,13 +125,10 @@ import { GoogleProtobufAny } from '../models/GoogleProtobufAny.js';
 import { GoogleProtobufNullValue } from '../models/GoogleProtobufNullValue.js';
 import { InsightsServiceDataSource } from '../models/InsightsServiceDataSource.js';
 import { InsightsServiceInsightsServiceQueryBody } from '../models/InsightsServiceInsightsServiceQueryBody.js';
-import { InsightsServiceInsightsServiceRetentionBody } from '../models/InsightsServiceInsightsServiceRetentionBody.js';
 import { InsightsServiceListCoinsResponse } from '../models/InsightsServiceListCoinsResponse.js';
 import { InsightsServiceQueryRequestQuery } from '../models/InsightsServiceQueryRequestQuery.js';
 import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResponse.js';
 import { InsightsServiceQueryResponseResult } from '../models/InsightsServiceQueryResponseResult.js';
-import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
-import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -148,9 +143,6 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
-import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
-import { PriceServiceAddCoinByGeckoResponse } from '../models/PriceServiceAddCoinByGeckoResponse.js';
-import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -914,76 +906,6 @@ export class ObservableDataApi {
     }
 
     /**
-     * Query for retention.
-     * Retention query
-     * @param owner
-     * @param slug
-     * @param body
-     */
-    public retentionWithHttpInfo(owner: string, slug: string, body: InsightsServiceInsightsServiceRetentionBody, _options?: Configuration): Observable<HttpInfo<InsightsServiceRetentionResponse>> {
-        const requestContextPromise = this.requestFactory.retention(owner, slug, body, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.retentionWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Query for retention.
-     * Retention query
-     * @param owner
-     * @param slug
-     * @param body
-     */
-    public retention(owner: string, slug: string, body: InsightsServiceInsightsServiceRetentionBody, _options?: Configuration): Observable<InsightsServiceRetentionResponse> {
-        return this.retentionWithHttpInfo(owner, slug, body, _options).pipe(map((apiResponse: HttpInfo<InsightsServiceRetentionResponse>) => apiResponse.data));
-    }
-
-    /**
-     * Query for retention.
-     * Retention query
-     * @param body
-     */
-    public retention2WithHttpInfo(body: InsightsServiceRetentionRequest, _options?: Configuration): Observable<HttpInfo<InsightsServiceRetentionResponse>> {
-        const requestContextPromise = this.requestFactory.retention2(body, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.retention2WithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Query for retention.
-     * Retention query
-     * @param body
-     */
-    public retention2(body: InsightsServiceRetentionRequest, _options?: Configuration): Observable<InsightsServiceRetentionResponse> {
-        return this.retention2WithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<InsightsServiceRetentionResponse>) => apiResponse.data));
-    }
-
-    /**
      * Save or update a SQL query in a project.
      * Save SQL
      * @param owner username or organization name
@@ -1483,53 +1405,6 @@ export class ObservableDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Observable<SolidityServiceSimulateTransactionBundleResponse> {
         return this.simulateTransactionBundleWithHttpInfo(owner, slug, chainId, body, _options).pipe(map((apiResponse: HttpInfo<SolidityServiceSimulateTransactionBundleResponse>) => apiResponse.data));
-    }
-
-}
-
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-export class ObservableDefaultApi {
-    private requestFactory: DefaultApiRequestFactory;
-    private responseProcessor: DefaultApiResponseProcessor;
-    private configuration: Configuration;
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: DefaultApiRequestFactory,
-        responseProcessor?: DefaultApiResponseProcessor
-    ) {
-        this.configuration = configuration;
-        this.requestFactory = requestFactory || new DefaultApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new DefaultApiResponseProcessor();
-    }
-
-    /**
-     * @param body
-     */
-    public addCoinByGeckoWithHttpInfo(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Observable<HttpInfo<PriceServiceAddCoinByGeckoResponse>> {
-        const requestContextPromise = this.requestFactory.addCoinByGecko(body, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.addCoinByGeckoWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * @param body
-     */
-    public addCoinByGecko(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Observable<PriceServiceAddCoinByGeckoResponse> {
-        return this.addCoinByGeckoWithHttpInfo(body, _options).pipe(map((apiResponse: HttpInfo<PriceServiceAddCoinByGeckoResponse>) => apiResponse.data));
     }
 
 }

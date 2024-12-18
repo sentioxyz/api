@@ -15,8 +15,6 @@ Method | HTTP request | Description
 [**queryLog2**](DataApi.md#queryLog2) | **GET** /api/v1/eventlogs/{owner}/{slug}/query | Query event logs
 [**queryRange**](DataApi.md#queryRange) | **POST** /api/v1/metrics/{owner}/{slug}/query_range | Metric range queries
 [**querySQLResult**](DataApi.md#querySQLResult) | **GET** /api/v1/analytics/{owner}/{slug}/sql/query_result/{executionId} | Query SQL Result
-[**retention**](DataApi.md#retention) | **POST** /api/v1/insights/{owner}/{slug}/retention | Retention query
-[**retention2**](DataApi.md#retention2) | **POST** /api/v1/insights/retention | Retention query
 [**saveSQL**](DataApi.md#saveSQL) | **POST** /api/v1/analytics/{owner}/{slug}/sql/save | Save SQL
 [**saveSQL2**](DataApi.md#saveSQL2) | **PUT** /api/v1/analytics/{owner}/{slug}/sql/save | Save SQL
 
@@ -128,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -250,7 +248,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -308,7 +306,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -379,7 +377,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -450,7 +448,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -748,7 +746,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -871,7 +869,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -987,7 +985,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -1093,7 +1091,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -1222,7 +1220,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -1287,309 +1285,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A successful response. |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **retention**
-> InsightsServiceRetentionResponse retention(body)
-
-Query for retention.
-
-### Example
-
-
-```typescript
-import { createConfiguration, DataApi } from '';
-import type { DataApiRetentionRequest } from '';
-
-const configuration = createConfiguration();
-const apiInstance = new DataApi(configuration);
-
-const request: DataApiRetentionRequest = {
-  
-  owner: "owner_example",
-  
-  slug: "slug_example",
-  
-  body: {
-    projectId: "projectId_example",
-    version: 1,
-    timeRange: {
-      start: "start_example",
-      end: "end_example",
-      step: 1,
-      timezone: "timezone_example",
-    },
-    query: {
-      resources: [
-        {
-          eventNames: [
-            "eventNames_example",
-          ],
-          filter: {
-            propertyFilter: {
-              selector: {
-                key: "key_example",
-                operator: "EQ",
-                value: [
-                  {
-                    intValue: 1,
-                    longValue: "longValue_example",
-                    doubleValue: 3.14,
-                    stringValue: "stringValue_example",
-                    boolValue: true,
-                    dateValue: new Date('1970-01-01T00:00:00.00Z'),
-                    listValue: {
-                      values: [
-                        "values_example",
-                      ],
-                    },
-                  },
-                ],
-              },
-              logicExpr: {
-                expressions: [
-                  ,
-                ],
-                operator: "AND",
-              },
-            },
-            timeFilter: {
-              type: "Disable",
-            },
-          },
-        },
-      ],
-      criteria: "OnOrAfter",
-      interval: {
-        value: 1,
-        unit: "Day",
-      },
-      selectorExpr: {
-        selector: {
-          key: "key_example",
-          operator: "EQ",
-          value: [
-            {
-              intValue: 1,
-              longValue: "longValue_example",
-              doubleValue: 3.14,
-              stringValue: "stringValue_example",
-              boolValue: true,
-              dateValue: new Date('1970-01-01T00:00:00.00Z'),
-              listValue: {
-                values: [
-                  "values_example",
-                ],
-              },
-            },
-          ],
-        },
-        logicExpr: {
-          expressions: [
-            ,
-          ],
-          operator: "AND",
-        },
-      },
-      groupBy: [
-        "groupBy_example",
-      ],
-      segmentBy: [
-        {
-          cohortId: "cohortId_example",
-          allUsers: true,
-        },
-      ],
-      windowSize: 1,
-    },
-  },
-};
-
-const data = await apiInstance.retention(request);
-console.log('API called successfully. Returned data:', data);
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **InsightsServiceInsightsServiceRetentionBody**|  |
- **owner** | [**string**] |  | defaults to undefined
- **slug** | [**string**] |  | defaults to undefined
-
-
-### Return type
-
-**InsightsServiceRetentionResponse**
-
-### Authorization
-
-[ApiKeyAuth](README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A successful response. |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **retention2**
-> InsightsServiceRetentionResponse retention2(body)
-
-Query for retention.
-
-### Example
-
-
-```typescript
-import { createConfiguration, DataApi } from '';
-import type { DataApiRetention2Request } from '';
-
-const configuration = createConfiguration();
-const apiInstance = new DataApi(configuration);
-
-const request: DataApiRetention2Request = {
-  
-  body: {
-    projectOwner: "projectOwner_example",
-    projectSlug: "projectSlug_example",
-    projectId: "projectId_example",
-    version: 1,
-    timeRange: {
-      start: "start_example",
-      end: "end_example",
-      step: 1,
-      timezone: "timezone_example",
-    },
-    query: {
-      resources: [
-        {
-          eventNames: [
-            "eventNames_example",
-          ],
-          filter: {
-            propertyFilter: {
-              selector: {
-                key: "key_example",
-                operator: "EQ",
-                value: [
-                  {
-                    intValue: 1,
-                    longValue: "longValue_example",
-                    doubleValue: 3.14,
-                    stringValue: "stringValue_example",
-                    boolValue: true,
-                    dateValue: new Date('1970-01-01T00:00:00.00Z'),
-                    listValue: {
-                      values: [
-                        "values_example",
-                      ],
-                    },
-                  },
-                ],
-              },
-              logicExpr: {
-                expressions: [
-                  ,
-                ],
-                operator: "AND",
-              },
-            },
-            timeFilter: {
-              type: "Disable",
-            },
-          },
-        },
-      ],
-      criteria: "OnOrAfter",
-      interval: {
-        value: 1,
-        unit: "Day",
-      },
-      selectorExpr: {
-        selector: {
-          key: "key_example",
-          operator: "EQ",
-          value: [
-            {
-              intValue: 1,
-              longValue: "longValue_example",
-              doubleValue: 3.14,
-              stringValue: "stringValue_example",
-              boolValue: true,
-              dateValue: new Date('1970-01-01T00:00:00.00Z'),
-              listValue: {
-                values: [
-                  "values_example",
-                ],
-              },
-            },
-          ],
-        },
-        logicExpr: {
-          expressions: [
-            ,
-          ],
-          operator: "AND",
-        },
-      },
-      groupBy: [
-        "groupBy_example",
-      ],
-      segmentBy: [
-        {
-          cohortId: "cohortId_example",
-          allUsers: true,
-        },
-      ],
-      windowSize: 1,
-    },
-  },
-};
-
-const data = await apiInstance.retention2(request);
-console.log('API called successfully. Returned data:', data);
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **InsightsServiceRetentionRequest**|  |
-
-
-### Return type
-
-**InsightsServiceRetentionResponse**
-
-### Authorization
-
-[ApiKeyAuth](README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -1701,7 +1401,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -1817,7 +1517,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 

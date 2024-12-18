@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -359,7 +359,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -417,7 +417,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -475,7 +475,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -530,7 +530,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -686,7 +686,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -840,7 +840,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 
@@ -932,7 +932,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](README.md#ApiKeyAuth)
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
 
 ### HTTP request headers
 

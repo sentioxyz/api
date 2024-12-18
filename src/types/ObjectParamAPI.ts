@@ -78,8 +78,6 @@ import { CommonProjectView } from '../models/CommonProjectView.js';
 import { CommonProjectViewProjectViewConfig } from '../models/CommonProjectViewProjectViewConfig.js';
 import { CommonProjectVisibility } from '../models/CommonProjectVisibility.js';
 import { CommonQuery } from '../models/CommonQuery.js';
-import { CommonRetentionMatrix } from '../models/CommonRetentionMatrix.js';
-import { CommonRetentionMatrixSample } from '../models/CommonRetentionMatrixSample.js';
 import { CommonRetentionQuery } from '../models/CommonRetentionQuery.js';
 import { CommonRetentionQueryCriteria } from '../models/CommonRetentionQueryCriteria.js';
 import { CommonRetentionQueryFilter } from '../models/CommonRetentionQueryFilter.js';
@@ -126,13 +124,10 @@ import { GoogleProtobufAny } from '../models/GoogleProtobufAny.js';
 import { GoogleProtobufNullValue } from '../models/GoogleProtobufNullValue.js';
 import { InsightsServiceDataSource } from '../models/InsightsServiceDataSource.js';
 import { InsightsServiceInsightsServiceQueryBody } from '../models/InsightsServiceInsightsServiceQueryBody.js';
-import { InsightsServiceInsightsServiceRetentionBody } from '../models/InsightsServiceInsightsServiceRetentionBody.js';
 import { InsightsServiceListCoinsResponse } from '../models/InsightsServiceListCoinsResponse.js';
 import { InsightsServiceQueryRequestQuery } from '../models/InsightsServiceQueryRequestQuery.js';
 import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResponse.js';
 import { InsightsServiceQueryResponseResult } from '../models/InsightsServiceQueryResponseResult.js';
-import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
-import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -147,9 +142,6 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
-import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
-import { PriceServiceAddCoinByGeckoResponse } from '../models/PriceServiceAddCoinByGeckoResponse.js';
-import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -870,38 +862,6 @@ export interface DataApiQuerySQLResultRequest {
     version?: number
 }
 
-export interface DataApiRetentionRequest {
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApiretention
-     */
-    owner: string
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DataApiretention
-     */
-    slug: string
-    /**
-     * 
-     * @type InsightsServiceInsightsServiceRetentionBody
-     * @memberof DataApiretention
-     */
-    body: InsightsServiceInsightsServiceRetentionBody
-}
-
-export interface DataApiRetention2Request {
-    /**
-     * 
-     * @type InsightsServiceRetentionRequest
-     * @memberof DataApiretention2
-     */
-    body: InsightsServiceRetentionRequest
-}
-
 export interface DataApiSaveSQLRequest {
     /**
      * username or organization name
@@ -1143,42 +1103,6 @@ export class ObjectDataApi {
      */
     public querySQLResult(param: DataApiQuerySQLResultRequest, options?: Configuration): Promise<AnalyticServiceQuerySQLResultResponse> {
         return this.api.querySQLResult(param.owner, param.slug, param.executionId, param.projectId, param.version,  options).toPromise();
-    }
-
-    /**
-     * Query for retention.
-     * Retention query
-     * @param param the request object
-     */
-    public retentionWithHttpInfo(param: DataApiRetentionRequest, options?: Configuration): Promise<HttpInfo<InsightsServiceRetentionResponse>> {
-        return this.api.retentionWithHttpInfo(param.owner, param.slug, param.body,  options).toPromise();
-    }
-
-    /**
-     * Query for retention.
-     * Retention query
-     * @param param the request object
-     */
-    public retention(param: DataApiRetentionRequest, options?: Configuration): Promise<InsightsServiceRetentionResponse> {
-        return this.api.retention(param.owner, param.slug, param.body,  options).toPromise();
-    }
-
-    /**
-     * Query for retention.
-     * Retention query
-     * @param param the request object
-     */
-    public retention2WithHttpInfo(param: DataApiRetention2Request, options?: Configuration): Promise<HttpInfo<InsightsServiceRetentionResponse>> {
-        return this.api.retention2WithHttpInfo(param.body,  options).toPromise();
-    }
-
-    /**
-     * Query for retention.
-     * Retention query
-     * @param param the request object
-     */
-    public retention2(param: DataApiRetention2Request, options?: Configuration): Promise<InsightsServiceRetentionResponse> {
-        return this.api.retention2(param.body,  options).toPromise();
     }
 
     /**
@@ -1820,41 +1744,6 @@ export class ObjectDebugAndSimulationApi {
      */
     public simulateTransactionBundle(param: DebugAndSimulationApiSimulateTransactionBundleRequest, options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         return this.api.simulateTransactionBundle(param.owner, param.slug, param.chainId, param.body,  options).toPromise();
-    }
-
-}
-
-import { ObservableDefaultApi } from "./ObservableAPI.js";
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-
-export interface DefaultApiAddCoinByGeckoRequest {
-    /**
-     * 
-     * @type PriceServiceAddCoinByGeckoRequest
-     * @memberof DefaultApiaddCoinByGecko
-     */
-    body: PriceServiceAddCoinByGeckoRequest
-}
-
-export class ObjectDefaultApi {
-    private api: ObservableDefaultApi
-
-    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
-        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * @param param the request object
-     */
-    public addCoinByGeckoWithHttpInfo(param: DefaultApiAddCoinByGeckoRequest, options?: Configuration): Promise<HttpInfo<PriceServiceAddCoinByGeckoResponse>> {
-        return this.api.addCoinByGeckoWithHttpInfo(param.body,  options).toPromise();
-    }
-
-    /**
-     * @param param the request object
-     */
-    public addCoinByGecko(param: DefaultApiAddCoinByGeckoRequest, options?: Configuration): Promise<PriceServiceAddCoinByGeckoResponse> {
-        return this.api.addCoinByGecko(param.body,  options).toPromise();
     }
 
 }

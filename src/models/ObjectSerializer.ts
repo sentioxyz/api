@@ -75,8 +75,6 @@ export * from '../models/CommonProjectView.js';
 export * from '../models/CommonProjectViewProjectViewConfig.js';
 export * from '../models/CommonProjectVisibility.js';
 export * from '../models/CommonQuery.js';
-export * from '../models/CommonRetentionMatrix.js';
-export * from '../models/CommonRetentionMatrixSample.js';
 export * from '../models/CommonRetentionQuery.js';
 export * from '../models/CommonRetentionQueryCriteria.js';
 export * from '../models/CommonRetentionQueryFilter.js';
@@ -123,13 +121,10 @@ export * from '../models/GoogleProtobufAny.js';
 export * from '../models/GoogleProtobufNullValue.js';
 export * from '../models/InsightsServiceDataSource.js';
 export * from '../models/InsightsServiceInsightsServiceQueryBody.js';
-export * from '../models/InsightsServiceInsightsServiceRetentionBody.js';
 export * from '../models/InsightsServiceListCoinsResponse.js';
 export * from '../models/InsightsServiceQueryRequestQuery.js';
 export * from '../models/InsightsServiceQueryResponse.js';
 export * from '../models/InsightsServiceQueryResponseResult.js';
-export * from '../models/InsightsServiceRetentionRequest.js';
-export * from '../models/InsightsServiceRetentionResponse.js';
 export * from '../models/MetricsServiceGetMetricsResponse.js';
 export * from '../models/MetricsServiceMetricInfo.js';
 export * from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -144,9 +139,6 @@ export * from '../models/MetricsServiceObservabilityServiceQueryBody.js';
 export * from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 export * from '../models/MetricsServiceQueryValueResponse.js';
 export * from '../models/MetricsServiceQueryValueResponseResult.js';
-export * from '../models/PriceServiceAddCoinByGeckoRequest.js';
-export * from '../models/PriceServiceAddCoinByGeckoResponse.js';
-export * from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 export * from '../models/PriceServiceBatchGetPricesRequest.js';
 export * from '../models/PriceServiceBatchGetPricesResponse.js';
 export * from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -340,8 +332,6 @@ import { CommonProjectView } from '../models/CommonProjectView.js';
 import { CommonProjectViewProjectViewConfig } from '../models/CommonProjectViewProjectViewConfig.js';
 import { CommonProjectVisibility } from '../models/CommonProjectVisibility.js';
 import { CommonQuery } from '../models/CommonQuery.js';
-import { CommonRetentionMatrix } from '../models/CommonRetentionMatrix.js';
-import { CommonRetentionMatrixSample } from '../models/CommonRetentionMatrixSample.js';
 import { CommonRetentionQuery        } from '../models/CommonRetentionQuery.js';
 import { CommonRetentionQueryCriteria } from '../models/CommonRetentionQueryCriteria.js';
 import { CommonRetentionQueryFilter } from '../models/CommonRetentionQueryFilter.js';
@@ -388,13 +378,10 @@ import { GoogleProtobufAny } from '../models/GoogleProtobufAny.js';
 import { GoogleProtobufNullValue } from '../models/GoogleProtobufNullValue.js';
 import { InsightsServiceDataSource } from '../models/InsightsServiceDataSource.js';
 import { InsightsServiceInsightsServiceQueryBody } from '../models/InsightsServiceInsightsServiceQueryBody.js';
-import { InsightsServiceInsightsServiceRetentionBody } from '../models/InsightsServiceInsightsServiceRetentionBody.js';
 import { InsightsServiceListCoinsResponse } from '../models/InsightsServiceListCoinsResponse.js';
 import { InsightsServiceQueryRequestQuery      } from '../models/InsightsServiceQueryRequestQuery.js';
 import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResponse.js';
 import { InsightsServiceQueryResponseResult       } from '../models/InsightsServiceQueryResponseResult.js';
-import { InsightsServiceRetentionRequest } from '../models/InsightsServiceRetentionRequest.js';
-import { InsightsServiceRetentionResponse } from '../models/InsightsServiceRetentionResponse.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
@@ -409,9 +396,6 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
-import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
-import { PriceServiceAddCoinByGeckoResponse       } from '../models/PriceServiceAddCoinByGeckoResponse.js';
-import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -566,7 +550,6 @@ let enumsMap: Set<string> = new Set<string>([
     "CommonUserAccountStatus",
     "GoogleProtobufNullValue",
     "InsightsServiceDataSource",
-    "PriceServiceAddCoinByGeckoResponseStatus",
     "SolidityServiceForkType",
     "SolidityServiceSourceFetcherType",
     "WebServiceChartChartType",
@@ -650,8 +633,6 @@ let typeMap: {[index: string]: any} = {
     "CommonProjectView": CommonProjectView,
     "CommonProjectViewProjectViewConfig": CommonProjectViewProjectViewConfig,
     "CommonQuery": CommonQuery,
-    "CommonRetentionMatrix": CommonRetentionMatrix,
-    "CommonRetentionMatrixSample": CommonRetentionMatrixSample,
     "CommonRetentionQuery": CommonRetentionQuery,
     "CommonRetentionQueryFilter": CommonRetentionQueryFilter,
     "CommonRetentionQueryFilterTimeFilter": CommonRetentionQueryFilterTimeFilter,
@@ -686,13 +667,10 @@ let typeMap: {[index: string]: any} = {
     "GoogleApiHttpBody": GoogleApiHttpBody,
     "GoogleProtobufAny": GoogleProtobufAny,
     "InsightsServiceInsightsServiceQueryBody": InsightsServiceInsightsServiceQueryBody,
-    "InsightsServiceInsightsServiceRetentionBody": InsightsServiceInsightsServiceRetentionBody,
     "InsightsServiceListCoinsResponse": InsightsServiceListCoinsResponse,
     "InsightsServiceQueryRequestQuery": InsightsServiceQueryRequestQuery,
     "InsightsServiceQueryResponse": InsightsServiceQueryResponse,
     "InsightsServiceQueryResponseResult": InsightsServiceQueryResponseResult,
-    "InsightsServiceRetentionRequest": InsightsServiceRetentionRequest,
-    "InsightsServiceRetentionResponse": InsightsServiceRetentionResponse,
     "MetricsServiceGetMetricsResponse": MetricsServiceGetMetricsResponse,
     "MetricsServiceMetricInfo": MetricsServiceMetricInfo,
     "MetricsServiceMetricInfoLabelValues": MetricsServiceMetricInfoLabelValues,
@@ -707,8 +685,6 @@ let typeMap: {[index: string]: any} = {
     "MetricsServiceObservabilityServiceQueryRangeBody": MetricsServiceObservabilityServiceQueryRangeBody,
     "MetricsServiceQueryValueResponse": MetricsServiceQueryValueResponse,
     "MetricsServiceQueryValueResponseResult": MetricsServiceQueryValueResponseResult,
-    "PriceServiceAddCoinByGeckoRequest": PriceServiceAddCoinByGeckoRequest,
-    "PriceServiceAddCoinByGeckoResponse": PriceServiceAddCoinByGeckoResponse,
     "PriceServiceBatchGetPricesRequest": PriceServiceBatchGetPricesRequest,
     "PriceServiceBatchGetPricesResponse": PriceServiceBatchGetPricesResponse,
     "PriceServiceBatchGetPricesResponseCoinPrice": PriceServiceBatchGetPricesResponseCoinPrice,
