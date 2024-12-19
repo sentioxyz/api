@@ -1888,6 +1888,36 @@ ul.nav-tabs {
     }
   }
 };
+    defs["common.ErrorRecord"] = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "namespace" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "code" : {
+      "title" : "same as google.rpc.status.Status.code",
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "namespaceCode" : {
+      "title" : "additional codes definted in the namespace",
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "createdAt" : {
+      "title" : "details",
+      "type" : "string",
+      "format" : "date-time"
+    }
+  }
+};
     defs["common.EventLogColumn"] = {
   "type" : "object",
   "properties" : {
@@ -2352,6 +2382,38 @@ ul.nav-tabs {
   "type" : "string",
   "default" : "SENTIO",
   "enum" : [ "SENTIO", "SUBGRAPH", "ACTION" ]
+};
+    defs["common.ProjectVariables"] = {
+  "type" : "object",
+  "properties" : {
+    "projectId" : {
+      "type" : "string"
+    },
+    "variables" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.ProjectVariables.Variable"
+      }
+    }
+  }
+};
+    defs["common.ProjectVariables.Variable"] = {
+  "type" : "object",
+  "properties" : {
+    "key" : {
+      "type" : "string"
+    },
+    "value" : {
+      "type" : "string"
+    },
+    "isSecret" : {
+      "type" : "boolean"
+    },
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    }
+  }
 };
     defs["common.ProjectView"] = {
   "type" : "object",
@@ -3741,6 +3803,364 @@ ul.nav-tabs {
       }
     }
   }
+};
+    defs["processor_service.ChainState"] = {
+  "type" : "object",
+  "properties" : {
+    "chainId" : {
+      "type" : "string",
+      "description" : "The chain id."
+    },
+    "processedBlockNumber" : {
+      "type" : "string",
+      "description" : "The most recently processed block number and block hash.",
+      "format" : "int64"
+    },
+    "processedTimestampMicros" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "processedBlockHash" : {
+      "type" : "string"
+    },
+    "processedVersion" : {
+      "title" : "Processed version",
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "status" : {
+      "$ref" : "#/components/schemas/processor_service.ChainState.Status"
+    },
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "templates" : {
+      "type" : "string",
+      "description" : "The serialized templates info."
+    },
+    "indexerState" : {
+      "type" : "string",
+      "description" : "The serialized indexer state."
+    },
+    "meterState" : {
+      "type" : "string",
+      "description" : "The serialized meter state."
+    },
+    "handlerStat" : {
+      "title" : "The serialized handler stat",
+      "type" : "string"
+    },
+    "initialStartBlockNumber" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "estimatedLatestBlockNumber" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "trackers" : {
+      "type" : "string",
+      "description" : "To be deprecated after the migration."
+    }
+  }
+};
+    defs["processor_service.ChainState.Status"] = {
+  "title" : "Status of this chain indexer",
+  "type" : "object",
+  "properties" : {
+    "state" : {
+      "$ref" : "#/components/schemas/processor_service.ChainState.Status.State"
+    },
+    "errorRecord" : {
+      "$ref" : "#/components/schemas/common.ErrorRecord"
+    }
+  }
+};
+    defs["processor_service.ChainState.Status.State"] = {
+  "type" : "string",
+  "default" : "UNKNOWN",
+  "enum" : [ "UNKNOWN", "ERROR", "CATCHING_UP", "PROCESSING_LATEST", "QUEUING" ]
+};
+    defs["processor_service.DownloadProcessorResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "url" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["processor_service.GetProcessorResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "processor" : {
+      "$ref" : "#/components/schemas/processor_service.Processor"
+    }
+  }
+};
+    defs["processor_service.GetProcessorStatusResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "processors" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse.ProcessorEx"
+      }
+    }
+  }
+};
+    defs["processor_service.GetProcessorStatusResponse.ProcessorEx"] = {
+  "type" : "object",
+  "properties" : {
+    "states" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.ChainState"
+      }
+    },
+    "processorId" : {
+      "type" : "string"
+    },
+    "codeHash" : {
+      "type" : "string"
+    },
+    "commitSha" : {
+      "type" : "string"
+    },
+    "uploadedBy" : {
+      "$ref" : "#/components/schemas/common.UserInfo"
+    },
+    "uploadedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "processorStatus" : {
+      "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse.ProcessorStatus"
+    },
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "sdkVersion" : {
+      "type" : "string"
+    },
+    "gitUrl" : {
+      "type" : "string"
+    },
+    "versionState" : {
+      "$ref" : "#/components/schemas/processor_service.ProcessorVersionState"
+    },
+    "versionLabel" : {
+      "type" : "string"
+    },
+    "ipfsHash" : {
+      "type" : "string"
+    },
+    "debugFork" : {
+      "type" : "string"
+    },
+    "cliVersion" : {
+      "type" : "string"
+    },
+    "referenceProjectId" : {
+      "type" : "string"
+    },
+    "warnings" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "pause" : {
+      "type" : "boolean"
+    },
+    "networkOverrides" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.NetworkOverride"
+      }
+    }
+  }
+};
+    defs["processor_service.GetProcessorStatusResponse.ProcessorStatus"] = {
+  "type" : "object",
+  "properties" : {
+    "state" : {
+      "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse.ProcessorStatus.State"
+    },
+    "errorRecord" : {
+      "$ref" : "#/components/schemas/common.ErrorRecord"
+    }
+  }
+};
+    defs["processor_service.GetProcessorStatusResponse.ProcessorStatus.State"] = {
+  "type" : "string",
+  "default" : "UNKNOWN",
+  "enum" : [ "UNKNOWN", "ERROR", "STARTING", "PROCESSING" ]
+};
+    defs["processor_service.GetProcessorWithProjectResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "processor" : {
+      "$ref" : "#/components/schemas/processor_service.Processor"
+    },
+    "project" : {
+      "$ref" : "#/components/schemas/common.Project"
+    }
+  }
+};
+    defs["processor_service.GetProcessorsResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "processors" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.Processor"
+      }
+    }
+  }
+};
+    defs["processor_service.GetProjectVersionsResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "versions" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.GetProjectVersionsResponse.Version"
+      }
+    }
+  }
+};
+    defs["processor_service.GetProjectVersionsResponse.Version"] = {
+  "type" : "object",
+  "properties" : {
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "state" : {
+      "$ref" : "#/components/schemas/processor_service.ProcessorVersionState"
+    },
+    "processorId" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["processor_service.NetworkOverride"] = {
+  "type" : "object",
+  "properties" : {
+    "chain" : {
+      "type" : "string"
+    },
+    "host" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["processor_service.Processor"] = {
+  "type" : "object",
+  "properties" : {
+    "processorId" : {
+      "type" : "string",
+      "description" : "The unique processor id."
+    },
+    "projectId" : {
+      "type" : "string",
+      "description" : "The project this processor belongs to."
+    },
+    "version" : {
+      "type" : "integer",
+      "description" : "The version of the code_url below.",
+      "format" : "int32"
+    },
+    "sdkVersion" : {
+      "title" : "The SDK version used when uploaded",
+      "type" : "string"
+    },
+    "codeUrl" : {
+      "type" : "string",
+      "description" : "Call should be able to fetch the code to run from code_url."
+    },
+    "chainStates" : {
+      "title" : "Each maintains a state of a processor w.r.t a given chain.\nThis is a one-to-many mapping (processor to processor-chain)",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.ChainState"
+      }
+    },
+    "contractId" : {
+      "type" : "string",
+      "description" : "If non empty, this is the contract associated with the processor."
+    },
+    "versionState" : {
+      "$ref" : "#/components/schemas/processor_service.ProcessorVersionState"
+    },
+    "debug" : {
+      "title" : "If enabled, driver job's log level will be set to debug",
+      "type" : "boolean"
+    },
+    "timescaleShardingIndex" : {
+      "type" : "integer",
+      "description" : "The timescale-db sharding index of this processor.",
+      "format" : "int32"
+    },
+    "versionLabel" : {
+      "title" : "The version label of the subgraph\nused for subgraph project",
+      "type" : "string"
+    },
+    "ipfsHash" : {
+      "title" : "The hash (object CID) of the subgraph description file in ipfs node\nused for subgraph project",
+      "type" : "string"
+    },
+    "debugFork" : {
+      "title" : "ID of a remote subgraph whose store will be GraphQL queried\nused for subgraph project",
+      "type" : "string"
+    },
+    "createdAt" : {
+      "type" : "string",
+      "description" : "The created timestamp of the processor.",
+      "format" : "int64"
+    },
+    "clickhouseShardingIndex" : {
+      "type" : "integer",
+      "description" : "The clickhouse sharding index of this processor.",
+      "format" : "int32"
+    },
+    "k8sClusterId" : {
+      "title" : "The k8s cluster id of this processor",
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "enableMaterializedView" : {
+      "type" : "boolean"
+    },
+    "referenceProjectId" : {
+      "type" : "string"
+    },
+    "networkOverrides" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.NetworkOverride"
+      }
+    },
+    "eventlogMigrateStatus" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "eventlogVersion" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "pause" : {
+      "type" : "boolean"
+    }
+  },
+  "description" : "This represents a processor which backend works on."
+};
+    defs["processor_service.ProcessorVersionState"] = {
+  "type" : "string",
+  "default" : "UNKNOWN",
+  "enum" : [ "UNKNOWN", "PENDING", "ACTIVE", "OBSOLETE" ]
 };
     defs["solidity_service.BaseChainConfig"] = {
   "type" : "object",
@@ -5664,6 +6084,13 @@ ul.nav-tabs {
                     </li>
                     <li data-group="DebugAndSimulation" data-name="simulateTransactionBundle" class="">
                       <a href="#api-DebugAndSimulation-simulateTransactionBundle">simulateTransactionBundle</a>
+                    </li>
+                  <li class="nav-header" data-group="Default"><a href="#api-Default">API Methods - Default</a></li>
+                    <li data-group="Default" data-name="getProcessorStatus" class="">
+                      <a href="#api-Default-getProcessorStatus">getProcessorStatus</a>
+                    </li>
+                    <li data-group="Default" data-name="getProjectVersions" class="">
+                      <a href="#api-Default-getProjectVersions">getProjectVersions</a>
                     </li>
                   <li class="nav-header" data-group="Forks"><a href="#api-Forks">API Methods - Forks</a></li>
                     <li data-group="Forks" data-name="createFork" class="">
@@ -21765,6 +22192,922 @@ $(document).ready(function() {
                                   </script>
                                 </div>
                                 <input id='responses-DebugAndSimulation-simulateTransactionBundle-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Default">
+                  <h1>Default</h1>
+                    <div id="api-Default-getProcessorStatus">
+                      <article id="api-Default-getProcessorStatus-0" data-group="User" data-name="getProcessorStatus" data-version="0">
+                        <div class="pull-left">
+                          <h1>getProcessorStatus</h1>
+                          <p>Get processor status</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/processors/status</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-getProcessorStatus-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-getProcessorStatus-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-getProcessorStatus-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-getProcessorStatus-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-getProcessorStatus-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/processors/status?projectId=projectId_example&id=id_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-getProcessorStatus-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        String projectId = projectId_example; // String | 
+        String id = id_example; // String | 
+
+        try {
+            processor_service.GetProcessorStatusResponse result = apiInstance.getProcessorStatus(projectId, id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getProcessorStatus");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getProcessorStatus-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String projectId = new String(); // String | 
+final String id = new String(); // String | 
+
+try {
+    final result = await api_instance.getProcessorStatus(projectId, id);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getProcessorStatus: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getProcessorStatus-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        String projectId = projectId_example; // String | 
+        String id = id_example; // String | 
+
+        try {
+            processor_service.GetProcessorStatusResponse result = apiInstance.getProcessorStatus(projectId, id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getProcessorStatus");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-getProcessorStatus-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-getProcessorStatus-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+String *projectId = projectId_example; //  (optional) (default to null)
+String *id = id_example; //  (optional) (default to null)
+
+// Get processor status
+[apiInstance getProcessorStatusWith:projectId
+    id:id
+              completionHandler: ^(processor_service.GetProcessorStatusResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProcessorStatus-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var opts = {
+  'projectId': projectId_example, // {String} 
+  'id': id_example // {String} 
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getProcessorStatus(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-getProcessorStatus-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-getProcessorStatus-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getProcessorStatusExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var projectId = projectId_example;  // String |  (optional)  (default to null)
+            var id = id_example;  // String |  (optional)  (default to null)
+
+            try {
+                // Get processor status
+                processor_service.GetProcessorStatusResponse result = apiInstance.getProcessorStatus(projectId, id);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.getProcessorStatus: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProcessorStatus-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$projectId = projectId_example; // String | 
+$id = id_example; // String | 
+
+try {
+    $result = $api_instance->getProcessorStatus($projectId, $id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getProcessorStatus: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProcessorStatus-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $projectId = projectId_example; # String | 
+my $id = id_example; # String | 
+
+eval {
+    my $result = $api_instance->getProcessorStatus(projectId => $projectId, id => $id);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->getProcessorStatus: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProcessorStatus-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+projectId = projectId_example # String |  (optional) (default to null)
+id = id_example # String |  (optional) (default to null)
+
+try:
+    # Get processor status
+    api_response = api_instance.get_processor_status(projectId=projectId, id=id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->getProcessorStatus: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProcessorStatus-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let projectId = projectId_example; // String
+    let id = id_example; // String
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.getProcessorStatus(projectId, id, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">projectId</td>
+<td>
+
+
+    <div id="d2e199_getProcessorStatus_projectId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">id</td>
+<td>
+
+
+    <div id="d2e199_getProcessorStatus_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-getProcessorStatus-title-200"></h3>
+                            <p id="examples-Default-getProcessorStatus-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-getProcessorStatus-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-getProcessorStatus-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-getProcessorStatus-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-getProcessorStatus-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-getProcessorStatus-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-getProcessorStatus-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-getProcessorStatus-200-schema">
+                                <div id="responses-Default-getProcessorStatus-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-getProcessorStatus-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-getProcessorStatus-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-getProcessorStatus-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-getProjectVersions">
+                      <article id="api-Default-getProjectVersions-0" data-group="User" data-name="getProjectVersions" data-version="0">
+                        <div class="pull-left">
+                          <h1>getProjectVersions</h1>
+                          <p>Get Versions</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/processors/{projectId}/versions</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-getProjectVersions-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-getProjectVersions-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-getProjectVersions-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-getProjectVersions-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-getProjectVersions-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/processors/{projectId}/versions"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-getProjectVersions-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        String projectId = projectId_example; // String | 
+
+        try {
+            processor_service.GetProjectVersionsResponse result = apiInstance.getProjectVersions(projectId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getProjectVersions");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getProjectVersions-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String projectId = new String(); // String | 
+
+try {
+    final result = await api_instance.getProjectVersions(projectId);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getProjectVersions: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getProjectVersions-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        String projectId = projectId_example; // String | 
+
+        try {
+            processor_service.GetProjectVersionsResponse result = apiInstance.getProjectVersions(projectId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getProjectVersions");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-getProjectVersions-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-getProjectVersions-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+String *projectId = projectId_example; //  (default to null)
+
+// Get Versions
+[apiInstance getProjectVersionsWith:projectId
+              completionHandler: ^(processor_service.GetProjectVersionsResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProjectVersions-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var projectId = projectId_example; // {String} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getProjectVersions(projectId, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-getProjectVersions-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-getProjectVersions-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getProjectVersionsExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var projectId = projectId_example;  // String |  (default to null)
+
+            try {
+                // Get Versions
+                processor_service.GetProjectVersionsResponse result = apiInstance.getProjectVersions(projectId);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.getProjectVersions: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProjectVersions-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$projectId = projectId_example; // String | 
+
+try {
+    $result = $api_instance->getProjectVersions($projectId);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getProjectVersions: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProjectVersions-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $projectId = projectId_example; # String | 
+
+eval {
+    my $result = $api_instance->getProjectVersions(projectId => $projectId);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->getProjectVersions: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProjectVersions-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+projectId = projectId_example # String |  (default to null)
+
+try:
+    # Get Versions
+    api_response = api_instance.get_project_versions(projectId)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->getProjectVersions: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getProjectVersions-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let projectId = projectId_example; // String
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.getProjectVersions(projectId, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">projectId*</td>
+<td>
+
+
+    <div id="d2e199_getProjectVersions_projectId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-getProjectVersions-title-200"></h3>
+                            <p id="examples-Default-getProjectVersions-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-getProjectVersions-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-getProjectVersions-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-getProjectVersions-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-getProjectVersions-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-getProjectVersions-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-getProjectVersions-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-getProjectVersions-200-schema">
+                                <div id="responses-Default-getProjectVersions-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/processor_service.GetProjectVersionsResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-getProjectVersions-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-getProjectVersions-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-getProjectVersions-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

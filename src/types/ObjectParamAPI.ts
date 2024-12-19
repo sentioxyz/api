@@ -53,6 +53,7 @@ import { CommonColumnState } from '../models/CommonColumnState.js';
 import { CommonColumnStateSort } from '../models/CommonColumnStateSort.js';
 import { CommonComputeStats } from '../models/CommonComputeStats.js';
 import { CommonDuration } from '../models/CommonDuration.js';
+import { CommonErrorRecord } from '../models/CommonErrorRecord.js';
 import { CommonEventLogColumn } from '../models/CommonEventLogColumn.js';
 import { CommonEventLogConfig } from '../models/CommonEventLogConfig.js';
 import { CommonEventLogEntry } from '../models/CommonEventLogEntry.js';
@@ -74,6 +75,8 @@ import { CommonProjectInfo } from '../models/CommonProjectInfo.js';
 import { CommonProjectProjectMember } from '../models/CommonProjectProjectMember.js';
 import { CommonProjectSuperset } from '../models/CommonProjectSuperset.js';
 import { CommonProjectType } from '../models/CommonProjectType.js';
+import { CommonProjectVariables } from '../models/CommonProjectVariables.js';
+import { CommonProjectVariablesVariable } from '../models/CommonProjectVariablesVariable.js';
 import { CommonProjectView } from '../models/CommonProjectView.js';
 import { CommonProjectViewProjectViewConfig } from '../models/CommonProjectViewProjectViewConfig.js';
 import { CommonProjectVisibility } from '../models/CommonProjectVisibility.js';
@@ -152,6 +155,22 @@ import { PriceServiceCoinID } from '../models/PriceServiceCoinID.js';
 import { PriceServiceCoinIDAddressIdentifier } from '../models/PriceServiceCoinIDAddressIdentifier.js';
 import { PriceServiceGetPriceResponse } from '../models/PriceServiceGetPriceResponse.js';
 import { PriceServiceListCoinsResponse } from '../models/PriceServiceListCoinsResponse.js';
+import { ProcessorServiceChainState } from '../models/ProcessorServiceChainState.js';
+import { ProcessorServiceChainStateStatus } from '../models/ProcessorServiceChainStateStatus.js';
+import { ProcessorServiceChainStateStatusState } from '../models/ProcessorServiceChainStateStatusState.js';
+import { ProcessorServiceDownloadProcessorResponse } from '../models/ProcessorServiceDownloadProcessorResponse.js';
+import { ProcessorServiceGetProcessorResponse } from '../models/ProcessorServiceGetProcessorResponse.js';
+import { ProcessorServiceGetProcessorStatusResponse } from '../models/ProcessorServiceGetProcessorStatusResponse.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorEx } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorStatus } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
+import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
+import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
+import { ProcessorServiceGetProjectVersionsResponse } from '../models/ProcessorServiceGetProjectVersionsResponse.js';
+import { ProcessorServiceGetProjectVersionsResponseVersion } from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
+import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
+import { ProcessorServiceProcessor } from '../models/ProcessorServiceProcessor.js';
+import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
 import { SolidityServiceBaseChainConfig } from '../models/SolidityServiceBaseChainConfig.js';
 import { SolidityServiceBlockOverrides } from '../models/SolidityServiceBlockOverrides.js';
 import { SolidityServiceBlockPrice } from '../models/SolidityServiceBlockPrice.js';
@@ -1744,6 +1763,77 @@ export class ObjectDebugAndSimulationApi {
      */
     public simulateTransactionBundle(param: DebugAndSimulationApiSimulateTransactionBundleRequest, options?: Configuration): Promise<SolidityServiceSimulateTransactionBundleResponse> {
         return this.api.simulateTransactionBundle(param.owner, param.slug, param.chainId, param.body,  options).toPromise();
+    }
+
+}
+
+import { ObservableDefaultApi } from "./ObservableAPI.js";
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+
+export interface DefaultApiGetProcessorStatusRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApigetProcessorStatus
+     */
+    projectId?: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApigetProcessorStatus
+     */
+    id?: string
+}
+
+export interface DefaultApiGetProjectVersionsRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DefaultApigetProjectVersions
+     */
+    projectId: string
+}
+
+export class ObjectDefaultApi {
+    private api: ObservableDefaultApi
+
+    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
+        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get processor status
+     * @param param the request object
+     */
+    public getProcessorStatusWithHttpInfo(param: DefaultApiGetProcessorStatusRequest = {}, options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
+        return this.api.getProcessorStatusWithHttpInfo(param.projectId, param.id,  options).toPromise();
+    }
+
+    /**
+     * Get processor status
+     * @param param the request object
+     */
+    public getProcessorStatus(param: DefaultApiGetProcessorStatusRequest = {}, options?: Configuration): Promise<ProcessorServiceGetProcessorStatusResponse> {
+        return this.api.getProcessorStatus(param.projectId, param.id,  options).toPromise();
+    }
+
+    /**
+     * Get Versions
+     * @param param the request object
+     */
+    public getProjectVersionsWithHttpInfo(param: DefaultApiGetProjectVersionsRequest, options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProjectVersionsResponse>> {
+        return this.api.getProjectVersionsWithHttpInfo(param.projectId,  options).toPromise();
+    }
+
+    /**
+     * Get Versions
+     * @param param the request object
+     */
+    public getProjectVersions(param: DefaultApiGetProjectVersionsRequest, options?: Configuration): Promise<ProcessorServiceGetProjectVersionsResponse> {
+        return this.api.getProjectVersions(param.projectId,  options).toPromise();
     }
 
 }

@@ -1197,6 +1197,56 @@
         ]
       }
     },
+    "/api/v1/processors/status": {
+      "get": {
+        "summary": "Get processor status",
+        "operationId": "GetProcessorStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProcessorStatusResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/api/v1/processors/{projectId}/versions": {
+      "get": {
+        "summary": "Get Versions",
+        "operationId": "GetProjectVersions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProjectVersionsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
     "/api/v1/project/{owner}/{slug}": {
       "get": {
         "summary": "Get project details",
@@ -3568,6 +3618,36 @@
         }
       }
     },
+    "common.ErrorRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "same as google.rpc.status.Status.code"
+        },
+        "namespaceCode": {
+          "type": "integer",
+          "format": "int32",
+          "title": "additional codes definted in the namespace"
+        },
+        "message": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "details"
+        }
+      }
+    },
     "common.EventLogColumn": {
       "type": "object",
       "properties": {
@@ -4061,6 +4141,39 @@
           "format": "date-time"
         },
         "syncAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "common.ProjectVariables": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.ProjectVariables.Variable"
+          }
+        }
+      }
+    },
+    "common.ProjectVariables.Variable": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "isSecret": {
+          "type": "boolean"
+        },
+        "updatedAt": {
           "type": "string",
           "format": "date-time"
         }
@@ -5587,6 +5700,393 @@
           "title": "map from symbol to address, only returned when chain is set"
         }
       }
+    },
+    "processor_service.ChainState": {
+      "type": "object",
+      "properties": {
+        "chainId": {
+          "type": "string",
+          "description": "The chain id."
+        },
+        "processedBlockNumber": {
+          "type": "string",
+          "format": "int64",
+          "description": "The most recently processed block number and block hash."
+        },
+        "processedTimestampMicros": {
+          "type": "string",
+          "format": "int64"
+        },
+        "processedBlockHash": {
+          "type": "string"
+        },
+        "processedVersion": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Processed version"
+        },
+        "status": {
+          "$ref": "#/definitions/processor_service.ChainState.Status"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "templates": {
+          "type": "string",
+          "description": "The serialized templates info."
+        },
+        "indexerState": {
+          "type": "string",
+          "description": "The serialized indexer state."
+        },
+        "meterState": {
+          "type": "string",
+          "description": "The serialized meter state."
+        },
+        "handlerStat": {
+          "type": "string",
+          "title": "The serialized handler stat"
+        },
+        "initialStartBlockNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "estimatedLatestBlockNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "trackers": {
+          "type": "string",
+          "description": "To be deprecated after the migration."
+        }
+      }
+    },
+    "processor_service.ChainState.Status": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/processor_service.ChainState.Status.State"
+        },
+        "errorRecord": {
+          "$ref": "#/definitions/common.ErrorRecord",
+          "description": "This field is set if state is ERROR."
+        }
+      },
+      "title": "Status of this chain indexer"
+    },
+    "processor_service.ChainState.Status.State": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "ERROR",
+        "CATCHING_UP",
+        "PROCESSING_LATEST",
+        "QUEUING"
+      ],
+      "default": "UNKNOWN"
+    },
+    "processor_service.DownloadProcessorResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "processor_service.GetProcessorResponse": {
+      "type": "object",
+      "properties": {
+        "processor": {
+          "$ref": "#/definitions/processor_service.Processor"
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse": {
+      "type": "object",
+      "properties": {
+        "processors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.GetProcessorStatusResponse.ProcessorEx"
+          }
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse.ProcessorEx": {
+      "type": "object",
+      "properties": {
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.ChainState"
+          }
+        },
+        "processorId": {
+          "type": "string"
+        },
+        "codeHash": {
+          "type": "string"
+        },
+        "commitSha": {
+          "type": "string"
+        },
+        "uploadedBy": {
+          "$ref": "#/definitions/common.UserInfo"
+        },
+        "uploadedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "processorStatus": {
+          "$ref": "#/definitions/processor_service.GetProcessorStatusResponse.ProcessorStatus",
+          "description": "The processor status."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sdkVersion": {
+          "type": "string"
+        },
+        "gitUrl": {
+          "type": "string"
+        },
+        "versionState": {
+          "$ref": "#/definitions/processor_service.ProcessorVersionState"
+        },
+        "versionLabel": {
+          "type": "string"
+        },
+        "ipfsHash": {
+          "type": "string"
+        },
+        "debugFork": {
+          "type": "string"
+        },
+        "cliVersion": {
+          "type": "string"
+        },
+        "referenceProjectId": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pause": {
+          "type": "boolean"
+        },
+        "networkOverrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.NetworkOverride"
+          }
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse.ProcessorStatus": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/definitions/processor_service.GetProcessorStatusResponse.ProcessorStatus.State"
+        },
+        "errorRecord": {
+          "$ref": "#/definitions/common.ErrorRecord",
+          "description": "This field is set if state is ERROR."
+        }
+      }
+    },
+    "processor_service.GetProcessorStatusResponse.ProcessorStatus.State": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "ERROR",
+        "STARTING",
+        "PROCESSING"
+      ],
+      "default": "UNKNOWN"
+    },
+    "processor_service.GetProcessorWithProjectResponse": {
+      "type": "object",
+      "properties": {
+        "processor": {
+          "$ref": "#/definitions/processor_service.Processor"
+        },
+        "project": {
+          "$ref": "#/definitions/common.Project"
+        }
+      }
+    },
+    "processor_service.GetProcessorsResponse": {
+      "type": "object",
+      "properties": {
+        "processors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.Processor"
+          }
+        }
+      }
+    },
+    "processor_service.GetProjectVersionsResponse": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.GetProjectVersionsResponse.Version"
+          }
+        }
+      }
+    },
+    "processor_service.GetProjectVersionsResponse.Version": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "state": {
+          "$ref": "#/definitions/processor_service.ProcessorVersionState"
+        },
+        "processorId": {
+          "type": "string"
+        }
+      }
+    },
+    "processor_service.NetworkOverride": {
+      "type": "object",
+      "properties": {
+        "chain": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        }
+      }
+    },
+    "processor_service.Processor": {
+      "type": "object",
+      "properties": {
+        "processorId": {
+          "type": "string",
+          "description": "The unique processor id."
+        },
+        "projectId": {
+          "type": "string",
+          "description": "The project this processor belongs to."
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The version of the code_url below."
+        },
+        "sdkVersion": {
+          "type": "string",
+          "title": "The SDK version used when uploaded"
+        },
+        "codeUrl": {
+          "type": "string",
+          "description": "Call should be able to fetch the code to run from code_url."
+        },
+        "chainStates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.ChainState"
+          },
+          "title": "Each maintains a state of a processor w.r.t a given chain.\nThis is a one-to-many mapping (processor to processor-chain)"
+        },
+        "contractId": {
+          "type": "string",
+          "description": "If non empty, this is the contract associated with the processor."
+        },
+        "versionState": {
+          "$ref": "#/definitions/processor_service.ProcessorVersionState"
+        },
+        "debug": {
+          "type": "boolean",
+          "title": "If enabled, driver job's log level will be set to debug"
+        },
+        "timescaleShardingIndex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The timescale-db sharding index of this processor."
+        },
+        "versionLabel": {
+          "type": "string",
+          "title": "The version label of the subgraph\nused for subgraph project"
+        },
+        "ipfsHash": {
+          "type": "string",
+          "title": "The hash (object CID) of the subgraph description file in ipfs node\nused for subgraph project"
+        },
+        "debugFork": {
+          "type": "string",
+          "title": "ID of a remote subgraph whose store will be GraphQL queried\nused for subgraph project"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64",
+          "description": "The created timestamp of the processor."
+        },
+        "clickhouseShardingIndex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The clickhouse sharding index of this processor."
+        },
+        "k8sClusterId": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The k8s cluster id of this processor"
+        },
+        "enableMaterializedView": {
+          "type": "boolean"
+        },
+        "referenceProjectId": {
+          "type": "string"
+        },
+        "networkOverrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.NetworkOverride"
+          }
+        },
+        "eventlogMigrateStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "eventlogVersion": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pause": {
+          "type": "boolean"
+        }
+      },
+      "description": "This represents a processor which backend works on."
+    },
+    "processor_service.ProcessorVersionState": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "PENDING",
+        "ACTIVE",
+        "OBSOLETE"
+      ],
+      "default": "UNKNOWN"
+    },
+    "processor_service.UpdateChainProcessorStatusResponse": {
+      "type": "object"
     },
     "solidity_service.BaseChainConfig": {
       "type": "object",

@@ -50,6 +50,7 @@ export * from '../models/CommonColumnState.js';
 export * from '../models/CommonColumnStateSort.js';
 export * from '../models/CommonComputeStats.js';
 export * from '../models/CommonDuration.js';
+export * from '../models/CommonErrorRecord.js';
 export * from '../models/CommonEventLogColumn.js';
 export * from '../models/CommonEventLogConfig.js';
 export * from '../models/CommonEventLogEntry.js';
@@ -71,6 +72,8 @@ export * from '../models/CommonProjectInfo.js';
 export * from '../models/CommonProjectProjectMember.js';
 export * from '../models/CommonProjectSuperset.js';
 export * from '../models/CommonProjectType.js';
+export * from '../models/CommonProjectVariables.js';
+export * from '../models/CommonProjectVariablesVariable.js';
 export * from '../models/CommonProjectView.js';
 export * from '../models/CommonProjectViewProjectViewConfig.js';
 export * from '../models/CommonProjectVisibility.js';
@@ -149,6 +152,22 @@ export * from '../models/PriceServiceCoinID.js';
 export * from '../models/PriceServiceCoinIDAddressIdentifier.js';
 export * from '../models/PriceServiceGetPriceResponse.js';
 export * from '../models/PriceServiceListCoinsResponse.js';
+export * from '../models/ProcessorServiceChainState.js';
+export * from '../models/ProcessorServiceChainStateStatus.js';
+export * from '../models/ProcessorServiceChainStateStatusState.js';
+export * from '../models/ProcessorServiceDownloadProcessorResponse.js';
+export * from '../models/ProcessorServiceGetProcessorResponse.js';
+export * from '../models/ProcessorServiceGetProcessorStatusResponse.js';
+export * from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
+export * from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
+export * from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
+export * from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
+export * from '../models/ProcessorServiceGetProcessorsResponse.js';
+export * from '../models/ProcessorServiceGetProjectVersionsResponse.js';
+export * from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
+export * from '../models/ProcessorServiceNetworkOverride.js';
+export * from '../models/ProcessorServiceProcessor.js';
+export * from '../models/ProcessorServiceProcessorVersionState.js';
 export * from '../models/SolidityServiceBaseChainConfig.js';
 export * from '../models/SolidityServiceBlockOverrides.js';
 export * from '../models/SolidityServiceBlockPrice.js';
@@ -307,6 +326,7 @@ import { CommonColumnState } from '../models/CommonColumnState.js';
 import { CommonColumnStateSort } from '../models/CommonColumnStateSort.js';
 import { CommonComputeStats } from '../models/CommonComputeStats.js';
 import { CommonDuration } from '../models/CommonDuration.js';
+import { CommonErrorRecord } from '../models/CommonErrorRecord.js';
 import { CommonEventLogColumn } from '../models/CommonEventLogColumn.js';
 import { CommonEventLogConfig } from '../models/CommonEventLogConfig.js';
 import { CommonEventLogEntry } from '../models/CommonEventLogEntry.js';
@@ -328,6 +348,8 @@ import { CommonProjectInfo                } from '../models/CommonProjectInfo.js
 import { CommonProjectProjectMember } from '../models/CommonProjectProjectMember.js';
 import { CommonProjectSuperset } from '../models/CommonProjectSuperset.js';
 import { CommonProjectType } from '../models/CommonProjectType.js';
+import { CommonProjectVariables } from '../models/CommonProjectVariables.js';
+import { CommonProjectVariablesVariable } from '../models/CommonProjectVariablesVariable.js';
 import { CommonProjectView } from '../models/CommonProjectView.js';
 import { CommonProjectViewProjectViewConfig } from '../models/CommonProjectViewProjectViewConfig.js';
 import { CommonProjectVisibility } from '../models/CommonProjectVisibility.js';
@@ -406,6 +428,22 @@ import { PriceServiceCoinID } from '../models/PriceServiceCoinID.js';
 import { PriceServiceCoinIDAddressIdentifier } from '../models/PriceServiceCoinIDAddressIdentifier.js';
 import { PriceServiceGetPriceResponse } from '../models/PriceServiceGetPriceResponse.js';
 import { PriceServiceListCoinsResponse } from '../models/PriceServiceListCoinsResponse.js';
+import { ProcessorServiceChainState } from '../models/ProcessorServiceChainState.js';
+import { ProcessorServiceChainStateStatus   } from '../models/ProcessorServiceChainStateStatus.js';
+import { ProcessorServiceChainStateStatusState } from '../models/ProcessorServiceChainStateStatusState.js';
+import { ProcessorServiceDownloadProcessorResponse } from '../models/ProcessorServiceDownloadProcessorResponse.js';
+import { ProcessorServiceGetProcessorResponse } from '../models/ProcessorServiceGetProcessorResponse.js';
+import { ProcessorServiceGetProcessorStatusResponse } from '../models/ProcessorServiceGetProcessorStatusResponse.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorEx                    } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorStatus   } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
+import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
+import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
+import { ProcessorServiceGetProjectVersionsResponse } from '../models/ProcessorServiceGetProjectVersionsResponse.js';
+import { ProcessorServiceGetProjectVersionsResponseVersion    } from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
+import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
+import { ProcessorServiceProcessor                       } from '../models/ProcessorServiceProcessor.js';
+import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
 import { SolidityServiceBaseChainConfig        } from '../models/SolidityServiceBaseChainConfig.js';
 import { SolidityServiceBlockOverrides } from '../models/SolidityServiceBlockOverrides.js';
 import { SolidityServiceBlockPrice } from '../models/SolidityServiceBlockPrice.js';
@@ -550,6 +588,9 @@ let enumsMap: Set<string> = new Set<string>([
     "CommonUserAccountStatus",
     "GoogleProtobufNullValue",
     "InsightsServiceDataSource",
+    "ProcessorServiceChainStateStatusState",
+    "ProcessorServiceGetProcessorStatusResponseProcessorStatusState",
+    "ProcessorServiceProcessorVersionState",
     "SolidityServiceForkType",
     "SolidityServiceSourceFetcherType",
     "WebServiceChartChartType",
@@ -613,6 +654,7 @@ let typeMap: {[index: string]: any} = {
     "CommonColumnStateSort": CommonColumnStateSort,
     "CommonComputeStats": CommonComputeStats,
     "CommonDuration": CommonDuration,
+    "CommonErrorRecord": CommonErrorRecord,
     "CommonEventLogColumn": CommonEventLogColumn,
     "CommonEventLogConfig": CommonEventLogConfig,
     "CommonEventLogEntry": CommonEventLogEntry,
@@ -630,6 +672,8 @@ let typeMap: {[index: string]: any} = {
     "CommonProjectInfo": CommonProjectInfo,
     "CommonProjectProjectMember": CommonProjectProjectMember,
     "CommonProjectSuperset": CommonProjectSuperset,
+    "CommonProjectVariables": CommonProjectVariables,
+    "CommonProjectVariablesVariable": CommonProjectVariablesVariable,
     "CommonProjectView": CommonProjectView,
     "CommonProjectViewProjectViewConfig": CommonProjectViewProjectViewConfig,
     "CommonQuery": CommonQuery,
@@ -695,6 +739,19 @@ let typeMap: {[index: string]: any} = {
     "PriceServiceCoinIDAddressIdentifier": PriceServiceCoinIDAddressIdentifier,
     "PriceServiceGetPriceResponse": PriceServiceGetPriceResponse,
     "PriceServiceListCoinsResponse": PriceServiceListCoinsResponse,
+    "ProcessorServiceChainState": ProcessorServiceChainState,
+    "ProcessorServiceChainStateStatus": ProcessorServiceChainStateStatus,
+    "ProcessorServiceDownloadProcessorResponse": ProcessorServiceDownloadProcessorResponse,
+    "ProcessorServiceGetProcessorResponse": ProcessorServiceGetProcessorResponse,
+    "ProcessorServiceGetProcessorStatusResponse": ProcessorServiceGetProcessorStatusResponse,
+    "ProcessorServiceGetProcessorStatusResponseProcessorEx": ProcessorServiceGetProcessorStatusResponseProcessorEx,
+    "ProcessorServiceGetProcessorStatusResponseProcessorStatus": ProcessorServiceGetProcessorStatusResponseProcessorStatus,
+    "ProcessorServiceGetProcessorWithProjectResponse": ProcessorServiceGetProcessorWithProjectResponse,
+    "ProcessorServiceGetProcessorsResponse": ProcessorServiceGetProcessorsResponse,
+    "ProcessorServiceGetProjectVersionsResponse": ProcessorServiceGetProjectVersionsResponse,
+    "ProcessorServiceGetProjectVersionsResponseVersion": ProcessorServiceGetProjectVersionsResponseVersion,
+    "ProcessorServiceNetworkOverride": ProcessorServiceNetworkOverride,
+    "ProcessorServiceProcessor": ProcessorServiceProcessor,
     "SolidityServiceBaseChainConfig": SolidityServiceBaseChainConfig,
     "SolidityServiceBlockOverrides": SolidityServiceBlockOverrides,
     "SolidityServiceBlockPrice": SolidityServiceBlockPrice,

@@ -54,6 +54,7 @@ import { CommonColumnState } from '../models/CommonColumnState.js';
 import { CommonColumnStateSort } from '../models/CommonColumnStateSort.js';
 import { CommonComputeStats } from '../models/CommonComputeStats.js';
 import { CommonDuration } from '../models/CommonDuration.js';
+import { CommonErrorRecord } from '../models/CommonErrorRecord.js';
 import { CommonEventLogColumn } from '../models/CommonEventLogColumn.js';
 import { CommonEventLogConfig } from '../models/CommonEventLogConfig.js';
 import { CommonEventLogEntry } from '../models/CommonEventLogEntry.js';
@@ -75,6 +76,8 @@ import { CommonProjectInfo } from '../models/CommonProjectInfo.js';
 import { CommonProjectProjectMember } from '../models/CommonProjectProjectMember.js';
 import { CommonProjectSuperset } from '../models/CommonProjectSuperset.js';
 import { CommonProjectType } from '../models/CommonProjectType.js';
+import { CommonProjectVariables } from '../models/CommonProjectVariables.js';
+import { CommonProjectVariablesVariable } from '../models/CommonProjectVariablesVariable.js';
 import { CommonProjectView } from '../models/CommonProjectView.js';
 import { CommonProjectViewProjectViewConfig } from '../models/CommonProjectViewProjectViewConfig.js';
 import { CommonProjectVisibility } from '../models/CommonProjectVisibility.js';
@@ -153,6 +156,22 @@ import { PriceServiceCoinID } from '../models/PriceServiceCoinID.js';
 import { PriceServiceCoinIDAddressIdentifier } from '../models/PriceServiceCoinIDAddressIdentifier.js';
 import { PriceServiceGetPriceResponse } from '../models/PriceServiceGetPriceResponse.js';
 import { PriceServiceListCoinsResponse } from '../models/PriceServiceListCoinsResponse.js';
+import { ProcessorServiceChainState } from '../models/ProcessorServiceChainState.js';
+import { ProcessorServiceChainStateStatus } from '../models/ProcessorServiceChainStateStatus.js';
+import { ProcessorServiceChainStateStatusState } from '../models/ProcessorServiceChainStateStatusState.js';
+import { ProcessorServiceDownloadProcessorResponse } from '../models/ProcessorServiceDownloadProcessorResponse.js';
+import { ProcessorServiceGetProcessorResponse } from '../models/ProcessorServiceGetProcessorResponse.js';
+import { ProcessorServiceGetProcessorStatusResponse } from '../models/ProcessorServiceGetProcessorStatusResponse.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorEx } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorStatus } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
+import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
+import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
+import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
+import { ProcessorServiceGetProjectVersionsResponse } from '../models/ProcessorServiceGetProjectVersionsResponse.js';
+import { ProcessorServiceGetProjectVersionsResponseVersion } from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
+import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
+import { ProcessorServiceProcessor } from '../models/ProcessorServiceProcessor.js';
+import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
 import { SolidityServiceBaseChainConfig } from '../models/SolidityServiceBaseChainConfig.js';
 import { SolidityServiceBlockOverrides } from '../models/SolidityServiceBlockOverrides.js';
 import { SolidityServiceBlockPrice } from '../models/SolidityServiceBlockPrice.js';
@@ -1405,6 +1424,88 @@ export class ObservableDebugAndSimulationApi {
      */
     public simulateTransactionBundle(owner: string, slug: string, chainId: string, body: SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody, _options?: Configuration): Observable<SolidityServiceSimulateTransactionBundleResponse> {
         return this.simulateTransactionBundleWithHttpInfo(owner, slug, chainId, body, _options).pipe(map((apiResponse: HttpInfo<SolidityServiceSimulateTransactionBundleResponse>) => apiResponse.data));
+    }
+
+}
+
+import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
+export class ObservableDefaultApi {
+    private requestFactory: DefaultApiRequestFactory;
+    private responseProcessor: DefaultApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DefaultApiRequestFactory,
+        responseProcessor?: DefaultApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new DefaultApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new DefaultApiResponseProcessor();
+    }
+
+    /**
+     * Get processor status
+     * @param [projectId]
+     * @param [id]
+     */
+    public getProcessorStatusWithHttpInfo(projectId?: string, id?: string, _options?: Configuration): Observable<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
+        const requestContextPromise = this.requestFactory.getProcessorStatus(projectId, id, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProcessorStatusWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get processor status
+     * @param [projectId]
+     * @param [id]
+     */
+    public getProcessorStatus(projectId?: string, id?: string, _options?: Configuration): Observable<ProcessorServiceGetProcessorStatusResponse> {
+        return this.getProcessorStatusWithHttpInfo(projectId, id, _options).pipe(map((apiResponse: HttpInfo<ProcessorServiceGetProcessorStatusResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Get Versions
+     * @param projectId
+     */
+    public getProjectVersionsWithHttpInfo(projectId: string, _options?: Configuration): Observable<HttpInfo<ProcessorServiceGetProjectVersionsResponse>> {
+        const requestContextPromise = this.requestFactory.getProjectVersions(projectId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProjectVersionsWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get Versions
+     * @param projectId
+     */
+    public getProjectVersions(projectId: string, _options?: Configuration): Observable<ProcessorServiceGetProjectVersionsResponse> {
+        return this.getProjectVersionsWithHttpInfo(projectId, _options).pipe(map((apiResponse: HttpInfo<ProcessorServiceGetProjectVersionsResponse>) => apiResponse.data));
     }
 
 }
