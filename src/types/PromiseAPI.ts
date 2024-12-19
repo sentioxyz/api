@@ -160,14 +160,13 @@ import { ProcessorServiceChainStateStatus } from '../models/ProcessorServiceChai
 import { ProcessorServiceChainStateStatusState } from '../models/ProcessorServiceChainStateStatusState.js';
 import { ProcessorServiceDownloadProcessorResponse } from '../models/ProcessorServiceDownloadProcessorResponse.js';
 import { ProcessorServiceGetProcessorResponse } from '../models/ProcessorServiceGetProcessorResponse.js';
+import { ProcessorServiceGetProcessorStatusRequestV2VersionSelector } from '../models/ProcessorServiceGetProcessorStatusRequestV2VersionSelector.js';
 import { ProcessorServiceGetProcessorStatusResponse } from '../models/ProcessorServiceGetProcessorStatusResponse.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorEx } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatus } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
 import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
 import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponse } from '../models/ProcessorServiceGetProjectVersionsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponseVersion } from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
 import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
 import { ProcessorServiceProcessor } from '../models/ProcessorServiceProcessor.js';
 import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
@@ -1065,63 +1064,6 @@ export class PromiseDebugAndSimulationApi {
 
 
 
-import { ObservableDefaultApi } from './ObservableAPI.js';
-
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-export class PromiseDefaultApi {
-    private api: ObservableDefaultApi
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: DefaultApiRequestFactory,
-        responseProcessor?: DefaultApiResponseProcessor
-    ) {
-        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * Get processor status
-     * @param [projectId]
-     * @param [id]
-     */
-    public getProcessorStatusWithHttpInfo(projectId?: string, id?: string, _options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
-        const result = this.api.getProcessorStatusWithHttpInfo(projectId, id, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Get processor status
-     * @param [projectId]
-     * @param [id]
-     */
-    public getProcessorStatus(projectId?: string, id?: string, _options?: Configuration): Promise<ProcessorServiceGetProcessorStatusResponse> {
-        const result = this.api.getProcessorStatus(projectId, id, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Get Versions
-     * @param projectId
-     */
-    public getProjectVersionsWithHttpInfo(projectId: string, _options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProjectVersionsResponse>> {
-        const result = this.api.getProjectVersionsWithHttpInfo(projectId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Get Versions
-     * @param projectId
-     */
-    public getProjectVersions(projectId: string, _options?: Configuration): Promise<ProcessorServiceGetProjectVersionsResponse> {
-        const result = this.api.getProjectVersions(projectId, _options);
-        return result.toPromise();
-    }
-
-
-}
-
-
-
 import { ObservableForksApi } from './ObservableAPI.js';
 
 import { ForksApiRequestFactory, ForksApiResponseProcessor} from "../apis/ForksApi.js";
@@ -1508,6 +1450,47 @@ export class PromisePriceApi {
      */
     public priceListCoins(limit?: number, offset?: number, searchQuery?: string, chain?: string, _options?: Configuration): Promise<PriceServiceListCoinsResponse> {
         const result = this.api.priceListCoins(limit, offset, searchQuery, chain, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableProcessorApi } from './ObservableAPI.js';
+
+import { ProcessorApiRequestFactory, ProcessorApiResponseProcessor} from "../apis/ProcessorApi.js";
+export class PromiseProcessorApi {
+    private api: ObservableProcessorApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProcessorApiRequestFactory,
+        responseProcessor?: ProcessorApiResponseProcessor
+    ) {
+        this.api = new ObservableProcessorApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get processor status
+     * @param owner
+     * @param slug
+     * @param [version]  - ACTIVE: Only active version  - PENDING: Only pending versions  - ALL: All version
+     */
+    public getProcessorStatusV2WithHttpInfo(owner: string, slug: string, version?: 'ACTIVE' | 'PENDING' | 'ALL', _options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
+        const result = this.api.getProcessorStatusV2WithHttpInfo(owner, slug, version, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Get processor status
+     * @param owner
+     * @param slug
+     * @param [version]  - ACTIVE: Only active version  - PENDING: Only pending versions  - ALL: All version
+     */
+    public getProcessorStatusV2(owner: string, slug: string, version?: 'ACTIVE' | 'PENDING' | 'ALL', _options?: Configuration): Promise<ProcessorServiceGetProcessorStatusResponse> {
+        const result = this.api.getProcessorStatusV2(owner, slug, version, _options);
         return result.toPromise();
     }
 

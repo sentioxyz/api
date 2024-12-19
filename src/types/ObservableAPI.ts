@@ -161,14 +161,13 @@ import { ProcessorServiceChainStateStatus } from '../models/ProcessorServiceChai
 import { ProcessorServiceChainStateStatusState } from '../models/ProcessorServiceChainStateStatusState.js';
 import { ProcessorServiceDownloadProcessorResponse } from '../models/ProcessorServiceDownloadProcessorResponse.js';
 import { ProcessorServiceGetProcessorResponse } from '../models/ProcessorServiceGetProcessorResponse.js';
+import { ProcessorServiceGetProcessorStatusRequestV2VersionSelector } from '../models/ProcessorServiceGetProcessorStatusRequestV2VersionSelector.js';
 import { ProcessorServiceGetProcessorStatusResponse } from '../models/ProcessorServiceGetProcessorStatusResponse.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorEx } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatus } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
 import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
 import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponse } from '../models/ProcessorServiceGetProjectVersionsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponseVersion } from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
 import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
 import { ProcessorServiceProcessor } from '../models/ProcessorServiceProcessor.js';
 import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
@@ -1428,88 +1427,6 @@ export class ObservableDebugAndSimulationApi {
 
 }
 
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-export class ObservableDefaultApi {
-    private requestFactory: DefaultApiRequestFactory;
-    private responseProcessor: DefaultApiResponseProcessor;
-    private configuration: Configuration;
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: DefaultApiRequestFactory,
-        responseProcessor?: DefaultApiResponseProcessor
-    ) {
-        this.configuration = configuration;
-        this.requestFactory = requestFactory || new DefaultApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new DefaultApiResponseProcessor();
-    }
-
-    /**
-     * Get processor status
-     * @param [projectId]
-     * @param [id]
-     */
-    public getProcessorStatusWithHttpInfo(projectId?: string, id?: string, _options?: Configuration): Observable<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
-        const requestContextPromise = this.requestFactory.getProcessorStatus(projectId, id, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProcessorStatusWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Get processor status
-     * @param [projectId]
-     * @param [id]
-     */
-    public getProcessorStatus(projectId?: string, id?: string, _options?: Configuration): Observable<ProcessorServiceGetProcessorStatusResponse> {
-        return this.getProcessorStatusWithHttpInfo(projectId, id, _options).pipe(map((apiResponse: HttpInfo<ProcessorServiceGetProcessorStatusResponse>) => apiResponse.data));
-    }
-
-    /**
-     * Get Versions
-     * @param projectId
-     */
-    public getProjectVersionsWithHttpInfo(projectId: string, _options?: Configuration): Observable<HttpInfo<ProcessorServiceGetProjectVersionsResponse>> {
-        const requestContextPromise = this.requestFactory.getProjectVersions(projectId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProjectVersionsWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Get Versions
-     * @param projectId
-     */
-    public getProjectVersions(projectId: string, _options?: Configuration): Observable<ProcessorServiceGetProjectVersionsResponse> {
-        return this.getProjectVersionsWithHttpInfo(projectId, _options).pipe(map((apiResponse: HttpInfo<ProcessorServiceGetProjectVersionsResponse>) => apiResponse.data));
-    }
-
-}
-
 import { ForksApiRequestFactory, ForksApiResponseProcessor} from "../apis/ForksApi.js";
 export class ObservableForksApi {
     private requestFactory: ForksApiRequestFactory;
@@ -2093,6 +2010,59 @@ export class ObservablePriceApi {
      */
     public priceListCoins(limit?: number, offset?: number, searchQuery?: string, chain?: string, _options?: Configuration): Observable<PriceServiceListCoinsResponse> {
         return this.priceListCoinsWithHttpInfo(limit, offset, searchQuery, chain, _options).pipe(map((apiResponse: HttpInfo<PriceServiceListCoinsResponse>) => apiResponse.data));
+    }
+
+}
+
+import { ProcessorApiRequestFactory, ProcessorApiResponseProcessor} from "../apis/ProcessorApi.js";
+export class ObservableProcessorApi {
+    private requestFactory: ProcessorApiRequestFactory;
+    private responseProcessor: ProcessorApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ProcessorApiRequestFactory,
+        responseProcessor?: ProcessorApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new ProcessorApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new ProcessorApiResponseProcessor();
+    }
+
+    /**
+     * Get processor status
+     * @param owner
+     * @param slug
+     * @param [version]  - ACTIVE: Only active version  - PENDING: Only pending versions  - ALL: All version
+     */
+    public getProcessorStatusV2WithHttpInfo(owner: string, slug: string, version?: 'ACTIVE' | 'PENDING' | 'ALL', _options?: Configuration): Observable<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
+        const requestContextPromise = this.requestFactory.getProcessorStatusV2(owner, slug, version, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getProcessorStatusV2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get processor status
+     * @param owner
+     * @param slug
+     * @param [version]  - ACTIVE: Only active version  - PENDING: Only pending versions  - ALL: All version
+     */
+    public getProcessorStatusV2(owner: string, slug: string, version?: 'ACTIVE' | 'PENDING' | 'ALL', _options?: Configuration): Observable<ProcessorServiceGetProcessorStatusResponse> {
+        return this.getProcessorStatusV2WithHttpInfo(owner, slug, version, _options).pipe(map((apiResponse: HttpInfo<ProcessorServiceGetProcessorStatusResponse>) => apiResponse.data));
     }
 
 }

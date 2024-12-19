@@ -1197,10 +1197,10 @@
         ]
       }
     },
-    "/api/v1/processors/status": {
+    "/api/v1/processors/{owner}/{slug}/status": {
       "get": {
         "summary": "Get processor status",
-        "operationId": "GetProcessorStatus",
+        "operationId": "GetProcessorStatusV2",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -1211,39 +1211,33 @@
         },
         "parameters": [
           {
-            "name": "projectId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ]
-      }
-    },
-    "/api/v1/processors/{projectId}/versions": {
-      "get": {
-        "summary": "Get Versions",
-        "operationId": "GetProjectVersions",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/processor_service.GetProjectVersionsResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "projectId",
+            "name": "owner",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": " - ACTIVE: Only active version\n - PENDING: Only pending versions\n - ALL: All version",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PENDING",
+              "ALL"
+            ],
+            "default": "ACTIVE"
           }
+        ],
+        "tags": [
+          "Processor"
         ]
       }
     },
@@ -5802,6 +5796,16 @@
         }
       }
     },
+    "processor_service.GetProcessorStatusRequestV2.VersionSelector": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "PENDING",
+        "ALL"
+      ],
+      "default": "ACTIVE",
+      "title": "- ACTIVE: Only active version\n - PENDING: Only pending versions\n - ALL: All version"
+    },
     "processor_service.GetProcessorStatusResponse": {
       "type": "object",
       "properties": {
@@ -5932,33 +5936,6 @@
             "type": "object",
             "$ref": "#/definitions/processor_service.Processor"
           }
-        }
-      }
-    },
-    "processor_service.GetProjectVersionsResponse": {
-      "type": "object",
-      "properties": {
-        "versions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/processor_service.GetProjectVersionsResponse.Version"
-          }
-        }
-      }
-    },
-    "processor_service.GetProjectVersionsResponse.Version": {
-      "type": "object",
-      "properties": {
-        "version": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "state": {
-          "$ref": "#/definitions/processor_service.ProcessorVersionState"
-        },
-        "processorId": {
-          "type": "string"
         }
       }
     },

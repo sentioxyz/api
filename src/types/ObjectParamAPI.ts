@@ -160,14 +160,13 @@ import { ProcessorServiceChainStateStatus } from '../models/ProcessorServiceChai
 import { ProcessorServiceChainStateStatusState } from '../models/ProcessorServiceChainStateStatusState.js';
 import { ProcessorServiceDownloadProcessorResponse } from '../models/ProcessorServiceDownloadProcessorResponse.js';
 import { ProcessorServiceGetProcessorResponse } from '../models/ProcessorServiceGetProcessorResponse.js';
+import { ProcessorServiceGetProcessorStatusRequestV2VersionSelector } from '../models/ProcessorServiceGetProcessorStatusRequestV2VersionSelector.js';
 import { ProcessorServiceGetProcessorStatusResponse } from '../models/ProcessorServiceGetProcessorStatusResponse.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorEx } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatus } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
 import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
 import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponse } from '../models/ProcessorServiceGetProjectVersionsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponseVersion } from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
 import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
 import { ProcessorServiceProcessor } from '../models/ProcessorServiceProcessor.js';
 import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
@@ -1767,77 +1766,6 @@ export class ObjectDebugAndSimulationApi {
 
 }
 
-import { ObservableDefaultApi } from "./ObservableAPI.js";
-import { DefaultApiRequestFactory, DefaultApiResponseProcessor} from "../apis/DefaultApi.js";
-
-export interface DefaultApiGetProcessorStatusRequest {
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DefaultApigetProcessorStatus
-     */
-    projectId?: string
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DefaultApigetProcessorStatus
-     */
-    id?: string
-}
-
-export interface DefaultApiGetProjectVersionsRequest {
-    /**
-     * 
-     * Defaults to: undefined
-     * @type string
-     * @memberof DefaultApigetProjectVersions
-     */
-    projectId: string
-}
-
-export class ObjectDefaultApi {
-    private api: ObservableDefaultApi
-
-    public constructor(configuration: Configuration, requestFactory?: DefaultApiRequestFactory, responseProcessor?: DefaultApiResponseProcessor) {
-        this.api = new ObservableDefaultApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * Get processor status
-     * @param param the request object
-     */
-    public getProcessorStatusWithHttpInfo(param: DefaultApiGetProcessorStatusRequest = {}, options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
-        return this.api.getProcessorStatusWithHttpInfo(param.projectId, param.id,  options).toPromise();
-    }
-
-    /**
-     * Get processor status
-     * @param param the request object
-     */
-    public getProcessorStatus(param: DefaultApiGetProcessorStatusRequest = {}, options?: Configuration): Promise<ProcessorServiceGetProcessorStatusResponse> {
-        return this.api.getProcessorStatus(param.projectId, param.id,  options).toPromise();
-    }
-
-    /**
-     * Get Versions
-     * @param param the request object
-     */
-    public getProjectVersionsWithHttpInfo(param: DefaultApiGetProjectVersionsRequest, options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProjectVersionsResponse>> {
-        return this.api.getProjectVersionsWithHttpInfo(param.projectId,  options).toPromise();
-    }
-
-    /**
-     * Get Versions
-     * @param param the request object
-     */
-    public getProjectVersions(param: DefaultApiGetProjectVersionsRequest, options?: Configuration): Promise<ProcessorServiceGetProjectVersionsResponse> {
-        return this.api.getProjectVersions(param.projectId,  options).toPromise();
-    }
-
-}
-
 import { ObservableForksApi } from "./ObservableAPI.js";
 import { ForksApiRequestFactory, ForksApiResponseProcessor} from "../apis/ForksApi.js";
 
@@ -2539,6 +2467,58 @@ export class ObjectPriceApi {
      */
     public priceListCoins(param: PriceApiPriceListCoinsRequest = {}, options?: Configuration): Promise<PriceServiceListCoinsResponse> {
         return this.api.priceListCoins(param.limit, param.offset, param.searchQuery, param.chain,  options).toPromise();
+    }
+
+}
+
+import { ObservableProcessorApi } from "./ObservableAPI.js";
+import { ProcessorApiRequestFactory, ProcessorApiResponseProcessor} from "../apis/ProcessorApi.js";
+
+export interface ProcessorApiGetProcessorStatusV2Request {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProcessorApigetProcessorStatusV2
+     */
+    owner: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProcessorApigetProcessorStatusV2
+     */
+    slug: string
+    /**
+     *  - ACTIVE: Only active version  - PENDING: Only pending versions  - ALL: All version
+     * Defaults to: &#39;ACTIVE&#39;
+     * @type &#39;ACTIVE&#39; | &#39;PENDING&#39; | &#39;ALL&#39;
+     * @memberof ProcessorApigetProcessorStatusV2
+     */
+    version?: 'ACTIVE' | 'PENDING' | 'ALL'
+}
+
+export class ObjectProcessorApi {
+    private api: ObservableProcessorApi
+
+    public constructor(configuration: Configuration, requestFactory?: ProcessorApiRequestFactory, responseProcessor?: ProcessorApiResponseProcessor) {
+        this.api = new ObservableProcessorApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get processor status
+     * @param param the request object
+     */
+    public getProcessorStatusV2WithHttpInfo(param: ProcessorApiGetProcessorStatusV2Request, options?: Configuration): Promise<HttpInfo<ProcessorServiceGetProcessorStatusResponse>> {
+        return this.api.getProcessorStatusV2WithHttpInfo(param.owner, param.slug, param.version,  options).toPromise();
+    }
+
+    /**
+     * Get processor status
+     * @param param the request object
+     */
+    public getProcessorStatusV2(param: ProcessorApiGetProcessorStatusV2Request, options?: Configuration): Promise<ProcessorServiceGetProcessorStatusResponse> {
+        return this.api.getProcessorStatusV2(param.owner, param.slug, param.version,  options).toPromise();
     }
 
 }

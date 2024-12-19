@@ -157,14 +157,13 @@ export * from '../models/ProcessorServiceChainStateStatus.js';
 export * from '../models/ProcessorServiceChainStateStatusState.js';
 export * from '../models/ProcessorServiceDownloadProcessorResponse.js';
 export * from '../models/ProcessorServiceGetProcessorResponse.js';
+export * from '../models/ProcessorServiceGetProcessorStatusRequestV2VersionSelector.js';
 export * from '../models/ProcessorServiceGetProcessorStatusResponse.js';
 export * from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
 export * from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
 export * from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
 export * from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
 export * from '../models/ProcessorServiceGetProcessorsResponse.js';
-export * from '../models/ProcessorServiceGetProjectVersionsResponse.js';
-export * from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
 export * from '../models/ProcessorServiceNetworkOverride.js';
 export * from '../models/ProcessorServiceProcessor.js';
 export * from '../models/ProcessorServiceProcessorVersionState.js';
@@ -433,14 +432,13 @@ import { ProcessorServiceChainStateStatus   } from '../models/ProcessorServiceCh
 import { ProcessorServiceChainStateStatusState } from '../models/ProcessorServiceChainStateStatusState.js';
 import { ProcessorServiceDownloadProcessorResponse } from '../models/ProcessorServiceDownloadProcessorResponse.js';
 import { ProcessorServiceGetProcessorResponse } from '../models/ProcessorServiceGetProcessorResponse.js';
+import { ProcessorServiceGetProcessorStatusRequestV2VersionSelector } from '../models/ProcessorServiceGetProcessorStatusRequestV2VersionSelector.js';
 import { ProcessorServiceGetProcessorStatusResponse } from '../models/ProcessorServiceGetProcessorStatusResponse.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorEx                    } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorEx.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatus   } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatus.js';
 import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '../models/ProcessorServiceGetProcessorStatusResponseProcessorStatusState.js';
 import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
 import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponse } from '../models/ProcessorServiceGetProjectVersionsResponse.js';
-import { ProcessorServiceGetProjectVersionsResponseVersion    } from '../models/ProcessorServiceGetProjectVersionsResponseVersion.js';
 import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
 import { ProcessorServiceProcessor                       } from '../models/ProcessorServiceProcessor.js';
 import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
@@ -589,6 +587,7 @@ let enumsMap: Set<string> = new Set<string>([
     "GoogleProtobufNullValue",
     "InsightsServiceDataSource",
     "ProcessorServiceChainStateStatusState",
+    "ProcessorServiceGetProcessorStatusRequestV2VersionSelector",
     "ProcessorServiceGetProcessorStatusResponseProcessorStatusState",
     "ProcessorServiceProcessorVersionState",
     "SolidityServiceForkType",
@@ -748,8 +747,6 @@ let typeMap: {[index: string]: any} = {
     "ProcessorServiceGetProcessorStatusResponseProcessorStatus": ProcessorServiceGetProcessorStatusResponseProcessorStatus,
     "ProcessorServiceGetProcessorWithProjectResponse": ProcessorServiceGetProcessorWithProjectResponse,
     "ProcessorServiceGetProcessorsResponse": ProcessorServiceGetProcessorsResponse,
-    "ProcessorServiceGetProjectVersionsResponse": ProcessorServiceGetProjectVersionsResponse,
-    "ProcessorServiceGetProjectVersionsResponseVersion": ProcessorServiceGetProjectVersionsResponseVersion,
     "ProcessorServiceNetworkOverride": ProcessorServiceNetworkOverride,
     "ProcessorServiceProcessor": ProcessorServiceProcessor,
     "SolidityServiceBaseChainConfig": SolidityServiceBaseChainConfig,
