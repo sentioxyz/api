@@ -145,6 +145,9 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
+import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
+import { PriceServiceAddCoinByGeckoResponse } from '../models/PriceServiceAddCoinByGeckoResponse.js';
+import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -1365,6 +1368,26 @@ export class PromisePriceApi {
         responseProcessor?: PriceApiResponseProcessor
     ) {
         this.api = new ObservablePriceApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * coingecko id the API ID of the coin in coingecko web page. please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://github.com/sentioxyz/docs/blob/main/.gitbook/assets/coingecko_apiid.png)
+     * AddCoinByGecko adds a coin by its coingecko id.
+     * @param body
+     */
+    public addCoinByGeckoWithHttpInfo(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Promise<HttpInfo<PriceServiceAddCoinByGeckoResponse>> {
+        const result = this.api.addCoinByGeckoWithHttpInfo(body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * coingecko id the API ID of the coin in coingecko web page. please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://github.com/sentioxyz/docs/blob/main/.gitbook/assets/coingecko_apiid.png)
+     * AddCoinByGecko adds a coin by its coingecko id.
+     * @param body
+     */
+    public addCoinByGecko(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Promise<PriceServiceAddCoinByGeckoResponse> {
+        const result = this.api.addCoinByGecko(body, _options);
+        return result.toPromise();
     }
 
     /**

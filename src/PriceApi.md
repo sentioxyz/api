@@ -4,11 +4,67 @@ All URIs are relative to *https://app.sentio.xyz*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addCoinByGecko**](PriceApi.md#addCoinByGecko) | **POST** /api/v1/prices/add_coin_by_gecko | AddCoinByGecko adds a coin by its coingecko id.
 [**batchGetPrices**](PriceApi.md#batchGetPrices) | **POST** /api/v1/prices/batch | Batch get prices
 [**checkLatestPrice**](PriceApi.md#checkLatestPrice) | **GET** /api/v1/prices/check_latest | Check latest price
 [**getPrice**](PriceApi.md#getPrice) | **GET** /api/v1/prices | Get price
 [**priceListCoins**](PriceApi.md#priceListCoins) | **GET** /api/v1/prices/coins | List coins
 
+
+# **addCoinByGecko**
+> PriceServiceAddCoinByGeckoResponse addCoinByGecko(body)
+
+coingecko id the API ID of the coin in coingecko web page. please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://github.com/sentioxyz/docs/blob/main/.gitbook/assets/coingecko_apiid.png)
+
+### Example
+
+
+```typescript
+import { createConfiguration, PriceApi } from '';
+import type { PriceApiAddCoinByGeckoRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new PriceApi(configuration);
+
+const request: PriceApiAddCoinByGeckoRequest = {
+  
+  body: {
+    coingeckoId: "coingeckoId_example",
+  },
+};
+
+const data = await apiInstance.addCoinByGecko(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **PriceServiceAddCoinByGeckoRequest**|  |
+
+
+### Return type
+
+**PriceServiceAddCoinByGeckoResponse**
+
+### Authorization
+
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **batchGetPrices**
 > PriceServiceBatchGetPricesResponse batchGetPrices(body)

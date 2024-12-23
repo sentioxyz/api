@@ -142,6 +142,9 @@ export * from '../models/MetricsServiceObservabilityServiceQueryBody.js';
 export * from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 export * from '../models/MetricsServiceQueryValueResponse.js';
 export * from '../models/MetricsServiceQueryValueResponseResult.js';
+export * from '../models/PriceServiceAddCoinByGeckoRequest.js';
+export * from '../models/PriceServiceAddCoinByGeckoResponse.js';
+export * from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 export * from '../models/PriceServiceBatchGetPricesRequest.js';
 export * from '../models/PriceServiceBatchGetPricesResponse.js';
 export * from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -417,6 +420,9 @@ import { MetricsServiceObservabilityServiceQueryBody } from '../models/MetricsSe
 import { MetricsServiceObservabilityServiceQueryRangeBody } from '../models/MetricsServiceObservabilityServiceQueryRangeBody.js';
 import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryValueResponse.js';
 import { MetricsServiceQueryValueResponseResult } from '../models/MetricsServiceQueryValueResponseResult.js';
+import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
+import { PriceServiceAddCoinByGeckoResponse       } from '../models/PriceServiceAddCoinByGeckoResponse.js';
+import { PriceServiceAddCoinByGeckoResponseStatus } from '../models/PriceServiceAddCoinByGeckoResponseStatus.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceBatchGetPricesResponseCoinPrice } from '../models/PriceServiceBatchGetPricesResponseCoinPrice.js';
@@ -586,6 +592,7 @@ let enumsMap: Set<string> = new Set<string>([
     "CommonUserAccountStatus",
     "GoogleProtobufNullValue",
     "InsightsServiceDataSource",
+    "PriceServiceAddCoinByGeckoResponseStatus",
     "ProcessorServiceChainStateStatusState",
     "ProcessorServiceGetProcessorStatusRequestV2VersionSelector",
     "ProcessorServiceGetProcessorStatusResponseProcessorStatusState",
@@ -728,6 +735,8 @@ let typeMap: {[index: string]: any} = {
     "MetricsServiceObservabilityServiceQueryRangeBody": MetricsServiceObservabilityServiceQueryRangeBody,
     "MetricsServiceQueryValueResponse": MetricsServiceQueryValueResponse,
     "MetricsServiceQueryValueResponseResult": MetricsServiceQueryValueResponseResult,
+    "PriceServiceAddCoinByGeckoRequest": PriceServiceAddCoinByGeckoRequest,
+    "PriceServiceAddCoinByGeckoResponse": PriceServiceAddCoinByGeckoResponse,
     "PriceServiceBatchGetPricesRequest": PriceServiceBatchGetPricesRequest,
     "PriceServiceBatchGetPricesResponse": PriceServiceBatchGetPricesResponse,
     "PriceServiceBatchGetPricesResponseCoinPrice": PriceServiceBatchGetPricesResponseCoinPrice,

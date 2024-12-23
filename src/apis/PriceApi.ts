@@ -8,6 +8,8 @@ import {canConsumeForm, isCodeInRange} from '../util.js';
 import {SecurityAuthentication} from '../auth/auth.js';
 
 
+import { PriceServiceAddCoinByGeckoRequest } from '../models/PriceServiceAddCoinByGeckoRequest.js';
+import { PriceServiceAddCoinByGeckoResponse } from '../models/PriceServiceAddCoinByGeckoResponse.js';
 import { PriceServiceBatchGetPricesRequest } from '../models/PriceServiceBatchGetPricesRequest.js';
 import { PriceServiceBatchGetPricesResponse } from '../models/PriceServiceBatchGetPricesResponse.js';
 import { PriceServiceCheckLatestPriceResponse } from '../models/PriceServiceCheckLatestPriceResponse.js';
@@ -18,6 +20,59 @@ import { PriceServiceListCoinsResponse } from '../models/PriceServiceListCoinsRe
  * no description
  */
 export class PriceApiRequestFactory extends BaseAPIRequestFactory {
+
+    /**
+     * coingecko id the API ID of the coin in coingecko web page. please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://github.com/sentioxyz/docs/blob/main/.gitbook/assets/coingecko_apiid.png)
+     * AddCoinByGecko adds a coin by its coingecko id.
+     * @param body 
+     */
+    public async addCoinByGecko(body: PriceServiceAddCoinByGeckoRequest, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("PriceApi", "addCoinByGecko", "body");
+        }
+
+
+        // Path Params
+        const localVarPath = '/api/v1/prices/add_coin_by_gecko';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "PriceServiceAddCoinByGeckoRequest", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyHeaderAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyQueryAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
 
     /**
      * Batch get prices
@@ -240,6 +295,35 @@ export class PriceApiRequestFactory extends BaseAPIRequestFactory {
 }
 
 export class PriceApiResponseProcessor {
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to addCoinByGecko
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async addCoinByGeckoWithHttpInfo(response: ResponseContext): Promise<HttpInfo<PriceServiceAddCoinByGeckoResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: PriceServiceAddCoinByGeckoResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "PriceServiceAddCoinByGeckoResponse", ""
+            ) as PriceServiceAddCoinByGeckoResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: PriceServiceAddCoinByGeckoResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "PriceServiceAddCoinByGeckoResponse", ""
+            ) as PriceServiceAddCoinByGeckoResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
 
     /**
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
