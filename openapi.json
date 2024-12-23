@@ -1110,8 +1110,8 @@
     },
     "/api/v1/prices/add_coin_by_gecko": {
       "post": {
-        "summary": "AddCoinByGecko adds a coin by its coingecko id.",
-        "description": "coingecko id the API ID of the coin in coingecko web page.\n\nplease AWARE that the coingecko id is NOT the same as the symbol of the coin.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)",
+        "summary": "Add coin by Gecko",
+        "description": "adds a coin by its coingecko id.\n\ncoingecko id the API ID of the coin in coingecko web page.\n\nplease AWARE that the coingecko id is NOT the same as the symbol of the coin.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)",
         "operationId": "AddCoinByGecko",
         "responses": {
           "200": {

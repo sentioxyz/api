@@ -2416,8 +2416,8 @@ export class ObjectPriceApi {
     }
 
     /**
-     * coingecko id the API ID of the coin in coingecko web page.  please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)
-     * AddCoinByGecko adds a coin by its coingecko id.
+     * adds a coin by its coingecko id.  coingecko id the API ID of the coin in coingecko web page.  please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)
+     * Add coin by Gecko
      * @param param the request object
      */
     public addCoinByGeckoWithHttpInfo(param: PriceApiAddCoinByGeckoRequest, options?: Configuration): Promise<HttpInfo<PriceServiceAddCoinByGeckoResponse>> {
@@ -2425,8 +2425,8 @@ export class ObjectPriceApi {
     }
 
     /**
-     * coingecko id the API ID of the coin in coingecko web page.  please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)
-     * AddCoinByGecko adds a coin by its coingecko id.
+     * adds a coin by its coingecko id.  coingecko id the API ID of the coin in coingecko web page.  please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)
+     * Add coin by Gecko
      * @param param the request object
      */
     public addCoinByGecko(param: PriceApiAddCoinByGeckoRequest, options?: Configuration): Promise<PriceServiceAddCoinByGeckoResponse> {

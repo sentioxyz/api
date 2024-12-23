@@ -4,7 +4,7 @@ All URIs are relative to *https://app.sentio.xyz*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addCoinByGecko**](PriceApi.md#addCoinByGecko) | **POST** /api/v1/prices/add_coin_by_gecko | AddCoinByGecko adds a coin by its coingecko id.
+[**addCoinByGecko**](PriceApi.md#addCoinByGecko) | **POST** /api/v1/prices/add_coin_by_gecko | Add coin by Gecko
 [**batchGetPrices**](PriceApi.md#batchGetPrices) | **POST** /api/v1/prices/batch | Batch get prices
 [**checkLatestPrice**](PriceApi.md#checkLatestPrice) | **GET** /api/v1/prices/check_latest | Check latest price
 [**getPrice**](PriceApi.md#getPrice) | **GET** /api/v1/prices | Get price
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 # **addCoinByGecko**
 > PriceServiceAddCoinByGeckoResponse addCoinByGecko(body)
 
-coingecko id the API ID of the coin in coingecko web page.  please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)
+adds a coin by its coingecko id.  coingecko id the API ID of the coin in coingecko web page.  please AWARE that the coingecko id is NOT the same as the symbol of the coin.  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)
 
 ### Example
 

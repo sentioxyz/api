@@ -28364,12 +28364,14 @@ $(document).ready(function() {
                       <article id="api-Price-addCoinByGecko-0" data-group="User" data-name="addCoinByGecko" data-version="0">
                         <div class="pull-left">
                           <h1>addCoinByGecko</h1>
-                          <p>AddCoinByGecko adds a coin by its coingecko id.</p>
+                          <p>Add coin by Gecko</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">coingecko id the API ID of the coin in coingecko web page.
+                        <p class="marked">adds a coin by its coingecko id.
+
+coingecko id the API ID of the coin in coingecko web page.
 
 please AWARE that the coingecko id is NOT the same as the symbol of the coin.
 
@@ -28505,7 +28507,7 @@ public class PriceApiExample {
 PriceApi *apiInstance = [[PriceApi alloc] init];
 PriceServiceAddCoinByGeckoRequest *body = ; // 
 
-// AddCoinByGecko adds a coin by its coingecko id.
+// Add coin by Gecko
 [apiInstance addCoinByGeckoWith:body
               completionHandler: ^(price_service.AddCoinByGeckoResponse output, NSError* error) {
     if (output) {
@@ -28579,7 +28581,7 @@ namespace Example
             var body = new PriceServiceAddCoinByGeckoRequest(); // PriceServiceAddCoinByGeckoRequest | 
 
             try {
-                // AddCoinByGecko adds a coin by its coingecko id.
+                // Add coin by Gecko
                 price_service.AddCoinByGeckoResponse result = apiInstance.addCoinByGecko(body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -28668,7 +28670,7 @@ api_instance = openapi_client.PriceApi()
 body =  # PriceServiceAddCoinByGeckoRequest | 
 
 try:
-    # AddCoinByGecko adds a coin by its coingecko id.
+    # Add coin by Gecko
     api_response = api_instance.add_coin_by_gecko(body)
     pprint(api_response)
 except ApiException as e:
