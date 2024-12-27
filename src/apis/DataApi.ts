@@ -32,6 +32,79 @@ import { MetricsServiceQueryValueResponse } from '../models/MetricsServiceQueryV
 export class DataApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
+     * Cancel a SQL query by execution_id.
+     * Cancel SQL Query
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId 
+     * @param projectId use project id if project_owner and project_slug are not provided
+     * @param version version of the datasource, default to the active version if not provided
+     */
+    public async cancelSQLQuery(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'owner' is not null or undefined
+        if (owner === null || owner === undefined) {
+            throw new RequiredError("DataApi", "cancelSQLQuery", "owner");
+        }
+
+
+        // verify required parameter 'slug' is not null or undefined
+        if (slug === null || slug === undefined) {
+            throw new RequiredError("DataApi", "cancelSQLQuery", "slug");
+        }
+
+
+        // verify required parameter 'executionId' is not null or undefined
+        if (executionId === null || executionId === undefined) {
+            throw new RequiredError("DataApi", "cancelSQLQuery", "executionId");
+        }
+
+
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}'
+            .replace('{' + 'owner' + '}', encodeURIComponent(String(owner)))
+            .replace('{' + 'slug' + '}', encodeURIComponent(String(slug)))
+            .replace('{' + 'executionId' + '}', encodeURIComponent(String(executionId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (projectId !== undefined) {
+            requestContext.setQueryParam("projectId", ObjectSerializer.serialize(projectId, "string", ""));
+        }
+
+        // Query Params
+        if (version !== undefined) {
+            requestContext.setQueryParam("version", ObjectSerializer.serialize(version, "number", "int32"));
+        }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyHeaderAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyQueryAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/reference/data#sql-api
      * Execute SQL
      * @param owner username or organization name
@@ -1051,6 +1124,35 @@ export class DataApiRequestFactory extends BaseAPIRequestFactory {
 }
 
 export class DataApiResponseProcessor {
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to cancelSQLQuery
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async cancelSQLQueryWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
 
     /**
      * Unwraps the actual response sent by the server from the response context and deserializes the response content

@@ -166,6 +166,62 @@
         ]
       }
     },
+    "/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}": {
+      "put": {
+        "summary": "Cancel SQL Query",
+        "description": "Cancel a SQL query by execution_id.",
+        "operationId": "CancelSQLQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "executionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "use project id if project_owner and project_slug are not provided",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": "version of the datasource, default to the active version if not provided",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
     "/api/v1/analytics/{owner}/{slug}/sql/execute": {
       "post": {
         "summary": "Execute SQL",

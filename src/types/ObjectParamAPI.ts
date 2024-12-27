@@ -443,6 +443,44 @@ export class ObjectAlertsApi {
 import { ObservableDataApi } from "./ObservableAPI.js";
 import { DataApiRequestFactory, DataApiResponseProcessor} from "../apis/DataApi.js";
 
+export interface DataApiCancelSQLQueryRequest {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApicancelSQLQuery
+     */
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApicancelSQLQuery
+     */
+    slug: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApicancelSQLQuery
+     */
+    executionId: string
+    /**
+     * use project id if project_owner and project_slug are not provided
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApicancelSQLQuery
+     */
+    projectId?: string
+    /**
+     * version of the datasource, default to the active version if not provided
+     * Defaults to: undefined
+     * @type number
+     * @memberof DataApicancelSQLQuery
+     */
+    version?: number
+}
+
 export interface DataApiExecuteSQLRequest {
     /**
      * username or organization name
@@ -934,6 +972,24 @@ export class ObjectDataApi {
 
     public constructor(configuration: Configuration, requestFactory?: DataApiRequestFactory, responseProcessor?: DataApiResponseProcessor) {
         this.api = new ObservableDataApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Cancel a SQL query by execution_id.
+     * Cancel SQL Query
+     * @param param the request object
+     */
+    public cancelSQLQueryWithHttpInfo(param: DataApiCancelSQLQueryRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.cancelSQLQueryWithHttpInfo(param.owner, param.slug, param.executionId, param.projectId, param.version,  options).toPromise();
+    }
+
+    /**
+     * Cancel a SQL query by execution_id.
+     * Cancel SQL Query
+     * @param param the request object
+     */
+    public cancelSQLQuery(param: DataApiCancelSQLQueryRequest, options?: Configuration): Promise<any> {
+        return this.api.cancelSQLQuery(param.owner, param.slug, param.executionId, param.projectId, param.version,  options).toPromise();
     }
 
     /**

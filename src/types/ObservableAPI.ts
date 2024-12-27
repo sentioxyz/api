@@ -476,6 +476,47 @@ export class ObservableDataApi {
     }
 
     /**
+     * Cancel a SQL query by execution_id.
+     * Cancel SQL Query
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     */
+    public cancelSQLQueryWithHttpInfo(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.cancelSQLQuery(owner, slug, executionId, projectId, version, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.cancelSQLQueryWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Cancel a SQL query by execution_id.
+     * Cancel SQL Query
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     */
+    public cancelSQLQuery(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Observable<any> {
+        return this.cancelSQLQueryWithHttpInfo(owner, slug, executionId, projectId, version, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
      * Execute SQL in a project. Go to \"Data Studio\" -> \"SQL Editor\", write your query and then click \"Export as cURL\"  ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)  Find more: https://docs.sentio.xyz/reference/data#sql-api
      * Execute SQL
      * @param owner username or organization name

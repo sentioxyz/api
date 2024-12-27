@@ -4,6 +4,7 @@ All URIs are relative to *https://app.sentio.xyz*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**cancelSQLQuery**](DataApi.md#cancelSQLQuery) | **PUT** /api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId} | Cancel SQL Query
 [**executeSQL**](DataApi.md#executeSQL) | **POST** /api/v1/analytics/{owner}/{slug}/sql/execute | Execute SQL
 [**executeSQLAsync**](DataApi.md#executeSQLAsync) | **POST** /api/v1/analytics/{owner}/{slug}/sql/execute/async | Execute SQL by Async
 [**getMetrics**](DataApi.md#getMetrics) | **GET** /api/v1/metrics | Get a list of metrics in a project
@@ -18,6 +19,71 @@ Method | HTTP request | Description
 [**saveSQL**](DataApi.md#saveSQL) | **POST** /api/v1/analytics/{owner}/{slug}/sql/save | Save SQL
 [**saveSQL2**](DataApi.md#saveSQL2) | **PUT** /api/v1/analytics/{owner}/{slug}/sql/save | Save SQL
 
+
+# **cancelSQLQuery**
+> any cancelSQLQuery()
+
+Cancel a SQL query by execution_id.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiCancelSQLQueryRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiCancelSQLQueryRequest = {
+    // username or organization name
+  owner: "owner_example",
+    // project slug
+  slug: "slug_example",
+  
+  executionId: "executionId_example",
+    // use project id if project_owner and project_slug are not provided (optional)
+  projectId: "projectId_example",
+    // version of the datasource, default to the active version if not provided (optional)
+  version: 1,
+};
+
+const data = await apiInstance.cancelSQLQuery(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **owner** | [**string**] | username or organization name | defaults to undefined
+ **slug** | [**string**] | project slug | defaults to undefined
+ **executionId** | [**string**] |  | defaults to undefined
+ **projectId** | [**string**] | use project id if project_owner and project_slug are not provided | (optional) defaults to undefined
+ **version** | [**number**] | version of the datasource, default to the active version if not provided | (optional) defaults to undefined
+
+
+### Return type
+
+**any**
+
+### Authorization
+
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **executeSQL**
 > AnalyticServiceSyncExecuteSQLResponse executeSQL(body)
