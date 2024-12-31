@@ -6178,6 +6178,10 @@
         },
         "pause": {
           "type": "boolean"
+        },
+        "entitySchemaVersion": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "description": "This represents a processor which backend works on."

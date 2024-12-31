@@ -65,6 +65,7 @@ export class ProcessorServiceProcessor {
     'eventlogMigrateStatus'?: number;
     'eventlogVersion'?: number;
     'pause'?: boolean;
+    'entitySchemaVersion'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -202,6 +203,12 @@ export class ProcessorServiceProcessor {
             "baseName": "pause",
             "type": "boolean",
             "format": ""
+        },
+        {
+            "name": "entitySchemaVersion",
+            "baseName": "entitySchemaVersion",
+            "type": "number",
+            "format": "int32"
         }    ];
 
     static getAttributeTypeMap() {

@@ -446,7 +446,7 @@ import { ProcessorServiceGetProcessorStatusResponseProcessorStatusState } from '
 import { ProcessorServiceGetProcessorWithProjectResponse } from '../models/ProcessorServiceGetProcessorWithProjectResponse.js';
 import { ProcessorServiceGetProcessorsResponse } from '../models/ProcessorServiceGetProcessorsResponse.js';
 import { ProcessorServiceNetworkOverride } from '../models/ProcessorServiceNetworkOverride.js';
-import { ProcessorServiceProcessor                       } from '../models/ProcessorServiceProcessor.js';
+import { ProcessorServiceProcessor                        } from '../models/ProcessorServiceProcessor.js';
 import { ProcessorServiceProcessorVersionState } from '../models/ProcessorServiceProcessorVersionState.js';
 import { SolidityServiceBaseChainConfig        } from '../models/SolidityServiceBaseChainConfig.js';
 import { SolidityServiceBlockOverrides } from '../models/SolidityServiceBlockOverrides.js';
