@@ -49,6 +49,7 @@ export * from '../models/CommonCoinIDAddressIdentifier.js';
 export * from '../models/CommonColumnState.js';
 export * from '../models/CommonColumnStateSort.js';
 export * from '../models/CommonComputeStats.js';
+export * from '../models/CommonComputeStatsClickhouseStats.js';
 export * from '../models/CommonDuration.js';
 export * from '../models/CommonErrorRecord.js';
 export * from '../models/CommonEventLogColumn.js';
@@ -327,6 +328,7 @@ import { CommonCoinIDAddressIdentifier } from '../models/CommonCoinIDAddressIden
 import { CommonColumnState } from '../models/CommonColumnState.js';
 import { CommonColumnStateSort } from '../models/CommonColumnStateSort.js';
 import { CommonComputeStats } from '../models/CommonComputeStats.js';
+import { CommonComputeStatsClickhouseStats } from '../models/CommonComputeStatsClickhouseStats.js';
 import { CommonDuration } from '../models/CommonDuration.js';
 import { CommonErrorRecord } from '../models/CommonErrorRecord.js';
 import { CommonEventLogColumn } from '../models/CommonEventLogColumn.js';
@@ -659,6 +661,7 @@ let typeMap: {[index: string]: any} = {
     "CommonColumnState": CommonColumnState,
     "CommonColumnStateSort": CommonColumnStateSort,
     "CommonComputeStats": CommonComputeStats,
+    "CommonComputeStatsClickhouseStats": CommonComputeStatsClickhouseStats,
     "CommonDuration": CommonDuration,
     "CommonErrorRecord": CommonErrorRecord,
     "CommonEventLogColumn": CommonEventLogColumn,

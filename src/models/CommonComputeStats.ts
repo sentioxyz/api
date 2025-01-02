@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { CommonComputeStatsClickhouseStats } from '../models/CommonComputeStatsClickhouseStats.js';
 import { HttpFile } from '../http/http.js';
 
 export class CommonComputeStats {
@@ -19,6 +20,7 @@ export class CommonComputeStats {
     'computedBy'?: string;
     'isCached'?: boolean;
     'isRefreshing'?: boolean;
+    'clickhouseStats'?: CommonComputeStatsClickhouseStats;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -59,6 +61,12 @@ export class CommonComputeStats {
             "name": "isRefreshing",
             "baseName": "isRefreshing",
             "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "clickhouseStats",
+            "baseName": "clickhouseStats",
+            "type": "CommonComputeStatsClickhouseStats",
             "format": ""
         }    ];
 

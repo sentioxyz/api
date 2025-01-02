@@ -53,6 +53,7 @@ import { CommonCoinIDAddressIdentifier } from '../models/CommonCoinIDAddressIden
 import { CommonColumnState } from '../models/CommonColumnState.js';
 import { CommonColumnStateSort } from '../models/CommonColumnStateSort.js';
 import { CommonComputeStats } from '../models/CommonComputeStats.js';
+import { CommonComputeStatsClickhouseStats } from '../models/CommonComputeStatsClickhouseStats.js';
 import { CommonDuration } from '../models/CommonDuration.js';
 import { CommonErrorRecord } from '../models/CommonErrorRecord.js';
 import { CommonEventLogColumn } from '../models/CommonEventLogColumn.js';

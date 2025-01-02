@@ -3681,6 +3681,38 @@
         },
         "isRefreshing": {
           "type": "boolean"
+        },
+        "clickhouseStats": {
+          "$ref": "#/definitions/common.ComputeStats.ClickhouseStats"
+        }
+      }
+    },
+    "common.ComputeStats.ClickhouseStats": {
+      "type": "object",
+      "properties": {
+        "readRows": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "readBytes": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "memoryUsage": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "queryDurationMs": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "resultRows": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "resultBytes": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
