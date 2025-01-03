@@ -181,6 +181,8 @@ export * from '../models/SolidityServiceContractKeyInfo.js';
 export * from '../models/SolidityServiceCreateForkResponse.js';
 export * from '../models/SolidityServiceDecodeStateDiffResponse.js';
 export * from '../models/SolidityServiceEstimatedPrice.js';
+export * from '../models/SolidityServiceEvmRawTransaction.js';
+export * from '../models/SolidityServiceEvmSearchTransactionsResponse.js';
 export * from '../models/SolidityServiceExternalFork.js';
 export * from '../models/SolidityServiceFailure.js';
 export * from '../models/SolidityServiceFetchAndCompileInternalResponse.js';
@@ -225,8 +227,6 @@ export * from '../models/SolidityServiceSpecializations.js';
 export * from '../models/SolidityServiceStateOverride.js';
 export * from '../models/SolidityServiceStorageSummaryResult.js';
 export * from '../models/SolidityServiceUpdateForkResponse.js';
-export * from '../models/TxindexEvmRawTransaction.js';
-export * from '../models/TxindexEvmSearchTransactionsResponse.js';
 export * from '../models/WebServiceChart.js';
 export * from '../models/WebServiceChartChartType.js';
 export * from '../models/WebServiceChartConfig.js';
@@ -460,6 +460,8 @@ import { SolidityServiceContractKeyInfo } from '../models/SolidityServiceContrac
 import { SolidityServiceCreateForkResponse } from '../models/SolidityServiceCreateForkResponse.js';
 import { SolidityServiceDecodeStateDiffResponse } from '../models/SolidityServiceDecodeStateDiffResponse.js';
 import { SolidityServiceEstimatedPrice } from '../models/SolidityServiceEstimatedPrice.js';
+import { SolidityServiceEvmRawTransaction } from '../models/SolidityServiceEvmRawTransaction.js';
+import { SolidityServiceEvmSearchTransactionsResponse } from '../models/SolidityServiceEvmSearchTransactionsResponse.js';
 import { SolidityServiceExternalFork } from '../models/SolidityServiceExternalFork.js';
 import { SolidityServiceFailure } from '../models/SolidityServiceFailure.js';
 import { SolidityServiceFetchAndCompileInternalResponse } from '../models/SolidityServiceFetchAndCompileInternalResponse.js';
@@ -504,8 +506,6 @@ import { SolidityServiceSpecializations } from '../models/SolidityServiceSpecial
 import { SolidityServiceStateOverride } from '../models/SolidityServiceStateOverride.js';
 import { SolidityServiceStorageSummaryResult } from '../models/SolidityServiceStorageSummaryResult.js';
 import { SolidityServiceUpdateForkResponse } from '../models/SolidityServiceUpdateForkResponse.js';
-import { TxindexEvmRawTransaction } from '../models/TxindexEvmRawTransaction.js';
-import { TxindexEvmSearchTransactionsResponse } from '../models/TxindexEvmSearchTransactionsResponse.js';
 import { WebServiceChart            } from '../models/WebServiceChart.js';
 import { WebServiceChartChartType } from '../models/WebServiceChartChartType.js';
 import { WebServiceChartConfig } from '../models/WebServiceChartConfig.js';
@@ -771,6 +771,8 @@ let typeMap: {[index: string]: any} = {
     "SolidityServiceCreateForkResponse": SolidityServiceCreateForkResponse,
     "SolidityServiceDecodeStateDiffResponse": SolidityServiceDecodeStateDiffResponse,
     "SolidityServiceEstimatedPrice": SolidityServiceEstimatedPrice,
+    "SolidityServiceEvmRawTransaction": SolidityServiceEvmRawTransaction,
+    "SolidityServiceEvmSearchTransactionsResponse": SolidityServiceEvmSearchTransactionsResponse,
     "SolidityServiceExternalFork": SolidityServiceExternalFork,
     "SolidityServiceFailure": SolidityServiceFailure,
     "SolidityServiceFetchAndCompileInternalResponse": SolidityServiceFetchAndCompileInternalResponse,
@@ -813,8 +815,6 @@ let typeMap: {[index: string]: any} = {
     "SolidityServiceStateOverride": SolidityServiceStateOverride,
     "SolidityServiceStorageSummaryResult": SolidityServiceStorageSummaryResult,
     "SolidityServiceUpdateForkResponse": SolidityServiceUpdateForkResponse,
-    "TxindexEvmRawTransaction": TxindexEvmRawTransaction,
-    "TxindexEvmSearchTransactionsResponse": TxindexEvmSearchTransactionsResponse,
     "WebServiceChart": WebServiceChart,
     "WebServiceChartConfig": WebServiceChartConfig,
     "WebServiceChartConfigBarGaugeConfig": WebServiceChartConfigBarGaugeConfig,

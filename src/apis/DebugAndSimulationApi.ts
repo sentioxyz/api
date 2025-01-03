@@ -9,6 +9,7 @@ import {SecurityAuthentication} from '../auth/auth.js';
 
 
 import { GoogleApiHttpBody } from '../models/GoogleApiHttpBody.js';
+import { SolidityServiceEvmSearchTransactionsResponse } from '../models/SolidityServiceEvmSearchTransactionsResponse.js';
 import { SolidityServiceGetEstimatedGasPriceResponse } from '../models/SolidityServiceGetEstimatedGasPriceResponse.js';
 import { SolidityServiceGetSimulationBundleResponse } from '../models/SolidityServiceGetSimulationBundleResponse.js';
 import { SolidityServiceGetSimulationResponse } from '../models/SolidityServiceGetSimulationResponse.js';
@@ -17,7 +18,6 @@ import { SolidityServiceSimulateTransactionBundleResponse } from '../models/Soli
 import { SolidityServiceSimulateTransactionResponse } from '../models/SolidityServiceSimulateTransactionResponse.js';
 import { SolidityServiceSolidityAPIServiceSimulateTransactionBody } from '../models/SolidityServiceSolidityAPIServiceSimulateTransactionBody.js';
 import { SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody } from '../models/SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody.js';
-import { TxindexEvmSearchTransactionsResponse } from '../models/TxindexEvmSearchTransactionsResponse.js';
 
 /**
  * no description
@@ -1039,22 +1039,22 @@ export class DebugAndSimulationApiResponseProcessor {
      * @params response Response returned by the server for a request to searchTransactions
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async searchTransactionsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<TxindexEvmSearchTransactionsResponse >> {
+     public async searchTransactionsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SolidityServiceEvmSearchTransactionsResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: TxindexEvmSearchTransactionsResponse = ObjectSerializer.deserialize(
+            const body: SolidityServiceEvmSearchTransactionsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TxindexEvmSearchTransactionsResponse", ""
-            ) as TxindexEvmSearchTransactionsResponse;
+                "SolidityServiceEvmSearchTransactionsResponse", ""
+            ) as SolidityServiceEvmSearchTransactionsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: TxindexEvmSearchTransactionsResponse = ObjectSerializer.deserialize(
+            const body: SolidityServiceEvmSearchTransactionsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "TxindexEvmSearchTransactionsResponse", ""
-            ) as TxindexEvmSearchTransactionsResponse;
+                "SolidityServiceEvmSearchTransactionsResponse", ""
+            ) as SolidityServiceEvmSearchTransactionsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

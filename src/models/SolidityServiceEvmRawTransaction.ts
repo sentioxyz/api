@@ -13,7 +13,7 @@
 import { EvmTransaction } from '../models/EvmTransaction.js';
 import { HttpFile } from '../http/http.js';
 
-export class TxindexEvmRawTransaction {
+export class SolidityServiceEvmRawTransaction {
     'hash'?: string;
     'blockNumber'?: string;
     'isIn'?: boolean;
@@ -99,7 +99,7 @@ export class TxindexEvmRawTransaction {
         }    ];
 
     static getAttributeTypeMap() {
-        return TxindexEvmRawTransaction.attributeTypeMap;
+        return SolidityServiceEvmRawTransaction.attributeTypeMap;
     }
 
     public constructor() {

@@ -184,6 +184,8 @@ import { SolidityServiceContractKeyInfo } from '../models/SolidityServiceContrac
 import { SolidityServiceCreateForkResponse } from '../models/SolidityServiceCreateForkResponse.js';
 import { SolidityServiceDecodeStateDiffResponse } from '../models/SolidityServiceDecodeStateDiffResponse.js';
 import { SolidityServiceEstimatedPrice } from '../models/SolidityServiceEstimatedPrice.js';
+import { SolidityServiceEvmRawTransaction } from '../models/SolidityServiceEvmRawTransaction.js';
+import { SolidityServiceEvmSearchTransactionsResponse } from '../models/SolidityServiceEvmSearchTransactionsResponse.js';
 import { SolidityServiceExternalFork } from '../models/SolidityServiceExternalFork.js';
 import { SolidityServiceFailure } from '../models/SolidityServiceFailure.js';
 import { SolidityServiceFetchAndCompileInternalResponse } from '../models/SolidityServiceFetchAndCompileInternalResponse.js';
@@ -228,8 +230,6 @@ import { SolidityServiceSpecializations } from '../models/SolidityServiceSpecial
 import { SolidityServiceStateOverride } from '../models/SolidityServiceStateOverride.js';
 import { SolidityServiceStorageSummaryResult } from '../models/SolidityServiceStorageSummaryResult.js';
 import { SolidityServiceUpdateForkResponse } from '../models/SolidityServiceUpdateForkResponse.js';
-import { TxindexEvmRawTransaction } from '../models/TxindexEvmRawTransaction.js';
-import { TxindexEvmSearchTransactionsResponse } from '../models/TxindexEvmSearchTransactionsResponse.js';
 import { WebServiceChart } from '../models/WebServiceChart.js';
 import { WebServiceChartChartType } from '../models/WebServiceChartChartType.js';
 import { WebServiceChartConfig } from '../models/WebServiceChartConfig.js';
@@ -1776,7 +1776,7 @@ export class ObjectDebugAndSimulationApi {
      * Search transactions
      * @param param the request object
      */
-    public searchTransactionsWithHttpInfo(param: DebugAndSimulationApiSearchTransactionsRequest, options?: Configuration): Promise<HttpInfo<TxindexEvmSearchTransactionsResponse>> {
+    public searchTransactionsWithHttpInfo(param: DebugAndSimulationApiSearchTransactionsRequest, options?: Configuration): Promise<HttpInfo<SolidityServiceEvmSearchTransactionsResponse>> {
         return this.api.searchTransactionsWithHttpInfo(param.owner, param.slug, param.chainId, param.address, param.includeDirect, param.includeTrace, param.includeIn, param.includeOut, param.startBlock, param.endBlock, param.startTimestamp, param.endTimestamp, param.transactionStatus, param.methodSignature, param.limit, param.pageToken,  options).toPromise();
     }
 
@@ -1784,7 +1784,7 @@ export class ObjectDebugAndSimulationApi {
      * Search transactions
      * @param param the request object
      */
-    public searchTransactions(param: DebugAndSimulationApiSearchTransactionsRequest, options?: Configuration): Promise<TxindexEvmSearchTransactionsResponse> {
+    public searchTransactions(param: DebugAndSimulationApiSearchTransactionsRequest, options?: Configuration): Promise<SolidityServiceEvmSearchTransactionsResponse> {
         return this.api.searchTransactions(param.owner, param.slug, param.chainId, param.address, param.includeDirect, param.includeTrace, param.includeIn, param.includeOut, param.startBlock, param.endBlock, param.startTimestamp, param.endTimestamp, param.transactionStatus, param.methodSignature, param.limit, param.pageToken,  options).toPromise();
     }
 

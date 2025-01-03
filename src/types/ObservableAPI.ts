@@ -185,6 +185,8 @@ import { SolidityServiceContractKeyInfo } from '../models/SolidityServiceContrac
 import { SolidityServiceCreateForkResponse } from '../models/SolidityServiceCreateForkResponse.js';
 import { SolidityServiceDecodeStateDiffResponse } from '../models/SolidityServiceDecodeStateDiffResponse.js';
 import { SolidityServiceEstimatedPrice } from '../models/SolidityServiceEstimatedPrice.js';
+import { SolidityServiceEvmRawTransaction } from '../models/SolidityServiceEvmRawTransaction.js';
+import { SolidityServiceEvmSearchTransactionsResponse } from '../models/SolidityServiceEvmSearchTransactionsResponse.js';
 import { SolidityServiceExternalFork } from '../models/SolidityServiceExternalFork.js';
 import { SolidityServiceFailure } from '../models/SolidityServiceFailure.js';
 import { SolidityServiceFetchAndCompileInternalResponse } from '../models/SolidityServiceFetchAndCompileInternalResponse.js';
@@ -229,8 +231,6 @@ import { SolidityServiceSpecializations } from '../models/SolidityServiceSpecial
 import { SolidityServiceStateOverride } from '../models/SolidityServiceStateOverride.js';
 import { SolidityServiceStorageSummaryResult } from '../models/SolidityServiceStorageSummaryResult.js';
 import { SolidityServiceUpdateForkResponse } from '../models/SolidityServiceUpdateForkResponse.js';
-import { TxindexEvmRawTransaction } from '../models/TxindexEvmRawTransaction.js';
-import { TxindexEvmSearchTransactionsResponse } from '../models/TxindexEvmSearchTransactionsResponse.js';
 import { WebServiceChart } from '../models/WebServiceChart.js';
 import { WebServiceChartChartType } from '../models/WebServiceChartChartType.js';
 import { WebServiceChartConfig } from '../models/WebServiceChartConfig.js';
@@ -1350,7 +1350,7 @@ export class ObservableDebugAndSimulationApi {
      * @param [limit]
      * @param [pageToken]
      */
-    public searchTransactionsWithHttpInfo(owner: string, slug: string, chainId?: Array<string>, address?: Array<string>, includeDirect?: boolean, includeTrace?: boolean, includeIn?: boolean, includeOut?: boolean, startBlock?: string, endBlock?: string, startTimestamp?: string, endTimestamp?: string, transactionStatus?: Array<number>, methodSignature?: string, limit?: number, pageToken?: string, _options?: Configuration): Observable<HttpInfo<TxindexEvmSearchTransactionsResponse>> {
+    public searchTransactionsWithHttpInfo(owner: string, slug: string, chainId?: Array<string>, address?: Array<string>, includeDirect?: boolean, includeTrace?: boolean, includeIn?: boolean, includeOut?: boolean, startBlock?: string, endBlock?: string, startTimestamp?: string, endTimestamp?: string, transactionStatus?: Array<number>, methodSignature?: string, limit?: number, pageToken?: string, _options?: Configuration): Observable<HttpInfo<SolidityServiceEvmSearchTransactionsResponse>> {
         const requestContextPromise = this.requestFactory.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken, _options);
 
         // build promise chain
@@ -1388,8 +1388,8 @@ export class ObservableDebugAndSimulationApi {
      * @param [limit]
      * @param [pageToken]
      */
-    public searchTransactions(owner: string, slug: string, chainId?: Array<string>, address?: Array<string>, includeDirect?: boolean, includeTrace?: boolean, includeIn?: boolean, includeOut?: boolean, startBlock?: string, endBlock?: string, startTimestamp?: string, endTimestamp?: string, transactionStatus?: Array<number>, methodSignature?: string, limit?: number, pageToken?: string, _options?: Configuration): Observable<TxindexEvmSearchTransactionsResponse> {
-        return this.searchTransactionsWithHttpInfo(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken, _options).pipe(map((apiResponse: HttpInfo<TxindexEvmSearchTransactionsResponse>) => apiResponse.data));
+    public searchTransactions(owner: string, slug: string, chainId?: Array<string>, address?: Array<string>, includeDirect?: boolean, includeTrace?: boolean, includeIn?: boolean, includeOut?: boolean, startBlock?: string, endBlock?: string, startTimestamp?: string, endTimestamp?: string, transactionStatus?: Array<number>, methodSignature?: string, limit?: number, pageToken?: string, _options?: Configuration): Observable<SolidityServiceEvmSearchTransactionsResponse> {
+        return this.searchTransactionsWithHttpInfo(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken, _options).pipe(map((apiResponse: HttpInfo<SolidityServiceEvmSearchTransactionsResponse>) => apiResponse.data));
     }
 
     /**

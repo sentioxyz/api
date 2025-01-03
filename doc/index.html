@@ -4386,6 +4386,63 @@ ul.nav-tabs {
     }
   }
 };
+    defs["solidity_service.EvmRawTransaction"] = {
+  "type" : "object",
+  "properties" : {
+    "hash" : {
+      "type" : "string"
+    },
+    "blockNumber" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "isIn" : {
+      "type" : "boolean"
+    },
+    "trace" : {
+      "type" : "boolean"
+    },
+    "tx" : {
+      "$ref" : "#/components/schemas/evm.Transaction"
+    },
+    "json" : {
+      "type" : "string"
+    },
+    "timestamp" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "transactionStatus" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "methodSignature" : {
+      "type" : "string"
+    },
+    "methodSignatureText" : {
+      "type" : "string"
+    },
+    "abiItem" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["solidity_service.EvmSearchTransactionsResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "transactions" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/solidity_service.EvmRawTransaction"
+      }
+    },
+    "nextPageToken" : {
+      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+      "type" : "string",
+      "format" : "byte"
+    }
+  }
+};
     defs["solidity_service.ExternalFork"] = {
   "type" : "object",
   "properties" : {
@@ -5192,63 +5249,6 @@ ul.nav-tabs {
   "properties" : {
     "fork" : {
       "$ref" : "#/components/schemas/solidity_service.Fork"
-    }
-  }
-};
-    defs["txindex.EvmRawTransaction"] = {
-  "type" : "object",
-  "properties" : {
-    "hash" : {
-      "type" : "string"
-    },
-    "blockNumber" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "isIn" : {
-      "type" : "boolean"
-    },
-    "trace" : {
-      "type" : "boolean"
-    },
-    "tx" : {
-      "$ref" : "#/components/schemas/evm.Transaction"
-    },
-    "json" : {
-      "type" : "string"
-    },
-    "timestamp" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "transactionStatus" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "methodSignature" : {
-      "type" : "string"
-    },
-    "methodSignatureText" : {
-      "type" : "string"
-    },
-    "abiItem" : {
-      "type" : "string"
-    }
-  }
-};
-    defs["txindex.EvmSearchTransactionsResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "transactions" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/txindex.EvmRawTransaction"
-      }
-    },
-    "nextPageToken" : {
-      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-      "type" : "string",
-      "format" : "byte"
     }
   }
 };
@@ -20896,7 +20896,7 @@ public class DebugAndSimulationApiExample {
         byte[] pageToken = BYTE_ARRAY_DATA_HERE; // byte[] | 
 
         try {
-            txindex.EvmSearchTransactionsResponse result = apiInstance.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken);
+            solidity_service.EvmSearchTransactionsResponse result = apiInstance.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#searchTransactions");
@@ -20963,7 +20963,7 @@ public class DebugAndSimulationApiExample {
         byte[] pageToken = BYTE_ARRAY_DATA_HERE; // byte[] | 
 
         try {
-            txindex.EvmSearchTransactionsResponse result = apiInstance.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken);
+            solidity_service.EvmSearchTransactionsResponse result = apiInstance.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DebugAndSimulationApi#searchTransactions");
@@ -21026,7 +21026,7 @@ byte[] *pageToken = BYTE_ARRAY_DATA_HERE; //  (optional) (default to null)
     methodSignature:methodSignature
     limit:limit
     pageToken:pageToken
-              completionHandler: ^(txindex.EvmSearchTransactionsResponse output, NSError* error) {
+              completionHandler: ^(solidity_service.EvmSearchTransactionsResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
     }
@@ -21131,7 +21131,7 @@ namespace Example
 
             try {
                 // Search transactions
-                txindex.EvmSearchTransactionsResponse result = apiInstance.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken);
+                solidity_service.EvmSearchTransactionsResponse result = apiInstance.searchTransactions(owner, slug, chainId, address, includeDirect, includeTrace, includeIn, includeOut, startBlock, endBlock, startTimestamp, endTimestamp, transactionStatus, methodSignature, limit, pageToken);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DebugAndSimulationApi.searchTransactions: " + e.Message );
@@ -21662,7 +21662,7 @@ pub fn main() {
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/txindex.EvmSearchTransactionsResponse"
+        "$ref" : "#/components/schemas/solidity_service.EvmSearchTransactionsResponse"
       }
     }
   }

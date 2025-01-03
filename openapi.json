@@ -2045,7 +2045,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/txindex.EvmSearchTransactionsResponse"
+              "$ref": "#/definitions/solidity_service.EvmSearchTransactionsResponse"
             }
           }
         },
@@ -6402,6 +6402,63 @@
         }
       }
     },
+    "solidity_service.EvmRawTransaction": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "isIn": {
+          "type": "boolean"
+        },
+        "trace": {
+          "type": "boolean"
+        },
+        "tx": {
+          "$ref": "#/definitions/evm.Transaction"
+        },
+        "json": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "int64"
+        },
+        "transactionStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "methodSignature": {
+          "type": "string"
+        },
+        "methodSignatureText": {
+          "type": "string"
+        },
+        "abiItem": {
+          "type": "string"
+        }
+      }
+    },
+    "solidity_service.EvmSearchTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/solidity_service.EvmRawTransaction"
+          }
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
     "solidity_service.ExternalFork": {
       "type": "object",
       "properties": {
@@ -7250,63 +7307,6 @@
       "properties": {
         "fork": {
           "$ref": "#/definitions/solidity_service.Fork"
-        }
-      }
-    },
-    "txindex.EvmRawTransaction": {
-      "type": "object",
-      "properties": {
-        "hash": {
-          "type": "string"
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "int64"
-        },
-        "isIn": {
-          "type": "boolean"
-        },
-        "trace": {
-          "type": "boolean"
-        },
-        "tx": {
-          "$ref": "#/definitions/evm.Transaction"
-        },
-        "json": {
-          "type": "string"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "int64"
-        },
-        "transactionStatus": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "methodSignature": {
-          "type": "string"
-        },
-        "methodSignatureText": {
-          "type": "string"
-        },
-        "abiItem": {
-          "type": "string"
-        }
-      }
-    },
-    "txindex.EvmSearchTransactionsResponse": {
-      "type": "object",
-      "properties": {
-        "transactions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/txindex.EvmRawTransaction"
-          }
-        },
-        "nextPageToken": {
-          "type": "string",
-          "format": "byte"
         }
       }
     },

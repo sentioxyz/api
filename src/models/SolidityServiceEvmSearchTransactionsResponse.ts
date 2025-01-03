@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { TxindexEvmRawTransaction } from '../models/TxindexEvmRawTransaction.js';
+import { SolidityServiceEvmRawTransaction } from '../models/SolidityServiceEvmRawTransaction.js';
 import { HttpFile } from '../http/http.js';
 
-export class TxindexEvmSearchTransactionsResponse {
-    'transactions'?: Array<TxindexEvmRawTransaction>;
+export class SolidityServiceEvmSearchTransactionsResponse {
+    'transactions'?: Array<SolidityServiceEvmRawTransaction>;
     'nextPageToken'?: string;
 
     static readonly discriminator: string | undefined = undefined;
@@ -25,7 +25,7 @@ export class TxindexEvmSearchTransactionsResponse {
         {
             "name": "transactions",
             "baseName": "transactions",
-            "type": "Array<TxindexEvmRawTransaction>",
+            "type": "Array<SolidityServiceEvmRawTransaction>",
             "format": ""
         },
         {
@@ -36,7 +36,7 @@ export class TxindexEvmSearchTransactionsResponse {
         }    ];
 
     static getAttributeTypeMap() {
-        return TxindexEvmSearchTransactionsResponse.attributeTypeMap;
+        return SolidityServiceEvmSearchTransactionsResponse.attributeTypeMap;
     }
 
     public constructor() {
