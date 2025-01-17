@@ -16,7 +16,8 @@ import { HttpFile } from '../http/http.js';
 export class SolidityServiceManagedFork {
     'chainSpec'?: SolidityServiceChainIdentifier;
     'rpcEndpoint'?: string;
-    'parentBlockNumber'?: number;
+    'parentBlockNumber'?: string;
+    'chainId'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -38,6 +39,12 @@ export class SolidityServiceManagedFork {
         {
             "name": "parentBlockNumber",
             "baseName": "parentBlockNumber",
+            "type": "string",
+            "format": "int64"
+        },
+        {
+            "name": "chainId",
+            "baseName": "chainId",
             "type": "number",
             "format": "int32"
         }    ];

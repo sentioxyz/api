@@ -6772,6 +6772,10 @@
           "type": "string"
         },
         "parentBlockNumber": {
+          "type": "string",
+          "format": "int64"
+        },
+        "chainId": {
           "type": "integer",
           "format": "int32"
         }
