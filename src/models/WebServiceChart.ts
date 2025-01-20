@@ -34,6 +34,7 @@ export class WebServiceChart {
     'eventLogsConfig'?: WebServiceEventLogsConfig;
     'retentionQuery'?: CommonRetentionQuery;
     'sqlQuery'?: string;
+    'sqlQueryId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -103,6 +104,12 @@ export class WebServiceChart {
         {
             "name": "sqlQuery",
             "baseName": "sqlQuery",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "sqlQueryId",
+            "baseName": "sqlQueryId",
             "type": "string",
             "format": ""
         }    ];

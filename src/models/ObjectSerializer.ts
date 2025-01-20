@@ -506,7 +506,7 @@ import { SolidityServiceSpecializations } from '../models/SolidityServiceSpecial
 import { SolidityServiceStateOverride } from '../models/SolidityServiceStateOverride.js';
 import { SolidityServiceStorageSummaryResult } from '../models/SolidityServiceStorageSummaryResult.js';
 import { SolidityServiceUpdateForkResponse } from '../models/SolidityServiceUpdateForkResponse.js';
-import { WebServiceChart            } from '../models/WebServiceChart.js';
+import { WebServiceChart             } from '../models/WebServiceChart.js';
 import { WebServiceChartChartType } from '../models/WebServiceChartChartType.js';
 import { WebServiceChartConfig } from '../models/WebServiceChartConfig.js';
 import { WebServiceChartConfigBarGaugeConfig    } from '../models/WebServiceChartConfigBarGaugeConfig.js';
