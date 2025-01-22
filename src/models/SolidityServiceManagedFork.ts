@@ -14,10 +14,10 @@ import { SolidityServiceChainIdentifier } from '../models/SolidityServiceChainId
 import { HttpFile } from '../http/http.js';
 
 export class SolidityServiceManagedFork {
-    'chainSpec'?: SolidityServiceChainIdentifier;
-    'rpcEndpoint'?: string;
+    'parentChainSpec'?: SolidityServiceChainIdentifier;
+    'parentRpcEndpoint'?: string;
     'parentBlockNumber'?: string;
-    'chainId'?: number;
+    'chainId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -25,14 +25,14 @@ export class SolidityServiceManagedFork {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "chainSpec",
-            "baseName": "chainSpec",
+            "name": "parentChainSpec",
+            "baseName": "parentChainSpec",
             "type": "SolidityServiceChainIdentifier",
             "format": ""
         },
         {
-            "name": "rpcEndpoint",
-            "baseName": "rpcEndpoint",
+            "name": "parentRpcEndpoint",
+            "baseName": "parentRpcEndpoint",
             "type": "string",
             "format": ""
         },
@@ -45,8 +45,8 @@ export class SolidityServiceManagedFork {
         {
             "name": "chainId",
             "baseName": "chainId",
-            "type": "number",
-            "format": "int32"
+            "type": "string",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

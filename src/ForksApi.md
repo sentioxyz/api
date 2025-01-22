@@ -44,13 +44,13 @@ const request: ForksApiCreateForkRequest = {
       name: "name_example",
       extra: "extra_example",
       managedFork: {
-        chainSpec: {
+        parentChainSpec: {
           chainId: "chainId_example",
           forkId: "forkId_example",
         },
-        rpcEndpoint: "rpcEndpoint_example",
+        parentRpcEndpoint: "parentRpcEndpoint_example",
         parentBlockNumber: "parentBlockNumber_example",
-        chainId: 1,
+        chainId: "chainId_example",
       },
       externalFork: {
         chainConfig: {
@@ -885,13 +885,13 @@ const request: ForksApiUpdateForkRequest = {
       name: "name_example",
       extra: "extra_example",
       managedFork: {
-        chainSpec: {
+        parentChainSpec: {
           chainId: "chainId_example",
           forkId: "forkId_example",
         },
-        rpcEndpoint: "rpcEndpoint_example",
+        parentRpcEndpoint: "parentRpcEndpoint_example",
         parentBlockNumber: "parentBlockNumber_example",
-        chainId: 1,
+        chainId: "chainId_example",
       },
       externalFork: {
         chainConfig: {

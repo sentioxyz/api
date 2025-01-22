@@ -6765,10 +6765,10 @@
     "solidity_service.ManagedFork": {
       "type": "object",
       "properties": {
-        "chainSpec": {
+        "parentChainSpec": {
           "$ref": "#/definitions/solidity_service.ChainIdentifier"
         },
-        "rpcEndpoint": {
+        "parentRpcEndpoint": {
           "type": "string"
         },
         "parentBlockNumber": {
@@ -6776,8 +6776,7 @@
           "format": "int64"
         },
         "chainId": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         }
       }
     },
