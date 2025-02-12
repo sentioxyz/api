@@ -661,6 +661,11 @@ const request: ForksApiSimulateTransactionBundleOnForkRequest = {
             ],
           },
         },
+        sharing: {
+          isPublic: true,
+          id: "id_example",
+          simulationId: "simulationId_example",
+        },
       },
     ],
   },
@@ -815,6 +820,11 @@ const request: ForksApiSimulateTransactionOnForkRequest = {
             {},
           ],
         },
+      },
+      sharing: {
+        isPublic: true,
+        id: "id_example",
+        simulationId: "simulationId_example",
       },
     },
   },

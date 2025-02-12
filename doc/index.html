@@ -4999,6 +4999,9 @@ ul.nav-tabs {
     },
     "result" : {
       "$ref" : "#/components/schemas/solidity_service.Simulation.Result"
+    },
+    "sharing" : {
+      "$ref" : "#/components/schemas/solidity_service.SimulationSharing"
     }
   }
 };
@@ -5010,6 +5013,20 @@ ul.nav-tabs {
     },
     "transactionReceipt" : {
       "$ref" : "#/components/schemas/evm.TransactionReceipt"
+    }
+  }
+};
+    defs["solidity_service.SimulationSharing"] = {
+  "type" : "object",
+  "properties" : {
+    "isPublic" : {
+      "type" : "boolean"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "simulationId" : {
+      "type" : "string"
     }
   }
 };

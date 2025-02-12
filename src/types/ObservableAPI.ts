@@ -219,6 +219,7 @@ import { SolidityServiceSimulateTransactionBundleResponse } from '../models/Soli
 import { SolidityServiceSimulateTransactionResponse } from '../models/SolidityServiceSimulateTransactionResponse.js';
 import { SolidityServiceSimulation } from '../models/SolidityServiceSimulation.js';
 import { SolidityServiceSimulationResult } from '../models/SolidityServiceSimulationResult.js';
+import { SolidityServiceSimulationSharing } from '../models/SolidityServiceSimulationSharing.js';
 import { SolidityServiceSolidityAPIServiceSimulateTransactionBody } from '../models/SolidityServiceSolidityAPIServiceSimulateTransactionBody.js';
 import { SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody } from '../models/SolidityServiceSolidityAPIServiceSimulateTransactionBundleBody.js';
 import { SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody } from '../models/SolidityServiceSolidityAPIServiceSimulateTransactionBundleOnForkBody.js';

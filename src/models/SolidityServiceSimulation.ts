@@ -14,6 +14,7 @@ import { EvmAccessListItem } from '../models/EvmAccessListItem.js';
 import { SolidityServiceBlockOverrides } from '../models/SolidityServiceBlockOverrides.js';
 import { SolidityServiceChainIdentifier } from '../models/SolidityServiceChainIdentifier.js';
 import { SolidityServiceSimulationResult } from '../models/SolidityServiceSimulationResult.js';
+import { SolidityServiceSimulationSharing } from '../models/SolidityServiceSimulationSharing.js';
 import { SolidityServiceStateOverride } from '../models/SolidityServiceStateOverride.js';
 import { HttpFile } from '../http/http.js';
 
@@ -45,6 +46,7 @@ export class SolidityServiceSimulation {
     'blockOverride'?: SolidityServiceBlockOverrides;
     'debugDeployment'?: boolean;
     'result'?: SolidityServiceSimulationResult;
+    'sharing'?: SolidityServiceSimulationSharing;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -193,6 +195,12 @@ export class SolidityServiceSimulation {
             "name": "result",
             "baseName": "result",
             "type": "SolidityServiceSimulationResult",
+            "format": ""
+        },
+        {
+            "name": "sharing",
+            "baseName": "sharing",
+            "type": "SolidityServiceSimulationSharing",
             "format": ""
         }    ];
 

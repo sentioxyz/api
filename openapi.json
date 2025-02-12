@@ -7028,6 +7028,9 @@
         },
         "result": {
           "$ref": "#/definitions/solidity_service.Simulation.Result"
+        },
+        "sharing": {
+          "$ref": "#/definitions/solidity_service.SimulationSharing"
         }
       },
       "required": [
@@ -7051,6 +7054,20 @@
         },
         "transactionReceipt": {
           "$ref": "#/definitions/evm.TransactionReceipt"
+        }
+      }
+    },
+    "solidity_service.SimulationSharing": {
+      "type": "object",
+      "properties": {
+        "isPublic": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "simulationId": {
+          "type": "string"
         }
       }
     },

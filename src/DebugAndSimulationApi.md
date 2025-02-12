@@ -677,6 +677,11 @@ const request: DebugAndSimulationApiSimulateTransactionRequest = {
           ],
         },
       },
+      sharing: {
+        isPublic: true,
+        id: "id_example",
+        simulationId: "simulationId_example",
+      },
     },
   },
 };
@@ -832,6 +837,11 @@ const request: DebugAndSimulationApiSimulateTransactionBundleRequest = {
               {},
             ],
           },
+        },
+        sharing: {
+          isPublic: true,
+          id: "id_example",
+          simulationId: "simulationId_example",
         },
       },
     ],
