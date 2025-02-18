@@ -5365,6 +5365,9 @@ ul.nav-tabs {
     },
     "xAxis" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.XAxisConfig"
+    },
+    "labelConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.LabelConfig"
     }
   }
 };
@@ -5424,6 +5427,31 @@ ul.nav-tabs {
   "type" : "string",
   "default" : "HORIZONTAL",
   "enum" : [ "HORIZONTAL", "VERTICAL" ]
+};
+    defs["web_service.ChartConfig.LabelConfig"] = {
+  "type" : "object",
+  "properties" : {
+    "columns" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/web_service.ChartConfig.LabelConfigColumn"
+      }
+    }
+  }
+};
+    defs["web_service.ChartConfig.LabelConfigColumn"] = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string"
+    },
+    "showLabel" : {
+      "type" : "boolean"
+    },
+    "showValue" : {
+      "type" : "boolean"
+    }
+  }
 };
     defs["web_service.ChartConfig.LineConfig"] = {
   "type" : "object",
@@ -5691,6 +5719,9 @@ ul.nav-tabs {
       "type" : "string"
     },
     "column" : {
+      "type" : "string"
+    },
+    "name" : {
       "type" : "string"
     }
   }

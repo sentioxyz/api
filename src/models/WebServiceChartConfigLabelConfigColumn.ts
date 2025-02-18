@@ -12,13 +12,10 @@
 
 import { HttpFile } from '../http/http.js';
 
-export class WebServiceChartConfigYAxisConfig {
-    'min'?: string;
-    'max'?: string;
-    'scale'?: boolean;
-    'stacked'?: string;
-    'column'?: string;
+export class WebServiceChartConfigLabelConfigColumn {
     'name'?: string;
+    'showLabel'?: boolean;
+    'showValue'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -26,44 +23,26 @@ export class WebServiceChartConfigYAxisConfig {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "min",
-            "baseName": "min",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "max",
-            "baseName": "max",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "scale",
-            "baseName": "scale",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "stacked",
-            "baseName": "stacked",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "column",
-            "baseName": "column",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "name",
             "baseName": "name",
             "type": "string",
             "format": ""
+        },
+        {
+            "name": "showLabel",
+            "baseName": "showLabel",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "showValue",
+            "baseName": "showValue",
+            "type": "boolean",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return WebServiceChartConfigYAxisConfig.attributeTypeMap;
+        return WebServiceChartConfigLabelConfigColumn.attributeTypeMap;
     }
 
     public constructor() {

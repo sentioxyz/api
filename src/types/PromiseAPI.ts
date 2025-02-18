@@ -240,6 +240,8 @@ import { WebServiceChartConfigColorTheme } from '../models/WebServiceChartConfig
 import { WebServiceChartConfigColumnSort } from '../models/WebServiceChartConfigColumnSort.js';
 import { WebServiceChartConfigCompareTime } from '../models/WebServiceChartConfigCompareTime.js';
 import { WebServiceChartConfigDirection } from '../models/WebServiceChartConfigDirection.js';
+import { WebServiceChartConfigLabelConfig } from '../models/WebServiceChartConfigLabelConfig.js';
+import { WebServiceChartConfigLabelConfigColumn } from '../models/WebServiceChartConfigLabelConfigColumn.js';
 import { WebServiceChartConfigLineConfig } from '../models/WebServiceChartConfigLineConfig.js';
 import { WebServiceChartConfigLineConfigStyle } from '../models/WebServiceChartConfigLineConfigStyle.js';
 import { WebServiceChartConfigMappingRule } from '../models/WebServiceChartConfigMappingRule.js';

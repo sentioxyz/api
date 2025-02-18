@@ -11,6 +11,7 @@
  */
 
 import { WebServiceChartConfigBarGaugeConfig } from '../models/WebServiceChartConfigBarGaugeConfig.js';
+import { WebServiceChartConfigLabelConfig } from '../models/WebServiceChartConfigLabelConfig.js';
 import { WebServiceChartConfigLineConfig } from '../models/WebServiceChartConfigLineConfig.js';
 import { WebServiceChartConfigMarker } from '../models/WebServiceChartConfigMarker.js';
 import { WebServiceChartConfigPieConfig } from '../models/WebServiceChartConfigPieConfig.js';
@@ -33,6 +34,7 @@ export class WebServiceChartConfig {
     'markers'?: Array<WebServiceChartConfigMarker>;
     'lineConfig'?: WebServiceChartConfigLineConfig;
     'xAxis'?: WebServiceChartConfigXAxisConfig;
+    'labelConfig'?: WebServiceChartConfigLabelConfig;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -97,6 +99,12 @@ export class WebServiceChartConfig {
             "name": "xAxis",
             "baseName": "xAxis",
             "type": "WebServiceChartConfigXAxisConfig",
+            "format": ""
+        },
+        {
+            "name": "labelConfig",
+            "baseName": "labelConfig",
+            "type": "WebServiceChartConfigLabelConfig",
             "format": ""
         }    ];
 

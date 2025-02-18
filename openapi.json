@@ -7450,6 +7450,9 @@
         },
         "xAxis": {
           "$ref": "#/definitions/web_service.ChartConfig.XAxisConfig"
+        },
+        "labelConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.LabelConfig"
         }
       }
     },
@@ -7520,6 +7523,32 @@
         "VERTICAL"
       ],
       "default": "HORIZONTAL"
+    },
+    "web_service.ChartConfig.LabelConfig": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/web_service.ChartConfig.LabelConfigColumn"
+          }
+        }
+      }
+    },
+    "web_service.ChartConfig.LabelConfigColumn": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "showLabel": {
+          "type": "boolean"
+        },
+        "showValue": {
+          "type": "boolean"
+        }
+      }
     },
     "web_service.ChartConfig.LineConfig": {
       "type": "object",
@@ -7813,6 +7842,9 @@
           "type": "string"
         },
         "column": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }

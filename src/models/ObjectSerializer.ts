@@ -237,6 +237,8 @@ export * from '../models/WebServiceChartConfigColorTheme.js';
 export * from '../models/WebServiceChartConfigColumnSort.js';
 export * from '../models/WebServiceChartConfigCompareTime.js';
 export * from '../models/WebServiceChartConfigDirection.js';
+export * from '../models/WebServiceChartConfigLabelConfig.js';
+export * from '../models/WebServiceChartConfigLabelConfigColumn.js';
 export * from '../models/WebServiceChartConfigLineConfig.js';
 export * from '../models/WebServiceChartConfigLineConfigStyle.js';
 export * from '../models/WebServiceChartConfigMappingRule.js';
@@ -517,6 +519,8 @@ import { WebServiceChartConfigColorTheme } from '../models/WebServiceChartConfig
 import { WebServiceChartConfigColumnSort } from '../models/WebServiceChartConfigColumnSort.js';
 import { WebServiceChartConfigCompareTime } from '../models/WebServiceChartConfigCompareTime.js';
 import { WebServiceChartConfigDirection } from '../models/WebServiceChartConfigDirection.js';
+import { WebServiceChartConfigLabelConfig } from '../models/WebServiceChartConfigLabelConfig.js';
+import { WebServiceChartConfigLabelConfigColumn } from '../models/WebServiceChartConfigLabelConfigColumn.js';
 import { WebServiceChartConfigLineConfig  } from '../models/WebServiceChartConfigLineConfig.js';
 import { WebServiceChartConfigLineConfigStyle } from '../models/WebServiceChartConfigLineConfigStyle.js';
 import { WebServiceChartConfigMappingRule } from '../models/WebServiceChartConfigMappingRule.js';
@@ -824,6 +828,8 @@ let typeMap: {[index: string]: any} = {
     "WebServiceChartConfigColorTheme": WebServiceChartConfigColorTheme,
     "WebServiceChartConfigColumnSort": WebServiceChartConfigColumnSort,
     "WebServiceChartConfigCompareTime": WebServiceChartConfigCompareTime,
+    "WebServiceChartConfigLabelConfig": WebServiceChartConfigLabelConfig,
+    "WebServiceChartConfigLabelConfigColumn": WebServiceChartConfigLabelConfigColumn,
     "WebServiceChartConfigLineConfig": WebServiceChartConfigLineConfig,
     "WebServiceChartConfigMappingRule": WebServiceChartConfigMappingRule,
     "WebServiceChartConfigMarker": WebServiceChartConfigMarker,
