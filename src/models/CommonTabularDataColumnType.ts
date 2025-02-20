@@ -18,5 +18,7 @@ export enum CommonTabularDataColumnType {
     Boolean = 'BOOLEAN',
     List = 'LIST',
     Time = 'TIME',
-    Map = 'MAP'
+    Map = 'MAP',
+    Json = 'JSON',
+    Token = 'TOKEN'
 }
