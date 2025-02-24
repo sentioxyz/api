@@ -7825,6 +7825,9 @@
         },
         "column": {
           "type": "string"
+        },
+        "sort": {
+          "$ref": "#/definitions/web_service.ChartConfig.Sort"
         }
       }
     },

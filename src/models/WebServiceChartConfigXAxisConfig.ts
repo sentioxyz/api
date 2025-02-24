@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { WebServiceChartConfigSort } from '../models/WebServiceChartConfigSort.js';
 import { HttpFile } from '../http/http.js';
 
 export class WebServiceChartConfigXAxisConfig {
@@ -19,6 +20,7 @@ export class WebServiceChartConfigXAxisConfig {
     'scale'?: boolean;
     'name'?: string;
     'column'?: string;
+    'sort'?: WebServiceChartConfigSort;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -59,6 +61,12 @@ export class WebServiceChartConfigXAxisConfig {
             "name": "column",
             "baseName": "column",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "sort",
+            "baseName": "sort",
+            "type": "WebServiceChartConfigSort",
             "format": ""
         }    ];
 
