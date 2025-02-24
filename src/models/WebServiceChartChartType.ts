@@ -20,5 +20,6 @@ export enum WebServiceChartChartType {
     Table = 'TABLE',
     QueryValue = 'QUERY_VALUE',
     Pie = 'PIE',
-    Note = 'NOTE'
+    Note = 'NOTE',
+    Scatter = 'SCATTER'
 }

@@ -7399,7 +7399,8 @@
         "TABLE",
         "QUERY_VALUE",
         "PIE",
-        "NOTE"
+        "NOTE",
+        "SCATTER"
       ],
       "default": "LINE"
     },
