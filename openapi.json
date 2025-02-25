@@ -5495,6 +5495,13 @@
         "value": {
           "type": "number",
           "format": "double"
+        },
+        "extraValues": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
         }
       }
     },
@@ -7456,6 +7463,9 @@
         },
         "labelConfig": {
           "$ref": "#/definitions/web_service.ChartConfig.LabelConfig"
+        },
+        "scatterConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.ScatterConfig"
         }
       }
     },
@@ -7656,6 +7666,14 @@
         },
         "seriesCalculation": {
           "$ref": "#/definitions/web_service.ChartConfig.Calculation"
+        }
+      }
+    },
+    "web_service.ChartConfig.ScatterConfig": {
+      "type": "object",
+      "properties": {
+        "symbolSize": {
+          "type": "string"
         }
       }
     },

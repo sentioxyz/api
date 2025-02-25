@@ -16,6 +16,7 @@ import { WebServiceChartConfigLineConfig } from '../models/WebServiceChartConfig
 import { WebServiceChartConfigMarker } from '../models/WebServiceChartConfigMarker.js';
 import { WebServiceChartConfigPieConfig } from '../models/WebServiceChartConfigPieConfig.js';
 import { WebServiceChartConfigQueryValueConfig } from '../models/WebServiceChartConfigQueryValueConfig.js';
+import { WebServiceChartConfigScatterConfig } from '../models/WebServiceChartConfigScatterConfig.js';
 import { WebServiceChartConfigTableConfig } from '../models/WebServiceChartConfigTableConfig.js';
 import { WebServiceChartConfigTimeRangeOverride } from '../models/WebServiceChartConfigTimeRangeOverride.js';
 import { WebServiceChartConfigValueConfig } from '../models/WebServiceChartConfigValueConfig.js';
@@ -35,6 +36,7 @@ export class WebServiceChartConfig {
     'lineConfig'?: WebServiceChartConfigLineConfig;
     'xAxis'?: WebServiceChartConfigXAxisConfig;
     'labelConfig'?: WebServiceChartConfigLabelConfig;
+    'scatterConfig'?: WebServiceChartConfigScatterConfig;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -105,6 +107,12 @@ export class WebServiceChartConfig {
             "name": "labelConfig",
             "baseName": "labelConfig",
             "type": "WebServiceChartConfigLabelConfig",
+            "format": ""
+        },
+        {
+            "name": "scatterConfig",
+            "baseName": "scatterConfig",
+            "type": "WebServiceChartConfigScatterConfig",
             "format": ""
         }    ];
 

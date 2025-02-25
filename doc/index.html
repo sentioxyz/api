@@ -3544,6 +3544,13 @@ ul.nav-tabs {
     "value" : {
       "type" : "number",
       "format" : "double"
+    },
+    "extraValues" : {
+      "type" : "array",
+      "items" : {
+        "type" : "number",
+        "format" : "double"
+      }
     }
   }
 };
@@ -5368,6 +5375,9 @@ ul.nav-tabs {
     },
     "labelConfig" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.LabelConfig"
+    },
+    "scatterConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ScatterConfig"
     }
   }
 };
@@ -5546,6 +5556,14 @@ ul.nav-tabs {
     },
     "seriesCalculation" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
+    }
+  }
+};
+    defs["web_service.ChartConfig.ScatterConfig"] = {
+  "type" : "object",
+  "properties" : {
+    "symbolSize" : {
+      "type" : "string"
     }
   }
 };

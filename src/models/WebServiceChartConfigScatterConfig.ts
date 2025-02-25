@@ -12,10 +12,8 @@
 
 import { HttpFile } from '../http/http.js';
 
-export class MetricsServiceMetricsQueryResponseValue {
-    'timestamp'?: string;
-    'value'?: number;
-    'extraValues'?: Array<number>;
+export class WebServiceChartConfigScatterConfig {
+    'symbolSize'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -23,26 +21,14 @@ export class MetricsServiceMetricsQueryResponseValue {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "timestamp",
-            "baseName": "timestamp",
+            "name": "symbolSize",
+            "baseName": "symbolSize",
             "type": "string",
-            "format": "int64"
-        },
-        {
-            "name": "value",
-            "baseName": "value",
-            "type": "number",
-            "format": "double"
-        },
-        {
-            "name": "extraValues",
-            "baseName": "extraValues",
-            "type": "Array<number>",
-            "format": "double"
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return MetricsServiceMetricsQueryResponseValue.attributeTypeMap;
+        return WebServiceChartConfigScatterConfig.attributeTypeMap;
     }
 
     public constructor() {

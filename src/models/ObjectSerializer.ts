@@ -247,6 +247,7 @@ export * from '../models/WebServiceChartConfigMarkerType.js';
 export * from '../models/WebServiceChartConfigPieConfig.js';
 export * from '../models/WebServiceChartConfigPieConfigPieType.js';
 export * from '../models/WebServiceChartConfigQueryValueConfig.js';
+export * from '../models/WebServiceChartConfigScatterConfig.js';
 export * from '../models/WebServiceChartConfigSort.js';
 export * from '../models/WebServiceChartConfigSortBy.js';
 export * from '../models/WebServiceChartConfigTableConfig.js';
@@ -529,6 +530,7 @@ import { WebServiceChartConfigMarkerType } from '../models/WebServiceChartConfig
 import { WebServiceChartConfigPieConfig     } from '../models/WebServiceChartConfigPieConfig.js';
 import { WebServiceChartConfigPieConfigPieType } from '../models/WebServiceChartConfigPieConfigPieType.js';
 import { WebServiceChartConfigQueryValueConfig     } from '../models/WebServiceChartConfigQueryValueConfig.js';
+import { WebServiceChartConfigScatterConfig } from '../models/WebServiceChartConfigScatterConfig.js';
 import { WebServiceChartConfigSort   } from '../models/WebServiceChartConfigSort.js';
 import { WebServiceChartConfigSortBy } from '../models/WebServiceChartConfigSortBy.js';
 import { WebServiceChartConfigTableConfig          } from '../models/WebServiceChartConfigTableConfig.js';
@@ -835,6 +837,7 @@ let typeMap: {[index: string]: any} = {
     "WebServiceChartConfigMarker": WebServiceChartConfigMarker,
     "WebServiceChartConfigPieConfig": WebServiceChartConfigPieConfig,
     "WebServiceChartConfigQueryValueConfig": WebServiceChartConfigQueryValueConfig,
+    "WebServiceChartConfigScatterConfig": WebServiceChartConfigScatterConfig,
     "WebServiceChartConfigSort": WebServiceChartConfigSort,
     "WebServiceChartConfigTableConfig": WebServiceChartConfigTableConfig,
     "WebServiceChartConfigTimeRangeOverride": WebServiceChartConfigTimeRangeOverride,

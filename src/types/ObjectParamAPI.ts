@@ -250,6 +250,7 @@ import { WebServiceChartConfigMarkerType } from '../models/WebServiceChartConfig
 import { WebServiceChartConfigPieConfig } from '../models/WebServiceChartConfigPieConfig.js';
 import { WebServiceChartConfigPieConfigPieType } from '../models/WebServiceChartConfigPieConfigPieType.js';
 import { WebServiceChartConfigQueryValueConfig } from '../models/WebServiceChartConfigQueryValueConfig.js';
+import { WebServiceChartConfigScatterConfig } from '../models/WebServiceChartConfigScatterConfig.js';
 import { WebServiceChartConfigSort } from '../models/WebServiceChartConfigSort.js';
 import { WebServiceChartConfigSortBy } from '../models/WebServiceChartConfigSortBy.js';
 import { WebServiceChartConfigTableConfig } from '../models/WebServiceChartConfigTableConfig.js';
