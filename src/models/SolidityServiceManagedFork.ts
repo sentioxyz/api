@@ -18,6 +18,7 @@ export class SolidityServiceManagedFork {
     'parentRpcEndpoint'?: string;
     'parentBlockNumber'?: string;
     'chainId'?: string;
+    'rpcEndpoint'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -45,6 +46,12 @@ export class SolidityServiceManagedFork {
         {
             "name": "chainId",
             "baseName": "chainId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "rpcEndpoint",
+            "baseName": "rpcEndpoint",
             "type": "string",
             "format": ""
         }    ];
