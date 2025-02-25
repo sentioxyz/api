@@ -4853,7 +4853,8 @@
         "TIME",
         "MAP",
         "JSON",
-        "TOKEN"
+        "TOKEN",
+        "DYNAMIC"
       ],
       "default": "STRING"
     },

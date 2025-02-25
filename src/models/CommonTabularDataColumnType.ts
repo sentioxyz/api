@@ -20,5 +20,6 @@ export enum CommonTabularDataColumnType {
     Time = 'TIME',
     Map = 'MAP',
     Json = 'JSON',
-    Token = 'TOKEN'
+    Token = 'TOKEN',
+    Dynamic = 'DYNAMIC'
 }
