@@ -52,6 +52,7 @@ const request: ForksApiCreateForkRequest = {
         parentBlockNumber: "parentBlockNumber_example",
         chainId: "chainId_example",
         rpcEndpoint: "rpcEndpoint_example",
+        version: "version_example",
       },
       externalFork: {
         chainConfig: {
@@ -904,6 +905,7 @@ const request: ForksApiUpdateForkRequest = {
         parentBlockNumber: "parentBlockNumber_example",
         chainId: "chainId_example",
         rpcEndpoint: "rpcEndpoint_example",
+        version: "version_example",
       },
       externalFork: {
         chainConfig: {

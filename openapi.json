@@ -6794,6 +6794,10 @@
         },
         "rpcEndpoint": {
           "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
