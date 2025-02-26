@@ -21,6 +21,7 @@ import { HttpFile } from '../http/http.js';
 export class CommonRichValue {
     'nullValue'?: CommonRichValueNullValue;
     'intValue'?: number;
+    'int64Value'?: string;
     'floatValue'?: number;
     'bytesValue'?: string;
     'boolValue'?: boolean;
@@ -48,6 +49,12 @@ export class CommonRichValue {
             "baseName": "intValue",
             "type": "number",
             "format": "int32"
+        },
+        {
+            "name": "int64Value",
+            "baseName": "int64Value",
+            "type": "string",
+            "format": "int64"
         },
         {
             "name": "floatValue",

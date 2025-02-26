@@ -371,7 +371,7 @@ import { CommonRetentionQueryInterval   } from '../models/CommonRetentionQueryIn
 import { CommonRetentionQueryIntervalUnit } from '../models/CommonRetentionQueryIntervalUnit.js';
 import { CommonRetentionQueryResource } from '../models/CommonRetentionQueryResource.js';
 import { CommonRichStruct } from '../models/CommonRichStruct.js';
-import { CommonRichValue             } from '../models/CommonRichValue.js';
+import { CommonRichValue              } from '../models/CommonRichValue.js';
 import { CommonRichValueList } from '../models/CommonRichValueList.js';
 import { CommonRichValueNullValue } from '../models/CommonRichValueNullValue.js';
 import { CommonSegmentParameter } from '../models/CommonSegmentParameter.js';

@@ -117,6 +117,7 @@ const request: DataApiExecuteSQLRequest = {
           "key": {
             nullValue: "NULL_VALUE",
             intValue: 1,
+            int64Value: "int64Value_example",
             floatValue: 3.14,
             bytesValue: 'YQ==',
             boolValue: true,
@@ -239,6 +240,7 @@ const request: DataApiExecuteSQLAsyncRequest = {
           "key": {
             nullValue: "NULL_VALUE",
             intValue: 1,
+            int64Value: "int64Value_example",
             floatValue: 3.14,
             bytesValue: 'YQ==',
             boolValue: true,
@@ -1398,6 +1400,7 @@ const request: DataApiSaveSQLRequest = {
           "key": {
             nullValue: "NULL_VALUE",
             intValue: 1,
+            int64Value: "int64Value_example",
             floatValue: 3.14,
             bytesValue: 'YQ==',
             boolValue: true,
@@ -1514,6 +1517,7 @@ const request: DataApiSaveSQL2Request = {
           "key": {
             nullValue: "NULL_VALUE",
             intValue: 1,
+            int64Value: "int64Value_example",
             floatValue: 3.14,
             bytesValue: 'YQ==',
             boolValue: true,

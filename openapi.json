@@ -4509,6 +4509,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "int64Value": {
+          "type": "string",
+          "format": "int64"
+        },
         "floatValue": {
           "type": "number",
           "format": "double"
