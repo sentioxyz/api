@@ -26,6 +26,7 @@ import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecuti
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLExecutionDetailResponse } from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
@@ -929,6 +930,47 @@ export class ObservableDataApi {
      */
     public queryRange(owner: string, slug: string, body: MetricsServiceObservabilityServiceQueryRangeBody, _options?: Configuration): Observable<MetricsServiceMetricsQueryResponse> {
         return this.queryRangeWithHttpInfo(owner, slug, body, _options).pipe(map((apiResponse: HttpInfo<MetricsServiceMetricsQueryResponse>) => apiResponse.data));
+    }
+
+    /**
+     * Query the execution detail of a SQL query by execution_id.
+     * Query SQL Execution Detail
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     */
+    public querySQLExecutionDetailWithHttpInfo(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Observable<HttpInfo<AnalyticServiceQuerySQLExecutionDetailResponse>> {
+        const requestContextPromise = this.requestFactory.querySQLExecutionDetail(owner, slug, executionId, projectId, version, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.querySQLExecutionDetailWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Query the execution detail of a SQL query by execution_id.
+     * Query SQL Execution Detail
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     */
+    public querySQLExecutionDetail(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Observable<AnalyticServiceQuerySQLExecutionDetailResponse> {
+        return this.querySQLExecutionDetailWithHttpInfo(owner, slug, executionId, projectId, version, _options).pipe(map((apiResponse: HttpInfo<AnalyticServiceQuerySQLExecutionDetailResponse>) => apiResponse.data));
     }
 
     /**

@@ -1410,6 +1410,14 @@ ul.nav-tabs {
     }
   }
 };
+    defs["analytic_service.QuerySQLExecutionDetailResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
+    }
+  }
+};
     defs["analytic_service.QuerySQLResultResponse"] = {
   "type" : "object",
   "properties" : {
@@ -6187,6 +6195,9 @@ ul.nav-tabs {
                     </li>
                     <li data-group="Data" data-name="queryRange" class="">
                       <a href="#api-Data-queryRange">queryRange</a>
+                    </li>
+                    <li data-group="Data" data-name="querySQLExecutionDetail" class="">
+                      <a href="#api-Data-querySQLExecutionDetail">querySQLExecutionDetail</a>
                     </li>
                     <li data-group="Data" data-name="querySQLResult" class="">
                       <a href="#api-Data-querySQLResult">querySQLResult</a>
@@ -15273,6 +15284,591 @@ $(document).ready(function() {
                                   </script>
                                 </div>
                                 <input id='responses-Data-queryRange-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Data-querySQLExecutionDetail">
+                      <article id="api-Data-querySQLExecutionDetail-0" data-group="User" data-name="querySQLExecutionDetail" data-version="0">
+                        <div class="pull-left">
+                          <h1>querySQLExecutionDetail</h1>
+                          <p>Query SQL Execution Detail</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Query the execution detail of a SQL query by execution_id.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Data-querySQLExecutionDetail-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Data-querySQLExecutionDetail-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Data-querySQLExecutionDetail-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Data-querySQLExecutionDetail-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Data-querySQLExecutionDetail-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}?projectId=projectId_example&version=56"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DataApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DataApi apiInstance = new DataApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        String executionId = executionId_example; // String | 
+        String projectId = projectId_example; // String | use project id if project_owner and project_slug are not provided
+        Integer version = 56; // Integer | version of the datasource, default to the active version if not provided
+
+        try {
+            analytic_service.QuerySQLExecutionDetailResponse result = apiInstance.querySQLExecutionDetail(owner, slug, executionId, projectId, version);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#querySQLExecutionDetail");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String owner = new String(); // String | username or organization name
+final String slug = new String(); // String | project slug
+final String executionId = new String(); // String | 
+final String projectId = new String(); // String | use project id if project_owner and project_slug are not provided
+final Integer version = new Integer(); // Integer | version of the datasource, default to the active version if not provided
+
+try {
+    final result = await api_instance.querySQLExecutionDetail(owner, slug, executionId, projectId, version);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->querySQLExecutionDetail: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        DataApi apiInstance = new DataApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        String executionId = executionId_example; // String | 
+        String projectId = projectId_example; // String | use project id if project_owner and project_slug are not provided
+        Integer version = 56; // Integer | version of the datasource, default to the active version if not provided
+
+        try {
+            analytic_service.QuerySQLExecutionDetailResponse result = apiInstance.querySQLExecutionDetail(owner, slug, executionId, projectId, version);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#querySQLExecutionDetail");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DataApi *apiInstance = [[DataApi alloc] init];
+String *owner = owner_example; // username or organization name (default to null)
+String *slug = slug_example; // project slug (default to null)
+String *executionId = executionId_example; //  (default to null)
+String *projectId = projectId_example; // use project id if project_owner and project_slug are not provided (optional) (default to null)
+Integer *version = 56; // version of the datasource, default to the active version if not provided (optional) (default to null)
+
+// Query SQL Execution Detail
+[apiInstance querySQLExecutionDetailWith:owner
+    slug:slug
+    executionId:executionId
+    projectId:projectId
+    version:version
+              completionHandler: ^(analytic_service.QuerySQLExecutionDetailResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DataApi()
+var owner = owner_example; // {String} username or organization name
+var slug = slug_example; // {String} project slug
+var executionId = executionId_example; // {String} 
+var opts = {
+  'projectId': projectId_example, // {String} use project id if project_owner and project_slug are not provided
+  'version': 56 // {Integer} version of the datasource, default to the active version if not provided
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.querySQLExecutionDetail(owner, slug, executionId, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class querySQLExecutionDetailExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DataApi();
+            var owner = owner_example;  // String | username or organization name (default to null)
+            var slug = slug_example;  // String | project slug (default to null)
+            var executionId = executionId_example;  // String |  (default to null)
+            var projectId = projectId_example;  // String | use project id if project_owner and project_slug are not provided (optional)  (default to null)
+            var version = 56;  // Integer | version of the datasource, default to the active version if not provided (optional)  (default to null)
+
+            try {
+                // Query SQL Execution Detail
+                analytic_service.QuerySQLExecutionDetailResponse result = apiInstance.querySQLExecutionDetail(owner, slug, executionId, projectId, version);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DataApi.querySQLExecutionDetail: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DataApi();
+$owner = owner_example; // String | username or organization name
+$slug = slug_example; // String | project slug
+$executionId = executionId_example; // String | 
+$projectId = projectId_example; // String | use project id if project_owner and project_slug are not provided
+$version = 56; // Integer | version of the datasource, default to the active version if not provided
+
+try {
+    $result = $api_instance->querySQLExecutionDetail($owner, $slug, $executionId, $projectId, $version);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DataApi->querySQLExecutionDetail: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DataApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DataApi->new();
+my $owner = owner_example; # String | username or organization name
+my $slug = slug_example; # String | project slug
+my $executionId = executionId_example; # String | 
+my $projectId = projectId_example; # String | use project id if project_owner and project_slug are not provided
+my $version = 56; # Integer | version of the datasource, default to the active version if not provided
+
+eval {
+    my $result = $api_instance->querySQLExecutionDetail(owner => $owner, slug => $slug, executionId => $executionId, projectId => $projectId, version => $version);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DataApi->querySQLExecutionDetail: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DataApi()
+owner = owner_example # String | username or organization name (default to null)
+slug = slug_example # String | project slug (default to null)
+executionId = executionId_example # String |  (default to null)
+projectId = projectId_example # String | use project id if project_owner and project_slug are not provided (optional) (default to null)
+version = 56 # Integer | version of the datasource, default to the active version if not provided (optional) (default to null)
+
+try:
+    # Query SQL Execution Detail
+    api_response = api_instance.query_sql_execution_detail(owner, slug, executionId, projectId=projectId, version=version)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->querySQLExecutionDetail: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+    let executionId = executionId_example; // String
+    let projectId = projectId_example; // String
+    let version = 56; // Integer
+
+    let mut context = DataApi::Context::default();
+    let result = client.querySQLExecutionDetail(owner, slug, executionId, projectId, version, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_querySQLExecutionDetail_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+username or organization name
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_querySQLExecutionDetail_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+project slug
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">executionId*</td>
+<td>
+
+
+    <div id="d2e199_querySQLExecutionDetail_executionId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">projectId</td>
+<td>
+
+
+    <div id="d2e199_querySQLExecutionDetail_projectId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+use project id if project_owner and project_slug are not provided
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">version</td>
+<td>
+
+
+    <div id="d2e199_querySQLExecutionDetail_version">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+version of the datasource, default to the active version if not provided
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Data-querySQLExecutionDetail-title-200"></h3>
+                            <p id="examples-Data-querySQLExecutionDetail-description-200" class="marked"></p>
+                            <script>
+                              var responseData200_description = `A successful response.`;
+                              var responseData200_description_break = responseData200_description.indexOf('\n');
+                              if (responseData200_description_break == -1) {
+                                $("#examples-Data-querySQLExecutionDetail-title-200").text("Status: 200 - " + responseData200_description);
+                              } else {
+                                $("#examples-Data-querySQLExecutionDetail-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
+                                $("#examples-Data-querySQLExecutionDetail-description-200").html(responseData200_description.substring(responseData200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Data-querySQLExecutionDetail-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Data-querySQLExecutionDetail-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Data-querySQLExecutionDetail-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Data-querySQLExecutionDetail-200-schema">
+                                <div id="responses-Data-querySQLExecutionDetail-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/analytic_service.QuerySQLExecutionDetailResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Data-querySQLExecutionDetail-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Data-querySQLExecutionDetail-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Data-querySQLExecutionDetail-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

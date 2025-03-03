@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**queryLog**](DataApi.md#queryLog) | **POST** /api/v1/eventlogs/{owner}/{slug} | Query event logs
 [**queryLog2**](DataApi.md#queryLog2) | **GET** /api/v1/eventlogs/{owner}/{slug}/query | Query event logs
 [**queryRange**](DataApi.md#queryRange) | **POST** /api/v1/metrics/{owner}/{slug}/query_range | Metric range queries
+[**querySQLExecutionDetail**](DataApi.md#querySQLExecutionDetail) | **GET** /api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId} | Query SQL Execution Detail
 [**querySQLResult**](DataApi.md#querySQLResult) | **GET** /api/v1/analytics/{owner}/{slug}/sql/query_result/{executionId} | Query SQL Result
 [**saveSQL**](DataApi.md#saveSQL) | **POST** /api/v1/analytics/{owner}/{slug}/sql/save | Save SQL
 [**saveSQL2**](DataApi.md#saveSQL2) | **PUT** /api/v1/analytics/{owner}/{slug}/sql/save | Save SQL
@@ -1293,6 +1294,71 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A successful response. |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **querySQLExecutionDetail**
+> AnalyticServiceQuerySQLExecutionDetailResponse querySQLExecutionDetail()
+
+Query the execution detail of a SQL query by execution_id.
+
+### Example
+
+
+```typescript
+import { createConfiguration, DataApi } from '';
+import type { DataApiQuerySQLExecutionDetailRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new DataApi(configuration);
+
+const request: DataApiQuerySQLExecutionDetailRequest = {
+    // username or organization name
+  owner: "owner_example",
+    // project slug
+  slug: "slug_example",
+  
+  executionId: "executionId_example",
+    // use project id if project_owner and project_slug are not provided (optional)
+  projectId: "projectId_example",
+    // version of the datasource, default to the active version if not provided (optional)
+  version: 1,
+};
+
+const data = await apiInstance.querySQLExecutionDetail(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **owner** | [**string**] | username or organization name | defaults to undefined
+ **slug** | [**string**] | project slug | defaults to undefined
+ **executionId** | [**string**] |  | defaults to undefined
+ **projectId** | [**string**] | use project id if project_owner and project_slug are not provided | (optional) defaults to undefined
+ **version** | [**number**] | version of the datasource, default to the active version if not provided | (optional) defaults to undefined
+
+
+### Return type
+
+**AnalyticServiceQuerySQLExecutionDetailResponse**
+
+### Authorization
+
+[ApiKeyHeaderAuth](README.md#ApiKeyHeaderAuth), [ApiKeyQueryAuth](README.md#ApiKeyQueryAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 

@@ -25,6 +25,7 @@ import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecuti
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLExecutionDetailResponse } from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
@@ -888,6 +889,44 @@ export interface DataApiQueryRangeRequest {
     body: MetricsServiceObservabilityServiceQueryRangeBody
 }
 
+export interface DataApiQuerySQLExecutionDetailRequest {
+    /**
+     * username or organization name
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLExecutionDetail
+     */
+    owner: string
+    /**
+     * project slug
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLExecutionDetail
+     */
+    slug: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLExecutionDetail
+     */
+    executionId: string
+    /**
+     * use project id if project_owner and project_slug are not provided
+     * Defaults to: undefined
+     * @type string
+     * @memberof DataApiquerySQLExecutionDetail
+     */
+    projectId?: string
+    /**
+     * version of the datasource, default to the active version if not provided
+     * Defaults to: undefined
+     * @type number
+     * @memberof DataApiquerySQLExecutionDetail
+     */
+    version?: number
+}
+
 export interface DataApiQuerySQLResultRequest {
     /**
      * username or organization name
@@ -1167,6 +1206,24 @@ export class ObjectDataApi {
      */
     public queryRange(param: DataApiQueryRangeRequest, options?: Configuration): Promise<MetricsServiceMetricsQueryResponse> {
         return this.api.queryRange(param.owner, param.slug, param.body,  options).toPromise();
+    }
+
+    /**
+     * Query the execution detail of a SQL query by execution_id.
+     * Query SQL Execution Detail
+     * @param param the request object
+     */
+    public querySQLExecutionDetailWithHttpInfo(param: DataApiQuerySQLExecutionDetailRequest, options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLExecutionDetailResponse>> {
+        return this.api.querySQLExecutionDetailWithHttpInfo(param.owner, param.slug, param.executionId, param.projectId, param.version,  options).toPromise();
+    }
+
+    /**
+     * Query the execution detail of a SQL query by execution_id.
+     * Query SQL Execution Detail
+     * @param param the request object
+     */
+    public querySQLExecutionDetail(param: DataApiQuerySQLExecutionDetailRequest, options?: Configuration): Promise<AnalyticServiceQuerySQLExecutionDetailResponse> {
+        return this.api.querySQLExecutionDetail(param.owner, param.slug, param.executionId, param.projectId, param.version,  options).toPromise();
     }
 
     /**

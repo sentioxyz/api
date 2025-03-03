@@ -310,6 +310,61 @@
         ]
       }
     },
+    "/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}": {
+      "get": {
+        "summary": "Query SQL Execution Detail",
+        "description": "Query the execution detail of a SQL query by execution_id.",
+        "operationId": "QuerySQLExecutionDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QuerySQLExecutionDetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "executionId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "use project id if project_owner and project_slug are not provided",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": "version of the datasource, default to the active version if not provided",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
     "/api/v1/analytics/{owner}/{slug}/sql/query_result/{executionId}": {
       "get": {
         "summary": "Query SQL Result",
@@ -3167,6 +3222,14 @@
         "total": {
           "type": "string",
           "format": "int64"
+        }
+      }
+    },
+    "analytic_service.QuerySQLExecutionDetailResponse": {
+      "type": "object",
+      "properties": {
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
         }
       }
     },

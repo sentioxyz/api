@@ -25,6 +25,7 @@ import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecuti
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLExecutionDetailResponse } from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
@@ -717,6 +718,34 @@ export class PromiseDataApi {
      */
     public queryRange(owner: string, slug: string, body: MetricsServiceObservabilityServiceQueryRangeBody, _options?: Configuration): Promise<MetricsServiceMetricsQueryResponse> {
         const result = this.api.queryRange(owner, slug, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Query the execution detail of a SQL query by execution_id.
+     * Query SQL Execution Detail
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     */
+    public querySQLExecutionDetailWithHttpInfo(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Promise<HttpInfo<AnalyticServiceQuerySQLExecutionDetailResponse>> {
+        const result = this.api.querySQLExecutionDetailWithHttpInfo(owner, slug, executionId, projectId, version, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Query the execution detail of a SQL query by execution_id.
+     * Query SQL Execution Detail
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId
+     * @param [projectId] use project id if project_owner and project_slug are not provided
+     * @param [version] version of the datasource, default to the active version if not provided
+     */
+    public querySQLExecutionDetail(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Promise<AnalyticServiceQuerySQLExecutionDetailResponse> {
+        const result = this.api.querySQLExecutionDetail(owner, slug, executionId, projectId, version, _options);
         return result.toPromise();
     }
 

@@ -22,6 +22,7 @@ export * from '../models/AnalyticServiceExecutionStatus.js';
 export * from '../models/AnalyticServiceLogQueryRequestFilter.js';
 export * from '../models/AnalyticServiceLogQueryRequestSort.js';
 export * from '../models/AnalyticServiceLogQueryResponse.js';
+export * from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 export * from '../models/AnalyticServiceQuerySQLResultResponse.js';
 export * from '../models/AnalyticServiceSQLQuery.js';
 export * from '../models/AnalyticServiceSaveSQLResponse.js';
@@ -305,6 +306,7 @@ import { AnalyticServiceExecutionStatus } from '../models/AnalyticServiceExecuti
 import { AnalyticServiceLogQueryRequestFilter } from '../models/AnalyticServiceLogQueryRequestFilter.js';
 import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLogQueryRequestSort.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLExecutionDetailResponse } from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
@@ -647,6 +649,7 @@ let typeMap: {[index: string]: any} = {
     "AnalyticServiceLogQueryRequestFilter": AnalyticServiceLogQueryRequestFilter,
     "AnalyticServiceLogQueryRequestSort": AnalyticServiceLogQueryRequestSort,
     "AnalyticServiceLogQueryResponse": AnalyticServiceLogQueryResponse,
+    "AnalyticServiceQuerySQLExecutionDetailResponse": AnalyticServiceQuerySQLExecutionDetailResponse,
     "AnalyticServiceQuerySQLResultResponse": AnalyticServiceQuerySQLResultResponse,
     "AnalyticServiceSQLQuery": AnalyticServiceSQLQuery,
     "AnalyticServiceSaveSQLResponse": AnalyticServiceSaveSQLResponse,

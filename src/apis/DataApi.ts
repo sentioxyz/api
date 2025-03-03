@@ -13,6 +13,7 @@ import { AnalyticServiceAnalyticServiceExecuteSQLBody } from '../models/Analytic
 import { AnalyticServiceAnalyticServiceSaveSQLBody } from '../models/AnalyticServiceAnalyticServiceSaveSQLBody.js';
 import { AnalyticServiceAsyncExecuteSQLResponse } from '../models/AnalyticServiceAsyncExecuteSQLResponse.js';
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
+import { AnalyticServiceQuerySQLExecutionDetailResponse } from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
@@ -911,6 +912,79 @@ export class DataApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Query the execution detail of a SQL query by execution_id.
+     * Query SQL Execution Detail
+     * @param owner username or organization name
+     * @param slug project slug
+     * @param executionId 
+     * @param projectId use project id if project_owner and project_slug are not provided
+     * @param version version of the datasource, default to the active version if not provided
+     */
+    public async querySQLExecutionDetail(owner: string, slug: string, executionId: string, projectId?: string, version?: number, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'owner' is not null or undefined
+        if (owner === null || owner === undefined) {
+            throw new RequiredError("DataApi", "querySQLExecutionDetail", "owner");
+        }
+
+
+        // verify required parameter 'slug' is not null or undefined
+        if (slug === null || slug === undefined) {
+            throw new RequiredError("DataApi", "querySQLExecutionDetail", "slug");
+        }
+
+
+        // verify required parameter 'executionId' is not null or undefined
+        if (executionId === null || executionId === undefined) {
+            throw new RequiredError("DataApi", "querySQLExecutionDetail", "executionId");
+        }
+
+
+
+
+        // Path Params
+        const localVarPath = '/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}'
+            .replace('{' + 'owner' + '}', encodeURIComponent(String(owner)))
+            .replace('{' + 'slug' + '}', encodeURIComponent(String(slug)))
+            .replace('{' + 'executionId' + '}', encodeURIComponent(String(executionId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (projectId !== undefined) {
+            requestContext.setQueryParam("projectId", ObjectSerializer.serialize(projectId, "string", ""));
+        }
+
+        // Query Params
+        if (version !== undefined) {
+            requestContext.setQueryParam("version", ObjectSerializer.serialize(version, "number", "int32"));
+        }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyHeaderAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["ApiKeyQueryAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Query the result of a SQL query by execution_id.
      * Query SQL Result
      * @param owner username or organization name
@@ -1438,6 +1512,35 @@ export class DataApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "MetricsServiceMetricsQueryResponse", ""
             ) as MetricsServiceMetricsQueryResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to querySQLExecutionDetail
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async querySQLExecutionDetailWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AnalyticServiceQuerySQLExecutionDetailResponse >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: AnalyticServiceQuerySQLExecutionDetailResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceQuerySQLExecutionDetailResponse", ""
+            ) as AnalyticServiceQuerySQLExecutionDetailResponse;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: AnalyticServiceQuerySQLExecutionDetailResponse = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AnalyticServiceQuerySQLExecutionDetailResponse", ""
+            ) as AnalyticServiceQuerySQLExecutionDetailResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
