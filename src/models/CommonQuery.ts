@@ -24,6 +24,7 @@ export class CommonQuery {
     'labelSelector'?: { [key: string]: string; };
     'aggregate'?: CommonAggregate;
     'functions'?: Array<CommonFunction>;
+    'color'?: string;
     'disabled'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
@@ -65,6 +66,12 @@ export class CommonQuery {
             "name": "functions",
             "baseName": "functions",
             "type": "Array<CommonFunction>",
+            "format": ""
+        },
+        {
+            "name": "color",
+            "baseName": "color",
+            "type": "string",
             "format": ""
         },
         {

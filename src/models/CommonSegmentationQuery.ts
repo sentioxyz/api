@@ -25,6 +25,7 @@ export class CommonSegmentationQuery {
     'groupBy'?: Array<string>;
     'limit'?: number;
     'functions'?: Array<CommonFunction>;
+    'color'?: string;
     'disabled'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
@@ -78,6 +79,12 @@ export class CommonSegmentationQuery {
             "name": "functions",
             "baseName": "functions",
             "type": "Array<CommonFunction>",
+            "format": ""
+        },
+        {
+            "name": "color",
+            "baseName": "color",
+            "type": "string",
             "format": ""
         },
         {

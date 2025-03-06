@@ -4138,6 +4138,9 @@
             "$ref": "#/definitions/common.CoinID"
           }
         },
+        "color": {
+          "type": "string"
+        },
         "disabled": {
           "type": "boolean"
         }
@@ -4429,6 +4432,9 @@
             "$ref": "#/definitions/common.Function"
           }
         },
+        "color": {
+          "type": "string"
+        },
         "disabled": {
           "type": "boolean",
           "title": "hide the result, usually used for formula, default is false"
@@ -4675,6 +4681,9 @@
             "type": "object",
             "$ref": "#/definitions/common.Function"
           }
+        },
+        "color": {
+          "type": "string"
         },
         "disabled": {
           "type": "boolean"

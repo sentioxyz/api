@@ -17,6 +17,7 @@ export class CommonPriceSegmentationQuery {
     'id'?: string;
     'alias'?: string;
     'coinId'?: Array<CommonCoinID>;
+    'color'?: string;
     'disabled'?: boolean;
 
     static readonly discriminator: string | undefined = undefined;
@@ -40,6 +41,12 @@ export class CommonPriceSegmentationQuery {
             "name": "coinId",
             "baseName": "coinId",
             "type": "Array<CommonCoinID>",
+            "format": ""
+        },
+        {
+            "name": "color",
+            "baseName": "color",
+            "type": "string",
             "format": ""
         },
         {
