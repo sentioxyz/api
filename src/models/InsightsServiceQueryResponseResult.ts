@@ -22,6 +22,7 @@ export class InsightsServiceQueryResponseResult {
     'matrix'?: CommonMatrix;
     'error'?: string;
     'computeStats'?: CommonComputeStats;
+    'color'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -62,6 +63,12 @@ export class InsightsServiceQueryResponseResult {
             "name": "computeStats",
             "baseName": "computeStats",
             "type": "CommonComputeStats",
+            "format": ""
+        },
+        {
+            "name": "color",
+            "baseName": "color",
+            "type": "string",
             "format": ""
         }    ];
 

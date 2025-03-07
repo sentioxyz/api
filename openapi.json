@@ -5560,6 +5560,9 @@
         },
         "computeStats": {
           "$ref": "#/definitions/common.ComputeStats"
+        },
+        "color": {
+          "type": "string"
         }
       }
     },

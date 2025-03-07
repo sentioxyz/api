@@ -429,7 +429,7 @@ import { InsightsServiceInsightsServiceQueryBody } from '../models/InsightsServi
 import { InsightsServiceListCoinsResponse } from '../models/InsightsServiceListCoinsResponse.js';
 import { InsightsServiceQueryRequestQuery      } from '../models/InsightsServiceQueryRequestQuery.js';
 import { InsightsServiceQueryResponse } from '../models/InsightsServiceQueryResponse.js';
-import { InsightsServiceQueryResponseResult       } from '../models/InsightsServiceQueryResponseResult.js';
+import { InsightsServiceQueryResponseResult        } from '../models/InsightsServiceQueryResponseResult.js';
 import { MetricsServiceGetMetricsResponse } from '../models/MetricsServiceGetMetricsResponse.js';
 import { MetricsServiceMetricInfo } from '../models/MetricsServiceMetricInfo.js';
 import { MetricsServiceMetricInfoLabelValues } from '../models/MetricsServiceMetricInfoLabelValues.js';
