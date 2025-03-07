@@ -3241,6 +3241,38 @@
         }
       }
     },
+    "analytic_service.QuerySegmentationResponse": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/analytic_service.QuerySegmentationResponse.Result"
+          }
+        }
+      }
+    },
+    "analytic_service.QuerySegmentationResponse.Result": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "$ref": "#/definitions/common.Matrix"
+        },
+        "error": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
+        }
+      }
+    },
     "analytic_service.SQLQuery": {
       "type": "object",
       "properties": {
@@ -3318,6 +3350,59 @@
           }
         },
         "version": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "analytic_service.SegmentationRequest": {
+      "type": "object",
+      "properties": {
+        "projectOwner": {
+          "type": "string"
+        },
+        "projectSlug": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timeRange": {
+          "$ref": "#/definitions/common.TimeRangeLite"
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.SegmentationQuery"
+          }
+        },
+        "formulas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.Formula"
+          }
+        },
+        "systemSqlQueries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.SystemSQLQuery"
+          }
+        },
+        "debug": {
+          "type": "boolean"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
           "type": "integer",
           "format": "int32"
         }
@@ -4888,6 +4973,86 @@
           "title": "JoinOperator operator = 2; // this field should implement in the future"
         }
       }
+    },
+    "common.SystemSQLQuery": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tableName": {
+          "type": "string"
+        },
+        "aggregation": {
+          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation"
+        },
+        "selectorExpr": {
+          "$ref": "#/definitions/common.SelectorExpr"
+        },
+        "groupBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "common.SystemSQLQuery.Aggregation": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.Total"
+        },
+        "countUnique": {
+          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.CountUnique"
+        },
+        "aggregateProperties": {
+          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.AggregateProperties"
+        }
+      }
+    },
+    "common.SystemSQLQuery.Aggregation.AggregateProperties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType"
+        },
+        "propertyName": {
+          "type": "string"
+        }
+      }
+    },
+    "common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType": {
+      "type": "string",
+      "enum": [
+        "SUM",
+        "AVG",
+        "MEDIAN",
+        "MIN",
+        "MAX",
+        "DISTINCT_COUNT"
+      ],
+      "default": "SUM"
+    },
+    "common.SystemSQLQuery.Aggregation.CountUnique": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "$ref": "#/definitions/common.Duration"
+        }
+      }
+    },
+    "common.SystemSQLQuery.Aggregation.Total": {
+      "type": "object"
     },
     "common.TabularData": {
       "type": "object",

@@ -24,9 +24,12 @@ export * from '../models/AnalyticServiceLogQueryRequestSort.js';
 export * from '../models/AnalyticServiceLogQueryResponse.js';
 export * from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 export * from '../models/AnalyticServiceQuerySQLResultResponse.js';
+export * from '../models/AnalyticServiceQuerySegmentationResponse.js';
+export * from '../models/AnalyticServiceQuerySegmentationResponseResult.js';
 export * from '../models/AnalyticServiceSQLQuery.js';
 export * from '../models/AnalyticServiceSaveSQLResponse.js';
 export * from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
+export * from '../models/AnalyticServiceSegmentationRequest.js';
 export * from '../models/AnalyticServiceSource.js';
 export * from '../models/AnalyticServiceSyncExecuteSQLResponse.js';
 export * from '../models/CommonAggregate.js';
@@ -107,6 +110,11 @@ export * from '../models/CommonSelectorExpr.js';
 export * from '../models/CommonSelectorExprLogicExpr.js';
 export * from '../models/CommonSelectorOperatorType.js';
 export * from '../models/CommonStringList.js';
+export * from '../models/CommonSystemSQLQuery.js';
+export * from '../models/CommonSystemSQLQueryAggregation.js';
+export * from '../models/CommonSystemSQLQueryAggregationAggregateProperties.js';
+export * from '../models/CommonSystemSQLQueryAggregationAggregatePropertiesAggregationType.js';
+export * from '../models/CommonSystemSQLQueryAggregationCountUnique.js';
 export * from '../models/CommonTabularData.js';
 export * from '../models/CommonTabularDataColumnType.js';
 export * from '../models/CommonTier.js';
@@ -308,9 +316,12 @@ import { AnalyticServiceLogQueryRequestSort } from '../models/AnalyticServiceLog
 import { AnalyticServiceLogQueryResponse } from '../models/AnalyticServiceLogQueryResponse.js';
 import { AnalyticServiceQuerySQLExecutionDetailResponse } from '../models/AnalyticServiceQuerySQLExecutionDetailResponse.js';
 import { AnalyticServiceQuerySQLResultResponse } from '../models/AnalyticServiceQuerySQLResultResponse.js';
+import { AnalyticServiceQuerySegmentationResponse } from '../models/AnalyticServiceQuerySegmentationResponse.js';
+import { AnalyticServiceQuerySegmentationResponseResult } from '../models/AnalyticServiceQuerySegmentationResponseResult.js';
 import { AnalyticServiceSQLQuery } from '../models/AnalyticServiceSQLQuery.js';
 import { AnalyticServiceSaveSQLResponse } from '../models/AnalyticServiceSaveSQLResponse.js';
 import { AnalyticServiceSearchServiceQueryLogBody } from '../models/AnalyticServiceSearchServiceQueryLogBody.js';
+import { AnalyticServiceSegmentationRequest } from '../models/AnalyticServiceSegmentationRequest.js';
 import { AnalyticServiceSource } from '../models/AnalyticServiceSource.js';
 import { AnalyticServiceSyncExecuteSQLResponse } from '../models/AnalyticServiceSyncExecuteSQLResponse.js';
 import { CommonAggregate   } from '../models/CommonAggregate.js';
@@ -391,6 +402,11 @@ import { CommonSelectorExpr } from '../models/CommonSelectorExpr.js';
 import { CommonSelectorExprLogicExpr   } from '../models/CommonSelectorExprLogicExpr.js';
 import { CommonSelectorOperatorType } from '../models/CommonSelectorOperatorType.js';
 import { CommonStringList } from '../models/CommonStringList.js';
+import { CommonSystemSQLQuery } from '../models/CommonSystemSQLQuery.js';
+import { CommonSystemSQLQueryAggregation } from '../models/CommonSystemSQLQueryAggregation.js';
+import { CommonSystemSQLQueryAggregationAggregateProperties   } from '../models/CommonSystemSQLQueryAggregationAggregateProperties.js';
+import { CommonSystemSQLQueryAggregationAggregatePropertiesAggregationType } from '../models/CommonSystemSQLQueryAggregationAggregatePropertiesAggregationType.js';
+import { CommonSystemSQLQueryAggregationCountUnique } from '../models/CommonSystemSQLQueryAggregationCountUnique.js';
 import { CommonTabularData } from '../models/CommonTabularData.js';
 import { CommonTabularDataColumnType } from '../models/CommonTabularDataColumnType.js';
 import { CommonTier } from '../models/CommonTier.js';
@@ -599,6 +615,7 @@ let enumsMap: Set<string> = new Set<string>([
     "CommonSegmentationQueryAggregationAggregatePropertiesAggregationType",
     "CommonSegmentationQueryResourceType",
     "CommonSelectorOperatorType",
+    "CommonSystemSQLQueryAggregationAggregatePropertiesAggregationType",
     "CommonTabularDataColumnType",
     "CommonTier",
     "CommonUserAccountStatus",
@@ -651,9 +668,12 @@ let typeMap: {[index: string]: any} = {
     "AnalyticServiceLogQueryResponse": AnalyticServiceLogQueryResponse,
     "AnalyticServiceQuerySQLExecutionDetailResponse": AnalyticServiceQuerySQLExecutionDetailResponse,
     "AnalyticServiceQuerySQLResultResponse": AnalyticServiceQuerySQLResultResponse,
+    "AnalyticServiceQuerySegmentationResponse": AnalyticServiceQuerySegmentationResponse,
+    "AnalyticServiceQuerySegmentationResponseResult": AnalyticServiceQuerySegmentationResponseResult,
     "AnalyticServiceSQLQuery": AnalyticServiceSQLQuery,
     "AnalyticServiceSaveSQLResponse": AnalyticServiceSaveSQLResponse,
     "AnalyticServiceSearchServiceQueryLogBody": AnalyticServiceSearchServiceQueryLogBody,
+    "AnalyticServiceSegmentationRequest": AnalyticServiceSegmentationRequest,
     "AnalyticServiceSyncExecuteSQLResponse": AnalyticServiceSyncExecuteSQLResponse,
     "CommonAggregate": CommonAggregate,
     "CommonAny": CommonAny,
@@ -717,6 +737,10 @@ let typeMap: {[index: string]: any} = {
     "CommonSelectorExpr": CommonSelectorExpr,
     "CommonSelectorExprLogicExpr": CommonSelectorExprLogicExpr,
     "CommonStringList": CommonStringList,
+    "CommonSystemSQLQuery": CommonSystemSQLQuery,
+    "CommonSystemSQLQueryAggregation": CommonSystemSQLQueryAggregation,
+    "CommonSystemSQLQueryAggregationAggregateProperties": CommonSystemSQLQueryAggregationAggregateProperties,
+    "CommonSystemSQLQueryAggregationCountUnique": CommonSystemSQLQueryAggregationCountUnique,
     "CommonTabularData": CommonTabularData,
     "CommonTimeRange": CommonTimeRange,
     "CommonTimeRangeLite": CommonTimeRangeLite,

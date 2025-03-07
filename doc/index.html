@@ -1426,6 +1426,37 @@ ul.nav-tabs {
     }
   }
 };
+    defs["analytic_service.QuerySegmentationResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "results" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/analytic_service.QuerySegmentationResponse.Result"
+      }
+    }
+  }
+};
+    defs["analytic_service.QuerySegmentationResponse.Result"] = {
+  "type" : "object",
+  "properties" : {
+    "matrix" : {
+      "$ref" : "#/components/schemas/common.Matrix"
+    },
+    "error" : {
+      "type" : "string"
+    },
+    "alias" : {
+      "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
+    }
+  }
+};
     defs["analytic_service.SQLQuery"] = {
   "type" : "object",
   "properties" : {
@@ -1499,6 +1530,56 @@ ul.nav-tabs {
       }
     },
     "version" : {
+      "type" : "integer",
+      "format" : "int32"
+    }
+  }
+};
+    defs["analytic_service.SegmentationRequest"] = {
+  "type" : "object",
+  "properties" : {
+    "projectOwner" : {
+      "type" : "string"
+    },
+    "projectSlug" : {
+      "type" : "string"
+    },
+    "projectId" : {
+      "type" : "string"
+    },
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "timeRange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "queries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.SegmentationQuery"
+      }
+    },
+    "formulas" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Formula"
+      }
+    },
+    "systemSqlQueries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.SystemSQLQuery"
+      }
+    },
+    "debug" : {
+      "type" : "boolean"
+    },
+    "limit" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "offset" : {
       "type" : "integer",
       "format" : "int32"
     }
@@ -2924,6 +3005,76 @@ ul.nav-tabs {
       "items" : {
         "type" : "string"
       }
+    }
+  }
+};
+    defs["common.SystemSQLQuery"] = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "alias" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "tableName" : {
+      "type" : "string"
+    },
+    "aggregation" : {
+      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation"
+    },
+    "selectorExpr" : {
+      "$ref" : "#/components/schemas/common.SelectorExpr"
+    },
+    "groupBy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "disabled" : {
+      "type" : "boolean"
+    }
+  }
+};
+    defs["common.SystemSQLQuery.Aggregation"] = {
+  "type" : "object",
+  "properties" : {
+    "total" : {
+      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.Total"
+    },
+    "countUnique" : {
+      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.CountUnique"
+    },
+    "aggregateProperties" : {
+      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.AggregateProperties"
+    }
+  }
+};
+    defs["common.SystemSQLQuery.Aggregation.AggregateProperties"] = {
+  "type" : "object",
+  "properties" : {
+    "type" : {
+      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType"
+    },
+    "propertyName" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType"] = {
+  "type" : "string",
+  "default" : "SUM",
+  "enum" : [ "SUM", "AVG", "MEDIAN", "MIN", "MAX", "DISTINCT_COUNT" ]
+};
+    defs["common.SystemSQLQuery.Aggregation.CountUnique"] = {
+  "type" : "object",
+  "properties" : {
+    "duration" : {
+      "$ref" : "#/components/schemas/common.Duration"
     }
   }
 };
