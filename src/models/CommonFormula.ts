@@ -22,6 +22,7 @@ export class CommonFormula {
     'id'?: string;
     'disabled'?: boolean;
     'functions'?: Array<CommonFunction>;
+    'color'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -56,6 +57,12 @@ export class CommonFormula {
             "name": "functions",
             "baseName": "functions",
             "type": "Array<CommonFunction>",
+            "format": ""
+        },
+        {
+            "name": "color",
+            "baseName": "color",
+            "type": "string",
             "format": ""
         }    ];
 

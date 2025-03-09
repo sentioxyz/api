@@ -4030,6 +4030,9 @@
             "type": "object",
             "$ref": "#/definitions/common.Function"
           }
+        },
+        "color": {
+          "type": "string"
         }
       },
       "description": "the formula to combine multiple queries",
