@@ -13,29 +13,29 @@ pnpm add @sentio/api
 ### Example 1: get project list
 
 ```ts
-import { Configuration, WebApi } from "@sentio/api";
+import { client, WebService } from "@sentio/api";
 
-const config = new Configuration({
-  apiKey: process.env.SENTIO_API_KEY,
+client.setConfig({
+  auth: process.env.SENTIO_API_KEY,
 });
-const api = new WebApi(config);
-const projects = await api.getProjectList();
+const projects = await WebService.getProjectList();
 console.log(projects);
 ```
 
 ### Example 2: insight query
 
 ```ts
-import { Configuration, WebApi, DataApi } from "@sentio/api";
+import { client, DataService } from "@sentio/api";
 
-const config = new Configuration({
-  apiKey: process.env.SENTIO_API_KEY,
+client.setConfig({
+  auth: process.env.SENTIO_API_KEY,
 });
 
-const dataApi = new DataApi(config);
-const res = await dataApi.query({
-  owner: "sentio",
-  slug: "coinbase",
+const res = await DataService.query({
+  path: {
+    owner: "sentio",
+    slug: "coinbase",
+  },
   body: {
     timeRange: {
       start: "now-30d",
@@ -51,7 +51,7 @@ const res = await dataApi.query({
           alias: "",
           id: "a",
           labelSelector: {},
-          aggregate: null,
+          aggregate: undefined,
           functions: [],
           disabled: false,
         },
@@ -67,6 +67,7 @@ const res = await dataApi.query({
     },
   },
 });
+console.log(res);
 ```
 
 ## Documentation

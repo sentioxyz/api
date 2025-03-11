@@ -1,5 +1,4 @@
-import { WebService } from "../src/index.js";
-import { client } from "../src/client.gen.js";
+import { client, WebService } from "../src/index.js";
 import test from "node:test";
 import assert from "assert";
 
