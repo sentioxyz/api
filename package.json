@@ -1,12 +1,11 @@
 {
   "name": "@sentio/api",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/sentioxyz/api.git"
   },
-  "type": "module",
   "exports": {
     ".": "./dist/src/index.js"
   },
@@ -20,6 +19,9 @@
     "build": "tsc",
     "test": "tsx --test test/*.test.ts",
     "prepare": "pnpm build"
+  },
+  "dependencies": {
+    "@hey-api/client-fetch": "^0.8.3"
   },
   "devDependencies": {
     "@types/node": "^20.14.1",
