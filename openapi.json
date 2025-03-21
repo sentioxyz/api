@@ -225,7 +225,7 @@
     "/api/v1/analytics/{owner}/{slug}/sql/execute": {
       "post": {
         "summary": "Execute SQL",
-        "description": "Execute SQL in a project. Go to \"Data Studio\" -\u003e \"SQL Editor\", write your query and then click \"Export as cURL\"\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(102).png)\n\nFind more: https://docs.sentio.xyz/reference/data#sql-api",
+        "description": "Execute SQL in a project. Go to \"Data Studio\" -\u003e \"SQL Editor\", write your query and then click \"Export as cURL\"\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(102).png)\n\nFind more: https://docs.sentio.xyz/reference/data#sql-api",
         "operationId": "ExecuteSQL",
         "responses": {
           "200": {
@@ -1128,7 +1128,7 @@
     "/api/v1/metrics/{owner}/{slug}/query_range": {
       "post": {
         "summary": "Metric range queries",
-        "description": "The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(101).png)",
+        "description": "The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(101).png)",
         "operationId": "QueryRange",
         "responses": {
           "200": {
@@ -1222,7 +1222,7 @@
     "/api/v1/prices/add_coin_by_gecko": {
       "post": {
         "summary": "Add coin by Gecko",
-        "description": "adds a coin by its coingecko id.\n\ncoingecko id the API ID of the coin in coingecko web page.\n\nplease AWARE that the coingecko id is NOT the same as the symbol of the coin.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/coingecko_apiid.png)",
+        "description": "adds a coin by its coingecko id.\n\ncoingecko id the API ID of the coin in coingecko web page.\n\nplease AWARE that the coingecko id is NOT the same as the symbol of the coin.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/coingecko_apiid.png)",
         "operationId": "AddCoinByGecko",
         "responses": {
           "200": {
@@ -2574,7 +2574,7 @@
     "/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace": {
       "get": {
         "summary": "Get trace by transaction",
-        "description": "API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/main/.gitbook/assets/image%20(2)%20(1)%20(1)%20(1).png)",
+        "description": "API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(2)%20(1)%20(1)%20(1).png)",
         "operationId": "GetCallTraceByTransaction",
         "responses": {
           "200": {
