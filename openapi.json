@@ -3056,7 +3056,7 @@
         },
         "cursor": {
           "type": "string",
-          "title": "cursor for pagination"
+          "description": "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
         },
         "cachePolicy": {
           "$ref": "#/definitions/common.CachePolicy"
@@ -3085,7 +3085,7 @@
         },
         "cursor": {
           "type": "string",
-          "title": "cursor for pagination"
+          "description": "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
         },
         "cachePolicy": {
           "$ref": "#/definitions/common.CachePolicy"
@@ -5083,7 +5083,8 @@
           "format": "date-time"
         },
         "cursor": {
-          "type": "string"
+          "type": "string",
+          "title": "Pagination cursor for the next page of results. Empty string if no more pages"
         }
       }
     },

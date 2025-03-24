@@ -1242,8 +1242,8 @@ ul.nav-tabs {
       "$ref" : "#/components/schemas/analytic_service.SQLQuery"
     },
     "cursor" : {
-      "title" : "cursor for pagination",
-      "type" : "string"
+      "type" : "string",
+      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
     },
     "cachePolicy" : {
       "$ref" : "#/components/schemas/common.CachePolicy"
@@ -1271,8 +1271,8 @@ ul.nav-tabs {
       "$ref" : "#/components/schemas/analytic_service.SQLQuery"
     },
     "cursor" : {
-      "title" : "cursor for pagination",
-      "type" : "string"
+      "type" : "string",
+      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
     },
     "cachePolicy" : {
       "$ref" : "#/components/schemas/common.CachePolicy"
@@ -3108,6 +3108,7 @@ ul.nav-tabs {
       "format" : "date-time"
     },
     "cursor" : {
+      "title" : "Pagination cursor for the next page of results. Empty string if no more pages",
       "type" : "string"
     }
   }

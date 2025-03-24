@@ -130,6 +130,9 @@ export type AnalyticServiceAnalyticServiceExecuteSqlAsyncBody = {
     projectId?: string;
     version?: number;
     sqlQuery?: AnalyticServiceSqlQuery;
+    /**
+     * The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results.
+     */
     cursor?: string;
     cachePolicy?: CommonCachePolicy;
 };
@@ -138,6 +141,9 @@ export type AnalyticServiceAnalyticServiceExecuteSqlBody = {
     projectId?: string;
     version?: number;
     sqlQuery?: AnalyticServiceSqlQuery;
+    /**
+     * The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results.
+     */
     cursor?: string;
     cachePolicy?: CommonCachePolicy;
 };
