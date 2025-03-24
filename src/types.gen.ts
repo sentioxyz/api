@@ -131,7 +131,7 @@ export type AnalyticServiceAnalyticServiceExecuteSqlAsyncBody = {
     version?: number;
     sqlQuery?: AnalyticServiceSqlQuery;
     /**
-     * The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results.
+     * Pagination cursor for the next page of results, using the value from the previous response.
      */
     cursor?: string;
     cachePolicy?: CommonCachePolicy;
@@ -142,7 +142,7 @@ export type AnalyticServiceAnalyticServiceExecuteSqlBody = {
     version?: number;
     sqlQuery?: AnalyticServiceSqlQuery;
     /**
-     * The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results.
+     * Pagination cursor for the next page of results, using the value from the previous response.
      */
     cursor?: string;
     cachePolicy?: CommonCachePolicy;
@@ -831,6 +831,9 @@ export type CommonTabularData = {
         [key: string]: unknown;
     }>;
     generatedAt?: string;
+    /**
+     * The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results.
+     */
     cursor?: string;
 };
 

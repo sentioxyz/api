@@ -1243,7 +1243,7 @@ ul.nav-tabs {
     },
     "cursor" : {
       "type" : "string",
-      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
+      "description" : "Pagination cursor for the next page of results, using the value from the previous response."
     },
     "cachePolicy" : {
       "$ref" : "#/components/schemas/common.CachePolicy"
@@ -1272,7 +1272,7 @@ ul.nav-tabs {
     },
     "cursor" : {
       "type" : "string",
-      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
+      "description" : "Pagination cursor for the next page of results, using the value from the previous response."
     },
     "cachePolicy" : {
       "$ref" : "#/components/schemas/common.CachePolicy"
@@ -3108,8 +3108,8 @@ ul.nav-tabs {
       "format" : "date-time"
     },
     "cursor" : {
-      "title" : "Pagination cursor for the next page of results. Empty string if no more pages",
-      "type" : "string"
+      "type" : "string",
+      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
     }
   }
 };
