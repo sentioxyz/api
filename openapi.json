@@ -8103,6 +8103,9 @@
         },
         "sort": {
           "$ref": "#/definitions/web_service.ChartConfig.Sort"
+        },
+        "format": {
+          "type": "string"
         }
       }
     },

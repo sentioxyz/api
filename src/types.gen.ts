@@ -1892,6 +1892,7 @@ export type WebServiceChartConfigXAxisConfig = {
     name?: string;
     column?: string;
     sort?: WebServiceChartConfigSort;
+    format?: string;
 };
 
 export type WebServiceChartConfigYAxisConfig = {
