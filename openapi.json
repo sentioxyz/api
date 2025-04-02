@@ -3124,6 +3124,9 @@
         "queueLength": {
           "type": "integer",
           "format": "int32"
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
         }
       }
     },

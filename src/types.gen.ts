@@ -159,6 +159,7 @@ export type AnalyticServiceAsyncExecuteSqlResponse = {
     queryId?: string;
     executionId?: string;
     queueLength?: number;
+    computeStats?: CommonComputeStats;
 };
 
 export type AnalyticServiceExecutionInfo = {
