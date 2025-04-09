@@ -420,6 +420,182 @@
         ]
       }
     },
+    "/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view": {
+      "post": {
+        "summary": "Save Refreshable Materialized View",
+        "description": "Save or update a refreshable materialized view in a project.",
+        "operationId": "SaveRefreshableMaterializedView",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.SaveRefreshableMaterializedViewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/analytic_service.AnalyticService.SaveRefreshableMaterializedViewBody"
+            }
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}": {
+      "get": {
+        "summary": "Get Refreshable Materialized View Status",
+        "description": "Get the status of a refreshable materialized view in a project.",
+        "operationId": "GetRefreshableMaterializedStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.GetRefreshableMaterializedViewStatusResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "use project id if project_owner and project_slug are not provided",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      },
+      "delete": {
+        "summary": "Delete Refreshable Materialized View",
+        "description": "Delete a refreshable materialized view in a project.",
+        "operationId": "DeleteRefreshableMaterializedView",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "use project id if project_owner and project_slug are not provided",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views": {
+      "get": {
+        "summary": "List Refreshable Materialized Views",
+        "description": "List all refreshable materialized views in a project.",
+        "operationId": "ListRefreshableMaterializedViews",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.ListRefreshableMaterializedViewResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "description": "username or organization name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "description": "project slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "description": "use project id if project_owner and project_slug are not provided",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
     "/api/v1/analytics/{owner}/{slug}/sql/save": {
       "post": {
         "summary": "Save SQL",
@@ -3092,6 +3268,26 @@
         }
       }
     },
+    "analytic_service.AnalyticService.SaveRefreshableMaterializedViewBody": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "title": "use project id if project_owner and project_slug are not provided"
+        },
+        "name": {
+          "type": "string",
+          "title": "name of the materialized view, if name is exists, the materialized view will be updated"
+        },
+        "sql": {
+          "type": "string",
+          "title": "the sql query"
+        },
+        "refreshSettings": {
+          "$ref": "#/definitions/analytic_service.ViewRefreshSettings"
+        }
+      }
+    },
     "analytic_service.AnalyticService.SaveSQLBody": {
       "type": "object",
       "properties": {
@@ -3178,6 +3374,91 @@
         "KILLED"
       ],
       "default": "PENDING"
+    },
+    "analytic_service.GetRefreshableMaterializedViewStatusResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "lastRefreshTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastSuccessTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "nextRefreshTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "progress": {
+          "type": "string"
+        },
+        "readRows": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "readBytes": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "totalRows": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "writtenRows": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "writtenBytes": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "sql": {
+          "type": "string"
+        },
+        "refreshSettings": {
+          "$ref": "#/definitions/analytic_service.ViewRefreshSettings"
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
+        },
+        "exception": {
+          "type": "string"
+        }
+      }
+    },
+    "analytic_service.ListRefreshableMaterializedViewResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "string",
+          "format": "int64"
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/analytic_service.ListRefreshableMaterializedViewResponse.RefreshableMaterializedView"
+          }
+        }
+      }
+    },
+    "analytic_service.ListRefreshableMaterializedViewResponse.RefreshableMaterializedView": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sql": {
+          "type": "string"
+        }
+      }
     },
     "analytic_service.LogQueryRequest.Filter": {
       "type": "object",
@@ -3299,6 +3580,17 @@
         "queryId": {
           "type": "string",
           "description": "the id of the query, if sql and name both empty, the query will be fetched by the id."
+        }
+      }
+    },
+    "analytic_service.SaveRefreshableMaterializedViewResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "isUpdated": {
+          "type": "boolean"
         }
       }
     },
@@ -3439,6 +3731,37 @@
           "$ref": "#/definitions/common.ComputeStats"
         }
       }
+    },
+    "analytic_service.ViewRefreshSettings": {
+      "type": "object",
+      "properties": {
+        "refreshInterval": {
+          "type": "string"
+        },
+        "strategy": {
+          "$ref": "#/definitions/analytic_service.ViewRefreshSettings.RefreshStrategy"
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "appendMode": {
+          "type": "boolean"
+        },
+        "orderBy": {
+          "type": "string"
+        }
+      }
+    },
+    "analytic_service.ViewRefreshSettings.RefreshStrategy": {
+      "type": "string",
+      "enum": [
+        "EVERY",
+        "AFTER"
+      ],
+      "default": "EVERY"
     },
     "common.Aggregate": {
       "type": "object",

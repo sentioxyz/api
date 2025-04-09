@@ -148,6 +148,13 @@ export type AnalyticServiceAnalyticServiceExecuteSqlBody = {
     cachePolicy?: CommonCachePolicy;
 };
 
+export type AnalyticServiceAnalyticServiceSaveRefreshableMaterializedViewBody = {
+    projectId?: string;
+    name?: string;
+    sql?: string;
+    refreshSettings?: AnalyticServiceViewRefreshSettings;
+};
+
 export type AnalyticServiceAnalyticServiceSaveSqlBody = {
     projectId?: string;
     version?: number;
@@ -176,6 +183,34 @@ export type AnalyticServiceExecutionInfo = {
 };
 
 export type AnalyticServiceExecutionStatus = 'PENDING' | 'RUNNING' | 'FINISHED' | 'KILLED';
+
+export type AnalyticServiceGetRefreshableMaterializedViewStatusResponse = {
+    name?: string;
+    status?: string;
+    lastRefreshTime?: string;
+    lastSuccessTime?: string;
+    nextRefreshTime?: string;
+    progress?: string;
+    readRows?: string;
+    readBytes?: string;
+    totalRows?: string;
+    writtenRows?: string;
+    writtenBytes?: string;
+    sql?: string;
+    refreshSettings?: AnalyticServiceViewRefreshSettings;
+    computeStats?: CommonComputeStats;
+    exception?: string;
+};
+
+export type AnalyticServiceListRefreshableMaterializedViewResponse = {
+    total?: string;
+    views?: Array<AnalyticServiceListRefreshableMaterializedViewResponseRefreshableMaterializedView>;
+};
+
+export type AnalyticServiceListRefreshableMaterializedViewResponseRefreshableMaterializedView = {
+    name?: string;
+    sql?: string;
+};
 
 export type AnalyticServiceLogQueryRequestFilter = {
     field?: string;
@@ -228,6 +263,11 @@ export type AnalyticServiceSqlQuery = {
     queryId?: string;
 };
 
+export type AnalyticServiceSaveRefreshableMaterializedViewResponse = {
+    name?: string;
+    isUpdated?: boolean;
+};
+
 export type AnalyticServiceSaveSqlResponse = {
     queryId?: string;
 };
@@ -266,6 +306,16 @@ export type AnalyticServiceSyncExecuteSqlResponse = {
     error?: string;
     computeStats?: CommonComputeStats;
 };
+
+export type AnalyticServiceViewRefreshSettings = {
+    refreshInterval?: string;
+    strategy?: AnalyticServiceViewRefreshSettingsRefreshStrategy;
+    dependsOn?: Array<string>;
+    appendMode?: boolean;
+    orderBy?: string;
+};
+
+export type AnalyticServiceViewRefreshSettingsRefreshStrategy = 'EVERY' | 'AFTER';
 
 export type CommonAggregate = {
     op?: CommonAggregateAggregateOps;
@@ -2304,6 +2354,125 @@ export type QuerySqlResultResponses = {
 };
 
 export type QuerySqlResultResponse = QuerySqlResultResponses[keyof QuerySqlResultResponses];
+
+export type SaveRefreshableMaterializedViewData = {
+    body: AnalyticServiceAnalyticServiceSaveRefreshableMaterializedViewBody;
+    path: {
+        /**
+         * username or organization name
+         */
+        owner: string;
+        /**
+         * project slug
+         */
+        slug: string;
+    };
+    query?: never;
+    url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view';
+};
+
+export type SaveRefreshableMaterializedViewResponses = {
+    /**
+     * A successful response.
+     */
+    200: AnalyticServiceSaveRefreshableMaterializedViewResponse;
+};
+
+export type SaveRefreshableMaterializedViewResponse = SaveRefreshableMaterializedViewResponses[keyof SaveRefreshableMaterializedViewResponses];
+
+export type DeleteRefreshableMaterializedViewData = {
+    body?: never;
+    path: {
+        /**
+         * username or organization name
+         */
+        owner: string;
+        /**
+         * project slug
+         */
+        slug: string;
+        name: string;
+    };
+    query?: {
+        /**
+         * use project id if project_owner and project_slug are not provided
+         */
+        projectId?: string;
+    };
+    url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
+};
+
+export type DeleteRefreshableMaterializedViewResponses = {
+    /**
+     * A successful response.
+     */
+    200: {
+        [key: string]: unknown;
+    };
+};
+
+export type DeleteRefreshableMaterializedViewResponse = DeleteRefreshableMaterializedViewResponses[keyof DeleteRefreshableMaterializedViewResponses];
+
+export type GetRefreshableMaterializedStatusData = {
+    body?: never;
+    path: {
+        /**
+         * username or organization name
+         */
+        owner: string;
+        /**
+         * project slug
+         */
+        slug: string;
+        name: string;
+    };
+    query?: {
+        /**
+         * use project id if project_owner and project_slug are not provided
+         */
+        projectId?: string;
+    };
+    url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
+};
+
+export type GetRefreshableMaterializedStatusResponses = {
+    /**
+     * A successful response.
+     */
+    200: AnalyticServiceGetRefreshableMaterializedViewStatusResponse;
+};
+
+export type GetRefreshableMaterializedStatusResponse = GetRefreshableMaterializedStatusResponses[keyof GetRefreshableMaterializedStatusResponses];
+
+export type ListRefreshableMaterializedViewsData = {
+    body?: never;
+    path: {
+        /**
+         * username or organization name
+         */
+        owner: string;
+        /**
+         * project slug
+         */
+        slug: string;
+    };
+    query?: {
+        /**
+         * use project id if project_owner and project_slug are not provided
+         */
+        projectId?: string;
+    };
+    url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views';
+};
+
+export type ListRefreshableMaterializedViewsResponses = {
+    /**
+     * A successful response.
+     */
+    200: AnalyticServiceListRefreshableMaterializedViewResponse;
+};
+
+export type ListRefreshableMaterializedViewsResponse = ListRefreshableMaterializedViewsResponses[keyof ListRefreshableMaterializedViewsResponses];
 
 export type SaveSqlData = {
     body: AnalyticServiceAnalyticServiceSaveSqlBody;
