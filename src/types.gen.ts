@@ -247,6 +247,7 @@ export type AnalyticServiceQuerySegmentationResponseResult = {
     alias?: string;
     id?: string;
     computeStats?: CommonComputeStats;
+    color?: string;
 };
 
 export type AnalyticServiceSqlQuery = {
@@ -1099,6 +1100,7 @@ export type MetricsServiceMetricsQueryResponseResult = {
     alias?: string;
     id?: string;
     computeStats?: CommonComputeStats;
+    color?: string;
 };
 
 export type MetricsServiceMetricsQueryResponseSample = {
@@ -1141,6 +1143,7 @@ export type MetricsServiceQueryValueResponseResult = {
     error?: string;
     alias?: string;
     id?: string;
+    color?: string;
 };
 
 export type PriceServiceAddCoinByGeckoRequest = {

@@ -3554,6 +3554,9 @@
         },
         "computeStats": {
           "$ref": "#/definitions/common.ComputeStats"
+        },
+        "color": {
+          "type": "string"
         }
       }
     },
@@ -6042,6 +6045,9 @@
         },
         "computeStats": {
           "$ref": "#/definitions/common.ComputeStats"
+        },
+        "color": {
+          "type": "string"
         }
       }
     },
@@ -6240,6 +6246,9 @@
           "type": "string"
         },
         "id": {
+          "type": "string"
+        },
+        "color": {
           "type": "string"
         }
       }
