@@ -448,6 +448,11 @@ export type CommonColumnStateSort = {
     desc?: boolean;
 };
 
+export type CommonCommunityProject = {
+    dashAlias?: string;
+    curated?: boolean;
+};
+
 export type CommonComputeStats = {
     computedAt?: string;
     computeCostMs?: string;
@@ -616,6 +621,7 @@ export type CommonProject = {
     enableDisk?: boolean;
     enableMaterializedView?: boolean;
     defaultTimerange?: CommonTimeRangeLite;
+    communityProject?: CommonCommunityProject;
 };
 
 export type CommonProjectProjectMember = {

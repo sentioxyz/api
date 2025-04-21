@@ -2088,6 +2088,17 @@ ul.nav-tabs {
     }
   }
 };
+    defs["common.CommunityProject"] = {
+  "type" : "object",
+  "properties" : {
+    "dashAlias" : {
+      "type" : "string"
+    },
+    "curated" : {
+      "type" : "boolean"
+    }
+  }
+};
     defs["common.ComputeStats"] = {
   "type" : "object",
   "properties" : {
@@ -2572,6 +2583,9 @@ ul.nav-tabs {
     },
     "defaultTimerange" : {
       "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "communityProject" : {
+      "$ref" : "#/components/schemas/common.CommunityProject"
     }
   }
 };

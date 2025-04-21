@@ -4135,6 +4135,17 @@
         }
       }
     },
+    "common.CommunityProject": {
+      "type": "object",
+      "properties": {
+        "dashAlias": {
+          "type": "string"
+        },
+        "curated": {
+          "type": "boolean"
+        }
+      }
+    },
     "common.ComputeStats": {
       "type": "object",
       "properties": {
@@ -4640,6 +4651,9 @@
         },
         "defaultTimerange": {
           "$ref": "#/definitions/common.TimeRangeLite"
+        },
+        "communityProject": {
+          "$ref": "#/definitions/common.CommunityProject"
         }
       }
     },
