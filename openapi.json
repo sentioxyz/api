@@ -16,6 +16,105 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/ai/chat": {
+      "post": {
+        "summary": "Create Chat Session",
+        "description": "Initialize a new AI chat session. Returns a session_id that can be used with PostSessionMessage to have a conversation with the AI. Messages are generated as part of runs, with is_final indicating run completion.",
+        "operationId": "CreateChatSession",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ai_service.CreateChatSessionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "ChatSession represents an interactive conversation session with the AI. Messages in the session are ordered and accessed via cursor positions.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ai_service.ChatSession"
+            }
+          }
+        ],
+        "tags": [
+          "AI"
+        ]
+      }
+    },
+    "/api/v1/ai/chat/{sessionId}": {
+      "get": {
+        "summary": "Query Chat Session",
+        "description": "Retrieve information about an existing chat session, returning only messages after the specified cursor position. Messages include run_id to identify generation runs.",
+        "operationId": "QueryChatSession",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ai_service.ChatSession"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sessionId",
+            "description": "Unique identifier for the session",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cursorPosition",
+            "description": "Start cursor position - only messages after this position will be returned",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AI"
+        ]
+      }
+    },
+    "/api/v1/ai/chat/{sessionId}/message": {
+      "post": {
+        "summary": "Post Session Message",
+        "description": "Add a new message to an existing chat session. This will trigger AI message generation as a run. check is_final to know when all messages for the run have been generated.",
+        "operationId": "PostSessionMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ai_service.PostSessionMessageResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "sessionId",
+            "description": "Unique identifier for the session",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ai_service.AiService.PostSessionMessageBody"
+            }
+          }
+        ],
+        "tags": [
+          "AI"
+        ]
+      }
+    },
     "/api/v1/alerts/rule": {
       "post": {
         "summary": "Save an alert rule",
@@ -2814,6 +2913,273 @@
     }
   },
   "definitions": {
+    "ai_service.AiService.PostSessionMessageBody": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/ai_service.Message",
+          "title": "Message to add to the session"
+        }
+      },
+      "title": "PostSessionMessageRequest adds a message to an existing session"
+    },
+    "ai_service.ChartType": {
+      "type": "string",
+      "enum": [
+        "CHART_TYPE_UNSPECIFIED",
+        "CHART_TYPE_TABLE",
+        "CHART_TYPE_LINE",
+        "CHART_TYPE_BAR",
+        "CHART_TYPE_PIE"
+      ],
+      "default": "CHART_TYPE_UNSPECIFIED",
+      "description": "- CHART_TYPE_UNSPECIFIED: Default unspecified type\n - CHART_TYPE_TABLE: Tabular data visualization\n - CHART_TYPE_LINE: Line chart\n - CHART_TYPE_BAR: Bar chart\n - CHART_TYPE_PIE: Pie chart",
+      "title": "ChartType defines the supported visualization types"
+    },
+    "ai_service.ChatSession": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ai_service.Message"
+          },
+          "title": "Message history in the session"
+        },
+        "context": {
+          "$ref": "#/definitions/ai_service.Context",
+          "title": "Context information for the session"
+        },
+        "streaming": {
+          "type": "boolean",
+          "title": "Whether to use streaming responses"
+        },
+        "preserveSession": {
+          "type": "boolean",
+          "title": "Whether to persist the session"
+        }
+      },
+      "description": "ChatSession represents an interactive conversation session with the AI. Messages in the session are ordered and accessed via cursor positions."
+    },
+    "ai_service.Context": {
+      "type": "object",
+      "properties": {
+        "projectOwner": {
+          "type": "string",
+          "title": "Owner of the project (username or organization)"
+        },
+        "projectSlug": {
+          "type": "string",
+          "title": "Project identifier/slug"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "title": "API version to use"
+        },
+        "scenario": {
+          "$ref": "#/definitions/ai_service.Context.Scenario",
+          "title": "Specific scenario type for this chat session"
+        },
+        "sqlConfig": {
+          "$ref": "#/definitions/ai_service.SqlConfig",
+          "title": "SQL-specific configuration options"
+        }
+      },
+      "title": "Context provides environment information for a chat session"
+    },
+    "ai_service.Context.Scenario": {
+      "type": "string",
+      "enum": [
+        "SCENARIO_UNSPECIFIED",
+        "SCENARIO_SQL"
+      ],
+      "default": "SCENARIO_UNSPECIFIED"
+    },
+    "ai_service.CreateChatSessionResponse": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "title": "Unique identifier for the new session"
+        },
+        "currentCursorPosition": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Current cursor position - indicates the latest message position in the conversation"
+        }
+      },
+      "title": "CreateChatSessionResponse contains the newly created session information"
+    },
+    "ai_service.ErrorContent": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "title": "Error code identifying the type of error"
+        },
+        "message": {
+          "type": "string",
+          "title": "Human-readable error message"
+        }
+      },
+      "title": "ErrorContent represents error information"
+    },
+    "ai_service.Message": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "$ref": "#/definitions/ai_service.Message.Role",
+          "title": "Role of the message sender (user, assistant, system, or tool)"
+        },
+        "text": {
+          "type": "string",
+          "title": "Plain text content of the message"
+        },
+        "structured": {
+          "$ref": "#/definitions/ai_service.StructuredContent",
+          "description": "Structured content like SQL queries, errors, etc."
+        },
+        "isFinal": {
+          "type": "boolean",
+          "title": "Indicates this is the final message of a run, meaning the run is complete and all generated messages have been returned"
+        },
+        "runId": {
+          "type": "string",
+          "title": "Unique identifier for the current run. Messages with the same run_id belong to the same generation process, and is_final indicates when the run is complete"
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ai_service.Resource"
+          },
+          "title": "Resources attached to this message"
+        }
+      },
+      "description": "Message represents a single message in an AI conversation with either text or structured content. Messages are generated as part of a 'run' (identified by run_id), and the is_final flag indicates when all messages for a run have been generated."
+    },
+    "ai_service.Message.Role": {
+      "type": "string",
+      "enum": [
+        "ROLE_UNSPECIFIED",
+        "ROLE_USER",
+        "ROLE_ASSISTANT",
+        "ROLE_SYSTEM",
+        "AI_ROLE_TOOL"
+      ],
+      "default": "ROLE_UNSPECIFIED"
+    },
+    "ai_service.PostSessionMessageResponse": {
+      "type": "object",
+      "properties": {
+        "currentCursorPosition": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Updated cursor position after adding the message"
+        }
+      },
+      "title": "PostSessionMessageResponse confirms message addition and updates cursor"
+    },
+    "ai_service.Resource": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "title": "Unique identifier or location for the resource"
+        },
+        "name": {
+          "type": "string",
+          "title": "Human-readable name for the resource"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description of the resource"
+        },
+        "mimeType": {
+          "type": "string",
+          "title": "MIME type of the resource content"
+        },
+        "text": {
+          "type": "string",
+          "title": "Text content of the resource"
+        },
+        "blob": {
+          "type": "string",
+          "format": "byte",
+          "title": "Binary content of the resource"
+        }
+      },
+      "title": "Resource represents a resource that can be attached to a message, such as a file, image, or other content"
+    },
+    "ai_service.SqlConfig": {
+      "type": "object",
+      "properties": {
+        "executeQuery": {
+          "type": "boolean",
+          "title": "Whether to automatically execute generated SQL queries"
+        }
+      },
+      "title": "SqlConfig contains configuration specific to SQL scenarios"
+    },
+    "ai_service.SqlContent": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "title": "SQL query text"
+        },
+        "explanation": {
+          "type": "string",
+          "title": "Explanation of what the query does and how it works"
+        },
+        "chartType": {
+          "$ref": "#/definitions/ai_service.ChartType",
+          "title": "Recommended visualization type for the query results"
+        },
+        "title": {
+          "type": "string",
+          "title": "Title for the query result visualization"
+        },
+        "result": {
+          "$ref": "#/definitions/common.TabularData",
+          "title": "Successful query result data"
+        },
+        "error": {
+          "type": "string",
+          "title": "Error from query execution"
+        }
+      },
+      "title": "SqlContent contains content including the query text, explanation, visualization options and results"
+    },
+    "ai_service.StructuredContent": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/ai_service.StructuredContent.ContentType",
+          "title": "Type of structured content (SQL, error, etc.)"
+        },
+        "sql": {
+          "$ref": "#/definitions/ai_service.SqlContent",
+          "title": "SQL query and related information"
+        },
+        "error": {
+          "$ref": "#/definitions/ai_service.ErrorContent",
+          "title": "Error information"
+        }
+      },
+      "title": "StructuredContent represents structured content that can contain SQL queries, errors, or other formatted data"
+    },
+    "ai_service.StructuredContent.ContentType": {
+      "type": "string",
+      "enum": [
+        "CONTENT_TYPE_UNSPECIFIED",
+        "CONTENT_TYPE_SQL",
+        "CONTENT_TYPE_ERROR"
+      ],
+      "default": "CONTENT_TYPE_UNSPECIFIED"
+    },
     "alert_service.Alert": {
       "type": "object",
       "properties": {

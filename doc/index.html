@@ -844,6 +844,242 @@ ul.nav-tabs {
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+    defs["ai_service.AiService.PostSessionMessageBody"] = {
+  "title" : "PostSessionMessageRequest adds a message to an existing session",
+  "type" : "object",
+  "properties" : {
+    "message" : {
+      "$ref" : "#/components/schemas/ai_service.Message"
+    }
+  }
+};
+    defs["ai_service.ChartType"] = {
+  "title" : "ChartType defines the supported visualization types",
+  "type" : "string",
+  "description" : "- CHART_TYPE_UNSPECIFIED: Default unspecified type\n - CHART_TYPE_TABLE: Tabular data visualization\n - CHART_TYPE_LINE: Line chart\n - CHART_TYPE_BAR: Bar chart\n - CHART_TYPE_PIE: Pie chart",
+  "default" : "CHART_TYPE_UNSPECIFIED",
+  "enum" : [ "CHART_TYPE_UNSPECIFIED", "CHART_TYPE_TABLE", "CHART_TYPE_LINE", "CHART_TYPE_BAR", "CHART_TYPE_PIE" ]
+};
+    defs["ai_service.ChatSession"] = {
+  "type" : "object",
+  "properties" : {
+    "messages" : {
+      "title" : "Message history in the session",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/ai_service.Message"
+      }
+    },
+    "context" : {
+      "$ref" : "#/components/schemas/ai_service.Context"
+    },
+    "streaming" : {
+      "title" : "Whether to use streaming responses",
+      "type" : "boolean"
+    },
+    "preserveSession" : {
+      "title" : "Whether to persist the session",
+      "type" : "boolean"
+    }
+  },
+  "description" : "ChatSession represents an interactive conversation session with the AI. Messages in the session are ordered and accessed via cursor positions."
+};
+    defs["ai_service.Context"] = {
+  "title" : "Context provides environment information for a chat session",
+  "type" : "object",
+  "properties" : {
+    "projectOwner" : {
+      "title" : "Owner of the project (username or organization)",
+      "type" : "string"
+    },
+    "projectSlug" : {
+      "title" : "Project identifier/slug",
+      "type" : "string"
+    },
+    "version" : {
+      "title" : "API version to use",
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "scenario" : {
+      "$ref" : "#/components/schemas/ai_service.Context.Scenario"
+    },
+    "sqlConfig" : {
+      "$ref" : "#/components/schemas/ai_service.SqlConfig"
+    }
+  }
+};
+    defs["ai_service.Context.Scenario"] = {
+  "type" : "string",
+  "default" : "SCENARIO_UNSPECIFIED",
+  "enum" : [ "SCENARIO_UNSPECIFIED", "SCENARIO_SQL" ]
+};
+    defs["ai_service.CreateChatSessionResponse"] = {
+  "title" : "CreateChatSessionResponse contains the newly created session information",
+  "type" : "object",
+  "properties" : {
+    "sessionId" : {
+      "title" : "Unique identifier for the new session",
+      "type" : "string"
+    },
+    "currentCursorPosition" : {
+      "title" : "Current cursor position - indicates the latest message position in the conversation",
+      "type" : "integer",
+      "format" : "int32"
+    }
+  }
+};
+    defs["ai_service.ErrorContent"] = {
+  "title" : "ErrorContent represents error information",
+  "type" : "object",
+  "properties" : {
+    "code" : {
+      "title" : "Error code identifying the type of error",
+      "type" : "string"
+    },
+    "message" : {
+      "title" : "Human-readable error message",
+      "type" : "string"
+    }
+  }
+};
+    defs["ai_service.Message"] = {
+  "type" : "object",
+  "properties" : {
+    "role" : {
+      "$ref" : "#/components/schemas/ai_service.Message.Role"
+    },
+    "text" : {
+      "title" : "Plain text content of the message",
+      "type" : "string"
+    },
+    "structured" : {
+      "$ref" : "#/components/schemas/ai_service.StructuredContent"
+    },
+    "isFinal" : {
+      "title" : "Indicates this is the final message of a run, meaning the run is complete and all generated messages have been returned",
+      "type" : "boolean"
+    },
+    "runId" : {
+      "title" : "Unique identifier for the current run. Messages with the same run_id belong to the same generation process, and is_final indicates when the run is complete",
+      "type" : "string"
+    },
+    "resources" : {
+      "title" : "Resources attached to this message",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/ai_service.Resource"
+      }
+    }
+  },
+  "description" : "Message represents a single message in an AI conversation with either text or structured content. Messages are generated as part of a 'run' (identified by run_id), and the is_final flag indicates when all messages for a run have been generated."
+};
+    defs["ai_service.Message.Role"] = {
+  "type" : "string",
+  "default" : "ROLE_UNSPECIFIED",
+  "enum" : [ "ROLE_UNSPECIFIED", "ROLE_USER", "ROLE_ASSISTANT", "ROLE_SYSTEM", "AI_ROLE_TOOL" ]
+};
+    defs["ai_service.PostSessionMessageResponse"] = {
+  "title" : "PostSessionMessageResponse confirms message addition and updates cursor",
+  "type" : "object",
+  "properties" : {
+    "currentCursorPosition" : {
+      "title" : "Updated cursor position after adding the message",
+      "type" : "integer",
+      "format" : "int32"
+    }
+  }
+};
+    defs["ai_service.Resource"] = {
+  "title" : "Resource represents a resource that can be attached to a message, such as a file, image, or other content",
+  "type" : "object",
+  "properties" : {
+    "uri" : {
+      "title" : "Unique identifier or location for the resource",
+      "type" : "string"
+    },
+    "name" : {
+      "title" : "Human-readable name for the resource",
+      "type" : "string"
+    },
+    "description" : {
+      "title" : "Description of the resource",
+      "type" : "string"
+    },
+    "mimeType" : {
+      "title" : "MIME type of the resource content",
+      "type" : "string"
+    },
+    "text" : {
+      "title" : "Text content of the resource",
+      "type" : "string"
+    },
+    "blob" : {
+      "title" : "Binary content of the resource",
+      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+      "type" : "string",
+      "format" : "byte"
+    }
+  }
+};
+    defs["ai_service.SqlConfig"] = {
+  "title" : "SqlConfig contains configuration specific to SQL scenarios",
+  "type" : "object",
+  "properties" : {
+    "executeQuery" : {
+      "title" : "Whether to automatically execute generated SQL queries",
+      "type" : "boolean"
+    }
+  }
+};
+    defs["ai_service.SqlContent"] = {
+  "title" : "SqlContent contains content including the query text, explanation, visualization options and results",
+  "type" : "object",
+  "properties" : {
+    "query" : {
+      "title" : "SQL query text",
+      "type" : "string"
+    },
+    "explanation" : {
+      "title" : "Explanation of what the query does and how it works",
+      "type" : "string"
+    },
+    "chartType" : {
+      "$ref" : "#/components/schemas/ai_service.ChartType"
+    },
+    "title" : {
+      "title" : "Title for the query result visualization",
+      "type" : "string"
+    },
+    "result" : {
+      "$ref" : "#/components/schemas/common.TabularData"
+    },
+    "error" : {
+      "title" : "Error from query execution",
+      "type" : "string"
+    }
+  }
+};
+    defs["ai_service.StructuredContent"] = {
+  "title" : "StructuredContent represents structured content that can contain SQL queries, errors, or other formatted data",
+  "type" : "object",
+  "properties" : {
+    "type" : {
+      "$ref" : "#/components/schemas/ai_service.StructuredContent.ContentType"
+    },
+    "sql" : {
+      "$ref" : "#/components/schemas/ai_service.SqlContent"
+    },
+    "error" : {
+      "$ref" : "#/components/schemas/ai_service.ErrorContent"
+    }
+  }
+};
+    defs["ai_service.StructuredContent.ContentType"] = {
+  "type" : "string",
+  "default" : "CONTENT_TYPE_UNSPECIFIED",
+  "enum" : [ "CONTENT_TYPE_UNSPECIFIED", "CONTENT_TYPE_SQL", "CONTENT_TYPE_ERROR" ]
+};
     defs["alert_service.Alert"] = {
   "type" : "object",
   "properties" : {
@@ -6485,6 +6721,16 @@ ul.nav-tabs {
             -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
+                  <li class="nav-header" data-group="AI"><a href="#api-AI">API Methods - AI</a></li>
+                    <li data-group="AI" data-name="createChatSession" class="">
+                      <a href="#api-AI-createChatSession">createChatSession</a>
+                    </li>
+                    <li data-group="AI" data-name="postSessionMessage" class="">
+                      <a href="#api-AI-postSessionMessage">postSessionMessage</a>
+                    </li>
+                    <li data-group="AI" data-name="queryChatSession" class="">
+                      <a href="#api-AI-queryChatSession">queryChatSession</a>
+                    </li>
                   <li class="nav-header" data-group="Alerts"><a href="#api-Alerts">API Methods - Alerts</a></li>
                     <li data-group="Alerts" data-name="deleteAlertRule" class="">
                       <a href="#api-Alerts-deleteAlertRule">deleteAlertRule</a>
@@ -6696,6 +6942,1472 @@ ul.nav-tabs {
           </div>
         </div>
         <div id="sections">
+                <section id="api-AI">
+                  <h1>AI</h1>
+                    <div id="api-AI-createChatSession">
+                      <article id="api-AI-createChatSession-0" data-group="User" data-name="createChatSession" data-version="0">
+                        <div class="pull-left">
+                          <h1>createChatSession</h1>
+                          <p>Create Chat Session</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Initialize a new AI chat session. Returns a session_id that can be used with PostSessionMessage to have a conversation with the AI. Messages are generated as part of runs, with is_final indicating run completion.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/ai/chat</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AI-createChatSession-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AI-createChatSession-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AI-createChatSession-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AI-createChatSession-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AI-createChatSession-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-python">Python</a></li>
+                          <li class=""><a href="#examples-AI-createChatSession-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AI-createChatSession-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/ai/chat" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AI-createChatSession-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.AIApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AIApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        AIApi apiInstance = new AIApi();
+        AiServiceChatSession body = ; // AiServiceChatSession | 
+
+        try {
+            ai_service.CreateChatSessionResponse result = apiInstance.createChatSession(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AIApi#createChatSession");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AI-createChatSession-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final AiServiceChatSession body = new AiServiceChatSession(); // AiServiceChatSession | 
+
+try {
+    final result = await api_instance.createChatSession(body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->createChatSession: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AI-createChatSession-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.AIApi;
+
+public class AIApiExample {
+    public static void main(String[] args) {
+        AIApi apiInstance = new AIApi();
+        AiServiceChatSession body = ; // AiServiceChatSession | 
+
+        try {
+            ai_service.CreateChatSessionResponse result = apiInstance.createChatSession(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AIApi#createChatSession");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AI-createChatSession-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AI-createChatSession-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+AIApi *apiInstance = [[AIApi alloc] init];
+AiServiceChatSession *body = ; // 
+
+// Create Chat Session
+[apiInstance createChatSessionWith:body
+              completionHandler: ^(ai_service.CreateChatSessionResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-createChatSession-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.AIApi()
+var body = ; // {AiServiceChatSession} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.createChatSession(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AI-createChatSession-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AI-createChatSession-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class createChatSessionExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new AIApi();
+            var body = new AiServiceChatSession(); // AiServiceChatSession | 
+
+            try {
+                // Create Chat Session
+                ai_service.CreateChatSessionResponse result = apiInstance.createChatSession(body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling AIApi.createChatSession: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-createChatSession-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\AIApi();
+$body = ; // AiServiceChatSession | 
+
+try {
+    $result = $api_instance->createChatSession($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->createChatSession: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-createChatSession-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::AIApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::AIApi->new();
+my $body = WWW::OPenAPIClient::Object::AiServiceChatSession->new(); # AiServiceChatSession | 
+
+eval {
+    my $result = $api_instance->createChatSession(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AIApi->createChatSession: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-createChatSession-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.AIApi()
+body =  # AiServiceChatSession | 
+
+try:
+    # Create Chat Session
+    api_response = api_instance.create_chat_session(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AIApi->createChatSession: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-createChatSession-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate AIApi;
+
+pub fn main() {
+    let body = ; // AiServiceChatSession
+
+    let mut context = AIApi::Context::default();
+    let result = client.createChatSession(body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked">ChatSession represents an interactive conversation session with the AI. Messages in the session are ordered and accessed via cursor positions.</p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "description" : "ChatSession represents an interactive conversation session with the AI. Messages in the session are ordered and accessed via cursor positions.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ai_service.ChatSession"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_createChatSession_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_createChatSession_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-AI-createChatSession-title-200"></h3>
+                            <p id="examples-AI-createChatSession-description-200" class="marked"></p>
+                            <script>
+                              var responseAI200_description = `A successful response.`;
+                              var responseAI200_description_break = responseAI200_description.indexOf('\n');
+                              if (responseAI200_description_break == -1) {
+                                $("#examples-AI-createChatSession-title-200").text("Status: 200 - " + responseAI200_description);
+                              } else {
+                                $("#examples-AI-createChatSession-title-200").text("Status: 200 - " + responseAI200_description.substring(0, responseAI200_description_break));
+                                $("#examples-AI-createChatSession-description-200").html(responseAI200_description.substring(responseAI200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-AI-createChatSession-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-AI-createChatSession-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-AI-createChatSession-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-AI-createChatSession-200-schema">
+                                <div id="responses-AI-createChatSession-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ai_service.CreateChatSessionResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-AI-createChatSession-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-AI-createChatSession-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-AI-createChatSession-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-AI-postSessionMessage">
+                      <article id="api-AI-postSessionMessage-0" data-group="User" data-name="postSessionMessage" data-version="0">
+                        <div class="pull-left">
+                          <h1>postSessionMessage</h1>
+                          <p>Post Session Message</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Add a new message to an existing chat session. This will trigger AI message generation as a run. check is_final to know when all messages for the run have been generated.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/ai/chat/{sessionId}/message</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AI-postSessionMessage-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AI-postSessionMessage-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AI-postSessionMessage-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-python">Python</a></li>
+                          <li class=""><a href="#examples-AI-postSessionMessage-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AI-postSessionMessage-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/ai/chat/{sessionId}/message" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AI-postSessionMessage-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.AIApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AIApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        AIApi apiInstance = new AIApi();
+        String sessionId = sessionId_example; // String | Unique identifier for the session
+        AiServiceAiServicePostSessionMessageBody body = ; // AiServiceAiServicePostSessionMessageBody | 
+
+        try {
+            ai_service.PostSessionMessageResponse result = apiInstance.postSessionMessage(sessionId, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AIApi#postSessionMessage");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AI-postSessionMessage-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String sessionId = new String(); // String | Unique identifier for the session
+final AiServiceAiServicePostSessionMessageBody body = new AiServiceAiServicePostSessionMessageBody(); // AiServiceAiServicePostSessionMessageBody | 
+
+try {
+    final result = await api_instance.postSessionMessage(sessionId, body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->postSessionMessage: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AI-postSessionMessage-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.AIApi;
+
+public class AIApiExample {
+    public static void main(String[] args) {
+        AIApi apiInstance = new AIApi();
+        String sessionId = sessionId_example; // String | Unique identifier for the session
+        AiServiceAiServicePostSessionMessageBody body = ; // AiServiceAiServicePostSessionMessageBody | 
+
+        try {
+            ai_service.PostSessionMessageResponse result = apiInstance.postSessionMessage(sessionId, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AIApi#postSessionMessage");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AI-postSessionMessage-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AI-postSessionMessage-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+AIApi *apiInstance = [[AIApi alloc] init];
+String *sessionId = sessionId_example; // Unique identifier for the session (default to null)
+AiServiceAiServicePostSessionMessageBody *body = ; // 
+
+// Post Session Message
+[apiInstance postSessionMessageWith:sessionId
+    body:body
+              completionHandler: ^(ai_service.PostSessionMessageResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-postSessionMessage-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.AIApi()
+var sessionId = sessionId_example; // {String} Unique identifier for the session
+var body = ; // {AiServiceAiServicePostSessionMessageBody} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.postSessionMessage(sessionId, body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AI-postSessionMessage-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AI-postSessionMessage-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class postSessionMessageExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new AIApi();
+            var sessionId = sessionId_example;  // String | Unique identifier for the session (default to null)
+            var body = new AiServiceAiServicePostSessionMessageBody(); // AiServiceAiServicePostSessionMessageBody | 
+
+            try {
+                // Post Session Message
+                ai_service.PostSessionMessageResponse result = apiInstance.postSessionMessage(sessionId, body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling AIApi.postSessionMessage: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-postSessionMessage-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\AIApi();
+$sessionId = sessionId_example; // String | Unique identifier for the session
+$body = ; // AiServiceAiServicePostSessionMessageBody | 
+
+try {
+    $result = $api_instance->postSessionMessage($sessionId, $body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->postSessionMessage: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-postSessionMessage-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::AIApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::AIApi->new();
+my $sessionId = sessionId_example; # String | Unique identifier for the session
+my $body = WWW::OPenAPIClient::Object::AiServiceAiServicePostSessionMessageBody->new(); # AiServiceAiServicePostSessionMessageBody | 
+
+eval {
+    my $result = $api_instance->postSessionMessage(sessionId => $sessionId, body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AIApi->postSessionMessage: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-postSessionMessage-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.AIApi()
+sessionId = sessionId_example # String | Unique identifier for the session (default to null)
+body =  # AiServiceAiServicePostSessionMessageBody | 
+
+try:
+    # Post Session Message
+    api_response = api_instance.post_session_message(sessionId, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AIApi->postSessionMessage: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-postSessionMessage-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate AIApi;
+
+pub fn main() {
+    let sessionId = sessionId_example; // String
+    let body = ; // AiServiceAiServicePostSessionMessageBody
+
+    let mut context = AIApi::Context::default();
+    let result = client.postSessionMessage(sessionId, body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">sessionId*</td>
+<td>
+
+
+    <div id="d2e199_postSessionMessage_sessionId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Unique identifier for the session
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ai_service.AiService.PostSessionMessageBody"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_postSessionMessage_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_postSessionMessage_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-AI-postSessionMessage-title-200"></h3>
+                            <p id="examples-AI-postSessionMessage-description-200" class="marked"></p>
+                            <script>
+                              var responseAI200_description = `A successful response.`;
+                              var responseAI200_description_break = responseAI200_description.indexOf('\n');
+                              if (responseAI200_description_break == -1) {
+                                $("#examples-AI-postSessionMessage-title-200").text("Status: 200 - " + responseAI200_description);
+                              } else {
+                                $("#examples-AI-postSessionMessage-title-200").text("Status: 200 - " + responseAI200_description.substring(0, responseAI200_description_break));
+                                $("#examples-AI-postSessionMessage-description-200").html(responseAI200_description.substring(responseAI200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-AI-postSessionMessage-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-AI-postSessionMessage-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-AI-postSessionMessage-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-AI-postSessionMessage-200-schema">
+                                <div id="responses-AI-postSessionMessage-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ai_service.PostSessionMessageResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-AI-postSessionMessage-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-AI-postSessionMessage-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-AI-postSessionMessage-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-AI-queryChatSession">
+                      <article id="api-AI-queryChatSession-0" data-group="User" data-name="queryChatSession" data-version="0">
+                        <div class="pull-left">
+                          <h1>queryChatSession</h1>
+                          <p>Query Chat Session</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Retrieve information about an existing chat session, returning only messages after the specified cursor position. Messages include run_id to identify generation runs.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/ai/chat/{sessionId}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-AI-queryChatSession-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-java">Java</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-AI-queryChatSession-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-AI-queryChatSession-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-AI-queryChatSession-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-AI-queryChatSession-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-python">Python</a></li>
+                          <li class=""><a href="#examples-AI-queryChatSession-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-AI-queryChatSession-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/ai/chat/{sessionId}?cursorPosition=56"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-AI-queryChatSession-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.AIApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AIApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        AIApi apiInstance = new AIApi();
+        String sessionId = sessionId_example; // String | Unique identifier for the session
+        Integer cursorPosition = 56; // Integer | Start cursor position - only messages after this position will be returned
+
+        try {
+            ai_service.ChatSession result = apiInstance.queryChatSession(sessionId, cursorPosition);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AIApi#queryChatSession");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AI-queryChatSession-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String sessionId = new String(); // String | Unique identifier for the session
+final Integer cursorPosition = new Integer(); // Integer | Start cursor position - only messages after this position will be returned
+
+try {
+    final result = await api_instance.queryChatSession(sessionId, cursorPosition);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->queryChatSession: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-AI-queryChatSession-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.AIApi;
+
+public class AIApiExample {
+    public static void main(String[] args) {
+        AIApi apiInstance = new AIApi();
+        String sessionId = sessionId_example; // String | Unique identifier for the session
+        Integer cursorPosition = 56; // Integer | Start cursor position - only messages after this position will be returned
+
+        try {
+            ai_service.ChatSession result = apiInstance.queryChatSession(sessionId, cursorPosition);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AIApi#queryChatSession");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-AI-queryChatSession-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-AI-queryChatSession-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+AIApi *apiInstance = [[AIApi alloc] init];
+String *sessionId = sessionId_example; // Unique identifier for the session (default to null)
+Integer *cursorPosition = 56; // Start cursor position - only messages after this position will be returned (optional) (default to null)
+
+// Query Chat Session
+[apiInstance queryChatSessionWith:sessionId
+    cursorPosition:cursorPosition
+              completionHandler: ^(ai_service.ChatSession output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-queryChatSession-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.AIApi()
+var sessionId = sessionId_example; // {String} Unique identifier for the session
+var opts = {
+  'cursorPosition': 56 // {Integer} Start cursor position - only messages after this position will be returned
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.queryChatSession(sessionId, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-AI-queryChatSession-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-AI-queryChatSession-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class queryChatSessionExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new AIApi();
+            var sessionId = sessionId_example;  // String | Unique identifier for the session (default to null)
+            var cursorPosition = 56;  // Integer | Start cursor position - only messages after this position will be returned (optional)  (default to null)
+
+            try {
+                // Query Chat Session
+                ai_service.ChatSession result = apiInstance.queryChatSession(sessionId, cursorPosition);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling AIApi.queryChatSession: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-queryChatSession-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\AIApi();
+$sessionId = sessionId_example; // String | Unique identifier for the session
+$cursorPosition = 56; // Integer | Start cursor position - only messages after this position will be returned
+
+try {
+    $result = $api_instance->queryChatSession($sessionId, $cursorPosition);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AIApi->queryChatSession: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-queryChatSession-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::AIApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::AIApi->new();
+my $sessionId = sessionId_example; # String | Unique identifier for the session
+my $cursorPosition = 56; # Integer | Start cursor position - only messages after this position will be returned
+
+eval {
+    my $result = $api_instance->queryChatSession(sessionId => $sessionId, cursorPosition => $cursorPosition);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AIApi->queryChatSession: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-queryChatSession-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.AIApi()
+sessionId = sessionId_example # String | Unique identifier for the session (default to null)
+cursorPosition = 56 # Integer | Start cursor position - only messages after this position will be returned (optional) (default to null)
+
+try:
+    # Query Chat Session
+    api_response = api_instance.query_chat_session(sessionId, cursorPosition=cursorPosition)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AIApi->queryChatSession: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-AI-queryChatSession-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate AIApi;
+
+pub fn main() {
+    let sessionId = sessionId_example; // String
+    let cursorPosition = 56; // Integer
+
+    let mut context = AIApi::Context::default();
+    let result = client.queryChatSession(sessionId, cursorPosition, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">sessionId*</td>
+<td>
+
+
+    <div id="d2e199_queryChatSession_sessionId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Unique identifier for the session
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">cursorPosition</td>
+<td>
+
+
+    <div id="d2e199_queryChatSession_cursorPosition">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+Start cursor position - only messages after this position will be returned
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-AI-queryChatSession-title-200"></h3>
+                            <p id="examples-AI-queryChatSession-description-200" class="marked"></p>
+                            <script>
+                              var responseAI200_description = `A successful response.`;
+                              var responseAI200_description_break = responseAI200_description.indexOf('\n');
+                              if (responseAI200_description_break == -1) {
+                                $("#examples-AI-queryChatSession-title-200").text("Status: 200 - " + responseAI200_description);
+                              } else {
+                                $("#examples-AI-queryChatSession-title-200").text("Status: 200 - " + responseAI200_description.substring(0, responseAI200_description_break));
+                                $("#examples-AI-queryChatSession-description-200").html(responseAI200_description.substring(responseAI200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-AI-queryChatSession-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-AI-queryChatSession-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-AI-queryChatSession-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-AI-queryChatSession-200-schema">
+                                <div id="responses-AI-queryChatSession-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ai_service.ChatSession"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-AI-queryChatSession-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-AI-queryChatSession-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-AI-queryChatSession-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-Alerts">
                   <h1>Alerts</h1>
                     <div id="api-Alerts-deleteAlertRule">
