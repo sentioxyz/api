@@ -343,6 +343,7 @@ export namespace analytic_service {
          */
         cursor?: string;
         cachePolicy?: common.CachePolicy;
+        engine?: ExecuteEngine;
     };
     export type AnalyticServiceExecuteSqlBody = {
         projectId?: string;
@@ -353,6 +354,7 @@ export namespace analytic_service {
          */
         cursor?: string;
         cachePolicy?: common.CachePolicy;
+        engine?: ExecuteEngine;
     };
     export type AnalyticServiceSaveRefreshableMaterializedViewBody = {
         projectId?: string;
@@ -372,6 +374,7 @@ export namespace analytic_service {
         queueLength?: number;
         computeStats?: common.ComputeStats;
     };
+    export type ExecuteEngine = 'DEFAULT' | 'LITE' | 'PRO' | 'MAX' | 'ULTRA';
     export type ExecutionInfo = {
         queryId?: string;
         executionId?: string;

@@ -3602,6 +3602,9 @@
         },
         "cachePolicy": {
           "$ref": "#/definitions/common.CachePolicy"
+        },
+        "engine": {
+          "$ref": "#/definitions/analytic_service.ExecuteEngine"
         }
       }
     },
@@ -3631,6 +3634,9 @@
         },
         "cachePolicy": {
           "$ref": "#/definitions/common.CachePolicy"
+        },
+        "engine": {
+          "$ref": "#/definitions/analytic_service.ExecuteEngine"
         }
       }
     },
@@ -3691,6 +3697,17 @@
           "$ref": "#/definitions/common.ComputeStats"
         }
       }
+    },
+    "analytic_service.ExecuteEngine": {
+      "type": "string",
+      "enum": [
+        "DEFAULT",
+        "LITE",
+        "PRO",
+        "MAX",
+        "ULTRA"
+      ],
+      "default": "DEFAULT"
     },
     "analytic_service.ExecutionInfo": {
       "type": "object",

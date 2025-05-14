@@ -1483,6 +1483,9 @@ ul.nav-tabs {
     },
     "cachePolicy" : {
       "$ref" : "#/components/schemas/common.CachePolicy"
+    },
+    "engine" : {
+      "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
     }
   },
   "example" : {
@@ -1512,6 +1515,9 @@ ul.nav-tabs {
     },
     "cachePolicy" : {
       "$ref" : "#/components/schemas/common.CachePolicy"
+    },
+    "engine" : {
+      "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
     }
   },
   "example" : {
@@ -1577,6 +1583,11 @@ ul.nav-tabs {
       "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
+};
+    defs["analytic_service.ExecuteEngine"] = {
+  "type" : "string",
+  "default" : "DEFAULT",
+  "enum" : [ "DEFAULT", "LITE", "PRO", "MAX", "ULTRA" ]
 };
     defs["analytic_service.ExecutionInfo"] = {
   "type" : "object",
