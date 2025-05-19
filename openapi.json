@@ -7472,23 +7472,6 @@
         }
       }
     },
-    "solidity_service.FetchAndCompileInternalResponse": {
-      "type": "object",
-      "properties": {
-        "compiledAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "failures": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/solidity_service.Failure"
-          }
-        }
-      }
-    },
     "solidity_service.Fork": {
       "type": "object",
       "properties": {

@@ -2302,12 +2302,6 @@ export namespace solidity_service {
         error?: string;
         reason?: string;
     };
-    export type FetchAndCompileInternalResponse = {
-        compiledAddresses?: Array<string>;
-        failures?: {
-            [key: string]: Failure;
-        };
-    };
     export type Fork = {
         id?: string;
         type?: ForkType;
