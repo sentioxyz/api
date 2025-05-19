@@ -2825,6 +2825,7 @@ export namespace web_service {
         retentionQuery?: common.RetentionQuery;
         sqlQuery?: string;
         sqlQueryId?: string;
+        sqlExecuteEngine?: analytic_service.ExecuteEngine;
     };
     export type ChartChartType = 'LINE' | 'AREA' | 'BAR' | 'BAR_GAUGE' | 'TABLE' | 'QUERY_VALUE' | 'PIE' | 'NOTE' | 'SCATTER';
     export type ChartDataSourceType = 'METRICS' | 'NOTES' | 'ANALYTICS' | 'INSIGHTS' | 'EVENTS' | 'RETENTION' | 'SQL';

@@ -8381,6 +8381,9 @@
         },
         "sqlQueryId": {
           "type": "string"
+        },
+        "sqlExecuteEngine": {
+          "$ref": "#/definitions/analytic_service.ExecuteEngine"
         }
       }
     },
