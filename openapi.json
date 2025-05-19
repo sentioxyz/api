@@ -8219,7 +8219,8 @@
       "enum": [
         "ETHERSCAN",
         "BLOCKSCOUT",
-        "OKLINK"
+        "OKLINK",
+        "ETHERSCAN_V2"
       ],
       "default": "ETHERSCAN"
     },

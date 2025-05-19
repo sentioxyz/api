@@ -2508,7 +2508,7 @@ export namespace solidity_service {
     export type SolidityApiServiceSimulateTransactionOnForkBody = {
         simulation: Simulation;
     };
-    export type SourceFetcherType = 'ETHERSCAN' | 'BLOCKSCOUT' | 'OKLINK';
+    export type SourceFetcherType = 'ETHERSCAN' | 'BLOCKSCOUT' | 'OKLINK' | 'ETHERSCAN_V2';
     export type SourceInfo = {
         contractName?: string;
         options?: CompilerOptions;
