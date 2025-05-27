@@ -213,6 +213,54 @@ export class AlertsService {
 
 export class DataService {
     /**
+     * Save Sharing SQL
+     * Save or update sharing settings for a SQL query.
+     */
+    public static saveSharingSql<ThrowOnError extends boolean = false>(options: Options<analytic_service.SaveSharingSqlData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).post<analytic_service.SaveSharingSqlResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/analytics/sql/sharing',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
+    }
+    
+    /**
+     * Get Sharing SQL
+     * Get sharing settings for a SQL query.
+     */
+    public static getSharingSql<ThrowOnError extends boolean = false>(options: Options<analytic_service.GetSharingSqlData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<analytic_service.GetSharingSqlResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/analytics/sql/sharing/{id}',
+            ...options
+        });
+    }
+    
+    /**
      * Cancel SQL Query
      * Cancel a SQL query by execution_id.
      */

@@ -265,6 +265,60 @@
         ]
       }
     },
+    "/api/v1/analytics/sql/sharing": {
+      "post": {
+        "summary": "Save Sharing SQL",
+        "description": "Save or update sharing settings for a SQL query.",
+        "operationId": "SaveSharingSQL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.SaveSharingSQLResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/analytic_service.SaveSharingSQLRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/sql/sharing/{id}": {
+      "get": {
+        "summary": "Get Sharing SQL",
+        "description": "Get sharing settings for a SQL query.",
+        "operationId": "GetSharingSQL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.GetSharingSQLResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
     "/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}": {
       "put": {
         "summary": "Cancel SQL Query",
@@ -3816,6 +3870,34 @@
         }
       }
     },
+    "analytic_service.GetSharingSQLResponse": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "$ref": "#/definitions/analytic_service.GetSharingSQLResponse.Query"
+        },
+        "project": {
+          "$ref": "#/definitions/common.Project"
+        }
+      },
+      "title": "Response message for GetSharingSQL"
+    },
+    "analytic_service.GetSharingSQLResponse.Query": {
+      "type": "object",
+      "properties": {
+        "sqlQuery": {
+          "$ref": "#/definitions/analytic_service.SQLQuery"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "analytic_service.ListRefreshableMaterializedViewResponse": {
       "type": "object",
       "properties": {
@@ -3987,6 +4069,48 @@
           "type": "string"
         }
       }
+    },
+    "analytic_service.SaveSharingSQLRequest": {
+      "type": "object",
+      "properties": {
+        "queryId": {
+          "type": "string",
+          "title": "ID of the SQL query to share"
+        },
+        "isPublic": {
+          "type": "boolean",
+          "title": "Whether the SQL query is publicly accessible"
+        }
+      },
+      "title": "Request message for SaveSharingSQL"
+    },
+    "analytic_service.SaveSharingSQLResponse": {
+      "type": "object",
+      "properties": {
+        "sharingId": {
+          "type": "string",
+          "title": "ID of the sharing record"
+        },
+        "queryId": {
+          "type": "string",
+          "title": "ID of the SQL query"
+        },
+        "isPublic": {
+          "type": "boolean",
+          "title": "Whether the SQL query is publicly accessible"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Last update timestamp"
+        }
+      },
+      "title": "Response message for SaveSharingSQL"
     },
     "analytic_service.SearchService.QueryLogBody": {
       "type": "object",

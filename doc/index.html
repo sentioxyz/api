@@ -1691,6 +1691,34 @@ ul.nav-tabs {
     }
   }
 };
+    defs["analytic_service.GetSharingSQLResponse"] = {
+  "title" : "Response message for GetSharingSQL",
+  "type" : "object",
+  "properties" : {
+    "query" : {
+      "$ref" : "#/components/schemas/analytic_service.GetSharingSQLResponse.Query"
+    },
+    "project" : {
+      "$ref" : "#/components/schemas/common.Project"
+    }
+  }
+};
+    defs["analytic_service.GetSharingSQLResponse.Query"] = {
+  "type" : "object",
+  "properties" : {
+    "sqlQuery" : {
+      "$ref" : "#/components/schemas/analytic_service.SQLQuery"
+    },
+    "createdAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    }
+  }
+};
     defs["analytic_service.ListRefreshableMaterializedViewResponse"] = {
   "type" : "object",
   "properties" : {
@@ -1855,6 +1883,48 @@ ul.nav-tabs {
   "properties" : {
     "queryId" : {
       "type" : "string"
+    }
+  }
+};
+    defs["analytic_service.SaveSharingSQLRequest"] = {
+  "title" : "Request message for SaveSharingSQL",
+  "type" : "object",
+  "properties" : {
+    "queryId" : {
+      "title" : "ID of the SQL query to share",
+      "type" : "string"
+    },
+    "isPublic" : {
+      "title" : "Whether the SQL query is publicly accessible",
+      "type" : "boolean"
+    }
+  }
+};
+    defs["analytic_service.SaveSharingSQLResponse"] = {
+  "title" : "Response message for SaveSharingSQL",
+  "type" : "object",
+  "properties" : {
+    "sharingId" : {
+      "title" : "ID of the sharing record",
+      "type" : "string"
+    },
+    "queryId" : {
+      "title" : "ID of the SQL query",
+      "type" : "string"
+    },
+    "isPublic" : {
+      "title" : "Whether the SQL query is publicly accessible",
+      "type" : "boolean"
+    },
+    "createdAt" : {
+      "title" : "Creation timestamp",
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "updatedAt" : {
+      "title" : "Last update timestamp",
+      "type" : "string",
+      "format" : "date-time"
     }
   }
 };
@@ -6763,6 +6833,9 @@ ul.nav-tabs {
                     <li data-group="Data" data-name="getRefreshableMaterializedStatus" class="">
                       <a href="#api-Data-getRefreshableMaterializedStatus">getRefreshableMaterializedStatus</a>
                     </li>
+                    <li data-group="Data" data-name="getSharingSQL" class="">
+                      <a href="#api-Data-getSharingSQL">getSharingSQL</a>
+                    </li>
                     <li data-group="Data" data-name="listCoins" class="">
                       <a href="#api-Data-listCoins">listCoins</a>
                     </li>
@@ -6801,6 +6874,9 @@ ul.nav-tabs {
                     </li>
                     <li data-group="Data" data-name="saveSQL2" class="">
                       <a href="#api-Data-saveSQL2">saveSQL2</a>
+                    </li>
+                    <li data-group="Data" data-name="saveSharingSQL" class="">
+                      <a href="#api-Data-saveSharingSQL">saveSharingSQL</a>
                     </li>
                   <li class="nav-header" data-group="DebugAndSimulation"><a href="#api-DebugAndSimulation">API Methods - DebugAndSimulation</a></li>
                     <li data-group="DebugAndSimulation" data-name="getCallTraceByBundle" class="">
@@ -14049,6 +14125,449 @@ use project id if project_owner and project_slug are not provided
                                   </script>
                                 </div>
                                 <input id='responses-Data-getRefreshableMaterializedStatus-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Data-getSharingSQL">
+                      <article id="api-Data-getSharingSQL-0" data-group="User" data-name="getSharingSQL" data-version="0">
+                        <div class="pull-left">
+                          <h1>getSharingSQL</h1>
+                          <p>Get Sharing SQL</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Get sharing settings for a SQL query.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/analytics/sql/sharing/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Data-getSharingSQL-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Data-getSharingSQL-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Data-getSharingSQL-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Data-getSharingSQL-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Data-getSharingSQL-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/analytics/sql/sharing/{id}"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Data-getSharingSQL-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DataApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DataApi apiInstance = new DataApi();
+        String id = id_example; // String | 
+
+        try {
+            analytic_service.GetSharingSQLResponse result = apiInstance.getSharingSQL(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#getSharingSQL");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-getSharingSQL-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String id = new String(); // String | 
+
+try {
+    final result = await api_instance.getSharingSQL(id);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getSharingSQL: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-getSharingSQL-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        DataApi apiInstance = new DataApi();
+        String id = id_example; // String | 
+
+        try {
+            analytic_service.GetSharingSQLResponse result = apiInstance.getSharingSQL(id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#getSharingSQL");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Data-getSharingSQL-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Data-getSharingSQL-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DataApi *apiInstance = [[DataApi alloc] init];
+String *id = id_example; //  (default to null)
+
+// Get Sharing SQL
+[apiInstance getSharingSQLWith:id
+              completionHandler: ^(analytic_service.GetSharingSQLResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getSharingSQL-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DataApi()
+var id = id_example; // {String} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getSharingSQL(id, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Data-getSharingSQL-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Data-getSharingSQL-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getSharingSQLExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DataApi();
+            var id = id_example;  // String |  (default to null)
+
+            try {
+                // Get Sharing SQL
+                analytic_service.GetSharingSQLResponse result = apiInstance.getSharingSQL(id);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DataApi.getSharingSQL: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getSharingSQL-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DataApi();
+$id = id_example; // String | 
+
+try {
+    $result = $api_instance->getSharingSQL($id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DataApi->getSharingSQL: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getSharingSQL-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DataApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DataApi->new();
+my $id = id_example; # String | 
+
+eval {
+    my $result = $api_instance->getSharingSQL(id => $id);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DataApi->getSharingSQL: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getSharingSQL-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DataApi()
+id = id_example # String |  (default to null)
+
+try:
+    # Get Sharing SQL
+    api_response = api_instance.get_sharing_sql(id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->getSharingSQL: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-getSharingSQL-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
+
+pub fn main() {
+    let id = id_example; // String
+
+    let mut context = DataApi::Context::default();
+    let result = client.getSharingSQL(id, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+    <div id="d2e199_getSharingSQL_id">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Data-getSharingSQL-title-200"></h3>
+                            <p id="examples-Data-getSharingSQL-description-200" class="marked"></p>
+                            <script>
+                              var responseData200_description = `A successful response.`;
+                              var responseData200_description_break = responseData200_description.indexOf('\n');
+                              if (responseData200_description_break == -1) {
+                                $("#examples-Data-getSharingSQL-title-200").text("Status: 200 - " + responseData200_description);
+                              } else {
+                                $("#examples-Data-getSharingSQL-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
+                                $("#examples-Data-getSharingSQL-description-200").html(responseData200_description.substring(responseData200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Data-getSharingSQL-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Data-getSharingSQL-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Data-getSharingSQL-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Data-getSharingSQL-200-schema">
+                                <div id="responses-Data-getSharingSQL-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/analytic_service.GetSharingSQLResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Data-getSharingSQL-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Data-getSharingSQL-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Data-getSharingSQL-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>
@@ -21759,6 +22278,472 @@ $(document).ready(function() {
                                   </script>
                                 </div>
                                 <input id='responses-Data-saveSQL2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Data-saveSharingSQL">
+                      <article id="api-Data-saveSharingSQL-0" data-group="User" data-name="saveSharingSQL" data-version="0">
+                        <div class="pull-left">
+                          <h1>saveSharingSQL</h1>
+                          <p>Save Sharing SQL</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Save or update sharing settings for a SQL query.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/analytics/sql/sharing</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Data-saveSharingSQL-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Data-saveSharingSQL-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Data-saveSharingSQL-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Data-saveSharingSQL-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Data-saveSharingSQL-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/analytics/sql/sharing" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Data-saveSharingSQL-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DataApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DataApi apiInstance = new DataApi();
+        AnalyticServiceSaveSharingSQLRequest body = ; // AnalyticServiceSaveSharingSQLRequest | 
+
+        try {
+            analytic_service.SaveSharingSQLResponse result = apiInstance.saveSharingSQL(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#saveSharingSQL");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-saveSharingSQL-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final AnalyticServiceSaveSharingSQLRequest body = new AnalyticServiceSaveSharingSQLRequest(); // AnalyticServiceSaveSharingSQLRequest | 
+
+try {
+    final result = await api_instance.saveSharingSQL(body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->saveSharingSQL: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Data-saveSharingSQL-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DataApi;
+
+public class DataApiExample {
+    public static void main(String[] args) {
+        DataApi apiInstance = new DataApi();
+        AnalyticServiceSaveSharingSQLRequest body = ; // AnalyticServiceSaveSharingSQLRequest | 
+
+        try {
+            analytic_service.SaveSharingSQLResponse result = apiInstance.saveSharingSQL(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DataApi#saveSharingSQL");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Data-saveSharingSQL-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Data-saveSharingSQL-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DataApi *apiInstance = [[DataApi alloc] init];
+AnalyticServiceSaveSharingSQLRequest *body = ; // 
+
+// Save Sharing SQL
+[apiInstance saveSharingSQLWith:body
+              completionHandler: ^(analytic_service.SaveSharingSQLResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-saveSharingSQL-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DataApi()
+var body = ; // {AnalyticServiceSaveSharingSQLRequest} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.saveSharingSQL(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Data-saveSharingSQL-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Data-saveSharingSQL-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class saveSharingSQLExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DataApi();
+            var body = new AnalyticServiceSaveSharingSQLRequest(); // AnalyticServiceSaveSharingSQLRequest | 
+
+            try {
+                // Save Sharing SQL
+                analytic_service.SaveSharingSQLResponse result = apiInstance.saveSharingSQL(body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DataApi.saveSharingSQL: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-saveSharingSQL-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DataApi();
+$body = ; // AnalyticServiceSaveSharingSQLRequest | 
+
+try {
+    $result = $api_instance->saveSharingSQL($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DataApi->saveSharingSQL: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-saveSharingSQL-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DataApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DataApi->new();
+my $body = WWW::OPenAPIClient::Object::AnalyticServiceSaveSharingSQLRequest->new(); # AnalyticServiceSaveSharingSQLRequest | 
+
+eval {
+    my $result = $api_instance->saveSharingSQL(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DataApi->saveSharingSQL: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-saveSharingSQL-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DataApi()
+body =  # AnalyticServiceSaveSharingSQLRequest | 
+
+try:
+    # Save Sharing SQL
+    api_response = api_instance.save_sharing_sql(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DataApi->saveSharingSQL: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Data-saveSharingSQL-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DataApi;
+
+pub fn main() {
+    let body = ; // AnalyticServiceSaveSharingSQLRequest
+
+    let mut context = DataApi::Context::default();
+    let result = client.saveSharingSQL(body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/analytic_service.SaveSharingSQLRequest"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_saveSharingSQL_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_saveSharingSQL_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Data-saveSharingSQL-title-200"></h3>
+                            <p id="examples-Data-saveSharingSQL-description-200" class="marked"></p>
+                            <script>
+                              var responseData200_description = `A successful response.`;
+                              var responseData200_description_break = responseData200_description.indexOf('\n');
+                              if (responseData200_description_break == -1) {
+                                $("#examples-Data-saveSharingSQL-title-200").text("Status: 200 - " + responseData200_description);
+                              } else {
+                                $("#examples-Data-saveSharingSQL-title-200").text("Status: 200 - " + responseData200_description.substring(0, responseData200_description_break));
+                                $("#examples-Data-saveSharingSQL-description-200").html(responseData200_description.substring(responseData200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Data-saveSharingSQL-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Data-saveSharingSQL-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Data-saveSharingSQL-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Data-saveSharingSQL-200-schema">
+                                <div id="responses-Data-saveSharingSQL-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/analytic_service.SaveSharingSQLResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Data-saveSharingSQL-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Data-saveSharingSQL-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Data-saveSharingSQL-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

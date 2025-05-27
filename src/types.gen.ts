@@ -405,6 +405,15 @@ export namespace analytic_service {
         computeStats?: common.ComputeStats;
         exception?: string;
     };
+    export type GetSharingSqlResponse = {
+        query?: GetSharingSqlResponseQuery;
+        project?: common.Project;
+    };
+    export type GetSharingSqlResponseQuery = {
+        sqlQuery?: SqlQuery;
+        createdAt?: string;
+        updatedAt?: string;
+    };
     export type ListRefreshableMaterializedViewResponse = {
         total?: string;
         views?: Array<ListRefreshableMaterializedViewResponseRefreshableMaterializedView>;
@@ -464,6 +473,17 @@ export namespace analytic_service {
     export type SaveSqlResponse = {
         queryId?: string;
     };
+    export type SaveSharingSqlRequest = {
+        queryId?: string;
+        isPublic?: boolean;
+    };
+    export type SaveSharingSqlResponse = {
+        sharingId?: string;
+        queryId?: string;
+        isPublic?: boolean;
+        createdAt?: string;
+        updatedAt?: string;
+    };
     export type SearchServiceQueryLogBody = {
         projectId?: string;
         query?: string;
@@ -503,6 +523,34 @@ export namespace analytic_service {
         orderBy?: string;
     };
     export type ViewRefreshSettingsRefreshStrategy = 'EVERY' | 'AFTER';
+    export type SaveSharingSqlData = {
+        body: analytic_service.SaveSharingSqlRequest;
+        path?: never;
+        query?: never;
+        url: '/api/v1/analytics/sql/sharing';
+    };
+    export type SaveSharingSqlResponses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.SaveSharingSqlResponse;
+    };
+    export type SaveSharingSqlResponse2 = SaveSharingSqlResponses[keyof SaveSharingSqlResponses];
+    export type GetSharingSqlData = {
+        body?: never;
+        path: {
+            id: string;
+        };
+        query?: never;
+        url: '/api/v1/analytics/sql/sharing/{id}';
+    };
+    export type GetSharingSqlResponses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.GetSharingSqlResponse;
+    };
+    export type GetSharingSqlResponse2 = GetSharingSqlResponses[keyof GetSharingSqlResponses];
     export type CancelSqlQueryData = {
         body?: never;
         path: {
