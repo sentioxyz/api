@@ -3080,6 +3080,52 @@
       },
       "title": "ErrorContent represents error information"
     },
+    "ai_service.InsightQueryContent": {
+      "type": "object",
+      "properties": {
+        "explanation": {
+          "type": "string",
+          "title": "Explanation of what the query does and how it works"
+        },
+        "chartType": {
+          "$ref": "#/definitions/ai_service.ChartType",
+          "title": "Recommended visualization type for the query results"
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.Query"
+          },
+          "title": "List of queries to execute for generating insights"
+        },
+        "formulas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.Formula"
+          },
+          "title": "Mathematical formulas to apply to the query results"
+        },
+        "samplesLimit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Maximum number of data samples to return"
+        },
+        "timeRange": {
+          "$ref": "#/definitions/common.TimeRangeLite",
+          "title": "Time range filter for the query execution"
+        },
+        "result": {
+          "$ref": "#/definitions/common.Matrix",
+          "title": "Successful query result data"
+        },
+        "error": {
+          "type": "string",
+          "title": "Error from query execution"
+        }
+      }
+    },
     "ai_service.Message": {
       "type": "object",
       "properties": {
@@ -3217,6 +3263,10 @@
         "sql": {
           "$ref": "#/definitions/ai_service.SqlContent",
           "title": "SQL query and related information"
+        },
+        "insightQuery": {
+          "$ref": "#/definitions/ai_service.InsightQueryContent",
+          "title": "Insight query and related information"
         },
         "error": {
           "$ref": "#/definitions/ai_service.ErrorContent",

@@ -37,6 +37,16 @@ export namespace ai_service {
         code?: string;
         message?: string;
     };
+    export type InsightQueryContent = {
+        explanation?: string;
+        chartType?: ChartType;
+        queries?: Array<common.Query>;
+        formulas?: Array<common.Formula>;
+        samplesLimit?: number;
+        timeRange?: common.TimeRangeLite;
+        result?: common.Matrix;
+        error?: string;
+    };
     /**
      * Message represents a single message in an AI conversation with either text or structured content. Messages are generated as part of a 'run' (identified by run_id), and the is_final flag indicates when all messages for a run have been generated.
      */
@@ -74,6 +84,7 @@ export namespace ai_service {
     export type StructuredContent = {
         type?: StructuredContentContentType;
         sql?: SqlContent;
+        insightQuery?: InsightQueryContent;
         error?: ErrorContent;
     };
     export type StructuredContentContentType = 'CONTENT_TYPE_UNSPECIFIED' | 'CONTENT_TYPE_SQL' | 'CONTENT_TYPE_ERROR';

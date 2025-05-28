@@ -943,6 +943,47 @@ ul.nav-tabs {
     }
   }
 };
+    defs["ai_service.InsightQueryContent"] = {
+  "type" : "object",
+  "properties" : {
+    "explanation" : {
+      "title" : "Explanation of what the query does and how it works",
+      "type" : "string"
+    },
+    "chartType" : {
+      "$ref" : "#/components/schemas/ai_service.ChartType"
+    },
+    "queries" : {
+      "title" : "List of queries to execute for generating insights",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Query"
+      }
+    },
+    "formulas" : {
+      "title" : "Mathematical formulas to apply to the query results",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Formula"
+      }
+    },
+    "samplesLimit" : {
+      "title" : "Maximum number of data samples to return",
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "timeRange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "result" : {
+      "$ref" : "#/components/schemas/common.Matrix"
+    },
+    "error" : {
+      "title" : "Error from query execution",
+      "type" : "string"
+    }
+  }
+};
     defs["ai_service.Message"] = {
   "type" : "object",
   "properties" : {
@@ -1069,6 +1110,9 @@ ul.nav-tabs {
     },
     "sql" : {
       "$ref" : "#/components/schemas/ai_service.SqlContent"
+    },
+    "insightQuery" : {
+      "$ref" : "#/components/schemas/ai_service.InsightQueryContent"
     },
     "error" : {
       "$ref" : "#/components/schemas/ai_service.ErrorContent"
