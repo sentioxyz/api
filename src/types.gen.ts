@@ -28,7 +28,7 @@ export namespace ai_service {
         scenario?: ContextScenario;
         sqlConfig?: SqlConfig;
     };
-    export type ContextScenario = 'SCENARIO_UNSPECIFIED' | 'SCENARIO_SQL';
+    export type ContextScenario = 'SCENARIO_UNSPECIFIED' | 'SCENARIO_SQL' | 'SCENARIO_INSIGHT';
     export type CreateChatSessionResponse = {
         sessionId?: string;
         currentCursorPosition?: number;
@@ -46,6 +46,7 @@ export namespace ai_service {
         timeRange?: common.TimeRangeLite;
         result?: common.Matrix;
         error?: string;
+        title?: string;
     };
     /**
      * Message represents a single message in an AI conversation with either text or structured content. Messages are generated as part of a 'run' (identified by run_id), and the is_final flag indicates when all messages for a run have been generated.
@@ -87,7 +88,7 @@ export namespace ai_service {
         insightQuery?: InsightQueryContent;
         error?: ErrorContent;
     };
-    export type StructuredContentContentType = 'CONTENT_TYPE_UNSPECIFIED' | 'CONTENT_TYPE_SQL' | 'CONTENT_TYPE_ERROR';
+    export type StructuredContentContentType = 'CONTENT_TYPE_UNSPECIFIED' | 'CONTENT_TYPE_SQL' | 'CONTENT_TYPE_INSIGHT_QUERY' | 'CONTENT_TYPE_ERROR';
     export type CreateChatSessionData = {
         /**
          * ChatSession represents an interactive conversation session with the AI. Messages in the session are ordered and accessed via cursor positions.

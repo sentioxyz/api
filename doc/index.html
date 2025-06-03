@@ -912,7 +912,7 @@ ul.nav-tabs {
     defs["ai_service.Context.Scenario"] = {
   "type" : "string",
   "default" : "SCENARIO_UNSPECIFIED",
-  "enum" : [ "SCENARIO_UNSPECIFIED", "SCENARIO_SQL" ]
+  "enum" : [ "SCENARIO_UNSPECIFIED", "SCENARIO_SQL", "SCENARIO_INSIGHT" ]
 };
     defs["ai_service.CreateChatSessionResponse"] = {
   "title" : "CreateChatSessionResponse contains the newly created session information",
@@ -980,6 +980,10 @@ ul.nav-tabs {
     },
     "error" : {
       "title" : "Error from query execution",
+      "type" : "string"
+    },
+    "title" : {
+      "title" : "Title for the query result visualization",
       "type" : "string"
     }
   }
@@ -1122,7 +1126,7 @@ ul.nav-tabs {
     defs["ai_service.StructuredContent.ContentType"] = {
   "type" : "string",
   "default" : "CONTENT_TYPE_UNSPECIFIED",
-  "enum" : [ "CONTENT_TYPE_UNSPECIFIED", "CONTENT_TYPE_SQL", "CONTENT_TYPE_ERROR" ]
+  "enum" : [ "CONTENT_TYPE_UNSPECIFIED", "CONTENT_TYPE_SQL", "CONTENT_TYPE_INSIGHT_QUERY", "CONTENT_TYPE_ERROR" ]
 };
     defs["alert_service.Alert"] = {
   "type" : "object",

@@ -3047,7 +3047,8 @@
       "type": "string",
       "enum": [
         "SCENARIO_UNSPECIFIED",
-        "SCENARIO_SQL"
+        "SCENARIO_SQL",
+        "SCENARIO_INSIGHT"
       ],
       "default": "SCENARIO_UNSPECIFIED"
     },
@@ -3123,6 +3124,10 @@
         "error": {
           "type": "string",
           "title": "Error from query execution"
+        },
+        "title": {
+          "type": "string",
+          "title": "Title for the query result visualization"
         }
       }
     },
@@ -3280,6 +3285,7 @@
       "enum": [
         "CONTENT_TYPE_UNSPECIFIED",
         "CONTENT_TYPE_SQL",
+        "CONTENT_TYPE_INSIGHT_QUERY",
         "CONTENT_TYPE_ERROR"
       ],
       "default": "CONTENT_TYPE_UNSPECIFIED"
