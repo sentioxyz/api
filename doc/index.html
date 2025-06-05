@@ -906,6 +906,9 @@ ul.nav-tabs {
     },
     "sqlConfig" : {
       "$ref" : "#/components/schemas/ai_service.SqlConfig"
+    },
+    "insightConfig" : {
+      "$ref" : "#/components/schemas/ai_service.InsightConfig"
     }
   }
 };
@@ -940,6 +943,16 @@ ul.nav-tabs {
     "message" : {
       "title" : "Human-readable error message",
       "type" : "string"
+    }
+  }
+};
+    defs["ai_service.InsightConfig"] = {
+  "title" : "InsightConfig contains configuration specific to Insight scenarios",
+  "type" : "object",
+  "properties" : {
+    "executeQuery" : {
+      "title" : "Whether to automatically execute generated Insight queries",
+      "type" : "boolean"
     }
   }
 };

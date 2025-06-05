@@ -3039,6 +3039,10 @@
         "sqlConfig": {
           "$ref": "#/definitions/ai_service.SqlConfig",
           "title": "SQL-specific configuration options"
+        },
+        "insightConfig": {
+          "$ref": "#/definitions/ai_service.InsightConfig",
+          "title": "Insight-specific configuration options"
         }
       },
       "title": "Context provides environment information for a chat session"
@@ -3080,6 +3084,16 @@
         }
       },
       "title": "ErrorContent represents error information"
+    },
+    "ai_service.InsightConfig": {
+      "type": "object",
+      "properties": {
+        "executeQuery": {
+          "type": "boolean",
+          "title": "Whether to automatically execute generated Insight queries"
+        }
+      },
+      "title": "InsightConfig contains configuration specific to Insight scenarios"
     },
     "ai_service.InsightQueryContent": {
       "type": "object",

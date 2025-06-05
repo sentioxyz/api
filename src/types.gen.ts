@@ -27,6 +27,7 @@ export namespace ai_service {
         version?: number;
         scenario?: ContextScenario;
         sqlConfig?: SqlConfig;
+        insightConfig?: InsightConfig;
     };
     export type ContextScenario = 'SCENARIO_UNSPECIFIED' | 'SCENARIO_SQL' | 'SCENARIO_INSIGHT';
     export type CreateChatSessionResponse = {
@@ -36,6 +37,9 @@ export namespace ai_service {
     export type ErrorContent = {
         code?: string;
         message?: string;
+    };
+    export type InsightConfig = {
+        executeQuery?: boolean;
     };
     export type InsightQueryContent = {
         explanation?: string;
