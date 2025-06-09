@@ -4,6 +4,9 @@ export namespace ai_service {
     export type AiServicePostSessionMessageBody = {
         message?: Message;
     };
+    export type AutoConfig = {
+        executeQuery?: boolean;
+    };
     /**
      * - CHART_TYPE_UNSPECIFIED: Default unspecified type
      * - CHART_TYPE_TABLE: Tabular data visualization
@@ -28,8 +31,9 @@ export namespace ai_service {
         scenario?: ContextScenario;
         sqlConfig?: SqlConfig;
         insightConfig?: InsightConfig;
+        autoConfig?: AutoConfig;
     };
-    export type ContextScenario = 'SCENARIO_UNSPECIFIED' | 'SCENARIO_SQL' | 'SCENARIO_INSIGHT';
+    export type ContextScenario = 'SCENARIO_UNSPECIFIED' | 'SCENARIO_SQL' | 'SCENARIO_INSIGHT' | 'SCENARIO_AUTO';
     export type CreateChatSessionResponse = {
         sessionId?: string;
         currentCursorPosition?: number;

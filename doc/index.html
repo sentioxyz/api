@@ -853,6 +853,16 @@ ul.nav-tabs {
     }
   }
 };
+    defs["ai_service.AutoConfig"] = {
+  "title" : "AutoConfig contains configuration specific to Auto scenarios",
+  "type" : "object",
+  "properties" : {
+    "executeQuery" : {
+      "title" : "Whether to automatically execute generated queries (SQL or Insight)",
+      "type" : "boolean"
+    }
+  }
+};
     defs["ai_service.ChartType"] = {
   "title" : "ChartType defines the supported visualization types",
   "type" : "string",
@@ -909,13 +919,16 @@ ul.nav-tabs {
     },
     "insightConfig" : {
       "$ref" : "#/components/schemas/ai_service.InsightConfig"
+    },
+    "autoConfig" : {
+      "$ref" : "#/components/schemas/ai_service.AutoConfig"
     }
   }
 };
     defs["ai_service.Context.Scenario"] = {
   "type" : "string",
   "default" : "SCENARIO_UNSPECIFIED",
-  "enum" : [ "SCENARIO_UNSPECIFIED", "SCENARIO_SQL", "SCENARIO_INSIGHT" ]
+  "enum" : [ "SCENARIO_UNSPECIFIED", "SCENARIO_SQL", "SCENARIO_INSIGHT", "SCENARIO_AUTO" ]
 };
     defs["ai_service.CreateChatSessionResponse"] = {
   "title" : "CreateChatSessionResponse contains the newly created session information",

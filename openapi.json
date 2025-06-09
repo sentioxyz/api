@@ -2977,6 +2977,16 @@
       },
       "title": "PostSessionMessageRequest adds a message to an existing session"
     },
+    "ai_service.AutoConfig": {
+      "type": "object",
+      "properties": {
+        "executeQuery": {
+          "type": "boolean",
+          "title": "Whether to automatically execute generated queries (SQL or Insight)"
+        }
+      },
+      "title": "AutoConfig contains configuration specific to Auto scenarios"
+    },
     "ai_service.ChartType": {
       "type": "string",
       "enum": [
@@ -3043,6 +3053,10 @@
         "insightConfig": {
           "$ref": "#/definitions/ai_service.InsightConfig",
           "title": "Insight-specific configuration options"
+        },
+        "autoConfig": {
+          "$ref": "#/definitions/ai_service.AutoConfig",
+          "title": "Auto-specific configuration options"
         }
       },
       "title": "Context provides environment information for a chat session"
@@ -3052,7 +3066,8 @@
       "enum": [
         "SCENARIO_UNSPECIFIED",
         "SCENARIO_SQL",
-        "SCENARIO_INSIGHT"
+        "SCENARIO_INSIGHT",
+        "SCENARIO_AUTO"
       ],
       "default": "SCENARIO_UNSPECIFIED"
     },
