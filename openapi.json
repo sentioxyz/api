@@ -3146,17 +3146,34 @@
           "$ref": "#/definitions/common.TimeRangeLite",
           "title": "Time range filter for the query execution"
         },
-        "result": {
-          "$ref": "#/definitions/common.Matrix",
-          "title": "Successful query result data"
-        },
-        "error": {
-          "type": "string",
-          "title": "Error from query execution"
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ai_service.InsightQueryResult"
+          },
+          "title": "List of query results"
         },
         "title": {
           "type": "string",
           "title": "Title for the query result visualization"
+        }
+      }
+    },
+    "ai_service.InsightQueryResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "matrix": {
+          "$ref": "#/definitions/common.Matrix"
+        },
+        "error": {
+          "type": "string"
         }
       }
     },

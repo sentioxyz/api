@@ -1001,15 +1001,32 @@ ul.nav-tabs {
     "timeRange" : {
       "$ref" : "#/components/schemas/common.TimeRangeLite"
     },
-    "result" : {
-      "$ref" : "#/components/schemas/common.Matrix"
-    },
-    "error" : {
-      "title" : "Error from query execution",
-      "type" : "string"
+    "results" : {
+      "title" : "List of query results",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/ai_service.InsightQueryResult"
+      }
     },
     "title" : {
       "title" : "Title for the query result visualization",
+      "type" : "string"
+    }
+  }
+};
+    defs["ai_service.InsightQueryResult"] = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "alias" : {
+      "type" : "string"
+    },
+    "matrix" : {
+      "$ref" : "#/components/schemas/common.Matrix"
+    },
+    "error" : {
       "type" : "string"
     }
   }

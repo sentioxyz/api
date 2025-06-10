@@ -52,9 +52,14 @@ export namespace ai_service {
         formulas?: Array<common.Formula>;
         samplesLimit?: number;
         timeRange?: common.TimeRangeLite;
-        result?: common.Matrix;
-        error?: string;
+        results?: Array<InsightQueryResult>;
         title?: string;
+    };
+    export type InsightQueryResult = {
+        id?: string;
+        alias?: string;
+        matrix?: common.Matrix;
+        error?: string;
     };
     /**
      * Message represents a single message in an AI conversation with either text or structured content. Messages are generated as part of a 'run' (identified by run_id), and the is_final flag indicates when all messages for a run have been generated.
