@@ -9001,6 +9001,9 @@
         },
         "currencySymbol": {
           "type": "string"
+        },
+        "tooltipTotal": {
+          "type": "boolean"
         }
       }
     },

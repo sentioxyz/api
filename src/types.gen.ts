@@ -3010,6 +3010,7 @@ export namespace web_service {
         maxFractionDigits?: number;
         precision?: number;
         currencySymbol?: string;
+        tooltipTotal?: boolean;
     };
     export type ChartConfigValueConfigStyle = 'Standard' | 'Compact' | 'Scientific' | 'Percent' | 'Currency' | 'None';
     export type ChartConfigValueFormatter = 'NumberFormatter' | 'DateFormatter' | 'StringFormatter';
