@@ -2931,6 +2931,7 @@ export namespace web_service {
     export type ChartConfigDirection = 'HORIZONTAL' | 'VERTICAL';
     export type ChartConfigLabelConfig = {
         columns?: Array<ChartConfigLabelConfigColumn>;
+        alias?: string;
     };
     export type ChartConfigLabelConfigColumn = {
         name?: string;

@@ -8747,6 +8747,9 @@
             "type": "object",
             "$ref": "#/definitions/web_service.ChartConfig.LabelConfigColumn"
           }
+        },
+        "alias": {
+          "type": "string"
         }
       }
     },
