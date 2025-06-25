@@ -9144,6 +9144,18 @@
         },
         "projectSlug": {
           "type": "string"
+        },
+        "createPanels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "editPanels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },

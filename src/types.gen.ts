@@ -3053,6 +3053,8 @@ export namespace web_service {
         url?: string;
         projectOwner?: string;
         projectSlug?: string;
+        createPanels?: Array<string>;
+        editPanels?: Array<string>;
     };
     export type DashboardDashboardVisibility = 'INTERNAL' | 'PRIVATE' | 'PUBLIC';
     export type DashboardExtra = {
