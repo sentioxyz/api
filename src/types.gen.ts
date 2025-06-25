@@ -3156,6 +3156,8 @@ export namespace web_service {
         name?: string;
         dashboardId?: string;
         chart?: Chart;
+        creator?: common.UserInfo;
+        updater?: common.UserInfo;
     };
     export type ListDashboardsData = {
         body?: never;

@@ -9461,6 +9461,12 @@
         },
         "chart": {
           "$ref": "#/definitions/web_service.Chart"
+        },
+        "creator": {
+          "$ref": "#/definitions/common.UserInfo"
+        },
+        "updater": {
+          "$ref": "#/definitions/common.UserInfo"
         }
       }
     }
