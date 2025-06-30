@@ -261,6 +261,28 @@ export class DataService {
     }
     
     /**
+     * Query Tables
+     * Query tables in a project. use flag to control which type of tables to include.
+     */
+    public static queryTables2<ThrowOnError extends boolean = false>(options?: Options<analytic_service.QueryTables2Data, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<analytic_service.QueryTables2Response, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/analytics/sql/tables',
+            ...options
+        });
+    }
+    
+    /**
      * Cancel SQL Query
      * Cancel a SQL query by execution_id.
      */
@@ -523,6 +545,28 @@ export class DataService {
                 'Content-Type': 'application/json',
                 ...options?.headers
             }
+        });
+    }
+    
+    /**
+     * Query Tables
+     * Query tables in a project. use flag to control which type of tables to include.
+     */
+    public static queryTables<ThrowOnError extends boolean = false>(options: Options<analytic_service.QueryTablesData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<analytic_service.QueryTablesResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/analytics/{owner}/{slug}/sql/tables',
+            ...options
         });
     }
     

@@ -319,6 +319,75 @@
         ]
       }
     },
+    "/api/v1/analytics/sql/tables": {
+      "get": {
+        "summary": "Query Tables",
+        "description": "Query tables in a project. use flag to control which type of tables to include.",
+        "operationId": "QueryTables2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QueryTablesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "includeChains",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeViews",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeExternals",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeDash",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
     "/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}": {
       "put": {
         "summary": "Cancel SQL Query",
@@ -824,6 +893,75 @@
             "schema": {
               "$ref": "#/definitions/analytic_service.AnalyticService.SaveSQLBody"
             }
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/api/v1/analytics/{owner}/{slug}/sql/tables": {
+      "get": {
+        "summary": "Query Tables",
+        "description": "Query tables in a project. use flag to control which type of tables to include.",
+        "operationId": "QueryTables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QueryTablesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "includeChains",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeViews",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeExternals",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "includeDash",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -4127,6 +4265,20 @@
         }
       }
     },
+    "analytic_service.QueryTablesResponse": {
+      "type": "object",
+      "properties": {
+        "tables": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/analytic_service.Table"
+          }
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
+        }
+      }
+    },
     "analytic_service.SQLQuery": {
       "type": "object",
       "properties": {
@@ -4343,6 +4495,78 @@
           "$ref": "#/definitions/common.ComputeStats"
         }
       }
+    },
+    "analytic_service.Table": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "columns": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/analytic_service.Table.Column"
+          }
+        },
+        "tableType": {
+          "$ref": "#/definitions/analytic_service.Table.TableType"
+        }
+      }
+    },
+    "analytic_service.Table.Column": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "columnType": {
+          "$ref": "#/definitions/analytic_service.Table.Column.ColumnType"
+        },
+        "clickhouseDataType": {
+          "type": "string"
+        },
+        "isBuiltin": {
+          "type": "boolean"
+        }
+      }
+    },
+    "analytic_service.Table.Column.ColumnType": {
+      "type": "string",
+      "enum": [
+        "STRING",
+        "NUMBER",
+        "BOOLEAN",
+        "LIST",
+        "TIME",
+        "JSON",
+        "TOKEN"
+      ],
+      "default": "STRING"
+    },
+    "analytic_service.Table.TableType": {
+      "type": "string",
+      "enum": [
+        "RESERVED",
+        "EVENT",
+        "METRICS",
+        "SUBGRAPH",
+        "MATERIALIZED_VIEW",
+        "IMPORTED_EVENT",
+        "SYSTEM",
+        "ENTITY",
+        "IMPORTED_ENTITY",
+        "IMPORTED_SUBGRAPH",
+        "USER_REFRESHABLE_VIEW",
+        "DASH_COMMUNITY_EVENT",
+        "DASH_COMMUNITY_SUBGRAPH",
+        "DASH_COMMUNITY_ENTITY",
+        "DASH_CURATED_EVENT",
+        "DASH_CURATED_SUBGRAPH",
+        "DASH_CURATED_ENTITY",
+        "DASH_COMMUNITY_MATERIALIZED_VIEW",
+        "DASH_CURATED_MATERIALIZED_VIEW"
+      ],
+      "default": "RESERVED"
     },
     "analytic_service.ViewRefreshSettings": {
       "type": "object",

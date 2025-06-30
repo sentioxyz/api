@@ -478,6 +478,12 @@ export namespace analytic_service {
         computeStats?: common.ComputeStats;
         color?: string;
     };
+    export type QueryTablesResponse = {
+        tables?: {
+            [key: string]: Table;
+        };
+        computeStats?: common.ComputeStats;
+    };
     export type SqlQuery = {
         sql?: string;
         size?: number;
@@ -540,6 +546,21 @@ export namespace analytic_service {
         error?: string;
         computeStats?: common.ComputeStats;
     };
+    export type Table = {
+        name?: string;
+        columns?: {
+            [key: string]: TableColumn;
+        };
+        tableType?: TableTableType;
+    };
+    export type TableColumn = {
+        name?: string;
+        columnType?: TableColumnColumnType;
+        clickhouseDataType?: string;
+        isBuiltin?: boolean;
+    };
+    export type TableColumnColumnType = 'STRING' | 'NUMBER' | 'BOOLEAN' | 'LIST' | 'TIME' | 'JSON' | 'TOKEN';
+    export type TableTableType = 'RESERVED' | 'EVENT' | 'METRICS' | 'SUBGRAPH' | 'MATERIALIZED_VIEW' | 'IMPORTED_EVENT' | 'SYSTEM' | 'ENTITY' | 'IMPORTED_ENTITY' | 'IMPORTED_SUBGRAPH' | 'USER_REFRESHABLE_VIEW' | 'DASH_COMMUNITY_EVENT' | 'DASH_COMMUNITY_SUBGRAPH' | 'DASH_COMMUNITY_ENTITY' | 'DASH_CURATED_EVENT' | 'DASH_CURATED_SUBGRAPH' | 'DASH_CURATED_ENTITY' | 'DASH_COMMUNITY_MATERIALIZED_VIEW' | 'DASH_CURATED_MATERIALIZED_VIEW';
     export type ViewRefreshSettings = {
         refreshInterval?: string;
         strategy?: ViewRefreshSettingsRefreshStrategy;
@@ -576,6 +597,28 @@ export namespace analytic_service {
         200: analytic_service.GetSharingSqlResponse;
     };
     export type GetSharingSqlResponse2 = GetSharingSqlResponses[keyof GetSharingSqlResponses];
+    export type QueryTables2Data = {
+        body?: never;
+        path?: never;
+        query?: {
+            projectOwner?: string;
+            projectSlug?: string;
+            projectId?: string;
+            version?: number;
+            includeChains?: boolean;
+            includeViews?: boolean;
+            includeExternals?: boolean;
+            includeDash?: boolean;
+        };
+        url: '/api/v1/analytics/sql/tables';
+    };
+    export type QueryTables2Responses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.QueryTablesResponse;
+    };
+    export type QueryTables2Response = QueryTables2Responses[keyof QueryTables2Responses];
     export type CancelSqlQueryData = {
         body?: never;
         path: {
@@ -869,6 +912,29 @@ export namespace analytic_service {
         200: analytic_service.SaveSqlResponse;
     };
     export type SaveSql2Response = SaveSql2Responses[keyof SaveSql2Responses];
+    export type QueryTablesData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+        };
+        query?: {
+            projectId?: string;
+            version?: number;
+            includeChains?: boolean;
+            includeViews?: boolean;
+            includeExternals?: boolean;
+            includeDash?: boolean;
+        };
+        url: '/api/v1/analytics/{owner}/{slug}/sql/tables';
+    };
+    export type QueryTablesResponses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.QueryTablesResponse;
+    };
+    export type QueryTablesResponse2 = QueryTablesResponses[keyof QueryTablesResponses];
     export type QueryLogData = {
         body: analytic_service.SearchServiceQueryLogBody;
         path: {
