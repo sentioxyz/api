@@ -9124,6 +9124,9 @@
         "default": {
           "type": "boolean"
         },
+        "isPinned": {
+          "type": "boolean"
+        },
         "visibility": {
           "$ref": "#/definitions/web_service.Dashboard.DashboardVisibility"
         },

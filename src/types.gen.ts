@@ -3047,6 +3047,7 @@ export namespace web_service {
         extra?: DashboardExtra;
         sharing?: DashboardSharing;
         default?: boolean;
+        isPinned?: boolean;
         visibility?: DashboardDashboardVisibility;
         ownerId?: string;
         tags?: Array<string>;
