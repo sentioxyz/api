@@ -1803,6 +1803,37 @@
         ]
       }
     },
+    "/api/v1/processors/{owner}/{slug}/source_files": {
+      "get": {
+        "summary": "Get the source files of a processor",
+        "operationId": "GetProcessorSourceFiles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProcessorSourceFilesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Processor"
+        ]
+      }
+    },
     "/api/v1/processors/{owner}/{slug}/status": {
       "get": {
         "summary": "Get processor status",
@@ -1840,30 +1871,6 @@
               "ALL"
             ],
             "default": "ACTIVE"
-          }
-        ],
-        "tags": [
-          "Processor"
-        ]
-      }
-    },
-    "/api/v1/processors/{processorId}/source_files": {
-      "get": {
-        "operationId": "GetProcessorSourceFiles",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/processor_service.GetProcessorSourceFilesResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "processorId",
-            "in": "path",
-            "required": true,
-            "type": "string"
           }
         ],
         "tags": [

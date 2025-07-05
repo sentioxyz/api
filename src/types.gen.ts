@@ -2342,6 +2342,22 @@ export namespace processor_service {
     export type UpdateChainProcessorStatusResponse = {
         [key: string]: unknown;
     };
+    export type GetProcessorSourceFilesData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+        };
+        query?: never;
+        url: '/api/v1/processors/{owner}/{slug}/source_files';
+    };
+    export type GetProcessorSourceFilesResponses = {
+        /**
+         * A successful response.
+         */
+        200: processor_service.GetProcessorSourceFilesResponse;
+    };
+    export type GetProcessorSourceFilesResponse2 = GetProcessorSourceFilesResponses[keyof GetProcessorSourceFilesResponses];
     export type GetProcessorStatusV2Data = {
         body?: never;
         path: {
@@ -2365,21 +2381,6 @@ export namespace processor_service {
         200: processor_service.GetProcessorStatusResponse;
     };
     export type GetProcessorStatusV2Response = GetProcessorStatusV2Responses[keyof GetProcessorStatusV2Responses];
-    export type GetProcessorSourceFilesData = {
-        body?: never;
-        path: {
-            processorId: string;
-        };
-        query?: never;
-        url: '/api/v1/processors/{processorId}/source_files';
-    };
-    export type GetProcessorSourceFilesResponses = {
-        /**
-         * A successful response.
-         */
-        200: processor_service.GetProcessorSourceFilesResponse;
-    };
-    export type GetProcessorSourceFilesResponse2 = GetProcessorSourceFilesResponses[keyof GetProcessorSourceFilesResponses];
 }
 
 export namespace solidity_service {

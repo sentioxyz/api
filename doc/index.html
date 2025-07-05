@@ -38841,7 +38841,7 @@ pub fn main() {
                       <article id="api-Processor-getProcessorSourceFiles-0" data-group="User" data-name="getProcessorSourceFiles" data-version="0">
                         <div class="pull-left">
                           <h1>getProcessorSourceFiles</h1>
-                          <p></p>
+                          <p>Get the source files of a processor</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -38849,7 +38849,7 @@ pub fn main() {
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/processors/{processorId}/source_files</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/processors/{owner}/{slug}/source_files</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -38875,7 +38875,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/processors/{processorId}/source_files"
+ "https://app.sentio.xyz/api/v1/processors/{owner}/{slug}/source_files"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Processor-getProcessorSourceFiles-0-java">
@@ -38905,10 +38905,11 @@ public class ProcessorApiExample {
 
         // Create an instance of the API class
         ProcessorApi apiInstance = new ProcessorApi();
-        String processorId = processorId_example; // String | 
+        String owner = owner_example; // String | 
+        String slug = slug_example; // String | 
 
         try {
-            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(processorId);
+            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProcessorApi#getProcessorSourceFiles");
@@ -38924,10 +38925,11 @@ public class ProcessorApiExample {
 
 final api_instance = DefaultApi();
 
-final String processorId = new String(); // String | 
+final String owner = new String(); // String | 
+final String slug = new String(); // String | 
 
 try {
-    final result = await api_instance.getProcessorSourceFiles(processorId);
+    final result = await api_instance.getProcessorSourceFiles(owner, slug);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getProcessorSourceFiles: $e\n');
@@ -38942,10 +38944,11 @@ try {
 public class ProcessorApiExample {
     public static void main(String[] args) {
         ProcessorApi apiInstance = new ProcessorApi();
-        String processorId = processorId_example; // String | 
+        String owner = owner_example; // String | 
+        String slug = slug_example; // String | 
 
         try {
-            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(processorId);
+            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProcessorApi#getProcessorSourceFiles");
@@ -38974,9 +38977,12 @@ public class ProcessorApiExample {
 
 // Create an instance of the API class
 ProcessorApi *apiInstance = [[ProcessorApi alloc] init];
-String *processorId = processorId_example; //  (default to null)
+String *owner = owner_example; //  (default to null)
+String *slug = slug_example; //  (default to null)
 
-[apiInstance getProcessorSourceFilesWith:processorId
+// Get the source files of a processor
+[apiInstance getProcessorSourceFilesWith:owner
+    slug:slug
               completionHandler: ^(processor_service.GetProcessorSourceFilesResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -39006,7 +39012,8 @@ ApiKeyQueryAuth.apiKey = "YOUR API KEY";
 
 // Create an instance of the API class
 var api = new SentioApi.ProcessorApi()
-var processorId = processorId_example; // {String} 
+var owner = owner_example; // {String} 
+var slug = slug_example; // {String} 
 
 var callback = function(error, data, response) {
   if (error) {
@@ -39015,7 +39022,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getProcessorSourceFiles(processorId, callback);
+api.getProcessorSourceFiles(owner, slug, callback);
 </code></pre>
                             </div>
 
@@ -39046,10 +39053,12 @@ namespace Example
 
             // Create an instance of the API class
             var apiInstance = new ProcessorApi();
-            var processorId = processorId_example;  // String |  (default to null)
+            var owner = owner_example;  // String |  (default to null)
+            var slug = slug_example;  // String |  (default to null)
 
             try {
-                processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(processorId);
+                // Get the source files of a processor
+                processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling ProcessorApi.getProcessorSourceFiles: " + e.Message );
@@ -39076,10 +39085,11 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key
 
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\ProcessorApi();
-$processorId = processorId_example; // String | 
+$owner = owner_example; // String | 
+$slug = slug_example; // String | 
 
 try {
-    $result = $api_instance->getProcessorSourceFiles($processorId);
+    $result = $api_instance->getProcessorSourceFiles($owner, $slug);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ProcessorApi->getProcessorSourceFiles: ', $e->getMessage(), PHP_EOL;
@@ -39104,10 +39114,11 @@ $WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
 
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::ProcessorApi->new();
-my $processorId = processorId_example; # String | 
+my $owner = owner_example; # String | 
+my $slug = slug_example; # String | 
 
 eval {
-    my $result = $api_instance->getProcessorSourceFiles(processorId => $processorId);
+    my $result = $api_instance->getProcessorSourceFiles(owner => $owner, slug => $slug);
     print Dumper($result);
 };
 if ($@) {
@@ -39134,10 +39145,12 @@ openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
 
 # Create an instance of the API class
 api_instance = openapi_client.ProcessorApi()
-processorId = processorId_example # String |  (default to null)
+owner = owner_example # String |  (default to null)
+slug = slug_example # String |  (default to null)
 
 try:
-    api_response = api_instance.get_processor_source_files(processorId)
+    # Get the source files of a processor
+    api_response = api_instance.get_processor_source_files(owner, slug)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ProcessorApi->getProcessorSourceFiles: %s\n" % e)</code></pre>
@@ -39147,10 +39160,11 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate ProcessorApi;
 
 pub fn main() {
-    let processorId = processorId_example; // String
+    let owner = owner_example; // String
+    let slug = slug_example; // String
 
     let mut context = ProcessorApi::Context::default();
-    let result = client.getProcessorSourceFiles(processorId, &context).wait();
+    let result = client.getProcessorSourceFiles(owner, slug, &context).wait();
 
     println!("{:?}", result);
 }
@@ -39171,11 +39185,31 @@ pub fn main() {
                                   <th width="150px">Name</th>
                                   <th>Description</th>
                                 </tr>
-                                  <tr><td style="width:150px;">processorId*</td>
+                                  <tr><td style="width:150px;">owner*</td>
 <td>
 
 
-    <div id="d2e199_getProcessorSourceFiles_processorId">
+    <div id="d2e199_getProcessorSourceFiles_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_getProcessorSourceFiles_slug">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
