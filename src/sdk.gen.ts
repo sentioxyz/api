@@ -1128,6 +1128,24 @@ export class ProcessorService {
         });
     }
     
+    public static getProcessorSourceFiles<ThrowOnError extends boolean = false>(options: Options<processor_service.GetProcessorSourceFilesData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<processor_service.GetProcessorSourceFilesResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/processors/{processorId}/source_files',
+            ...options
+        });
+    }
+    
 }
 
 export class DebugAndSimulationService {

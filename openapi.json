@@ -1847,6 +1847,30 @@
         ]
       }
     },
+    "/api/v1/processors/{processorId}/source_files": {
+      "get": {
+        "operationId": "GetProcessorSourceFiles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProcessorSourceFilesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "processorId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Processor"
+        ]
+      }
+    },
     "/api/v1/project/{owner}/{slug}": {
       "get": {
         "summary": "Get project details",
@@ -7398,6 +7422,19 @@
         }
       }
     },
+    "processor_service.GetProcessorSourceFilesResponse": {
+      "type": "object",
+      "properties": {
+        "sourceFiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.ProcessorSourceFile"
+          },
+          "title": "list of source files"
+        }
+      }
+    },
     "processor_service.GetProcessorStatusRequestV2.VersionSelector": {
       "type": "string",
       "enum": [
@@ -7657,6 +7694,19 @@
         }
       },
       "description": "This represents a processor which backend works on."
+    },
+    "processor_service.ProcessorSourceFile": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "title": "relative path of the source file"
+        },
+        "content": {
+          "type": "string",
+          "title": "content of the source file"
+        }
+      }
     },
     "processor_service.ProcessorVersionState": {
       "type": "string",

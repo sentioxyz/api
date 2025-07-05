@@ -2238,6 +2238,9 @@ export namespace processor_service {
     export type GetProcessorResponse = {
         processor?: Processor;
     };
+    export type GetProcessorSourceFilesResponse = {
+        sourceFiles?: Array<ProcessorSourceFile>;
+    };
     export type GetProcessorStatusRequestV2VersionSelector = 'ACTIVE' | 'PENDING' | 'ALL';
     export type GetProcessorStatusResponse = {
         processors?: Array<GetProcessorStatusResponseProcessorEx>;
@@ -2331,6 +2334,10 @@ export namespace processor_service {
         pause?: boolean;
         entitySchemaVersion?: number;
     };
+    export type ProcessorSourceFile = {
+        path?: string;
+        content?: string;
+    };
     export type ProcessorVersionState = 'UNKNOWN' | 'PENDING' | 'ACTIVE' | 'OBSOLETE';
     export type UpdateChainProcessorStatusResponse = {
         [key: string]: unknown;
@@ -2358,6 +2365,21 @@ export namespace processor_service {
         200: processor_service.GetProcessorStatusResponse;
     };
     export type GetProcessorStatusV2Response = GetProcessorStatusV2Responses[keyof GetProcessorStatusV2Responses];
+    export type GetProcessorSourceFilesData = {
+        body?: never;
+        path: {
+            processorId: string;
+        };
+        query?: never;
+        url: '/api/v1/processors/{processorId}/source_files';
+    };
+    export type GetProcessorSourceFilesResponses = {
+        /**
+         * A successful response.
+         */
+        200: processor_service.GetProcessorSourceFilesResponse;
+    };
+    export type GetProcessorSourceFilesResponse2 = GetProcessorSourceFilesResponses[keyof GetProcessorSourceFilesResponses];
 }
 
 export namespace solidity_service {
