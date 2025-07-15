@@ -6112,7 +6112,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "type" : {
-      "$ref" : "#/components/schemas/web_service.Chart.ChartType"
+      "$ref" : "#/components/schemas/web_service.ChartType"
     },
     "queries" : {
       "type" : "array",
@@ -6164,11 +6164,6 @@ ul.nav-tabs {
     }
   }
 };
-    defs["web_service.Chart.ChartType"] = {
-  "type" : "string",
-  "default" : "LINE",
-  "enum" : [ "LINE", "AREA", "BAR", "BAR_GAUGE", "TABLE", "QUERY_VALUE", "PIE", "NOTE", "SCATTER" ]
-};
     defs["web_service.ChartConfig"] = {
   "type" : "object",
   "properties" : {
@@ -6210,6 +6205,9 @@ ul.nav-tabs {
     },
     "scatterConfig" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.ScatterConfig"
+    },
+    "seriesConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.SeriesConfig"
     }
   }
 };
@@ -6399,6 +6397,25 @@ ul.nav-tabs {
   "properties" : {
     "symbolSize" : {
       "type" : "string"
+    }
+  }
+};
+    defs["web_service.ChartConfig.SeriesConfig"] = {
+  "type" : "object",
+  "properties" : {
+    "series" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "$ref" : "#/components/schemas/web_service.ChartConfig.SeriesConfig.Series"
+      }
+    }
+  }
+};
+    defs["web_service.ChartConfig.SeriesConfig.Series"] = {
+  "type" : "object",
+  "properties" : {
+    "type" : {
+      "$ref" : "#/components/schemas/web_service.ChartType"
     }
   }
 };
@@ -6592,6 +6609,11 @@ ul.nav-tabs {
   "type" : "string",
   "default" : "METRICS",
   "enum" : [ "METRICS", "NOTES", "ANALYTICS", "INSIGHTS", "EVENTS", "RETENTION", "SQL" ]
+};
+    defs["web_service.ChartType"] = {
+  "type" : "string",
+  "default" : "LINE",
+  "enum" : [ "LINE", "AREA", "BAR", "BAR_GAUGE", "TABLE", "QUERY_VALUE", "PIE", "NOTE", "SCATTER" ]
 };
     defs["web_service.Dashboard"] = {
   "type" : "object",

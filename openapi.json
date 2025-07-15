@@ -8822,7 +8822,7 @@
       "type": "object",
       "properties": {
         "type": {
-          "$ref": "#/definitions/web_service.Chart.ChartType"
+          "$ref": "#/definitions/web_service.ChartType"
         },
         "queries": {
           "type": "array",
@@ -8877,21 +8877,6 @@
           "$ref": "#/definitions/analytic_service.ExecuteEngine"
         }
       }
-    },
-    "web_service.Chart.ChartType": {
-      "type": "string",
-      "enum": [
-        "LINE",
-        "AREA",
-        "BAR",
-        "BAR_GAUGE",
-        "TABLE",
-        "QUERY_VALUE",
-        "PIE",
-        "NOTE",
-        "SCATTER"
-      ],
-      "default": "LINE"
     },
     "web_service.Chart.DataSourceType": {
       "type": "string",
@@ -8948,6 +8933,9 @@
         },
         "scatterConfig": {
           "$ref": "#/definitions/web_service.ChartConfig.ScatterConfig"
+        },
+        "seriesConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.SeriesConfig"
         }
       }
     },
@@ -9162,6 +9150,25 @@
         }
       }
     },
+    "web_service.ChartConfig.SeriesConfig": {
+      "type": "object",
+      "properties": {
+        "series": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/web_service.ChartConfig.SeriesConfig.Series"
+          }
+        }
+      }
+    },
+    "web_service.ChartConfig.SeriesConfig.Series": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/web_service.ChartType"
+        }
+      }
+    },
     "web_service.ChartConfig.Sort": {
       "type": "object",
       "properties": {
@@ -9363,6 +9370,21 @@
           "type": "string"
         }
       }
+    },
+    "web_service.ChartType": {
+      "type": "string",
+      "enum": [
+        "LINE",
+        "AREA",
+        "BAR",
+        "BAR_GAUGE",
+        "TABLE",
+        "QUERY_VALUE",
+        "PIE",
+        "NOTE",
+        "SCATTER"
+      ],
+      "default": "LINE"
     },
     "web_service.Dashboard": {
       "type": "object",

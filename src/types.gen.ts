@@ -2969,7 +2969,7 @@ export namespace solidity_service {
 
 export namespace web_service {
     export type Chart = {
-        type?: ChartChartType;
+        type?: ChartType2;
         queries?: Array<common.Query>;
         formulas?: Array<common.Formula>;
         config?: ChartConfig;
@@ -2983,7 +2983,6 @@ export namespace web_service {
         sqlQueryId?: string;
         sqlExecuteEngine?: analytic_service.ExecuteEngine;
     };
-    export type ChartChartType = 'LINE' | 'AREA' | 'BAR' | 'BAR_GAUGE' | 'TABLE' | 'QUERY_VALUE' | 'PIE' | 'NOTE' | 'SCATTER';
     export type ChartDataSourceType = 'METRICS' | 'NOTES' | 'ANALYTICS' | 'INSIGHTS' | 'EVENTS' | 'RETENTION' | 'SQL';
     export type ChartConfig = {
         yAxis?: ChartConfigYAxisConfig;
@@ -2998,6 +2997,7 @@ export namespace web_service {
         xAxis?: ChartConfigXAxisConfig;
         labelConfig?: ChartConfigLabelConfig;
         scatterConfig?: ChartConfigScatterConfig;
+        seriesConfig?: ChartConfigSeriesConfig;
     };
     export type ChartConfigBarGaugeConfig = {
         direction?: ChartConfigDirection;
@@ -3061,6 +3061,14 @@ export namespace web_service {
     export type ChartConfigScatterConfig = {
         symbolSize?: string;
     };
+    export type ChartConfigSeriesConfig = {
+        series?: {
+            [key: string]: ChartConfigSeriesConfigSeries;
+        };
+    };
+    export type ChartConfigSeriesConfigSeries = {
+        type?: ChartType2;
+    };
     export type ChartConfigSort = {
         sortBy?: ChartConfigSortBy;
         orderDesc?: boolean;
@@ -3122,6 +3130,7 @@ export namespace web_service {
         column?: string;
         name?: string;
     };
+    export type ChartType2 = 'LINE' | 'AREA' | 'BAR' | 'BAR_GAUGE' | 'TABLE' | 'QUERY_VALUE' | 'PIE' | 'NOTE' | 'SCATTER';
     export type Dashboard = {
         id?: string;
         name?: string;
