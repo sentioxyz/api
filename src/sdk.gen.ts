@@ -1106,7 +1106,7 @@ export class PriceService {
     
 }
 
-export class DefaultService {
+export class ProcessorService {
     public static activatePendingVersion<ThrowOnError extends boolean = false>(options: Options<processor_service.ActivatePendingVersionData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).put<processor_service.ActivatePendingVersionResponse, unknown, ThrowOnError>({
             security: [
@@ -1125,9 +1125,6 @@ export class DefaultService {
         });
     }
     
-}
-
-export class ProcessorService {
     /**
      * Get the source files of a processor
      */
