@@ -4061,9 +4061,13 @@
         "LITE",
         "PRO",
         "MAX",
-        "ULTRA"
+        "ULTRA",
+        "SMALL",
+        "MEDIUM",
+        "LARGE"
       ],
-      "default": "DEFAULT"
+      "default": "DEFAULT",
+      "title": "- LITE: deprecated, will be removed in the future, use SMALL instead\n - PRO: deprecated, will be removed in the future, use MEDIUM instead\n - MAX: deprecated, will be removed in the future, use LARGE instead"
     },
     "analytic_service.ExecutionInfo": {
       "type": "object",

@@ -399,7 +399,7 @@ export namespace analytic_service {
         queueLength?: number;
         computeStats?: common.ComputeStats;
     };
-    export type ExecuteEngine = 'DEFAULT' | 'LITE' | 'PRO' | 'MAX' | 'ULTRA';
+    export type ExecuteEngine = 'DEFAULT' | 'LITE' | 'PRO' | 'MAX' | 'ULTRA' | 'SMALL' | 'MEDIUM' | 'LARGE';
     export type ExecutionInfo = {
         queryId?: string;
         executionId?: string;
