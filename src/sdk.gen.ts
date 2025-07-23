@@ -1106,6 +1106,27 @@ export class PriceService {
     
 }
 
+export class DefaultService {
+    public static activatePendingVersion<ThrowOnError extends boolean = false>(options: Options<processor_service.ActivatePendingVersionData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).put<processor_service.ActivatePendingVersionResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/processors/{owner}/{slug}/activate_pending',
+            ...options
+        });
+    }
+    
+}
+
 export class ProcessorService {
     /**
      * Get the source files of a processor

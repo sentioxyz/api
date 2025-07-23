@@ -2342,6 +2342,24 @@ export namespace processor_service {
     export type UpdateChainProcessorStatusResponse = {
         [key: string]: unknown;
     };
+    export type ActivatePendingVersionData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+        };
+        query?: never;
+        url: '/api/v1/processors/{owner}/{slug}/activate_pending';
+    };
+    export type ActivatePendingVersionResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type ActivatePendingVersionResponse = ActivatePendingVersionResponses[keyof ActivatePendingVersionResponses];
     export type GetProcessorSourceFilesData = {
         body?: never;
         path: {

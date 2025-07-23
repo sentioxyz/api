@@ -1803,6 +1803,34 @@
         ]
       }
     },
+    "/api/v1/processors/{owner}/{slug}/activate_pending": {
+      "put": {
+        "operationId": "ActivatePendingVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
     "/api/v1/processors/{owner}/{slug}/source_files": {
       "get": {
         "summary": "Get the source files of a processor",
