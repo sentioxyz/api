@@ -3019,6 +3019,7 @@ export namespace web_service {
         labelConfig?: ChartConfigLabelConfig;
         scatterConfig?: ChartConfigScatterConfig;
         seriesConfig?: ChartConfigSeriesConfig;
+        dataConfig?: ChartConfigDataConfig;
     };
     export type ChartConfigBarGaugeConfig = {
         direction?: ChartConfigDirection;
@@ -3037,6 +3038,9 @@ export namespace web_service {
     };
     export type ChartConfigCompareTime = {
         ago?: common.Duration;
+    };
+    export type ChartConfigDataConfig = {
+        seriesLimit?: number;
     };
     export type ChartConfigDirection = 'HORIZONTAL' | 'VERTICAL';
     export type ChartConfigLabelConfig = {

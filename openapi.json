@@ -8977,6 +8977,9 @@
         },
         "seriesConfig": {
           "$ref": "#/definitions/web_service.ChartConfig.SeriesConfig"
+        },
+        "dataConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.DataConfig"
         }
       }
     },
@@ -9037,6 +9040,15 @@
       "properties": {
         "ago": {
           "$ref": "#/definitions/common.Duration"
+        }
+      }
+    },
+    "web_service.ChartConfig.DataConfig": {
+      "type": "object",
+      "properties": {
+        "seriesLimit": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

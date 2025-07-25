@@ -6215,6 +6215,9 @@ ul.nav-tabs {
     },
     "seriesConfig" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.SeriesConfig"
+    },
+    "dataConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.DataConfig"
     }
   }
 };
@@ -6267,6 +6270,15 @@ ul.nav-tabs {
   "properties" : {
     "ago" : {
       "$ref" : "#/components/schemas/common.Duration"
+    }
+  }
+};
+    defs["web_service.ChartConfig.DataConfig"] = {
+  "type" : "object",
+  "properties" : {
+    "seriesLimit" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
