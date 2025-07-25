@@ -1100,6 +1100,9 @@ export namespace common {
     export type CommunityProject = {
         dashAlias?: string;
         curated?: boolean;
+        chain?: {
+            [key: string]: StringList;
+        };
     };
     export type ComputeStats = {
         computedAt?: string;

@@ -5042,6 +5042,12 @@
         },
         "curated": {
           "type": "boolean"
+        },
+        "chain": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/common.StringList"
+          }
         }
       }
     },
