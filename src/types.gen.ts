@@ -1526,6 +1526,7 @@ export namespace common {
         username?: string;
         accountStatus?: UserAccountStatus;
         tier?: Tier;
+        isOrganization?: boolean;
     };
     export type UserAccountStatus = 'PENDING' | 'SET_USERNAME' | 'BANNED' | 'ACTIVE';
     /**

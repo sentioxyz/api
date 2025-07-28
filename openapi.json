@@ -6509,6 +6509,10 @@
         },
         "tier": {
           "$ref": "#/definitions/common.Tier"
+        },
+        "isOrganization": {
+          "type": "boolean",
+          "title": "true if the user is actually an organization account"
         }
       }
     },
