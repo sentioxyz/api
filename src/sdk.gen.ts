@@ -1107,6 +1107,9 @@ export class PriceService {
 }
 
 export class ProcessorService {
+    /**
+     * activate the pending version of a processor
+     */
     public static activatePendingVersion<ThrowOnError extends boolean = false>(options: Options<processor_service.ActivatePendingVersionData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).put<processor_service.ActivatePendingVersionResponse, unknown, ThrowOnError>({
             security: [

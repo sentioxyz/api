@@ -38889,7 +38889,7 @@ pub fn main() {
                       <article id="api-Processor-activatePendingVersion-0" data-group="User" data-name="activatePendingVersion" data-version="0">
                         <div class="pull-left">
                           <h1>activatePendingVersion</h1>
-                          <p></p>
+                          <p>activate the pending version of a processor</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -39028,6 +39028,7 @@ ProcessorApi *apiInstance = [[ProcessorApi alloc] init];
 String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
 
+// activate the pending version of a processor
 [apiInstance activatePendingVersionWith:owner
     slug:slug
               completionHandler: ^(Object output, NSError* error) {
@@ -39104,6 +39105,7 @@ namespace Example
             var slug = slug_example;  // String |  (default to null)
 
             try {
+                // activate the pending version of a processor
                 Object result = apiInstance.activatePendingVersion(owner, slug);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -39195,6 +39197,7 @@ owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
 
 try:
+    # activate the pending version of a processor
     api_response = api_instance.activate_pending_version(owner, slug)
     pprint(api_response)
 except ApiException as e:
