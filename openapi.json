@@ -4608,6 +4608,10 @@
         },
         "tableType": {
           "$ref": "#/definitions/analytic_service.Table.TableType"
+        },
+        "relatedProjectId": {
+          "type": "string",
+          "title": "only exists if table is external"
         }
       }
     },

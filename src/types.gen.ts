@@ -552,6 +552,7 @@ export namespace analytic_service {
             [key: string]: TableColumn;
         };
         tableType?: TableTableType;
+        relatedProjectId?: string;
     };
     export type TableColumn = {
         name?: string;
