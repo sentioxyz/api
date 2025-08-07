@@ -1106,6 +1106,27 @@ export class PriceService {
     
 }
 
+export class DefaultService {
+    public static getProjectChains<ThrowOnError extends boolean = false>(options?: Options<processor_service.GetProjectChainsData, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<processor_service.GetProjectChainsResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/processors/project_chains',
+            ...options
+        });
+    }
+    
+}
+
 export class ProcessorService {
     /**
      * activate the pending version of a processor

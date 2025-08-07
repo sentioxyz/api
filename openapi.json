@@ -1803,6 +1803,37 @@
         ]
       }
     },
+    "/api/v1/processors/project_chains": {
+      "get": {
+        "operationId": "GetProjectChains",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProjectChainsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectIdList",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "includePendingVersion",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ]
+      }
+    },
     "/api/v1/processors/{owner}/{slug}/activate_pending": {
       "put": {
         "summary": "activate the pending version of a processor",
@@ -7627,6 +7658,28 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/processor_service.Processor"
+          }
+        }
+      }
+    },
+    "processor_service.GetProjectChainsResponse": {
+      "type": "object",
+      "properties": {
+        "projectChains": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/processor_service.GetProjectChainsResponse.ChainList"
+          }
+        }
+      }
+    },
+    "processor_service.GetProjectChainsResponse.ChainList": {
+      "type": "object",
+      "properties": {
+        "chains": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
