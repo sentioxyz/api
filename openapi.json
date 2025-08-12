@@ -7801,6 +7801,9 @@
         "entitySchemaVersion": {
           "type": "integer",
           "format": "int32"
+        },
+        "isBinary": {
+          "type": "boolean"
         }
       },
       "description": "This represents a processor which backend works on."
