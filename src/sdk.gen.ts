@@ -211,6 +211,45 @@ export class AlertsService {
     
 }
 
+export class DefaultService {
+    public static getSqlQueueStatus<ThrowOnError extends boolean = false>(options?: Options<analytic_service.GetSqlQueueStatusData, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<analytic_service.GetSqlQueueStatusResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/analytics/sql/queue_status',
+            ...options
+        });
+    }
+    
+    public static getProjectChains<ThrowOnError extends boolean = false>(options?: Options<processor_service.GetProjectChainsData, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<processor_service.GetProjectChainsResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/processors/project_chains',
+            ...options
+        });
+    }
+    
+}
+
 export class DataService {
     /**
      * Save Sharing SQL
@@ -1100,27 +1139,6 @@ export class PriceService {
                 }
             ],
             url: '/api/v1/prices/coins',
-            ...options
-        });
-    }
-    
-}
-
-export class DefaultService {
-    public static getProjectChains<ThrowOnError extends boolean = false>(options?: Options<processor_service.GetProjectChainsData, ThrowOnError>) {
-        return (options?.client ?? _heyApiClient).get<processor_service.GetProjectChainsResponse2, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/api/v1/processors/project_chains',
             ...options
         });
     }

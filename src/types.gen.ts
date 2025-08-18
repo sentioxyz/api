@@ -497,6 +497,13 @@ export namespace analytic_service {
          */
         queryId?: string;
     };
+    export type SqlQueueStatus = {
+        queues?: Array<SqlQueueStatusQueue>;
+    };
+    export type SqlQueueStatusQueue = {
+        priority?: string;
+        length?: string;
+    };
     export type SaveRefreshableMaterializedViewResponse = {
         name?: string;
         isUpdated?: boolean;
@@ -570,6 +577,19 @@ export namespace analytic_service {
         orderBy?: string;
     };
     export type ViewRefreshSettingsRefreshStrategy = 'EVERY' | 'AFTER';
+    export type GetSqlQueueStatusData = {
+        body?: never;
+        path?: never;
+        query?: never;
+        url: '/api/v1/analytics/sql/queue_status';
+    };
+    export type GetSqlQueueStatusResponses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.SqlQueueStatus;
+    };
+    export type GetSqlQueueStatusResponse = GetSqlQueueStatusResponses[keyof GetSqlQueueStatusResponses];
     export type SaveSharingSqlData = {
         body: analytic_service.SaveSharingSqlRequest;
         path?: never;
