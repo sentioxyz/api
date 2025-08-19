@@ -3181,6 +3181,8 @@ export namespace web_service {
         precision?: number;
         currencySymbol?: string;
         tooltipTotal?: boolean;
+        prefix?: string;
+        suffix?: string;
     };
     export type ChartConfigValueConfigStyle = 'Standard' | 'Compact' | 'Scientific' | 'Percent' | 'Currency' | 'None';
     export type ChartConfigValueFormatter = 'NumberFormatter' | 'DateFormatter' | 'StringFormatter';
