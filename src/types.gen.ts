@@ -2079,6 +2079,7 @@ export namespace price_service {
     export type BatchGetPricesRequest = {
         timestamps?: Array<string>;
         coinIds?: Array<CoinId2>;
+        experimentalFlag?: ExperimentalFlag;
     };
     export type BatchGetPricesResponse = {
         prices?: Array<BatchGetPricesResponseCoinPrice>;
@@ -2115,6 +2116,9 @@ export namespace price_service {
         address?: string;
         chain?: string;
     };
+    export type ExperimentalFlag = {
+        enablePythSource?: boolean;
+    };
     /**
      * GetPriceResponse is the response for GetPrice.
      */
@@ -2127,6 +2131,7 @@ export namespace price_service {
          * The actual timestamp of the price returned.
          */
         timestamp?: string;
+        source?: string;
     };
     export type ListCoinsResponse2 = {
         coins?: Array<CoinId2>;
@@ -2148,6 +2153,7 @@ export namespace price_service {
             'coinId.address.address'?: string;
             'coinId.address.chain'?: string;
             source?: string;
+            'experimentalFlag.enablePythSource'?: boolean;
         };
         url: '/api/v1/prices';
     };

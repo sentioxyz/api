@@ -1692,6 +1692,12 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "experimentalFlag.enablePythSource",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -7314,6 +7320,9 @@
             "type": "object",
             "$ref": "#/definitions/price_service.CoinID"
           }
+        },
+        "experimentalFlag": {
+          "$ref": "#/definitions/price_service.ExperimentalFlag"
         }
       },
       "title": "GetPricesRequest is the request for GetPrices.\nreturn every price on every given timestamp (if exact exists) for the given coin"
@@ -7411,6 +7420,14 @@
       },
       "description": "The coin can be defined as a symbol, e.g. BTC, ETH, etc, or an address + chain.\nThe format of the chain is consistent with the Sentio internal representation."
     },
+    "price_service.ExperimentalFlag": {
+      "type": "object",
+      "properties": {
+        "enablePythSource": {
+          "type": "boolean"
+        }
+      }
+    },
     "price_service.GetPriceResponse": {
       "type": "object",
       "properties": {
@@ -7423,6 +7440,9 @@
           "type": "string",
           "format": "date-time",
           "description": "The actual timestamp of the price returned."
+        },
+        "source": {
+          "type": "string"
         }
       },
       "description": "GetPriceResponse is the response for GetPrice."
