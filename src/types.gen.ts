@@ -3139,6 +3139,9 @@ export namespace web_service {
     };
     export type ChartConfigScatterConfig = {
         symbolSize?: string;
+        color?: string;
+        minSize?: number;
+        maxSize?: number;
     };
     export type ChartConfigSeriesConfig = {
         series?: {

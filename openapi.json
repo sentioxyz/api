@@ -9325,6 +9325,17 @@
       "properties": {
         "symbolSize": {
           "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "minSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
