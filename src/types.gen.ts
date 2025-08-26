@@ -3128,6 +3128,7 @@ export namespace web_service {
         showPercent?: boolean;
         showValue?: boolean;
         calculation?: ChartConfigCalculation;
+        absValue?: boolean;
     };
     export type ChartConfigPieConfigPieType = 'Pie' | 'Donut';
     export type ChartConfigQueryValueConfig = {

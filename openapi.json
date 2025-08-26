@@ -9289,6 +9289,9 @@
         },
         "calculation": {
           "$ref": "#/definitions/web_service.ChartConfig.Calculation"
+        },
+        "absValue": {
+          "type": "boolean"
         }
       }
     },
