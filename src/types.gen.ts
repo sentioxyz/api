@@ -2309,14 +2309,6 @@ export namespace processor_service {
     export type GetProcessorsResponse = {
         processors?: Array<Processor>;
     };
-    export type GetProjectChainsResponse = {
-        projectChains?: {
-            [key: string]: GetProjectChainsResponseChainList;
-        };
-    };
-    export type GetProjectChainsResponseChainList = {
-        chains?: Array<string>;
-    };
     export type NetworkOverride = {
         chain?: string;
         host?: string;
@@ -2382,22 +2374,6 @@ export namespace processor_service {
     export type UpdateChainProcessorStatusResponse = {
         [key: string]: unknown;
     };
-    export type GetProjectChainsData = {
-        body?: never;
-        path?: never;
-        query?: {
-            projectIdList?: Array<string>;
-            includePendingVersion?: boolean;
-        };
-        url: '/api/v1/processors/project_chains';
-    };
-    export type GetProjectChainsResponses = {
-        /**
-         * A successful response.
-         */
-        200: processor_service.GetProjectChainsResponse;
-    };
-    export type GetProjectChainsResponse2 = GetProjectChainsResponses[keyof GetProjectChainsResponses];
     export type ActivatePendingVersionData = {
         body?: never;
         path: {
