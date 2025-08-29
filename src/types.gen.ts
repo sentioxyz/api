@@ -3453,6 +3453,7 @@ export namespace web_service {
             dashboardId: string;
         };
         query?: {
+            projectId?: string;
             limit?: number;
             offset?: number;
         };

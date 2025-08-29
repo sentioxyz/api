@@ -43079,7 +43079,7 @@ filter the dashboard by project id
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}/history?limit=56&offset=56"
+ "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}/history?projectId=projectId_example&limit=56&offset=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getDashboardHistory-0-java">
@@ -43110,11 +43110,12 @@ public class WebApiExample {
         // Create an instance of the API class
         WebApi apiInstance = new WebApi();
         String dashboardId = dashboardId_example; // String | 
+        String projectId = projectId_example; // String | 
         Integer limit = 56; // Integer | 
         Integer offset = 56; // Integer | 
 
         try {
-            web_service.GetDashboardHistoryResponse result = apiInstance.getDashboardHistory(dashboardId, limit, offset);
+            web_service.GetDashboardHistoryResponse result = apiInstance.getDashboardHistory(dashboardId, projectId, limit, offset);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling WebApi#getDashboardHistory");
@@ -43131,11 +43132,12 @@ public class WebApiExample {
 final api_instance = DefaultApi();
 
 final String dashboardId = new String(); // String | 
+final String projectId = new String(); // String | 
 final Integer limit = new Integer(); // Integer | 
 final Integer offset = new Integer(); // Integer | 
 
 try {
-    final result = await api_instance.getDashboardHistory(dashboardId, limit, offset);
+    final result = await api_instance.getDashboardHistory(dashboardId, projectId, limit, offset);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getDashboardHistory: $e\n');
@@ -43151,11 +43153,12 @@ public class WebApiExample {
     public static void main(String[] args) {
         WebApi apiInstance = new WebApi();
         String dashboardId = dashboardId_example; // String | 
+        String projectId = projectId_example; // String | 
         Integer limit = 56; // Integer | 
         Integer offset = 56; // Integer | 
 
         try {
-            web_service.GetDashboardHistoryResponse result = apiInstance.getDashboardHistory(dashboardId, limit, offset);
+            web_service.GetDashboardHistoryResponse result = apiInstance.getDashboardHistory(dashboardId, projectId, limit, offset);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling WebApi#getDashboardHistory");
@@ -43185,11 +43188,13 @@ public class WebApiExample {
 // Create an instance of the API class
 WebApi *apiInstance = [[WebApi alloc] init];
 String *dashboardId = dashboardId_example; //  (default to null)
+String *projectId = projectId_example; //  (optional) (default to null)
 Integer *limit = 56; //  (optional) (default to null)
 Integer *offset = 56; //  (optional) (default to null)
 
 // Get dashboard history by dashboard id
 [apiInstance getDashboardHistoryWith:dashboardId
+    projectId:projectId
     limit:limit
     offset:offset
               completionHandler: ^(web_service.GetDashboardHistoryResponse output, NSError* error) {
@@ -43223,6 +43228,7 @@ ApiKeyQueryAuth.apiKey = "YOUR API KEY";
 var api = new SentioApi.WebApi()
 var dashboardId = dashboardId_example; // {String} 
 var opts = {
+  'projectId': projectId_example, // {String} 
   'limit': 56, // {Integer} 
   'offset': 56 // {Integer} 
 };
@@ -43266,12 +43272,13 @@ namespace Example
             // Create an instance of the API class
             var apiInstance = new WebApi();
             var dashboardId = dashboardId_example;  // String |  (default to null)
+            var projectId = projectId_example;  // String |  (optional)  (default to null)
             var limit = 56;  // Integer |  (optional)  (default to null)
             var offset = 56;  // Integer |  (optional)  (default to null)
 
             try {
                 // Get dashboard history by dashboard id
-                web_service.GetDashboardHistoryResponse result = apiInstance.getDashboardHistory(dashboardId, limit, offset);
+                web_service.GetDashboardHistoryResponse result = apiInstance.getDashboardHistory(dashboardId, projectId, limit, offset);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling WebApi.getDashboardHistory: " + e.Message );
@@ -43299,11 +43306,12 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\WebApi();
 $dashboardId = dashboardId_example; // String | 
+$projectId = projectId_example; // String | 
 $limit = 56; // Integer | 
 $offset = 56; // Integer | 
 
 try {
-    $result = $api_instance->getDashboardHistory($dashboardId, $limit, $offset);
+    $result = $api_instance->getDashboardHistory($dashboardId, $projectId, $limit, $offset);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling WebApi->getDashboardHistory: ', $e->getMessage(), PHP_EOL;
@@ -43329,11 +43337,12 @@ $WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::WebApi->new();
 my $dashboardId = dashboardId_example; # String | 
+my $projectId = projectId_example; # String | 
 my $limit = 56; # Integer | 
 my $offset = 56; # Integer | 
 
 eval {
-    my $result = $api_instance->getDashboardHistory(dashboardId => $dashboardId, limit => $limit, offset => $offset);
+    my $result = $api_instance->getDashboardHistory(dashboardId => $dashboardId, projectId => $projectId, limit => $limit, offset => $offset);
     print Dumper($result);
 };
 if ($@) {
@@ -43361,12 +43370,13 @@ openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
 # Create an instance of the API class
 api_instance = openapi_client.WebApi()
 dashboardId = dashboardId_example # String |  (default to null)
+projectId = projectId_example # String |  (optional) (default to null)
 limit = 56 # Integer |  (optional) (default to null)
 offset = 56 # Integer |  (optional) (default to null)
 
 try:
     # Get dashboard history by dashboard id
-    api_response = api_instance.get_dashboard_history(dashboardId, limit=limit, offset=offset)
+    api_response = api_instance.get_dashboard_history(dashboardId, projectId=projectId, limit=limit, offset=offset)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling WebApi->getDashboardHistory: %s\n" % e)</code></pre>
@@ -43377,11 +43387,12 @@ except ApiException as e:
 
 pub fn main() {
     let dashboardId = dashboardId_example; // String
+    let projectId = projectId_example; // String
     let limit = 56; // Integer
     let offset = 56; // Integer
 
     let mut context = WebApi::Context::default();
-    let result = client.getDashboardHistory(dashboardId, limit, offset, &context).wait();
+    let result = client.getDashboardHistory(dashboardId, projectId, limit, offset, &context).wait();
 
     println!("{:?}", result);
 }
@@ -43433,6 +43444,23 @@ pub fn main() {
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
+                                <tr><td style="width:150px;">projectId</td>
+<td>
+
+
+    <div id="d2e199_getDashboardHistory_projectId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                                 <tr><td style="width:150px;">limit</td>
 <td>
 
