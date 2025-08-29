@@ -1168,12 +1168,6 @@
             "type": "string"
           },
           {
-            "name": "projectId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "limit",
             "in": "query",
             "required": false,
