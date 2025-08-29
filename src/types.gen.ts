@@ -3248,6 +3248,24 @@ export namespace web_service {
             [key: string]: DashboardLayouts;
         };
     };
+    export type DashboardHistory = {
+        id?: number;
+        dashboardId?: string;
+        version?: number;
+        name?: string;
+        description?: string;
+        projectId?: string;
+        layouts?: DashboardResponsiveLayouts;
+        extra?: DashboardExtra;
+        tags?: Array<string>;
+        url?: string;
+        default?: boolean;
+        isPinned?: boolean;
+        ownerId?: string;
+        visibility?: DashboardDashboardVisibility;
+        createdAt?: string;
+        createdById?: string;
+    };
     export type DashboardSharing = {
         id?: string;
         dashboardId?: string;
@@ -3268,6 +3286,10 @@ export namespace web_service {
         dashboardJson?: {
             [key: string]: unknown;
         };
+    };
+    export type GetDashboardHistoryResponse = {
+        histories?: Array<DashboardHistory>;
+        total?: number;
     };
     export type GetDashboardResponse = {
         dashboards?: Array<Dashboard>;
@@ -3425,6 +3447,24 @@ export namespace web_service {
         200: GetDashboardResponse;
     };
     export type GetDashboardResponse2 = GetDashboardResponses[keyof GetDashboardResponses];
+    export type GetDashboardHistoryData = {
+        body?: never;
+        path: {
+            dashboardId: string;
+        };
+        query?: {
+            limit?: number;
+            offset?: number;
+        };
+        url: '/api/v1/dashboards/{dashboardId}/history';
+    };
+    export type GetDashboardHistoryResponses = {
+        /**
+         * A successful response.
+         */
+        200: GetDashboardHistoryResponse;
+    };
+    export type GetDashboardHistoryResponse2 = GetDashboardHistoryResponses[keyof GetDashboardHistoryResponses];
     export type ExportDashboardData = {
         body?: never;
         path: {

@@ -873,6 +873,27 @@ export class WebService {
     }
     
     /**
+     * Get dashboard history by dashboard id
+     */
+    public static getDashboardHistory<ThrowOnError extends boolean = false>(options: Options<web_service.GetDashboardHistoryData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<web_service.GetDashboardHistoryResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/dashboards/{dashboardId}/history',
+            ...options
+        });
+    }
+    
+    /**
      * Export a dashboard to json
      */
     public static exportDashboard<ThrowOnError extends boolean = false>(options: Options<web_service.ExportDashboardData, ThrowOnError>) {
