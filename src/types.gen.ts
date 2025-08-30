@@ -2398,7 +2398,12 @@ export namespace processor_service {
             owner: string;
             slug: string;
         };
-        query?: never;
+        query?: {
+            /**
+             * Optional version to fetch. If omitted, use latest active version.
+             */
+            version?: number;
+        };
         url: '/api/v1/processors/{owner}/{slug}/source_files';
     };
     export type GetProcessorSourceFilesResponses = {

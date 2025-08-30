@@ -39975,7 +39975,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/processors/{owner}/{slug}/source_files"
+ "https://app.sentio.xyz/api/v1/processors/{owner}/{slug}/source_files?version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Processor-getProcessorSourceFiles-0-java">
@@ -40007,9 +40007,10 @@ public class ProcessorApiExample {
         ProcessorApi apiInstance = new ProcessorApi();
         String owner = owner_example; // String | 
         String slug = slug_example; // String | 
+        Integer version = 56; // Integer | Optional version to fetch. If omitted, use latest active version.
 
         try {
-            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug);
+            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug, version);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProcessorApi#getProcessorSourceFiles");
@@ -40027,9 +40028,10 @@ final api_instance = DefaultApi();
 
 final String owner = new String(); // String | 
 final String slug = new String(); // String | 
+final Integer version = new Integer(); // Integer | Optional version to fetch. If omitted, use latest active version.
 
 try {
-    final result = await api_instance.getProcessorSourceFiles(owner, slug);
+    final result = await api_instance.getProcessorSourceFiles(owner, slug, version);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getProcessorSourceFiles: $e\n');
@@ -40046,9 +40048,10 @@ public class ProcessorApiExample {
         ProcessorApi apiInstance = new ProcessorApi();
         String owner = owner_example; // String | 
         String slug = slug_example; // String | 
+        Integer version = 56; // Integer | Optional version to fetch. If omitted, use latest active version.
 
         try {
-            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug);
+            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug, version);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ProcessorApi#getProcessorSourceFiles");
@@ -40079,10 +40082,12 @@ public class ProcessorApiExample {
 ProcessorApi *apiInstance = [[ProcessorApi alloc] init];
 String *owner = owner_example; //  (default to null)
 String *slug = slug_example; //  (default to null)
+Integer *version = 56; // Optional version to fetch. If omitted, use latest active version. (optional) (default to null)
 
 // Get the source files of a processor
 [apiInstance getProcessorSourceFilesWith:owner
     slug:slug
+    version:version
               completionHandler: ^(processor_service.GetProcessorSourceFilesResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -40114,6 +40119,9 @@ ApiKeyQueryAuth.apiKey = "YOUR API KEY";
 var api = new SentioApi.ProcessorApi()
 var owner = owner_example; // {String} 
 var slug = slug_example; // {String} 
+var opts = {
+  'version': 56 // {Integer} Optional version to fetch. If omitted, use latest active version.
+};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -40122,7 +40130,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.getProcessorSourceFiles(owner, slug, callback);
+api.getProcessorSourceFiles(owner, slug, opts, callback);
 </code></pre>
                             </div>
 
@@ -40155,10 +40163,11 @@ namespace Example
             var apiInstance = new ProcessorApi();
             var owner = owner_example;  // String |  (default to null)
             var slug = slug_example;  // String |  (default to null)
+            var version = 56;  // Integer | Optional version to fetch. If omitted, use latest active version. (optional)  (default to null)
 
             try {
                 // Get the source files of a processor
-                processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug);
+                processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug, version);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling ProcessorApi.getProcessorSourceFiles: " + e.Message );
@@ -40187,9 +40196,10 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key
 $api_instance = new OpenAPITools\Client\Api\ProcessorApi();
 $owner = owner_example; // String | 
 $slug = slug_example; // String | 
+$version = 56; // Integer | Optional version to fetch. If omitted, use latest active version.
 
 try {
-    $result = $api_instance->getProcessorSourceFiles($owner, $slug);
+    $result = $api_instance->getProcessorSourceFiles($owner, $slug, $version);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ProcessorApi->getProcessorSourceFiles: ', $e->getMessage(), PHP_EOL;
@@ -40216,9 +40226,10 @@ $WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
 my $api_instance = WWW::OPenAPIClient::ProcessorApi->new();
 my $owner = owner_example; # String | 
 my $slug = slug_example; # String | 
+my $version = 56; # Integer | Optional version to fetch. If omitted, use latest active version.
 
 eval {
-    my $result = $api_instance->getProcessorSourceFiles(owner => $owner, slug => $slug);
+    my $result = $api_instance->getProcessorSourceFiles(owner => $owner, slug => $slug, version => $version);
     print Dumper($result);
 };
 if ($@) {
@@ -40247,10 +40258,11 @@ openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
 api_instance = openapi_client.ProcessorApi()
 owner = owner_example # String |  (default to null)
 slug = slug_example # String |  (default to null)
+version = 56 # Integer | Optional version to fetch. If omitted, use latest active version. (optional) (default to null)
 
 try:
     # Get the source files of a processor
-    api_response = api_instance.get_processor_source_files(owner, slug)
+    api_response = api_instance.get_processor_source_files(owner, slug, version=version)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ProcessorApi->getProcessorSourceFiles: %s\n" % e)</code></pre>
@@ -40262,9 +40274,10 @@ except ApiException as e:
 pub fn main() {
     let owner = owner_example; // String
     let slug = slug_example; // String
+    let version = 56; // Integer
 
     let mut context = ProcessorApi::Context::default();
-    let result = client.getProcessorSourceFiles(owner, slug, &context).wait();
+    let result = client.getProcessorSourceFiles(owner, slug, version, &context).wait();
 
     println!("{:?}", result);
 }
@@ -40330,6 +40343,36 @@ pub fn main() {
 
 
 
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">version</td>
+<td>
+
+
+    <div id="d2e199_getProcessorSourceFiles_version">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+Optional version to fetch. If omitted, use latest active version.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
 
                           <h2>Responses</h2>
                             <h3 id="examples-Processor-getProcessorSourceFiles-title-200"></h3>
