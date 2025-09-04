@@ -265,19 +265,6 @@
         ]
       }
     },
-    "/api/v1/analytics/sql/queue_status": {
-      "get": {
-        "operationId": "GetSQLQueueStatus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/analytic_service.SQLQueueStatus"
-            }
-          }
-        }
-      }
-    },
     "/api/v1/analytics/sql/sharing": {
       "post": {
         "summary": "Save Sharing SQL",
@@ -4435,30 +4422,6 @@
         "queryId": {
           "type": "string",
           "description": "the id of the query, if sql and name both empty, the query will be fetched by the id."
-        }
-      }
-    },
-    "analytic_service.SQLQueueStatus": {
-      "type": "object",
-      "properties": {
-        "queues": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/analytic_service.SQLQueueStatus.Queue"
-          }
-        }
-      }
-    },
-    "analytic_service.SQLQueueStatus.Queue": {
-      "type": "object",
-      "properties": {
-        "priority": {
-          "type": "string"
-        },
-        "length": {
-          "type": "string",
-          "format": "int64"
         }
       }
     },
