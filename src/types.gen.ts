@@ -3256,6 +3256,7 @@ export namespace web_service {
         dashboardId?: string;
         isPublic?: boolean;
         viewers?: Array<string>;
+        config?: SharingConfig;
     };
     export type EventLogsConfig = {
         columnsConfig?: common.EventLogConfig;
@@ -3326,6 +3327,10 @@ export namespace web_service {
         chart?: Chart;
         creator?: common.UserInfo;
         updater?: common.UserInfo;
+    };
+    export type SharingConfig = {
+        isReadonly?: boolean;
+        hideModifiers?: boolean;
     };
     export type ListDashboardsData = {
         body?: never;

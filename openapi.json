@@ -9798,6 +9798,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "config": {
+          "$ref": "#/definitions/web_service.SharingConfig"
         }
       }
     },
@@ -10012,6 +10015,17 @@
         },
         "updater": {
           "$ref": "#/definitions/common.UserInfo"
+        }
+      }
+    },
+    "web_service.SharingConfig": {
+      "type": "object",
+      "properties": {
+        "isReadonly": {
+          "type": "boolean"
+        },
+        "hideModifiers": {
+          "type": "boolean"
         }
       }
     }

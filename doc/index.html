@@ -6933,6 +6933,9 @@ ul.nav-tabs {
       "items" : {
         "type" : "string"
       }
+    },
+    "config" : {
+      "$ref" : "#/components/schemas/web_service.SharingConfig"
     }
   }
 };
@@ -7127,6 +7130,17 @@ ul.nav-tabs {
     },
     "updater" : {
       "$ref" : "#/components/schemas/common.UserInfo"
+    }
+  }
+};
+    defs["web_service.SharingConfig"] = {
+  "type" : "object",
+  "properties" : {
+    "isReadonly" : {
+      "type" : "boolean"
+    },
+    "hideModifiers" : {
+      "type" : "boolean"
     }
   }
 };
