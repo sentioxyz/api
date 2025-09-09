@@ -6230,11 +6230,12 @@
         "NOT_BETWEEN",
         "CONTAINS",
         "NOT_CONTAINS",
+        "IN",
+        "NOT_IN",
         "IN_COHORTS",
         "NOT_IN_COHORTS"
       ],
       "default": "EQ",
-      "description": "- GT: Numeric operators\n - CONTAINS: String operators",
       "title": "TODO add Date Value and List Value and its data type"
     },
     "common.SelectorExpr": {

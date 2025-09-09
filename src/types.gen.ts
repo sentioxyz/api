@@ -1424,11 +1424,7 @@ export namespace common {
         operator?: SelectorOperatorType;
         value?: Array<Any>;
     };
-    /**
-     * - GT: Numeric operators
-     * - CONTAINS: String operators
-     */
-    export type SelectorOperatorType = 'EQ' | 'NEQ' | 'EXISTS' | 'NOT_EXISTS' | 'GT' | 'GTE' | 'LT' | 'LTE' | 'BETWEEN' | 'NOT_BETWEEN' | 'CONTAINS' | 'NOT_CONTAINS' | 'IN_COHORTS' | 'NOT_IN_COHORTS';
+    export type SelectorOperatorType = 'EQ' | 'NEQ' | 'EXISTS' | 'NOT_EXISTS' | 'GT' | 'GTE' | 'LT' | 'LTE' | 'BETWEEN' | 'NOT_BETWEEN' | 'CONTAINS' | 'NOT_CONTAINS' | 'IN' | 'NOT_IN' | 'IN_COHORTS' | 'NOT_IN_COHORTS';
     export type SelectorExpr = {
         selector?: Selector;
         logicExpr?: SelectorExprLogicExpr;
