@@ -4561,13 +4561,6 @@
             "$ref": "#/definitions/common.Formula"
           }
         },
-        "systemSqlQueries": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.SystemSQLQuery"
-          }
-        },
         "debug": {
           "type": "boolean"
         },
@@ -6277,86 +6270,6 @@
           "title": "JoinOperator operator = 2; // this field should implement in the future"
         }
       }
-    },
-    "common.SystemSQLQuery": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "alias": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "tableName": {
-          "type": "string"
-        },
-        "aggregation": {
-          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation"
-        },
-        "selectorExpr": {
-          "$ref": "#/definitions/common.SelectorExpr"
-        },
-        "groupBy": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "disabled": {
-          "type": "boolean"
-        }
-      }
-    },
-    "common.SystemSQLQuery.Aggregation": {
-      "type": "object",
-      "properties": {
-        "total": {
-          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.Total"
-        },
-        "countUnique": {
-          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.CountUnique"
-        },
-        "aggregateProperties": {
-          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.AggregateProperties"
-        }
-      }
-    },
-    "common.SystemSQLQuery.Aggregation.AggregateProperties": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType"
-        },
-        "propertyName": {
-          "type": "string"
-        }
-      }
-    },
-    "common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType": {
-      "type": "string",
-      "enum": [
-        "SUM",
-        "AVG",
-        "MEDIAN",
-        "MIN",
-        "MAX",
-        "DISTINCT_COUNT"
-      ],
-      "default": "SUM"
-    },
-    "common.SystemSQLQuery.Aggregation.CountUnique": {
-      "type": "object",
-      "properties": {
-        "duration": {
-          "$ref": "#/definitions/common.Duration"
-        }
-      }
-    },
-    "common.SystemSQLQuery.Aggregation.Total": {
-      "type": "object"
     },
     "common.TabularData": {
       "type": "object",

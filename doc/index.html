@@ -2108,12 +2108,6 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Formula"
       }
     },
-    "systemSqlQueries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.SystemSQLQuery"
-      }
-    },
     "debug" : {
       "type" : "boolean"
     },
@@ -3645,76 +3639,6 @@ ul.nav-tabs {
       "items" : {
         "type" : "string"
       }
-    }
-  }
-};
-    defs["common.SystemSQLQuery"] = {
-  "type" : "object",
-  "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "alias" : {
-      "type" : "string"
-    },
-    "name" : {
-      "type" : "string"
-    },
-    "tableName" : {
-      "type" : "string"
-    },
-    "aggregation" : {
-      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation"
-    },
-    "selectorExpr" : {
-      "$ref" : "#/components/schemas/common.SelectorExpr"
-    },
-    "groupBy" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "disabled" : {
-      "type" : "boolean"
-    }
-  }
-};
-    defs["common.SystemSQLQuery.Aggregation"] = {
-  "type" : "object",
-  "properties" : {
-    "total" : {
-      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.Total"
-    },
-    "countUnique" : {
-      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.CountUnique"
-    },
-    "aggregateProperties" : {
-      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.AggregateProperties"
-    }
-  }
-};
-    defs["common.SystemSQLQuery.Aggregation.AggregateProperties"] = {
-  "type" : "object",
-  "properties" : {
-    "type" : {
-      "$ref" : "#/components/schemas/common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType"
-    },
-    "propertyName" : {
-      "type" : "string"
-    }
-  }
-};
-    defs["common.SystemSQLQuery.Aggregation.AggregateProperties.AggregationType"] = {
-  "type" : "string",
-  "default" : "SUM",
-  "enum" : [ "SUM", "AVG", "MEDIAN", "MIN", "MAX", "DISTINCT_COUNT" ]
-};
-    defs["common.SystemSQLQuery.Aggregation.CountUnique"] = {
-  "type" : "object",
-  "properties" : {
-    "duration" : {
-      "$ref" : "#/components/schemas/common.Duration"
     }
   }
 };

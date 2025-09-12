@@ -534,7 +534,6 @@ export namespace analytic_service {
         timeRange?: common.TimeRangeLite;
         queries?: Array<common.SegmentationQuery>;
         formulas?: Array<common.Formula>;
-        systemSqlQueries?: Array<common.SystemSqlQuery>;
         debug?: boolean;
         limit?: number;
         offset?: number;
@@ -1435,32 +1434,6 @@ export namespace common {
     };
     export type StringList = {
         values?: Array<string>;
-    };
-    export type SystemSqlQuery = {
-        id?: string;
-        alias?: string;
-        name?: string;
-        tableName?: string;
-        aggregation?: SystemSqlQueryAggregation;
-        selectorExpr?: SelectorExpr;
-        groupBy?: Array<string>;
-        disabled?: boolean;
-    };
-    export type SystemSqlQueryAggregation = {
-        total?: SystemSqlQueryAggregationTotal;
-        countUnique?: SystemSqlQueryAggregationCountUnique;
-        aggregateProperties?: SystemSqlQueryAggregationAggregateProperties;
-    };
-    export type SystemSqlQueryAggregationAggregateProperties = {
-        type?: SystemSqlQueryAggregationAggregatePropertiesAggregationType;
-        propertyName?: string;
-    };
-    export type SystemSqlQueryAggregationAggregatePropertiesAggregationType = 'SUM' | 'AVG' | 'MEDIAN' | 'MIN' | 'MAX' | 'DISTINCT_COUNT';
-    export type SystemSqlQueryAggregationCountUnique = {
-        duration?: Duration;
-    };
-    export type SystemSqlQueryAggregationTotal = {
-        [key: string]: unknown;
     };
     export type TabularData = {
         columns?: Array<string>;
