@@ -1181,6 +1181,11 @@ export namespace common {
         name?: string;
         arguments?: Array<Argument>;
     };
+    export type ImportedProject = {
+        name?: string;
+        project?: Project;
+        imported?: Project;
+    };
     export type JoinOperator = 'AND' | 'OR' | 'THEN';
     export type Matrix = {
         samples?: Array<MatrixSample>;
@@ -3403,6 +3408,9 @@ export namespace web_service {
     export type ImportDashboardResponse = {
         dashboard?: Dashboard;
     };
+    export type ImportProjectResponse = {
+        imports?: Array<common.ImportedProject>;
+    };
     export type Note = {
         content?: string;
         fontSize?: NoteFontSize;
@@ -3422,9 +3430,18 @@ export namespace web_service {
         creator?: common.UserInfo;
         updater?: common.UserInfo;
     };
+    export type ProjectOwnerAndSlug = {
+        ownerName?: string;
+        slug?: string;
+    };
     export type SharingConfig = {
         isReadonly?: boolean;
         hideModifiers?: boolean;
+    };
+    export type WebServiceImportProjectBody = {
+        name?: string;
+        importProject?: ProjectOwnerAndSlug;
+        importProjects?: Array<ProjectOwnerAndSlug>;
     };
     export type ListDashboardsData = {
         body?: never;
@@ -3586,6 +3603,80 @@ export namespace web_service {
         200: GetProjectResponse;
     };
     export type GetProjectResponse2 = GetProjectResponses[keyof GetProjectResponses];
+    export type GetImportedProjectData = {
+        body?: never;
+        path: {
+            /**
+             * username or organization name
+             */
+            owner: string;
+            /**
+             * project slug
+             */
+            slug: string;
+        };
+        query?: never;
+        url: '/api/v1/project/{owner}/{slug}/importprojects';
+    };
+    export type GetImportedProjectResponses = {
+        /**
+         * A successful response.
+         */
+        200: ImportProjectResponse;
+    };
+    export type GetImportedProjectResponse = GetImportedProjectResponses[keyof GetImportedProjectResponses];
+    export type ImportProjectData = {
+        body: WebServiceImportProjectBody;
+        path: {
+            /**
+             * username or organization name
+             */
+            owner: string;
+            /**
+             * project slug
+             */
+            slug: string;
+        };
+        query?: never;
+        url: '/api/v1/project/{owner}/{slug}/importprojects';
+    };
+    export type ImportProjectResponses = {
+        /**
+         * A successful response.
+         */
+        200: ImportProjectResponse;
+    };
+    export type ImportProjectResponse2 = ImportProjectResponses[keyof ImportProjectResponses];
+    export type UnImportProjectData = {
+        body?: never;
+        path: {
+            /**
+             * username or organization name
+             */
+            owner: string;
+            /**
+             * project slug
+             */
+            slug: string;
+            /**
+             * username or organization name of the imported project
+             */
+            unimportOwner: string;
+            /**
+             * slug of the imported project
+             */
+            unimportSlug: string;
+        };
+        query?: never;
+        url: '/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}';
+    };
+    export type UnImportProjectResponses = {
+        /**
+         * A successful response.
+         */
+        200: ImportProjectResponse;
+    };
+    export type UnImportProjectResponse = UnImportProjectResponses[keyof UnImportProjectResponses];
     export type GetProjectListData = {
         body?: never;
         path?: never;

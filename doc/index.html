@@ -2813,6 +2813,21 @@ ul.nav-tabs {
     }
   }
 };
+    defs["common.ImportedProject"] = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "title" : "name of the imported project",
+      "type" : "string"
+    },
+    "project" : {
+      "$ref" : "#/components/schemas/common.Project"
+    },
+    "imported" : {
+      "$ref" : "#/components/schemas/common.Project"
+    }
+  }
+};
     defs["common.JoinOperator"] = {
   "type" : "string",
   "default" : "AND",
@@ -6996,6 +7011,17 @@ ul.nav-tabs {
     }
   }
 };
+    defs["web_service.ImportProjectResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "imports" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.ImportedProject"
+      }
+    }
+  }
+};
     defs["web_service.Note"] = {
   "type" : "object",
   "properties" : {
@@ -7057,6 +7083,19 @@ ul.nav-tabs {
     }
   }
 };
+    defs["web_service.ProjectOwnerAndSlug"] = {
+  "type" : "object",
+  "properties" : {
+    "ownerName" : {
+      "title" : "username or organization name",
+      "type" : "string"
+    },
+    "slug" : {
+      "title" : "project slug",
+      "type" : "string"
+    }
+  }
+};
     defs["web_service.SharingConfig"] = {
   "type" : "object",
   "properties" : {
@@ -7065,6 +7104,25 @@ ul.nav-tabs {
     },
     "hideModifiers" : {
       "type" : "boolean"
+    }
+  }
+};
+    defs["web_service.WebService.ImportProjectBody"] = {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "title" : "import as",
+      "type" : "string"
+    },
+    "importProject" : {
+      "$ref" : "#/components/schemas/web_service.ProjectOwnerAndSlug"
+    },
+    "importProjects" : {
+      "title" : "a list of projects to import",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/web_service.ProjectOwnerAndSlug"
+      }
     }
   }
 };
@@ -7290,6 +7348,9 @@ ul.nav-tabs {
                     <li data-group="Web" data-name="getDashboardHistory" class="">
                       <a href="#api-Web-getDashboardHistory">getDashboardHistory</a>
                     </li>
+                    <li data-group="Web" data-name="getImportedProject" class="">
+                      <a href="#api-Web-getImportedProject">getImportedProject</a>
+                    </li>
                     <li data-group="Web" data-name="getProject" class="">
                       <a href="#api-Web-getProject">getProject</a>
                     </li>
@@ -7302,11 +7363,17 @@ ul.nav-tabs {
                     <li data-group="Web" data-name="importDashboard" class="">
                       <a href="#api-Web-importDashboard">importDashboard</a>
                     </li>
+                    <li data-group="Web" data-name="importProject" class="">
+                      <a href="#api-Web-importProject">importProject</a>
+                    </li>
                     <li data-group="Web" data-name="listDashboards" class="">
                       <a href="#api-Web-listDashboards">listDashboards</a>
                     </li>
                     <li data-group="Web" data-name="listDashboards2" class="">
                       <a href="#api-Web-listDashboards2">listDashboards2</a>
+                    </li>
+                    <li data-group="Web" data-name="unImportProject" class="">
+                      <a href="#api-Web-unImportProject">unImportProject</a>
                     </li>
           </ul>
         </nav>
@@ -43104,6 +43171,486 @@ pub fn main() {
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Web-getImportedProject">
+                      <article id="api-Web-getImportedProject-0" data-group="User" data-name="getImportedProject" data-version="0">
+                        <div class="pull-left">
+                          <h1>getImportedProject</h1>
+                          <p>Get all imported projects.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v1/project/{owner}/{slug}/importprojects</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Web-getImportedProject-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Web-getImportedProject-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Web-getImportedProject-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Web-getImportedProject-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Web-getImportedProject-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Web-getImportedProject-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Web-getImportedProject-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/project/{owner}/{slug}/importprojects"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Web-getImportedProject-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.WebApi;
+
+import java.io.File;
+import java.util.*;
+
+public class WebApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        WebApi apiInstance = new WebApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+
+        try {
+            web_service.ImportProjectResponse result = apiInstance.getImportedProject(owner, slug);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebApi#getImportedProject");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Web-getImportedProject-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String owner = new String(); // String | username or organization name
+final String slug = new String(); // String | project slug
+
+try {
+    final result = await api_instance.getImportedProject(owner, slug);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getImportedProject: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Web-getImportedProject-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.WebApi;
+
+public class WebApiExample {
+    public static void main(String[] args) {
+        WebApi apiInstance = new WebApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+
+        try {
+            web_service.ImportProjectResponse result = apiInstance.getImportedProject(owner, slug);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebApi#getImportedProject");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Web-getImportedProject-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Web-getImportedProject-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+WebApi *apiInstance = [[WebApi alloc] init];
+String *owner = owner_example; // username or organization name (default to null)
+String *slug = slug_example; // project slug (default to null)
+
+// Get all imported projects.
+[apiInstance getImportedProjectWith:owner
+    slug:slug
+              completionHandler: ^(web_service.ImportProjectResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-getImportedProject-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.WebApi()
+var owner = owner_example; // {String} username or organization name
+var slug = slug_example; // {String} project slug
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getImportedProject(owner, slug, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Web-getImportedProject-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Web-getImportedProject-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getImportedProjectExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new WebApi();
+            var owner = owner_example;  // String | username or organization name (default to null)
+            var slug = slug_example;  // String | project slug (default to null)
+
+            try {
+                // Get all imported projects.
+                web_service.ImportProjectResponse result = apiInstance.getImportedProject(owner, slug);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling WebApi.getImportedProject: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-getImportedProject-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\WebApi();
+$owner = owner_example; // String | username or organization name
+$slug = slug_example; // String | project slug
+
+try {
+    $result = $api_instance->getImportedProject($owner, $slug);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebApi->getImportedProject: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-getImportedProject-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::WebApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::WebApi->new();
+my $owner = owner_example; # String | username or organization name
+my $slug = slug_example; # String | project slug
+
+eval {
+    my $result = $api_instance->getImportedProject(owner => $owner, slug => $slug);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling WebApi->getImportedProject: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-getImportedProject-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.WebApi()
+owner = owner_example # String | username or organization name (default to null)
+slug = slug_example # String | project slug (default to null)
+
+try:
+    # Get all imported projects.
+    api_response = api_instance.get_imported_project(owner, slug)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling WebApi->getImportedProject: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-getImportedProject-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate WebApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+
+    let mut context = WebApi::Context::default();
+    let result = client.getImportedProject(owner, slug, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_getImportedProject_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+username or organization name
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_getImportedProject_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+project slug
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Web-getImportedProject-title-200"></h3>
+                            <p id="examples-Web-getImportedProject-description-200" class="marked"></p>
+                            <script>
+                              var responseWeb200_description = `A successful response.`;
+                              var responseWeb200_description_break = responseWeb200_description.indexOf('\n');
+                              if (responseWeb200_description_break == -1) {
+                                $("#examples-Web-getImportedProject-title-200").text("Status: 200 - " + responseWeb200_description);
+                              } else {
+                                $("#examples-Web-getImportedProject-title-200").text("Status: 200 - " + responseWeb200_description.substring(0, responseWeb200_description_break));
+                                $("#examples-Web-getImportedProject-description-200").html(responseWeb200_description.substring(responseWeb200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Web-getImportedProject-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Web-getImportedProject-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Web-getImportedProject-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Web-getImportedProject-200-schema">
+                                <div id="responses-Web-getImportedProject-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/web_service.ImportProjectResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Web-getImportedProject-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Web-getImportedProject-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Web-getImportedProject-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Web-getProject">
                       <article id="api-Web-getProject-0" data-group="User" data-name="getProject" data-version="0">
                         <div class="pull-left">
@@ -44963,6 +45510,547 @@ $(document).ready(function() {
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Web-importProject">
+                      <article id="api-Web-importProject-0" data-group="User" data-name="importProject" data-version="0">
+                        <div class="pull-left">
+                          <h1>importProject</h1>
+                          <p>Import external project(s).</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v1/project/{owner}/{slug}/importprojects</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Web-importProject-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Web-importProject-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Web-importProject-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Web-importProject-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Web-importProject-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Web-importProject-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Web-importProject-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://app.sentio.xyz/api/v1/project/{owner}/{slug}/importprojects" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Web-importProject-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.WebApi;
+
+import java.io.File;
+import java.util.*;
+
+public class WebApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        WebApi apiInstance = new WebApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        WebServiceWebServiceImportProjectBody body = ; // WebServiceWebServiceImportProjectBody | 
+
+        try {
+            web_service.ImportProjectResponse result = apiInstance.importProject(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebApi#importProject");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Web-importProject-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String owner = new String(); // String | username or organization name
+final String slug = new String(); // String | project slug
+final WebServiceWebServiceImportProjectBody body = new WebServiceWebServiceImportProjectBody(); // WebServiceWebServiceImportProjectBody | 
+
+try {
+    final result = await api_instance.importProject(owner, slug, body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->importProject: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Web-importProject-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.WebApi;
+
+public class WebApiExample {
+    public static void main(String[] args) {
+        WebApi apiInstance = new WebApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        WebServiceWebServiceImportProjectBody body = ; // WebServiceWebServiceImportProjectBody | 
+
+        try {
+            web_service.ImportProjectResponse result = apiInstance.importProject(owner, slug, body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebApi#importProject");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Web-importProject-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Web-importProject-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+WebApi *apiInstance = [[WebApi alloc] init];
+String *owner = owner_example; // username or organization name (default to null)
+String *slug = slug_example; // project slug (default to null)
+WebServiceWebServiceImportProjectBody *body = ; // 
+
+// Import external project(s).
+[apiInstance importProjectWith:owner
+    slug:slug
+    body:body
+              completionHandler: ^(web_service.ImportProjectResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-importProject-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.WebApi()
+var owner = owner_example; // {String} username or organization name
+var slug = slug_example; // {String} project slug
+var body = ; // {WebServiceWebServiceImportProjectBody} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.importProject(owner, slug, body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Web-importProject-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Web-importProject-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class importProjectExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new WebApi();
+            var owner = owner_example;  // String | username or organization name (default to null)
+            var slug = slug_example;  // String | project slug (default to null)
+            var body = new WebServiceWebServiceImportProjectBody(); // WebServiceWebServiceImportProjectBody | 
+
+            try {
+                // Import external project(s).
+                web_service.ImportProjectResponse result = apiInstance.importProject(owner, slug, body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling WebApi.importProject: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-importProject-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\WebApi();
+$owner = owner_example; // String | username or organization name
+$slug = slug_example; // String | project slug
+$body = ; // WebServiceWebServiceImportProjectBody | 
+
+try {
+    $result = $api_instance->importProject($owner, $slug, $body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebApi->importProject: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-importProject-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::WebApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::WebApi->new();
+my $owner = owner_example; # String | username or organization name
+my $slug = slug_example; # String | project slug
+my $body = WWW::OPenAPIClient::Object::WebServiceWebServiceImportProjectBody->new(); # WebServiceWebServiceImportProjectBody | 
+
+eval {
+    my $result = $api_instance->importProject(owner => $owner, slug => $slug, body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling WebApi->importProject: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-importProject-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.WebApi()
+owner = owner_example # String | username or organization name (default to null)
+slug = slug_example # String | project slug (default to null)
+body =  # WebServiceWebServiceImportProjectBody | 
+
+try:
+    # Import external project(s).
+    api_response = api_instance.import_project(owner, slug, body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling WebApi->importProject: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-importProject-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate WebApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+    let body = ; // WebServiceWebServiceImportProjectBody
+
+    let mut context = WebApi::Context::default();
+    let result = client.importProject(owner, slug, body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_importProject_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+username or organization name
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_importProject_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+project slug
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/web_service.WebService.ImportProjectBody"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_importProject_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_importProject_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Web-importProject-title-200"></h3>
+                            <p id="examples-Web-importProject-description-200" class="marked"></p>
+                            <script>
+                              var responseWeb200_description = `A successful response.`;
+                              var responseWeb200_description_break = responseWeb200_description.indexOf('\n');
+                              if (responseWeb200_description_break == -1) {
+                                $("#examples-Web-importProject-title-200").text("Status: 200 - " + responseWeb200_description);
+                              } else {
+                                $("#examples-Web-importProject-title-200").text("Status: 200 - " + responseWeb200_description.substring(0, responseWeb200_description_break));
+                                $("#examples-Web-importProject-description-200").html(responseWeb200_description.substring(responseWeb200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Web-importProject-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Web-importProject-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Web-importProject-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Web-importProject-200-schema">
+                                <div id="responses-Web-importProject-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/web_service.ImportProjectResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Web-importProject-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Web-importProject-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Web-importProject-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Web-listDashboards">
                       <article id="api-Web-listDashboards-0" data-group="User" data-name="listDashboards" data-version="0">
                         <div class="pull-left">
@@ -46047,6 +47135,554 @@ filter the dashboard by project id
                                   </script>
                                 </div>
                                 <input id='responses-Web-listDashboards2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Web-unImportProject">
+                      <article id="api-Web-unImportProject-0" data-group="User" data-name="unImportProject" data-version="0">
+                        <div class="pull-left">
+                          <h1>unImportProject</h1>
+                          <p>Remove an imported project.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Web-unImportProject-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Web-unImportProject-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Web-unImportProject-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Web-unImportProject-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Web-unImportProject-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Web-unImportProject-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Web-unImportProject-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://app.sentio.xyz/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Web-unImportProject-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.WebApi;
+
+import java.io.File;
+import java.util.*;
+
+public class WebApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        WebApi apiInstance = new WebApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        String unimportOwner = unimportOwner_example; // String | username or organization name of the imported project
+        String unimportSlug = unimportSlug_example; // String | slug of the imported project
+
+        try {
+            web_service.ImportProjectResponse result = apiInstance.unImportProject(owner, slug, unimportOwner, unimportSlug);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebApi#unImportProject");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Web-unImportProject-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String owner = new String(); // String | username or organization name
+final String slug = new String(); // String | project slug
+final String unimportOwner = new String(); // String | username or organization name of the imported project
+final String unimportSlug = new String(); // String | slug of the imported project
+
+try {
+    final result = await api_instance.unImportProject(owner, slug, unimportOwner, unimportSlug);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->unImportProject: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Web-unImportProject-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.WebApi;
+
+public class WebApiExample {
+    public static void main(String[] args) {
+        WebApi apiInstance = new WebApi();
+        String owner = owner_example; // String | username or organization name
+        String slug = slug_example; // String | project slug
+        String unimportOwner = unimportOwner_example; // String | username or organization name of the imported project
+        String unimportSlug = unimportSlug_example; // String | slug of the imported project
+
+        try {
+            web_service.ImportProjectResponse result = apiInstance.unImportProject(owner, slug, unimportOwner, unimportSlug);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebApi#unImportProject");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Web-unImportProject-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Web-unImportProject-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+WebApi *apiInstance = [[WebApi alloc] init];
+String *owner = owner_example; // username or organization name (default to null)
+String *slug = slug_example; // project slug (default to null)
+String *unimportOwner = unimportOwner_example; // username or organization name of the imported project (default to null)
+String *unimportSlug = unimportSlug_example; // slug of the imported project (default to null)
+
+// Remove an imported project.
+[apiInstance unImportProjectWith:owner
+    slug:slug
+    unimportOwner:unimportOwner
+    unimportSlug:unimportSlug
+              completionHandler: ^(web_service.ImportProjectResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-unImportProject-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.WebApi()
+var owner = owner_example; // {String} username or organization name
+var slug = slug_example; // {String} project slug
+var unimportOwner = unimportOwner_example; // {String} username or organization name of the imported project
+var unimportSlug = unimportSlug_example; // {String} slug of the imported project
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.unImportProject(owner, slug, unimportOwner, unimportSlug, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Web-unImportProject-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Web-unImportProject-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class unImportProjectExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new WebApi();
+            var owner = owner_example;  // String | username or organization name (default to null)
+            var slug = slug_example;  // String | project slug (default to null)
+            var unimportOwner = unimportOwner_example;  // String | username or organization name of the imported project (default to null)
+            var unimportSlug = unimportSlug_example;  // String | slug of the imported project (default to null)
+
+            try {
+                // Remove an imported project.
+                web_service.ImportProjectResponse result = apiInstance.unImportProject(owner, slug, unimportOwner, unimportSlug);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling WebApi.unImportProject: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-unImportProject-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\WebApi();
+$owner = owner_example; // String | username or organization name
+$slug = slug_example; // String | project slug
+$unimportOwner = unimportOwner_example; // String | username or organization name of the imported project
+$unimportSlug = unimportSlug_example; // String | slug of the imported project
+
+try {
+    $result = $api_instance->unImportProject($owner, $slug, $unimportOwner, $unimportSlug);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling WebApi->unImportProject: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-unImportProject-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::WebApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::WebApi->new();
+my $owner = owner_example; # String | username or organization name
+my $slug = slug_example; # String | project slug
+my $unimportOwner = unimportOwner_example; # String | username or organization name of the imported project
+my $unimportSlug = unimportSlug_example; # String | slug of the imported project
+
+eval {
+    my $result = $api_instance->unImportProject(owner => $owner, slug => $slug, unimportOwner => $unimportOwner, unimportSlug => $unimportSlug);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling WebApi->unImportProject: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-unImportProject-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.WebApi()
+owner = owner_example # String | username or organization name (default to null)
+slug = slug_example # String | project slug (default to null)
+unimportOwner = unimportOwner_example # String | username or organization name of the imported project (default to null)
+unimportSlug = unimportSlug_example # String | slug of the imported project (default to null)
+
+try:
+    # Remove an imported project.
+    api_response = api_instance.un_import_project(owner, slug, unimportOwner, unimportSlug)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling WebApi->unImportProject: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Web-unImportProject-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate WebApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+    let unimportOwner = unimportOwner_example; // String
+    let unimportSlug = unimportSlug_example; // String
+
+    let mut context = WebApi::Context::default();
+    let result = client.unImportProject(owner, slug, unimportOwner, unimportSlug, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_unImportProject_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+username or organization name
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_unImportProject_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+project slug
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">unimportOwner*</td>
+<td>
+
+
+    <div id="d2e199_unImportProject_unimportOwner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+username or organization name of the imported project
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">unimportSlug*</td>
+<td>
+
+
+    <div id="d2e199_unImportProject_unimportSlug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+slug of the imported project
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Web-unImportProject-title-200"></h3>
+                            <p id="examples-Web-unImportProject-description-200" class="marked"></p>
+                            <script>
+                              var responseWeb200_description = `A successful response.`;
+                              var responseWeb200_description_break = responseWeb200_description.indexOf('\n');
+                              if (responseWeb200_description_break == -1) {
+                                $("#examples-Web-unImportProject-title-200").text("Status: 200 - " + responseWeb200_description);
+                              } else {
+                                $("#examples-Web-unImportProject-title-200").text("Status: 200 - " + responseWeb200_description.substring(0, responseWeb200_description_break));
+                                $("#examples-Web-unImportProject-description-200").html(responseWeb200_description.substring(responseWeb200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Web-unImportProject-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Web-unImportProject-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Web-unImportProject-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Web-unImportProject-200-schema">
+                                <div id="responses-Web-unImportProject-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/web_service.ImportProjectResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Web-unImportProject-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Web-unImportProject-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Web-unImportProject-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

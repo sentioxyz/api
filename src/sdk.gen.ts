@@ -915,6 +915,73 @@ export class WebService {
     }
     
     /**
+     * Get all imported projects.
+     */
+    public static getImportedProject<ThrowOnError extends boolean = false>(options: Options<web_service.GetImportedProjectData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<web_service.GetImportedProjectResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/project/{owner}/{slug}/importprojects',
+            ...options
+        });
+    }
+    
+    /**
+     * Import external project(s).
+     */
+    public static importProject<ThrowOnError extends boolean = false>(options: Options<web_service.ImportProjectData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).post<web_service.ImportProjectResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/project/{owner}/{slug}/importprojects',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
+    }
+    
+    /**
+     * Remove an imported project.
+     */
+    public static unImportProject<ThrowOnError extends boolean = false>(options: Options<web_service.UnImportProjectData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).delete<web_service.UnImportProjectResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}',
+            ...options
+        });
+    }
+    
+    /**
      * Get project details
      */
     public static getProjectById<ThrowOnError extends boolean = false>(options: Options<common.GetProjectByIdData, ThrowOnError>) {
