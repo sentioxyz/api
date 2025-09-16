@@ -915,7 +915,7 @@ export class WebService {
     }
     
     /**
-     * Get all imported projects.
+     * Get all imported projects
      */
     public static getImportedProject<ThrowOnError extends boolean = false>(options: Options<web_service.GetImportedProjectData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).get<web_service.GetImportedProjectResponse, unknown, ThrowOnError>({
@@ -936,7 +936,7 @@ export class WebService {
     }
     
     /**
-     * Import external project(s).
+     * Import external project(s)
      */
     public static importProject<ThrowOnError extends boolean = false>(options: Options<web_service.ImportProjectData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).post<web_service.ImportProjectResponse2, unknown, ThrowOnError>({
@@ -961,7 +961,7 @@ export class WebService {
     }
     
     /**
-     * Remove an imported project.
+     * Remove an imported project
      */
     public static unImportProject<ThrowOnError extends boolean = false>(options: Options<web_service.UnImportProjectData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).delete<web_service.UnImportProjectResponse, unknown, ThrowOnError>({

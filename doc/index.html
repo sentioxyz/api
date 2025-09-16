@@ -43175,7 +43175,7 @@ pub fn main() {
                       <article id="api-Web-getImportedProject-0" data-group="User" data-name="getImportedProject" data-version="0">
                         <div class="pull-left">
                           <h1>getImportedProject</h1>
-                          <p>Get all imported projects.</p>
+                          <p>Get all imported projects</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -43314,7 +43314,7 @@ WebApi *apiInstance = [[WebApi alloc] init];
 String *owner = owner_example; // username or organization name (default to null)
 String *slug = slug_example; // project slug (default to null)
 
-// Get all imported projects.
+// Get all imported projects
 [apiInstance getImportedProjectWith:owner
     slug:slug
               completionHandler: ^(web_service.ImportProjectResponse output, NSError* error) {
@@ -43391,7 +43391,7 @@ namespace Example
             var slug = slug_example;  // String | project slug (default to null)
 
             try {
-                // Get all imported projects.
+                // Get all imported projects
                 web_service.ImportProjectResponse result = apiInstance.getImportedProject(owner, slug);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -43483,7 +43483,7 @@ owner = owner_example # String | username or organization name (default to null)
 slug = slug_example # String | project slug (default to null)
 
 try:
-    # Get all imported projects.
+    # Get all imported projects
     api_response = api_instance.get_imported_project(owner, slug)
     pprint(api_response)
 except ApiException as e:
@@ -45514,7 +45514,7 @@ $(document).ready(function() {
                       <article id="api-Web-importProject-0" data-group="User" data-name="importProject" data-version="0">
                         <div class="pull-left">
                           <h1>importProject</h1>
-                          <p>Import external project(s).</p>
+                          <p>Import external project(s)</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -45659,7 +45659,7 @@ String *owner = owner_example; // username or organization name (default to null
 String *slug = slug_example; // project slug (default to null)
 WebServiceWebServiceImportProjectBody *body = ; // 
 
-// Import external project(s).
+// Import external project(s)
 [apiInstance importProjectWith:owner
     slug:slug
     body:body
@@ -45739,7 +45739,7 @@ namespace Example
             var body = new WebServiceWebServiceImportProjectBody(); // WebServiceWebServiceImportProjectBody | 
 
             try {
-                // Import external project(s).
+                // Import external project(s)
                 web_service.ImportProjectResponse result = apiInstance.importProject(owner, slug, body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -45834,7 +45834,7 @@ slug = slug_example # String | project slug (default to null)
 body =  # WebServiceWebServiceImportProjectBody | 
 
 try:
-    # Import external project(s).
+    # Import external project(s)
     api_response = api_instance.import_project(owner, slug, body)
     pprint(api_response)
 except ApiException as e:
@@ -47144,7 +47144,7 @@ filter the dashboard by project id
                       <article id="api-Web-unImportProject-0" data-group="User" data-name="unImportProject" data-version="0">
                         <div class="pull-left">
                           <h1>unImportProject</h1>
-                          <p>Remove an imported project.</p>
+                          <p>Remove an imported project</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -47291,7 +47291,7 @@ String *slug = slug_example; // project slug (default to null)
 String *unimportOwner = unimportOwner_example; // username or organization name of the imported project (default to null)
 String *unimportSlug = unimportSlug_example; // slug of the imported project (default to null)
 
-// Remove an imported project.
+// Remove an imported project
 [apiInstance unImportProjectWith:owner
     slug:slug
     unimportOwner:unimportOwner
@@ -47374,7 +47374,7 @@ namespace Example
             var unimportSlug = unimportSlug_example;  // String | slug of the imported project (default to null)
 
             try {
-                // Remove an imported project.
+                // Remove an imported project
                 web_service.ImportProjectResponse result = apiInstance.unImportProject(owner, slug, unimportOwner, unimportSlug);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -47472,7 +47472,7 @@ unimportOwner = unimportOwner_example # String | username or organization name o
 unimportSlug = unimportSlug_example # String | slug of the imported project (default to null)
 
 try:
-    # Remove an imported project.
+    # Remove an imported project
     api_response = api_instance.un_import_project(owner, slug, unimportOwner, unimportSlug)
     pprint(api_response)
 except ApiException as e:

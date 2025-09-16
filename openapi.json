@@ -1998,7 +1998,7 @@
     },
     "/api/v1/project/{owner}/{slug}/importprojects": {
       "get": {
-        "summary": "Get all imported projects.",
+        "summary": "Get all imported projects",
         "operationId": "GetImportedProject",
         "responses": {
           "200": {
@@ -2029,7 +2029,7 @@
         ]
       },
       "post": {
-        "summary": "Import external project(s).",
+        "summary": "Import external project(s)",
         "operationId": "ImportProject",
         "responses": {
           "200": {
@@ -2070,7 +2070,7 @@
     },
     "/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}": {
       "delete": {
-        "summary": "Remove an imported project.",
+        "summary": "Remove an imported project",
         "operationId": "UnImportProject",
         "responses": {
           "200": {
