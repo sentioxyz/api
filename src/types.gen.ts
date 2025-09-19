@@ -3167,6 +3167,7 @@ export namespace web_service {
     };
     export type ChartConfigLineConfig = {
         style?: ChartConfigLineConfigStyle;
+        smooth?: boolean;
     };
     export type ChartConfigLineConfigStyle = 'Solid' | 'Dotted';
     export type ChartConfigMappingRule = {

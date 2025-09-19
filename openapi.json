@@ -9218,6 +9218,9 @@
       "properties": {
         "style": {
           "$ref": "#/definitions/web_service.ChartConfig.LineConfig.Style"
+        },
+        "smooth": {
+          "type": "boolean"
         }
       }
     },
