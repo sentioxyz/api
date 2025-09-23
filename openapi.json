@@ -6,6 +6,7 @@
     "version": "version not set"
   },
   "host": "api.sentio.xyz",
+  "basePath": "/v1",
   "schemes": [
     "https"
   ],
@@ -16,7 +17,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/ai/chat": {
+    "/api/v1/ai/chat": {
       "post": {
         "summary": "Create Chat Session",
         "description": "Initialize a new AI chat session. Returns a session_id that can be used with PostSessionMessage to have a conversation with the AI. Messages are generated as part of runs, with is_final indicating run completion.",
@@ -45,7 +46,7 @@
         ]
       }
     },
-    "/v1/ai/chat/{sessionId}": {
+    "/api/v1/ai/chat/{sessionId}": {
       "get": {
         "summary": "Query Chat Session",
         "description": "Retrieve information about an existing chat session, returning only messages after the specified cursor position. Messages include run_id to identify generation runs.",
@@ -80,7 +81,7 @@
         ]
       }
     },
-    "/v1/ai/chat/{sessionId}/message": {
+    "/api/v1/ai/chat/{sessionId}/message": {
       "post": {
         "summary": "Post Session Message",
         "description": "Add a new message to an existing chat session. This will trigger AI message generation as a run. check is_final to know when all messages for the run have been generated.",
@@ -115,7 +116,7 @@
         ]
       }
     },
-    "/v1/alerts/rule": {
+    "/api/v1/alerts/rule": {
       "post": {
         "summary": "Save an alert rule",
         "operationId": "SaveAlertRule",
@@ -143,7 +144,7 @@
         ]
       }
     },
-    "/v1/alerts/rule/project/{projectId}": {
+    "/api/v1/alerts/rule/project/{projectId}": {
       "get": {
         "summary": "List all alert rules for a project",
         "operationId": "GetAlertRules",
@@ -168,7 +169,7 @@
         ]
       }
     },
-    "/v1/alerts/rule/{id}": {
+    "/api/v1/alerts/rule/{id}": {
       "delete": {
         "summary": "Delete an alert rule",
         "operationId": "DeleteAlertRule",
@@ -226,7 +227,7 @@
         ]
       }
     },
-    "/v1/alerts/{ruleId}": {
+    "/api/v1/alerts/{ruleId}": {
       "get": {
         "summary": "Find an alert rule by id, and list all alerts for this rule",
         "operationId": "GetAlert",
@@ -265,7 +266,7 @@
         ]
       }
     },
-    "/v1/analytics/sql/sharing": {
+    "/api/v1/analytics/sql/sharing": {
       "post": {
         "summary": "Save Sharing SQL",
         "description": "Save or update sharing settings for a SQL query.",
@@ -293,7 +294,7 @@
         ]
       }
     },
-    "/v1/analytics/sql/sharing/{id}": {
+    "/api/v1/analytics/sql/sharing/{id}": {
       "get": {
         "summary": "Get Sharing SQL",
         "description": "Get sharing settings for a SQL query.",
@@ -319,7 +320,7 @@
         ]
       }
     },
-    "/v1/analytics/sql/tables": {
+    "/api/v1/analytics/sql/tables": {
       "get": {
         "summary": "Query Tables",
         "description": "Query tables in a project. use flag to control which type of tables to include.",
@@ -388,7 +389,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}": {
+    "/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}": {
       "put": {
         "summary": "Cancel SQL Query",
         "description": "Cancel a SQL query by execution_id.",
@@ -444,7 +445,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/execute": {
+    "/api/v1/analytics/{owner}/{slug}/sql/execute": {
       "post": {
         "summary": "Execute SQL",
         "description": "Execute SQL in a project. Go to \"Data Studio\" -\u003e \"SQL Editor\", write your query and then click \"Export as cURL\"\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(102).png)\n\nFind more: https://docs.sentio.xyz/reference/data#sql-api",
@@ -490,7 +491,7 @@
         }
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/execute/async": {
+    "/api/v1/analytics/{owner}/{slug}/sql/execute/async": {
       "post": {
         "summary": "Execute SQL by Async",
         "description": "Execute SQL in a project asynchronously.",
@@ -532,7 +533,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}": {
+    "/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}": {
       "get": {
         "summary": "Query SQL Execution Detail",
         "description": "Query the execution detail of a SQL query by execution_id.",
@@ -587,7 +588,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/query_result/{executionId}": {
+    "/api/v1/analytics/{owner}/{slug}/sql/query_result/{executionId}": {
       "get": {
         "summary": "Query SQL Result",
         "description": "Query the result of a SQL query by execution_id.",
@@ -642,7 +643,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view": {
+    "/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view": {
       "post": {
         "summary": "Save Refreshable Materialized View",
         "description": "Save or update a refreshable materialized view in a project.",
@@ -684,7 +685,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}": {
+    "/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}": {
       "get": {
         "summary": "Get Refreshable Materialized View Status",
         "description": "Get the status of a refreshable materialized view in a project.",
@@ -777,7 +778,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views": {
+    "/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views": {
       "get": {
         "summary": "List Refreshable Materialized Views",
         "description": "List all refreshable materialized views in a project.",
@@ -818,7 +819,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/save": {
+    "/api/v1/analytics/{owner}/{slug}/sql/save": {
       "post": {
         "summary": "Save SQL",
         "description": "Save or update a SQL query in a project.",
@@ -900,7 +901,7 @@
         ]
       }
     },
-    "/v1/analytics/{owner}/{slug}/sql/tables": {
+    "/api/v1/analytics/{owner}/{slug}/sql/tables": {
       "get": {
         "summary": "Query Tables",
         "description": "Query tables in a project. use flag to control which type of tables to include.",
@@ -969,7 +970,7 @@
         ]
       }
     },
-    "/v1/dashboards": {
+    "/api/v1/dashboards": {
       "get": {
         "summary": "List all dashboards in a project",
         "operationId": "ListDashboards",
@@ -1016,7 +1017,7 @@
         ]
       }
     },
-    "/v1/dashboards/json": {
+    "/api/v1/dashboards/json": {
       "post": {
         "summary": "Import a dashboard to another dashboard",
         "operationId": "ImportDashboard",
@@ -1043,7 +1044,7 @@
         ]
       }
     },
-    "/v1/dashboards/{dashboardId}": {
+    "/api/v1/dashboards/{dashboardId}": {
       "get": {
         "summary": "Get a dashboard by id",
         "operationId": "GetDashboard",
@@ -1135,7 +1136,7 @@
         ]
       }
     },
-    "/v1/dashboards/{dashboardId}/history": {
+    "/api/v1/dashboards/{dashboardId}/history": {
       "get": {
         "summary": "Get dashboard history by dashboard id",
         "operationId": "GetDashboardHistory",
@@ -1174,7 +1175,7 @@
         ]
       }
     },
-    "/v1/dashboards/{dashboardId}/json": {
+    "/api/v1/dashboards/{dashboardId}/json": {
       "get": {
         "summary": "Export a dashboard to json",
         "operationId": "ExportDashboard",
@@ -1199,7 +1200,7 @@
         ]
       }
     },
-    "/v1/eventlogs/{owner}/{slug}": {
+    "/api/v1/eventlogs/{owner}/{slug}": {
       "post": {
         "summary": "Query event logs",
         "operationId": "QueryLog",
@@ -1238,7 +1239,7 @@
         ]
       }
     },
-    "/v1/eventlogs/{owner}/{slug}/query": {
+    "/api/v1/eventlogs/{owner}/{slug}/query": {
       "get": {
         "summary": "Query event logs",
         "operationId": "QueryLog2",
@@ -1380,7 +1381,7 @@
         ]
       }
     },
-    "/v1/insights/coins": {
+    "/api/v1/insights/coins": {
       "get": {
         "summary": "List coins",
         "description": "Get a list of coins in a project.",
@@ -1445,7 +1446,7 @@
         ]
       }
     },
-    "/v1/insights/{owner}/{slug}/coins": {
+    "/api/v1/insights/{owner}/{slug}/coins": {
       "get": {
         "summary": "List coins",
         "description": "Get a list of coins in a project.",
@@ -1510,7 +1511,7 @@
         ]
       }
     },
-    "/v1/insights/{owner}/{slug}/query": {
+    "/api/v1/insights/{owner}/{slug}/query": {
       "post": {
         "summary": "Insight Query",
         "description": "Query for metrics,event logs and coin prices in a project.",
@@ -1552,7 +1553,7 @@
         ]
       }
     },
-    "/v1/metrics": {
+    "/api/v1/metrics": {
       "get": {
         "summary": "Get a list of metrics in a project",
         "operationId": "GetMetrics",
@@ -1590,7 +1591,7 @@
         ]
       }
     },
-    "/v1/metrics/{owner}/{slug}/query": {
+    "/api/v1/metrics/{owner}/{slug}/query": {
       "post": {
         "summary": "Metric instant queries",
         "operationId": "QueryInstant",
@@ -1631,7 +1632,7 @@
         ]
       }
     },
-    "/v1/metrics/{owner}/{slug}/query_range": {
+    "/api/v1/metrics/{owner}/{slug}/query_range": {
       "post": {
         "summary": "Metric range queries",
         "description": "The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(101).png)",
@@ -1673,7 +1674,7 @@
         ]
       }
     },
-    "/v1/prices": {
+    "/api/v1/prices": {
       "get": {
         "summary": "Get price",
         "description": "GetPrice returns the price of a given coin identifier, in a best effort way.\nIf we do not have any price data for the given coin, we will return NOT_FOUND error.\nIf we have at least one price data for the given coin, we will return it with the actual timestamp.\nClient is responsible for checking the timestamp and decide whether to use the price or not.",
@@ -1731,7 +1732,7 @@
         ]
       }
     },
-    "/v1/prices/add_coin_by_gecko": {
+    "/api/v1/prices/add_coin_by_gecko": {
       "post": {
         "summary": "Add coin by Gecko",
         "description": "adds a coin by its coingecko id.\n\ncoingecko id the API ID of the coin in coingecko web page.\n\nplease AWARE that the coingecko id is NOT the same as the symbol of the coin.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/coingecko_apiid.png)",
@@ -1759,7 +1760,7 @@
         ]
       }
     },
-    "/v1/prices/batch": {
+    "/api/v1/prices/batch": {
       "post": {
         "summary": "Batch get prices",
         "operationId": "BatchGetPrices",
@@ -1786,7 +1787,7 @@
         ]
       }
     },
-    "/v1/prices/check_latest": {
+    "/api/v1/prices/check_latest": {
       "get": {
         "summary": "Check latest price",
         "operationId": "CheckLatestPrice",
@@ -1803,7 +1804,7 @@
         ]
       }
     },
-    "/v1/prices/coins": {
+    "/api/v1/prices/coins": {
       "get": {
         "summary": "List coins",
         "operationId": "PriceListCoins",
@@ -1848,7 +1849,7 @@
         ]
       }
     },
-    "/v1/processors/{owner}/{slug}/activate_pending": {
+    "/api/v1/processors/{owner}/{slug}/activate_pending": {
       "put": {
         "summary": "activate the pending version of a processor",
         "operationId": "ActivatePendingVersion",
@@ -1880,7 +1881,7 @@
         ]
       }
     },
-    "/v1/processors/{owner}/{slug}/source_files": {
+    "/api/v1/processors/{owner}/{slug}/source_files": {
       "get": {
         "summary": "Get the source files of a processor",
         "operationId": "GetProcessorSourceFiles",
@@ -1919,7 +1920,7 @@
         ]
       }
     },
-    "/v1/processors/{owner}/{slug}/status": {
+    "/api/v1/processors/{owner}/{slug}/status": {
       "get": {
         "summary": "Get processor status",
         "operationId": "GetProcessorStatusV2",
@@ -1963,7 +1964,7 @@
         ]
       }
     },
-    "/v1/project/{owner}/{slug}": {
+    "/api/v1/project/{owner}/{slug}": {
       "get": {
         "summary": "Get project details",
         "operationId": "GetProject",
@@ -1996,7 +1997,7 @@
         ]
       }
     },
-    "/v1/project/{owner}/{slug}/importprojects": {
+    "/api/v1/project/{owner}/{slug}/importprojects": {
       "get": {
         "summary": "Get all imported projects",
         "operationId": "GetImportedProject",
@@ -2068,7 +2069,7 @@
         ]
       }
     },
-    "/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}": {
+    "/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}": {
       "delete": {
         "summary": "Remove an imported project",
         "operationId": "UnImportProject",
@@ -2115,7 +2116,7 @@
         ]
       }
     },
-    "/v1/project/{projectId}": {
+    "/api/v1/project/{projectId}": {
       "get": {
         "summary": "Get project details",
         "operationId": "GetProjectById",
@@ -2140,7 +2141,7 @@
         ]
       }
     },
-    "/v1/projects": {
+    "/api/v1/projects": {
       "get": {
         "summary": "Get project list",
         "operationId": "GetProjectList",
@@ -2171,7 +2172,7 @@
         ]
       }
     },
-    "/v1/projects/{owner}/{slug}/dashboards": {
+    "/api/v1/projects/{owner}/{slug}/dashboards": {
       "get": {
         "summary": "List all dashboards in a project",
         "operationId": "ListDashboards2",
@@ -2218,7 +2219,7 @@
         ]
       }
     },
-    "/v1/projects/{owner}/{slug}/dashboards/{dashboardId}": {
+    "/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}": {
       "get": {
         "summary": "Get a dashboard by id",
         "operationId": "GetDashboard2",
@@ -2265,7 +2266,7 @@
         ]
       }
     },
-    "/v1/solidity/estimated_gas_price": {
+    "/api/v1/solidity/estimated_gas_price": {
       "get": {
         "summary": "Estimate gas price",
         "operationId": "GetEstimatedGasPrice",
@@ -2291,7 +2292,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork": {
+    "/api/v1/solidity/{owner}/{slug}/fork": {
       "get": {
         "summary": "List all forks",
         "operationId": "ListForks",
@@ -2359,7 +2360,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace": {
       "get": {
         "summary": "Get trace by bundle simulation",
         "operationId": "GetCallTraceOnForkBundle",
@@ -2423,7 +2424,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation": {
       "post": {
         "summary": "Run Simulation",
         "operationId": "SimulateTransactionOnFork",
@@ -2468,7 +2469,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace": {
       "get": {
         "summary": "Get trace by simulation",
         "operationId": "GetCallTraceOnForkSimulation",
@@ -2532,7 +2533,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle": {
       "post": {
         "summary": "Run bundle simulation",
         "operationId": "SimulateTransactionBundleOnFork",
@@ -2577,7 +2578,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace": {
       "get": {
         "summary": "Get trace by transaction",
         "operationId": "GetCallTraceOnForkTransaction",
@@ -2641,7 +2642,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork/{id}": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{id}": {
       "get": {
         "summary": "Get fork by id",
         "operationId": "GetFork",
@@ -2757,7 +2758,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/fork/{id}/info": {
+    "/api/v1/solidity/{owner}/{slug}/fork/{id}/info": {
       "get": {
         "summary": "Get fork info by id",
         "operationId": "GetForkInfo",
@@ -2794,7 +2795,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/search_transactions": {
+    "/api/v1/solidity/{owner}/{slug}/search_transactions": {
       "get": {
         "summary": "Search transactions",
         "operationId": "SearchTransactions",
@@ -2928,7 +2929,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/simulation": {
+    "/api/v1/solidity/{owner}/{slug}/simulation": {
       "get": {
         "summary": "Get list of simulations",
         "operationId": "GetSimulations",
@@ -2979,7 +2980,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/simulation/{simulationId}": {
+    "/api/v1/solidity/{owner}/{slug}/simulation/{simulationId}": {
       "get": {
         "summary": "Get simulation by ID",
         "operationId": "GetSimulation",
@@ -3016,7 +3017,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}": {
+    "/api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}": {
       "get": {
         "summary": "Get bundle simulation by ID",
         "operationId": "GetSimulationBundleInProject",
@@ -3053,7 +3054,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace": {
       "get": {
         "summary": "Get trace by bundle simulation",
         "operationId": "GetCallTraceByBundle",
@@ -3117,7 +3118,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/{chainId}/simulation": {
+    "/api/v1/solidity/{owner}/{slug}/{chainId}/simulation": {
       "post": {
         "summary": "Run simulation",
         "description": "Create a new transaction simulation. The simulation body should be included in the request body.\nYour simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.",
@@ -3163,7 +3164,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace": {
       "get": {
         "summary": "Get trace by simulation",
         "operationId": "GetCallTraceBySimulation",
@@ -3227,7 +3228,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle": {
+    "/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle": {
       "post": {
         "summary": "Run bundle simulation",
         "description": "You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.",
@@ -3273,7 +3274,7 @@
         ]
       }
     },
-    "/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace": {
+    "/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace": {
       "get": {
         "summary": "Get trace by transaction",
         "description": "API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.\n\nThe results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.\n\nThis allows you to build chart that marks the order of fund flow.\n\n![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(2)%20(1)%20(1)%20(1).png)",
