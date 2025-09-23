@@ -2074,6 +2074,9 @@ ul.nav-tabs {
     "version" : {
       "type" : "integer",
       "format" : "int32"
+    },
+    "source" : {
+      "type" : "string"
     }
   }
 };
@@ -18383,7 +18386,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://api.sentio.xyz/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56"
+ "https://api.sentio.xyz/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56&source=source_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-queryLog2-0-java">
@@ -18432,9 +18435,10 @@ public class DataApiExample {
         Integer limit = 56; // Integer | 
         Integer offset = 56; // Integer | 
         Integer version = 56; // Integer | 
+        String source = source_example; // String | 
 
         try {
-            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version);
+            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DataApi#queryLog2");
@@ -18469,9 +18473,10 @@ final String timeRangePeriodtimezone = new String(); // String |
 final Integer limit = new Integer(); // Integer | 
 final Integer offset = new Integer(); // Integer | 
 final Integer version = new Integer(); // Integer | 
+final String source = new String(); // String | 
 
 try {
-    final result = await api_instance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version);
+    final result = await api_instance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->queryLog2: $e\n');
@@ -18505,9 +18510,10 @@ public class DataApiExample {
         Integer limit = 56; // Integer | 
         Integer offset = 56; // Integer | 
         Integer version = 56; // Integer | 
+        String source = source_example; // String | 
 
         try {
-            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version);
+            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DataApi#queryLog2");
@@ -18555,6 +18561,7 @@ String *timeRangePeriodtimezone = timeRangePeriodtimezone_example; //  (optional
 Integer *limit = 56; //  (optional) (default to null)
 Integer *offset = 56; //  (optional) (default to null)
 Integer *version = 56; //  (optional) (default to null)
+String *source = source_example; //  (optional) (default to null)
 
 // Query event logs
 [apiInstance queryLog2With:owner
@@ -18576,6 +18583,7 @@ Integer *version = 56; //  (optional) (default to null)
     limit:limit
     offset:offset
     version:version
+    source:source
               completionHandler: ^(analytic_service.LogQueryResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -18624,7 +18632,8 @@ var opts = {
   'timeRangePeriodtimezone': timeRangePeriodtimezone_example, // {String} 
   'limit': 56, // {Integer} 
   'offset': 56, // {Integer} 
-  'version': 56 // {Integer} 
+  'version': 56, // {Integer} 
+  'source': source_example // {String} 
 };
 
 var callback = function(error, data, response) {
@@ -18684,10 +18693,11 @@ namespace Example
             var limit = 56;  // Integer |  (optional)  (default to null)
             var offset = 56;  // Integer |  (optional)  (default to null)
             var version = 56;  // Integer |  (optional)  (default to null)
+            var source = source_example;  // String |  (optional)  (default to null)
 
             try {
                 // Query event logs
-                analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version);
+                analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DataApi.queryLog2: " + e.Message );
@@ -18733,9 +18743,10 @@ $timeRangePeriodtimezone = timeRangePeriodtimezone_example; // String |
 $limit = 56; // Integer | 
 $offset = 56; // Integer | 
 $version = 56; // Integer | 
+$source = source_example; // String | 
 
 try {
-    $result = $api_instance->queryLog2($owner, $slug, $projectId, $query, $timeRangePeriodstartPeriodrelativeTimePeriodunit, $timeRangePeriodstartPeriodrelativeTimePeriodvalue, $timeRangePeriodstartPeriodrelativeTimePeriodalign, $timeRangePeriodstartPeriodabsoluteTime, $timeRangePeriodendPeriodrelativeTimePeriodunit, $timeRangePeriodendPeriodrelativeTimePeriodvalue, $timeRangePeriodendPeriodrelativeTimePeriodalign, $timeRangePeriodendPeriodabsoluteTime, $timeRangePeriodstep, $timeRangePeriodintervalPeriodvalue, $timeRangePeriodintervalPeriodunit, $timeRangePeriodtimezone, $limit, $offset, $version);
+    $result = $api_instance->queryLog2($owner, $slug, $projectId, $query, $timeRangePeriodstartPeriodrelativeTimePeriodunit, $timeRangePeriodstartPeriodrelativeTimePeriodvalue, $timeRangePeriodstartPeriodrelativeTimePeriodalign, $timeRangePeriodstartPeriodabsoluteTime, $timeRangePeriodendPeriodrelativeTimePeriodunit, $timeRangePeriodendPeriodrelativeTimePeriodvalue, $timeRangePeriodendPeriodrelativeTimePeriodalign, $timeRangePeriodendPeriodabsoluteTime, $timeRangePeriodstep, $timeRangePeriodintervalPeriodvalue, $timeRangePeriodintervalPeriodunit, $timeRangePeriodtimezone, $limit, $offset, $version, $source);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DataApi->queryLog2: ', $e->getMessage(), PHP_EOL;
@@ -18779,9 +18790,10 @@ my $timeRangePeriodtimezone = timeRangePeriodtimezone_example; # String |
 my $limit = 56; # Integer | 
 my $offset = 56; # Integer | 
 my $version = 56; # Integer | 
+my $source = source_example; # String | 
 
 eval {
-    my $result = $api_instance->queryLog2(owner => $owner, slug => $slug, projectId => $projectId, query => $query, timeRangePeriodstartPeriodrelativeTimePeriodunit => $timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue => $timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign => $timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime => $timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit => $timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue => $timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign => $timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime => $timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep => $timeRangePeriodstep, timeRangePeriodintervalPeriodvalue => $timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit => $timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone => $timeRangePeriodtimezone, limit => $limit, offset => $offset, version => $version);
+    my $result = $api_instance->queryLog2(owner => $owner, slug => $slug, projectId => $projectId, query => $query, timeRangePeriodstartPeriodrelativeTimePeriodunit => $timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue => $timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign => $timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime => $timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit => $timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue => $timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign => $timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime => $timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep => $timeRangePeriodstep, timeRangePeriodintervalPeriodvalue => $timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit => $timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone => $timeRangePeriodtimezone, limit => $limit, offset => $offset, version => $version, source => $source);
     print Dumper($result);
 };
 if ($@) {
@@ -18827,10 +18839,11 @@ timeRangePeriodtimezone = timeRangePeriodtimezone_example # String |  (optional)
 limit = 56 # Integer |  (optional) (default to null)
 offset = 56 # Integer |  (optional) (default to null)
 version = 56 # Integer |  (optional) (default to null)
+source = source_example # String |  (optional) (default to null)
 
 try:
     # Query event logs
-    api_response = api_instance.query_log2(owner, slug, projectId=projectId, query=query, timeRangePeriodstartPeriodrelativeTimePeriodunit=timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue=timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign=timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime=timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit=timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue=timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign=timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime=timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep=timeRangePeriodstep, timeRangePeriodintervalPeriodvalue=timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit=timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone=timeRangePeriodtimezone, limit=limit, offset=offset, version=version)
+    api_response = api_instance.query_log2(owner, slug, projectId=projectId, query=query, timeRangePeriodstartPeriodrelativeTimePeriodunit=timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue=timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign=timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime=timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit=timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue=timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign=timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime=timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep=timeRangePeriodstep, timeRangePeriodintervalPeriodvalue=timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit=timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone=timeRangePeriodtimezone, limit=limit, offset=offset, version=version, source=source)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->queryLog2: %s\n" % e)</code></pre>
@@ -18859,9 +18872,10 @@ pub fn main() {
     let limit = 56; // Integer
     let offset = 56; // Integer
     let version = 56; // Integer
+    let source = source_example; // String
 
     let mut context = DataApi::Context::default();
-    let result = client.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, &context).wait();
+    let result = client.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, &context).wait();
 
     println!("{:?}", result);
 }
@@ -19242,6 +19256,23 @@ pub fn main() {
                     <span class="format">
                         (int32)
                     </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">source</td>
+<td>
+
+
+    <div id="d2e199_queryLog2_source">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
 
             </div>
         </div>

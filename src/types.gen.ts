@@ -508,6 +508,7 @@ export namespace analytic_service {
         offset?: number;
         filters?: Array<LogQueryRequestFilter>;
         version?: number;
+        source?: string;
     };
     export type SegmentationRequest = {
         projectOwner?: string;
@@ -894,6 +895,7 @@ export namespace analytic_service {
             limit?: number;
             offset?: number;
             version?: number;
+            source?: string;
         };
         url: '/v1/eventlogs/{owner}/{slug}/query';
     };

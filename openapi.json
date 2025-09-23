@@ -1373,6 +1373,12 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -4644,6 +4650,9 @@
         "version": {
           "type": "integer",
           "format": "int32"
+        },
+        "source": {
+          "type": "string"
         }
       }
     },
