@@ -3781,5 +3781,5 @@ export namespace solidit_service {
 }
 
 export type ClientOptions = {
-    baseUrl: 'https://app.sentio.xyz' | (string & {});
+    baseUrl: 'https://api.sentio.xyz/v1' | (string & {});
 };

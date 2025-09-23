@@ -7440,7 +7440,7 @@ ul.nav-tabs {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/ai/chat" \
+ "https://api.sentio.xyz/v1/api/v1/ai/chat" \
  -d ''
 </code></pre>
                           </div>
@@ -7907,7 +7907,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/ai/chat/{sessionId}/message" \
+ "https://api.sentio.xyz/v1/api/v1/ai/chat/{sessionId}/message" \
  -d ''
 </code></pre>
                           </div>
@@ -8413,7 +8413,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/ai/chat/{sessionId}?cursorPosition=56"
+ "https://api.sentio.xyz/v1/api/v1/ai/chat/{sessionId}?cursorPosition=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-AI-queryChatSession-0-java">
@@ -8905,7 +8905,7 @@ Start cursor position - only messages after this position will be returned
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/alerts/rule/{id}"
+ "https://api.sentio.xyz/v1/api/v1/alerts/rule/{id}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Alerts-deleteAlertRule-0-java">
@@ -9348,7 +9348,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/alerts/{ruleId}?page=56&pageSize=56"
+ "https://api.sentio.xyz/v1/api/v1/alerts/{ruleId}?page=56&pageSize=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Alerts-getAlert-0-java">
@@ -9862,7 +9862,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/alerts/rule/project/{projectId}"
+ "https://api.sentio.xyz/v1/api/v1/alerts/rule/project/{projectId}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Alerts-getAlertRules-0-java">
@@ -10306,7 +10306,7 @@ pub fn main() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/alerts/rule" \
+ "https://api.sentio.xyz/v1/api/v1/alerts/rule" \
  -d ''
 </code></pre>
                           </div>
@@ -10772,7 +10772,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/alerts/rule/{id}" \
+ "https://api.sentio.xyz/v1/api/v1/alerts/rule/{id}" \
  -d ''
 </code></pre>
                           </div>
@@ -11278,7 +11278,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}?projectId=projectId_example&version=56"
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}?projectId=projectId_example&version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-cancelSQLQuery-0-java">
@@ -11863,7 +11863,7 @@ version of the datasource, default to the active version if not provided
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}?projectId=projectId_example"
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}?projectId=projectId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-deleteRefreshableMaterializedView-0-java">
@@ -12419,7 +12419,7 @@ Find more: https://docs.sentio.xyz/reference/data#sql-api</p>
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/execute" \
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/execute" \
  -d ''
 </code></pre>
                           </div>
@@ -12960,7 +12960,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/execute/async" \
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/execute/async" \
  -d ''
 </code></pre>
                           </div>
@@ -13500,7 +13500,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/metrics?projectId=projectId_example&name=name_example&version=56"
+ "https://api.sentio.xyz/v1/api/v1/metrics?projectId=projectId_example&name=name_example&version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-getMetrics-0-java">
@@ -14001,7 +14001,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}?projectId=projectId_example"
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}?projectId=projectId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-getRefreshableMaterializedStatus-0-java">
@@ -14552,7 +14552,7 @@ use project id if project_owner and project_slug are not provided
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/sql/sharing/{id}"
+ "https://api.sentio.xyz/v1/api/v1/analytics/sql/sharing/{id}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-getSharingSQL-0-java">
@@ -14995,7 +14995,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/insights/{owner}/{slug}/coins?projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
+ "https://api.sentio.xyz/v1/api/v1/insights/{owner}/{slug}/coins?projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-listCoins-0-java">
@@ -15627,7 +15627,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/insights/coins?projectOwner=projectOwner_example&projectSlug=projectSlug_example&projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
+ "https://api.sentio.xyz/v1/api/v1/insights/coins?projectOwner=projectOwner_example&projectSlug=projectSlug_example&projectId=projectId_example&version=56&limit=56&offset=56&searchQuery=searchQuery_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-listCoins2-0-java">
@@ -16246,7 +16246,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views?projectId=projectId_example"
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views?projectId=projectId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-listRefreshableMaterializedViews-0-java">
@@ -16767,7 +16767,7 @@ use project id if project_owner and project_slug are not provided
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/insights/{owner}/{slug}/query" \
+ "https://api.sentio.xyz/v1/api/v1/insights/{owner}/{slug}/query" \
  -d ''
 </code></pre>
                           </div>
@@ -17308,7 +17308,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query" \
+ "https://api.sentio.xyz/v1/api/v1/metrics/{owner}/{slug}/query" \
  -d ''
 </code></pre>
                           </div>
@@ -17849,7 +17849,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/eventlogs/{owner}/{slug}" \
+ "https://api.sentio.xyz/v1/api/v1/eventlogs/{owner}/{slug}" \
  -d ''
 </code></pre>
                           </div>
@@ -18383,7 +18383,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56"
+ "https://api.sentio.xyz/v1/api/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-queryLog2-0-java">
@@ -19372,7 +19372,7 @@ pub fn main() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/metrics/{owner}/{slug}/query_range" \
+ "https://api.sentio.xyz/v1/api/v1/metrics/{owner}/{slug}/query_range" \
  -d ''
 </code></pre>
                           </div>
@@ -19912,7 +19912,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}?projectId=projectId_example&version=56"
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}?projectId=projectId_example&version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-querySQLExecutionDetail-0-java">
@@ -20497,7 +20497,7 @@ version of the datasource, default to the active version if not provided
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/query_result/{executionId}?projectId=projectId_example&version=56"
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/query_result/{executionId}?projectId=projectId_example&version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-querySQLResult-0-java">
@@ -21082,7 +21082,7 @@ version of the datasource, default to the active version if not provided
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/tables?projectId=projectId_example&version=56&includeChains=true&includeViews=true&includeExternals=true&includeDash=true"
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/tables?projectId=projectId_example&version=56&includeChains=true&includeViews=true&includeExternals=true&includeDash=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-queryTables-0-java">
@@ -21736,7 +21736,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/sql/tables?projectOwner=projectOwner_example&projectSlug=projectSlug_example&projectId=projectId_example&version=56&includeChains=true&includeViews=true&includeExternals=true&includeDash=true"
+ "https://api.sentio.xyz/v1/api/v1/analytics/sql/tables?projectOwner=projectOwner_example&projectSlug=projectSlug_example&projectId=projectId_example&version=56&includeChains=true&includeViews=true&includeExternals=true&includeDash=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-queryTables2-0-java">
@@ -22378,7 +22378,7 @@ pub fn main() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view" \
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view" \
  -d ''
 </code></pre>
                           </div>
@@ -22919,7 +22919,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/save" \
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/save" \
  -d ''
 </code></pre>
                           </div>
@@ -23460,7 +23460,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/{owner}/{slug}/sql/save" \
+ "https://api.sentio.xyz/v1/api/v1/analytics/{owner}/{slug}/sql/save" \
  -d ''
 </code></pre>
                           </div>
@@ -24001,7 +24001,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/analytics/sql/sharing" \
+ "https://api.sentio.xyz/v1/api/v1/analytics/sql/sharing" \
  -d ''
 </code></pre>
                           </div>
@@ -24469,7 +24469,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceByBundle-0-java">
@@ -25107,7 +25107,7 @@ Only effective when disableOptimizer&#x3D;true.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceBySimulation-0-java">
@@ -25751,7 +25751,7 @@ This allows you to build chart that marks the order of fund flow.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getCallTraceByTransaction-0-java">
@@ -26389,7 +26389,7 @@ Only effective when disableOptimizer&#x3D;true.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/estimated_gas_price?chainId=chainId_example"
+ "https://api.sentio.xyz/v1/api/v1/solidity/estimated_gas_price?chainId=chainId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getEstimatedGasPrice-0-java">
@@ -26834,7 +26834,7 @@ Current support chain id: 1
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/simulation/{simulationId}"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/simulation/{simulationId}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getSimulation-0-java">
@@ -27339,7 +27339,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getSimulationBundleInProject-0-java">
@@ -27844,7 +27844,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/simulation?labelContains=labelContains_example&page=56&pageSize=56"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/simulation?labelContains=labelContains_example&page=56&pageSize=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-getSimulations-0-java">
@@ -28417,7 +28417,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/search_transactions?chainId=&address=&includeDirect=true&includeTrace=true&includeIn=true&includeOut=true&startBlock=startBlock_example&endBlock=endBlock_example&startTimestamp=startTimestamp_example&endTimestamp=endTimestamp_example&transactionStatus=&methodSignature=methodSignature_example&limit=56&pageToken=BYTE_ARRAY_DATA_HERE"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/search_transactions?chainId=&address=&includeDirect=true&includeTrace=true&includeIn=true&includeOut=true&startBlock=startBlock_example&endBlock=endBlock_example&startTimestamp=startTimestamp_example&endTimestamp=endTimestamp_example&transactionStatus=&methodSignature=methodSignature_example&limit=56&pageToken=BYTE_ARRAY_DATA_HERE"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-DebugAndSimulation-searchTransactions-0-java">
@@ -29315,7 +29315,7 @@ Your simulations will be saved, and a unique ID for each simulation is included 
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/simulation" \
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/{chainId}/simulation" \
  -d ''
 </code></pre>
                           </div>
@@ -29881,7 +29881,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle" \
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle" \
  -d ''
 </code></pre>
                           </div>
@@ -30450,7 +30450,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork" \
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork" \
  -d ''
 </code></pre>
                           </div>
@@ -30984,7 +30984,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{id}"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{id}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Forks-deleteFork-0-java">
@@ -31489,7 +31489,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Forks-getCallTraceOnForkBundle-0-java">
@@ -32127,7 +32127,7 @@ Only effective when disableOptimizer&#x3D;true.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Forks-getCallTraceOnForkSimulation-0-java">
@@ -32765,7 +32765,7 @@ Only effective when disableOptimizer&#x3D;true.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace?withInternalCalls=true&disableOptimizer=true&ignoreGasCost=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Forks-getCallTraceOnForkTransaction-0-java">
@@ -33403,7 +33403,7 @@ Only effective when disableOptimizer&#x3D;true.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{id}"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{id}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Forks-getFork-0-java">
@@ -33908,7 +33908,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{id}/info"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{id}/info"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Forks-getForkInfo-0-java">
@@ -34413,7 +34413,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork"
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Forks-listForks-0-java">
@@ -34888,7 +34888,7 @@ pub fn main() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle" \
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle" \
  -d ''
 </code></pre>
                           </div>
@@ -35454,7 +35454,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation" \
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation" \
  -d ''
 </code></pre>
                           </div>
@@ -36020,7 +36020,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/solidity/{owner}/{slug}/fork/{id}" \
+ "https://api.sentio.xyz/v1/api/v1/solidity/{owner}/{slug}/fork/{id}" \
  -d ''
 </code></pre>
                           </div>
@@ -36595,7 +36595,7 @@ please AWARE that the coingecko id is NOT the same as the symbol of the coin.
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/prices/add_coin_by_gecko" \
+ "https://api.sentio.xyz/v1/api/v1/prices/add_coin_by_gecko" \
  -d ''
 </code></pre>
                           </div>
@@ -37061,7 +37061,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/prices/batch" \
+ "https://api.sentio.xyz/v1/api/v1/prices/batch" \
  -d ''
 </code></pre>
                           </div>
@@ -37526,7 +37526,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/prices/check_latest"
+ "https://api.sentio.xyz/v1/api/v1/prices/check_latest"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Price-checkLatestPrice-0-java">
@@ -37934,7 +37934,7 @@ Client is responsible for checking the timestamp and decide whether to use the p
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/prices?timestamp=2013-10-20T19:20:30+01:00&coinId.symbol=coinIdPeriodsymbol_example&coinId.address.address=coinIdPeriodaddressPeriodaddress_example&coinId.address.chain=coinIdPeriodaddressPeriodchain_example&source=source_example&experimentalFlag.enablePythSource=true"
+ "https://api.sentio.xyz/v1/api/v1/prices?timestamp=2013-10-20T19:20:30+01:00&coinId.symbol=coinIdPeriodsymbol_example&coinId.address.address=coinIdPeriodaddressPeriodaddress_example&coinId.address.chain=coinIdPeriodaddressPeriodchain_example&source=source_example&experimentalFlag.enablePythSource=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Price-getPrice-0-java">
@@ -38542,7 +38542,7 @@ at the closest timestamp.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/prices/coins?limit=56&offset=56&searchQuery=searchQuery_example&chain=chain_example"
+ "https://api.sentio.xyz/v1/api/v1/prices/coins?limit=56&offset=56&searchQuery=searchQuery_example&chain=chain_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Price-priceListCoins-0-java">
@@ -39077,7 +39077,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/processors/{owner}/{slug}/activate_pending"
+ "https://api.sentio.xyz/v1/api/v1/processors/{owner}/{slug}/activate_pending"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Processor-activatePendingVersion-0-java">
@@ -39551,7 +39551,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/processors/{owner}/{slug}/source_files?version=56"
+ "https://api.sentio.xyz/v1/api/v1/processors/{owner}/{slug}/source_files?version=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Processor-getProcessorSourceFiles-0-java">
@@ -40068,7 +40068,7 @@ Optional version to fetch. If omitted, use latest active version.
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/processors/{owner}/{slug}/status?version=version_example"
+ "https://api.sentio.xyz/v1/api/v1/processors/{owner}/{slug}/status?version=version_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Processor-getProcessorStatusV2-0-java">
@@ -40605,7 +40605,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
+ "https://api.sentio.xyz/v1/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-deleteDashboard-0-java">
@@ -41153,7 +41153,7 @@ project slug
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}/json"
+ "https://api.sentio.xyz/v1/api/v1/dashboards/{dashboardId}/json"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-exportDashboard-0-java">
@@ -41596,7 +41596,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
+ "https://api.sentio.xyz/v1/api/v1/dashboards/{dashboardId}?projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getDashboard-0-java">
@@ -42144,7 +42144,7 @@ project slug
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}?projectId=projectId_example"
+ "https://api.sentio.xyz/v1/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}?projectId=projectId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getDashboard2-0-java">
@@ -42698,7 +42698,7 @@ filter the dashboard by project id
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/dashboards/{dashboardId}/history?limit=56&offset=56"
+ "https://api.sentio.xyz/v1/api/v1/dashboards/{dashboardId}/history?limit=56&offset=56"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getDashboardHistory-0-java">
@@ -43212,7 +43212,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/project/{owner}/{slug}/importprojects"
+ "https://api.sentio.xyz/v1/api/v1/project/{owner}/{slug}/importprojects"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getImportedProject-0-java">
@@ -43692,7 +43692,7 @@ project slug
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/project/{owner}/{slug}"
+ "https://api.sentio.xyz/v1/api/v1/project/{owner}/{slug}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getProject-0-java">
@@ -44172,7 +44172,7 @@ project slug
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/project/{projectId}"
+ "https://api.sentio.xyz/v1/api/v1/project/{projectId}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getProjectById-0-java">
@@ -44615,7 +44615,7 @@ pub fn main() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/projects?userId=userId_example&organizationId=organizationId_example"
+ "https://api.sentio.xyz/v1/api/v1/projects?userId=userId_example&organizationId=organizationId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-getProjectList-0-java">
@@ -45086,7 +45086,7 @@ pub fn main() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/dashboards/json" \
+ "https://api.sentio.xyz/v1/api/v1/dashboards/json" \
  -d ''
 </code></pre>
                           </div>
@@ -45552,7 +45552,7 @@ $(document).ready(function() {
  \
  -H "Accept: application/json" \
  -H "Content-Type: application/json" \
- "https://app.sentio.xyz/api/v1/project/{owner}/{slug}/importprojects" \
+ "https://api.sentio.xyz/v1/api/v1/project/{owner}/{slug}/importprojects" \
  -d ''
 </code></pre>
                           </div>
@@ -46092,7 +46092,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/dashboards?dashboardId=dashboardId_example&projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
+ "https://api.sentio.xyz/v1/api/v1/dashboards?dashboardId=dashboardId_example&projectId=projectId_example&ownerName=ownerName_example&slug=slug_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-listDashboards-0-java">
@@ -46630,7 +46630,7 @@ project slug
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/projects/{owner}/{slug}/dashboards?dashboardId=dashboardId_example&projectId=projectId_example"
+ "https://api.sentio.xyz/v1/api/v1/projects/{owner}/{slug}/dashboards?dashboardId=dashboardId_example&projectId=projectId_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-listDashboards2-0-java">
@@ -47181,7 +47181,7 @@ filter the dashboard by project id
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://app.sentio.xyz/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}"
+ "https://api.sentio.xyz/v1/api/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Web-unImportProject-0-java">

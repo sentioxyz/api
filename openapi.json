@@ -5,7 +5,8 @@
     "description": "Sentio Open API for query data",
     "version": "version not set"
   },
-  "host": "app.sentio.xyz",
+  "host": "api.sentio.xyz",
+  "basePath": "/v1",
   "schemes": [
     "https"
   ],
