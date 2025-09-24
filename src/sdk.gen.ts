@@ -1095,7 +1095,7 @@ export class PriceService {
     
     /**
      * Add coin by Gecko
-     * Adds a coin by its coingecko id.
+     * adds a coin by its coingecko id.
      *
      * coingecko id the API ID of the coin in coingecko web page.
      *
