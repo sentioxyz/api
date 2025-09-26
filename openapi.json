@@ -6943,6 +6943,9 @@
             "type": "object",
             "$ref": "#/definitions/metrics_service.MetricInfo"
           }
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
         }
       }
     },
@@ -6995,6 +6998,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "totalCount": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

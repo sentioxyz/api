@@ -1919,6 +1919,7 @@ export namespace insights_service {
 export namespace metrics_service {
     export type GetMetricsResponse = {
         metrics?: Array<MetricInfo>;
+        computeStats?: common.ComputeStats;
     };
     export type MetricInfo = {
         name?: string;
@@ -1934,6 +1935,7 @@ export namespace metrics_service {
     };
     export type MetricInfoLabelValues = {
         values?: Array<string>;
+        totalCount?: string;
     };
     export type MetricMetadata = {
         type?: string;

@@ -4148,6 +4148,9 @@ ul.nav-tabs {
       "items" : {
         "$ref" : "#/components/schemas/metrics_service.MetricInfo"
       }
+    },
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
 };
@@ -4200,6 +4203,10 @@ ul.nav-tabs {
       "items" : {
         "type" : "string"
       }
+    },
+    "totalCount" : {
+      "type" : "string",
+      "format" : "uint64"
     }
   }
 };
