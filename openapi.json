@@ -1596,6 +1596,12 @@
             "required": false,
             "type": "string",
             "format": "uint64"
+          },
+          {
+            "name": "labelSearchQuery",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [

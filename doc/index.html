@@ -13510,7 +13510,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://api.sentio.xyz/v1/metrics?projectId=projectId_example&name=name_example&version=56&labelLimit=labelLimit_example"
+ "https://api.sentio.xyz/v1/metrics?projectId=projectId_example&name=name_example&version=56&labelLimit=labelLimit_example&labelSearchQuery=labelSearchQuery_example"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-getMetrics-0-java">
@@ -13544,9 +13544,10 @@ public class DataApiExample {
         String name = name_example; // String | 
         Integer version = 56; // Integer | 
         String labelLimit = labelLimit_example; // String | 
+        String labelSearchQuery = labelSearchQuery_example; // String | 
 
         try {
-            metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version, labelLimit);
+            metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version, labelLimit, labelSearchQuery);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DataApi#getMetrics");
@@ -13566,9 +13567,10 @@ final String projectId = new String(); // String |
 final String name = new String(); // String | 
 final Integer version = new Integer(); // Integer | 
 final String labelLimit = new String(); // String | 
+final String labelSearchQuery = new String(); // String | 
 
 try {
-    final result = await api_instance.getMetrics(projectId, name, version, labelLimit);
+    final result = await api_instance.getMetrics(projectId, name, version, labelLimit, labelSearchQuery);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getMetrics: $e\n');
@@ -13587,9 +13589,10 @@ public class DataApiExample {
         String name = name_example; // String | 
         Integer version = 56; // Integer | 
         String labelLimit = labelLimit_example; // String | 
+        String labelSearchQuery = labelSearchQuery_example; // String | 
 
         try {
-            metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version, labelLimit);
+            metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version, labelLimit, labelSearchQuery);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DataApi#getMetrics");
@@ -13622,12 +13625,14 @@ String *projectId = projectId_example; //  (optional) (default to null)
 String *name = name_example; //  (optional) (default to null)
 Integer *version = 56; //  (optional) (default to null)
 String *labelLimit = labelLimit_example; //  (optional) (default to null)
+String *labelSearchQuery = labelSearchQuery_example; //  (optional) (default to null)
 
 // Get a list of metrics in a project
 [apiInstance getMetricsWith:projectId
     name:name
     version:version
     labelLimit:labelLimit
+    labelSearchQuery:labelSearchQuery
               completionHandler: ^(metrics_service.GetMetricsResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -13661,7 +13666,8 @@ var opts = {
   'projectId': projectId_example, // {String} 
   'name': name_example, // {String} 
   'version': 56, // {Integer} 
-  'labelLimit': labelLimit_example // {String} 
+  'labelLimit': labelLimit_example, // {String} 
+  'labelSearchQuery': labelSearchQuery_example // {String} 
 };
 
 var callback = function(error, data, response) {
@@ -13706,10 +13712,11 @@ namespace Example
             var name = name_example;  // String |  (optional)  (default to null)
             var version = 56;  // Integer |  (optional)  (default to null)
             var labelLimit = labelLimit_example;  // String |  (optional)  (default to null)
+            var labelSearchQuery = labelSearchQuery_example;  // String |  (optional)  (default to null)
 
             try {
                 // Get a list of metrics in a project
-                metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version, labelLimit);
+                metrics_service.GetMetricsResponse result = apiInstance.getMetrics(projectId, name, version, labelLimit, labelSearchQuery);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DataApi.getMetrics: " + e.Message );
@@ -13740,9 +13747,10 @@ $projectId = projectId_example; // String |
 $name = name_example; // String | 
 $version = 56; // Integer | 
 $labelLimit = labelLimit_example; // String | 
+$labelSearchQuery = labelSearchQuery_example; // String | 
 
 try {
-    $result = $api_instance->getMetrics($projectId, $name, $version, $labelLimit);
+    $result = $api_instance->getMetrics($projectId, $name, $version, $labelLimit, $labelSearchQuery);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DataApi->getMetrics: ', $e->getMessage(), PHP_EOL;
@@ -13771,9 +13779,10 @@ my $projectId = projectId_example; # String |
 my $name = name_example; # String | 
 my $version = 56; # Integer | 
 my $labelLimit = labelLimit_example; # String | 
+my $labelSearchQuery = labelSearchQuery_example; # String | 
 
 eval {
-    my $result = $api_instance->getMetrics(projectId => $projectId, name => $name, version => $version, labelLimit => $labelLimit);
+    my $result = $api_instance->getMetrics(projectId => $projectId, name => $name, version => $version, labelLimit => $labelLimit, labelSearchQuery => $labelSearchQuery);
     print Dumper($result);
 };
 if ($@) {
@@ -13804,10 +13813,11 @@ projectId = projectId_example # String |  (optional) (default to null)
 name = name_example # String |  (optional) (default to null)
 version = 56 # Integer |  (optional) (default to null)
 labelLimit = labelLimit_example # String |  (optional) (default to null)
+labelSearchQuery = labelSearchQuery_example # String |  (optional) (default to null)
 
 try:
     # Get a list of metrics in a project
-    api_response = api_instance.get_metrics(projectId=projectId, name=name, version=version, labelLimit=labelLimit)
+    api_response = api_instance.get_metrics(projectId=projectId, name=name, version=version, labelLimit=labelLimit, labelSearchQuery=labelSearchQuery)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->getMetrics: %s\n" % e)</code></pre>
@@ -13821,9 +13831,10 @@ pub fn main() {
     let name = name_example; // String
     let version = 56; // Integer
     let labelLimit = labelLimit_example; // String
+    let labelSearchQuery = labelSearchQuery_example; // String
 
     let mut context = DataApi::Context::default();
-    let result = client.getMetrics(projectId, name, version, labelLimit, &context).wait();
+    let result = client.getMetrics(projectId, name, version, labelLimit, labelSearchQuery, &context).wait();
 
     println!("{:?}", result);
 }
@@ -13915,6 +13926,23 @@ pub fn main() {
                     <span class="format">
                         (uint64)
                     </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">labelSearchQuery</td>
+<td>
+
+
+    <div id="d2e199_getMetrics_labelSearchQuery">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
 
             </div>
         </div>
