@@ -2009,6 +2009,7 @@ export namespace metrics_service {
             projectId?: string;
             name?: string;
             version?: number;
+            labelLimit?: string;
         };
         url: '/v1/metrics';
     };
