@@ -3876,7 +3876,8 @@
       "enum": [
         "NO_DATA",
         "FIRING",
-        "NORMAL"
+        "NORMAL",
+        "ERROR"
       ],
       "default": "NO_DATA"
     },

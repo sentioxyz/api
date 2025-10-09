@@ -204,7 +204,7 @@ export namespace alert_service {
         mute?: boolean;
         interval?: common.Duration;
     };
-    export type AlertRuleState = 'NO_DATA' | 'FIRING' | 'NORMAL';
+    export type AlertRuleState = 'NO_DATA' | 'FIRING' | 'NORMAL' | 'ERROR';
     export type AlertServiceSaveAlertRuleBody = {
         rule?: {
             projectId?: string;
