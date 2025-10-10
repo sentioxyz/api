@@ -203,6 +203,7 @@ export namespace alert_service {
         lastQueryTime?: string;
         mute?: boolean;
         interval?: common.Duration;
+        error?: string;
     };
     export type AlertRuleState = 'NO_DATA' | 'FIRING' | 'NORMAL' | 'ERROR';
     export type AlertServiceSaveAlertRuleBody = {
@@ -224,6 +225,7 @@ export namespace alert_service {
             lastQueryTime?: string;
             mute?: boolean;
             interval?: common.Duration;
+            error?: string;
         };
     };
     export type AlertType = 'METRIC' | 'LOG';

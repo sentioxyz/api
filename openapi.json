@@ -3868,6 +3868,9 @@
         },
         "interval": {
           "$ref": "#/definitions/common.Duration"
+        },
+        "error": {
+          "type": "string"
         }
       }
     },
@@ -3945,6 +3948,9 @@
             },
             "interval": {
               "$ref": "#/definitions/common.Duration"
+            },
+            "error": {
+              "type": "string"
             }
           }
         }
