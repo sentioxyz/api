@@ -2370,6 +2370,7 @@ export namespace processor_service {
         eventlogVersion?: number;
         pause?: boolean;
         entitySchemaVersion?: number;
+        driverVersion?: number;
         isBinary?: boolean;
     };
     export type ProcessorSourceFile = {
