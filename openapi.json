@@ -6642,6 +6642,9 @@
         "isOrganization": {
           "type": "boolean",
           "title": "true if the user is actually an organization account"
+        },
+        "walletAddress": {
+          "type": "string"
         }
       }
     },
