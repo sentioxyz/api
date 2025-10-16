@@ -1426,6 +1426,7 @@ export namespace common {
         tier?: Tier;
         isOrganization?: boolean;
         walletAddress?: string;
+        identities?: Array<string>;
     };
     export type UserAccountStatus = 'PENDING' | 'SET_USERNAME' | 'BANNED' | 'ACTIVE';
     /**
