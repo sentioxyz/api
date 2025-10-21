@@ -1885,6 +1885,9 @@ ul.nav-tabs {
     "total" : {
       "type" : "string",
       "format" : "int64"
+    },
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
 };
@@ -2083,6 +2086,9 @@ ul.nav-tabs {
     },
     "source" : {
       "type" : "string"
+    },
+    "cachePolicy" : {
+      "$ref" : "#/components/schemas/common.CachePolicy"
     }
   }
 };
@@ -18471,7 +18477,7 @@ $(document).ready(function() {
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://api.sentio.xyz/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56&source=source_example"
+ "https://api.sentio.xyz/v1/eventlogs/{owner}/{slug}/query?projectId=projectId_example&query=query_example&timeRange.start.relativeTime.unit=timeRangePeriodstartPeriodrelativeTimePeriodunit_example&timeRange.start.relativeTime.value=56&timeRange.start.relativeTime.align=timeRangePeriodstartPeriodrelativeTimePeriodalign_example&timeRange.start.absoluteTime=timeRangePeriodstartPeriodabsoluteTime_example&timeRange.end.relativeTime.unit=timeRangePeriodendPeriodrelativeTimePeriodunit_example&timeRange.end.relativeTime.value=56&timeRange.end.relativeTime.align=timeRangePeriodendPeriodrelativeTimePeriodalign_example&timeRange.end.absoluteTime=timeRangePeriodendPeriodabsoluteTime_example&timeRange.step=timeRangePeriodstep_example&timeRange.interval.value=1.2&timeRange.interval.unit=timeRangePeriodintervalPeriodunit_example&timeRange.timezone=timeRangePeriodtimezone_example&limit=56&offset=56&version=56&source=source_example&cachePolicy.cacheTtlSecs=56&cachePolicy.cacheRefreshTtlSecs=56&cachePolicy.forceRefresh=true&cachePolicy.noCache=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Data-queryLog2-0-java">
@@ -18521,9 +18527,13 @@ public class DataApiExample {
         Integer offset = 56; // Integer | 
         Integer version = 56; // Integer | 
         String source = source_example; // String | 
+        Integer cachePolicyPeriodcacheTtlSecs = 56; // Integer | how long the cache will be stored before it is evicted
+        Integer cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | how long the cache will be refreshed in the background
+        Boolean cachePolicyPeriodforceRefresh = true; // Boolean | force refresh the cache now
+        Boolean cachePolicyPeriodnoCache = true; // Boolean | do not use cache
 
         try {
-            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
+            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DataApi#queryLog2");
@@ -18559,9 +18569,13 @@ final Integer limit = new Integer(); // Integer |
 final Integer offset = new Integer(); // Integer | 
 final Integer version = new Integer(); // Integer | 
 final String source = new String(); // String | 
+final Integer cachePolicyPeriodcacheTtlSecs = new Integer(); // Integer | how long the cache will be stored before it is evicted
+final Integer cachePolicyPeriodcacheRefreshTtlSecs = new Integer(); // Integer | how long the cache will be refreshed in the background
+final Boolean cachePolicyPeriodforceRefresh = new Boolean(); // Boolean | force refresh the cache now
+final Boolean cachePolicyPeriodnoCache = new Boolean(); // Boolean | do not use cache
 
 try {
-    final result = await api_instance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
+    final result = await api_instance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->queryLog2: $e\n');
@@ -18596,9 +18610,13 @@ public class DataApiExample {
         Integer offset = 56; // Integer | 
         Integer version = 56; // Integer | 
         String source = source_example; // String | 
+        Integer cachePolicyPeriodcacheTtlSecs = 56; // Integer | how long the cache will be stored before it is evicted
+        Integer cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | how long the cache will be refreshed in the background
+        Boolean cachePolicyPeriodforceRefresh = true; // Boolean | force refresh the cache now
+        Boolean cachePolicyPeriodnoCache = true; // Boolean | do not use cache
 
         try {
-            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
+            analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DataApi#queryLog2");
@@ -18647,6 +18665,10 @@ Integer *limit = 56; //  (optional) (default to null)
 Integer *offset = 56; //  (optional) (default to null)
 Integer *version = 56; //  (optional) (default to null)
 String *source = source_example; //  (optional) (default to null)
+Integer *cachePolicyPeriodcacheTtlSecs = 56; // how long the cache will be stored before it is evicted (optional) (default to null)
+Integer *cachePolicyPeriodcacheRefreshTtlSecs = 56; // how long the cache will be refreshed in the background (optional) (default to null)
+Boolean *cachePolicyPeriodforceRefresh = true; // force refresh the cache now (optional) (default to null)
+Boolean *cachePolicyPeriodnoCache = true; // do not use cache (optional) (default to null)
 
 // Query event logs
 [apiInstance queryLog2With:owner
@@ -18669,6 +18691,10 @@ String *source = source_example; //  (optional) (default to null)
     offset:offset
     version:version
     source:source
+    cachePolicyPeriodcacheTtlSecs:cachePolicyPeriodcacheTtlSecs
+    cachePolicyPeriodcacheRefreshTtlSecs:cachePolicyPeriodcacheRefreshTtlSecs
+    cachePolicyPeriodforceRefresh:cachePolicyPeriodforceRefresh
+    cachePolicyPeriodnoCache:cachePolicyPeriodnoCache
               completionHandler: ^(analytic_service.LogQueryResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -18718,7 +18744,11 @@ var opts = {
   'limit': 56, // {Integer} 
   'offset': 56, // {Integer} 
   'version': 56, // {Integer} 
-  'source': source_example // {String} 
+  'source': source_example, // {String} 
+  'cachePolicyPeriodcacheTtlSecs': 56, // {Integer} how long the cache will be stored before it is evicted
+  'cachePolicyPeriodcacheRefreshTtlSecs': 56, // {Integer} how long the cache will be refreshed in the background
+  'cachePolicyPeriodforceRefresh': true, // {Boolean} force refresh the cache now
+  'cachePolicyPeriodnoCache': true // {Boolean} do not use cache
 };
 
 var callback = function(error, data, response) {
@@ -18779,10 +18809,14 @@ namespace Example
             var offset = 56;  // Integer |  (optional)  (default to null)
             var version = 56;  // Integer |  (optional)  (default to null)
             var source = source_example;  // String |  (optional)  (default to null)
+            var cachePolicyPeriodcacheTtlSecs = 56;  // Integer | how long the cache will be stored before it is evicted (optional)  (default to null)
+            var cachePolicyPeriodcacheRefreshTtlSecs = 56;  // Integer | how long the cache will be refreshed in the background (optional)  (default to null)
+            var cachePolicyPeriodforceRefresh = true;  // Boolean | force refresh the cache now (optional)  (default to null)
+            var cachePolicyPeriodnoCache = true;  // Boolean | do not use cache (optional)  (default to null)
 
             try {
                 // Query event logs
-                analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source);
+                analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling DataApi.queryLog2: " + e.Message );
@@ -18829,9 +18863,13 @@ $limit = 56; // Integer |
 $offset = 56; // Integer | 
 $version = 56; // Integer | 
 $source = source_example; // String | 
+$cachePolicyPeriodcacheTtlSecs = 56; // Integer | how long the cache will be stored before it is evicted
+$cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | how long the cache will be refreshed in the background
+$cachePolicyPeriodforceRefresh = true; // Boolean | force refresh the cache now
+$cachePolicyPeriodnoCache = true; // Boolean | do not use cache
 
 try {
-    $result = $api_instance->queryLog2($owner, $slug, $projectId, $query, $timeRangePeriodstartPeriodrelativeTimePeriodunit, $timeRangePeriodstartPeriodrelativeTimePeriodvalue, $timeRangePeriodstartPeriodrelativeTimePeriodalign, $timeRangePeriodstartPeriodabsoluteTime, $timeRangePeriodendPeriodrelativeTimePeriodunit, $timeRangePeriodendPeriodrelativeTimePeriodvalue, $timeRangePeriodendPeriodrelativeTimePeriodalign, $timeRangePeriodendPeriodabsoluteTime, $timeRangePeriodstep, $timeRangePeriodintervalPeriodvalue, $timeRangePeriodintervalPeriodunit, $timeRangePeriodtimezone, $limit, $offset, $version, $source);
+    $result = $api_instance->queryLog2($owner, $slug, $projectId, $query, $timeRangePeriodstartPeriodrelativeTimePeriodunit, $timeRangePeriodstartPeriodrelativeTimePeriodvalue, $timeRangePeriodstartPeriodrelativeTimePeriodalign, $timeRangePeriodstartPeriodabsoluteTime, $timeRangePeriodendPeriodrelativeTimePeriodunit, $timeRangePeriodendPeriodrelativeTimePeriodvalue, $timeRangePeriodendPeriodrelativeTimePeriodalign, $timeRangePeriodendPeriodabsoluteTime, $timeRangePeriodstep, $timeRangePeriodintervalPeriodvalue, $timeRangePeriodintervalPeriodunit, $timeRangePeriodtimezone, $limit, $offset, $version, $source, $cachePolicyPeriodcacheTtlSecs, $cachePolicyPeriodcacheRefreshTtlSecs, $cachePolicyPeriodforceRefresh, $cachePolicyPeriodnoCache);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DataApi->queryLog2: ', $e->getMessage(), PHP_EOL;
@@ -18876,9 +18914,13 @@ my $limit = 56; # Integer |
 my $offset = 56; # Integer | 
 my $version = 56; # Integer | 
 my $source = source_example; # String | 
+my $cachePolicyPeriodcacheTtlSecs = 56; # Integer | how long the cache will be stored before it is evicted
+my $cachePolicyPeriodcacheRefreshTtlSecs = 56; # Integer | how long the cache will be refreshed in the background
+my $cachePolicyPeriodforceRefresh = true; # Boolean | force refresh the cache now
+my $cachePolicyPeriodnoCache = true; # Boolean | do not use cache
 
 eval {
-    my $result = $api_instance->queryLog2(owner => $owner, slug => $slug, projectId => $projectId, query => $query, timeRangePeriodstartPeriodrelativeTimePeriodunit => $timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue => $timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign => $timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime => $timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit => $timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue => $timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign => $timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime => $timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep => $timeRangePeriodstep, timeRangePeriodintervalPeriodvalue => $timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit => $timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone => $timeRangePeriodtimezone, limit => $limit, offset => $offset, version => $version, source => $source);
+    my $result = $api_instance->queryLog2(owner => $owner, slug => $slug, projectId => $projectId, query => $query, timeRangePeriodstartPeriodrelativeTimePeriodunit => $timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue => $timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign => $timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime => $timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit => $timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue => $timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign => $timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime => $timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep => $timeRangePeriodstep, timeRangePeriodintervalPeriodvalue => $timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit => $timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone => $timeRangePeriodtimezone, limit => $limit, offset => $offset, version => $version, source => $source, cachePolicyPeriodcacheTtlSecs => $cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs => $cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh => $cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache => $cachePolicyPeriodnoCache);
     print Dumper($result);
 };
 if ($@) {
@@ -18925,10 +18967,14 @@ limit = 56 # Integer |  (optional) (default to null)
 offset = 56 # Integer |  (optional) (default to null)
 version = 56 # Integer |  (optional) (default to null)
 source = source_example # String |  (optional) (default to null)
+cachePolicyPeriodcacheTtlSecs = 56 # Integer | how long the cache will be stored before it is evicted (optional) (default to null)
+cachePolicyPeriodcacheRefreshTtlSecs = 56 # Integer | how long the cache will be refreshed in the background (optional) (default to null)
+cachePolicyPeriodforceRefresh = true # Boolean | force refresh the cache now (optional) (default to null)
+cachePolicyPeriodnoCache = true # Boolean | do not use cache (optional) (default to null)
 
 try:
     # Query event logs
-    api_response = api_instance.query_log2(owner, slug, projectId=projectId, query=query, timeRangePeriodstartPeriodrelativeTimePeriodunit=timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue=timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign=timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime=timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit=timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue=timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign=timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime=timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep=timeRangePeriodstep, timeRangePeriodintervalPeriodvalue=timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit=timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone=timeRangePeriodtimezone, limit=limit, offset=offset, version=version, source=source)
+    api_response = api_instance.query_log2(owner, slug, projectId=projectId, query=query, timeRangePeriodstartPeriodrelativeTimePeriodunit=timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue=timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign=timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime=timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit=timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue=timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign=timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime=timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep=timeRangePeriodstep, timeRangePeriodintervalPeriodvalue=timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit=timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone=timeRangePeriodtimezone, limit=limit, offset=offset, version=version, source=source, cachePolicyPeriodcacheTtlSecs=cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs=cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh=cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache=cachePolicyPeriodnoCache)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DataApi->queryLog2: %s\n" % e)</code></pre>
@@ -18958,9 +19004,13 @@ pub fn main() {
     let offset = 56; // Integer
     let version = 56; // Integer
     let source = source_example; // String
+    let cachePolicyPeriodcacheTtlSecs = 56; // Integer
+    let cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer
+    let cachePolicyPeriodforceRefresh = true; // Boolean
+    let cachePolicyPeriodnoCache = true; // Boolean
 
     let mut context = DataApi::Context::default();
-    let result = client.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, &context).wait();
+    let result = client.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache, &context).wait();
 
     println!("{:?}", result);
 }
@@ -19359,6 +19409,92 @@ pub fn main() {
                     String
                 </span>
 
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cachePolicy.cacheTtlSecs</td>
+<td>
+
+
+    <div id="d2e199_queryLog2_cachePolicyPeriodcacheTtlSecs">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+how long the cache will be stored before it is evicted
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cachePolicy.cacheRefreshTtlSecs</td>
+<td>
+
+
+    <div id="d2e199_queryLog2_cachePolicyPeriodcacheRefreshTtlSecs">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+how long the cache will be refreshed in the background
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cachePolicy.forceRefresh</td>
+<td>
+
+
+    <div id="d2e199_queryLog2_cachePolicyPeriodforceRefresh">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+force refresh the cache now
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">cachePolicy.noCache</td>
+<td>
+
+
+    <div id="d2e199_queryLog2_cachePolicyPeriodnoCache">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+do not use cache
+                    </div>
             </div>
         </div>
     </div>

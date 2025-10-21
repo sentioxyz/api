@@ -445,6 +445,7 @@ export namespace analytic_service {
         entries?: Array<common.EventLogEntry>;
         after?: Array<common.Any>;
         total?: string;
+        computeStats?: common.ComputeStats;
     };
     export type QuerySqlExecutionDetailResponse = {
         computeStats?: common.ComputeStats;
@@ -511,6 +512,7 @@ export namespace analytic_service {
         filters?: Array<LogQueryRequestFilter>;
         version?: number;
         source?: string;
+        cachePolicy?: common.CachePolicy;
     };
     export type SegmentationRequest = {
         projectOwner?: string;
@@ -898,6 +900,22 @@ export namespace analytic_service {
             offset?: number;
             version?: number;
             source?: string;
+            /**
+             * how long the cache will be stored before it is evicted
+             */
+            'cachePolicy.cacheTtlSecs'?: number;
+            /**
+             * how long the cache will be refreshed in the background
+             */
+            'cachePolicy.cacheRefreshTtlSecs'?: number;
+            /**
+             * force refresh the cache now
+             */
+            'cachePolicy.forceRefresh'?: boolean;
+            /**
+             * do not use cache
+             */
+            'cachePolicy.noCache'?: boolean;
         };
         url: '/v1/eventlogs/{owner}/{slug}/query';
     };

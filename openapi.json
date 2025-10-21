@@ -1379,6 +1379,36 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "cachePolicy.cacheTtlSecs",
+            "description": "how long the cache will be stored before it is evicted",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "cachePolicy.cacheRefreshTtlSecs",
+            "description": "how long the cache will be refreshed in the background",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "cachePolicy.forceRefresh",
+            "description": "force refresh the cache now",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "cachePolicy.noCache",
+            "description": "do not use cache",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -4470,6 +4500,9 @@
         "total": {
           "type": "string",
           "format": "int64"
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
         }
       }
     },
@@ -4673,6 +4706,9 @@
         },
         "source": {
           "type": "string"
+        },
+        "cachePolicy": {
+          "$ref": "#/definitions/common.CachePolicy"
         }
       }
     },
