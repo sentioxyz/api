@@ -1065,6 +1065,24 @@ export class WebService {
         });
     }
     
+    public static createLinkSession<ThrowOnError extends boolean = false>(options?: Options<web_service.CreateLinkSessionData, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<web_service.CreateLinkSessionResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/users/link',
+            ...options
+        });
+    }
+    
 }
 
 export class PriceService {

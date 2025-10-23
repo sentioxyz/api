@@ -3342,6 +3342,9 @@ export namespace web_service {
     export type ImportProjectResponse = {
         imports?: Array<common.ImportedProject>;
     };
+    export type LinkAccountSession = {
+        sessionId?: string;
+    };
     export type Note = {
         content?: string;
         fontSize?: NoteFontSize;
@@ -3686,6 +3689,19 @@ export namespace web_service {
         200: GetDashboardResponse;
     };
     export type GetDashboard2Response = GetDashboard2Responses[keyof GetDashboard2Responses];
+    export type CreateLinkSessionData = {
+        body?: never;
+        path?: never;
+        query?: never;
+        url: '/v1/users/link';
+    };
+    export type CreateLinkSessionResponses = {
+        /**
+         * A successful response.
+         */
+        200: LinkAccountSession;
+    };
+    export type CreateLinkSessionResponse = CreateLinkSessionResponses[keyof CreateLinkSessionResponses];
 }
 
 export namespace rul_service {

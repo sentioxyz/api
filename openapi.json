@@ -3386,6 +3386,22 @@
           "Debug and Simulation"
         ]
       }
+    },
+    "/v1/users/link": {
+      "get": {
+        "operationId": "CreateLinkSession",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/web_service.LinkAccountSession"
+            }
+          }
+        },
+        "tags": [
+          "Web"
+        ]
+      }
     }
   },
   "definitions": {
@@ -10085,6 +10101,14 @@
             "type": "object",
             "$ref": "#/definitions/common.ImportedProject"
           }
+        }
+      }
+    },
+    "web_service.LinkAccountSession": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string"
         }
       }
     },
