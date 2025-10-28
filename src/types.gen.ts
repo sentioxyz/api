@@ -900,21 +900,9 @@ export namespace analytic_service {
             offset?: number;
             version?: number;
             source?: string;
-            /**
-             * how long the cache will be stored before it is evicted
-             */
             'cachePolicy.cacheTtlSecs'?: number;
-            /**
-             * how long the cache will be refreshed in the background
-             */
             'cachePolicy.cacheRefreshTtlSecs'?: number;
-            /**
-             * force refresh the cache now
-             */
             'cachePolicy.forceRefresh'?: boolean;
-            /**
-             * do not use cache
-             */
             'cachePolicy.noCache'?: boolean;
         };
         url: '/v1/eventlogs/{owner}/{slug}/query';
@@ -1390,9 +1378,6 @@ export namespace common {
             [key: string]: unknown;
         }>;
         generatedAt?: string;
-        /**
-         * The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results.
-         */
         cursor?: string;
     };
     export type TabularDataColumnType = 'STRING' | 'NUMBER' | 'BOOLEAN' | 'LIST' | 'TIME' | 'MAP' | 'JSON' | 'TOKEN' | 'DYNAMIC';
@@ -1447,9 +1432,6 @@ export namespace common {
         identities?: Array<string>;
     };
     export type UserAccountStatus = 'PENDING' | 'SET_USERNAME' | 'BANNED' | 'ACTIVE';
-    /**
-     * The same to user but with sensitive data removed.
-     */
     export type UserInfo = {
         id?: string;
         lastName?: string;
