@@ -2335,22 +2335,27 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "cacheTtlSecs" : {
+      "title" : "how long the cache will be stored before it is evicted",
       "type" : "integer",
       "format" : "int32"
     },
     "cacheRefreshTtlSecs" : {
+      "title" : "how long the cache will be refreshed in the background",
       "type" : "integer",
       "format" : "int32"
     },
     "forceRefresh" : {
+      "title" : "force refresh the cache now",
       "type" : "boolean"
     },
     "noCache" : {
+      "title" : "do not use cache",
       "type" : "boolean"
     }
   }
 };
     defs["common.Channel"] = {
+  "title" : "TODO, finish this",
   "type" : "object",
   "properties" : {
     "id" : {
@@ -2659,10 +2664,12 @@ ul.nav-tabs {
       "format" : "int32"
     },
     "code" : {
+      "title" : "same as google.rpc.status.Status.code",
       "type" : "integer",
       "format" : "int32"
     },
     "namespaceCode" : {
+      "title" : "additional codes definted in the namespace",
       "type" : "integer",
       "format" : "int32"
     },
@@ -2670,6 +2677,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "createdAt" : {
+      "title" : "details",
       "type" : "string",
       "format" : "date-time"
     }
@@ -2782,6 +2790,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "alias" : {
+      "title" : "bool enabled = 2;",
       "type" : "string"
     },
     "id" : {
@@ -2823,6 +2832,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "name" : {
+      "title" : "name of the imported project",
       "type" : "string"
     },
     "project" : {
@@ -3019,6 +3029,7 @@ ul.nav-tabs {
       "format" : "int64"
     },
     "slug" : {
+      "title" : "{ownerName}/{slug} is the unique name of the project",
       "type" : "string"
     },
     "ownerId" : {
@@ -3228,12 +3239,15 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "query" : {
+      "title" : "the promql query or the metric name",
       "type" : "string"
     },
     "alias" : {
+      "title" : "the alias of the query",
       "type" : "string"
     },
     "id" : {
+      "title" : "the id of the query",
       "type" : "string"
     },
     "labelSelector" : {
@@ -3255,6 +3269,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "disabled" : {
+      "title" : "hide the result, usually used for formula, default is false",
       "type" : "boolean"
     }
   },
@@ -3284,6 +3299,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "resources" : {
+      "title" : "only support 2 resources",
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.RetentionQuery.Resource"
@@ -3595,6 +3611,7 @@ ul.nav-tabs {
   }
 };
     defs["common.Selector"] = {
+  "title" : "TODO maybe MetricQuery should use this as well",
   "type" : "object",
   "properties" : {
     "key" : {
@@ -3612,6 +3629,7 @@ ul.nav-tabs {
   }
 };
     defs["common.SelectorExpr"] = {
+  "title" : "TODO migrate segmentationQuery to use this",
   "type" : "object",
   "properties" : {
     "selector" : {
@@ -3637,6 +3655,7 @@ ul.nav-tabs {
   }
 };
     defs["common.Selector.OperatorType"] = {
+  "title" : "TODO add Date Value and List Value and its data type",
   "type" : "string",
   "default" : "EQ",
   "enum" : [ "EQ", "NEQ", "EXISTS", "NOT_EXISTS", "GT", "GTE", "LT", "LTE", "BETWEEN", "NOT_BETWEEN", "CONTAINS", "NOT_CONTAINS", "IN", "NOT_IN", "IN_COHORTS", "NOT_IN_COHORTS" ]
@@ -3645,6 +3664,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "values" : {
+      "title" : "JoinOperator operator = 2; // this field should implement in the future",
       "type" : "array",
       "items" : {
         "type" : "string"
@@ -3679,7 +3699,8 @@ ul.nav-tabs {
       "format" : "date-time"
     },
     "cursor" : {
-      "type" : "string"
+      "type" : "string",
+      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
     }
   }
 };
@@ -3726,6 +3747,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "step" : {
+      "title" : "interval in seconds between each data point",
       "type" : "integer",
       "format" : "int32"
     },
@@ -3782,6 +3804,7 @@ ul.nav-tabs {
       "$ref" : "#/components/schemas/common.BigDecimal"
     },
     "specifiedAt" : {
+      "title" : "optional, if not specified, it will use block_time in eventlogs",
       "type" : "string",
       "format" : "date-time"
     }
@@ -3835,6 +3858,7 @@ ul.nav-tabs {
       "$ref" : "#/components/schemas/common.Tier"
     },
     "isOrganization" : {
+      "title" : "true if the user is actually an organization account",
       "type" : "boolean"
     },
     "walletAddress" : {
@@ -3874,7 +3898,8 @@ ul.nav-tabs {
     "username" : {
       "type" : "string"
     }
-  }
+  },
+  "description" : "The same to user but with sensitive data removed."
 };
     defs["evm.AccessListItem"] = {
   "type" : "object",
@@ -18513,10 +18538,10 @@ public class DataApiExample {
         Integer offset = 56; // Integer | 
         Integer version = 56; // Integer | 
         String source = source_example; // String | 
-        Integer cachePolicyPeriodcacheTtlSecs = 56; // Integer | 
-        Integer cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | 
-        Boolean cachePolicyPeriodforceRefresh = true; // Boolean | 
-        Boolean cachePolicyPeriodnoCache = true; // Boolean | 
+        Integer cachePolicyPeriodcacheTtlSecs = 56; // Integer | how long the cache will be stored before it is evicted
+        Integer cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | how long the cache will be refreshed in the background
+        Boolean cachePolicyPeriodforceRefresh = true; // Boolean | force refresh the cache now
+        Boolean cachePolicyPeriodnoCache = true; // Boolean | do not use cache
 
         try {
             analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache);
@@ -18555,10 +18580,10 @@ final Integer limit = new Integer(); // Integer |
 final Integer offset = new Integer(); // Integer | 
 final Integer version = new Integer(); // Integer | 
 final String source = new String(); // String | 
-final Integer cachePolicyPeriodcacheTtlSecs = new Integer(); // Integer | 
-final Integer cachePolicyPeriodcacheRefreshTtlSecs = new Integer(); // Integer | 
-final Boolean cachePolicyPeriodforceRefresh = new Boolean(); // Boolean | 
-final Boolean cachePolicyPeriodnoCache = new Boolean(); // Boolean | 
+final Integer cachePolicyPeriodcacheTtlSecs = new Integer(); // Integer | how long the cache will be stored before it is evicted
+final Integer cachePolicyPeriodcacheRefreshTtlSecs = new Integer(); // Integer | how long the cache will be refreshed in the background
+final Boolean cachePolicyPeriodforceRefresh = new Boolean(); // Boolean | force refresh the cache now
+final Boolean cachePolicyPeriodnoCache = new Boolean(); // Boolean | do not use cache
 
 try {
     final result = await api_instance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache);
@@ -18596,10 +18621,10 @@ public class DataApiExample {
         Integer offset = 56; // Integer | 
         Integer version = 56; // Integer | 
         String source = source_example; // String | 
-        Integer cachePolicyPeriodcacheTtlSecs = 56; // Integer | 
-        Integer cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | 
-        Boolean cachePolicyPeriodforceRefresh = true; // Boolean | 
-        Boolean cachePolicyPeriodnoCache = true; // Boolean | 
+        Integer cachePolicyPeriodcacheTtlSecs = 56; // Integer | how long the cache will be stored before it is evicted
+        Integer cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | how long the cache will be refreshed in the background
+        Boolean cachePolicyPeriodforceRefresh = true; // Boolean | force refresh the cache now
+        Boolean cachePolicyPeriodnoCache = true; // Boolean | do not use cache
 
         try {
             analytic_service.LogQueryResponse result = apiInstance.queryLog2(owner, slug, projectId, query, timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep, timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone, limit, offset, version, source, cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache);
@@ -18651,10 +18676,10 @@ Integer *limit = 56; //  (optional) (default to null)
 Integer *offset = 56; //  (optional) (default to null)
 Integer *version = 56; //  (optional) (default to null)
 String *source = source_example; //  (optional) (default to null)
-Integer *cachePolicyPeriodcacheTtlSecs = 56; //  (optional) (default to null)
-Integer *cachePolicyPeriodcacheRefreshTtlSecs = 56; //  (optional) (default to null)
-Boolean *cachePolicyPeriodforceRefresh = true; //  (optional) (default to null)
-Boolean *cachePolicyPeriodnoCache = true; //  (optional) (default to null)
+Integer *cachePolicyPeriodcacheTtlSecs = 56; // how long the cache will be stored before it is evicted (optional) (default to null)
+Integer *cachePolicyPeriodcacheRefreshTtlSecs = 56; // how long the cache will be refreshed in the background (optional) (default to null)
+Boolean *cachePolicyPeriodforceRefresh = true; // force refresh the cache now (optional) (default to null)
+Boolean *cachePolicyPeriodnoCache = true; // do not use cache (optional) (default to null)
 
 // Query event logs
 [apiInstance queryLog2With:owner
@@ -18731,10 +18756,10 @@ var opts = {
   'offset': 56, // {Integer} 
   'version': 56, // {Integer} 
   'source': source_example, // {String} 
-  'cachePolicyPeriodcacheTtlSecs': 56, // {Integer} 
-  'cachePolicyPeriodcacheRefreshTtlSecs': 56, // {Integer} 
-  'cachePolicyPeriodforceRefresh': true, // {Boolean} 
-  'cachePolicyPeriodnoCache': true // {Boolean} 
+  'cachePolicyPeriodcacheTtlSecs': 56, // {Integer} how long the cache will be stored before it is evicted
+  'cachePolicyPeriodcacheRefreshTtlSecs': 56, // {Integer} how long the cache will be refreshed in the background
+  'cachePolicyPeriodforceRefresh': true, // {Boolean} force refresh the cache now
+  'cachePolicyPeriodnoCache': true // {Boolean} do not use cache
 };
 
 var callback = function(error, data, response) {
@@ -18795,10 +18820,10 @@ namespace Example
             var offset = 56;  // Integer |  (optional)  (default to null)
             var version = 56;  // Integer |  (optional)  (default to null)
             var source = source_example;  // String |  (optional)  (default to null)
-            var cachePolicyPeriodcacheTtlSecs = 56;  // Integer |  (optional)  (default to null)
-            var cachePolicyPeriodcacheRefreshTtlSecs = 56;  // Integer |  (optional)  (default to null)
-            var cachePolicyPeriodforceRefresh = true;  // Boolean |  (optional)  (default to null)
-            var cachePolicyPeriodnoCache = true;  // Boolean |  (optional)  (default to null)
+            var cachePolicyPeriodcacheTtlSecs = 56;  // Integer | how long the cache will be stored before it is evicted (optional)  (default to null)
+            var cachePolicyPeriodcacheRefreshTtlSecs = 56;  // Integer | how long the cache will be refreshed in the background (optional)  (default to null)
+            var cachePolicyPeriodforceRefresh = true;  // Boolean | force refresh the cache now (optional)  (default to null)
+            var cachePolicyPeriodnoCache = true;  // Boolean | do not use cache (optional)  (default to null)
 
             try {
                 // Query event logs
@@ -18849,10 +18874,10 @@ $limit = 56; // Integer |
 $offset = 56; // Integer | 
 $version = 56; // Integer | 
 $source = source_example; // String | 
-$cachePolicyPeriodcacheTtlSecs = 56; // Integer | 
-$cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | 
-$cachePolicyPeriodforceRefresh = true; // Boolean | 
-$cachePolicyPeriodnoCache = true; // Boolean | 
+$cachePolicyPeriodcacheTtlSecs = 56; // Integer | how long the cache will be stored before it is evicted
+$cachePolicyPeriodcacheRefreshTtlSecs = 56; // Integer | how long the cache will be refreshed in the background
+$cachePolicyPeriodforceRefresh = true; // Boolean | force refresh the cache now
+$cachePolicyPeriodnoCache = true; // Boolean | do not use cache
 
 try {
     $result = $api_instance->queryLog2($owner, $slug, $projectId, $query, $timeRangePeriodstartPeriodrelativeTimePeriodunit, $timeRangePeriodstartPeriodrelativeTimePeriodvalue, $timeRangePeriodstartPeriodrelativeTimePeriodalign, $timeRangePeriodstartPeriodabsoluteTime, $timeRangePeriodendPeriodrelativeTimePeriodunit, $timeRangePeriodendPeriodrelativeTimePeriodvalue, $timeRangePeriodendPeriodrelativeTimePeriodalign, $timeRangePeriodendPeriodabsoluteTime, $timeRangePeriodstep, $timeRangePeriodintervalPeriodvalue, $timeRangePeriodintervalPeriodunit, $timeRangePeriodtimezone, $limit, $offset, $version, $source, $cachePolicyPeriodcacheTtlSecs, $cachePolicyPeriodcacheRefreshTtlSecs, $cachePolicyPeriodforceRefresh, $cachePolicyPeriodnoCache);
@@ -18900,10 +18925,10 @@ my $limit = 56; # Integer |
 my $offset = 56; # Integer | 
 my $version = 56; # Integer | 
 my $source = source_example; # String | 
-my $cachePolicyPeriodcacheTtlSecs = 56; # Integer | 
-my $cachePolicyPeriodcacheRefreshTtlSecs = 56; # Integer | 
-my $cachePolicyPeriodforceRefresh = true; # Boolean | 
-my $cachePolicyPeriodnoCache = true; # Boolean | 
+my $cachePolicyPeriodcacheTtlSecs = 56; # Integer | how long the cache will be stored before it is evicted
+my $cachePolicyPeriodcacheRefreshTtlSecs = 56; # Integer | how long the cache will be refreshed in the background
+my $cachePolicyPeriodforceRefresh = true; # Boolean | force refresh the cache now
+my $cachePolicyPeriodnoCache = true; # Boolean | do not use cache
 
 eval {
     my $result = $api_instance->queryLog2(owner => $owner, slug => $slug, projectId => $projectId, query => $query, timeRangePeriodstartPeriodrelativeTimePeriodunit => $timeRangePeriodstartPeriodrelativeTimePeriodunit, timeRangePeriodstartPeriodrelativeTimePeriodvalue => $timeRangePeriodstartPeriodrelativeTimePeriodvalue, timeRangePeriodstartPeriodrelativeTimePeriodalign => $timeRangePeriodstartPeriodrelativeTimePeriodalign, timeRangePeriodstartPeriodabsoluteTime => $timeRangePeriodstartPeriodabsoluteTime, timeRangePeriodendPeriodrelativeTimePeriodunit => $timeRangePeriodendPeriodrelativeTimePeriodunit, timeRangePeriodendPeriodrelativeTimePeriodvalue => $timeRangePeriodendPeriodrelativeTimePeriodvalue, timeRangePeriodendPeriodrelativeTimePeriodalign => $timeRangePeriodendPeriodrelativeTimePeriodalign, timeRangePeriodendPeriodabsoluteTime => $timeRangePeriodendPeriodabsoluteTime, timeRangePeriodstep => $timeRangePeriodstep, timeRangePeriodintervalPeriodvalue => $timeRangePeriodintervalPeriodvalue, timeRangePeriodintervalPeriodunit => $timeRangePeriodintervalPeriodunit, timeRangePeriodtimezone => $timeRangePeriodtimezone, limit => $limit, offset => $offset, version => $version, source => $source, cachePolicyPeriodcacheTtlSecs => $cachePolicyPeriodcacheTtlSecs, cachePolicyPeriodcacheRefreshTtlSecs => $cachePolicyPeriodcacheRefreshTtlSecs, cachePolicyPeriodforceRefresh => $cachePolicyPeriodforceRefresh, cachePolicyPeriodnoCache => $cachePolicyPeriodnoCache);
@@ -18953,10 +18978,10 @@ limit = 56 # Integer |  (optional) (default to null)
 offset = 56 # Integer |  (optional) (default to null)
 version = 56 # Integer |  (optional) (default to null)
 source = source_example # String |  (optional) (default to null)
-cachePolicyPeriodcacheTtlSecs = 56 # Integer |  (optional) (default to null)
-cachePolicyPeriodcacheRefreshTtlSecs = 56 # Integer |  (optional) (default to null)
-cachePolicyPeriodforceRefresh = true # Boolean |  (optional) (default to null)
-cachePolicyPeriodnoCache = true # Boolean |  (optional) (default to null)
+cachePolicyPeriodcacheTtlSecs = 56 # Integer | how long the cache will be stored before it is evicted (optional) (default to null)
+cachePolicyPeriodcacheRefreshTtlSecs = 56 # Integer | how long the cache will be refreshed in the background (optional) (default to null)
+cachePolicyPeriodforceRefresh = true # Boolean | force refresh the cache now (optional) (default to null)
+cachePolicyPeriodnoCache = true # Boolean | do not use cache (optional) (default to null)
 
 try:
     # Query event logs
@@ -19415,6 +19440,9 @@ pub fn main() {
                         (int32)
                     </span>
 
+                    <div class="inner description marked">
+how long the cache will be stored before it is evicted
+                    </div>
             </div>
         </div>
     </div>
@@ -19435,6 +19463,9 @@ pub fn main() {
                         (int32)
                     </span>
 
+                    <div class="inner description marked">
+how long the cache will be refreshed in the background
+                    </div>
             </div>
         </div>
     </div>
@@ -19452,6 +19483,9 @@ pub fn main() {
                     Boolean
                 </span>
 
+                    <div class="inner description marked">
+force refresh the cache now
+                    </div>
             </div>
         </div>
     </div>
@@ -19469,6 +19503,9 @@ pub fn main() {
                     Boolean
                 </span>
 
+                    <div class="inner description marked">
+do not use cache
+                    </div>
             </div>
         </div>
     </div>

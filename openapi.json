@@ -1382,6 +1382,7 @@
           },
           {
             "name": "cachePolicy.cacheTtlSecs",
+            "description": "how long the cache will be stored before it is evicted",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1389,6 +1390,7 @@
           },
           {
             "name": "cachePolicy.cacheRefreshTtlSecs",
+            "description": "how long the cache will be refreshed in the background",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -1396,12 +1398,14 @@
           },
           {
             "name": "cachePolicy.forceRefresh",
+            "description": "force refresh the cache now",
             "in": "query",
             "required": false,
             "type": "boolean"
           },
           {
             "name": "cachePolicy.noCache",
+            "description": "do not use cache",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -5012,17 +5016,21 @@
       "properties": {
         "cacheTtlSecs": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "how long the cache will be stored before it is evicted"
         },
         "cacheRefreshTtlSecs": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "how long the cache will be refreshed in the background"
         },
         "forceRefresh": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "force refresh the cache now"
         },
         "noCache": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "do not use cache"
         }
       }
     },
@@ -5071,7 +5079,8 @@
         "pagerdutyConfig": {
           "type": "object"
         }
-      }
+      },
+      "title": "TODO, finish this"
     },
     "common.Channel.Type": {
       "type": "string",
@@ -5188,7 +5197,8 @@
       "type": "object",
       "properties": {
         "joinOperator": {
-          "$ref": "#/definitions/common.JoinOperator"
+          "$ref": "#/definitions/common.JoinOperator",
+          "title": "not support THEN"
         },
         "groups": {
           "type": "array",
@@ -5368,18 +5378,21 @@
         },
         "code": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "same as google.rpc.status.Status.code"
         },
         "namespaceCode": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "additional codes definted in the namespace"
         },
         "message": {
           "type": "string"
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "details"
         }
       }
     },
@@ -5492,7 +5505,8 @@
           "type": "string"
         },
         "alias": {
-          "type": "string"
+          "type": "string",
+          "title": "bool enabled = 2;"
         },
         "id": {
           "type": "string"
@@ -5533,7 +5547,8 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "title": "name of the imported project"
         },
         "project": {
           "$ref": "#/definitions/common.Project"
@@ -5745,7 +5760,8 @@
           "format": "int64"
         },
         "slug": {
-          "type": "string"
+          "type": "string",
+          "title": "{ownerName}/{slug} is the unique name of the project"
         },
         "ownerId": {
           "type": "string"
@@ -5985,13 +6001,16 @@
       },
       "properties": {
         "query": {
-          "type": "string"
+          "type": "string",
+          "title": "the promql query or the metric name"
         },
         "alias": {
-          "type": "string"
+          "type": "string",
+          "title": "the alias of the query"
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "title": "the id of the query"
         },
         "labelSelector": {
           "type": "object",
@@ -6013,7 +6032,8 @@
           "type": "string"
         },
         "disabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "hide the result, usually used for formula, default is false"
         }
       },
       "description": "the query to fetch metrics data, promql",
@@ -6031,7 +6051,8 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/common.RetentionQuery.Resource"
-          }
+          },
+          "title": "only support 2 resources"
         },
         "criteria": {
           "$ref": "#/definitions/common.RetentionQuery.Criteria"
@@ -6378,7 +6399,8 @@
           }
         },
         "operator": {
-          "$ref": "#/definitions/common.JoinOperator"
+          "$ref": "#/definitions/common.JoinOperator",
+          "title": "default is AND"
         }
       }
     },
@@ -6398,7 +6420,8 @@
             "$ref": "#/definitions/common.Any"
           }
         }
-      }
+      },
+      "title": "TODO maybe MetricQuery should use this as well"
     },
     "common.Selector.OperatorType": {
       "type": "string",
@@ -6420,7 +6443,8 @@
         "IN_COHORTS",
         "NOT_IN_COHORTS"
       ],
-      "default": "EQ"
+      "default": "EQ",
+      "title": "TODO add Date Value and List Value and its data type"
     },
     "common.SelectorExpr": {
       "type": "object",
@@ -6431,7 +6455,8 @@
         "logicExpr": {
           "$ref": "#/definitions/common.SelectorExpr.LogicExpr"
         }
-      }
+      },
+      "title": "TODO migrate segmentationQuery to use this"
     },
     "common.SelectorExpr.LogicExpr": {
       "type": "object",
@@ -6444,7 +6469,8 @@
           }
         },
         "operator": {
-          "$ref": "#/definitions/common.JoinOperator"
+          "$ref": "#/definitions/common.JoinOperator",
+          "title": "default is AND"
         }
       }
     },
@@ -6455,7 +6481,8 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "JoinOperator operator = 2; // this field should implement in the future"
         }
       }
     },
@@ -6485,7 +6512,8 @@
           "format": "date-time"
         },
         "cursor": {
-          "type": "string"
+          "type": "string",
+          "description": "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
         }
       }
     },
@@ -6529,7 +6557,8 @@
           "format": "int64"
         },
         "interval": {
-          "$ref": "#/definitions/common.Duration"
+          "$ref": "#/definitions/common.Duration",
+          "title": "TODO remove step in favor of interval"
         },
         "timezone": {
           "type": "string"
@@ -6580,7 +6609,8 @@
         },
         "step": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "title": "interval in seconds between each data point"
         },
         "timezone": {
           "type": "string"
@@ -6609,7 +6639,8 @@
         },
         "specifiedAt": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "title": "optional, if not specified, it will use block_time in eventlogs"
         }
       }
     },
@@ -6661,7 +6692,8 @@
           "$ref": "#/definitions/common.Tier"
         },
         "isOrganization": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "true if the user is actually an organization account"
         },
         "walletAddress": {
           "type": "string"
@@ -6705,7 +6737,8 @@
         "username": {
           "type": "string"
         }
-      }
+      },
+      "description": "The same to user but with sensitive data removed."
     },
     "evm.AccessListItem": {
       "type": "object",
