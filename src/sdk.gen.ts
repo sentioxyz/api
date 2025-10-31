@@ -1235,27 +1235,6 @@ export class ProcessorService {
     }
     
     /**
-     * Get the source files of a processor
-     */
-    public static getProcessorSourceFiles<ThrowOnError extends boolean = false>(options: Options<processor_service.GetProcessorSourceFilesData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<processor_service.GetProcessorSourceFilesResponse2, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/processors/{owner}/{slug}/source_files',
-            ...options
-        });
-    }
-    
-    /**
      * Get processor status
      */
     public static getProcessorStatusV2<ThrowOnError extends boolean = false>(options: Options<processor_service.GetProcessorStatusV2Data, ThrowOnError>) {
