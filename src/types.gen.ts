@@ -2319,6 +2319,7 @@ export namespace processor_service {
         warnings?: Array<string>;
         pause?: boolean;
         networkOverrides?: Array<NetworkOverride>;
+        driverVersion?: string;
     };
     export type GetProcessorStatusResponseProcessorStatus = {
         state?: GetProcessorStatusResponseProcessorStatusState;

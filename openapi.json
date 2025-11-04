@@ -7744,6 +7744,9 @@
             "type": "object",
             "$ref": "#/definitions/processor_service.NetworkOverride"
           }
+        },
+        "driverVersion": {
+          "type": "string"
         }
       }
     },
