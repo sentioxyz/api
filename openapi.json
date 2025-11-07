@@ -7295,6 +7295,9 @@
         "samplesOffset": {
           "type": "integer",
           "format": "int32"
+        },
+        "enableExperimentalFeatures": {
+          "type": "boolean"
         }
       },
       "required": [

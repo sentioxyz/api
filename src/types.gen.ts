@@ -2013,6 +2013,7 @@ export namespace metrics_service {
         projectId?: string;
         version?: number;
         samplesOffset?: number;
+        enableExperimentalFeatures?: boolean;
     };
     export type QueryValueResponse = {
         results?: Array<QueryValueResponseResult>;
