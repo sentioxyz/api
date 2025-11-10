@@ -6895,6 +6895,10 @@
         },
         "cachePolicy": {
           "$ref": "#/definitions/common.CachePolicy"
+        },
+        "enableExperimentalFeatures": {
+          "type": "boolean",
+          "title": "enable experimental_features"
         }
       }
     },

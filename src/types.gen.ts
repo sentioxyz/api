@@ -1847,6 +1847,7 @@ export namespace insights_service {
         offset?: number;
         bypassCache?: boolean;
         cachePolicy?: common.CachePolicy;
+        enableExperimentalFeatures?: boolean;
     };
     export type ListCoinsResponse = {
         coins?: Array<common.CoinId>;
