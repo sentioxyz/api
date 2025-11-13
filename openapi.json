@@ -9086,6 +9086,10 @@
         },
         "sqlExecuteEngine": {
           "$ref": "#/definitions/analytic_service.ExecuteEngine"
+        },
+        "enableExperimentalFeatures": {
+          "type": "boolean",
+          "title": "enable experimental_features"
         }
       }
     },

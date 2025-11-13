@@ -3021,6 +3021,7 @@ export namespace web_service {
         sqlQuery?: string;
         sqlQueryId?: string;
         sqlExecuteEngine?: analytic_service.ExecuteEngine;
+        enableExperimentalFeatures?: boolean;
     };
     export type ChartDataSourceType = 'METRICS' | 'NOTES' | 'ANALYTICS' | 'INSIGHTS' | 'EVENTS' | 'RETENTION' | 'SQL';
     export type ChartConfig = {
