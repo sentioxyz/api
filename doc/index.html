@@ -1242,6 +1242,20 @@ ul.nav-tabs {
     },
     "queryTimeRange" : {
       "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "sqlCondition" : {
+      "$ref" : "#/components/schemas/alert_service.SQLCondition"
+    },
+    "sqlSamples" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : { }
+      }
+    },
+    "sqlMatchCount" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
@@ -1311,6 +1325,9 @@ ul.nav-tabs {
     },
     "error" : {
       "type" : "string"
+    },
+    "sqlCondition" : {
+      "$ref" : "#/components/schemas/alert_service.SQLCondition"
     }
   }
 };
@@ -1390,13 +1407,16 @@ ul.nav-tabs {
     },
     "error" : {
       "type" : "string"
+    },
+    "sqlCondition" : {
+      "$ref" : "#/components/schemas/alert_service.SQLCondition"
     }
   }
 };
     defs["alert_service.AlertType"] = {
   "type" : "string",
   "default" : "METRIC",
-  "enum" : [ "METRIC", "LOG" ]
+  "enum" : [ "METRIC", "LOG", "SQL" ]
 };
     defs["alert_service.Condition"] = {
   "type" : "object",
@@ -1529,6 +1549,46 @@ ul.nav-tabs {
     "updateTime" : {
       "type" : "string",
       "format" : "date-time"
+    }
+  }
+};
+    defs["alert_service.SQLCondition"] = {
+  "type" : "object",
+  "properties" : {
+    "columnCondition" : {
+      "$ref" : "#/components/schemas/alert_service.SQLCondition.ColumnCondition"
+    },
+    "rowCondition" : {
+      "$ref" : "#/components/schemas/alert_service.SQLCondition.RowCondition"
+    }
+  }
+};
+    defs["alert_service.SQLCondition.ColumnCondition"] = {
+  "type" : "object",
+  "properties" : {
+    "column" : {
+      "title" : "Index of the column to evaluate against the threshold",
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "comparisonOp" : {
+      "type" : "string"
+    },
+    "threshold" : {
+      "type" : "number",
+      "format" : "double"
+    }
+  }
+};
+    defs["alert_service.SQLCondition.RowCondition"] = {
+  "type" : "object",
+  "properties" : {
+    "comparisonOp" : {
+      "type" : "string"
+    },
+    "rowSize" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };

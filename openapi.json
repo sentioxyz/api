@@ -3808,6 +3808,19 @@
         },
         "queryTimeRange": {
           "$ref": "#/definitions/common.TimeRangeLite"
+        },
+        "sqlCondition": {
+          "$ref": "#/definitions/alert_service.SQLCondition"
+        },
+        "sqlSamples": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "sqlMatchCount": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -3878,6 +3891,9 @@
         },
         "error": {
           "type": "string"
+        },
+        "sqlCondition": {
+          "$ref": "#/definitions/alert_service.SQLCondition"
         }
       }
     },
@@ -3958,6 +3974,9 @@
             },
             "error": {
               "type": "string"
+            },
+            "sqlCondition": {
+              "$ref": "#/definitions/alert_service.SQLCondition"
             }
           }
         }
@@ -3967,7 +3986,8 @@
       "type": "string",
       "enum": [
         "METRIC",
-        "LOG"
+        "LOG",
+        "SQL"
       ],
       "default": "METRIC"
     },
@@ -4108,6 +4128,46 @@
         "updateTime": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "alert_service.SQLCondition": {
+      "type": "object",
+      "properties": {
+        "columnCondition": {
+          "$ref": "#/definitions/alert_service.SQLCondition.ColumnCondition"
+        },
+        "rowCondition": {
+          "$ref": "#/definitions/alert_service.SQLCondition.RowCondition"
+        }
+      }
+    },
+    "alert_service.SQLCondition.ColumnCondition": {
+      "type": "object",
+      "properties": {
+        "column": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Index of the column to evaluate against the threshold"
+        },
+        "comparisonOp": {
+          "type": "string"
+        },
+        "threshold": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "alert_service.SQLCondition.RowCondition": {
+      "type": "object",
+      "properties": {
+        "comparisonOp": {
+          "type": "string"
+        },
+        "rowSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

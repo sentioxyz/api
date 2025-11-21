@@ -183,6 +183,11 @@ export namespace alert_service {
         time?: string;
         state?: AlertRuleState;
         queryTimeRange?: common.TimeRangeLite;
+        sqlCondition?: SqlCondition;
+        sqlSamples?: Array<{
+            [key: string]: unknown;
+        }>;
+        sqlMatchCount?: number;
     };
     export type AlertRule = {
         id?: string;
@@ -204,6 +209,7 @@ export namespace alert_service {
         mute?: boolean;
         interval?: common.Duration;
         error?: string;
+        sqlCondition?: SqlCondition;
     };
     export type AlertRuleState = 'NO_DATA' | 'FIRING' | 'NORMAL' | 'ERROR';
     export type AlertServiceSaveAlertRuleBody = {
@@ -226,9 +232,10 @@ export namespace alert_service {
             mute?: boolean;
             interval?: common.Duration;
             error?: string;
+            sqlCondition?: SqlCondition;
         };
     };
-    export type AlertType = 'METRIC' | 'LOG';
+    export type AlertType = 'METRIC' | 'LOG' | 'SQL';
     export type Condition = {
         queries?: Array<common.Query>;
         formula?: common.Formula;
@@ -265,6 +272,19 @@ export namespace alert_service {
         startTime?: string;
         endTime?: string;
         updateTime?: string;
+    };
+    export type SqlCondition = {
+        columnCondition?: SqlConditionColumnCondition;
+        rowCondition?: SqlConditionRowCondition;
+    };
+    export type SqlConditionColumnCondition = {
+        column?: number;
+        comparisonOp?: string;
+        threshold?: number;
+    };
+    export type SqlConditionRowCondition = {
+        comparisonOp?: string;
+        rowSize?: number;
     };
     export type Sample = {
         metric?: {
