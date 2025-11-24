@@ -2025,6 +2025,7 @@ export namespace metrics_service {
         version?: number;
         timezone?: string;
         samplesOffset?: number;
+        enableExperimentalFeatures?: boolean;
     };
     export type ObservabilityServiceQueryRangeBody = {
         queries?: Array<common.Query>;
