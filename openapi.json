@@ -4034,6 +4034,10 @@
             "type": "object",
             "$ref": "#/definitions/alert_service.Condition.InsightQuery"
           }
+        },
+        "threshold2": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -4096,6 +4100,10 @@
         "threshold": {
           "type": "integer",
           "format": "int32"
+        },
+        "threshold2": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -4139,16 +4147,32 @@
         },
         "rowCondition": {
           "$ref": "#/definitions/alert_service.SQLCondition.RowCondition"
+        },
+        "sqlQuery": {
+          "type": "string"
         }
       }
+    },
+    "alert_service.SQLCondition.Aggregation": {
+      "type": "string",
+      "enum": [
+        "COUNT",
+        "SUM",
+        "AVG",
+        "MAX",
+        "MIN",
+        "LAST"
+      ],
+      "default": "COUNT"
     },
     "alert_service.SQLCondition.ColumnCondition": {
       "type": "object",
       "properties": {
-        "column": {
-          "type": "integer",
-          "format": "int32",
-          "title": "Index of the column to evaluate against the threshold"
+        "valueColumn": {
+          "type": "string"
+        },
+        "timeColumn": {
+          "type": "string"
         },
         "comparisonOp": {
           "type": "string"
@@ -4156,20 +4180,18 @@
         "threshold": {
           "type": "number",
           "format": "double"
+        },
+        "threshold2": {
+          "type": "number",
+          "format": "double"
+        },
+        "aggregation": {
+          "$ref": "#/definitions/alert_service.SQLCondition.Aggregation"
         }
       }
     },
     "alert_service.SQLCondition.RowCondition": {
-      "type": "object",
-      "properties": {
-        "comparisonOp": {
-          "type": "string"
-        },
-        "rowSize": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
+      "type": "object"
     },
     "alert_service.Sample": {
       "type": "object",

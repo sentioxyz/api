@@ -1457,6 +1457,10 @@ ul.nav-tabs {
       "items" : {
         "$ref" : "#/components/schemas/alert_service.Condition.InsightQuery"
       }
+    },
+    "threshold2" : {
+      "type" : "number",
+      "format" : "double"
     }
   }
 };
@@ -1517,6 +1521,10 @@ ul.nav-tabs {
     "threshold" : {
       "type" : "integer",
       "format" : "int32"
+    },
+    "threshold2" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
@@ -1560,16 +1568,25 @@ ul.nav-tabs {
     },
     "rowCondition" : {
       "$ref" : "#/components/schemas/alert_service.SQLCondition.RowCondition"
+    },
+    "sqlQuery" : {
+      "type" : "string"
     }
   }
+};
+    defs["alert_service.SQLCondition.Aggregation"] = {
+  "type" : "string",
+  "default" : "COUNT",
+  "enum" : [ "COUNT", "SUM", "AVG", "MAX", "MIN", "LAST" ]
 };
     defs["alert_service.SQLCondition.ColumnCondition"] = {
   "type" : "object",
   "properties" : {
-    "column" : {
-      "title" : "Index of the column to evaluate against the threshold",
-      "type" : "integer",
-      "format" : "int32"
+    "valueColumn" : {
+      "type" : "string"
+    },
+    "timeColumn" : {
+      "type" : "string"
     },
     "comparisonOp" : {
       "type" : "string"
@@ -1577,18 +1594,13 @@ ul.nav-tabs {
     "threshold" : {
       "type" : "number",
       "format" : "double"
-    }
-  }
-};
-    defs["alert_service.SQLCondition.RowCondition"] = {
-  "type" : "object",
-  "properties" : {
-    "comparisonOp" : {
-      "type" : "string"
     },
-    "rowSize" : {
-      "type" : "integer",
-      "format" : "int32"
+    "threshold2" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "aggregation" : {
+      "$ref" : "#/components/schemas/alert_service.SQLCondition.Aggregation"
     }
   }
 };

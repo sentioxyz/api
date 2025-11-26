@@ -244,6 +244,7 @@ export namespace alert_service {
         eventsQueries?: Array<common.SegmentationQuery>;
         priceQueries?: Array<common.PriceSegmentationQuery>;
         insightQueries?: Array<ConditionInsightQuery>;
+        threshold2?: number;
     };
     export type ConditionInsightQuery = {
         metricsQuery?: common.Query;
@@ -263,6 +264,7 @@ export namespace alert_service {
         query?: string;
         comparisonOp?: string;
         threshold?: number;
+        threshold2?: number;
     };
     export type Mute = {
         id?: string;
@@ -276,15 +278,19 @@ export namespace alert_service {
     export type SqlCondition = {
         columnCondition?: SqlConditionColumnCondition;
         rowCondition?: SqlConditionRowCondition;
+        sqlQuery?: string;
     };
+    export type SqlConditionAggregation = 'COUNT' | 'SUM' | 'AVG' | 'MAX' | 'MIN' | 'LAST';
     export type SqlConditionColumnCondition = {
-        column?: number;
+        valueColumn?: string;
+        timeColumn?: string;
         comparisonOp?: string;
         threshold?: number;
+        threshold2?: number;
+        aggregation?: SqlConditionAggregation;
     };
     export type SqlConditionRowCondition = {
-        comparisonOp?: string;
-        rowSize?: number;
+        [key: string]: unknown;
     };
     export type Sample = {
         metric?: {
