@@ -7833,6 +7833,13 @@
         "pause": {
           "type": "boolean"
         },
+        "pauseAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pauseReason": {
+          "type": "string"
+        },
         "networkOverrides": {
           "type": "array",
           "items": {
@@ -7999,6 +8006,13 @@
         },
         "pause": {
           "type": "boolean"
+        },
+        "pauseAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "pauseReason": {
+          "type": "string"
         },
         "entitySchemaVersion": {
           "type": "integer",

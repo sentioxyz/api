@@ -2347,6 +2347,8 @@ export namespace processor_service {
         referenceProjectId?: string;
         warnings?: Array<string>;
         pause?: boolean;
+        pauseAt?: string;
+        pauseReason?: string;
         networkOverrides?: Array<NetworkOverride>;
         driverVersion?: string;
     };
@@ -2416,6 +2418,8 @@ export namespace processor_service {
         eventlogMigrateStatus?: number;
         eventlogVersion?: number;
         pause?: boolean;
+        pauseAt?: string;
+        pauseReason?: string;
         entitySchemaVersion?: number;
         driverVersion?: number;
         isBinary?: boolean;
