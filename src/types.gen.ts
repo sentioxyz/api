@@ -552,7 +552,7 @@ export namespace analytic_service {
         limit?: number;
         offset?: number;
     };
-    export type Source = 'SQL_EDITOR' | 'DASHBOARD' | 'ASYNC_TRIGGER' | 'CURL' | 'ENDPOINT';
+    export type Source = 'SQL_EDITOR' | 'DASHBOARD' | 'ASYNC_TRIGGER' | 'CURL' | 'ENDPOINT' | 'EXPORT' | 'USER_MATERIALIZED_VIEW_CREATOR' | 'SQL_ALERT';
     export type SyncExecuteSqlResponse = {
         runtimeCost?: string;
         result?: common.TabularData;

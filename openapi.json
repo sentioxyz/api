@@ -4824,7 +4824,10 @@
         "DASHBOARD",
         "ASYNC_TRIGGER",
         "CURL",
-        "ENDPOINT"
+        "ENDPOINT",
+        "EXPORT",
+        "USER_MATERIALIZED_VIEW_CREATOR",
+        "SQL_ALERT"
       ],
       "default": "SQL_EDITOR"
     },
