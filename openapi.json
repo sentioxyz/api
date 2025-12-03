@@ -1973,214 +1973,6 @@
         ]
       }
     },
-    "/v1/project/{owner}/{slug}": {
-      "get": {
-        "summary": "Get project details",
-        "operationId": "GetProject",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/web_service.GetProjectResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "owner",
-            "description": "username or organization name",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "slug",
-            "description": "project slug",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Web"
-        ]
-      }
-    },
-    "/v1/project/{owner}/{slug}/importprojects": {
-      "get": {
-        "summary": "Get all imported projects",
-        "operationId": "GetImportedProject",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/web_service.ImportProjectResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "owner",
-            "description": "username or organization name",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "slug",
-            "description": "project slug",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Web"
-        ]
-      },
-      "post": {
-        "summary": "Import external project(s)",
-        "operationId": "ImportProject",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/web_service.ImportProjectResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "owner",
-            "description": "username or organization name",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "slug",
-            "description": "project slug",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/web_service.WebService.ImportProjectBody"
-            }
-          }
-        ],
-        "tags": [
-          "Web"
-        ]
-      }
-    },
-    "/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}": {
-      "delete": {
-        "summary": "Remove an imported project",
-        "operationId": "UnImportProject",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/web_service.ImportProjectResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "owner",
-            "description": "username or organization name",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "slug",
-            "description": "project slug",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "unimportOwner",
-            "description": "username or organization name of the imported project",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "unimportSlug",
-            "description": "slug of the imported project",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Web"
-        ]
-      }
-    },
-    "/v1/project/{projectId}": {
-      "get": {
-        "summary": "Get project details",
-        "operationId": "GetProjectById",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/common.ProjectInfo"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "projectId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Web"
-        ]
-      }
-    },
-    "/v1/projects": {
-      "get": {
-        "summary": "Get project list",
-        "operationId": "GetProjectList",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/web_service.GetProjectListResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "organizationId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Web"
-        ]
-      }
-    },
     "/v1/projects/{owner}/{slug}/dashboards": {
       "get": {
         "summary": "List all dashboards in a project",
@@ -5589,21 +5381,6 @@
             "type": "object",
             "$ref": "#/definitions/common.Argument"
           }
-        }
-      }
-    },
-    "common.ImportedProject": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "title": "name of the imported project"
-        },
-        "project": {
-          "$ref": "#/definitions/common.Project"
-        },
-        "imported": {
-          "$ref": "#/definitions/common.Project"
         }
       }
     },
@@ -10077,46 +9854,6 @@
         }
       }
     },
-    "web_service.GetProjectListResponse": {
-      "type": "object",
-      "properties": {
-        "projects": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.Project"
-          }
-        },
-        "sharedProjects": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.Project"
-          }
-        },
-        "orgProjects": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.Project"
-          }
-        }
-      }
-    },
-    "web_service.GetProjectResponse": {
-      "type": "object",
-      "properties": {
-        "project": {
-          "$ref": "#/definitions/common.Project"
-        },
-        "permissions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/common.Permission"
-          }
-        }
-      }
-    },
     "web_service.ImportDashboardRequest": {
       "type": "object",
       "properties": {
@@ -10143,18 +9880,6 @@
       "properties": {
         "dashboard": {
           "$ref": "#/definitions/web_service.Dashboard"
-        }
-      }
-    },
-    "web_service.ImportProjectResponse": {
-      "type": "object",
-      "properties": {
-        "imports": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.ImportedProject"
-          }
         }
       }
     },
@@ -10241,19 +9966,6 @@
         }
       }
     },
-    "web_service.ProjectOwnerAndSlug": {
-      "type": "object",
-      "properties": {
-        "ownerName": {
-          "type": "string",
-          "title": "username or organization name"
-        },
-        "slug": {
-          "type": "string",
-          "title": "project slug"
-        }
-      }
-    },
     "web_service.SharingConfig": {
       "type": "object",
       "properties": {
@@ -10262,27 +9974,6 @@
         },
         "hideModifiers": {
           "type": "boolean"
-        }
-      }
-    },
-    "web_service.WebService.ImportProjectBody": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "title": "import as"
-        },
-        "importProject": {
-          "$ref": "#/definitions/web_service.ProjectOwnerAndSlug",
-          "title": "a single project to import"
-        },
-        "importProjects": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/web_service.ProjectOwnerAndSlug"
-          },
-          "title": "a list of projects to import"
         }
       }
     }

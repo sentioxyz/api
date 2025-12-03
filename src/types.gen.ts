@@ -1148,11 +1148,6 @@ export namespace common {
         name?: string;
         arguments?: Array<Argument>;
     };
-    export type ImportedProject = {
-        name?: string;
-        project?: Project;
-        imported?: Project;
-    };
     export type JoinOperator = 'AND' | 'OR' | 'THEN';
     export type Matrix = {
         samples?: Array<MatrixSample>;
@@ -1484,21 +1479,6 @@ export namespace common {
         picture?: string;
         username?: string;
     };
-    export type GetProjectByIdData = {
-        body?: never;
-        path: {
-            projectId: string;
-        };
-        query?: never;
-        url: '/v1/project/{projectId}';
-    };
-    export type GetProjectByIdResponses = {
-        /**
-         * A successful response.
-         */
-        200: common.ProjectInfo;
-    };
-    export type GetProjectByIdResponse = GetProjectByIdResponses[keyof GetProjectByIdResponses];
 }
 
 export namespace evm {
@@ -3318,15 +3298,6 @@ export namespace web_service {
         dashboards?: Array<Dashboard>;
         permissions?: Array<common.Permission>;
     };
-    export type GetProjectListResponse = {
-        projects?: Array<common.Project>;
-        sharedProjects?: Array<common.Project>;
-        orgProjects?: Array<common.Project>;
-    };
-    export type GetProjectResponse = {
-        project?: common.Project;
-        permissions?: Array<common.Permission>;
-    };
     export type ImportDashboardRequest = {
         /**
          * The id of the target dashboard to import into.
@@ -3345,9 +3316,6 @@ export namespace web_service {
     };
     export type ImportDashboardResponse = {
         dashboard?: Dashboard;
-    };
-    export type ImportProjectResponse = {
-        imports?: Array<common.ImportedProject>;
     };
     export type LinkAccountSession = {
         sessionId?: string;
@@ -3371,18 +3339,9 @@ export namespace web_service {
         creator?: common.UserInfo;
         updater?: common.UserInfo;
     };
-    export type ProjectOwnerAndSlug = {
-        ownerName?: string;
-        slug?: string;
-    };
     export type SharingConfig = {
         isReadonly?: boolean;
         hideModifiers?: boolean;
-    };
-    export type WebServiceImportProjectBody = {
-        name?: string;
-        importProject?: ProjectOwnerAndSlug;
-        importProjects?: Array<ProjectOwnerAndSlug>;
     };
     export type ListDashboardsData = {
         body?: never;
@@ -3522,118 +3481,6 @@ export namespace web_service {
         200: ExportDashboardResponse;
     };
     export type ExportDashboardResponse2 = ExportDashboardResponses[keyof ExportDashboardResponses];
-    export type GetProjectData = {
-        body?: never;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-        };
-        query?: never;
-        url: '/v1/project/{owner}/{slug}';
-    };
-    export type GetProjectResponses = {
-        /**
-         * A successful response.
-         */
-        200: GetProjectResponse;
-    };
-    export type GetProjectResponse2 = GetProjectResponses[keyof GetProjectResponses];
-    export type GetImportedProjectData = {
-        body?: never;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-        };
-        query?: never;
-        url: '/v1/project/{owner}/{slug}/importprojects';
-    };
-    export type GetImportedProjectResponses = {
-        /**
-         * A successful response.
-         */
-        200: ImportProjectResponse;
-    };
-    export type GetImportedProjectResponse = GetImportedProjectResponses[keyof GetImportedProjectResponses];
-    export type ImportProjectData = {
-        body: WebServiceImportProjectBody;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-        };
-        query?: never;
-        url: '/v1/project/{owner}/{slug}/importprojects';
-    };
-    export type ImportProjectResponses = {
-        /**
-         * A successful response.
-         */
-        200: ImportProjectResponse;
-    };
-    export type ImportProjectResponse2 = ImportProjectResponses[keyof ImportProjectResponses];
-    export type UnImportProjectData = {
-        body?: never;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-            /**
-             * username or organization name of the imported project
-             */
-            unimportOwner: string;
-            /**
-             * slug of the imported project
-             */
-            unimportSlug: string;
-        };
-        query?: never;
-        url: '/v1/project/{owner}/{slug}/unimportprojects/{unimportOwner}/{unimportSlug}';
-    };
-    export type UnImportProjectResponses = {
-        /**
-         * A successful response.
-         */
-        200: ImportProjectResponse;
-    };
-    export type UnImportProjectResponse = UnImportProjectResponses[keyof UnImportProjectResponses];
-    export type GetProjectListData = {
-        body?: never;
-        path?: never;
-        query?: {
-            userId?: string;
-            organizationId?: string;
-        };
-        url: '/v1/projects';
-    };
-    export type GetProjectListResponses = {
-        /**
-         * A successful response.
-         */
-        200: GetProjectListResponse;
-    };
-    export type GetProjectListResponse2 = GetProjectListResponses[keyof GetProjectListResponses];
     export type ListDashboards2Data = {
         body?: never;
         path: {
