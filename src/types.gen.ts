@@ -2402,6 +2402,7 @@ export namespace processor_service {
         pauseReason?: string;
         entitySchemaVersion?: number;
         driverVersion?: number;
+        numWorkers?: number;
         isBinary?: boolean;
     };
     export type ProcessorVersionState = 'UNKNOWN' | 'PENDING' | 'ACTIVE' | 'OBSOLETE';

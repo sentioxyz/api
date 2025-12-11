@@ -7802,6 +7802,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "numWorkers": {
+          "type": "integer",
+          "format": "int32"
+        },
         "isBinary": {
           "type": "boolean"
         }
