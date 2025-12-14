@@ -2331,6 +2331,7 @@ export namespace processor_service {
         pauseReason?: string;
         networkOverrides?: Array<NetworkOverride>;
         driverVersion?: string;
+        numWorkers?: string;
     };
     export type GetProcessorStatusResponseProcessorStatus = {
         state?: GetProcessorStatusResponseProcessorStatusState;

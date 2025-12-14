@@ -7629,6 +7629,9 @@
         },
         "driverVersion": {
           "type": "string"
+        },
+        "numWorkers": {
+          "type": "string"
         }
       }
     },
