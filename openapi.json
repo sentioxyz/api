@@ -3140,6 +3140,196 @@
         ]
       }
     },
+    "/v1/sql/table": {
+      "get": {
+        "summary": "Query Table By Name",
+        "description": "Query table schema by name.",
+        "operationId": "QueryTable2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QueryTableResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/v1/sql/tables": {
+      "get": {
+        "summary": "List Tables",
+        "operationId": "ListTables2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.ListTablesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectOwner",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectSlug",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/v1/sql/{owner}/{slug}/table/{name}": {
+      "get": {
+        "summary": "Query Table By Name",
+        "description": "Query table schema by name.",
+        "operationId": "QueryTable",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.QueryTableResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
+    "/v1/sql/{owner}/{slug}/tables": {
+      "get": {
+        "summary": "List Tables",
+        "operationId": "ListTables",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/analytic_service.ListTablesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Data"
+        ]
+      }
+    },
     "/v1/users/link": {
       "get": {
         "operationId": "CreateLinkSession",
@@ -4305,6 +4495,20 @@
         }
       }
     },
+    "analytic_service.ListTablesResponse": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
+        }
+      }
+    },
     "analytic_service.LogQueryRequest.Filter": {
       "type": "object",
       "properties": {
@@ -4405,6 +4609,17 @@
         },
         "color": {
           "type": "string"
+        }
+      }
+    },
+    "analytic_service.QueryTableResponse": {
+      "type": "object",
+      "properties": {
+        "table": {
+          "$ref": "#/definitions/analytic_service.Table"
+        },
+        "computeStats": {
+          "$ref": "#/definitions/common.ComputeStats"
         }
       }
     },

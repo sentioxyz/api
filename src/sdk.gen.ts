@@ -760,6 +760,92 @@ export class DataService {
         });
     }
     
+    /**
+     * Query Table By Name
+     * Query table schema by name.
+     */
+    public static queryTable2<ThrowOnError extends boolean = false>(options?: Options<analytic_service.QueryTable2Data, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<analytic_service.QueryTable2Response, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/sql/table',
+            ...options
+        });
+    }
+    
+    /**
+     * List Tables
+     */
+    public static listTables2<ThrowOnError extends boolean = false>(options?: Options<analytic_service.ListTables2Data, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<analytic_service.ListTables2Response, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/sql/tables',
+            ...options
+        });
+    }
+    
+    /**
+     * Query Table By Name
+     * Query table schema by name.
+     */
+    public static queryTable<ThrowOnError extends boolean = false>(options: Options<analytic_service.QueryTableData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<analytic_service.QueryTableResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/sql/{owner}/{slug}/table/{name}',
+            ...options
+        });
+    }
+    
+    /**
+     * List Tables
+     */
+    public static listTables<ThrowOnError extends boolean = false>(options: Options<analytic_service.ListTablesData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<analytic_service.ListTablesResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/sql/{owner}/{slug}/tables',
+            ...options
+        });
+    }
+    
 }
 
 export class WebService {

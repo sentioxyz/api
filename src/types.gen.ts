@@ -458,6 +458,10 @@ export namespace analytic_service {
         name?: string;
         sql?: string;
     };
+    export type ListTablesResponse = {
+        names?: Array<string>;
+        computeStats?: common.ComputeStats;
+    };
     export type LogQueryRequestFilter = {
         field?: string;
         value?: string;
@@ -489,6 +493,10 @@ export namespace analytic_service {
         id?: string;
         computeStats?: common.ComputeStats;
         color?: string;
+    };
+    export type QueryTableResponse = {
+        table?: Table;
+        computeStats?: common.ComputeStats;
     };
     export type QueryTablesResponse = {
         tables?: {
@@ -952,6 +960,82 @@ export namespace analytic_service {
         200: analytic_service.LogQueryResponse;
     };
     export type QueryLog2Response = QueryLog2Responses[keyof QueryLog2Responses];
+    export type QueryTable2Data = {
+        body?: never;
+        path?: never;
+        query?: {
+            projectOwner?: string;
+            projectSlug?: string;
+            projectId?: string;
+            version?: number;
+            name?: string;
+        };
+        url: '/v1/sql/table';
+    };
+    export type QueryTable2Responses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.QueryTableResponse;
+    };
+    export type QueryTable2Response = QueryTable2Responses[keyof QueryTable2Responses];
+    export type ListTables2Data = {
+        body?: never;
+        path?: never;
+        query?: {
+            projectOwner?: string;
+            projectSlug?: string;
+            projectId?: string;
+            version?: number;
+        };
+        url: '/v1/sql/tables';
+    };
+    export type ListTables2Responses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.ListTablesResponse;
+    };
+    export type ListTables2Response = ListTables2Responses[keyof ListTables2Responses];
+    export type QueryTableData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+            name: string;
+        };
+        query?: {
+            projectId?: string;
+            version?: number;
+        };
+        url: '/v1/sql/{owner}/{slug}/table/{name}';
+    };
+    export type QueryTableResponses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.QueryTableResponse;
+    };
+    export type QueryTableResponse2 = QueryTableResponses[keyof QueryTableResponses];
+    export type ListTablesData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+        };
+        query?: {
+            projectId?: string;
+            version?: number;
+        };
+        url: '/v1/sql/{owner}/{slug}/tables';
+    };
+    export type ListTablesResponses = {
+        /**
+         * A successful response.
+         */
+        200: analytic_service.ListTablesResponse;
+    };
+    export type ListTablesResponse2 = ListTablesResponses[keyof ListTablesResponses];
 }
 
 export namespace common {
