@@ -1722,6 +1722,70 @@
         ]
       }
     },
+    "/v1/move/call_trace": {
+      "get": {
+        "summary": "Get Aptos transaction call trace",
+        "description": "Retrieves the detailed call trace for an Aptos transaction",
+        "operationId": "GetCallTrace",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/google.api.HttpBody"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "networkId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txHash",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Move"
+        ]
+      }
+    },
+    "/v1/move/sui_call_trace": {
+      "get": {
+        "summary": "Get Sui transaction call trace",
+        "description": "Retrieves the detailed call trace for a Sui transaction",
+        "operationId": "GetSuiCallTrace",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/move_service.GetSuiCallTraceResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "networkId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "txDigest",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Move"
+        ]
+      }
+    },
     "/v1/prices": {
       "get": {
         "summary": "Get price",
@@ -7423,6 +7487,104 @@
           "type": "string"
         },
         "color": {
+          "type": "string"
+        }
+      }
+    },
+    "move_service.GetSuiCallTraceResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/move_service.SuiCallTrace"
+          }
+        }
+      }
+    },
+    "move_service.SuiCallTrace": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "contractName": {
+          "type": "string"
+        },
+        "functionName": {
+          "type": "string"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {}
+        },
+        "returnValue": {
+          "type": "array",
+          "items": {}
+        },
+        "typeArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "calls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/move_service.SuiCallTrace"
+          }
+        },
+        "location": {},
+        "pc": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gasUsed": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "error": {
+          "$ref": "#/definitions/move_service.SuiCallTrace.Error"
+        }
+      }
+    },
+    "move_service.SuiCallTrace.Error": {
+      "type": "object",
+      "properties": {
+        "majorStatus": {
+          "type": "string"
+        },
+        "subStatus": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "message": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/move_service.SuiCallTrace.Error.ModuleId"
+        },
+        "functionName": {
+          "type": "string"
+        },
+        "codeOffset": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "move_service.SuiCallTrace.Error.ModuleId": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }

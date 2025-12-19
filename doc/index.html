@@ -4588,6 +4588,108 @@ ul.nav-tabs {
     }
   }
 };
+    defs["move_service.GetSuiCallTraceResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "result" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/move_service.SuiCallTrace"
+      }
+    }
+  }
+};
+    defs["move_service.SuiCallTrace"] = {
+  "type" : "object",
+  "properties" : {
+    "from" : {
+      "type" : "string"
+    },
+    "to" : {
+      "type" : "string"
+    },
+    "contractName" : {
+      "type" : "string"
+    },
+    "functionName" : {
+      "type" : "string"
+    },
+    "inputs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object"
+      }
+    },
+    "returnValue" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object"
+      }
+    },
+    "typeArgs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "calls" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/move_service.SuiCallTrace"
+      }
+    },
+    "location" : {
+      "type" : "object"
+    },
+    "pc" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "gasUsed" : {
+      "type" : "string",
+      "format" : "uint64"
+    },
+    "error" : {
+      "$ref" : "#/components/schemas/move_service.SuiCallTrace.Error"
+    }
+  }
+};
+    defs["move_service.SuiCallTrace.Error"] = {
+  "type" : "object",
+  "properties" : {
+    "majorStatus" : {
+      "type" : "string"
+    },
+    "subStatus" : {
+      "type" : "string",
+      "format" : "uint64"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "location" : {
+      "$ref" : "#/components/schemas/move_service.SuiCallTrace.Error.ModuleId"
+    },
+    "functionName" : {
+      "type" : "string"
+    },
+    "codeOffset" : {
+      "type" : "integer",
+      "format" : "int64"
+    }
+  }
+};
+    defs["move_service.SuiCallTrace.Error.ModuleId"] = {
+  "type" : "object",
+  "properties" : {
+    "address" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    }
+  }
+};
     defs["price_service.AddCoinByGeckoRequest"] = {
   "type" : "object",
   "properties" : {
@@ -7378,6 +7480,13 @@ ul.nav-tabs {
                     </li>
                     <li data-group="Forks" data-name="updateFork" class="">
                       <a href="#api-Forks-updateFork">updateFork</a>
+                    </li>
+                  <li class="nav-header" data-group="Move"><a href="#api-Move">API Methods - Move</a></li>
+                    <li data-group="Move" data-name="getCallTrace" class="">
+                      <a href="#api-Move-getCallTrace">getCallTrace</a>
+                    </li>
+                    <li data-group="Move" data-name="getSuiCallTrace" class="">
+                      <a href="#api-Move-getSuiCallTrace">getSuiCallTrace</a>
                     </li>
                   <li class="nav-header" data-group="Price"><a href="#api-Price">API Methods - Price</a></li>
                     <li data-group="Price" data-name="addCoinByGecko" class="">
@@ -39012,6 +39121,949 @@ $(document).ready(function() {
                                   </script>
                                 </div>
                                 <input id='responses-Forks-updateFork-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Move">
+                  <h1>Move</h1>
+                    <div id="api-Move-getCallTrace">
+                      <article id="api-Move-getCallTrace-0" data-group="User" data-name="getCallTrace" data-version="0">
+                        <div class="pull-left">
+                          <h1>getCallTrace</h1>
+                          <p>Get Aptos transaction call trace</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Retrieves the detailed call trace for an Aptos transaction</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/move/call_trace</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Move-getCallTrace-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Move-getCallTrace-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Move-getCallTrace-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Move-getCallTrace-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Move-getCallTrace-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Move-getCallTrace-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Move-getCallTrace-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://api.sentio.xyz/v1/move/call_trace?networkId=networkId_example&txHash=txHash_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Move-getCallTrace-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.MoveApi;
+
+import java.io.File;
+import java.util.*;
+
+public class MoveApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        MoveApi apiInstance = new MoveApi();
+        String networkId = networkId_example; // String | 
+        String txHash = txHash_example; // String | 
+
+        try {
+            google.api.HttpBody result = apiInstance.getCallTrace(networkId, txHash);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MoveApi#getCallTrace");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Move-getCallTrace-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String networkId = new String(); // String | 
+final String txHash = new String(); // String | 
+
+try {
+    final result = await api_instance.getCallTrace(networkId, txHash);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getCallTrace: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Move-getCallTrace-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.MoveApi;
+
+public class MoveApiExample {
+    public static void main(String[] args) {
+        MoveApi apiInstance = new MoveApi();
+        String networkId = networkId_example; // String | 
+        String txHash = txHash_example; // String | 
+
+        try {
+            google.api.HttpBody result = apiInstance.getCallTrace(networkId, txHash);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MoveApi#getCallTrace");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Move-getCallTrace-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Move-getCallTrace-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+MoveApi *apiInstance = [[MoveApi alloc] init];
+String *networkId = networkId_example; //  (optional) (default to null)
+String *txHash = txHash_example; //  (optional) (default to null)
+
+// Get Aptos transaction call trace
+[apiInstance getCallTraceWith:networkId
+    txHash:txHash
+              completionHandler: ^(google.api.HttpBody output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getCallTrace-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.MoveApi()
+var opts = {
+  'networkId': networkId_example, // {String} 
+  'txHash': txHash_example // {String} 
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getCallTrace(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Move-getCallTrace-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Move-getCallTrace-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getCallTraceExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new MoveApi();
+            var networkId = networkId_example;  // String |  (optional)  (default to null)
+            var txHash = txHash_example;  // String |  (optional)  (default to null)
+
+            try {
+                // Get Aptos transaction call trace
+                google.api.HttpBody result = apiInstance.getCallTrace(networkId, txHash);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling MoveApi.getCallTrace: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getCallTrace-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\MoveApi();
+$networkId = networkId_example; // String | 
+$txHash = txHash_example; // String | 
+
+try {
+    $result = $api_instance->getCallTrace($networkId, $txHash);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MoveApi->getCallTrace: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getCallTrace-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::MoveApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::MoveApi->new();
+my $networkId = networkId_example; # String | 
+my $txHash = txHash_example; # String | 
+
+eval {
+    my $result = $api_instance->getCallTrace(networkId => $networkId, txHash => $txHash);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling MoveApi->getCallTrace: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getCallTrace-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.MoveApi()
+networkId = networkId_example # String |  (optional) (default to null)
+txHash = txHash_example # String |  (optional) (default to null)
+
+try:
+    # Get Aptos transaction call trace
+    api_response = api_instance.get_call_trace(networkId=networkId, txHash=txHash)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling MoveApi->getCallTrace: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getCallTrace-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate MoveApi;
+
+pub fn main() {
+    let networkId = networkId_example; // String
+    let txHash = txHash_example; // String
+
+    let mut context = MoveApi::Context::default();
+    let result = client.getCallTrace(networkId, txHash, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">networkId</td>
+<td>
+
+
+    <div id="d2e199_getCallTrace_networkId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">txHash</td>
+<td>
+
+
+    <div id="d2e199_getCallTrace_txHash">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Move-getCallTrace-title-200"></h3>
+                            <p id="examples-Move-getCallTrace-description-200" class="marked"></p>
+                            <script>
+                              var responseMove200_description = `A successful response.`;
+                              var responseMove200_description_break = responseMove200_description.indexOf('\n');
+                              if (responseMove200_description_break == -1) {
+                                $("#examples-Move-getCallTrace-title-200").text("Status: 200 - " + responseMove200_description);
+                              } else {
+                                $("#examples-Move-getCallTrace-title-200").text("Status: 200 - " + responseMove200_description.substring(0, responseMove200_description_break));
+                                $("#examples-Move-getCallTrace-description-200").html(responseMove200_description.substring(responseMove200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Move-getCallTrace-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Move-getCallTrace-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Move-getCallTrace-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Move-getCallTrace-200-schema">
+                                <div id="responses-Move-getCallTrace-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/google.api.HttpBody"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Move-getCallTrace-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Move-getCallTrace-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Move-getCallTrace-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Move-getSuiCallTrace">
+                      <article id="api-Move-getSuiCallTrace-0" data-group="User" data-name="getSuiCallTrace" data-version="0">
+                        <div class="pull-left">
+                          <h1>getSuiCallTrace</h1>
+                          <p>Get Sui transaction call trace</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Retrieves the detailed call trace for a Sui transaction</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/move/sui_call_trace</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Move-getSuiCallTrace-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Move-getSuiCallTrace-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Move-getSuiCallTrace-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Move-getSuiCallTrace-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Move-getSuiCallTrace-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://api.sentio.xyz/v1/move/sui_call_trace?networkId=networkId_example&txDigest=txDigest_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.MoveApi;
+
+import java.io.File;
+import java.util.*;
+
+public class MoveApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        MoveApi apiInstance = new MoveApi();
+        String networkId = networkId_example; // String | 
+        String txDigest = txDigest_example; // String | 
+
+        try {
+            move_service.GetSuiCallTraceResponse result = apiInstance.getSuiCallTrace(networkId, txDigest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MoveApi#getSuiCallTrace");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String networkId = new String(); // String | 
+final String txDigest = new String(); // String | 
+
+try {
+    final result = await api_instance.getSuiCallTrace(networkId, txDigest);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getSuiCallTrace: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.MoveApi;
+
+public class MoveApiExample {
+    public static void main(String[] args) {
+        MoveApi apiInstance = new MoveApi();
+        String networkId = networkId_example; // String | 
+        String txDigest = txDigest_example; // String | 
+
+        try {
+            move_service.GetSuiCallTraceResponse result = apiInstance.getSuiCallTrace(networkId, txDigest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling MoveApi#getSuiCallTrace");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+MoveApi *apiInstance = [[MoveApi alloc] init];
+String *networkId = networkId_example; //  (optional) (default to null)
+String *txDigest = txDigest_example; //  (optional) (default to null)
+
+// Get Sui transaction call trace
+[apiInstance getSuiCallTraceWith:networkId
+    txDigest:txDigest
+              completionHandler: ^(move_service.GetSuiCallTraceResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.MoveApi()
+var opts = {
+  'networkId': networkId_example, // {String} 
+  'txDigest': txDigest_example // {String} 
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getSuiCallTrace(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Move-getSuiCallTrace-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getSuiCallTraceExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new MoveApi();
+            var networkId = networkId_example;  // String |  (optional)  (default to null)
+            var txDigest = txDigest_example;  // String |  (optional)  (default to null)
+
+            try {
+                // Get Sui transaction call trace
+                move_service.GetSuiCallTraceResponse result = apiInstance.getSuiCallTrace(networkId, txDigest);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling MoveApi.getSuiCallTrace: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\MoveApi();
+$networkId = networkId_example; // String | 
+$txDigest = txDigest_example; // String | 
+
+try {
+    $result = $api_instance->getSuiCallTrace($networkId, $txDigest);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling MoveApi->getSuiCallTrace: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::MoveApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::MoveApi->new();
+my $networkId = networkId_example; # String | 
+my $txDigest = txDigest_example; # String | 
+
+eval {
+    my $result = $api_instance->getSuiCallTrace(networkId => $networkId, txDigest => $txDigest);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling MoveApi->getSuiCallTrace: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.MoveApi()
+networkId = networkId_example # String |  (optional) (default to null)
+txDigest = txDigest_example # String |  (optional) (default to null)
+
+try:
+    # Get Sui transaction call trace
+    api_response = api_instance.get_sui_call_trace(networkId=networkId, txDigest=txDigest)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling MoveApi->getSuiCallTrace: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Move-getSuiCallTrace-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate MoveApi;
+
+pub fn main() {
+    let networkId = networkId_example; // String
+    let txDigest = txDigest_example; // String
+
+    let mut context = MoveApi::Context::default();
+    let result = client.getSuiCallTrace(networkId, txDigest, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">networkId</td>
+<td>
+
+
+    <div id="d2e199_getSuiCallTrace_networkId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">txDigest</td>
+<td>
+
+
+    <div id="d2e199_getSuiCallTrace_txDigest">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Move-getSuiCallTrace-title-200"></h3>
+                            <p id="examples-Move-getSuiCallTrace-description-200" class="marked"></p>
+                            <script>
+                              var responseMove200_description = `A successful response.`;
+                              var responseMove200_description_break = responseMove200_description.indexOf('\n');
+                              if (responseMove200_description_break == -1) {
+                                $("#examples-Move-getSuiCallTrace-title-200").text("Status: 200 - " + responseMove200_description);
+                              } else {
+                                $("#examples-Move-getSuiCallTrace-title-200").text("Status: 200 - " + responseMove200_description.substring(0, responseMove200_description_break));
+                                $("#examples-Move-getSuiCallTrace-description-200").html(responseMove200_description.substring(responseMove200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Move-getSuiCallTrace-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Move-getSuiCallTrace-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Move-getSuiCallTrace-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Move-getSuiCallTrace-200-schema">
+                                <div id="responses-Move-getSuiCallTrace-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/move_service.GetSuiCallTraceResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Move-getSuiCallTrace-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Move-getSuiCallTrace-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Move-getSuiCallTrace-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

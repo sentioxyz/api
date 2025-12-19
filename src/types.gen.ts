@@ -1737,6 +1737,22 @@ export namespace google {
      * - NULL_VALUE: Null value.
      */
     export type ProtobufNullValue = 'NULL_VALUE';
+    export type GetCallTraceData = {
+        body?: never;
+        path?: never;
+        query?: {
+            networkId?: string;
+            txHash?: string;
+        };
+        url: '/v1/move/call_trace';
+    };
+    export type GetCallTraceResponses = {
+        /**
+         * A successful response.
+         */
+        200: google.ApiHttpBody;
+    };
+    export type GetCallTraceResponse = GetCallTraceResponses[keyof GetCallTraceResponses];
     export type GetCallTraceOnForkBundleData = {
         body?: never;
         path: {
@@ -2180,6 +2196,54 @@ export namespace metrics_service {
         200: metrics_service.MetricsQueryResponse;
     };
     export type QueryRangeResponse = QueryRangeResponses[keyof QueryRangeResponses];
+}
+
+export namespace move_service {
+    export type GetSuiCallTraceResponse = {
+        result?: Array<SuiCallTrace>;
+    };
+    export type SuiCallTrace = {
+        from?: string;
+        to?: string;
+        contractName?: string;
+        functionName?: string;
+        inputs?: Array<unknown>;
+        returnValue?: Array<unknown>;
+        typeArgs?: Array<string>;
+        calls?: Array<SuiCallTrace>;
+        location?: unknown;
+        pc?: number;
+        gasUsed?: string;
+        error?: SuiCallTraceError;
+    };
+    export type SuiCallTraceError = {
+        majorStatus?: string;
+        subStatus?: string;
+        message?: string;
+        location?: SuiCallTraceErrorModuleId;
+        functionName?: string;
+        codeOffset?: number;
+    };
+    export type SuiCallTraceErrorModuleId = {
+        address?: string;
+        name?: string;
+    };
+    export type GetSuiCallTraceData = {
+        body?: never;
+        path?: never;
+        query?: {
+            networkId?: string;
+            txDigest?: string;
+        };
+        url: '/v1/move/sui_call_trace';
+    };
+    export type GetSuiCallTraceResponses = {
+        /**
+         * A successful response.
+         */
+        200: move_service.GetSuiCallTraceResponse;
+    };
+    export type GetSuiCallTraceResponse2 = GetSuiCallTraceResponses[keyof GetSuiCallTraceResponses];
 }
 
 export namespace price_service {
