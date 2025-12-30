@@ -5924,6 +5924,9 @@
         },
         "communityProject": {
           "$ref": "#/definitions/common.CommunityProject"
+        },
+        "sentioNetwork": {
+          "type": "boolean"
         }
       }
     },
@@ -8188,6 +8191,9 @@
         },
         "isBinary": {
           "type": "boolean"
+        },
+        "chainId": {
+          "type": "string"
         }
       },
       "description": "This represents a processor which backend works on."

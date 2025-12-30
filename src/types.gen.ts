@@ -1304,6 +1304,7 @@ export namespace common {
         enableMaterializedView?: boolean;
         defaultTimerange?: TimeRangeLite;
         communityProject?: CommunityProject;
+        sentioNetwork?: boolean;
     };
     export type ProjectProjectMember = {
         user?: UserInfo;
@@ -2553,6 +2554,7 @@ export namespace processor_service {
         driverVersion?: number;
         numWorkers?: number;
         isBinary?: boolean;
+        chainId?: string;
     };
     export type ProcessorVersionState = 'UNKNOWN' | 'PENDING' | 'ACTIVE' | 'OBSOLETE';
     export type UpdateChainProcessorStatusResponse = {
