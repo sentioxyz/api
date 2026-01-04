@@ -109,7 +109,7 @@ export namespace ai_service {
         body: ai_service.ChatSession;
         path?: never;
         query?: never;
-        url: '/v1/ai/chat';
+        url: '/api/v1/ai/chat';
     };
     export type CreateChatSessionResponses = {
         /**
@@ -132,7 +132,7 @@ export namespace ai_service {
              */
             cursorPosition?: number;
         };
-        url: '/v1/ai/chat/{sessionId}';
+        url: '/api/v1/ai/chat/{sessionId}';
     };
     export type QueryChatSessionResponses = {
         /**
@@ -150,7 +150,7 @@ export namespace ai_service {
             sessionId: string;
         };
         query?: never;
-        url: '/v1/ai/chat/{sessionId}/message';
+        url: '/api/v1/ai/chat/{sessionId}/message';
     };
     export type PostSessionMessageResponses = {
         /**
@@ -306,7 +306,7 @@ export namespace alert_service {
         body: alert_service.SaveAlertRuleRequest;
         path?: never;
         query?: never;
-        url: '/v1/alerts/rule';
+        url: '/api/v1/alerts/rule';
     };
     export type SaveAlertRuleResponses = {
         /**
@@ -323,7 +323,7 @@ export namespace alert_service {
             projectId: string;
         };
         query?: never;
-        url: '/v1/alerts/rule/project/{projectId}';
+        url: '/api/v1/alerts/rule/project/{projectId}';
     };
     export type GetAlertRulesResponses = {
         /**
@@ -332,13 +332,30 @@ export namespace alert_service {
         200: alert_service.GetAlertRulesResponse;
     };
     export type GetAlertRulesResponse2 = GetAlertRulesResponses[keyof GetAlertRulesResponses];
+    export type DeleteAlertRuleData = {
+        body?: never;
+        path: {
+            id: string;
+        };
+        query?: never;
+        url: '/api/v1/alerts/rule/{id}';
+    };
+    export type DeleteAlertRuleResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type DeleteAlertRuleResponse = DeleteAlertRuleResponses[keyof DeleteAlertRuleResponses];
     export type SaveAlertRule2Data = {
         body: alert_service.AlertServiceSaveAlertRuleBody;
         path: {
             id: string;
         };
         query?: never;
-        url: '/v1/alerts/rule/{id}';
+        url: '/api/v1/alerts/rule/{id}';
     };
     export type SaveAlertRule2Responses = {
         /**
@@ -358,7 +375,7 @@ export namespace alert_service {
             page?: number;
             pageSize?: number;
         };
-        url: '/v1/alerts/{ruleId}';
+        url: '/api/v1/alerts/{ruleId}';
     };
     export type GetAlertResponses = {
         /**
@@ -595,7 +612,7 @@ export namespace analytic_service {
         body: analytic_service.SaveSharingSqlRequest;
         path?: never;
         query?: never;
-        url: '/v1/analytics/sql/sharing';
+        url: '/api/v1/analytics/sql/sharing';
     };
     export type SaveSharingSqlResponses = {
         /**
@@ -610,7 +627,7 @@ export namespace analytic_service {
             id: string;
         };
         query?: never;
-        url: '/v1/analytics/sql/sharing/{id}';
+        url: '/api/v1/analytics/sql/sharing/{id}';
     };
     export type GetSharingSqlResponses = {
         /**
@@ -632,7 +649,7 @@ export namespace analytic_service {
             includeExternals?: boolean;
             includeDash?: boolean;
         };
-        url: '/v1/analytics/sql/tables';
+        url: '/api/v1/analytics/sql/tables';
     };
     export type QueryTables2Responses = {
         /**
@@ -641,6 +658,40 @@ export namespace analytic_service {
         200: analytic_service.QueryTablesResponse;
     };
     export type QueryTables2Response = QueryTables2Responses[keyof QueryTables2Responses];
+    export type CancelSqlQueryData = {
+        body?: never;
+        path: {
+            /**
+             * username or organization name
+             */
+            owner: string;
+            /**
+             * project slug
+             */
+            slug: string;
+            executionId: string;
+        };
+        query?: {
+            /**
+             * use project id if project_owner and project_slug are not provided
+             */
+            projectId?: string;
+            /**
+             * version of the datasource, default to the active version if not provided
+             */
+            version?: number;
+        };
+        url: '/api/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}';
+    };
+    export type CancelSqlQueryResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type CancelSqlQueryResponse = CancelSqlQueryResponses[keyof CancelSqlQueryResponses];
     export type ExecuteSqlData = {
         body: analytic_service.AnalyticServiceExecuteSqlBody;
         path: {
@@ -654,7 +705,7 @@ export namespace analytic_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/analytics/{owner}/{slug}/sql/execute';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/execute';
     };
     export type ExecuteSqlResponses = {
         /**
@@ -676,7 +727,7 @@ export namespace analytic_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/analytics/{owner}/{slug}/sql/execute/async';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/execute/async';
     };
     export type ExecuteSqlAsyncResponses = {
         /**
@@ -708,7 +759,7 @@ export namespace analytic_service {
              */
             version?: number;
         };
-        url: '/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/query_execution_detail/{executionId}';
     };
     export type QuerySqlExecutionDetailResponses = {
         /**
@@ -740,7 +791,7 @@ export namespace analytic_service {
              */
             version?: number;
         };
-        url: '/v1/analytics/{owner}/{slug}/sql/query_result/{executionId}';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/query_result/{executionId}';
     };
     export type QuerySqlResultResponses = {
         /**
@@ -762,7 +813,7 @@ export namespace analytic_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view';
     };
     export type SaveRefreshableMaterializedViewResponses = {
         /**
@@ -771,6 +822,36 @@ export namespace analytic_service {
         200: analytic_service.SaveRefreshableMaterializedViewResponse;
     };
     export type SaveRefreshableMaterializedViewResponse2 = SaveRefreshableMaterializedViewResponses[keyof SaveRefreshableMaterializedViewResponses];
+    export type DeleteRefreshableMaterializedViewData = {
+        body?: never;
+        path: {
+            /**
+             * username or organization name
+             */
+            owner: string;
+            /**
+             * project slug
+             */
+            slug: string;
+            name: string;
+        };
+        query?: {
+            /**
+             * use project id if project_owner and project_slug are not provided
+             */
+            projectId?: string;
+        };
+        url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
+    };
+    export type DeleteRefreshableMaterializedViewResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type DeleteRefreshableMaterializedViewResponse = DeleteRefreshableMaterializedViewResponses[keyof DeleteRefreshableMaterializedViewResponses];
     export type GetRefreshableMaterializedStatusData = {
         body?: never;
         path: {
@@ -790,7 +871,7 @@ export namespace analytic_service {
              */
             projectId?: string;
         };
-        url: '/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
     };
     export type GetRefreshableMaterializedStatusResponses = {
         /**
@@ -817,7 +898,7 @@ export namespace analytic_service {
              */
             projectId?: string;
         };
-        url: '/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_views';
     };
     export type ListRefreshableMaterializedViewsResponses = {
         /**
@@ -839,7 +920,7 @@ export namespace analytic_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/analytics/{owner}/{slug}/sql/save';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/save';
     };
     export type SaveSqlResponses = {
         /**
@@ -861,7 +942,7 @@ export namespace analytic_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/analytics/{owner}/{slug}/sql/save';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/save';
     };
     export type SaveSql2Responses = {
         /**
@@ -884,7 +965,7 @@ export namespace analytic_service {
             includeExternals?: boolean;
             includeDash?: boolean;
         };
-        url: '/v1/analytics/{owner}/{slug}/sql/tables';
+        url: '/api/v1/analytics/{owner}/{slug}/sql/tables';
     };
     export type QueryTablesResponses = {
         /**
@@ -900,7 +981,7 @@ export namespace analytic_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/eventlogs/{owner}/{slug}';
+        url: '/api/v1/eventlogs/{owner}/{slug}';
     };
     export type QueryLogResponses = {
         /**
@@ -951,7 +1032,7 @@ export namespace analytic_service {
              */
             'cachePolicy.noCache'?: boolean;
         };
-        url: '/v1/eventlogs/{owner}/{slug}/query';
+        url: '/api/v1/eventlogs/{owner}/{slug}/query';
     };
     export type QueryLog2Responses = {
         /**
@@ -970,7 +1051,7 @@ export namespace analytic_service {
             version?: number;
             name?: string;
         };
-        url: '/v1/sql/table';
+        url: '/api/v1/sql/table';
     };
     export type QueryTable2Responses = {
         /**
@@ -988,7 +1069,7 @@ export namespace analytic_service {
             projectId?: string;
             version?: number;
         };
-        url: '/v1/sql/tables';
+        url: '/api/v1/sql/tables';
     };
     export type ListTables2Responses = {
         /**
@@ -1008,7 +1089,7 @@ export namespace analytic_service {
             projectId?: string;
             version?: number;
         };
-        url: '/v1/sql/{owner}/{slug}/table/{name}';
+        url: '/api/v1/sql/{owner}/{slug}/table/{name}';
     };
     export type QueryTableResponses = {
         /**
@@ -1027,7 +1108,7 @@ export namespace analytic_service {
             projectId?: string;
             version?: number;
         };
-        url: '/v1/sql/{owner}/{slug}/tables';
+        url: '/api/v1/sql/{owner}/{slug}/tables';
     };
     export type ListTablesResponses = {
         /**
@@ -1745,7 +1826,7 @@ export namespace google {
             networkId?: string;
             txHash?: string;
         };
-        url: '/v1/move/call_trace';
+        url: '/api/v1/move/call_trace';
     };
     export type GetCallTraceResponses = {
         /**
@@ -1776,7 +1857,7 @@ export namespace google {
              */
             ignoreGasCost?: boolean;
         };
-        url: '/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{forkId}/bundle/{bundleId}/call_trace';
     };
     export type GetCallTraceOnForkBundleResponses = {
         /**
@@ -1807,7 +1888,7 @@ export namespace google {
              */
             ignoreGasCost?: boolean;
         };
-        url: '/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation/{simulationId}/call_trace';
     };
     export type GetCallTraceOnForkSimulationResponses = {
         /**
@@ -1838,7 +1919,7 @@ export namespace google {
              */
             ignoreGasCost?: boolean;
         };
-        url: '/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{forkId}/transaction/{txHash}/call_trace';
     };
     export type GetCallTraceOnForkTransactionResponses = {
         /**
@@ -1869,7 +1950,7 @@ export namespace google {
              */
             ignoreGasCost?: boolean;
         };
-        url: '/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace';
+        url: '/api/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace';
     };
     export type GetCallTraceByBundleResponses = {
         /**
@@ -1900,7 +1981,7 @@ export namespace google {
              */
             ignoreGasCost?: boolean;
         };
-        url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace';
+        url: '/api/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace';
     };
     export type GetCallTraceBySimulationResponses = {
         /**
@@ -1931,7 +2012,7 @@ export namespace google {
              */
             ignoreGasCost?: boolean;
         };
-        url: '/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace';
+        url: '/api/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace';
     };
     export type GetCallTraceByTransactionResponses = {
         /**
@@ -1991,7 +2072,7 @@ export namespace insights_service {
             offset?: number;
             searchQuery?: string;
         };
-        url: '/v1/insights/coins';
+        url: '/api/v1/insights/coins';
     };
     export type ListCoins2Responses = {
         /**
@@ -2013,7 +2094,7 @@ export namespace insights_service {
             offset?: number;
             searchQuery?: string;
         };
-        url: '/v1/insights/{owner}/{slug}/coins';
+        url: '/api/v1/insights/{owner}/{slug}/coins';
     };
     export type ListCoinsResponses = {
         /**
@@ -2035,7 +2116,7 @@ export namespace insights_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/insights/{owner}/{slug}/query';
+        url: '/api/v1/insights/{owner}/{slug}/query';
     };
     export type QueryResponses = {
         /**
@@ -2144,7 +2225,7 @@ export namespace metrics_service {
             labelLimit?: string;
             labelSearchQuery?: string;
         };
-        url: '/v1/metrics';
+        url: '/api/v1/metrics';
     };
     export type GetMetricsResponses = {
         /**
@@ -2166,7 +2247,7 @@ export namespace metrics_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/metrics/{owner}/{slug}/query';
+        url: '/api/v1/metrics/{owner}/{slug}/query';
     };
     export type QueryInstantResponses = {
         /**
@@ -2188,7 +2269,7 @@ export namespace metrics_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/metrics/{owner}/{slug}/query_range';
+        url: '/api/v1/metrics/{owner}/{slug}/query_range';
     };
     export type QueryRangeResponses = {
         /**
@@ -2236,7 +2317,7 @@ export namespace move_service {
             networkId?: string;
             txDigest?: string;
         };
-        url: '/v1/move/sui_call_trace';
+        url: '/api/v1/move/sui_call_trace';
     };
     export type GetSuiCallTraceResponses = {
         /**
@@ -2339,7 +2420,7 @@ export namespace price_service {
             source?: string;
             'experimentalFlag.enablePythSource'?: boolean;
         };
-        url: '/v1/prices';
+        url: '/api/v1/prices';
     };
     export type GetPriceResponses = {
         /**
@@ -2352,7 +2433,7 @@ export namespace price_service {
         body: price_service.AddCoinByGeckoRequest;
         path?: never;
         query?: never;
-        url: '/v1/prices/add_coin_by_gecko';
+        url: '/api/v1/prices/add_coin_by_gecko';
     };
     export type AddCoinByGeckoResponses = {
         /**
@@ -2365,7 +2446,7 @@ export namespace price_service {
         body: price_service.BatchGetPricesRequest;
         path?: never;
         query?: never;
-        url: '/v1/prices/batch';
+        url: '/api/v1/prices/batch';
     };
     export type BatchGetPricesResponses = {
         /**
@@ -2378,7 +2459,7 @@ export namespace price_service {
         body?: never;
         path?: never;
         query?: never;
-        url: '/v1/prices/check_latest';
+        url: '/api/v1/prices/check_latest';
     };
     export type CheckLatestPriceResponses = {
         /**
@@ -2396,7 +2477,7 @@ export namespace price_service {
             searchQuery?: string;
             chain?: string;
         };
-        url: '/v1/prices/coins';
+        url: '/api/v1/prices/coins';
     };
     export type PriceListCoinsResponses = {
         /**
@@ -2561,6 +2642,24 @@ export namespace processor_service {
     export type UpdateChainProcessorStatusResponse = {
         [key: string]: unknown;
     };
+    export type ActivatePendingVersionData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+        };
+        query?: never;
+        url: '/api/v1/processors/{owner}/{slug}/activate_pending';
+    };
+    export type ActivatePendingVersionResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type ActivatePendingVersionResponse = ActivatePendingVersionResponses[keyof ActivatePendingVersionResponses];
     export type GetProcessorStatusV2Data = {
         body?: never;
         path: {
@@ -2575,7 +2674,7 @@ export namespace processor_service {
              */
             version?: 'ACTIVE' | 'PENDING' | 'ALL';
         };
-        url: '/v1/processors/{owner}/{slug}/status';
+        url: '/api/v1/processors/{owner}/{slug}/status';
     };
     export type GetProcessorStatusV2Responses = {
         /**
@@ -2923,7 +3022,7 @@ export namespace solidity_service {
              */
             chainId?: string;
         };
-        url: '/v1/solidity/estimated_gas_price';
+        url: '/api/v1/solidity/estimated_gas_price';
     };
     export type GetEstimatedGasPriceResponses = {
         /**
@@ -2939,7 +3038,7 @@ export namespace solidity_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork';
+        url: '/api/v1/solidity/{owner}/{slug}/fork';
     };
     export type ListForksResponses = {
         /**
@@ -2955,7 +3054,7 @@ export namespace solidity_service {
             slug: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork';
+        url: '/api/v1/solidity/{owner}/{slug}/fork';
     };
     export type CreateForkResponses = {
         /**
@@ -2972,7 +3071,7 @@ export namespace solidity_service {
             forkId: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation';
     };
     export type SimulateTransactionOnForkResponses = {
         /**
@@ -2989,7 +3088,7 @@ export namespace solidity_service {
             forkId: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{forkId}/simulation_bundle';
     };
     export type SimulateTransactionBundleOnForkResponses = {
         /**
@@ -3006,7 +3105,7 @@ export namespace solidity_service {
             id: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork/{id}';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{id}';
     };
     export type GetForkResponses = {
         /**
@@ -3023,7 +3122,7 @@ export namespace solidity_service {
             id: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork/{id}';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{id}';
     };
     export type UpdateForkResponses = {
         /**
@@ -3040,7 +3139,7 @@ export namespace solidity_service {
             id: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork/{id}/info';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{id}/info';
     };
     export type GetForkInfoResponses = {
         /**
@@ -3071,7 +3170,7 @@ export namespace solidity_service {
             limit?: number;
             pageToken?: string;
         };
-        url: '/v1/solidity/{owner}/{slug}/search_transactions';
+        url: '/api/v1/solidity/{owner}/{slug}/search_transactions';
     };
     export type SearchTransactionsResponses = {
         /**
@@ -3091,7 +3190,7 @@ export namespace solidity_service {
             page?: number;
             pageSize?: number;
         };
-        url: '/v1/solidity/{owner}/{slug}/simulation';
+        url: '/api/v1/solidity/{owner}/{slug}/simulation';
     };
     export type GetSimulationsResponses = {
         /**
@@ -3108,7 +3207,7 @@ export namespace solidity_service {
             simulationId: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/simulation/{simulationId}';
+        url: '/api/v1/solidity/{owner}/{slug}/simulation/{simulationId}';
     };
     export type GetSimulationResponses = {
         /**
@@ -3125,7 +3224,7 @@ export namespace solidity_service {
             bundleId: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}';
+        url: '/api/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}';
     };
     export type GetSimulationBundleInProjectResponses = {
         /**
@@ -3142,7 +3241,7 @@ export namespace solidity_service {
             chainId: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation';
+        url: '/api/v1/solidity/{owner}/{slug}/{chainId}/simulation';
     };
     export type SimulateTransactionResponses = {
         /**
@@ -3159,7 +3258,7 @@ export namespace solidity_service {
             chainId: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle';
+        url: '/api/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle';
     };
     export type SimulateTransactionBundleResponses = {
         /**
@@ -3517,7 +3616,7 @@ export namespace web_service {
              */
             slug?: string;
         };
-        url: '/v1/dashboards';
+        url: '/api/v1/dashboards';
     };
     export type ListDashboardsResponses = {
         /**
@@ -3530,7 +3629,7 @@ export namespace web_service {
         body: ImportDashboardRequest;
         path?: never;
         query?: never;
-        url: '/v1/dashboards/json';
+        url: '/api/v1/dashboards/json';
     };
     export type ImportDashboardResponses = {
         /**
@@ -3561,7 +3660,7 @@ export namespace web_service {
              */
             slug?: string;
         };
-        url: '/v1/dashboards/{dashboardId}';
+        url: '/api/v1/dashboards/{dashboardId}';
     };
     export type DeleteDashboardResponses = {
         /**
@@ -3592,7 +3691,7 @@ export namespace web_service {
              */
             slug?: string;
         };
-        url: '/v1/dashboards/{dashboardId}';
+        url: '/api/v1/dashboards/{dashboardId}';
     };
     export type GetDashboardResponses = {
         /**
@@ -3610,7 +3709,7 @@ export namespace web_service {
             limit?: number;
             offset?: number;
         };
-        url: '/v1/dashboards/{dashboardId}/history';
+        url: '/api/v1/dashboards/{dashboardId}/history';
     };
     export type GetDashboardHistoryResponses = {
         /**
@@ -3625,7 +3724,7 @@ export namespace web_service {
             dashboardId: string;
         };
         query?: never;
-        url: '/v1/dashboards/{dashboardId}/json';
+        url: '/api/v1/dashboards/{dashboardId}/json';
     };
     export type ExportDashboardResponses = {
         /**
@@ -3656,7 +3755,7 @@ export namespace web_service {
              */
             projectId?: string;
         };
-        url: '/v1/projects/{owner}/{slug}/dashboards';
+        url: '/api/v1/projects/{owner}/{slug}/dashboards';
     };
     export type ListDashboards2Responses = {
         /**
@@ -3687,7 +3786,7 @@ export namespace web_service {
              */
             projectId?: string;
         };
-        url: '/v1/projects/{owner}/{slug}/dashboards/{dashboardId}';
+        url: '/api/v1/projects/{owner}/{slug}/dashboards/{dashboardId}';
     };
     export type GetDashboard2Responses = {
         /**
@@ -3700,7 +3799,7 @@ export namespace web_service {
         body?: never;
         path?: never;
         query?: never;
-        url: '/v1/users/link';
+        url: '/api/v1/users/link';
     };
     export type CreateLinkSessionResponses = {
         /**
@@ -3711,109 +3810,7 @@ export namespace web_service {
     export type CreateLinkSessionResponse = CreateLinkSessionResponses[keyof CreateLinkSessionResponses];
 }
 
-export namespace rul_service {
-    export type DeleteAlertRuleData = {
-        body?: never;
-        path: {
-            id: string;
-        };
-        query?: never;
-        url: '/v1/alerts/rule/{id}';
-    };
-    export type DeleteAlertRuleResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type DeleteAlertRuleResponse = DeleteAlertRuleResponses[keyof DeleteAlertRuleResponses];
-}
-
-export namespace {owner_service {
-    export type CancelSqlQueryData = {
-        body?: never;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-            executionId: string;
-        };
-        query?: {
-            /**
-             * use project id if project_owner and project_slug are not provided
-             */
-            projectId?: string;
-            /**
-             * version of the datasource, default to the active version if not provided
-             */
-            version?: number;
-        };
-        url: '/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}';
-    };
-    export type CancelSqlQueryResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type CancelSqlQueryResponse = CancelSqlQueryResponses[keyof CancelSqlQueryResponses];
-    export type DeleteRefreshableMaterializedViewData = {
-        body?: never;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-            name: string;
-        };
-        query?: {
-            /**
-             * use project id if project_owner and project_slug are not provided
-             */
-            projectId?: string;
-        };
-        url: '/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
-    };
-    export type DeleteRefreshableMaterializedViewResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type DeleteRefreshableMaterializedViewResponse = DeleteRefreshableMaterializedViewResponses[keyof DeleteRefreshableMaterializedViewResponses];
-    export type ActivatePendingVersionData = {
-        body?: never;
-        path: {
-            owner: string;
-            slug: string;
-        };
-        query?: never;
-        url: '/v1/processors/{owner}/{slug}/activate_pending';
-    };
-    export type ActivatePendingVersionResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type ActivatePendingVersionResponse = ActivatePendingVersionResponses[keyof ActivatePendingVersionResponses];
+export namespace solidit_service {
     export type DeleteForkData = {
         body?: never;
         path: {
@@ -3822,7 +3819,7 @@ export namespace {owner_service {
             id: string;
         };
         query?: never;
-        url: '/v1/solidity/{owner}/{slug}/fork/{id}';
+        url: '/api/v1/solidity/{owner}/{slug}/fork/{id}';
     };
     export type DeleteForkResponses = {
         /**
