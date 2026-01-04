@@ -8194,6 +8194,12 @@
         },
         "chainId": {
           "type": "string"
+        },
+        "requiredChains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "description": "This represents a processor which backend works on."

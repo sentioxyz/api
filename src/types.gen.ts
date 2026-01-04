@@ -2555,6 +2555,7 @@ export namespace processor_service {
         numWorkers?: number;
         isBinary?: boolean;
         chainId?: string;
+        requiredChains?: Array<string>;
     };
     export type ProcessorVersionState = 'UNKNOWN' | 'PENDING' | 'ACTIVE' | 'OBSOLETE';
     export type UpdateChainProcessorStatusResponse = {
