@@ -4985,6 +4985,18 @@ ul.nav-tabs {
     }
   }
 };
+    defs["processor_service.GetProcessorSourceFilesResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "sourceFiles" : {
+      "title" : "list of source files",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.ProcessorSourceFile"
+      }
+    }
+  }
+};
     defs["processor_service.GetProcessorStatusRequestV2.VersionSelector"] = {
   "title" : "- ACTIVE: Only active version\n - PENDING: Only pending versions\n - ALL: All version",
   "type" : "string",
@@ -5267,6 +5279,19 @@ ul.nav-tabs {
     }
   },
   "description" : "This represents a processor which backend works on."
+};
+    defs["processor_service.ProcessorSourceFile"] = {
+  "type" : "object",
+  "properties" : {
+    "path" : {
+      "title" : "relative path of the source file",
+      "type" : "string"
+    },
+    "content" : {
+      "title" : "content of the source file",
+      "type" : "string"
+    }
+  }
 };
     defs["processor_service.ProcessorVersionState"] = {
   "type" : "string",
@@ -7522,6 +7547,10 @@ ul.nav-tabs {
                     </li>
                     <li data-group="Processor" data-name="getProcessorStatusV2" class="">
                       <a href="#api-Processor-getProcessorStatusV2">getProcessorStatusV2</a>
+                    </li>
+                  <li class="nav-header" data-group="ProcessorExt"><a href="#api-ProcessorExt">API Methods - ProcessorExt</a></li>
+                    <li data-group="ProcessorExt" data-name="getProcessorSourceFiles" class="">
+                      <a href="#api-ProcessorExt-getProcessorSourceFiles">getProcessorSourceFiles</a>
                     </li>
                   <li class="nav-header" data-group="Web"><a href="#api-Web">API Methods - Web</a></li>
                     <li data-group="Web" data-name="createLinkSession" class="">
@@ -43576,6 +43605,526 @@ pub fn main() {
                                   </script>
                                 </div>
                                 <input id='responses-Processor-getProcessorStatusV2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-ProcessorExt">
+                  <h1>ProcessorExt</h1>
+                    <div id="api-ProcessorExt-getProcessorSourceFiles">
+                      <article id="api-ProcessorExt-getProcessorSourceFiles-0" data-group="User" data-name="getProcessorSourceFiles" data-version="0">
+                        <div class="pull-left">
+                          <h1>getProcessorSourceFiles</h1>
+                          <p>Get the source files of a processor</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/v1/processors/{owner}/{slug}/source_files</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-java">Java</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-python">Python</a></li>
+                          <li class=""><a href="#examples-ProcessorExt-getProcessorSourceFiles-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-ProcessorExt-getProcessorSourceFiles-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://api.sentio.xyz/v1/processors/{owner}/{slug}/source_files?version=56"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.ProcessorExtApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ProcessorExtApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        ProcessorExtApi apiInstance = new ProcessorExtApi();
+        String owner = owner_example; // String | 
+        String slug = slug_example; // String | 
+        Integer version = 56; // Integer | Optional version to fetch. If omitted, use latest active version.
+
+        try {
+            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug, version);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProcessorExtApi#getProcessorSourceFiles");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String owner = new String(); // String | 
+final String slug = new String(); // String | 
+final Integer version = new Integer(); // Integer | Optional version to fetch. If omitted, use latest active version.
+
+try {
+    final result = await api_instance.getProcessorSourceFiles(owner, slug, version);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getProcessorSourceFiles: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.ProcessorExtApi;
+
+public class ProcessorExtApiExample {
+    public static void main(String[] args) {
+        ProcessorExtApi apiInstance = new ProcessorExtApi();
+        String owner = owner_example; // String | 
+        String slug = slug_example; // String | 
+        Integer version = 56; // Integer | Optional version to fetch. If omitted, use latest active version.
+
+        try {
+            processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug, version);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProcessorExtApi#getProcessorSourceFiles");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+ProcessorExtApi *apiInstance = [[ProcessorExtApi alloc] init];
+String *owner = owner_example; //  (default to null)
+String *slug = slug_example; //  (default to null)
+Integer *version = 56; // Optional version to fetch. If omitted, use latest active version. (optional) (default to null)
+
+// Get the source files of a processor
+[apiInstance getProcessorSourceFilesWith:owner
+    slug:slug
+    version:version
+              completionHandler: ^(processor_service.GetProcessorSourceFilesResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.ProcessorExtApi()
+var owner = owner_example; // {String} 
+var slug = slug_example; // {String} 
+var opts = {
+  'version': 56 // {Integer} Optional version to fetch. If omitted, use latest active version.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getProcessorSourceFiles(owner, slug, opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getProcessorSourceFilesExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new ProcessorExtApi();
+            var owner = owner_example;  // String |  (default to null)
+            var slug = slug_example;  // String |  (default to null)
+            var version = 56;  // Integer | Optional version to fetch. If omitted, use latest active version. (optional)  (default to null)
+
+            try {
+                // Get the source files of a processor
+                processor_service.GetProcessorSourceFilesResponse result = apiInstance.getProcessorSourceFiles(owner, slug, version);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling ProcessorExtApi.getProcessorSourceFiles: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\ProcessorExtApi();
+$owner = owner_example; // String | 
+$slug = slug_example; // String | 
+$version = 56; // Integer | Optional version to fetch. If omitted, use latest active version.
+
+try {
+    $result = $api_instance->getProcessorSourceFiles($owner, $slug, $version);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProcessorExtApi->getProcessorSourceFiles: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::ProcessorExtApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::ProcessorExtApi->new();
+my $owner = owner_example; # String | 
+my $slug = slug_example; # String | 
+my $version = 56; # Integer | Optional version to fetch. If omitted, use latest active version.
+
+eval {
+    my $result = $api_instance->getProcessorSourceFiles(owner => $owner, slug => $slug, version => $version);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ProcessorExtApi->getProcessorSourceFiles: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.ProcessorExtApi()
+owner = owner_example # String |  (default to null)
+slug = slug_example # String |  (default to null)
+version = 56 # Integer | Optional version to fetch. If omitted, use latest active version. (optional) (default to null)
+
+try:
+    # Get the source files of a processor
+    api_response = api_instance.get_processor_source_files(owner, slug, version=version)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ProcessorExtApi->getProcessorSourceFiles: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ProcessorExt-getProcessorSourceFiles-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate ProcessorExtApi;
+
+pub fn main() {
+    let owner = owner_example; // String
+    let slug = slug_example; // String
+    let version = 56; // Integer
+
+    let mut context = ProcessorExtApi::Context::default();
+    let result = client.getProcessorSourceFiles(owner, slug, version, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">owner*</td>
+<td>
+
+
+    <div id="d2e199_getProcessorSourceFiles_owner">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                  <tr><td style="width:150px;">slug*</td>
+<td>
+
+
+    <div id="d2e199_getProcessorSourceFiles_slug">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">version</td>
+<td>
+
+
+    <div id="d2e199_getProcessorSourceFiles_version">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+                    <div class="inner description marked">
+Optional version to fetch. If omitted, use latest active version.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-ProcessorExt-getProcessorSourceFiles-title-200"></h3>
+                            <p id="examples-ProcessorExt-getProcessorSourceFiles-description-200" class="marked"></p>
+                            <script>
+                              var responseProcessorExt200_description = `A successful response.`;
+                              var responseProcessorExt200_description_break = responseProcessorExt200_description.indexOf('\n');
+                              if (responseProcessorExt200_description_break == -1) {
+                                $("#examples-ProcessorExt-getProcessorSourceFiles-title-200").text("Status: 200 - " + responseProcessorExt200_description);
+                              } else {
+                                $("#examples-ProcessorExt-getProcessorSourceFiles-title-200").text("Status: 200 - " + responseProcessorExt200_description.substring(0, responseProcessorExt200_description_break));
+                                $("#examples-ProcessorExt-getProcessorSourceFiles-description-200").html(responseProcessorExt200_description.substring(responseProcessorExt200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-ProcessorExt-getProcessorSourceFiles-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-ProcessorExt-getProcessorSourceFiles-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-ProcessorExt-getProcessorSourceFiles-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-ProcessorExt-getProcessorSourceFiles-200-schema">
+                                <div id="responses-ProcessorExt-getProcessorSourceFiles-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/processor_service.GetProcessorSourceFilesResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-ProcessorExt-getProcessorSourceFiles-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-ProcessorExt-getProcessorSourceFiles-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-ProcessorExt-getProcessorSourceFiles-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>

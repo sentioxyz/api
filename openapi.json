@@ -1993,6 +1993,45 @@
         ]
       }
     },
+    "/v1/processors/{owner}/{slug}/source_files": {
+      "get": {
+        "summary": "Get the source files of a processor",
+        "operationId": "GetProcessorSourceFiles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/processor_service.GetProcessorSourceFilesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "description": "Optional version to fetch. If omitted, use latest active version.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "ProcessorExt"
+        ]
+      }
+    },
     "/v1/processors/{owner}/{slug}/status": {
       "get": {
         "summary": "Get processor status",
@@ -7904,6 +7943,19 @@
         }
       }
     },
+    "processor_service.GetProcessorSourceFilesResponse": {
+      "type": "object",
+      "properties": {
+        "sourceFiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/processor_service.ProcessorSourceFile"
+          },
+          "title": "list of source files"
+        }
+      }
+    },
     "processor_service.GetProcessorStatusRequestV2.VersionSelector": {
       "type": "string",
       "enum": [
@@ -8203,6 +8255,19 @@
         }
       },
       "description": "This represents a processor which backend works on."
+    },
+    "processor_service.ProcessorSourceFile": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "title": "relative path of the source file"
+        },
+        "content": {
+          "type": "string",
+          "title": "content of the source file"
+        }
+      }
     },
     "processor_service.ProcessorVersionState": {
       "type": "string",
