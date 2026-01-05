@@ -2534,6 +2534,9 @@ export namespace processor_service {
     export type GetProcessorResponse = {
         processor?: Processor;
     };
+    export type GetProcessorSourceFilesResponse = {
+        sourceFiles?: Array<ProcessorSourceFile>;
+    };
     export type GetProcessorStatusRequestV2VersionSelector = 'ACTIVE' | 'PENDING' | 'ALL';
     export type GetProcessorStatusResponse = {
         processors?: Array<GetProcessorStatusResponseProcessorEx>;
@@ -2638,6 +2641,10 @@ export namespace processor_service {
         chainId?: string;
         requiredChains?: Array<string>;
     };
+    export type ProcessorSourceFile = {
+        path?: string;
+        content?: string;
+    };
     export type ProcessorVersionState = 'UNKNOWN' | 'PENDING' | 'ACTIVE' | 'OBSOLETE';
     export type UpdateChainProcessorStatusResponse = {
         [key: string]: unknown;
@@ -2660,6 +2667,27 @@ export namespace processor_service {
         };
     };
     export type ActivatePendingVersionResponse = ActivatePendingVersionResponses[keyof ActivatePendingVersionResponses];
+    export type GetProcessorSourceFilesData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+        };
+        query?: {
+            /**
+             * Optional version to fetch. If omitted, use latest active version.
+             */
+            version?: number;
+        };
+        url: '/api/v1/processors/{owner}/{slug}/source_files';
+    };
+    export type GetProcessorSourceFilesResponses = {
+        /**
+         * A successful response.
+         */
+        200: processor_service.GetProcessorSourceFilesResponse;
+    };
+    export type GetProcessorSourceFilesResponse2 = GetProcessorSourceFilesResponses[keyof GetProcessorSourceFilesResponses];
     export type GetProcessorStatusV2Data = {
         body?: never;
         path: {
