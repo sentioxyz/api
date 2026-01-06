@@ -2640,6 +2640,7 @@ export namespace processor_service {
         isBinary?: boolean;
         chainId?: string;
         requiredChains?: Array<string>;
+        createTxHash?: string;
     };
     export type ProcessorSourceFile = {
         path?: string;
