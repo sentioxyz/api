@@ -115,6 +115,23 @@
         ]
       }
     },
+    "/v1/ai/healthz": {
+      "get": {
+        "summary": "Healthz provides a health check endpoint for monitoring",
+        "operationId": "Healthz",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ai_service.HealthzResponse"
+            }
+          }
+        },
+        "tags": [
+          "AI"
+        ]
+      }
+    },
     "/v1/alerts/rule": {
       "post": {
         "summary": "Save an alert rule",
@@ -3583,6 +3600,20 @@
         }
       },
       "title": "ErrorContent represents error information"
+    },
+    "ai_service.HealthzResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "Health status (\"ok\", \"degraded\", \"unavailable\")"
+        },
+        "service": {
+          "type": "string",
+          "title": "Service name identifier"
+        }
+      },
+      "title": "HealthzResponse contains health check status"
     },
     "ai_service.InsightConfig": {
       "type": "object",

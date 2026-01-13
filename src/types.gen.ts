@@ -42,6 +42,10 @@ export namespace ai_service {
         code?: string;
         message?: string;
     };
+    export type HealthzResponse = {
+        status?: string;
+        service?: string;
+    };
     export type InsightConfig = {
         executeQuery?: boolean;
     };
@@ -159,6 +163,19 @@ export namespace ai_service {
         200: ai_service.PostSessionMessageResponse;
     };
     export type PostSessionMessageResponse2 = PostSessionMessageResponses[keyof PostSessionMessageResponses];
+    export type HealthzData = {
+        body?: never;
+        path?: never;
+        query?: never;
+        url: '/api/v1/ai/healthz';
+    };
+    export type HealthzResponses = {
+        /**
+         * A successful response.
+         */
+        200: ai_service.HealthzResponse;
+    };
+    export type HealthzResponse2 = HealthzResponses[keyof HealthzResponses];
 }
 
 export namespace alert_service {

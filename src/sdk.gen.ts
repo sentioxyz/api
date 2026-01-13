@@ -93,6 +93,27 @@ export class AiService {
         });
     }
     
+    /**
+     * Healthz provides a health check endpoint for monitoring
+     */
+    public static healthz<ThrowOnError extends boolean = false>(options?: Options<ai_service.HealthzData, ThrowOnError>) {
+        return (options?.client ?? _heyApiClient).get<ai_service.HealthzResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/api/v1/ai/healthz',
+            ...options
+        });
+    }
+    
 }
 
 export class AlertsService {
