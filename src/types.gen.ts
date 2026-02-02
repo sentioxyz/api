@@ -2400,6 +2400,7 @@ export namespace price_service {
     };
     export type ExperimentalFlag = {
         enablePythSource?: boolean;
+        enablePricingLookForward?: boolean;
     };
     /**
      * GetPriceResponse is the response for GetPrice.
@@ -2436,6 +2437,7 @@ export namespace price_service {
             'coinId.address.chain'?: string;
             source?: string;
             'experimentalFlag.enablePythSource'?: boolean;
+            'experimentalFlag.enablePricingLookForward'?: boolean;
         };
         url: '/api/v1/prices';
     };
