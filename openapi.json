@@ -8104,6 +8104,18 @@
         },
         "numWorkers": {
           "type": "string"
+        },
+        "entitySchema": {
+          "type": "string"
+        },
+        "snChainId": {
+          "type": "string"
+        },
+        "snRequiredChains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
