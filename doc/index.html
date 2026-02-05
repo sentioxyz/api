@@ -4865,9 +4865,6 @@ ul.nav-tabs {
   "properties" : {
     "enablePythSource" : {
       "type" : "boolean"
-    },
-    "enablePricingLookForward" : {
-      "type" : "boolean"
     }
   }
 };
@@ -41937,7 +41934,7 @@ Client is responsible for checking the timestamp and decide whether to use the p
 -H "api-key: [[apiKey]]" \
  \
  -H "Accept: application/json" \
- "https://api.sentio.xyz/v1/prices?timestamp=2013-10-20T19:20:30+01:00&coinId.symbol=coinIdPeriodsymbol_example&coinId.address.address=coinIdPeriodaddressPeriodaddress_example&coinId.address.chain=coinIdPeriodaddressPeriodchain_example&source=source_example&experimentalFlag.enablePythSource=true&experimentalFlag.enablePricingLookForward=true"
+ "https://api.sentio.xyz/v1/prices?timestamp=2013-10-20T19:20:30+01:00&coinId.symbol=coinIdPeriodsymbol_example&coinId.address.address=coinIdPeriodaddressPeriodaddress_example&coinId.address.chain=coinIdPeriodaddressPeriodchain_example&source=source_example&experimentalFlag.enablePythSource=true"
 </code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Price-getPrice-0-java">
@@ -41975,10 +41972,9 @@ at the closest timestamp.
         String coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example; // String | 
         String source = source_example; // String | 
         Boolean experimentalFlagPeriodenablePythSource = true; // Boolean | 
-        Boolean experimentalFlagPeriodenablePricingLookForward = true; // Boolean | 
 
         try {
-            price_service.GetPriceResponse result = apiInstance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource, experimentalFlagPeriodenablePricingLookForward);
+            price_service.GetPriceResponse result = apiInstance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PriceApi#getPrice");
@@ -42002,10 +41998,9 @@ final String coinIdPeriodaddressPeriodaddress = new String(); // String |
 final String coinIdPeriodaddressPeriodchain = new String(); // String | 
 final String source = new String(); // String | 
 final Boolean experimentalFlagPeriodenablePythSource = new Boolean(); // Boolean | 
-final Boolean experimentalFlagPeriodenablePricingLookForward = new Boolean(); // Boolean | 
 
 try {
-    final result = await api_instance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource, experimentalFlagPeriodenablePricingLookForward);
+    final result = await api_instance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource);
     print(result);
 } catch (e) {
     print('Exception when calling DefaultApi->getPrice: $e\n');
@@ -42028,10 +42023,9 @@ at the closest timestamp.
         String coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example; // String | 
         String source = source_example; // String | 
         Boolean experimentalFlagPeriodenablePythSource = true; // Boolean | 
-        Boolean experimentalFlagPeriodenablePricingLookForward = true; // Boolean | 
 
         try {
-            price_service.GetPriceResponse result = apiInstance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource, experimentalFlagPeriodenablePricingLookForward);
+            price_service.GetPriceResponse result = apiInstance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PriceApi#getPrice");
@@ -42068,7 +42062,6 @@ String *coinIdPeriodaddressPeriodaddress = coinIdPeriodaddressPeriodaddress_exam
 String *coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example; //  (optional) (default to null)
 String *source = source_example; //  (optional) (default to null)
 Boolean *experimentalFlagPeriodenablePythSource = true; //  (optional) (default to null)
-Boolean *experimentalFlagPeriodenablePricingLookForward = true; //  (optional) (default to null)
 
 // Get price
 [apiInstance getPriceWith:timestamp
@@ -42077,7 +42070,6 @@ Boolean *experimentalFlagPeriodenablePricingLookForward = true; //  (optional) (
     coinIdPeriodaddressPeriodchain:coinIdPeriodaddressPeriodchain
     source:source
     experimentalFlagPeriodenablePythSource:experimentalFlagPeriodenablePythSource
-    experimentalFlagPeriodenablePricingLookForward:experimentalFlagPeriodenablePricingLookForward
               completionHandler: ^(price_service.GetPriceResponse output, NSError* error) {
     if (output) {
         NSLog(@"%@", output);
@@ -42115,8 +42107,7 @@ at the closest timestamp.
   'coinIdPeriodaddressPeriodaddress': coinIdPeriodaddressPeriodaddress_example, // {String} 
   'coinIdPeriodaddressPeriodchain': coinIdPeriodaddressPeriodchain_example, // {String} 
   'source': source_example, // {String} 
-  'experimentalFlagPeriodenablePythSource': true, // {Boolean} 
-  'experimentalFlagPeriodenablePricingLookForward': true // {Boolean} 
+  'experimentalFlagPeriodenablePythSource': true // {Boolean} 
 };
 
 var callback = function(error, data, response) {
@@ -42165,11 +42156,10 @@ at the closest timestamp. (optional)  (default to null)
             var coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example;  // String |  (optional)  (default to null)
             var source = source_example;  // String |  (optional)  (default to null)
             var experimentalFlagPeriodenablePythSource = true;  // Boolean |  (optional)  (default to null)
-            var experimentalFlagPeriodenablePricingLookForward = true;  // Boolean |  (optional)  (default to null)
 
             try {
                 // Get price
-                price_service.GetPriceResponse result = apiInstance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource, experimentalFlagPeriodenablePricingLookForward);
+                price_service.GetPriceResponse result = apiInstance.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource);
                 Debug.WriteLine(result);
             } catch (Exception e) {
                 Debug.Print("Exception when calling PriceApi.getPrice: " + e.Message );
@@ -42204,10 +42194,9 @@ $coinIdPeriodaddressPeriodaddress = coinIdPeriodaddressPeriodaddress_example; //
 $coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example; // String | 
 $source = source_example; // String | 
 $experimentalFlagPeriodenablePythSource = true; // Boolean | 
-$experimentalFlagPeriodenablePricingLookForward = true; // Boolean | 
 
 try {
-    $result = $api_instance->getPrice($timestamp, $coinIdPeriodsymbol, $coinIdPeriodaddressPeriodaddress, $coinIdPeriodaddressPeriodchain, $source, $experimentalFlagPeriodenablePythSource, $experimentalFlagPeriodenablePricingLookForward);
+    $result = $api_instance->getPrice($timestamp, $coinIdPeriodsymbol, $coinIdPeriodaddressPeriodaddress, $coinIdPeriodaddressPeriodchain, $source, $experimentalFlagPeriodenablePythSource);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling PriceApi->getPrice: ', $e->getMessage(), PHP_EOL;
@@ -42240,10 +42229,9 @@ my $coinIdPeriodaddressPeriodaddress = coinIdPeriodaddressPeriodaddress_example;
 my $coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example; # String | 
 my $source = source_example; # String | 
 my $experimentalFlagPeriodenablePythSource = true; # Boolean | 
-my $experimentalFlagPeriodenablePricingLookForward = true; # Boolean | 
 
 eval {
-    my $result = $api_instance->getPrice(timestamp => $timestamp, coinIdPeriodsymbol => $coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress => $coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain => $coinIdPeriodaddressPeriodchain, source => $source, experimentalFlagPeriodenablePythSource => $experimentalFlagPeriodenablePythSource, experimentalFlagPeriodenablePricingLookForward => $experimentalFlagPeriodenablePricingLookForward);
+    my $result = $api_instance->getPrice(timestamp => $timestamp, coinIdPeriodsymbol => $coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress => $coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain => $coinIdPeriodaddressPeriodchain, source => $source, experimentalFlagPeriodenablePythSource => $experimentalFlagPeriodenablePythSource);
     print Dumper($result);
 };
 if ($@) {
@@ -42278,11 +42266,10 @@ coinIdPeriodaddressPeriodaddress = coinIdPeriodaddressPeriodaddress_example # St
 coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example # String |  (optional) (default to null)
 source = source_example # String |  (optional) (default to null)
 experimentalFlagPeriodenablePythSource = true # Boolean |  (optional) (default to null)
-experimentalFlagPeriodenablePricingLookForward = true # Boolean |  (optional) (default to null)
 
 try:
     # Get price
-    api_response = api_instance.get_price(timestamp=timestamp, coinIdPeriodsymbol=coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress=coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain=coinIdPeriodaddressPeriodchain, source=source, experimentalFlagPeriodenablePythSource=experimentalFlagPeriodenablePythSource, experimentalFlagPeriodenablePricingLookForward=experimentalFlagPeriodenablePricingLookForward)
+    api_response = api_instance.get_price(timestamp=timestamp, coinIdPeriodsymbol=coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress=coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain=coinIdPeriodaddressPeriodchain, source=source, experimentalFlagPeriodenablePythSource=experimentalFlagPeriodenablePythSource)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling PriceApi->getPrice: %s\n" % e)</code></pre>
@@ -42298,10 +42285,9 @@ pub fn main() {
     let coinIdPeriodaddressPeriodchain = coinIdPeriodaddressPeriodchain_example; // String
     let source = source_example; // String
     let experimentalFlagPeriodenablePythSource = true; // Boolean
-    let experimentalFlagPeriodenablePricingLookForward = true; // Boolean
 
     let mut context = PriceApi::Context::default();
-    let result = client.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource, experimentalFlagPeriodenablePricingLookForward, &context).wait();
+    let result = client.getPrice(timestamp, coinIdPeriodsymbol, coinIdPeriodaddressPeriodaddress, coinIdPeriodaddressPeriodchain, source, experimentalFlagPeriodenablePythSource, &context).wait();
 
     println!("{:?}", result);
 }
@@ -42424,23 +42410,6 @@ at the closest timestamp.
 
 
     <div id="d2e199_getPrice_experimentalFlagPeriodenablePythSource">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    Boolean
-                </span>
-
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                                <tr><td style="width:150px;">experimentalFlag.enablePricingLookForward</td>
-<td>
-
-
-    <div id="d2e199_getPrice_experimentalFlagPeriodenablePricingLookForward">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">

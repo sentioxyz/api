@@ -1854,12 +1854,6 @@
             "in": "query",
             "required": false,
             "type": "boolean"
-          },
-          {
-            "name": "experimentalFlag.enablePricingLookForward",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
           }
         ],
         "tags": [
@@ -7837,9 +7831,6 @@
       "type": "object",
       "properties": {
         "enablePythSource": {
-          "type": "boolean"
-        },
-        "enablePricingLookForward": {
           "type": "boolean"
         }
       }
