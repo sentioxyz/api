@@ -2585,6 +2585,7 @@ export namespace processor_service {
         entitySchema?: string;
         snChainId?: string;
         snRequiredChains?: Array<string>;
+        entitySchemaVersion?: number;
     };
     export type GetProcessorStatusResponseProcessorStatus = {
         state?: GetProcessorStatusResponseProcessorStatusState;

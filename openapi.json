@@ -8107,6 +8107,10 @@
           "items": {
             "type": "string"
           }
+        },
+        "entitySchemaVersion": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
