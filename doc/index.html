@@ -2007,40 +2007,6 @@ ul.nav-tabs {
     }
   }
 };
-    defs["analytic_service.QuerySegmentationResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "results" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/analytic_service.QuerySegmentationResponse.Result"
-      }
-    }
-  }
-};
-    defs["analytic_service.QuerySegmentationResponse.Result"] = {
-  "type" : "object",
-  "properties" : {
-    "matrix" : {
-      "$ref" : "#/components/schemas/common.Matrix"
-    },
-    "error" : {
-      "type" : "string"
-    },
-    "alias" : {
-      "type" : "string"
-    },
-    "id" : {
-      "type" : "string"
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
-    },
-    "color" : {
-      "type" : "string"
-    }
-  }
-};
     defs["analytic_service.QueryTableResponse"] = {
   "type" : "object",
   "properties" : {
@@ -2200,50 +2166,6 @@ ul.nav-tabs {
     },
     "cachePolicy" : {
       "$ref" : "#/components/schemas/common.CachePolicy"
-    }
-  }
-};
-    defs["analytic_service.SegmentationRequest"] = {
-  "type" : "object",
-  "properties" : {
-    "projectOwner" : {
-      "type" : "string"
-    },
-    "projectSlug" : {
-      "type" : "string"
-    },
-    "projectId" : {
-      "type" : "string"
-    },
-    "version" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "timeRange" : {
-      "$ref" : "#/components/schemas/common.TimeRangeLite"
-    },
-    "queries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.SegmentationQuery"
-      }
-    },
-    "formulas" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Formula"
-      }
-    },
-    "debug" : {
-      "type" : "boolean"
-    },
-    "limit" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "offset" : {
-      "type" : "integer",
-      "format" : "int32"
     }
   }
 };
@@ -3270,38 +3192,6 @@ ul.nav-tabs {
   "type" : "string",
   "default" : "SENTIO",
   "enum" : [ "SENTIO", "SUBGRAPH", "ACTION" ]
-};
-    defs["common.ProjectVariables"] = {
-  "type" : "object",
-  "properties" : {
-    "projectId" : {
-      "type" : "string"
-    },
-    "variables" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.ProjectVariables.Variable"
-      }
-    }
-  }
-};
-    defs["common.ProjectVariables.Variable"] = {
-  "type" : "object",
-  "properties" : {
-    "key" : {
-      "type" : "string"
-    },
-    "value" : {
-      "type" : "string"
-    },
-    "isSecret" : {
-      "type" : "boolean"
-    },
-    "updatedAt" : {
-      "type" : "string",
-      "format" : "date-time"
-    }
-  }
 };
     defs["common.ProjectView"] = {
   "type" : "object",
@@ -4983,22 +4873,6 @@ ul.nav-tabs {
   "default" : "UNKNOWN",
   "enum" : [ "UNKNOWN", "ERROR", "CATCHING_UP", "PROCESSING_LATEST", "QUEUING" ]
 };
-    defs["processor_service.DownloadProcessorResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "url" : {
-      "type" : "string"
-    }
-  }
-};
-    defs["processor_service.GetProcessorResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "processor" : {
-      "$ref" : "#/components/schemas/processor_service.Processor"
-    }
-  }
-};
     defs["processor_service.GetProcessorSourceFilesResponse"] = {
   "type" : "object",
   "properties" : {
@@ -5146,28 +5020,6 @@ ul.nav-tabs {
   "default" : "UNKNOWN",
   "enum" : [ "UNKNOWN", "ERROR", "STARTING", "PROCESSING" ]
 };
-    defs["processor_service.GetProcessorWithProjectResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "processor" : {
-      "$ref" : "#/components/schemas/processor_service.Processor"
-    },
-    "project" : {
-      "$ref" : "#/components/schemas/common.Project"
-    }
-  }
-};
-    defs["processor_service.GetProcessorsResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "processors" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/processor_service.Processor"
-      }
-    }
-  }
-};
     defs["processor_service.NetworkOverride"] = {
   "type" : "object",
   "properties" : {
@@ -5178,140 +5030,6 @@ ul.nav-tabs {
       "type" : "string"
     }
   }
-};
-    defs["processor_service.Processor"] = {
-  "type" : "object",
-  "properties" : {
-    "processorId" : {
-      "type" : "string",
-      "description" : "The unique processor id."
-    },
-    "projectId" : {
-      "type" : "string",
-      "description" : "The project this processor belongs to."
-    },
-    "version" : {
-      "type" : "integer",
-      "description" : "The version of the code_url below.",
-      "format" : "int32"
-    },
-    "sdkVersion" : {
-      "title" : "The SDK version used when uploaded",
-      "type" : "string"
-    },
-    "codeUrl" : {
-      "type" : "string",
-      "description" : "Call should be able to fetch the code to run from code_url."
-    },
-    "chainStates" : {
-      "title" : "Each maintains a state of a processor w.r.t a given chain.\nThis is a one-to-many mapping (processor to processor-chain)",
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/processor_service.ChainState"
-      }
-    },
-    "contractId" : {
-      "type" : "string",
-      "description" : "If non empty, this is the contract associated with the processor."
-    },
-    "versionState" : {
-      "$ref" : "#/components/schemas/processor_service.ProcessorVersionState"
-    },
-    "debug" : {
-      "title" : "If enabled, driver job's log level will be set to debug",
-      "type" : "boolean"
-    },
-    "timescaleShardingIndex" : {
-      "type" : "integer",
-      "description" : "The timescale-db sharding index of this processor.",
-      "format" : "int32"
-    },
-    "versionLabel" : {
-      "title" : "The version label of the subgraph\nused for subgraph project",
-      "type" : "string"
-    },
-    "ipfsHash" : {
-      "title" : "The hash (object CID) of the subgraph description file in ipfs node\nused for subgraph project",
-      "type" : "string"
-    },
-    "debugFork" : {
-      "title" : "ID of a remote subgraph whose store will be GraphQL queried\nused for subgraph project",
-      "type" : "string"
-    },
-    "createdAt" : {
-      "type" : "string",
-      "description" : "The created timestamp of the processor.",
-      "format" : "int64"
-    },
-    "clickhouseShardingIndex" : {
-      "type" : "integer",
-      "description" : "The clickhouse sharding index of this processor.",
-      "format" : "int32"
-    },
-    "k8sClusterId" : {
-      "title" : "The k8s cluster id of this processor",
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "enableMaterializedView" : {
-      "type" : "boolean"
-    },
-    "referenceProjectId" : {
-      "type" : "string"
-    },
-    "networkOverrides" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/processor_service.NetworkOverride"
-      }
-    },
-    "eventlogMigrateStatus" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "eventlogVersion" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "pause" : {
-      "type" : "boolean"
-    },
-    "pauseAt" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "pauseReason" : {
-      "type" : "string"
-    },
-    "entitySchemaVersion" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "driverVersion" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "numWorkers" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "isBinary" : {
-      "type" : "boolean"
-    },
-    "chainId" : {
-      "type" : "string"
-    },
-    "requiredChains" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "createTxHash" : {
-      "type" : "string"
-    }
-  },
-  "description" : "This represents a processor which backend works on."
 };
     defs["processor_service.ProcessorSourceFile"] = {
   "type" : "object",
@@ -5426,57 +5144,11 @@ ul.nav-tabs {
     }
   }
 };
-    defs["solidity_service.CompileSourceInternalResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "failure" : {
-      "$ref" : "#/components/schemas/solidity_service.Failure"
-    }
-  }
-};
-    defs["solidity_service.CompilerOptions"] = {
-  "type" : "object",
-  "properties" : {
-    "language" : {
-      "type" : "string"
-    },
-    "version" : {
-      "type" : "string"
-    },
-    "settings" : {
-      "$ref" : "#/components/schemas/solidity_service.Settings"
-    },
-    "specializations" : {
-      "$ref" : "#/components/schemas/solidity_service.Specializations"
-    }
-  }
-};
-    defs["solidity_service.ContractKeyInfo"] = {
-  "type" : "object",
-  "properties" : {
-    "preprocessKey" : {
-      "title" : "always set, even if not preprocessed, pass the key to debugger to store",
-      "type" : "string"
-    },
-    "compilationKey" : {
-      "title" : "If it's already preprocessed, compilation key will be empty",
-      "type" : "string"
-    }
-  }
-};
     defs["solidity_service.CreateForkResponse"] = {
   "type" : "object",
   "properties" : {
     "fork" : {
       "$ref" : "#/components/schemas/solidity_service.Fork"
-    }
-  }
-};
-    defs["solidity_service.DecodeStateDiffResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "result" : {
-      "type" : "string"
     }
   }
 };
@@ -5566,17 +5238,6 @@ ul.nav-tabs {
     },
     "nodeAdditionalHeaders" : {
       "title" : "Additional headers for node requests",
-      "type" : "string"
-    }
-  }
-};
-    defs["solidity_service.Failure"] = {
-  "type" : "object",
-  "properties" : {
-    "error" : {
-      "type" : "string"
-    },
-    "reason" : {
       "type" : "string"
     }
   }
@@ -5747,80 +5408,6 @@ ul.nav-tabs {
     }
   }
 };
-    defs["solidity_service.GetStorageSummaryInternalResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "results" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/solidity_service.StorageSummaryResult"
-      }
-    }
-  }
-};
-    defs["solidity_service.GetTraceCallInternalRequest.Bundle"] = {
-  "type" : "object",
-  "properties" : {
-    "transactions" : {
-      "type" : "array",
-      "items" : {
-        "type" : "object",
-        "properties" : { }
-      }
-    },
-    "blockOverride" : {
-      "$ref" : "#/components/schemas/solidity_service.BlockOverrides"
-    }
-  }
-};
-    defs["solidity_service.GetTraceCallInternalRequest.StateContext"] = {
-  "type" : "object",
-  "properties" : {
-    "blockNumber" : {
-      "type" : "string"
-    },
-    "transactionIndex" : {
-      "type" : "integer",
-      "format" : "int32"
-    }
-  }
-};
-    defs["solidity_service.GetTraceCallInternalResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "result" : {
-      "type" : "array",
-      "items" : {
-        "type" : "array",
-        "items" : {
-          "type" : "object",
-          "properties" : { }
-        }
-      }
-    },
-    "outputs" : {
-      "type" : "array",
-      "items" : {
-        "type" : "array",
-        "items" : {
-          "type" : "object",
-          "properties" : { }
-        }
-      }
-    },
-    "error" : {
-      "type" : "string"
-    }
-  }
-};
-    defs["solidity_service.GetTraceTransactionInternalResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "result" : {
-      "type" : "string"
-    }
-  }
-};
     defs["solidity_service.ListForksResponse"] = {
   "type" : "object",
   "properties" : {
@@ -5857,20 +5444,6 @@ ul.nav-tabs {
     }
   }
 };
-    defs["solidity_service.Metadata"] = {
-  "type" : "object",
-  "properties" : {
-    "useLiteralContent" : {
-      "type" : "boolean"
-    },
-    "bytecodeHash" : {
-      "type" : "string"
-    },
-    "appendCBOR" : {
-      "type" : "boolean"
-    }
-  }
-};
     defs["solidity_service.NodeEnvironment"] = {
   "type" : "object",
   "properties" : {
@@ -5902,91 +5475,6 @@ ul.nav-tabs {
     "forkRetryBackoff" : {
       "type" : "string",
       "format" : "uint64"
-    }
-  }
-};
-    defs["solidity_service.Optimizer"] = {
-  "title" : "partial",
-  "type" : "object",
-  "properties" : {
-    "enabled" : {
-      "type" : "boolean"
-    },
-    "runs" : {
-      "type" : "integer",
-      "format" : "int64"
-    },
-    "details" : {
-      "$ref" : "#/components/schemas/solidity_service.Optimizer.Details"
-    }
-  }
-};
-    defs["solidity_service.Optimizer.Details"] = {
-  "type" : "object",
-  "properties" : {
-    "peephole" : {
-      "type" : "boolean"
-    },
-    "jumpdestRemover" : {
-      "type" : "boolean"
-    },
-    "yul" : {
-      "type" : "boolean"
-    },
-    "yulDetails" : {
-      "$ref" : "#/components/schemas/solidity_service.Optimizer.Details.YulDetails"
-    }
-  }
-};
-    defs["solidity_service.Optimizer.Details.YulDetails"] = {
-  "type" : "object",
-  "properties" : {
-    "stackAllocation" : {
-      "type" : "boolean"
-    },
-    "optimizerSteps" : {
-      "type" : "string"
-    }
-  }
-};
-    defs["solidity_service.PreProcessCompilationInternalResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "preprocessedAddresses" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    }
-  }
-};
-    defs["solidity_service.Settings"] = {
-  "title" : "partial",
-  "type" : "object",
-  "properties" : {
-    "remappings" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "optimizer" : {
-      "$ref" : "#/components/schemas/solidity_service.Optimizer"
-    },
-    "evmVersion" : {
-      "type" : "string"
-    },
-    "metadata" : {
-      "$ref" : "#/components/schemas/solidity_service.Metadata"
-    },
-    "viaIR" : {
-      "type" : "boolean"
-    },
-    "compilationTarget" : {
-      "type" : "object",
-      "additionalProperties" : {
-        "type" : "string"
-      }
     }
   }
 };
@@ -6270,68 +5758,6 @@ ul.nav-tabs {
   "default" : "ETHERSCAN",
   "enum" : [ "ETHERSCAN", "BLOCKSCOUT", "OKLINK", "ETHERSCAN_V2" ]
 };
-    defs["solidity_service.SourceInfo"] = {
-  "type" : "object",
-  "properties" : {
-    "contractName" : {
-      "type" : "string"
-    },
-    "options" : {
-      "$ref" : "#/components/schemas/solidity_service.CompilerOptions"
-    }
-  }
-};
-    defs["solidity_service.SourceMultiFile"] = {
-  "type" : "object",
-  "properties" : {
-    "source" : {
-      "type" : "object",
-      "additionalProperties" : {
-        "type" : "string"
-      }
-    },
-    "compilerSettings" : {
-      "type" : "string"
-    }
-  }
-};
-    defs["solidity_service.SourceSpec"] = {
-  "type" : "object",
-  "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "multiFile" : {
-      "$ref" : "#/components/schemas/solidity_service.SourceMultiFile"
-    },
-    "standardJson" : {
-      "type" : "object",
-      "properties" : { }
-    },
-    "metadata" : {
-      "type" : "object",
-      "properties" : { }
-    },
-    "solidityVersion" : {
-      "type" : "string"
-    },
-    "contractName" : {
-      "type" : "string"
-    },
-    "constructorArgs" : {
-      "type" : "string"
-    }
-  }
-};
-    defs["solidity_service.Specializations"] = {
-  "title" : "partial",
-  "type" : "object",
-  "properties" : {
-    "constructorArguments" : {
-      "type" : "string"
-    }
-  }
-};
     defs["solidity_service.StateOverride"] = {
   "type" : "object",
   "properties" : {
@@ -6348,24 +5774,6 @@ ul.nav-tabs {
     },
     "code" : {
       "type" : "string"
-    }
-  }
-};
-    defs["solidity_service.StorageSummaryResult"] = {
-  "type" : "object",
-  "properties" : {
-    "address" : {
-      "type" : "string"
-    },
-    "codeAddress" : {
-      "type" : "string"
-    },
-    "stateVariables" : {
-      "type" : "array",
-      "items" : {
-        "type" : "object",
-        "properties" : { }
-      }
     }
   }
 };

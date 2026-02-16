@@ -517,17 +517,6 @@ export namespace analytic_service {
     export type QuerySqlResultResponse = {
         executionInfo?: ExecutionInfo;
     };
-    export type QuerySegmentationResponse = {
-        results?: Array<QuerySegmentationResponseResult>;
-    };
-    export type QuerySegmentationResponseResult = {
-        matrix?: common.Matrix;
-        error?: string;
-        alias?: string;
-        id?: string;
-        computeStats?: common.ComputeStats;
-        color?: string;
-    };
     export type QueryTableResponse = {
         table?: Table;
         computeStats?: common.ComputeStats;
@@ -581,18 +570,6 @@ export namespace analytic_service {
         version?: number;
         source?: string;
         cachePolicy?: common.CachePolicy;
-    };
-    export type SegmentationRequest = {
-        projectOwner?: string;
-        projectSlug?: string;
-        projectId?: string;
-        version?: number;
-        timeRange?: common.TimeRangeLite;
-        queries?: Array<common.SegmentationQuery>;
-        formulas?: Array<common.Formula>;
-        debug?: boolean;
-        limit?: number;
-        offset?: number;
     };
     export type Source = 'SQL_EDITOR' | 'DASHBOARD' | 'ASYNC_TRIGGER' | 'CURL' | 'ENDPOINT' | 'EXPORT' | 'USER_MATERIALIZED_VIEW_CREATOR' | 'SQL_ALERT';
     export type SyncExecuteSqlResponse = {
@@ -1431,16 +1408,6 @@ export namespace common {
         projectId?: string;
         createdAt?: string;
         syncAt?: string;
-    };
-    export type ProjectVariables = {
-        projectId?: string;
-        variables?: Array<ProjectVariablesVariable>;
-    };
-    export type ProjectVariablesVariable = {
-        key?: string;
-        value?: string;
-        isSecret?: boolean;
-        updatedAt?: string;
     };
     export type ProjectView = {
         id?: string;
@@ -2545,12 +2512,6 @@ export namespace processor_service {
         errorRecord?: common.ErrorRecord;
     };
     export type ChainStateStatusState = 'UNKNOWN' | 'ERROR' | 'CATCHING_UP' | 'PROCESSING_LATEST' | 'QUEUING';
-    export type DownloadProcessorResponse = {
-        url?: string;
-    };
-    export type GetProcessorResponse = {
-        processor?: Processor;
-    };
     export type GetProcessorSourceFilesResponse = {
         sourceFiles?: Array<ProcessorSourceFile>;
     };
@@ -2592,85 +2553,15 @@ export namespace processor_service {
         errorRecord?: common.ErrorRecord;
     };
     export type GetProcessorStatusResponseProcessorStatusState = 'UNKNOWN' | 'ERROR' | 'STARTING' | 'PROCESSING';
-    export type GetProcessorWithProjectResponse = {
-        processor?: Processor;
-        project?: common.Project;
-    };
-    export type GetProcessorsResponse = {
-        processors?: Array<Processor>;
-    };
     export type NetworkOverride = {
         chain?: string;
         host?: string;
-    };
-    /**
-     * This represents a processor which backend works on.
-     */
-    export type Processor = {
-        /**
-         * The unique processor id.
-         */
-        processorId?: string;
-        /**
-         * The project this processor belongs to.
-         */
-        projectId?: string;
-        /**
-         * The version of the code_url below.
-         */
-        version?: number;
-        sdkVersion?: string;
-        /**
-         * Call should be able to fetch the code to run from code_url.
-         */
-        codeUrl?: string;
-        chainStates?: Array<ChainState>;
-        /**
-         * If non empty, this is the contract associated with the processor.
-         */
-        contractId?: string;
-        versionState?: ProcessorVersionState;
-        debug?: boolean;
-        /**
-         * The timescale-db sharding index of this processor.
-         */
-        timescaleShardingIndex?: number;
-        versionLabel?: string;
-        ipfsHash?: string;
-        debugFork?: string;
-        /**
-         * The created timestamp of the processor.
-         */
-        createdAt?: string;
-        /**
-         * The clickhouse sharding index of this processor.
-         */
-        clickhouseShardingIndex?: number;
-        k8sClusterId?: number;
-        enableMaterializedView?: boolean;
-        referenceProjectId?: string;
-        networkOverrides?: Array<NetworkOverride>;
-        eventlogMigrateStatus?: number;
-        eventlogVersion?: number;
-        pause?: boolean;
-        pauseAt?: string;
-        pauseReason?: string;
-        entitySchemaVersion?: number;
-        driverVersion?: number;
-        numWorkers?: number;
-        isBinary?: boolean;
-        chainId?: string;
-        requiredChains?: Array<string>;
-        createTxHash?: string;
     };
     export type ProcessorSourceFile = {
         path?: string;
         content?: string;
     };
     export type ProcessorVersionState = 'UNKNOWN' | 'PENDING' | 'ACTIVE' | 'OBSOLETE';
-    export type UpdateChainProcessorStatusResponse = {
-        [key: string]: unknown;
-    };
     export type ActivatePendingVersionData = {
         body?: never;
         path: {
@@ -2766,24 +2657,8 @@ export namespace solidity_service {
         chainId?: string;
         forkId?: string;
     };
-    export type CompileSourceInternalResponse = {
-        failure?: Failure;
-    };
-    export type CompilerOptions = {
-        language?: string;
-        version?: string;
-        settings?: Settings;
-        specializations?: Specializations;
-    };
-    export type ContractKeyInfo = {
-        preprocessKey?: string;
-        compilationKey?: string;
-    };
     export type CreateForkResponse = {
         fork?: Fork;
-    };
-    export type DecodeStateDiffResponse = {
-        result?: string;
     };
     export type EstimatedPrice = {
         confidence?: number;
@@ -2811,10 +2686,6 @@ export namespace solidity_service {
     export type ExternalFork = {
         chainConfig?: BaseChainConfig;
         nodeAdditionalHeaders?: string;
-    };
-    export type Failure = {
-        error?: string;
-        reason?: string;
     };
     export type Fork = {
         id?: string;
@@ -2867,31 +2738,6 @@ export namespace solidity_service {
         page?: number;
         pageSize?: number;
     };
-    export type GetStorageSummaryInternalResponse = {
-        results?: Array<StorageSummaryResult>;
-    };
-    export type GetTraceCallInternalRequestBundle = {
-        transactions?: Array<{
-            [key: string]: unknown;
-        }>;
-        blockOverride?: BlockOverrides;
-    };
-    export type GetTraceCallInternalRequestStateContext = {
-        blockNumber?: string;
-        transactionIndex?: number;
-    };
-    export type GetTraceCallInternalResponse = {
-        result?: Array<Array<{
-            [key: string]: unknown;
-        }>>;
-        outputs?: Array<Array<{
-            [key: string]: unknown;
-        }>>;
-        error?: string;
-    };
-    export type GetTraceTransactionInternalResponse = {
-        result?: string;
-    };
     export type ListForksResponse = {
         forks?: Array<Fork>;
     };
@@ -2903,11 +2749,6 @@ export namespace solidity_service {
         rpcEndpoint?: string;
         version?: string;
     };
-    export type Metadata = {
-        useLiteralContent?: boolean;
-        bytecodeHash?: string;
-        appendCBOR?: boolean;
-    };
     export type NodeEnvironment = {
         chainId?: string;
         baseFee?: string;
@@ -2918,34 +2759,6 @@ export namespace solidity_service {
         forkUrl?: string;
         forkBlockNumber?: string;
         forkRetryBackoff?: string;
-    };
-    export type Optimizer = {
-        enabled?: boolean;
-        runs?: number;
-        details?: OptimizerDetails;
-    };
-    export type OptimizerDetails = {
-        peephole?: boolean;
-        jumpdestRemover?: boolean;
-        yul?: boolean;
-        yulDetails?: OptimizerDetailsYulDetails;
-    };
-    export type OptimizerDetailsYulDetails = {
-        stackAllocation?: boolean;
-        optimizerSteps?: string;
-    };
-    export type PreProcessCompilationInternalResponse = {
-        preprocessedAddresses?: Array<string>;
-    };
-    export type Settings = {
-        remappings?: Array<string>;
-        optimizer?: Optimizer;
-        evmVersion?: string;
-        metadata?: Metadata;
-        viaIR?: boolean;
-        compilationTarget?: {
-            [key: string]: string;
-        };
     };
     export type SimulateTransactionBundleResponse = {
         bundleId?: string;
@@ -3017,32 +2830,6 @@ export namespace solidity_service {
         simulation: Simulation;
     };
     export type SourceFetcherType = 'ETHERSCAN' | 'BLOCKSCOUT' | 'OKLINK' | 'ETHERSCAN_V2';
-    export type SourceInfo = {
-        contractName?: string;
-        options?: CompilerOptions;
-    };
-    export type SourceMultiFile = {
-        source?: {
-            [key: string]: string;
-        };
-        compilerSettings?: string;
-    };
-    export type SourceSpec = {
-        id?: string;
-        multiFile?: SourceMultiFile;
-        standardJson?: {
-            [key: string]: unknown;
-        };
-        metadata?: {
-            [key: string]: unknown;
-        };
-        solidityVersion?: string;
-        contractName?: string;
-        constructorArgs?: string;
-    };
-    export type Specializations = {
-        constructorArguments?: string;
-    };
     export type StateOverride = {
         state?: {
             [key: string]: string;
@@ -3052,13 +2839,6 @@ export namespace solidity_service {
          */
         balance?: string;
         code?: string;
-    };
-    export type StorageSummaryResult = {
-        address?: string;
-        codeAddress?: string;
-        stateVariables?: Array<{
-            [key: string]: unknown;
-        }>;
     };
     export type UpdateForkResponse = {
         fork?: Fork;

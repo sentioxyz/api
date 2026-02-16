@@ -4711,41 +4711,6 @@
         }
       }
     },
-    "analytic_service.QuerySegmentationResponse": {
-      "type": "object",
-      "properties": {
-        "results": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/analytic_service.QuerySegmentationResponse.Result"
-          }
-        }
-      }
-    },
-    "analytic_service.QuerySegmentationResponse.Result": {
-      "type": "object",
-      "properties": {
-        "matrix": {
-          "$ref": "#/definitions/common.Matrix"
-        },
-        "error": {
-          "type": "string"
-        },
-        "alias": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "computeStats": {
-          "$ref": "#/definitions/common.ComputeStats"
-        },
-        "color": {
-          "type": "string"
-        }
-      }
-    },
     "analytic_service.QueryTableResponse": {
       "type": "object",
       "properties": {
@@ -4909,52 +4874,6 @@
         },
         "cachePolicy": {
           "$ref": "#/definitions/common.CachePolicy"
-        }
-      }
-    },
-    "analytic_service.SegmentationRequest": {
-      "type": "object",
-      "properties": {
-        "projectOwner": {
-          "type": "string"
-        },
-        "projectSlug": {
-          "type": "string"
-        },
-        "projectId": {
-          "type": "string"
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "timeRange": {
-          "$ref": "#/definitions/common.TimeRangeLite"
-        },
-        "queries": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.SegmentationQuery"
-          }
-        },
-        "formulas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.Formula"
-          }
-        },
-        "debug": {
-          "type": "boolean"
-        },
-        "limit": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },
@@ -6091,39 +6010,6 @@
           "format": "date-time"
         },
         "syncAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "common.ProjectVariables": {
-      "type": "object",
-      "properties": {
-        "projectId": {
-          "type": "string"
-        },
-        "variables": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/common.ProjectVariables.Variable"
-          }
-        }
-      }
-    },
-    "common.ProjectVariables.Variable": {
-      "type": "object",
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string"
-        },
-        "isSecret": {
-          "type": "boolean"
-        },
-        "updatedAt": {
           "type": "string",
           "format": "date-time"
         }
@@ -7958,22 +7844,6 @@
       ],
       "default": "UNKNOWN"
     },
-    "processor_service.DownloadProcessorResponse": {
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string"
-        }
-      }
-    },
-    "processor_service.GetProcessorResponse": {
-      "type": "object",
-      "properties": {
-        "processor": {
-          "$ref": "#/definitions/processor_service.Processor"
-        }
-      }
-    },
     "processor_service.GetProcessorSourceFilesResponse": {
       "type": "object",
       "properties": {
@@ -8136,29 +8006,6 @@
       ],
       "default": "UNKNOWN"
     },
-    "processor_service.GetProcessorWithProjectResponse": {
-      "type": "object",
-      "properties": {
-        "processor": {
-          "$ref": "#/definitions/processor_service.Processor"
-        },
-        "project": {
-          "$ref": "#/definitions/common.Project"
-        }
-      }
-    },
-    "processor_service.GetProcessorsResponse": {
-      "type": "object",
-      "properties": {
-        "processors": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/processor_service.Processor"
-          }
-        }
-      }
-    },
     "processor_service.NetworkOverride": {
       "type": "object",
       "properties": {
@@ -8169,142 +8016,6 @@
           "type": "string"
         }
       }
-    },
-    "processor_service.Processor": {
-      "type": "object",
-      "properties": {
-        "processorId": {
-          "type": "string",
-          "description": "The unique processor id."
-        },
-        "projectId": {
-          "type": "string",
-          "description": "The project this processor belongs to."
-        },
-        "version": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The version of the code_url below."
-        },
-        "sdkVersion": {
-          "type": "string",
-          "title": "The SDK version used when uploaded"
-        },
-        "codeUrl": {
-          "type": "string",
-          "description": "Call should be able to fetch the code to run from code_url."
-        },
-        "chainStates": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/processor_service.ChainState"
-          },
-          "title": "Each maintains a state of a processor w.r.t a given chain.\nThis is a one-to-many mapping (processor to processor-chain)"
-        },
-        "contractId": {
-          "type": "string",
-          "description": "If non empty, this is the contract associated with the processor."
-        },
-        "versionState": {
-          "$ref": "#/definitions/processor_service.ProcessorVersionState"
-        },
-        "debug": {
-          "type": "boolean",
-          "title": "If enabled, driver job's log level will be set to debug"
-        },
-        "timescaleShardingIndex": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The timescale-db sharding index of this processor."
-        },
-        "versionLabel": {
-          "type": "string",
-          "title": "The version label of the subgraph\nused for subgraph project"
-        },
-        "ipfsHash": {
-          "type": "string",
-          "title": "The hash (object CID) of the subgraph description file in ipfs node\nused for subgraph project"
-        },
-        "debugFork": {
-          "type": "string",
-          "title": "ID of a remote subgraph whose store will be GraphQL queried\nused for subgraph project"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "int64",
-          "description": "The created timestamp of the processor."
-        },
-        "clickhouseShardingIndex": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The clickhouse sharding index of this processor."
-        },
-        "k8sClusterId": {
-          "type": "integer",
-          "format": "int32",
-          "title": "The k8s cluster id of this processor"
-        },
-        "enableMaterializedView": {
-          "type": "boolean"
-        },
-        "referenceProjectId": {
-          "type": "string"
-        },
-        "networkOverrides": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/processor_service.NetworkOverride"
-          }
-        },
-        "eventlogMigrateStatus": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "eventlogVersion": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pause": {
-          "type": "boolean"
-        },
-        "pauseAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "pauseReason": {
-          "type": "string"
-        },
-        "entitySchemaVersion": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "driverVersion": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "numWorkers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "isBinary": {
-          "type": "boolean"
-        },
-        "chainId": {
-          "type": "string"
-        },
-        "requiredChains": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "createTxHash": {
-          "type": "string"
-        }
-      },
-      "description": "This represents a processor which backend works on."
     },
     "processor_service.ProcessorSourceFile": {
       "type": "object",
@@ -8328,9 +8039,6 @@
         "OBSOLETE"
       ],
       "default": "UNKNOWN"
-    },
-    "processor_service.UpdateChainProcessorStatusResponse": {
-      "type": "object"
     },
     "solidity_service.BaseChainConfig": {
       "type": "object",
@@ -8428,57 +8136,11 @@
         }
       }
     },
-    "solidity_service.CompileSourceInternalResponse": {
-      "type": "object",
-      "properties": {
-        "failure": {
-          "$ref": "#/definitions/solidity_service.Failure"
-        }
-      }
-    },
-    "solidity_service.CompilerOptions": {
-      "type": "object",
-      "properties": {
-        "language": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        },
-        "settings": {
-          "$ref": "#/definitions/solidity_service.Settings"
-        },
-        "specializations": {
-          "$ref": "#/definitions/solidity_service.Specializations"
-        }
-      }
-    },
-    "solidity_service.ContractKeyInfo": {
-      "type": "object",
-      "properties": {
-        "preprocessKey": {
-          "type": "string",
-          "title": "always set, even if not preprocessed, pass the key to debugger to store"
-        },
-        "compilationKey": {
-          "type": "string",
-          "title": "If it's already preprocessed, compilation key will be empty"
-        }
-      }
-    },
     "solidity_service.CreateForkResponse": {
       "type": "object",
       "properties": {
         "fork": {
           "$ref": "#/definitions/solidity_service.Fork"
-        }
-      }
-    },
-    "solidity_service.DecodeStateDiffResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "type": "string"
         }
       }
     },
@@ -8569,17 +8231,6 @@
         "nodeAdditionalHeaders": {
           "type": "string",
           "title": "Additional headers for node requests"
-        }
-      }
-    },
-    "solidity_service.Failure": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "string"
-        },
-        "reason": {
-          "type": "string"
         }
       }
     },
@@ -8762,78 +8413,6 @@
         }
       }
     },
-    "solidity_service.GetStorageSummaryInternalResponse": {
-      "type": "object",
-      "properties": {
-        "results": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/solidity_service.StorageSummaryResult"
-          }
-        }
-      }
-    },
-    "solidity_service.GetTraceCallInternalRequest.Bundle": {
-      "type": "object",
-      "properties": {
-        "transactions": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "blockOverride": {
-          "$ref": "#/definitions/solidity_service.BlockOverrides"
-        }
-      }
-    },
-    "solidity_service.GetTraceCallInternalRequest.StateContext": {
-      "type": "object",
-      "properties": {
-        "blockNumber": {
-          "type": "string"
-        },
-        "transactionIndex": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "solidity_service.GetTraceCallInternalResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          }
-        },
-        "outputs": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          }
-        },
-        "error": {
-          "type": "string"
-        }
-      }
-    },
-    "solidity_service.GetTraceTransactionInternalResponse": {
-      "type": "object",
-      "properties": {
-        "result": {
-          "type": "string"
-        }
-      }
-    },
     "solidity_service.ListForksResponse": {
       "type": "object",
       "properties": {
@@ -8871,20 +8450,6 @@
         }
       }
     },
-    "solidity_service.Metadata": {
-      "type": "object",
-      "properties": {
-        "useLiteralContent": {
-          "type": "boolean"
-        },
-        "bytecodeHash": {
-          "type": "string"
-        },
-        "appendCBOR": {
-          "type": "boolean"
-        }
-      }
-    },
     "solidity_service.NodeEnvironment": {
       "type": "object",
       "properties": {
@@ -8918,91 +8483,6 @@
           "format": "uint64"
         }
       }
-    },
-    "solidity_service.Optimizer": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "runs": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "details": {
-          "$ref": "#/definitions/solidity_service.Optimizer.Details"
-        }
-      },
-      "title": "partial"
-    },
-    "solidity_service.Optimizer.Details": {
-      "type": "object",
-      "properties": {
-        "peephole": {
-          "type": "boolean"
-        },
-        "jumpdestRemover": {
-          "type": "boolean"
-        },
-        "yul": {
-          "type": "boolean"
-        },
-        "yulDetails": {
-          "$ref": "#/definitions/solidity_service.Optimizer.Details.YulDetails"
-        }
-      }
-    },
-    "solidity_service.Optimizer.Details.YulDetails": {
-      "type": "object",
-      "properties": {
-        "stackAllocation": {
-          "type": "boolean"
-        },
-        "optimizerSteps": {
-          "type": "string"
-        }
-      }
-    },
-    "solidity_service.PreProcessCompilationInternalResponse": {
-      "type": "object",
-      "properties": {
-        "preprocessedAddresses": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "solidity_service.Settings": {
-      "type": "object",
-      "properties": {
-        "remappings": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "optimizer": {
-          "$ref": "#/definitions/solidity_service.Optimizer"
-        },
-        "evmVersion": {
-          "type": "string"
-        },
-        "metadata": {
-          "$ref": "#/definitions/solidity_service.Metadata"
-        },
-        "viaIR": {
-          "type": "boolean"
-        },
-        "compilationTarget": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        }
-      },
-      "title": "partial"
     },
     "solidity_service.SimulateTransactionBundleResponse": {
       "type": "object",
@@ -9318,66 +8798,6 @@
       ],
       "default": "ETHERSCAN"
     },
-    "solidity_service.SourceInfo": {
-      "type": "object",
-      "properties": {
-        "contractName": {
-          "type": "string"
-        },
-        "options": {
-          "$ref": "#/definitions/solidity_service.CompilerOptions"
-        }
-      }
-    },
-    "solidity_service.SourceMultiFile": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "compilerSettings": {
-          "type": "string"
-        }
-      }
-    },
-    "solidity_service.SourceSpec": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "multiFile": {
-          "$ref": "#/definitions/solidity_service.SourceMultiFile"
-        },
-        "standardJson": {
-          "type": "object"
-        },
-        "metadata": {
-          "type": "object"
-        },
-        "solidityVersion": {
-          "type": "string"
-        },
-        "contractName": {
-          "type": "string"
-        },
-        "constructorArgs": {
-          "type": "string"
-        }
-      }
-    },
-    "solidity_service.Specializations": {
-      "type": "object",
-      "properties": {
-        "constructorArguments": {
-          "type": "string"
-        }
-      },
-      "title": "partial"
-    },
     "solidity_service.StateOverride": {
       "type": "object",
       "properties": {
@@ -9394,23 +8814,6 @@
         },
         "code": {
           "type": "string"
-        }
-      }
-    },
-    "solidity_service.StorageSummaryResult": {
-      "type": "object",
-      "properties": {
-        "address": {
-          "type": "string"
-        },
-        "codeAddress": {
-          "type": "string"
-        },
-        "stateVariables": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
         }
       }
     },
