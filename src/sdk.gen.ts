@@ -757,7 +757,7 @@ export class DataService {
      * Metric range queries
      * The easiest way to build query is through UI, you could first create an insight chart, and then **Export as cURL**.
      *
-     * ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(101).png)
+     * ![screenshot](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/image%20(101).png)
      */
     public static queryRange<ThrowOnError extends boolean = false>(options: Options<metrics_service.QueryRangeData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).post<metrics_service.QueryRangeResponse, unknown, ThrowOnError>({
@@ -1143,7 +1143,7 @@ export class PriceService {
      *
      * please AWARE that the coingecko id is NOT the same as the symbol of the coin.
      *
-     * ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/coingecko_apiid.png)
+     * ![screenshot](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/coingecko_apiid.png)
      */
     public static addCoinByGecko<ThrowOnError extends boolean = false>(options: Options<price_service.AddCoinByGeckoData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).post<price_service.AddCoinByGeckoResponse2, unknown, ThrowOnError>({
@@ -1510,11 +1510,11 @@ export class DebugAndSimulationService {
      * Get trace by transaction
      * API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.
      *
-     * The results looks very similar to the normal [Ethereum call trace](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.
+     * The results looks very similar to the normal [Ethereum call trace](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.
      *
      * This allows you to build chart that marks the order of fund flow.
      *
-     * ![screenshot](https://raw.githubusercontent.com/sentioxyz/docs/v1.0/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     * ![screenshot](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/image%20(2)%20(1)%20(1)%20(1).png)
      */
     public static getCallTraceByTransaction<ThrowOnError extends boolean = false>(options: Options<google.GetCallTraceByTransactionData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).get<google.GetCallTraceByTransactionResponse, unknown, ThrowOnError>({
