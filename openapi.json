@@ -8886,6 +8886,14 @@
         "enableExperimentalFeatures": {
           "type": "boolean",
           "title": "enable experimental_features"
+        },
+        "overlayGraphs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/web_service.OverlayGraph"
+          },
+          "title": "Overlay graphs for multi-axis support (max 3)"
         }
       }
     },
@@ -9856,6 +9864,55 @@
         "BOTTOM"
       ],
       "default": "TOP"
+    },
+    "web_service.OverlayGraph": {
+      "type": "object",
+      "properties": {
+        "insightsQueries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/insights_service.QueryRequest.Query"
+          },
+          "title": "Unified query format"
+        },
+        "formulas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/common.Formula"
+          }
+        },
+        "yAxis": {
+          "$ref": "#/definitions/web_service.ChartConfig.YAxisConfig"
+        },
+        "name": {
+          "type": "string",
+          "title": "Y-axis label"
+        },
+        "lineConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.LineConfig"
+        },
+        "valueConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.ValueConfig"
+        },
+        "dataConfig": {
+          "$ref": "#/definitions/web_service.ChartConfig.DataConfig"
+        },
+        "sqlQuery": {
+          "type": "string",
+          "title": "For SQL datasource"
+        },
+        "sqlQueryId": {
+          "type": "string",
+          "title": "For saved SQL queries"
+        },
+        "sqlExecuteEngine": {
+          "$ref": "#/definitions/analytic_service.ExecuteEngine",
+          "title": "SQL execution engine"
+        }
+      },
+      "description": "An additional graph overlaid on the primary chart, with its own queries\nand Y-axis configuration. Chart type is inherited from the parent chart."
     },
     "web_service.Panel": {
       "type": "object",

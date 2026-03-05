@@ -5842,6 +5842,13 @@ ul.nav-tabs {
     "enableExperimentalFeatures" : {
       "title" : "enable experimental_features",
       "type" : "boolean"
+    },
+    "overlayGraphs" : {
+      "title" : "Overlay graphs for multi-axis support (max 3)",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/web_service.OverlayGraph"
+      }
     }
   }
 };
@@ -6732,6 +6739,52 @@ ul.nav-tabs {
   "type" : "string",
   "default" : "TOP",
   "enum" : [ "TOP", "MIDDLE", "BOTTOM" ]
+};
+    defs["web_service.OverlayGraph"] = {
+  "type" : "object",
+  "properties" : {
+    "insightsQueries" : {
+      "title" : "Unified query format",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/insights_service.QueryRequest.Query"
+      }
+    },
+    "formulas" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Formula"
+      }
+    },
+    "yAxis" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.YAxisConfig"
+    },
+    "name" : {
+      "title" : "Y-axis label",
+      "type" : "string"
+    },
+    "lineConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.LineConfig"
+    },
+    "valueConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig"
+    },
+    "dataConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.DataConfig"
+    },
+    "sqlQuery" : {
+      "title" : "For SQL datasource",
+      "type" : "string"
+    },
+    "sqlQueryId" : {
+      "title" : "For saved SQL queries",
+      "type" : "string"
+    },
+    "sqlExecuteEngine" : {
+      "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
+    }
+  },
+  "description" : "An additional graph overlaid on the primary chart, with its own queries\nand Y-axis configuration. Chart type is inherited from the parent chart."
 };
     defs["web_service.Panel"] = {
   "type" : "object",

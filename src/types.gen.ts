@@ -3115,6 +3115,7 @@ export namespace web_service {
         sqlQueryId?: string;
         sqlExecuteEngine?: analytic_service.ExecuteEngine;
         enableExperimentalFeatures?: boolean;
+        overlayGraphs?: Array<OverlayGraph>;
     };
     export type ChartDataSourceType = 'METRICS' | 'NOTES' | 'ANALYTICS' | 'INSIGHTS' | 'EVENTS' | 'RETENTION' | 'SQL';
     export type ChartConfig = {
@@ -3413,6 +3414,22 @@ export namespace web_service {
     export type NoteAlignment = 'LEFT' | 'CENTER' | 'RIGHT';
     export type NoteFontSize = 'MD' | 'SM' | 'LG' | 'XL' | 'XXL';
     export type NoteVerticalAlignment = 'TOP' | 'MIDDLE' | 'BOTTOM';
+    /**
+     * An additional graph overlaid on the primary chart, with its own queries
+     * and Y-axis configuration. Chart type is inherited from the parent chart.
+     */
+    export type OverlayGraph = {
+        insightsQueries?: Array<insights_service.QueryRequestQuery>;
+        formulas?: Array<common.Formula>;
+        yAxis?: ChartConfigYAxisConfig;
+        name?: string;
+        lineConfig?: ChartConfigLineConfig;
+        valueConfig?: ChartConfigValueConfig;
+        dataConfig?: ChartConfigDataConfig;
+        sqlQuery?: string;
+        sqlQueryId?: string;
+        sqlExecuteEngine?: analytic_service.ExecuteEngine;
+    };
     export type Panel = {
         id?: string;
         name?: string;
