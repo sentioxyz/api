@@ -9910,9 +9910,13 @@
         "sqlExecuteEngine": {
           "$ref": "#/definitions/analytic_service.ExecuteEngine",
           "title": "SQL execution engine"
+        },
+        "chartType": {
+          "$ref": "#/definitions/web_service.ChartType",
+          "title": "Chart type override (defaults to parent type)"
         }
       },
-      "description": "An additional graph overlaid on the primary chart, with its own queries\nand Y-axis configuration. Chart type is inherited from the parent chart."
+      "description": "An additional graph overlaid on the primary chart, with its own queries\nand Y-axis configuration. Chart type defaults to the parent chart type."
     },
     "web_service.Panel": {
       "type": "object",

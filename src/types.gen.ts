@@ -3416,7 +3416,7 @@ export namespace web_service {
     export type NoteVerticalAlignment = 'TOP' | 'MIDDLE' | 'BOTTOM';
     /**
      * An additional graph overlaid on the primary chart, with its own queries
-     * and Y-axis configuration. Chart type is inherited from the parent chart.
+     * and Y-axis configuration. Chart type defaults to the parent chart type.
      */
     export type OverlayGraph = {
         insightsQueries?: Array<insights_service.QueryRequestQuery>;
@@ -3429,6 +3429,7 @@ export namespace web_service {
         sqlQuery?: string;
         sqlQueryId?: string;
         sqlExecuteEngine?: analytic_service.ExecuteEngine;
+        chartType?: ChartType2;
     };
     export type Panel = {
         id?: string;

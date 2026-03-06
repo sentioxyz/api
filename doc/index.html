@@ -6782,9 +6782,12 @@ ul.nav-tabs {
     },
     "sqlExecuteEngine" : {
       "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
+    },
+    "chartType" : {
+      "$ref" : "#/components/schemas/web_service.ChartType"
     }
   },
-  "description" : "An additional graph overlaid on the primary chart, with its own queries\nand Y-axis configuration. Chart type is inherited from the parent chart."
+  "description" : "An additional graph overlaid on the primary chart, with its own queries\nand Y-axis configuration. Chart type defaults to the parent chart type."
 };
     defs["web_service.Panel"] = {
   "type" : "object",
