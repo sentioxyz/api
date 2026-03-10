@@ -349,6 +349,23 @@ export namespace alert_service {
         200: alert_service.GetAlertRulesResponse;
     };
     export type GetAlertRulesResponse2 = GetAlertRulesResponses[keyof GetAlertRulesResponses];
+    export type DeleteAlertRuleData = {
+        body?: never;
+        path: {
+            id: string;
+        };
+        query?: never;
+        url: '/v1/alerts/rule/{id}';
+    };
+    export type DeleteAlertRuleResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type DeleteAlertRuleResponse = DeleteAlertRuleResponses[keyof DeleteAlertRuleResponses];
     export type SaveAlertRule2Data = {
         body: alert_service.AlertServiceSaveAlertRuleBody;
         path: {
@@ -635,6 +652,40 @@ export namespace analytic_service {
         200: analytic_service.QueryTablesResponse;
     };
     export type QueryTables2Response = QueryTables2Responses[keyof QueryTables2Responses];
+    export type CancelSqlQueryData = {
+        body?: never;
+        path: {
+            /**
+             * username or organization name
+             */
+            owner: string;
+            /**
+             * project slug
+             */
+            slug: string;
+            executionId: string;
+        };
+        query?: {
+            /**
+             * use project id if project_owner and project_slug are not provided
+             */
+            projectId?: string;
+            /**
+             * version of the datasource, default to the active version if not provided
+             */
+            version?: number;
+        };
+        url: '/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}';
+    };
+    export type CancelSqlQueryResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type CancelSqlQueryResponse = CancelSqlQueryResponses[keyof CancelSqlQueryResponses];
     export type ExecuteSqlData = {
         body: analytic_service.AnalyticServiceExecuteSqlBody;
         path: {
@@ -765,6 +816,36 @@ export namespace analytic_service {
         200: analytic_service.SaveRefreshableMaterializedViewResponse;
     };
     export type SaveRefreshableMaterializedViewResponse2 = SaveRefreshableMaterializedViewResponses[keyof SaveRefreshableMaterializedViewResponses];
+    export type DeleteRefreshableMaterializedViewData = {
+        body?: never;
+        path: {
+            /**
+             * username or organization name
+             */
+            owner: string;
+            /**
+             * project slug
+             */
+            slug: string;
+            name: string;
+        };
+        query?: {
+            /**
+             * use project id if project_owner and project_slug are not provided
+             */
+            projectId?: string;
+        };
+        url: '/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
+    };
+    export type DeleteRefreshableMaterializedViewResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type DeleteRefreshableMaterializedViewResponse = DeleteRefreshableMaterializedViewResponses[keyof DeleteRefreshableMaterializedViewResponses];
     export type GetRefreshableMaterializedStatusData = {
         body?: never;
         path: {
@@ -2481,6 +2562,24 @@ export namespace processor_service {
         content?: string;
     };
     export type ProcessorVersionState = 'UNKNOWN' | 'PENDING' | 'ACTIVE' | 'OBSOLETE';
+    export type ActivatePendingVersionData = {
+        body?: never;
+        path: {
+            owner: string;
+            slug: string;
+        };
+        query?: never;
+        url: '/v1/processors/{owner}/{slug}/activate_pending';
+    };
+    export type ActivatePendingVersionResponses = {
+        /**
+         * A successful response.
+         */
+        200: {
+            [key: string]: unknown;
+        };
+    };
+    export type ActivatePendingVersionResponse = ActivatePendingVersionResponses[keyof ActivatePendingVersionResponses];
     export type GetProcessorSourceFilesData = {
         body?: never;
         path: {
@@ -3559,109 +3658,7 @@ export namespace web_service {
     export type CreateLinkSessionResponse = CreateLinkSessionResponses[keyof CreateLinkSessionResponses];
 }
 
-export namespace rul_service {
-    export type DeleteAlertRuleData = {
-        body?: never;
-        path: {
-            id: string;
-        };
-        query?: never;
-        url: '/v1/alerts/rule/{id}';
-    };
-    export type DeleteAlertRuleResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type DeleteAlertRuleResponse = DeleteAlertRuleResponses[keyof DeleteAlertRuleResponses];
-}
-
-export namespace {owner_service {
-    export type CancelSqlQueryData = {
-        body?: never;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-            executionId: string;
-        };
-        query?: {
-            /**
-             * use project id if project_owner and project_slug are not provided
-             */
-            projectId?: string;
-            /**
-             * version of the datasource, default to the active version if not provided
-             */
-            version?: number;
-        };
-        url: '/v1/analytics/{owner}/{slug}/sql/cancel_query/{executionId}';
-    };
-    export type CancelSqlQueryResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type CancelSqlQueryResponse = CancelSqlQueryResponses[keyof CancelSqlQueryResponses];
-    export type DeleteRefreshableMaterializedViewData = {
-        body?: never;
-        path: {
-            /**
-             * username or organization name
-             */
-            owner: string;
-            /**
-             * project slug
-             */
-            slug: string;
-            name: string;
-        };
-        query?: {
-            /**
-             * use project id if project_owner and project_slug are not provided
-             */
-            projectId?: string;
-        };
-        url: '/v1/analytics/{owner}/{slug}/sql/refreshable_materialized_view/{name}';
-    };
-    export type DeleteRefreshableMaterializedViewResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type DeleteRefreshableMaterializedViewResponse = DeleteRefreshableMaterializedViewResponses[keyof DeleteRefreshableMaterializedViewResponses];
-    export type ActivatePendingVersionData = {
-        body?: never;
-        path: {
-            owner: string;
-            slug: string;
-        };
-        query?: never;
-        url: '/v1/processors/{owner}/{slug}/activate_pending';
-    };
-    export type ActivatePendingVersionResponses = {
-        /**
-         * A successful response.
-         */
-        200: {
-            [key: string]: unknown;
-        };
-    };
-    export type ActivatePendingVersionResponse = ActivatePendingVersionResponses[keyof ActivatePendingVersionResponses];
+export namespace solidit_service {
     export type DeleteForkData = {
         body?: never;
         path: {
