@@ -2502,6 +2502,7 @@ export namespace processor_service {
         handlerStat?: string;
         initialStartBlockNumber?: string;
         estimatedLatestBlockNumber?: string;
+        lastBlockNumber?: string;
         /**
          * To be deprecated after the migration.
          */
