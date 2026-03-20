@@ -1525,6 +1525,7 @@ export namespace common {
         type?: SegmentationQueryResourceType;
         cohortsId?: string;
         cohortsQuery?: CohortsQuery;
+        multipleNames?: Array<string>;
     };
     export type SegmentationQueryResourceType = 'EVENTS' | 'COHORTS';
     export type SegmentationQuerySelectorExpr = {

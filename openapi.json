@@ -6430,6 +6430,12 @@
         },
         "cohortsQuery": {
           "$ref": "#/definitions/common.CohortsQuery"
+        },
+        "multipleNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
