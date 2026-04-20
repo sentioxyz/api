@@ -6640,8 +6640,7 @@ ul.nav-tabs {
   "type" : "object",
   "properties" : {
     "dashboardJson" : {
-      "type" : "object",
-      "properties" : { }
+      "$ref" : "#/components/schemas/web_service.Dashboard"
     }
   }
 };
@@ -6686,9 +6685,7 @@ ul.nav-tabs {
       "description" : "The id of the target dashboard to import into."
     },
     "dashboardJson" : {
-      "type" : "object",
-      "properties" : { },
-      "description" : "The json data of a previously exported dashboard."
+      "$ref" : "#/components/schemas/web_service.Dashboard"
     },
     "overrideLayouts" : {
       "type" : "boolean",

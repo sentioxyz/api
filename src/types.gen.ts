@@ -3371,9 +3371,7 @@ export namespace web_service {
         timeRange?: common.TimeRange;
     };
     export type ExportDashboardResponse = {
-        dashboardJson?: {
-            [key: string]: unknown;
-        };
+        dashboardJson?: Dashboard;
     };
     export type GetDashboardHistoryResponse = {
         histories?: Array<DashboardHistory>;
@@ -3388,12 +3386,7 @@ export namespace web_service {
          * The id of the target dashboard to import into.
          */
         dashboardId: string;
-        /**
-         * The json data of a previously exported dashboard.
-         */
-        dashboardJson: {
-            [key: string]: unknown;
-        };
+        dashboardJson: Dashboard;
         /**
          * Override the layout of target dashboard.
          */
