@@ -47058,7 +47058,7 @@ pub fn main() {
                       <article id="api-Web-importDashboard-0" data-group="User" data-name="importDashboard" data-version="0">
                         <div class="pull-left">
                           <h1>importDashboard</h1>
-                          <p>Import a dashboard to another dashboard</p>
+                          <p>Import a dashboard</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -47195,7 +47195,7 @@ public class WebApiExample {
 WebApi *apiInstance = [[WebApi alloc] init];
 WebServiceImportDashboardRequest *body = ; // 
 
-// Import a dashboard to another dashboard
+// Import a dashboard
 [apiInstance importDashboardWith:body
               completionHandler: ^(web_service.ImportDashboardResponse output, NSError* error) {
     if (output) {
@@ -47269,7 +47269,7 @@ namespace Example
             var body = new WebServiceImportDashboardRequest(); // WebServiceImportDashboardRequest | 
 
             try {
-                // Import a dashboard to another dashboard
+                // Import a dashboard
                 web_service.ImportDashboardResponse result = apiInstance.importDashboard(body);
                 Debug.WriteLine(result);
             } catch (Exception e) {
@@ -47358,7 +47358,7 @@ api_instance = openapi_client.WebApi()
 body =  # WebServiceImportDashboardRequest | 
 
 try:
-    # Import a dashboard to another dashboard
+    # Import a dashboard
     api_response = api_instance.import_dashboard(body)
     pprint(api_response)
 except ApiException as e:

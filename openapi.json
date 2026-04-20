@@ -1035,7 +1035,7 @@
     },
     "/v1/dashboards/json": {
       "post": {
-        "summary": "Import a dashboard to another dashboard",
+        "summary": "Import a dashboard",
         "operationId": "ImportDashboard",
         "responses": {
           "200": {

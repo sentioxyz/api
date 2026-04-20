@@ -892,7 +892,7 @@ export class WebService {
     }
     
     /**
-     * Import a dashboard to another dashboard
+     * Import a dashboard
      */
     public static importDashboard<ThrowOnError extends boolean = false>(options: Options<web_service.ImportDashboardData, ThrowOnError>) {
         return (options.client ?? _heyApiClient).post<web_service.ImportDashboardResponse2, unknown, ThrowOnError>({
