@@ -5859,6 +5859,9 @@ ul.nav-tabs {
       "items" : {
         "$ref" : "#/components/schemas/web_service.OverlayGraph"
       }
+    },
+    "group" : {
+      "$ref" : "#/components/schemas/web_service.Group"
     }
   }
 };
@@ -6341,12 +6344,12 @@ ul.nav-tabs {
     defs["web_service.Chart.DataSourceType"] = {
   "type" : "string",
   "default" : "METRICS",
-  "enum" : [ "METRICS", "NOTES", "ANALYTICS", "INSIGHTS", "EVENTS", "RETENTION", "SQL" ]
+  "enum" : [ "METRICS", "NOTES", "ANALYTICS", "INSIGHTS", "EVENTS", "RETENTION", "SQL", "GROUP" ]
 };
     defs["web_service.ChartType"] = {
   "type" : "string",
   "default" : "LINE",
-  "enum" : [ "LINE", "AREA", "BAR", "BAR_GAUGE", "TABLE", "QUERY_VALUE", "PIE", "NOTE", "SCATTER" ]
+  "enum" : [ "LINE", "AREA", "BAR", "BAR_GAUGE", "TABLE", "QUERY_VALUE", "PIE", "NOTE", "SCATTER", "GROUP" ]
 };
     defs["web_service.Dashboard"] = {
   "type" : "object",
@@ -6676,6 +6679,21 @@ ul.nav-tabs {
     }
   }
 };
+    defs["web_service.Group"] = {
+  "type" : "object",
+  "properties" : {
+    "title" : {
+      "type" : "string"
+    },
+    "collapsed" : {
+      "type" : "boolean"
+    },
+    "childLayouts" : {
+      "$ref" : "#/components/schemas/web_service.Dashboard.ResponsiveLayouts"
+    }
+  },
+  "description" : "Configuration for a GROUP-typed Panel — a collapsible container that holds\nother panels referencing it via Panel.group_id. Groups cannot nest."
+};
     defs["web_service.ImportDashboardRequest"] = {
   "required" : [ "dashboardId", "dashboardJson" ],
   "type" : "object",
@@ -6816,6 +6834,10 @@ ul.nav-tabs {
     },
     "updater" : {
       "$ref" : "#/components/schemas/common.UserInfo"
+    },
+    "groupId" : {
+      "type" : "string",
+      "description" : "When non-empty, this panel renders inside the Group panel identified by group_id.\nGROUP-typed panels must keep this field empty (groups cannot nest)."
     }
   }
 };

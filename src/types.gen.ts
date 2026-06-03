@@ -3069,8 +3069,9 @@ export namespace web_service {
         sqlExecuteEngine?: analytic_service.ExecuteEngine;
         enableExperimentalFeatures?: boolean;
         overlayGraphs?: Array<OverlayGraph>;
+        group?: Group;
     };
-    export type ChartDataSourceType = 'METRICS' | 'NOTES' | 'ANALYTICS' | 'INSIGHTS' | 'EVENTS' | 'RETENTION' | 'SQL';
+    export type ChartDataSourceType = 'METRICS' | 'NOTES' | 'ANALYTICS' | 'INSIGHTS' | 'EVENTS' | 'RETENTION' | 'SQL' | 'GROUP';
     export type ChartConfig = {
         yAxis?: ChartConfigYAxisConfig;
         barGauge?: ChartConfigBarGaugeConfig;
@@ -3228,7 +3229,7 @@ export namespace web_service {
         column?: string;
         name?: string;
     };
-    export type ChartType2 = 'LINE' | 'AREA' | 'BAR' | 'BAR_GAUGE' | 'TABLE' | 'QUERY_VALUE' | 'PIE' | 'NOTE' | 'SCATTER';
+    export type ChartType2 = 'LINE' | 'AREA' | 'BAR' | 'BAR_GAUGE' | 'TABLE' | 'QUERY_VALUE' | 'PIE' | 'NOTE' | 'SCATTER' | 'GROUP';
     export type Dashboard = {
         id?: string;
         name?: string;
@@ -3332,6 +3333,15 @@ export namespace web_service {
         dashboards?: Array<Dashboard>;
         permissions?: Array<common.Permission>;
     };
+    /**
+     * Configuration for a GROUP-typed Panel — a collapsible container that holds
+     * other panels referencing it via Panel.group_id. Groups cannot nest.
+     */
+    export type Group = {
+        title?: string;
+        collapsed?: boolean;
+        childLayouts?: DashboardResponsiveLayouts;
+    };
     export type ImportDashboardRequest = {
         /**
          * The id of the target dashboard to import into.
@@ -3384,6 +3394,11 @@ export namespace web_service {
         chart?: Chart;
         creator?: common.UserInfo;
         updater?: common.UserInfo;
+        /**
+         * When non-empty, this panel renders inside the Group panel identified by group_id.
+         * GROUP-typed panels must keep this field empty (groups cannot nest).
+         */
+        groupId?: string;
     };
     export type SharingConfig = {
         isReadonly?: boolean;
