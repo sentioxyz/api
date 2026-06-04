@@ -3341,7 +3341,18 @@ export namespace web_service {
         title?: string;
         collapsed?: boolean;
         childLayouts?: DashboardResponsiveLayouts;
+        style?: GroupStyle;
+        /**
+         * Palette key (e.g. "green", "purple") used to derive the header
+         * background. Empty string keeps the theme default.
+         */
+        highlightColor?: string;
     };
+    /**
+     * Visual treatment for the Group's header card. Default = plain border;
+     * Emphasis = solid highlight_color tint behind the title row.
+     */
+    export type GroupStyle = 'DEFAULT' | 'EMPHASIS';
     export type ImportDashboardRequest = {
         /**
          * The id of the target dashboard to import into.
