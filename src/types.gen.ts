@@ -2599,25 +2599,12 @@ export namespace solidity_service {
             [key: string]: string;
         };
     };
-    export type BlockPrice = {
-        blockNumber?: number;
-        estimatedTransactionCount?: number;
-        baseFeePerGas?: number;
-        blobBaseFeePerGas?: number;
-        estimatedPrices?: Array<EstimatedPrice>;
-    };
     export type ChainIdentifier = {
         chainId?: string;
         forkId?: string;
     };
     export type CreateForkResponse = {
         fork?: Fork;
-    };
-    export type EstimatedPrice = {
-        confidence?: number;
-        price?: number;
-        maxPriorityFeePerGas?: number;
-        maxFeePerGas?: number;
     };
     export type EvmRawTransaction = {
         hash?: string;
@@ -2657,15 +2644,6 @@ export namespace solidity_service {
         fork: Fork;
     };
     export type ForkType = 'MANAGED' | 'EXTERNAL';
-    export type GetEstimatedGasPriceResponse = {
-        system?: string;
-        network?: string;
-        unit?: string;
-        maxPrice?: number;
-        currentBlockNumber?: number;
-        msSinceLastBlock?: number;
-        blockPrices?: Array<BlockPrice>;
-    };
     export type GetForkInfoResponse = {
         currentBlockNumber?: string;
         currentBlockTimestamp?: string;
@@ -2796,24 +2774,6 @@ export namespace solidity_service {
     export type UpdateForkResponse = {
         fork?: Fork;
     };
-    export type GetEstimatedGasPriceData = {
-        body?: never;
-        path?: never;
-        query?: {
-            /**
-             * Current support chain id: 1
-             */
-            chainId?: string;
-        };
-        url: '/v1/solidity/estimated_gas_price';
-    };
-    export type GetEstimatedGasPriceResponses = {
-        /**
-         * A successful response.
-         */
-        200: solidity_service.GetEstimatedGasPriceResponse;
-    };
-    export type GetEstimatedGasPriceResponse2 = GetEstimatedGasPriceResponses[keyof GetEstimatedGasPriceResponses];
     export type ListForksData = {
         body?: never;
         path: {

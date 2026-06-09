@@ -1305,237 +1305,6 @@ export class ProcessorExtService {
     
 }
 
-export class DebugAndSimulationService {
-    /**
-     * Estimate gas price
-     */
-    public static getEstimatedGasPrice<ThrowOnError extends boolean = false>(options?: Options<solidity_service.GetEstimatedGasPriceData, ThrowOnError>) {
-        return (options?.client ?? _heyApiClient).get<solidity_service.GetEstimatedGasPriceResponse2, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/estimated_gas_price',
-            ...options
-        });
-    }
-    
-    /**
-     * Search transactions
-     */
-    public static searchTransactions<ThrowOnError extends boolean = false>(options: Options<solidity_service.SearchTransactionsData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<solidity_service.SearchTransactionsResponse, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/search_transactions',
-            ...options
-        });
-    }
-    
-    /**
-     * Get list of simulations
-     */
-    public static getSimulations<ThrowOnError extends boolean = false>(options: Options<solidity_service.GetSimulationsData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<solidity_service.GetSimulationsResponse2, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/simulation',
-            ...options
-        });
-    }
-    
-    /**
-     * Get simulation by ID
-     */
-    public static getSimulation<ThrowOnError extends boolean = false>(options: Options<solidity_service.GetSimulationData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<solidity_service.GetSimulationResponse2, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/simulation/{simulationId}',
-            ...options
-        });
-    }
-    
-    /**
-     * Get bundle simulation by ID
-     */
-    public static getSimulationBundleInProject<ThrowOnError extends boolean = false>(options: Options<solidity_service.GetSimulationBundleInProjectData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<solidity_service.GetSimulationBundleInProjectResponse, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}',
-            ...options
-        });
-    }
-    
-    /**
-     * Get trace by bundle simulation
-     */
-    public static getCallTraceByBundle<ThrowOnError extends boolean = false>(options: Options<google.GetCallTraceByBundleData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<google.GetCallTraceByBundleResponse, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace',
-            ...options
-        });
-    }
-    
-    /**
-     * Run simulation
-     * Create a new transaction simulation. The simulation body should be included in the request body.
-     * Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
-     */
-    public static simulateTransaction<ThrowOnError extends boolean = false>(options: Options<solidity_service.SimulateTransactionData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).post<solidity_service.SimulateTransactionResponse2, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers
-            }
-        });
-    }
-    
-    /**
-     * Get trace by simulation
-     */
-    public static getCallTraceBySimulation<ThrowOnError extends boolean = false>(options: Options<google.GetCallTraceBySimulationData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<google.GetCallTraceBySimulationResponse, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace',
-            ...options
-        });
-    }
-    
-    /**
-     * Run bundle simulation
-     * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
-     */
-    public static simulateTransactionBundle<ThrowOnError extends boolean = false>(options: Options<solidity_service.SimulateTransactionBundleData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).post<solidity_service.SimulateTransactionBundleResponse2, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle',
-            ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options?.headers
-            }
-        });
-    }
-    
-    /**
-     * Get trace by transaction
-     * API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.
-     *
-     * The results looks very similar to the normal [Ethereum call trace](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.
-     *
-     * This allows you to build chart that marks the order of fund flow.
-     *
-     * ![screenshot](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/image%20(2)%20(1)%20(1)%20(1).png)
-     */
-    public static getCallTraceByTransaction<ThrowOnError extends boolean = false>(options: Options<google.GetCallTraceByTransactionData, ThrowOnError>) {
-        return (options.client ?? _heyApiClient).get<google.GetCallTraceByTransactionResponse, unknown, ThrowOnError>({
-            security: [
-                {
-                    name: 'api-key',
-                    type: 'apiKey'
-                },
-                {
-                    in: 'query',
-                    name: 'api-key',
-                    type: 'apiKey'
-                }
-            ],
-            url: '/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace',
-            ...options
-        });
-    }
-    
-}
-
 export class ForksService {
     /**
      * List all forks
@@ -1780,6 +1549,216 @@ export class ForksService {
                 }
             ],
             url: '/v1/solidity/{owner}/{slug}/fork/{id}/info',
+            ...options
+        });
+    }
+    
+}
+
+export class DebugAndSimulationService {
+    /**
+     * Search transactions
+     */
+    public static searchTransactions<ThrowOnError extends boolean = false>(options: Options<solidity_service.SearchTransactionsData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<solidity_service.SearchTransactionsResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/search_transactions',
+            ...options
+        });
+    }
+    
+    /**
+     * Get list of simulations
+     */
+    public static getSimulations<ThrowOnError extends boolean = false>(options: Options<solidity_service.GetSimulationsData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<solidity_service.GetSimulationsResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/simulation',
+            ...options
+        });
+    }
+    
+    /**
+     * Get simulation by ID
+     */
+    public static getSimulation<ThrowOnError extends boolean = false>(options: Options<solidity_service.GetSimulationData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<solidity_service.GetSimulationResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/simulation/{simulationId}',
+            ...options
+        });
+    }
+    
+    /**
+     * Get bundle simulation by ID
+     */
+    public static getSimulationBundleInProject<ThrowOnError extends boolean = false>(options: Options<solidity_service.GetSimulationBundleInProjectData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<solidity_service.GetSimulationBundleInProjectResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/simulation_bundle/{bundleId}',
+            ...options
+        });
+    }
+    
+    /**
+     * Get trace by bundle simulation
+     */
+    public static getCallTraceByBundle<ThrowOnError extends boolean = false>(options: Options<google.GetCallTraceByBundleData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<google.GetCallTraceByBundleResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/{chainId}/bundle/{bundleId}/call_trace',
+            ...options
+        });
+    }
+    
+    /**
+     * Run simulation
+     * Create a new transaction simulation. The simulation body should be included in the request body.
+     * Your simulations will be saved, and a unique ID for each simulation is included in the response. It will be useful for fetching simulation details.
+     */
+    public static simulateTransaction<ThrowOnError extends boolean = false>(options: Options<solidity_service.SimulateTransactionData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).post<solidity_service.SimulateTransactionResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
+    }
+    
+    /**
+     * Get trace by simulation
+     */
+    public static getCallTraceBySimulation<ThrowOnError extends boolean = false>(options: Options<google.GetCallTraceBySimulationData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<google.GetCallTraceBySimulationResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation/{simulationId}/call_trace',
+            ...options
+        });
+    }
+    
+    /**
+     * Run bundle simulation
+     * You could also create bundle simulations so that one transaction could be executed one after another. For `blockNumber` `transactionIndex` `networkId` `stateOverrides` and `blockOverrides` fields, only the first simulation takes effect.
+     */
+    public static simulateTransactionBundle<ThrowOnError extends boolean = false>(options: Options<solidity_service.SimulateTransactionBundleData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).post<solidity_service.SimulateTransactionBundleResponse2, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/{chainId}/simulation_bundle',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options?.headers
+            }
+        });
+    }
+    
+    /**
+     * Get trace by transaction
+     * API to get Sentio call trace. It takes `txId.txHash` and `chainSpec.chainId` arguments, where the first is transaction hash, and the second is the numeric ethereum chain ID.
+     *
+     * The results looks very similar to the normal [Ethereum call trace](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/image%20(2)%20(1)%20(1)%20(1).png). But we have an additional `startIndex` and `startIndex` on each trace entry even for the LOG, representing the execution order in the trace.
+     *
+     * This allows you to build chart that marks the order of fund flow.
+     *
+     * ![screenshot](https://media.githubusercontent.com/media/sentioxyz/docs/HEAD/assets/image%20(2)%20(1)%20(1)%20(1).png)
+     */
+    public static getCallTraceByTransaction<ThrowOnError extends boolean = false>(options: Options<google.GetCallTraceByTransactionData, ThrowOnError>) {
+        return (options.client ?? _heyApiClient).get<google.GetCallTraceByTransactionResponse, unknown, ThrowOnError>({
+            security: [
+                {
+                    name: 'api-key',
+                    type: 'apiKey'
+                },
+                {
+                    in: 'query',
+                    name: 'api-key',
+                    type: 'apiKey'
+                }
+            ],
+            url: '/v1/solidity/{owner}/{slug}/{chainId}/transaction/{txHash}/call_trace',
             ...options
         });
     }
