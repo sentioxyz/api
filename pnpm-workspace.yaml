@@ -1,0 +1,11 @@
+# Disable the minimum-release-age supply-chain gate. Recent pnpm 11.x enables
+# it by default (reject deps published within the last 24h), which blocks our
+# own freshly-published @sentio/connect-gateway-es and routine @connectrpc
+# patch bumps for a day after release — friction without value for this
+# package's small, trusted dependency set. 0 = no age requirement.
+minimumReleaseAge: 0
+
+# pnpm 11 errors on ignored build scripts unless explicitly approved here.
+# esbuild (via tsx) ships a legitimate postinstall build.
+allowBuilds:
+  esbuild: true
