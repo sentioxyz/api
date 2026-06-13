@@ -1,14 +1,18 @@
-import { client, WebService } from "../src/index.js";
-import test from "node:test";
-import assert from "assert";
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import { createSentioClient, createSentioTransport, WebService, InsightsService } from '../src/index.js'
 
-test("listDashboards", async () => {
-  const apiKey = process.env.SENTIO_API_KEY;
-  assert(apiKey, "API key can't be found for the test");
+test('constructs clients offline', () => {
+  const transport = createSentioTransport({ apiKey: 'dummy' })
+  assert.ok(transport)
+  const web = createSentioClient(WebService, { apiKey: 'dummy' })
+  assert.equal(typeof web.listDashboards, 'function')
+  const insights = createSentioClient(InsightsService, { apiKey: 'dummy' })
+  assert.equal(typeof insights.query, 'function')
+})
 
-  client.setConfig({
-    auth: process.env.SENTIO_API_KEY,
-  });
-  const dashboards = await WebService.listDashboards();
-  console.log(dashboards);
-});
+test('listDashboards', { skip: !process.env.SENTIO_API_KEY }, async () => {
+  const web = createSentioClient(WebService, { apiKey: process.env.SENTIO_API_KEY })
+  const dashboards = await web.listDashboards({})
+  console.log(dashboards)
+})
