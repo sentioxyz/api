@@ -1,6 +1,6 @@
 # Sentio API
 
-[![npm version](https://badge.fury.io/js/@sentio%2Fapi.svg)](https://npmjs.com/package/@sentio/api) [![Release](https://github.com/sentioxyz/api/actions/workflows/cut-release.yaml/badge.svg)](https://github.com/sentioxyz/api/actions/workflows/cut-release.yaml)
+[![npm version](https://img.shields.io/npm/v/@sentio/api.svg)](https://www.npmjs.com/package/@sentio/api) [![Release](https://github.com/sentioxyz/api/actions/workflows/cut-release.yaml/badge.svg)](https://github.com/sentioxyz/api/actions/workflows/cut-release.yaml)
 
 TypeScript client for the [Sentio](https://sentio.xyz) API. The bindings are
 generated from Sentio's protobuf definitions with
@@ -10,10 +10,10 @@ through [connect-es](https://github.com/connectrpc/connect-es) with the
 transport — fully typed requests and responses, including server-streaming
 endpoints.
 
-> **v3 is a breaking rewrite.** v2 (`openapi-ts` based: `client.setConfig` +
+> **v2 is a breaking rewrite.** v1 (`openapi-ts` based: `client.setConfig` +
 > static service classes) is replaced by connect-es style clients. The REST
 > API itself is unchanged; see the examples below for the new shapes. The
-> package is ESM-only and requires Node 20+.
+> package is ESM-only and requires Node 24+.
 
 ## Setup
 
