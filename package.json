@@ -12,7 +12,8 @@
     "./gen/*": "./dist/src/gen/*"
   },
   "files": [
-    "{dist,src}",
+    "dist",
+    "src",
     "!dist/test"
   ],
   "sideEffects": false,
