@@ -12,7 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file service/price/protos/price.proto.
  */
 export const file_service_price_protos_price: GenFile = /*@__PURE__*/
-  fileDesc("CiBzZXJ2aWNlL3ByaWNlL3Byb3Rvcy9wcmljZS5wcm90bxINcHJpY2Vfc2VydmljZSKRAQoGQ29pbklEEhAKBnN5bWJvbBgCIAEoCUgAEjoKB2FkZHJlc3MYAyABKAsyJy5wcmljZV9zZXJ2aWNlLkNvaW5JRC5BZGRyZXNzSWRlbnRpZmllckgAGjMKEUFkZHJlc3NJZGVudGlmaWVyEg8KB2FkZHJlc3MYASABKAkSDQoFY2hhaW4YAiABKAlCBAoCaWQiLgoQRXhwZXJpbWVudGFsRmxhZxIaChJlbmFibGVfcHl0aF9zb3VyY2UYASABKAgizwEKD0dldFByaWNlUmVxdWVzdBItCgl0aW1lc3RhbXAYASABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEiYKB2NvaW5faWQYAiABKAsyFS5wcmljZV9zZXJ2aWNlLkNvaW5JRBIOCgZzb3VyY2UYAyABKAkSPwoRZXhwZXJpbWVudGFsX2ZsYWcYZCABKAsyHy5wcmljZV9zZXJ2aWNlLkV4cGVyaW1lbnRhbEZsYWdIAIgBAUIUChJfZXhwZXJpbWVudGFsX2ZsYWcicAoQR2V0UHJpY2VSZXNwb25zZRINCgVwcmljZRgBIAEoARItCgl0aW1lc3RhbXAYAiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhMKBnNvdXJjZRgDIAEoCUgAiAEBQgkKB19zb3VyY2UixwEKFUJhdGNoR2V0UHJpY2VzUmVxdWVzdBIuCgp0aW1lc3RhbXBzGAEgAygLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBInCghjb2luX2lkcxgCIAMoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEEj8KEWV4cGVyaW1lbnRhbF9mbGFnGGQgASgLMh8ucHJpY2Vfc2VydmljZS5FeHBlcmltZW50YWxGbGFnSACIAQFCFAoSX2V4cGVyaW1lbnRhbF9mbGFnIrECChZCYXRjaEdldFByaWNlc1Jlc3BvbnNlEj8KBnByaWNlcxgBIAMoCzIvLnByaWNlX3NlcnZpY2UuQmF0Y2hHZXRQcmljZXNSZXNwb25zZS5Db2luUHJpY2Ua1QEKCUNvaW5QcmljZRImCgdjb2luX2lkGAEgASgLMhUucHJpY2Vfc2VydmljZS5Db2luSUQSRgoFcHJpY2UYAiABKAsyNS5wcmljZV9zZXJ2aWNlLkJhdGNoR2V0UHJpY2VzUmVzcG9uc2UuQ29pblByaWNlLlByaWNlSAASDwoFZXJyb3IYAyABKAlIABo5CgVQcmljZRIwCgdyZXN1bHRzGAEgAygLMh8ucHJpY2Vfc2VydmljZS5HZXRQcmljZVJlc3BvbnNlQgwKCnByaWNlX3R5cGUiVgoQTGlzdENvaW5zUmVxdWVzdBINCgVsaW1pdBgBIAEoBRIOCgZvZmZzZXQYAiABKAUSFAoMc2VhcmNoX3F1ZXJ5GAMgASgJEg0KBWNoYWluGAQgASgJIuoBChFMaXN0Q29pbnNSZXNwb25zZRIkCgVjb2lucxgBIAMoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEElsKF2NvaW5fYWRkcmVzc2VzX2luX2NoYWluGAIgAygLMjoucHJpY2Vfc2VydmljZS5MaXN0Q29pbnNSZXNwb25zZS5Db2luQWRkcmVzc2VzSW5DaGFpbkVudHJ5GlIKGUNvaW5BZGRyZXNzZXNJbkNoYWluRW50cnkSCwoDa2V5GAEgASgJEiQKBXZhbHVlGAIgASgLMhUucHJpY2Vfc2VydmljZS5Db2luSUQ6AjgBIpkCChhDaGVja0xhdGVzdFByaWNlUmVzcG9uc2USQQoGcHJpY2VzGAEgAygLMjEucHJpY2Vfc2VydmljZS5DaGVja0xhdGVzdFByaWNlUmVzcG9uc2UuQ29pblByaWNlEkcKDGxhdGVzdF9wcmljZRgCIAEoCzIxLnByaWNlX3NlcnZpY2UuQ2hlY2tMYXRlc3RQcmljZVJlc3BvbnNlLkNvaW5QcmljZRpxCglDb2luUHJpY2USJgoHY29pbl9pZBgBIAEoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEEg0KBXByaWNlGAIgASgBEi0KCXRpbWVzdGFtcBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiLQoVQWRkQ29pbkJ5R2Vja29SZXF1ZXN0EhQKDGNvaW5nZWNrb19pZBgBIAEoCSKBAwoWQWRkQ29pbkJ5R2Vja29SZXNwb25zZRI8CgZzdGF0dXMYASABKA4yLC5wcmljZV9zZXJ2aWNlLkFkZENvaW5CeUdlY2tvUmVzcG9uc2UuU3RhdHVzEg8KB21lc3NhZ2UYAiABKAkSFQoNY3VycmVudF9wcmljZRgDIAEoARItCgl0aW1lc3RhbXAYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEg4KBnN5bWJvbBgFIAEoCRIkCgVjb2lucxgGIAMoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEIpsBCgZTdGF0dXMSBgoCT0sQABISCg5BTFJFQURZX0VYSVNUUxABEhoKFk1JU01BVENIX1dJVEhfRVhJU1RJTkcQAhITCg9HRUNLT19OT1RfRk9VTkQQAxIkCiBHRUNLT19SRVRVUk5fTk9OX1NVUFBPUlRFRF9DSEFJThAEEh4KGkdFQ0tPX0hBU19EVVBMSUNBVEVfU1lNQk9MEAUy6gQKDFByaWNlU2VydmljZRJjCghHZXRQcmljZRIeLnByaWNlX3NlcnZpY2UuR2V0UHJpY2VSZXF1ZXN0Gh8ucHJpY2Vfc2VydmljZS5HZXRQcmljZVJlc3BvbnNlIhaC0+STAhASDi9hcGkvdjEvcHJpY2VzEn4KDkJhdGNoR2V0UHJpY2VzEiQucHJpY2Vfc2VydmljZS5CYXRjaEdldFByaWNlc1JlcXVlc3QaJS5wcmljZV9zZXJ2aWNlLkJhdGNoR2V0UHJpY2VzUmVzcG9uc2UiH4LT5JMCGSIUL2FwaS92MS9wcmljZXMvYmF0Y2g6ASoSbAoJTGlzdENvaW5zEh8ucHJpY2Vfc2VydmljZS5MaXN0Q29pbnNSZXF1ZXN0GiAucHJpY2Vfc2VydmljZS5MaXN0Q29pbnNSZXNwb25zZSIcgtPkkwIWEhQvYXBpL3YxL3ByaWNlcy9jb2lucxJ4ChBDaGVja0xhdGVzdFByaWNlEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5GicucHJpY2Vfc2VydmljZS5DaGVja0xhdGVzdFByaWNlUmVzcG9uc2UiI4LT5JMCHRIbL2FwaS92MS9wcmljZXMvY2hlY2tfbGF0ZXN0EooBCg5BZGRDb2luQnlHZWNrbxIkLnByaWNlX3NlcnZpY2UuQWRkQ29pbkJ5R2Vja29SZXF1ZXN0GiUucHJpY2Vfc2VydmljZS5BZGRDb2luQnlHZWNrb1Jlc3BvbnNlIiuC0+STAiUiIC9hcGkvdjEvcHJpY2VzL2FkZF9jb2luX2J5X2dlY2tvOgEqGgBCJ1olc2VudGlveHl6L3NlbnRpby9zZXJ2aWNlL3ByaWNlL3Byb3Rvc2IGcHJvdG8z", [file_google_protobuf_timestamp, file_google_protobuf_empty]);
+  fileDesc("CiBzZXJ2aWNlL3ByaWNlL3Byb3Rvcy9wcmljZS5wcm90bxINcHJpY2Vfc2VydmljZSKRAQoGQ29pbklEEhAKBnN5bWJvbBgCIAEoCUgAEjoKB2FkZHJlc3MYAyABKAsyJy5wcmljZV9zZXJ2aWNlLkNvaW5JRC5BZGRyZXNzSWRlbnRpZmllckgAGjMKEUFkZHJlc3NJZGVudGlmaWVyEg8KB2FkZHJlc3MYASABKAkSDQoFY2hhaW4YAiABKAlCBAoCaWQiLgoQRXhwZXJpbWVudGFsRmxhZxIaChJlbmFibGVfcHl0aF9zb3VyY2UYASABKAgizwEKD0dldFByaWNlUmVxdWVzdBItCgl0aW1lc3RhbXAYASABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEiYKB2NvaW5faWQYAiABKAsyFS5wcmljZV9zZXJ2aWNlLkNvaW5JRBIOCgZzb3VyY2UYAyABKAkSPwoRZXhwZXJpbWVudGFsX2ZsYWcYZCABKAsyHy5wcmljZV9zZXJ2aWNlLkV4cGVyaW1lbnRhbEZsYWdIAIgBAUIUChJfZXhwZXJpbWVudGFsX2ZsYWcicAoQR2V0UHJpY2VSZXNwb25zZRINCgVwcmljZRgBIAEoARItCgl0aW1lc3RhbXAYAiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhMKBnNvdXJjZRgDIAEoCUgAiAEBQgkKB19zb3VyY2UixwEKFUJhdGNoR2V0UHJpY2VzUmVxdWVzdBIuCgp0aW1lc3RhbXBzGAEgAygLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBInCghjb2luX2lkcxgCIAMoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEEj8KEWV4cGVyaW1lbnRhbF9mbGFnGGQgASgLMh8ucHJpY2Vfc2VydmljZS5FeHBlcmltZW50YWxGbGFnSACIAQFCFAoSX2V4cGVyaW1lbnRhbF9mbGFnIrECChZCYXRjaEdldFByaWNlc1Jlc3BvbnNlEj8KBnByaWNlcxgBIAMoCzIvLnByaWNlX3NlcnZpY2UuQmF0Y2hHZXRQcmljZXNSZXNwb25zZS5Db2luUHJpY2Ua1QEKCUNvaW5QcmljZRImCgdjb2luX2lkGAEgASgLMhUucHJpY2Vfc2VydmljZS5Db2luSUQSRgoFcHJpY2UYAiABKAsyNS5wcmljZV9zZXJ2aWNlLkJhdGNoR2V0UHJpY2VzUmVzcG9uc2UuQ29pblByaWNlLlByaWNlSAASDwoFZXJyb3IYAyABKAlIABo5CgVQcmljZRIwCgdyZXN1bHRzGAEgAygLMh8ucHJpY2Vfc2VydmljZS5HZXRQcmljZVJlc3BvbnNlQgwKCnByaWNlX3R5cGUiVgoQTGlzdENvaW5zUmVxdWVzdBINCgVsaW1pdBgBIAEoBRIOCgZvZmZzZXQYAiABKAUSFAoMc2VhcmNoX3F1ZXJ5GAMgASgJEg0KBWNoYWluGAQgASgJIuoBChFMaXN0Q29pbnNSZXNwb25zZRIkCgVjb2lucxgBIAMoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEElsKF2NvaW5fYWRkcmVzc2VzX2luX2NoYWluGAIgAygLMjoucHJpY2Vfc2VydmljZS5MaXN0Q29pbnNSZXNwb25zZS5Db2luQWRkcmVzc2VzSW5DaGFpbkVudHJ5GlIKGUNvaW5BZGRyZXNzZXNJbkNoYWluRW50cnkSCwoDa2V5GAEgASgJEiQKBXZhbHVlGAIgASgLMhUucHJpY2Vfc2VydmljZS5Db2luSUQ6AjgBIpkCChhDaGVja0xhdGVzdFByaWNlUmVzcG9uc2USQQoGcHJpY2VzGAEgAygLMjEucHJpY2Vfc2VydmljZS5DaGVja0xhdGVzdFByaWNlUmVzcG9uc2UuQ29pblByaWNlEkcKDGxhdGVzdF9wcmljZRgCIAEoCzIxLnByaWNlX3NlcnZpY2UuQ2hlY2tMYXRlc3RQcmljZVJlc3BvbnNlLkNvaW5QcmljZRpxCglDb2luUHJpY2USJgoHY29pbl9pZBgBIAEoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEEg0KBXByaWNlGAIgASgBEi0KCXRpbWVzdGFtcBgDIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiLQoVQWRkQ29pbkJ5R2Vja29SZXF1ZXN0EhQKDGNvaW5nZWNrb19pZBgBIAEoCSKBAwoWQWRkQ29pbkJ5R2Vja29SZXNwb25zZRI8CgZzdGF0dXMYASABKA4yLC5wcmljZV9zZXJ2aWNlLkFkZENvaW5CeUdlY2tvUmVzcG9uc2UuU3RhdHVzEg8KB21lc3NhZ2UYAiABKAkSFQoNY3VycmVudF9wcmljZRgDIAEoARItCgl0aW1lc3RhbXAYBCABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEg4KBnN5bWJvbBgFIAEoCRIkCgVjb2lucxgGIAMoCzIVLnByaWNlX3NlcnZpY2UuQ29pbklEIpsBCgZTdGF0dXMSBgoCT0sQABISCg5BTFJFQURZX0VYSVNUUxABEhoKFk1JU01BVENIX1dJVEhfRVhJU1RJTkcQAhITCg9HRUNLT19OT1RfRk9VTkQQAxIkCiBHRUNLT19SRVRVUk5fTk9OX1NVUFBPUlRFRF9DSEFJThAEEh4KGkdFQ0tPX0hBU19EVVBMSUNBVEVfU1lNQk9MEAUiKwoJQWRkcmVzc0lEEg0KBWNoYWluGAEgASgJEg8KB2FkZHJlc3MYAiABKAkiZAoIQXNzZXRSZWYSEgoIYXNzZXRfaWQYASABKAlIABIrCgdhZGRyZXNzGAIgASgLMhgucHJpY2Vfc2VydmljZS5BZGRyZXNzSURIABIQCgZzeW1ib2wYAyABKAlIAEIFCgNyZWYibAoKUHJpY2VQb2ludBIQCghhc3NldF9pZBgBIAEoCRINCgVwcmljZRgCIAEoARItCgl0aW1lc3RhbXAYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEg4KBnNvdXJjZRgEIAEoCSKWAQoOQXNzZXRDYW5kaWRhdGUSEAoIYXNzZXRfaWQYASABKAkSEwoLYXNzZXRfY2xhc3MYAiABKAkSDgoGc3ltYm9sGAMgASgJEgwKBG5hbWUYBCABKAkSEgoKbWFya2V0X2NhcBgFIAEoARIrCglhZGRyZXNzZXMYBiADKAsyGC5wcmljZV9zZXJ2aWNlLkFkZHJlc3NJRCJCCg1DYW5kaWRhdGVMaXN0EjEKCmNhbmRpZGF0ZXMYASADKAsyHS5wcmljZV9zZXJ2aWNlLkFzc2V0Q2FuZGlkYXRlIrQBChFHZXRQcmljZVYyUmVxdWVzdBImCgVhc3NldBgBIAEoCzIXLnByaWNlX3NlcnZpY2UuQXNzZXRSZWYSLQoJdGltZXN0YW1wGAIgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBITCgZzb3VyY2UYAyABKAlIAIgBARIYCgthc3NldF9jbGFzcxgEIAEoCUgBiAEBQgkKB19zb3VyY2VCDgoMX2Fzc2V0X2NsYXNzIn4KEkdldFByaWNlVjJSZXNwb25zZRIqCgVwcmljZRgBIAEoCzIZLnByaWNlX3NlcnZpY2UuUHJpY2VQb2ludEgAEjIKCmNhbmRpZGF0ZXMYAiABKAsyHC5wcmljZV9zZXJ2aWNlLkNhbmRpZGF0ZUxpc3RIAEIICgZyZXN1bHQiWgoLUHJpY2VTZXJpZXMSEAoIYXNzZXRfaWQYASABKAkSDgoGc291cmNlGAIgASgJEikKBnBvaW50cxgDIAMoCzIZLnByaWNlX3NlcnZpY2UuUHJpY2VQb2ludCLfAQoXR2V0UHJpY2VTZXJpZXNWMlJlcXVlc3QSJgoFYXNzZXQYASABKAsyFy5wcmljZV9zZXJ2aWNlLkFzc2V0UmVmEikKBXN0YXJ0GAIgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBInCgNlbmQYAyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEhMKBnNvdXJjZRgEIAEoCUgAiAEBEhgKC2Fzc2V0X2NsYXNzGAUgASgJSAGIAQFCCQoHX3NvdXJjZUIOCgxfYXNzZXRfY2xhc3MihgEKGEdldFByaWNlU2VyaWVzVjJSZXNwb25zZRIsCgZzZXJpZXMYASABKAsyGi5wcmljZV9zZXJ2aWNlLlByaWNlU2VyaWVzSAASMgoKY2FuZGlkYXRlcxgCIAEoCzIcLnByaWNlX3NlcnZpY2UuQ2FuZGlkYXRlTGlzdEgAQggKBnJlc3VsdCKSAQoXQmF0Y2hHZXRQcmljZXNWMlJlcXVlc3QSJwoGYXNzZXRzGAEgAygLMhcucHJpY2Vfc2VydmljZS5Bc3NldFJlZhIuCgp0aW1lc3RhbXBzGAIgAygLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBITCgZzb3VyY2UYAyABKAlIAIgBAUIJCgdfc291cmNlIoUCChhCYXRjaEdldFByaWNlc1YyUmVzcG9uc2USOwoFaXRlbXMYASADKAsyLC5wcmljZV9zZXJ2aWNlLkJhdGNoR2V0UHJpY2VzVjJSZXNwb25zZS5JdGVtGqsBCgRJdGVtEiYKBWFzc2V0GAEgASgLMhcucHJpY2Vfc2VydmljZS5Bc3NldFJlZhIsCgZzZXJpZXMYAiABKAsyGi5wcmljZV9zZXJ2aWNlLlByaWNlU2VyaWVzSAASMgoKY2FuZGlkYXRlcxgDIAEoCzIcLnByaWNlX3NlcnZpY2UuQ2FuZGlkYXRlTGlzdEgAEg8KBWVycm9yGAQgASgJSABCCAoGcmVzdWx0ImgKFFJlc29sdmVBc3NldHNSZXF1ZXN0EiYKBWFzc2V0GAEgASgLMhcucHJpY2Vfc2VydmljZS5Bc3NldFJlZhIYCgthc3NldF9jbGFzcxgCIAEoCUgAiAEBQg4KDF9hc3NldF9jbGFzcyJGChVSZXNvbHZlQXNzZXRzUmVzcG9uc2USLQoGYXNzZXRzGAEgAygLMh0ucHJpY2Vfc2VydmljZS5Bc3NldENhbmRpZGF0ZSJuChNMaXN0QXNzZXRzVjJSZXF1ZXN0Eg0KBWxpbWl0GAEgASgFEg4KBm9mZnNldBgCIAEoBRIUCgxzZWFyY2hfcXVlcnkYAyABKAkSDQoFY2hhaW4YBCABKAkSEwoLYXNzZXRfY2xhc3MYBSABKAkiRQoUTGlzdEFzc2V0c1YyUmVzcG9uc2USLQoGYXNzZXRzGAEgAygLMh0ucHJpY2Vfc2VydmljZS5Bc3NldENhbmRpZGF0ZSIuChZBZGRBc3NldEJ5R2Vja29SZXF1ZXN0EhQKDGNvaW5nZWNrb19pZBgBIAEoCSLfAgoXQWRkQXNzZXRCeUdlY2tvUmVzcG9uc2USPQoGc3RhdHVzGAEgASgOMi0ucHJpY2Vfc2VydmljZS5BZGRBc3NldEJ5R2Vja29SZXNwb25zZS5TdGF0dXMSDwoHbWVzc2FnZRgCIAEoCRIQCghhc3NldF9pZBgDIAEoCRIOCgZzeW1ib2wYBCABKAkSFQoNY3VycmVudF9wcmljZRgFIAEoARItCgl0aW1lc3RhbXAYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEisKCWFkZHJlc3NlcxgHIAMoCzIYLnByaWNlX3NlcnZpY2UuQWRkcmVzc0lEIl8KBlN0YXR1cxIGCgJPSxAAEhIKDkFMUkVBRFlfRVhJU1RTEAESEwoPR0VDS09fTk9UX0ZPVU5EEAISJAogR0VDS09fUkVUVVJOX05PTl9TVVBQT1JURURfQ0hBSU4QAzLqBAoMUHJpY2VTZXJ2aWNlEmMKCEdldFByaWNlEh4ucHJpY2Vfc2VydmljZS5HZXRQcmljZVJlcXVlc3QaHy5wcmljZV9zZXJ2aWNlLkdldFByaWNlUmVzcG9uc2UiFoLT5JMCEBIOL2FwaS92MS9wcmljZXMSfgoOQmF0Y2hHZXRQcmljZXMSJC5wcmljZV9zZXJ2aWNlLkJhdGNoR2V0UHJpY2VzUmVxdWVzdBolLnByaWNlX3NlcnZpY2UuQmF0Y2hHZXRQcmljZXNSZXNwb25zZSIfgtPkkwIZIhQvYXBpL3YxL3ByaWNlcy9iYXRjaDoBKhJsCglMaXN0Q29pbnMSHy5wcmljZV9zZXJ2aWNlLkxpc3RDb2luc1JlcXVlc3QaIC5wcmljZV9zZXJ2aWNlLkxpc3RDb2luc1Jlc3BvbnNlIhyC0+STAhYSFC9hcGkvdjEvcHJpY2VzL2NvaW5zEngKEENoZWNrTGF0ZXN0UHJpY2USFi5nb29nbGUucHJvdG9idWYuRW1wdHkaJy5wcmljZV9zZXJ2aWNlLkNoZWNrTGF0ZXN0UHJpY2VSZXNwb25zZSIjgtPkkwIdEhsvYXBpL3YxL3ByaWNlcy9jaGVja19sYXRlc3QSigEKDkFkZENvaW5CeUdlY2tvEiQucHJpY2Vfc2VydmljZS5BZGRDb2luQnlHZWNrb1JlcXVlc3QaJS5wcmljZV9zZXJ2aWNlLkFkZENvaW5CeUdlY2tvUmVzcG9uc2UiK4LT5JMCJSIgL2FwaS92MS9wcmljZXMvYWRkX2NvaW5fYnlfZ2Vja286ASoaADKVBgoOUHJpY2VTZXJ2aWNlVjISaQoKR2V0UHJpY2VWMhIgLnByaWNlX3NlcnZpY2UuR2V0UHJpY2VWMlJlcXVlc3QaIS5wcmljZV9zZXJ2aWNlLkdldFByaWNlVjJSZXNwb25zZSIWgtPkkwIQEg4vYXBpL3YyL3ByaWNlcxKCAQoQR2V0UHJpY2VTZXJpZXNWMhImLnByaWNlX3NlcnZpY2UuR2V0UHJpY2VTZXJpZXNWMlJlcXVlc3QaJy5wcmljZV9zZXJ2aWNlLkdldFByaWNlU2VyaWVzVjJSZXNwb25zZSIdgtPkkwIXEhUvYXBpL3YyL3ByaWNlcy9zZXJpZXMShAEKEEJhdGNoR2V0UHJpY2VzVjISJi5wcmljZV9zZXJ2aWNlLkJhdGNoR2V0UHJpY2VzVjJSZXF1ZXN0GicucHJpY2Vfc2VydmljZS5CYXRjaEdldFByaWNlc1YyUmVzcG9uc2UiH4LT5JMCGSIUL2FwaS92Mi9wcmljZXMvYmF0Y2g6ASoSgQEKDVJlc29sdmVBc3NldHMSIy5wcmljZV9zZXJ2aWNlLlJlc29sdmVBc3NldHNSZXF1ZXN0GiQucHJpY2Vfc2VydmljZS5SZXNvbHZlQXNzZXRzUmVzcG9uc2UiJYLT5JMCHxIdL2FwaS92Mi9wcmljZXMvYXNzZXRzL3Jlc29sdmUSdgoMTGlzdEFzc2V0c1YyEiIucHJpY2Vfc2VydmljZS5MaXN0QXNzZXRzVjJSZXF1ZXN0GiMucHJpY2Vfc2VydmljZS5MaXN0QXNzZXRzVjJSZXNwb25zZSIdgtPkkwIXEhUvYXBpL3YyL3ByaWNlcy9hc3NldHMSjwEKD0FkZEFzc2V0QnlHZWNrbxIlLnByaWNlX3NlcnZpY2UuQWRkQXNzZXRCeUdlY2tvUmVxdWVzdBomLnByaWNlX3NlcnZpY2UuQWRkQXNzZXRCeUdlY2tvUmVzcG9uc2UiLYLT5JMCJyIiL2FwaS92Mi9wcmljZXMvYXNzZXRzL2FkZF9ieV9nZWNrbzoBKkInWiVzZW50aW94eXovc2VudGlvL3NlcnZpY2UvcHJpY2UvcHJvdG9zYgZwcm90bzM", [file_google_protobuf_timestamp, file_google_protobuf_empty]);
 
 /**
  * @generated from message price_service.CoinID
@@ -710,6 +710,965 @@ export const AddCoinByGeckoResponse_StatusSchema: GenEnum<AddCoinByGeckoResponse
   enumDesc(file_service_price_protos_price, 10, 0);
 
 /**
+ * @generated from message price_service.AddressID
+ */
+export type AddressID = Message<"price_service.AddressID"> & {
+  /**
+   * @generated from field: string chain = 1;
+   */
+  chain: string;
+
+  /**
+   * @generated from field: string address = 2;
+   */
+  address: string;
+};
+
+/**
+ * @generated from message price_service.AddressID
+ */
+export type AddressIDJson = {
+  /**
+   * @generated from field: string chain = 1;
+   */
+  chain?: string;
+
+  /**
+   * @generated from field: string address = 2;
+   */
+  address?: string;
+};
+
+/**
+ * Describes the message price_service.AddressID.
+ * Use `create(AddressIDSchema)` to create a new message.
+ */
+export const AddressIDSchema: GenMessage<AddressID, {jsonType: AddressIDJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 11);
+
+/**
+ * @generated from message price_service.AssetRef
+ */
+export type AssetRef = Message<"price_service.AssetRef"> & {
+  /**
+   * @generated from oneof price_service.AssetRef.ref
+   */
+  ref: {
+    /**
+     * @generated from field: string asset_id = 1;
+     */
+    value: string;
+    case: "assetId";
+  } | {
+    /**
+     * @generated from field: price_service.AddressID address = 2;
+     */
+    value: AddressID;
+    case: "address";
+  } | {
+    /**
+     * @generated from field: string symbol = 3;
+     */
+    value: string;
+    case: "symbol";
+  } | { case: undefined; value?: undefined };
+};
+
+/**
+ * @generated from message price_service.AssetRef
+ */
+export type AssetRefJson = {
+  /**
+   * @generated from field: string asset_id = 1;
+   */
+  assetId?: string;
+
+  /**
+   * @generated from field: price_service.AddressID address = 2;
+   */
+  address?: AddressIDJson;
+
+  /**
+   * @generated from field: string symbol = 3;
+   */
+  symbol?: string;
+};
+
+/**
+ * Describes the message price_service.AssetRef.
+ * Use `create(AssetRefSchema)` to create a new message.
+ */
+export const AssetRefSchema: GenMessage<AssetRef, {jsonType: AssetRefJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 12);
+
+/**
+ * @generated from message price_service.PricePoint
+ */
+export type PricePoint = Message<"price_service.PricePoint"> & {
+  /**
+   * @generated from field: string asset_id = 1;
+   */
+  assetId: string;
+
+  /**
+   * @generated from field: double price = 2;
+   */
+  price: number;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 3;
+   */
+  timestamp?: Timestamp | undefined;
+
+  /**
+   * @generated from field: string source = 4;
+   */
+  source: string;
+};
+
+/**
+ * @generated from message price_service.PricePoint
+ */
+export type PricePointJson = {
+  /**
+   * @generated from field: string asset_id = 1;
+   */
+  assetId?: string;
+
+  /**
+   * @generated from field: double price = 2;
+   */
+  price?: number | "NaN" | "Infinity" | "-Infinity";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 3;
+   */
+  timestamp?: TimestampJson;
+
+  /**
+   * @generated from field: string source = 4;
+   */
+  source?: string;
+};
+
+/**
+ * Describes the message price_service.PricePoint.
+ * Use `create(PricePointSchema)` to create a new message.
+ */
+export const PricePointSchema: GenMessage<PricePoint, {jsonType: PricePointJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 13);
+
+/**
+ * @generated from message price_service.AssetCandidate
+ */
+export type AssetCandidate = Message<"price_service.AssetCandidate"> & {
+  /**
+   * @generated from field: string asset_id = 1;
+   */
+  assetId: string;
+
+  /**
+   * @generated from field: string asset_class = 2;
+   */
+  assetClass: string;
+
+  /**
+   * @generated from field: string symbol = 3;
+   */
+  symbol: string;
+
+  /**
+   * @generated from field: string name = 4;
+   */
+  name: string;
+
+  /**
+   * @generated from field: double market_cap = 5;
+   */
+  marketCap: number;
+
+  /**
+   * @generated from field: repeated price_service.AddressID addresses = 6;
+   */
+  addresses: AddressID[];
+};
+
+/**
+ * @generated from message price_service.AssetCandidate
+ */
+export type AssetCandidateJson = {
+  /**
+   * @generated from field: string asset_id = 1;
+   */
+  assetId?: string;
+
+  /**
+   * @generated from field: string asset_class = 2;
+   */
+  assetClass?: string;
+
+  /**
+   * @generated from field: string symbol = 3;
+   */
+  symbol?: string;
+
+  /**
+   * @generated from field: string name = 4;
+   */
+  name?: string;
+
+  /**
+   * @generated from field: double market_cap = 5;
+   */
+  marketCap?: number | "NaN" | "Infinity" | "-Infinity";
+
+  /**
+   * @generated from field: repeated price_service.AddressID addresses = 6;
+   */
+  addresses?: AddressIDJson[];
+};
+
+/**
+ * Describes the message price_service.AssetCandidate.
+ * Use `create(AssetCandidateSchema)` to create a new message.
+ */
+export const AssetCandidateSchema: GenMessage<AssetCandidate, {jsonType: AssetCandidateJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 14);
+
+/**
+ * @generated from message price_service.CandidateList
+ */
+export type CandidateList = Message<"price_service.CandidateList"> & {
+  /**
+   * @generated from field: repeated price_service.AssetCandidate candidates = 1;
+   */
+  candidates: AssetCandidate[];
+};
+
+/**
+ * @generated from message price_service.CandidateList
+ */
+export type CandidateListJson = {
+  /**
+   * @generated from field: repeated price_service.AssetCandidate candidates = 1;
+   */
+  candidates?: AssetCandidateJson[];
+};
+
+/**
+ * Describes the message price_service.CandidateList.
+ * Use `create(CandidateListSchema)` to create a new message.
+ */
+export const CandidateListSchema: GenMessage<CandidateList, {jsonType: CandidateListJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 15);
+
+/**
+ * @generated from message price_service.GetPriceV2Request
+ */
+export type GetPriceV2Request = Message<"price_service.GetPriceV2Request"> & {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRef | undefined;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
+   */
+  timestamp?: Timestamp | undefined;
+
+  /**
+   * @generated from field: optional string source = 3;
+   */
+  source?: string | undefined;
+
+  /**
+   * @generated from field: optional string asset_class = 4;
+   */
+  assetClass?: string | undefined;
+};
+
+/**
+ * @generated from message price_service.GetPriceV2Request
+ */
+export type GetPriceV2RequestJson = {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRefJson;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 2;
+   */
+  timestamp?: TimestampJson;
+
+  /**
+   * @generated from field: optional string source = 3;
+   */
+  source?: string;
+
+  /**
+   * @generated from field: optional string asset_class = 4;
+   */
+  assetClass?: string;
+};
+
+/**
+ * Describes the message price_service.GetPriceV2Request.
+ * Use `create(GetPriceV2RequestSchema)` to create a new message.
+ */
+export const GetPriceV2RequestSchema: GenMessage<GetPriceV2Request, {jsonType: GetPriceV2RequestJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 16);
+
+/**
+ * @generated from message price_service.GetPriceV2Response
+ */
+export type GetPriceV2Response = Message<"price_service.GetPriceV2Response"> & {
+  /**
+   * @generated from oneof price_service.GetPriceV2Response.result
+   */
+  result: {
+    /**
+     * @generated from field: price_service.PricePoint price = 1;
+     */
+    value: PricePoint;
+    case: "price";
+  } | {
+    /**
+     * @generated from field: price_service.CandidateList candidates = 2;
+     */
+    value: CandidateList;
+    case: "candidates";
+  } | { case: undefined; value?: undefined };
+};
+
+/**
+ * @generated from message price_service.GetPriceV2Response
+ */
+export type GetPriceV2ResponseJson = {
+  /**
+   * @generated from field: price_service.PricePoint price = 1;
+   */
+  price?: PricePointJson;
+
+  /**
+   * @generated from field: price_service.CandidateList candidates = 2;
+   */
+  candidates?: CandidateListJson;
+};
+
+/**
+ * Describes the message price_service.GetPriceV2Response.
+ * Use `create(GetPriceV2ResponseSchema)` to create a new message.
+ */
+export const GetPriceV2ResponseSchema: GenMessage<GetPriceV2Response, {jsonType: GetPriceV2ResponseJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 17);
+
+/**
+ * @generated from message price_service.PriceSeries
+ */
+export type PriceSeries = Message<"price_service.PriceSeries"> & {
+  /**
+   * @generated from field: string asset_id = 1;
+   */
+  assetId: string;
+
+  /**
+   * @generated from field: string source = 2;
+   */
+  source: string;
+
+  /**
+   * @generated from field: repeated price_service.PricePoint points = 3;
+   */
+  points: PricePoint[];
+};
+
+/**
+ * @generated from message price_service.PriceSeries
+ */
+export type PriceSeriesJson = {
+  /**
+   * @generated from field: string asset_id = 1;
+   */
+  assetId?: string;
+
+  /**
+   * @generated from field: string source = 2;
+   */
+  source?: string;
+
+  /**
+   * @generated from field: repeated price_service.PricePoint points = 3;
+   */
+  points?: PricePointJson[];
+};
+
+/**
+ * Describes the message price_service.PriceSeries.
+ * Use `create(PriceSeriesSchema)` to create a new message.
+ */
+export const PriceSeriesSchema: GenMessage<PriceSeries, {jsonType: PriceSeriesJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 18);
+
+/**
+ * @generated from message price_service.GetPriceSeriesV2Request
+ */
+export type GetPriceSeriesV2Request = Message<"price_service.GetPriceSeriesV2Request"> & {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRef | undefined;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start = 2;
+   */
+  start?: Timestamp | undefined;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end = 3;
+   */
+  end?: Timestamp | undefined;
+
+  /**
+   * @generated from field: optional string source = 4;
+   */
+  source?: string | undefined;
+
+  /**
+   * @generated from field: optional string asset_class = 5;
+   */
+  assetClass?: string | undefined;
+};
+
+/**
+ * @generated from message price_service.GetPriceSeriesV2Request
+ */
+export type GetPriceSeriesV2RequestJson = {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRefJson;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp start = 2;
+   */
+  start?: TimestampJson;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp end = 3;
+   */
+  end?: TimestampJson;
+
+  /**
+   * @generated from field: optional string source = 4;
+   */
+  source?: string;
+
+  /**
+   * @generated from field: optional string asset_class = 5;
+   */
+  assetClass?: string;
+};
+
+/**
+ * Describes the message price_service.GetPriceSeriesV2Request.
+ * Use `create(GetPriceSeriesV2RequestSchema)` to create a new message.
+ */
+export const GetPriceSeriesV2RequestSchema: GenMessage<GetPriceSeriesV2Request, {jsonType: GetPriceSeriesV2RequestJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 19);
+
+/**
+ * @generated from message price_service.GetPriceSeriesV2Response
+ */
+export type GetPriceSeriesV2Response = Message<"price_service.GetPriceSeriesV2Response"> & {
+  /**
+   * @generated from oneof price_service.GetPriceSeriesV2Response.result
+   */
+  result: {
+    /**
+     * @generated from field: price_service.PriceSeries series = 1;
+     */
+    value: PriceSeries;
+    case: "series";
+  } | {
+    /**
+     * @generated from field: price_service.CandidateList candidates = 2;
+     */
+    value: CandidateList;
+    case: "candidates";
+  } | { case: undefined; value?: undefined };
+};
+
+/**
+ * @generated from message price_service.GetPriceSeriesV2Response
+ */
+export type GetPriceSeriesV2ResponseJson = {
+  /**
+   * @generated from field: price_service.PriceSeries series = 1;
+   */
+  series?: PriceSeriesJson;
+
+  /**
+   * @generated from field: price_service.CandidateList candidates = 2;
+   */
+  candidates?: CandidateListJson;
+};
+
+/**
+ * Describes the message price_service.GetPriceSeriesV2Response.
+ * Use `create(GetPriceSeriesV2ResponseSchema)` to create a new message.
+ */
+export const GetPriceSeriesV2ResponseSchema: GenMessage<GetPriceSeriesV2Response, {jsonType: GetPriceSeriesV2ResponseJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 20);
+
+/**
+ * @generated from message price_service.BatchGetPricesV2Request
+ */
+export type BatchGetPricesV2Request = Message<"price_service.BatchGetPricesV2Request"> & {
+  /**
+   * @generated from field: repeated price_service.AssetRef assets = 1;
+   */
+  assets: AssetRef[];
+
+  /**
+   * @generated from field: repeated google.protobuf.Timestamp timestamps = 2;
+   */
+  timestamps: Timestamp[];
+
+  /**
+   * @generated from field: optional string source = 3;
+   */
+  source?: string | undefined;
+};
+
+/**
+ * @generated from message price_service.BatchGetPricesV2Request
+ */
+export type BatchGetPricesV2RequestJson = {
+  /**
+   * @generated from field: repeated price_service.AssetRef assets = 1;
+   */
+  assets?: AssetRefJson[];
+
+  /**
+   * @generated from field: repeated google.protobuf.Timestamp timestamps = 2;
+   */
+  timestamps?: TimestampJson[];
+
+  /**
+   * @generated from field: optional string source = 3;
+   */
+  source?: string;
+};
+
+/**
+ * Describes the message price_service.BatchGetPricesV2Request.
+ * Use `create(BatchGetPricesV2RequestSchema)` to create a new message.
+ */
+export const BatchGetPricesV2RequestSchema: GenMessage<BatchGetPricesV2Request, {jsonType: BatchGetPricesV2RequestJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 21);
+
+/**
+ * @generated from message price_service.BatchGetPricesV2Response
+ */
+export type BatchGetPricesV2Response = Message<"price_service.BatchGetPricesV2Response"> & {
+  /**
+   * @generated from field: repeated price_service.BatchGetPricesV2Response.Item items = 1;
+   */
+  items: BatchGetPricesV2Response_Item[];
+};
+
+/**
+ * @generated from message price_service.BatchGetPricesV2Response
+ */
+export type BatchGetPricesV2ResponseJson = {
+  /**
+   * @generated from field: repeated price_service.BatchGetPricesV2Response.Item items = 1;
+   */
+  items?: BatchGetPricesV2Response_ItemJson[];
+};
+
+/**
+ * Describes the message price_service.BatchGetPricesV2Response.
+ * Use `create(BatchGetPricesV2ResponseSchema)` to create a new message.
+ */
+export const BatchGetPricesV2ResponseSchema: GenMessage<BatchGetPricesV2Response, {jsonType: BatchGetPricesV2ResponseJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 22);
+
+/**
+ * @generated from message price_service.BatchGetPricesV2Response.Item
+ */
+export type BatchGetPricesV2Response_Item = Message<"price_service.BatchGetPricesV2Response.Item"> & {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRef | undefined;
+
+  /**
+   * @generated from oneof price_service.BatchGetPricesV2Response.Item.result
+   */
+  result: {
+    /**
+     * @generated from field: price_service.PriceSeries series = 2;
+     */
+    value: PriceSeries;
+    case: "series";
+  } | {
+    /**
+     * @generated from field: price_service.CandidateList candidates = 3;
+     */
+    value: CandidateList;
+    case: "candidates";
+  } | {
+    /**
+     * @generated from field: string error = 4;
+     */
+    value: string;
+    case: "error";
+  } | { case: undefined; value?: undefined };
+};
+
+/**
+ * @generated from message price_service.BatchGetPricesV2Response.Item
+ */
+export type BatchGetPricesV2Response_ItemJson = {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRefJson;
+
+  /**
+   * @generated from field: price_service.PriceSeries series = 2;
+   */
+  series?: PriceSeriesJson;
+
+  /**
+   * @generated from field: price_service.CandidateList candidates = 3;
+   */
+  candidates?: CandidateListJson;
+
+  /**
+   * @generated from field: string error = 4;
+   */
+  error?: string;
+};
+
+/**
+ * Describes the message price_service.BatchGetPricesV2Response.Item.
+ * Use `create(BatchGetPricesV2Response_ItemSchema)` to create a new message.
+ */
+export const BatchGetPricesV2Response_ItemSchema: GenMessage<BatchGetPricesV2Response_Item, {jsonType: BatchGetPricesV2Response_ItemJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 22, 0);
+
+/**
+ * @generated from message price_service.ResolveAssetsRequest
+ */
+export type ResolveAssetsRequest = Message<"price_service.ResolveAssetsRequest"> & {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRef | undefined;
+
+  /**
+   * @generated from field: optional string asset_class = 2;
+   */
+  assetClass?: string | undefined;
+};
+
+/**
+ * @generated from message price_service.ResolveAssetsRequest
+ */
+export type ResolveAssetsRequestJson = {
+  /**
+   * @generated from field: price_service.AssetRef asset = 1;
+   */
+  asset?: AssetRefJson;
+
+  /**
+   * @generated from field: optional string asset_class = 2;
+   */
+  assetClass?: string;
+};
+
+/**
+ * Describes the message price_service.ResolveAssetsRequest.
+ * Use `create(ResolveAssetsRequestSchema)` to create a new message.
+ */
+export const ResolveAssetsRequestSchema: GenMessage<ResolveAssetsRequest, {jsonType: ResolveAssetsRequestJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 23);
+
+/**
+ * @generated from message price_service.ResolveAssetsResponse
+ */
+export type ResolveAssetsResponse = Message<"price_service.ResolveAssetsResponse"> & {
+  /**
+   * @generated from field: repeated price_service.AssetCandidate assets = 1;
+   */
+  assets: AssetCandidate[];
+};
+
+/**
+ * @generated from message price_service.ResolveAssetsResponse
+ */
+export type ResolveAssetsResponseJson = {
+  /**
+   * @generated from field: repeated price_service.AssetCandidate assets = 1;
+   */
+  assets?: AssetCandidateJson[];
+};
+
+/**
+ * Describes the message price_service.ResolveAssetsResponse.
+ * Use `create(ResolveAssetsResponseSchema)` to create a new message.
+ */
+export const ResolveAssetsResponseSchema: GenMessage<ResolveAssetsResponse, {jsonType: ResolveAssetsResponseJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 24);
+
+/**
+ * @generated from message price_service.ListAssetsV2Request
+ */
+export type ListAssetsV2Request = Message<"price_service.ListAssetsV2Request"> & {
+  /**
+   * @generated from field: int32 limit = 1;
+   */
+  limit: number;
+
+  /**
+   * @generated from field: int32 offset = 2;
+   */
+  offset: number;
+
+  /**
+   * @generated from field: string search_query = 3;
+   */
+  searchQuery: string;
+
+  /**
+   * @generated from field: string chain = 4;
+   */
+  chain: string;
+
+  /**
+   * @generated from field: string asset_class = 5;
+   */
+  assetClass: string;
+};
+
+/**
+ * @generated from message price_service.ListAssetsV2Request
+ */
+export type ListAssetsV2RequestJson = {
+  /**
+   * @generated from field: int32 limit = 1;
+   */
+  limit?: number;
+
+  /**
+   * @generated from field: int32 offset = 2;
+   */
+  offset?: number;
+
+  /**
+   * @generated from field: string search_query = 3;
+   */
+  searchQuery?: string;
+
+  /**
+   * @generated from field: string chain = 4;
+   */
+  chain?: string;
+
+  /**
+   * @generated from field: string asset_class = 5;
+   */
+  assetClass?: string;
+};
+
+/**
+ * Describes the message price_service.ListAssetsV2Request.
+ * Use `create(ListAssetsV2RequestSchema)` to create a new message.
+ */
+export const ListAssetsV2RequestSchema: GenMessage<ListAssetsV2Request, {jsonType: ListAssetsV2RequestJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 25);
+
+/**
+ * @generated from message price_service.ListAssetsV2Response
+ */
+export type ListAssetsV2Response = Message<"price_service.ListAssetsV2Response"> & {
+  /**
+   * @generated from field: repeated price_service.AssetCandidate assets = 1;
+   */
+  assets: AssetCandidate[];
+};
+
+/**
+ * @generated from message price_service.ListAssetsV2Response
+ */
+export type ListAssetsV2ResponseJson = {
+  /**
+   * @generated from field: repeated price_service.AssetCandidate assets = 1;
+   */
+  assets?: AssetCandidateJson[];
+};
+
+/**
+ * Describes the message price_service.ListAssetsV2Response.
+ * Use `create(ListAssetsV2ResponseSchema)` to create a new message.
+ */
+export const ListAssetsV2ResponseSchema: GenMessage<ListAssetsV2Response, {jsonType: ListAssetsV2ResponseJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 26);
+
+/**
+ * @generated from message price_service.AddAssetByGeckoRequest
+ */
+export type AddAssetByGeckoRequest = Message<"price_service.AddAssetByGeckoRequest"> & {
+  /**
+   * @generated from field: string coingecko_id = 1;
+   */
+  coingeckoId: string;
+};
+
+/**
+ * @generated from message price_service.AddAssetByGeckoRequest
+ */
+export type AddAssetByGeckoRequestJson = {
+  /**
+   * @generated from field: string coingecko_id = 1;
+   */
+  coingeckoId?: string;
+};
+
+/**
+ * Describes the message price_service.AddAssetByGeckoRequest.
+ * Use `create(AddAssetByGeckoRequestSchema)` to create a new message.
+ */
+export const AddAssetByGeckoRequestSchema: GenMessage<AddAssetByGeckoRequest, {jsonType: AddAssetByGeckoRequestJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 27);
+
+/**
+ * @generated from message price_service.AddAssetByGeckoResponse
+ */
+export type AddAssetByGeckoResponse = Message<"price_service.AddAssetByGeckoResponse"> & {
+  /**
+   * @generated from field: price_service.AddAssetByGeckoResponse.Status status = 1;
+   */
+  status: AddAssetByGeckoResponse_Status;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message: string;
+
+  /**
+   * @generated from field: string asset_id = 3;
+   */
+  assetId: string;
+
+  /**
+   * @generated from field: string symbol = 4;
+   */
+  symbol: string;
+
+  /**
+   * @generated from field: double current_price = 5;
+   */
+  currentPrice: number;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 6;
+   */
+  timestamp?: Timestamp | undefined;
+
+  /**
+   * @generated from field: repeated price_service.AddressID addresses = 7;
+   */
+  addresses: AddressID[];
+};
+
+/**
+ * @generated from message price_service.AddAssetByGeckoResponse
+ */
+export type AddAssetByGeckoResponseJson = {
+  /**
+   * @generated from field: price_service.AddAssetByGeckoResponse.Status status = 1;
+   */
+  status?: AddAssetByGeckoResponse_StatusJson;
+
+  /**
+   * @generated from field: string message = 2;
+   */
+  message?: string;
+
+  /**
+   * @generated from field: string asset_id = 3;
+   */
+  assetId?: string;
+
+  /**
+   * @generated from field: string symbol = 4;
+   */
+  symbol?: string;
+
+  /**
+   * @generated from field: double current_price = 5;
+   */
+  currentPrice?: number | "NaN" | "Infinity" | "-Infinity";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp timestamp = 6;
+   */
+  timestamp?: TimestampJson;
+
+  /**
+   * @generated from field: repeated price_service.AddressID addresses = 7;
+   */
+  addresses?: AddressIDJson[];
+};
+
+/**
+ * Describes the message price_service.AddAssetByGeckoResponse.
+ * Use `create(AddAssetByGeckoResponseSchema)` to create a new message.
+ */
+export const AddAssetByGeckoResponseSchema: GenMessage<AddAssetByGeckoResponse, {jsonType: AddAssetByGeckoResponseJson}> = /*@__PURE__*/
+  messageDesc(file_service_price_protos_price, 28);
+
+/**
+ * @generated from enum price_service.AddAssetByGeckoResponse.Status
+ */
+export enum AddAssetByGeckoResponse_Status {
+  /**
+   * @generated from enum value: OK = 0;
+   */
+  OK = 0,
+
+  /**
+   * @generated from enum value: ALREADY_EXISTS = 1;
+   */
+  ALREADY_EXISTS = 1,
+
+  /**
+   * @generated from enum value: GECKO_NOT_FOUND = 2;
+   */
+  GECKO_NOT_FOUND = 2,
+
+  /**
+   * @generated from enum value: GECKO_RETURN_NON_SUPPORTED_CHAIN = 3;
+   */
+  GECKO_RETURN_NON_SUPPORTED_CHAIN = 3,
+}
+
+/**
+ * @generated from enum price_service.AddAssetByGeckoResponse.Status
+ */
+export type AddAssetByGeckoResponse_StatusJson = "OK" | "ALREADY_EXISTS" | "GECKO_NOT_FOUND" | "GECKO_RETURN_NON_SUPPORTED_CHAIN";
+
+/**
+ * Describes the enum price_service.AddAssetByGeckoResponse.Status.
+ */
+export const AddAssetByGeckoResponse_StatusSchema: GenEnum<AddAssetByGeckoResponse_Status, AddAssetByGeckoResponse_StatusJson> = /*@__PURE__*/
+  enumDesc(file_service_price_protos_price, 28, 0);
+
+/**
  * @generated from service price_service.PriceService
  */
 export const PriceService: GenService<{
@@ -755,4 +1714,59 @@ export const PriceService: GenService<{
   },
 }> = /*@__PURE__*/
   serviceDesc(file_service_price_protos_price, 0);
+
+/**
+ * @generated from service price_service.PriceServiceV2
+ */
+export const PriceServiceV2: GenService<{
+  /**
+   * @generated from rpc price_service.PriceServiceV2.GetPriceV2
+   */
+  getPriceV2: {
+    methodKind: "unary";
+    input: typeof GetPriceV2RequestSchema;
+    output: typeof GetPriceV2ResponseSchema;
+  },
+  /**
+   * @generated from rpc price_service.PriceServiceV2.GetPriceSeriesV2
+   */
+  getPriceSeriesV2: {
+    methodKind: "unary";
+    input: typeof GetPriceSeriesV2RequestSchema;
+    output: typeof GetPriceSeriesV2ResponseSchema;
+  },
+  /**
+   * @generated from rpc price_service.PriceServiceV2.BatchGetPricesV2
+   */
+  batchGetPricesV2: {
+    methodKind: "unary";
+    input: typeof BatchGetPricesV2RequestSchema;
+    output: typeof BatchGetPricesV2ResponseSchema;
+  },
+  /**
+   * @generated from rpc price_service.PriceServiceV2.ResolveAssets
+   */
+  resolveAssets: {
+    methodKind: "unary";
+    input: typeof ResolveAssetsRequestSchema;
+    output: typeof ResolveAssetsResponseSchema;
+  },
+  /**
+   * @generated from rpc price_service.PriceServiceV2.ListAssetsV2
+   */
+  listAssetsV2: {
+    methodKind: "unary";
+    input: typeof ListAssetsV2RequestSchema;
+    output: typeof ListAssetsV2ResponseSchema;
+  },
+  /**
+   * @generated from rpc price_service.PriceServiceV2.AddAssetByGecko
+   */
+  addAssetByGecko: {
+    methodKind: "unary";
+    input: typeof AddAssetByGeckoRequestSchema;
+    output: typeof AddAssetByGeckoResponseSchema;
+  },
+}> = /*@__PURE__*/
+  serviceDesc(file_service_price_protos_price, 1);
 

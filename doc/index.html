@@ -4603,6 +4603,50 @@ ul.nav-tabs {
     }
   }
 };
+    defs["price_service.AddAssetByGeckoRequest"] = {
+  "type" : "object",
+  "properties" : {
+    "coingeckoId" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["price_service.AddAssetByGeckoResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "status" : {
+      "$ref" : "#/components/schemas/price_service.AddAssetByGeckoResponse.Status"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "assetId" : {
+      "type" : "string"
+    },
+    "symbol" : {
+      "type" : "string"
+    },
+    "currentPrice" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "timestamp" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "addresses" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AddressID"
+      }
+    }
+  }
+};
+    defs["price_service.AddAssetByGeckoResponse.Status"] = {
+  "type" : "string",
+  "default" : "OK",
+  "enum" : [ "OK", "ALREADY_EXISTS", "GECKO_NOT_FOUND", "GECKO_RETURN_NON_SUPPORTED_CHAIN" ]
+};
     defs["price_service.AddCoinByGeckoRequest"] = {
   "type" : "object",
   "properties" : {
@@ -4643,6 +4687,58 @@ ul.nav-tabs {
   "type" : "string",
   "default" : "OK",
   "enum" : [ "OK", "ALREADY_EXISTS", "MISMATCH_WITH_EXISTING", "GECKO_NOT_FOUND", "GECKO_RETURN_NON_SUPPORTED_CHAIN", "GECKO_HAS_DUPLICATE_SYMBOL" ]
+};
+    defs["price_service.AddressID"] = {
+  "type" : "object",
+  "properties" : {
+    "chain" : {
+      "type" : "string"
+    },
+    "address" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["price_service.AssetCandidate"] = {
+  "type" : "object",
+  "properties" : {
+    "assetId" : {
+      "type" : "string"
+    },
+    "assetClass" : {
+      "type" : "string"
+    },
+    "symbol" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "marketCap" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "addresses" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AddressID"
+      }
+    }
+  }
+};
+    defs["price_service.AssetRef"] = {
+  "type" : "object",
+  "properties" : {
+    "assetId" : {
+      "type" : "string"
+    },
+    "address" : {
+      "$ref" : "#/components/schemas/price_service.AddressID"
+    },
+    "symbol" : {
+      "type" : "string"
+    }
+  }
 };
     defs["price_service.BatchGetPricesRequest"] = {
   "title" : "GetPricesRequest is the request for GetPrices.\nreturn every price on every given timestamp (if exact exists) for the given coin",
@@ -4698,6 +4794,67 @@ ul.nav-tabs {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/price_service.GetPriceResponse"
+      }
+    }
+  }
+};
+    defs["price_service.BatchGetPricesV2Request"] = {
+  "type" : "object",
+  "properties" : {
+    "assets" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AssetRef"
+      }
+    },
+    "timestamps" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
+    },
+    "source" : {
+      "type" : "string"
+    }
+  },
+  "description" : "Cross-product request: each entry in `assets` is priced at each entry in `timestamps`.\nThe response groups the results per asset as a PriceSeries (one point per timestamp).\nIf `timestamps` is empty, the current price is used for every asset.\nUnlike GetPriceSeriesV2 (which returns a continuous range for one asset), this returns\nonly the discrete requested timestamps, across many assets."
+};
+    defs["price_service.BatchGetPricesV2Response"] = {
+  "type" : "object",
+  "properties" : {
+    "items" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.BatchGetPricesV2Response.Item"
+      }
+    }
+  }
+};
+    defs["price_service.BatchGetPricesV2Response.Item"] = {
+  "type" : "object",
+  "properties" : {
+    "asset" : {
+      "$ref" : "#/components/schemas/price_service.AssetRef"
+    },
+    "series" : {
+      "$ref" : "#/components/schemas/price_service.PriceSeries"
+    },
+    "candidates" : {
+      "$ref" : "#/components/schemas/price_service.CandidateList"
+    },
+    "error" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["price_service.CandidateList"] = {
+  "type" : "object",
+  "properties" : {
+    "candidates" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AssetCandidate"
       }
     }
   }
@@ -4783,6 +4940,39 @@ ul.nav-tabs {
   },
   "description" : "GetPriceResponse is the response for GetPrice."
 };
+    defs["price_service.GetPriceSeriesV2Response"] = {
+  "type" : "object",
+  "properties" : {
+    "series" : {
+      "$ref" : "#/components/schemas/price_service.PriceSeries"
+    },
+    "candidates" : {
+      "$ref" : "#/components/schemas/price_service.CandidateList"
+    }
+  }
+};
+    defs["price_service.GetPriceV2Response"] = {
+  "type" : "object",
+  "properties" : {
+    "price" : {
+      "$ref" : "#/components/schemas/price_service.PricePoint"
+    },
+    "candidates" : {
+      "$ref" : "#/components/schemas/price_service.CandidateList"
+    }
+  }
+};
+    defs["price_service.ListAssetsV2Response"] = {
+  "type" : "object",
+  "properties" : {
+    "assets" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AssetCandidate"
+      }
+    }
+  }
+};
     defs["price_service.ListCoinsResponse"] = {
   "type" : "object",
   "properties" : {
@@ -4797,6 +4987,53 @@ ul.nav-tabs {
       "type" : "object",
       "additionalProperties" : {
         "$ref" : "#/components/schemas/price_service.CoinID"
+      }
+    }
+  }
+};
+    defs["price_service.PricePoint"] = {
+  "type" : "object",
+  "properties" : {
+    "assetId" : {
+      "type" : "string"
+    },
+    "price" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "timestamp" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "source" : {
+      "type" : "string"
+    }
+  }
+};
+    defs["price_service.PriceSeries"] = {
+  "type" : "object",
+  "properties" : {
+    "assetId" : {
+      "type" : "string"
+    },
+    "source" : {
+      "type" : "string"
+    },
+    "points" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.PricePoint"
+      }
+    }
+  }
+};
+    defs["price_service.ResolveAssetsResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "assets" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AssetCandidate"
       }
     }
   }
@@ -6942,6 +7179,25 @@ ul.nav-tabs {
                     </li>
                     <li data-group="DebugAndSimulation" data-name="simulateTransactionBundle" class="">
                       <a href="#api-DebugAndSimulation-simulateTransactionBundle">simulateTransactionBundle</a>
+                    </li>
+                  <li class="nav-header" data-group="Default"><a href="#api-Default">API Methods - Default</a></li>
+                    <li data-group="Default" data-name="addAssetByGecko" class="">
+                      <a href="#api-Default-addAssetByGecko">addAssetByGecko</a>
+                    </li>
+                    <li data-group="Default" data-name="batchGetPricesV2" class="">
+                      <a href="#api-Default-batchGetPricesV2">batchGetPricesV2</a>
+                    </li>
+                    <li data-group="Default" data-name="getPriceSeriesV2" class="">
+                      <a href="#api-Default-getPriceSeriesV2">getPriceSeriesV2</a>
+                    </li>
+                    <li data-group="Default" data-name="getPriceV2" class="">
+                      <a href="#api-Default-getPriceV2">getPriceV2</a>
+                    </li>
+                    <li data-group="Default" data-name="listAssetsV2" class="">
+                      <a href="#api-Default-listAssetsV2">listAssetsV2</a>
+                    </li>
+                    <li data-group="Default" data-name="resolveAssets" class="">
+                      <a href="#api-Default-resolveAssets">resolveAssets</a>
                     </li>
                   <li class="nav-header" data-group="Forks"><a href="#api-Forks">API Methods - Forks</a></li>
                     <li data-group="Forks" data-name="createFork" class="">
@@ -32442,6 +32698,3329 @@ $(document).ready(function() {
                                   </script>
                                 </div>
                                 <input id='responses-DebugAndSimulation-simulateTransactionBundle-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
+                <section id="api-Default">
+                  <h1>Default</h1>
+                    <div id="api-Default-addAssetByGecko">
+                      <article id="api-Default-addAssetByGecko-0" data-group="User" data-name="addAssetByGecko" data-version="0">
+                        <div class="pull-left">
+                          <h1>addAssetByGecko</h1>
+                          <p>Adds a new asset by its CoinGecko id.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v2/prices/assets/add_by_gecko</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-addAssetByGecko-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-addAssetByGecko-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-addAssetByGecko-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-addAssetByGecko-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-addAssetByGecko-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://api.sentio.xyz/api/v2/prices/assets/add_by_gecko" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-addAssetByGecko-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        PriceServiceAddAssetByGeckoRequest body = ; // PriceServiceAddAssetByGeckoRequest | 
+
+        try {
+            price_service.AddAssetByGeckoResponse result = apiInstance.addAssetByGecko(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#addAssetByGecko");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-addAssetByGecko-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final PriceServiceAddAssetByGeckoRequest body = new PriceServiceAddAssetByGeckoRequest(); // PriceServiceAddAssetByGeckoRequest | 
+
+try {
+    final result = await api_instance.addAssetByGecko(body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->addAssetByGecko: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-addAssetByGecko-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        PriceServiceAddAssetByGeckoRequest body = ; // PriceServiceAddAssetByGeckoRequest | 
+
+        try {
+            price_service.AddAssetByGeckoResponse result = apiInstance.addAssetByGecko(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#addAssetByGecko");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-addAssetByGecko-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-addAssetByGecko-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+PriceServiceAddAssetByGeckoRequest *body = ; // 
+
+// Adds a new asset by its CoinGecko id.
+[apiInstance addAssetByGeckoWith:body
+              completionHandler: ^(price_service.AddAssetByGeckoResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-addAssetByGecko-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var body = ; // {PriceServiceAddAssetByGeckoRequest} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.addAssetByGecko(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-addAssetByGecko-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-addAssetByGecko-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class addAssetByGeckoExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var body = new PriceServiceAddAssetByGeckoRequest(); // PriceServiceAddAssetByGeckoRequest | 
+
+            try {
+                // Adds a new asset by its CoinGecko id.
+                price_service.AddAssetByGeckoResponse result = apiInstance.addAssetByGecko(body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.addAssetByGecko: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-addAssetByGecko-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$body = ; // PriceServiceAddAssetByGeckoRequest | 
+
+try {
+    $result = $api_instance->addAssetByGecko($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->addAssetByGecko: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-addAssetByGecko-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $body = WWW::OPenAPIClient::Object::PriceServiceAddAssetByGeckoRequest->new(); # PriceServiceAddAssetByGeckoRequest | 
+
+eval {
+    my $result = $api_instance->addAssetByGecko(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->addAssetByGecko: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-addAssetByGecko-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+body =  # PriceServiceAddAssetByGeckoRequest | 
+
+try:
+    # Adds a new asset by its CoinGecko id.
+    api_response = api_instance.add_asset_by_gecko(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->addAssetByGecko: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-addAssetByGecko-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let body = ; // PriceServiceAddAssetByGeckoRequest
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.addAssetByGecko(body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked"></p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.AddAssetByGeckoRequest"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_addAssetByGecko_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_addAssetByGecko_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-addAssetByGecko-title-200"></h3>
+                            <p id="examples-Default-addAssetByGecko-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-addAssetByGecko-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-addAssetByGecko-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-addAssetByGecko-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-addAssetByGecko-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-addAssetByGecko-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-addAssetByGecko-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-addAssetByGecko-200-schema">
+                                <div id="responses-Default-addAssetByGecko-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.AddAssetByGeckoResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-addAssetByGecko-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-addAssetByGecko-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-addAssetByGecko-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-batchGetPricesV2">
+                      <article id="api-Default-batchGetPricesV2-0" data-group="User" data-name="batchGetPricesV2" data-version="0">
+                        <div class="pull-left">
+                          <h1>batchGetPricesV2</h1>
+                          <p>Prices multiple assets at multiple timestamps in one call, grouping results per asset.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/v2/prices/batch</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-batchGetPricesV2-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-batchGetPricesV2-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-batchGetPricesV2-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-batchGetPricesV2-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-batchGetPricesV2-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ "https://api.sentio.xyz/api/v2/prices/batch" \
+ -d ''
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        PriceServiceBatchGetPricesV2Request body = ; // PriceServiceBatchGetPricesV2Request | 
+
+        try {
+            price_service.BatchGetPricesV2Response result = apiInstance.batchGetPricesV2(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#batchGetPricesV2");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final PriceServiceBatchGetPricesV2Request body = new PriceServiceBatchGetPricesV2Request(); // PriceServiceBatchGetPricesV2Request | 
+
+try {
+    final result = await api_instance.batchGetPricesV2(body);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->batchGetPricesV2: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        PriceServiceBatchGetPricesV2Request body = ; // PriceServiceBatchGetPricesV2Request | 
+
+        try {
+            price_service.BatchGetPricesV2Response result = apiInstance.batchGetPricesV2(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#batchGetPricesV2");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+PriceServiceBatchGetPricesV2Request *body = ; // 
+
+// Prices multiple assets at multiple timestamps in one call, grouping results per asset.
+[apiInstance batchGetPricesV2With:body
+              completionHandler: ^(price_service.BatchGetPricesV2Response output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var body = ; // {PriceServiceBatchGetPricesV2Request} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.batchGetPricesV2(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-batchGetPricesV2-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class batchGetPricesV2Example
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var body = new PriceServiceBatchGetPricesV2Request(); // PriceServiceBatchGetPricesV2Request | 
+
+            try {
+                // Prices multiple assets at multiple timestamps in one call, grouping results per asset.
+                price_service.BatchGetPricesV2Response result = apiInstance.batchGetPricesV2(body);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.batchGetPricesV2: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$body = ; // PriceServiceBatchGetPricesV2Request | 
+
+try {
+    $result = $api_instance->batchGetPricesV2($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->batchGetPricesV2: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $body = WWW::OPenAPIClient::Object::PriceServiceBatchGetPricesV2Request->new(); # PriceServiceBatchGetPricesV2Request | 
+
+eval {
+    my $result = $api_instance->batchGetPricesV2(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->batchGetPricesV2: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+body =  # PriceServiceBatchGetPricesV2Request | 
+
+try:
+    # Prices multiple assets at multiple timestamps in one call, grouping results per asset.
+    api_response = api_instance.batch_get_prices_v2(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->batchGetPricesV2: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-batchGetPricesV2-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let body = ; // PriceServiceBatchGetPricesV2Request
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.batchGetPricesV2(body, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+<p class="marked">Cross-product request: each entry in &#x60;assets&#x60; is priced at each entry in &#x60;timestamps&#x60;.
+The response groups the results per asset as a PriceSeries (one point per timestamp).
+If &#x60;timestamps&#x60; is empty, the current price is used for every asset.
+Unlike GetPriceSeriesV2 (which returns a continuous range for one asset), this returns
+only the discrete requested timestamps, across many assets.</p>
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "description" : "Cross-product request: each entry in `assets` is priced at each entry in `timestamps`.\nThe response groups the results per asset as a PriceSeries (one point per timestamp).\nIf `timestamps` is empty, the current price is used for every asset.\nUnlike GetPriceSeriesV2 (which returns a continuous range for one asset), this returns\nonly the discrete requested timestamps, across many assets.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.BatchGetPricesV2Request"
+      }
+    }
+  },
+  "required" : true
+};
+
+  var schema = findNode('schema',schemaWrapper).schema;
+  if (!schema) {
+    schema = schemaWrapper.schema;
+  }
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else if (schema.items != null && schema.items.$ref != null) {
+    schema.items = defsParser.$refs.get(schema.items.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_batchGetPricesV2_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_batchGetPricesV2_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-batchGetPricesV2-title-200"></h3>
+                            <p id="examples-Default-batchGetPricesV2-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-batchGetPricesV2-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-batchGetPricesV2-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-batchGetPricesV2-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-batchGetPricesV2-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-batchGetPricesV2-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-batchGetPricesV2-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-batchGetPricesV2-200-schema">
+                                <div id="responses-Default-batchGetPricesV2-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.BatchGetPricesV2Response"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-batchGetPricesV2-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-batchGetPricesV2-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-batchGetPricesV2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-getPriceSeriesV2">
+                      <article id="api-Default-getPriceSeriesV2-0" data-group="User" data-name="getPriceSeriesV2" data-version="0">
+                        <div class="pull-left">
+                          <h1>getPriceSeriesV2</h1>
+                          <p>Returns a continuous price series for a single asset over a [start, end] time range.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v2/prices/series</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-getPriceSeriesV2-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-getPriceSeriesV2-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-getPriceSeriesV2-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-getPriceSeriesV2-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-getPriceSeriesV2-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://api.sentio.xyz/api/v2/prices/series?asset.assetId=assetPeriodassetId_example&asset.address.chain=assetPeriodaddressPeriodchain_example&asset.address.address=assetPeriodaddressPeriodaddress_example&asset.symbol=assetPeriodsymbol_example&start=2013-10-20T19:20:30+01:00&end=2013-10-20T19:20:30+01:00&source=source_example&assetClass=assetClass_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        String assetPeriodassetId = assetPeriodassetId_example; // String | 
+        String assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+        String assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+        String assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+        Date start = 2013-10-20T19:20:30+01:00; // Date | 
+        Date end = 2013-10-20T19:20:30+01:00; // Date | 
+        String source = source_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.GetPriceSeriesV2Response result = apiInstance.getPriceSeriesV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, start, end, source, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getPriceSeriesV2");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String assetPeriodassetId = new String(); // String | 
+final String assetPeriodaddressPeriodchain = new String(); // String | 
+final String assetPeriodaddressPeriodaddress = new String(); // String | 
+final String assetPeriodsymbol = new String(); // String | 
+final Date start = new Date(); // Date | 
+final Date end = new Date(); // Date | 
+final String source = new String(); // String | 
+final String assetClass = new String(); // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    final result = await api_instance.getPriceSeriesV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, start, end, source, assetClass);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getPriceSeriesV2: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        String assetPeriodassetId = assetPeriodassetId_example; // String | 
+        String assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+        String assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+        String assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+        Date start = 2013-10-20T19:20:30+01:00; // Date | 
+        Date end = 2013-10-20T19:20:30+01:00; // Date | 
+        String source = source_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.GetPriceSeriesV2Response result = apiInstance.getPriceSeriesV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, start, end, source, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getPriceSeriesV2");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+String *assetPeriodassetId = assetPeriodassetId_example; //  (optional) (default to null)
+String *assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; //  (optional) (default to null)
+String *assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; //  (optional) (default to null)
+String *assetPeriodsymbol = assetPeriodsymbol_example; //  (optional) (default to null)
+Date *start = 2013-10-20T19:20:30+01:00; //  (optional) (default to null)
+Date *end = 2013-10-20T19:20:30+01:00; //  (optional) (default to null)
+String *source = source_example; //  (optional) (default to null)
+String *assetClass = assetClass_example; // Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+// Returns a continuous price series for a single asset over a [start, end] time range.
+[apiInstance getPriceSeriesV2With:assetPeriodassetId
+    assetPeriodaddressPeriodchain:assetPeriodaddressPeriodchain
+    assetPeriodaddressPeriodaddress:assetPeriodaddressPeriodaddress
+    assetPeriodsymbol:assetPeriodsymbol
+    start:start
+    end:end
+    source:source
+    assetClass:assetClass
+              completionHandler: ^(price_service.GetPriceSeriesV2Response output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var opts = {
+  'assetPeriodassetId': assetPeriodassetId_example, // {String} 
+  'assetPeriodaddressPeriodchain': assetPeriodaddressPeriodchain_example, // {String} 
+  'assetPeriodaddressPeriodaddress': assetPeriodaddressPeriodaddress_example, // {String} 
+  'assetPeriodsymbol': assetPeriodsymbol_example, // {String} 
+  'start': 2013-10-20T19:20:30+01:00, // {Date} 
+  'end': 2013-10-20T19:20:30+01:00, // {Date} 
+  'source': source_example, // {String} 
+  'assetClass': assetClass_example // {String} Optional filter to narrow symbol resolution to a single asset class.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getPriceSeriesV2(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getPriceSeriesV2Example
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var assetPeriodassetId = assetPeriodassetId_example;  // String |  (optional)  (default to null)
+            var assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example;  // String |  (optional)  (default to null)
+            var assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example;  // String |  (optional)  (default to null)
+            var assetPeriodsymbol = assetPeriodsymbol_example;  // String |  (optional)  (default to null)
+            var start = 2013-10-20T19:20:30+01:00;  // Date |  (optional)  (default to null)
+            var end = 2013-10-20T19:20:30+01:00;  // Date |  (optional)  (default to null)
+            var source = source_example;  // String |  (optional)  (default to null)
+            var assetClass = assetClass_example;  // String | Optional filter to narrow symbol resolution to a single asset class. (optional)  (default to null)
+
+            try {
+                // Returns a continuous price series for a single asset over a [start, end] time range.
+                price_service.GetPriceSeriesV2Response result = apiInstance.getPriceSeriesV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, start, end, source, assetClass);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.getPriceSeriesV2: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$assetPeriodassetId = assetPeriodassetId_example; // String | 
+$assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+$assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+$assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+$start = 2013-10-20T19:20:30+01:00; // Date | 
+$end = 2013-10-20T19:20:30+01:00; // Date | 
+$source = source_example; // String | 
+$assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    $result = $api_instance->getPriceSeriesV2($assetPeriodassetId, $assetPeriodaddressPeriodchain, $assetPeriodaddressPeriodaddress, $assetPeriodsymbol, $start, $end, $source, $assetClass);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getPriceSeriesV2: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $assetPeriodassetId = assetPeriodassetId_example; # String | 
+my $assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; # String | 
+my $assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; # String | 
+my $assetPeriodsymbol = assetPeriodsymbol_example; # String | 
+my $start = 2013-10-20T19:20:30+01:00; # Date | 
+my $end = 2013-10-20T19:20:30+01:00; # Date | 
+my $source = source_example; # String | 
+my $assetClass = assetClass_example; # String | Optional filter to narrow symbol resolution to a single asset class.
+
+eval {
+    my $result = $api_instance->getPriceSeriesV2(assetPeriodassetId => $assetPeriodassetId, assetPeriodaddressPeriodchain => $assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress => $assetPeriodaddressPeriodaddress, assetPeriodsymbol => $assetPeriodsymbol, start => $start, end => $end, source => $source, assetClass => $assetClass);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->getPriceSeriesV2: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+assetPeriodassetId = assetPeriodassetId_example # String |  (optional) (default to null)
+assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example # String |  (optional) (default to null)
+assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example # String |  (optional) (default to null)
+assetPeriodsymbol = assetPeriodsymbol_example # String |  (optional) (default to null)
+start = 2013-10-20T19:20:30+01:00 # Date |  (optional) (default to null)
+end = 2013-10-20T19:20:30+01:00 # Date |  (optional) (default to null)
+source = source_example # String |  (optional) (default to null)
+assetClass = assetClass_example # String | Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+try:
+    # Returns a continuous price series for a single asset over a [start, end] time range.
+    api_response = api_instance.get_price_series_v2(assetPeriodassetId=assetPeriodassetId, assetPeriodaddressPeriodchain=assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress=assetPeriodaddressPeriodaddress, assetPeriodsymbol=assetPeriodsymbol, start=start, end=end, source=source, assetClass=assetClass)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->getPriceSeriesV2: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceSeriesV2-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let assetPeriodassetId = assetPeriodassetId_example; // String
+    let assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String
+    let assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String
+    let assetPeriodsymbol = assetPeriodsymbol_example; // String
+    let start = 2013-10-20T19:20:30+01:00; // Date
+    let end = 2013-10-20T19:20:30+01:00; // Date
+    let source = source_example; // String
+    let assetClass = assetClass_example; // String
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.getPriceSeriesV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, start, end, source, assetClass, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">asset.assetId</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_assetPeriodassetId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.address.chain</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_assetPeriodaddressPeriodchain">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.address.address</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_assetPeriodaddressPeriodaddress">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.symbol</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_assetPeriodsymbol">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">start</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_start">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Date
+                </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">end</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_end">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Date
+                </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">source</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_source">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">assetClass</td>
+<td>
+
+
+    <div id="d2e199_getPriceSeriesV2_assetClass">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Optional filter to narrow symbol resolution to a single asset class.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-getPriceSeriesV2-title-200"></h3>
+                            <p id="examples-Default-getPriceSeriesV2-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-getPriceSeriesV2-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-getPriceSeriesV2-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-getPriceSeriesV2-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-getPriceSeriesV2-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-getPriceSeriesV2-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-getPriceSeriesV2-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-getPriceSeriesV2-200-schema">
+                                <div id="responses-Default-getPriceSeriesV2-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.GetPriceSeriesV2Response"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-getPriceSeriesV2-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-getPriceSeriesV2-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-getPriceSeriesV2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-getPriceV2">
+                      <article id="api-Default-getPriceV2-0" data-group="User" data-name="getPriceV2" data-version="0">
+                        <div class="pull-left">
+                          <h1>getPriceV2</h1>
+                          <p>Returns the price of a single asset at a given timestamp, or candidates when the asset ref is ambiguous.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v2/prices</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-getPriceV2-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-getPriceV2-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-getPriceV2-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-getPriceV2-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-getPriceV2-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-getPriceV2-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-getPriceV2-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://api.sentio.xyz/api/v2/prices?asset.assetId=assetPeriodassetId_example&asset.address.chain=assetPeriodaddressPeriodchain_example&asset.address.address=assetPeriodaddressPeriodaddress_example&asset.symbol=assetPeriodsymbol_example&timestamp=2013-10-20T19:20:30+01:00&source=source_example&assetClass=assetClass_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-getPriceV2-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        String assetPeriodassetId = assetPeriodassetId_example; // String | 
+        String assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+        String assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+        String assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+        Date timestamp = 2013-10-20T19:20:30+01:00; // Date | 
+        String source = source_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.GetPriceV2Response result = apiInstance.getPriceV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, timestamp, source, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getPriceV2");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getPriceV2-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String assetPeriodassetId = new String(); // String | 
+final String assetPeriodaddressPeriodchain = new String(); // String | 
+final String assetPeriodaddressPeriodaddress = new String(); // String | 
+final String assetPeriodsymbol = new String(); // String | 
+final Date timestamp = new Date(); // Date | 
+final String source = new String(); // String | 
+final String assetClass = new String(); // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    final result = await api_instance.getPriceV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, timestamp, source, assetClass);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->getPriceV2: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-getPriceV2-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        String assetPeriodassetId = assetPeriodassetId_example; // String | 
+        String assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+        String assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+        String assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+        Date timestamp = 2013-10-20T19:20:30+01:00; // Date | 
+        String source = source_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.GetPriceV2Response result = apiInstance.getPriceV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, timestamp, source, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getPriceV2");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-getPriceV2-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-getPriceV2-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+String *assetPeriodassetId = assetPeriodassetId_example; //  (optional) (default to null)
+String *assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; //  (optional) (default to null)
+String *assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; //  (optional) (default to null)
+String *assetPeriodsymbol = assetPeriodsymbol_example; //  (optional) (default to null)
+Date *timestamp = 2013-10-20T19:20:30+01:00; //  (optional) (default to null)
+String *source = source_example; //  (optional) (default to null)
+String *assetClass = assetClass_example; // Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+// Returns the price of a single asset at a given timestamp, or candidates when the asset ref is ambiguous.
+[apiInstance getPriceV2With:assetPeriodassetId
+    assetPeriodaddressPeriodchain:assetPeriodaddressPeriodchain
+    assetPeriodaddressPeriodaddress:assetPeriodaddressPeriodaddress
+    assetPeriodsymbol:assetPeriodsymbol
+    timestamp:timestamp
+    source:source
+    assetClass:assetClass
+              completionHandler: ^(price_service.GetPriceV2Response output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceV2-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var opts = {
+  'assetPeriodassetId': assetPeriodassetId_example, // {String} 
+  'assetPeriodaddressPeriodchain': assetPeriodaddressPeriodchain_example, // {String} 
+  'assetPeriodaddressPeriodaddress': assetPeriodaddressPeriodaddress_example, // {String} 
+  'assetPeriodsymbol': assetPeriodsymbol_example, // {String} 
+  'timestamp': 2013-10-20T19:20:30+01:00, // {Date} 
+  'source': source_example, // {String} 
+  'assetClass': assetClass_example // {String} Optional filter to narrow symbol resolution to a single asset class.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.getPriceV2(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-getPriceV2-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-getPriceV2-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class getPriceV2Example
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var assetPeriodassetId = assetPeriodassetId_example;  // String |  (optional)  (default to null)
+            var assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example;  // String |  (optional)  (default to null)
+            var assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example;  // String |  (optional)  (default to null)
+            var assetPeriodsymbol = assetPeriodsymbol_example;  // String |  (optional)  (default to null)
+            var timestamp = 2013-10-20T19:20:30+01:00;  // Date |  (optional)  (default to null)
+            var source = source_example;  // String |  (optional)  (default to null)
+            var assetClass = assetClass_example;  // String | Optional filter to narrow symbol resolution to a single asset class. (optional)  (default to null)
+
+            try {
+                // Returns the price of a single asset at a given timestamp, or candidates when the asset ref is ambiguous.
+                price_service.GetPriceV2Response result = apiInstance.getPriceV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, timestamp, source, assetClass);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.getPriceV2: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceV2-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$assetPeriodassetId = assetPeriodassetId_example; // String | 
+$assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+$assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+$assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+$timestamp = 2013-10-20T19:20:30+01:00; // Date | 
+$source = source_example; // String | 
+$assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    $result = $api_instance->getPriceV2($assetPeriodassetId, $assetPeriodaddressPeriodchain, $assetPeriodaddressPeriodaddress, $assetPeriodsymbol, $timestamp, $source, $assetClass);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->getPriceV2: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceV2-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $assetPeriodassetId = assetPeriodassetId_example; # String | 
+my $assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; # String | 
+my $assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; # String | 
+my $assetPeriodsymbol = assetPeriodsymbol_example; # String | 
+my $timestamp = 2013-10-20T19:20:30+01:00; # Date | 
+my $source = source_example; # String | 
+my $assetClass = assetClass_example; # String | Optional filter to narrow symbol resolution to a single asset class.
+
+eval {
+    my $result = $api_instance->getPriceV2(assetPeriodassetId => $assetPeriodassetId, assetPeriodaddressPeriodchain => $assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress => $assetPeriodaddressPeriodaddress, assetPeriodsymbol => $assetPeriodsymbol, timestamp => $timestamp, source => $source, assetClass => $assetClass);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->getPriceV2: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceV2-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+assetPeriodassetId = assetPeriodassetId_example # String |  (optional) (default to null)
+assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example # String |  (optional) (default to null)
+assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example # String |  (optional) (default to null)
+assetPeriodsymbol = assetPeriodsymbol_example # String |  (optional) (default to null)
+timestamp = 2013-10-20T19:20:30+01:00 # Date |  (optional) (default to null)
+source = source_example # String |  (optional) (default to null)
+assetClass = assetClass_example # String | Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+try:
+    # Returns the price of a single asset at a given timestamp, or candidates when the asset ref is ambiguous.
+    api_response = api_instance.get_price_v2(assetPeriodassetId=assetPeriodassetId, assetPeriodaddressPeriodchain=assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress=assetPeriodaddressPeriodaddress, assetPeriodsymbol=assetPeriodsymbol, timestamp=timestamp, source=source, assetClass=assetClass)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->getPriceV2: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-getPriceV2-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let assetPeriodassetId = assetPeriodassetId_example; // String
+    let assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String
+    let assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String
+    let assetPeriodsymbol = assetPeriodsymbol_example; // String
+    let timestamp = 2013-10-20T19:20:30+01:00; // Date
+    let source = source_example; // String
+    let assetClass = assetClass_example; // String
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.getPriceV2(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, timestamp, source, assetClass, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">asset.assetId</td>
+<td>
+
+
+    <div id="d2e199_getPriceV2_assetPeriodassetId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.address.chain</td>
+<td>
+
+
+    <div id="d2e199_getPriceV2_assetPeriodaddressPeriodchain">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.address.address</td>
+<td>
+
+
+    <div id="d2e199_getPriceV2_assetPeriodaddressPeriodaddress">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.symbol</td>
+<td>
+
+
+    <div id="d2e199_getPriceV2_assetPeriodsymbol">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">timestamp</td>
+<td>
+
+
+    <div id="d2e199_getPriceV2_timestamp">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Date
+                </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">source</td>
+<td>
+
+
+    <div id="d2e199_getPriceV2_source">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">assetClass</td>
+<td>
+
+
+    <div id="d2e199_getPriceV2_assetClass">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Optional filter to narrow symbol resolution to a single asset class.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-getPriceV2-title-200"></h3>
+                            <p id="examples-Default-getPriceV2-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-getPriceV2-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-getPriceV2-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-getPriceV2-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-getPriceV2-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-getPriceV2-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-getPriceV2-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-getPriceV2-200-schema">
+                                <div id="responses-Default-getPriceV2-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.GetPriceV2Response"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-getPriceV2-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-getPriceV2-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-getPriceV2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-listAssetsV2">
+                      <article id="api-Default-listAssetsV2-0" data-group="User" data-name="listAssetsV2" data-version="0">
+                        <div class="pull-left">
+                          <h1>listAssetsV2</h1>
+                          <p>Lists known assets with pagination and optional search/chain/class filters.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v2/prices/assets</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-listAssetsV2-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-listAssetsV2-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-listAssetsV2-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-listAssetsV2-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-listAssetsV2-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://api.sentio.xyz/api/v2/prices/assets?limit=56&offset=56&searchQuery=searchQuery_example&chain=chain_example&assetClass=assetClass_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-listAssetsV2-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        Integer limit = 56; // Integer | 
+        Integer offset = 56; // Integer | 
+        String searchQuery = searchQuery_example; // String | 
+        String chain = chain_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.ListAssetsV2Response result = apiInstance.listAssetsV2(limit, offset, searchQuery, chain, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#listAssetsV2");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-listAssetsV2-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final Integer limit = new Integer(); // Integer | 
+final Integer offset = new Integer(); // Integer | 
+final String searchQuery = new String(); // String | 
+final String chain = new String(); // String | 
+final String assetClass = new String(); // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    final result = await api_instance.listAssetsV2(limit, offset, searchQuery, chain, assetClass);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->listAssetsV2: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-listAssetsV2-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        Integer limit = 56; // Integer | 
+        Integer offset = 56; // Integer | 
+        String searchQuery = searchQuery_example; // String | 
+        String chain = chain_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.ListAssetsV2Response result = apiInstance.listAssetsV2(limit, offset, searchQuery, chain, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#listAssetsV2");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-listAssetsV2-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-listAssetsV2-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+Integer *limit = 56; //  (optional) (default to null)
+Integer *offset = 56; //  (optional) (default to null)
+String *searchQuery = searchQuery_example; //  (optional) (default to null)
+String *chain = chain_example; //  (optional) (default to null)
+String *assetClass = assetClass_example; // Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+// Lists known assets with pagination and optional search/chain/class filters.
+[apiInstance listAssetsV2With:limit
+    offset:offset
+    searchQuery:searchQuery
+    chain:chain
+    assetClass:assetClass
+              completionHandler: ^(price_service.ListAssetsV2Response output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-listAssetsV2-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var opts = {
+  'limit': 56, // {Integer} 
+  'offset': 56, // {Integer} 
+  'searchQuery': searchQuery_example, // {String} 
+  'chain': chain_example, // {String} 
+  'assetClass': assetClass_example // {String} Optional filter to narrow symbol resolution to a single asset class.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.listAssetsV2(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-listAssetsV2-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-listAssetsV2-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class listAssetsV2Example
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var limit = 56;  // Integer |  (optional)  (default to null)
+            var offset = 56;  // Integer |  (optional)  (default to null)
+            var searchQuery = searchQuery_example;  // String |  (optional)  (default to null)
+            var chain = chain_example;  // String |  (optional)  (default to null)
+            var assetClass = assetClass_example;  // String | Optional filter to narrow symbol resolution to a single asset class. (optional)  (default to null)
+
+            try {
+                // Lists known assets with pagination and optional search/chain/class filters.
+                price_service.ListAssetsV2Response result = apiInstance.listAssetsV2(limit, offset, searchQuery, chain, assetClass);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.listAssetsV2: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-listAssetsV2-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$limit = 56; // Integer | 
+$offset = 56; // Integer | 
+$searchQuery = searchQuery_example; // String | 
+$chain = chain_example; // String | 
+$assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    $result = $api_instance->listAssetsV2($limit, $offset, $searchQuery, $chain, $assetClass);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->listAssetsV2: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-listAssetsV2-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $limit = 56; # Integer | 
+my $offset = 56; # Integer | 
+my $searchQuery = searchQuery_example; # String | 
+my $chain = chain_example; # String | 
+my $assetClass = assetClass_example; # String | Optional filter to narrow symbol resolution to a single asset class.
+
+eval {
+    my $result = $api_instance->listAssetsV2(limit => $limit, offset => $offset, searchQuery => $searchQuery, chain => $chain, assetClass => $assetClass);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->listAssetsV2: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-listAssetsV2-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+limit = 56 # Integer |  (optional) (default to null)
+offset = 56 # Integer |  (optional) (default to null)
+searchQuery = searchQuery_example # String |  (optional) (default to null)
+chain = chain_example # String |  (optional) (default to null)
+assetClass = assetClass_example # String | Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+try:
+    # Lists known assets with pagination and optional search/chain/class filters.
+    api_response = api_instance.list_assets_v2(limit=limit, offset=offset, searchQuery=searchQuery, chain=chain, assetClass=assetClass)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->listAssetsV2: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-listAssetsV2-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let limit = 56; // Integer
+    let offset = 56; // Integer
+    let searchQuery = searchQuery_example; // String
+    let chain = chain_example; // String
+    let assetClass = assetClass_example; // String
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.listAssetsV2(limit, offset, searchQuery, chain, assetClass, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">limit</td>
+<td>
+
+
+    <div id="d2e199_listAssetsV2_limit">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">offset</td>
+<td>
+
+
+    <div id="d2e199_listAssetsV2_offset">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+                    <span class="format">
+                        (int32)
+                    </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">searchQuery</td>
+<td>
+
+
+    <div id="d2e199_listAssetsV2_searchQuery">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">chain</td>
+<td>
+
+
+    <div id="d2e199_listAssetsV2_chain">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">assetClass</td>
+<td>
+
+
+    <div id="d2e199_listAssetsV2_assetClass">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Optional filter to narrow symbol resolution to a single asset class.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-listAssetsV2-title-200"></h3>
+                            <p id="examples-Default-listAssetsV2-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-listAssetsV2-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-listAssetsV2-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-listAssetsV2-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-listAssetsV2-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-listAssetsV2-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-listAssetsV2-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-listAssetsV2-200-schema">
+                                <div id="responses-Default-listAssetsV2-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.ListAssetsV2Response"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-listAssetsV2-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-listAssetsV2-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-listAssetsV2-200-schema-data' type='hidden' value=''></input>
+                              </div>
+                            </div>
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-resolveAssets">
+                      <article id="api-Default-resolveAssets-0" data-group="User" data-name="resolveAssets" data-version="0">
+                        <div class="pull-left">
+                          <h1>resolveAssets</h1>
+                          <p>Resolves an asset ref (symbol/address/id) to the matching asset candidates.</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/api/v2/prices/assets/resolve</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-resolveAssets-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-dart">Dart</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-resolveAssets-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-resolveAssets-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-resolveAssets-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-resolveAssets-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-python">Python</a></li>
+                          <li class=""><a href="#examples-Default-resolveAssets-0-rust">Rust</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-resolveAssets-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET \
+-H "api-key: [[apiKey]]" \
+ \
+ -H "Accept: application/json" \
+ "https://api.sentio.xyz/api/v2/prices/assets/resolve?asset.assetId=assetPeriodassetId_example&asset.address.chain=assetPeriodaddressPeriodchain_example&asset.address.address=assetPeriodaddressPeriodaddress_example&asset.symbol=assetPeriodsymbol_example&assetClass=assetClass_example"
+</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-resolveAssets-0-java">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.*;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.model.*;
+import org.openapitools.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+        // Configure API key authorization: ApiKeyHeaderAuth
+        ApiKeyAuth ApiKeyHeaderAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyHeaderAuth");
+        ApiKeyHeaderAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyHeaderAuth.setApiKeyPrefix("Token");
+
+        // Configure API key authorization: ApiKeyQueryAuth
+        ApiKeyAuth ApiKeyQueryAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyQueryAuth");
+        ApiKeyQueryAuth.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //ApiKeyQueryAuth.setApiKeyPrefix("Token");
+
+        // Create an instance of the API class
+        DefaultApi apiInstance = new DefaultApi();
+        String assetPeriodassetId = assetPeriodassetId_example; // String | 
+        String assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+        String assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+        String assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.ResolveAssetsResponse result = apiInstance.resolveAssets(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#resolveAssets");
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-resolveAssets-0-dart">
+                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
+
+final api_instance = DefaultApi();
+
+final String assetPeriodassetId = new String(); // String | 
+final String assetPeriodaddressPeriodchain = new String(); // String | 
+final String assetPeriodaddressPeriodaddress = new String(); // String | 
+final String assetPeriodsymbol = new String(); // String | 
+final String assetClass = new String(); // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    final result = await api_instance.resolveAssets(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, assetClass);
+    print(result);
+} catch (e) {
+    print('Exception when calling DefaultApi->resolveAssets: $e\n');
+}
+
+</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-resolveAssets-0-android">
+                            <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.DefaultApi;
+
+public class DefaultApiExample {
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        String assetPeriodassetId = assetPeriodassetId_example; // String | 
+        String assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+        String assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+        String assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+        String assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+        try {
+            price_service.ResolveAssetsResponse result = apiInstance.resolveAssets(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, assetClass);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#resolveAssets");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-resolveAssets-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-resolveAssets-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: ApiKeyHeaderAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+// Configure API key authorization: (authentication scheme: ApiKeyQueryAuth)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"api-key"];
+
+
+// Create an instance of the API class
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+String *assetPeriodassetId = assetPeriodassetId_example; //  (optional) (default to null)
+String *assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; //  (optional) (default to null)
+String *assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; //  (optional) (default to null)
+String *assetPeriodsymbol = assetPeriodsymbol_example; //  (optional) (default to null)
+String *assetClass = assetClass_example; // Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+// Resolves an asset ref (symbol/address/id) to the matching asset candidates.
+[apiInstance resolveAssetsWith:assetPeriodassetId
+    assetPeriodaddressPeriodchain:assetPeriodaddressPeriodchain
+    assetPeriodaddressPeriodaddress:assetPeriodaddressPeriodaddress
+    assetPeriodsymbol:assetPeriodsymbol
+    assetClass:assetClass
+              completionHandler: ^(price_service.ResolveAssetsResponse output, NSError* error) {
+    if (output) {
+        NSLog(@"%@", output);
+    }
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+}];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-resolveAssets-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SentioApi = require('sentio_api');
+var defaultClient = SentioApi.ApiClient.instance;
+
+// Configure API key authorization: ApiKeyHeaderAuth
+var ApiKeyHeaderAuth = defaultClient.authentications['ApiKeyHeaderAuth'];
+ApiKeyHeaderAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyHeaderAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Configure API key authorization: ApiKeyQueryAuth
+var ApiKeyQueryAuth = defaultClient.authentications['ApiKeyQueryAuth'];
+ApiKeyQueryAuth.apiKey = "YOUR API KEY";
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//ApiKeyQueryAuth.apiKeyPrefix['api-key'] = "Token";
+
+// Create an instance of the API class
+var api = new SentioApi.DefaultApi()
+var opts = {
+  'assetPeriodassetId': assetPeriodassetId_example, // {String} 
+  'assetPeriodaddressPeriodchain': assetPeriodaddressPeriodchain_example, // {String} 
+  'assetPeriodaddressPeriodaddress': assetPeriodaddressPeriodaddress_example, // {String} 
+  'assetPeriodsymbol': assetPeriodsymbol_example, // {String} 
+  'assetClass': assetClass_example // {String} Optional filter to narrow symbol resolution to a single asset class.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.resolveAssets(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-resolveAssets-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-resolveAssets-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using Org.OpenAPITools.Api;
+using Org.OpenAPITools.Client;
+using Org.OpenAPITools.Model;
+
+namespace Example
+{
+    public class resolveAssetsExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: ApiKeyHeaderAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+            // Configure API key authorization: ApiKeyQueryAuth
+            Configuration.Default.ApiKey.Add("api-key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("api-key", "Bearer");
+
+            // Create an instance of the API class
+            var apiInstance = new DefaultApi();
+            var assetPeriodassetId = assetPeriodassetId_example;  // String |  (optional)  (default to null)
+            var assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example;  // String |  (optional)  (default to null)
+            var assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example;  // String |  (optional)  (default to null)
+            var assetPeriodsymbol = assetPeriodsymbol_example;  // String |  (optional)  (default to null)
+            var assetClass = assetClass_example;  // String | Optional filter to narrow symbol resolution to a single asset class. (optional)  (default to null)
+
+            try {
+                // Resolves an asset ref (symbol/address/id) to the matching asset candidates.
+                price_service.ResolveAssetsResponse result = apiInstance.resolveAssets(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, assetClass);
+                Debug.WriteLine(result);
+            } catch (Exception e) {
+                Debug.Print("Exception when calling DefaultApi.resolveAssets: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-resolveAssets-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: ApiKeyHeaderAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Configure API key authorization: ApiKeyQueryAuth
+OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// OpenAPITools\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('api-key', 'Bearer');
+
+// Create an instance of the API class
+$api_instance = new OpenAPITools\Client\Api\DefaultApi();
+$assetPeriodassetId = assetPeriodassetId_example; // String | 
+$assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String | 
+$assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String | 
+$assetPeriodsymbol = assetPeriodsymbol_example; // String | 
+$assetClass = assetClass_example; // String | Optional filter to narrow symbol resolution to a single asset class.
+
+try {
+    $result = $api_instance->resolveAssets($assetPeriodassetId, $assetPeriodaddressPeriodchain, $assetPeriodaddressPeriodaddress, $assetPeriodsymbol, $assetClass);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->resolveAssets: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-resolveAssets-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::OPenAPIClient::Configuration;
+use WWW::OPenAPIClient::DefaultApi;
+
+# Configure API key authorization: ApiKeyHeaderAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Configure API key authorization: ApiKeyQueryAuth
+$WWW::OPenAPIClient::Configuration::api_key->{'api-key'} = 'YOUR_API_KEY';
+# uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+#$WWW::OPenAPIClient::Configuration::api_key_prefix->{'api-key'} = "Bearer";
+
+# Create an instance of the API class
+my $api_instance = WWW::OPenAPIClient::DefaultApi->new();
+my $assetPeriodassetId = assetPeriodassetId_example; # String | 
+my $assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; # String | 
+my $assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; # String | 
+my $assetPeriodsymbol = assetPeriodsymbol_example; # String | 
+my $assetClass = assetClass_example; # String | Optional filter to narrow symbol resolution to a single asset class.
+
+eval {
+    my $result = $api_instance->resolveAssets(assetPeriodassetId => $assetPeriodassetId, assetPeriodaddressPeriodchain => $assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress => $assetPeriodaddressPeriodaddress, assetPeriodsymbol => $assetPeriodsymbol, assetClass => $assetClass);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->resolveAssets: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-resolveAssets-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import openapi_client
+from openapi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: ApiKeyHeaderAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Configure API key authorization: ApiKeyQueryAuth
+openapi_client.configuration.api_key['api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# openapi_client.configuration.api_key_prefix['api-key'] = 'Bearer'
+
+# Create an instance of the API class
+api_instance = openapi_client.DefaultApi()
+assetPeriodassetId = assetPeriodassetId_example # String |  (optional) (default to null)
+assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example # String |  (optional) (default to null)
+assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example # String |  (optional) (default to null)
+assetPeriodsymbol = assetPeriodsymbol_example # String |  (optional) (default to null)
+assetClass = assetClass_example # String | Optional filter to narrow symbol resolution to a single asset class. (optional) (default to null)
+
+try:
+    # Resolves an asset ref (symbol/address/id) to the matching asset candidates.
+    api_response = api_instance.resolve_assets(assetPeriodassetId=assetPeriodassetId, assetPeriodaddressPeriodchain=assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress=assetPeriodaddressPeriodaddress, assetPeriodsymbol=assetPeriodsymbol, assetClass=assetClass)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->resolveAssets: %s\n" % e)</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-resolveAssets-0-rust">
+                              <pre class="prettyprint"><code class="language-rust">extern crate DefaultApi;
+
+pub fn main() {
+    let assetPeriodassetId = assetPeriodassetId_example; // String
+    let assetPeriodaddressPeriodchain = assetPeriodaddressPeriodchain_example; // String
+    let assetPeriodaddressPeriodaddress = assetPeriodaddressPeriodaddress_example; // String
+    let assetPeriodsymbol = assetPeriodsymbol_example; // String
+    let assetClass = assetClass_example; // String
+
+    let mut context = DefaultApi::Context::default();
+    let result = client.resolveAssets(assetPeriodassetId, assetPeriodaddressPeriodchain, assetPeriodaddressPeriodaddress, assetPeriodsymbol, assetClass, &context).wait();
+
+    println!("{:?}", result);
+}
+</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Scopes</h2>
+                          <table>
+                            
+                          </table>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">asset.assetId</td>
+<td>
+
+
+    <div id="d2e199_resolveAssets_assetPeriodassetId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.address.chain</td>
+<td>
+
+
+    <div id="d2e199_resolveAssets_assetPeriodaddressPeriodchain">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.address.address</td>
+<td>
+
+
+    <div id="d2e199_resolveAssets_assetPeriodaddressPeriodaddress">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">asset.symbol</td>
+<td>
+
+
+    <div id="d2e199_resolveAssets_assetPeriodsymbol">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                                <tr><td style="width:150px;">assetClass</td>
+<td>
+
+
+    <div id="d2e199_resolveAssets_assetClass">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Optional filter to narrow symbol resolution to a single asset class.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3 id="examples-Default-resolveAssets-title-200"></h3>
+                            <p id="examples-Default-resolveAssets-description-200" class="marked"></p>
+                            <script>
+                              var responseDefault200_description = `A successful response.`;
+                              var responseDefault200_description_break = responseDefault200_description.indexOf('\n');
+                              if (responseDefault200_description_break == -1) {
+                                $("#examples-Default-resolveAssets-title-200").text("Status: 200 - " + responseDefault200_description);
+                              } else {
+                                $("#examples-Default-resolveAssets-title-200").text("Status: 200 - " + responseDefault200_description.substring(0, responseDefault200_description_break));
+                                $("#examples-Default-resolveAssets-description-200").html(responseDefault200_description.substring(responseDefault200_description_break));
+                              }
+                            </script>
+
+
+                            <ul id="responses-detail-Default-resolveAssets-200" class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-Default-resolveAssets-200-schema">Schema</a>
+                                </li>
+
+
+
+
+                            </ul>
+
+
+                            <div class="tab-content" id="responses-Default-resolveAssets-200-wrapper" style='margin-bottom: 10px;'>
+                              <div class="tab-pane active" id="responses-Default-resolveAssets-200-schema">
+                                <div id="responses-Default-resolveAssets-schema-200" class="exampleStyle">
+                                  <script>
+                                    $(document).ready(function() {
+                                      var schemaWrapper = {
+  "description" : "A successful response.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/price_service.ResolveAssetsResponse"
+      }
+    }
+  }
+};
+                                      var schema = findNode('schema',schemaWrapper).schema;
+                                      if (!schema) {
+                                        schema = schemaWrapper.schema;
+                                      }
+                                      if (schema == null) {
+                                        return;
+                                      }
+                                      if (schema.$ref != null) {
+                                        schema = defsParser.$refs.get(schema.$ref);
+                                        if (schema.properties != null) {
+                                          Object.keys(schema.properties).forEach( (item) => {
+                                            if (schema.properties[item].$ref != null) {
+                                              schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
+                                            }
+                                          });
+                                        }
+                                      } else if (schema.items != null && schema.items.$ref != null) {
+                                        schema.items = defsParser.$refs.get(schema.items.$ref);
+                                      } else {
+                                        schemaWrapper.definitions = Object.assign({}, defs);
+                                        $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                          console.log(err);
+                                        });
+                                      }
+
+                                      var view = new JSONSchemaView(schema, 3);
+                                      $('#responses-Default-resolveAssets-200-schema-data').val(JSON.stringify(schema));
+                                      var result = $('#responses-Default-resolveAssets-schema-200');
+                                      result.empty();
+                                      result.append(view.render());
+                                    });
+                                  </script>
+                                </div>
+                                <input id='responses-Default-resolveAssets-200-schema-data' type='hidden' value=''></input>
                               </div>
                             </div>
                         </article>
