@@ -873,6 +873,9 @@ ul.nav-tabs {
     defs["ai_service.ChatSession"] = {
   "type" : "object",
   "properties" : {
+    "context" : {
+      "$ref" : "#/components/schemas/ai_service.Context"
+    },
     "messages" : {
       "title" : "Message history in the session",
       "type" : "array",
@@ -880,15 +883,12 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/ai_service.Message"
       }
     },
-    "context" : {
-      "$ref" : "#/components/schemas/ai_service.Context"
+    "preserveSession" : {
+      "title" : "Whether to persist the session",
+      "type" : "boolean"
     },
     "streaming" : {
       "title" : "Whether to use streaming responses",
-      "type" : "boolean"
-    },
-    "preserveSession" : {
-      "title" : "Whether to persist the session",
       "type" : "boolean"
     }
   },
@@ -898,6 +898,12 @@ ul.nav-tabs {
   "title" : "Context provides environment information for a chat session",
   "type" : "object",
   "properties" : {
+    "autoConfig" : {
+      "$ref" : "#/components/schemas/ai_service.AutoConfig"
+    },
+    "insightConfig" : {
+      "$ref" : "#/components/schemas/ai_service.InsightConfig"
+    },
     "projectOwner" : {
       "title" : "Owner of the project (username or organization)",
       "type" : "string"
@@ -906,22 +912,16 @@ ul.nav-tabs {
       "title" : "Project identifier/slug",
       "type" : "string"
     },
-    "version" : {
-      "title" : "API version to use",
-      "type" : "integer",
-      "format" : "int32"
-    },
     "scenario" : {
       "$ref" : "#/components/schemas/ai_service.Context.Scenario"
     },
     "sqlConfig" : {
       "$ref" : "#/components/schemas/ai_service.SqlConfig"
     },
-    "insightConfig" : {
-      "$ref" : "#/components/schemas/ai_service.InsightConfig"
-    },
-    "autoConfig" : {
-      "$ref" : "#/components/schemas/ai_service.AutoConfig"
+    "version" : {
+      "title" : "API version to use",
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
@@ -934,14 +934,14 @@ ul.nav-tabs {
   "title" : "CreateChatSessionResponse contains the newly created session information",
   "type" : "object",
   "properties" : {
-    "sessionId" : {
-      "title" : "Unique identifier for the new session",
-      "type" : "string"
-    },
     "currentCursorPosition" : {
       "title" : "Current cursor position - indicates the latest message position in the conversation",
       "type" : "integer",
       "format" : "int32"
+    },
+    "sessionId" : {
+      "title" : "Unique identifier for the new session",
+      "type" : "string"
     }
   }
 };
@@ -963,12 +963,12 @@ ul.nav-tabs {
   "title" : "HealthzResponse contains health check status",
   "type" : "object",
   "properties" : {
-    "status" : {
-      "title" : "Health status (\"ok\", \"degraded\", \"unavailable\")",
-      "type" : "string"
-    },
     "service" : {
       "title" : "Service name identifier",
+      "type" : "string"
+    },
+    "status" : {
+      "title" : "Health status (\"ok\", \"degraded\", \"unavailable\")",
       "type" : "string"
     }
   }
@@ -986,12 +986,19 @@ ul.nav-tabs {
     defs["ai_service.InsightQueryContent"] = {
   "type" : "object",
   "properties" : {
+    "chartType" : {
+      "$ref" : "#/components/schemas/ai_service.ChartType"
+    },
     "explanation" : {
       "title" : "Explanation of what the query does and how it works",
       "type" : "string"
     },
-    "chartType" : {
-      "$ref" : "#/components/schemas/ai_service.ChartType"
+    "formulas" : {
+      "title" : "Mathematical formulas to apply to the query results",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Formula"
+      }
     },
     "queries" : {
       "title" : "List of queries to execute for generating insights",
@@ -1000,11 +1007,11 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Query"
       }
     },
-    "formulas" : {
-      "title" : "Mathematical formulas to apply to the query results",
+    "results" : {
+      "title" : "List of query results",
       "type" : "array",
       "items" : {
-        "$ref" : "#/components/schemas/common.Formula"
+        "$ref" : "#/components/schemas/ai_service.InsightQueryResult"
       }
     },
     "samplesLimit" : {
@@ -1015,13 +1022,6 @@ ul.nav-tabs {
     "timeRange" : {
       "$ref" : "#/components/schemas/common.TimeRangeLite"
     },
-    "results" : {
-      "title" : "List of query results",
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/ai_service.InsightQueryResult"
-      }
-    },
     "title" : {
       "title" : "Title for the query result visualization",
       "type" : "string"
@@ -1031,40 +1031,26 @@ ul.nav-tabs {
     defs["ai_service.InsightQueryResult"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
+    "alias" : {
       "type" : "string"
     },
-    "alias" : {
+    "error" : {
+      "type" : "string"
+    },
+    "id" : {
       "type" : "string"
     },
     "matrix" : {
       "$ref" : "#/components/schemas/common.Matrix"
-    },
-    "error" : {
-      "type" : "string"
     }
   }
 };
     defs["ai_service.Message"] = {
   "type" : "object",
   "properties" : {
-    "role" : {
-      "$ref" : "#/components/schemas/ai_service.Message.Role"
-    },
-    "text" : {
-      "title" : "Plain text content of the message",
-      "type" : "string"
-    },
-    "structured" : {
-      "$ref" : "#/components/schemas/ai_service.StructuredContent"
-    },
     "isFinal" : {
       "title" : "Indicates this is the final message of a run, meaning the run is complete and all generated messages have been returned",
       "type" : "boolean"
-    },
-    "runId" : {
-      "title" : "Unique identifier for the current run. Messages with the same run_id belong to the same generation process, and is_final indicates when the run is complete",
-      "type" : "string"
     },
     "resources" : {
       "title" : "Resources attached to this message",
@@ -1072,6 +1058,20 @@ ul.nav-tabs {
       "items" : {
         "$ref" : "#/components/schemas/ai_service.Resource"
       }
+    },
+    "role" : {
+      "$ref" : "#/components/schemas/ai_service.Message.Role"
+    },
+    "runId" : {
+      "title" : "Unique identifier for the current run. Messages with the same run_id belong to the same generation process, and is_final indicates when the run is complete",
+      "type" : "string"
+    },
+    "structured" : {
+      "$ref" : "#/components/schemas/ai_service.StructuredContent"
+    },
+    "text" : {
+      "title" : "Plain text content of the message",
+      "type" : "string"
     }
   },
   "description" : "Message represents a single message in an AI conversation with either text or structured content. Messages are generated as part of a 'run' (identified by run_id), and the is_final flag indicates when all messages for a run have been generated."
@@ -1096,13 +1096,11 @@ ul.nav-tabs {
   "title" : "Resource represents a resource that can be attached to a message, such as a file, image, or other content",
   "type" : "object",
   "properties" : {
-    "uri" : {
-      "title" : "Unique identifier or location for the resource",
-      "type" : "string"
-    },
-    "name" : {
-      "title" : "Human-readable name for the resource",
-      "type" : "string"
+    "blob" : {
+      "title" : "Binary content of the resource",
+      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+      "type" : "string",
+      "format" : "byte"
     },
     "description" : {
       "title" : "Description of the resource",
@@ -1112,15 +1110,17 @@ ul.nav-tabs {
       "title" : "MIME type of the resource content",
       "type" : "string"
     },
+    "name" : {
+      "title" : "Human-readable name for the resource",
+      "type" : "string"
+    },
     "text" : {
       "title" : "Text content of the resource",
       "type" : "string"
     },
-    "blob" : {
-      "title" : "Binary content of the resource",
-      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-      "type" : "string",
-      "format" : "byte"
+    "uri" : {
+      "title" : "Unique identifier or location for the resource",
+      "type" : "string"
     }
   }
 };
@@ -1138,26 +1138,26 @@ ul.nav-tabs {
   "title" : "SqlContent contains content including the query text, explanation, visualization options and results",
   "type" : "object",
   "properties" : {
-    "query" : {
-      "title" : "SQL query text",
+    "chartType" : {
+      "$ref" : "#/components/schemas/ai_service.ChartType"
+    },
+    "error" : {
+      "title" : "Error from query execution",
       "type" : "string"
     },
     "explanation" : {
       "title" : "Explanation of what the query does and how it works",
       "type" : "string"
     },
-    "chartType" : {
-      "$ref" : "#/components/schemas/ai_service.ChartType"
-    },
-    "title" : {
-      "title" : "Title for the query result visualization",
+    "query" : {
+      "title" : "SQL query text",
       "type" : "string"
     },
     "result" : {
       "$ref" : "#/components/schemas/common.TabularData"
     },
-    "error" : {
-      "title" : "Error from query execution",
+    "title" : {
+      "title" : "Title for the query result visualization",
       "type" : "string"
     }
   }
@@ -1166,17 +1166,17 @@ ul.nav-tabs {
   "title" : "StructuredContent represents structured content that can contain SQL queries, errors, or other formatted data",
   "type" : "object",
   "properties" : {
-    "type" : {
-      "$ref" : "#/components/schemas/ai_service.StructuredContent.ContentType"
-    },
-    "sql" : {
-      "$ref" : "#/components/schemas/ai_service.SqlContent"
+    "error" : {
+      "$ref" : "#/components/schemas/ai_service.ErrorContent"
     },
     "insightQuery" : {
       "$ref" : "#/components/schemas/ai_service.InsightQueryContent"
     },
-    "error" : {
-      "$ref" : "#/components/schemas/ai_service.ErrorContent"
+    "sql" : {
+      "$ref" : "#/components/schemas/ai_service.SqlContent"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/ai_service.StructuredContent.ContentType"
     }
   }
 };
@@ -1188,35 +1188,35 @@ ul.nav-tabs {
     defs["alert_service.Alert"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "ruleId" : {
-      "type" : "string"
-    },
     "active" : {
       "type" : "boolean"
     },
-    "query" : {
-      "type" : "string"
-    },
-    "startTime" : {
-      "type" : "string",
-      "format" : "date-time"
+    "createState" : {
+      "$ref" : "#/components/schemas/alert_service.Alert.AlertState"
     },
     "endTime" : {
       "type" : "string",
       "format" : "date-time"
     },
+    "id" : {
+      "type" : "string"
+    },
     "lastNotified" : {
       "type" : "string",
       "format" : "date-time"
     },
-    "createState" : {
-      "$ref" : "#/components/schemas/alert_service.Alert.AlertState"
-    },
     "lastState" : {
       "$ref" : "#/components/schemas/alert_service.Alert.AlertState"
+    },
+    "query" : {
+      "type" : "string"
+    },
+    "ruleId" : {
+      "type" : "string"
+    },
+    "startTime" : {
+      "type" : "string",
+      "format" : "date-time"
     }
   }
 };
@@ -1225,18 +1225,6 @@ ul.nav-tabs {
   "properties" : {
     "condition" : {
       "$ref" : "#/components/schemas/alert_service.Condition"
-    },
-    "samples" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/alert_service.Sample"
-      }
-    },
-    "subject" : {
-      "type" : "string"
-    },
-    "message" : {
-      "type" : "string"
     },
     "logCondition" : {
       "$ref" : "#/components/schemas/alert_service.LogCondition"
@@ -1247,18 +1235,24 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.EventLogEntry"
       }
     },
-    "time" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "state" : {
-      "$ref" : "#/components/schemas/alert_service.AlertRule.State"
+    "message" : {
+      "type" : "string"
     },
     "queryTimeRange" : {
       "$ref" : "#/components/schemas/common.TimeRangeLite"
     },
+    "samples" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/alert_service.Sample"
+      }
+    },
     "sqlCondition" : {
       "$ref" : "#/components/schemas/alert_service.SQLCondition"
+    },
+    "sqlMatchCount" : {
+      "type" : "integer",
+      "format" : "int32"
     },
     "sqlSamples" : {
       "type" : "array",
@@ -1267,39 +1261,23 @@ ul.nav-tabs {
         "properties" : { }
       }
     },
-    "sqlMatchCount" : {
-      "type" : "integer",
-      "format" : "int32"
-    }
-  }
-};
-    defs["alert_service.AlertRule"] = {
-  "type" : "object",
-  "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "projectId" : {
-      "title" : "project it belongs to",
-      "type" : "string"
-    },
     "state" : {
       "$ref" : "#/components/schemas/alert_service.AlertRule.State"
     },
     "subject" : {
       "type" : "string"
     },
-    "message" : {
-      "type" : "string"
-    },
-    "group" : {
-      "type" : "string"
-    },
-    "query" : {
-      "type" : "string"
-    },
-    "for" : {
-      "$ref" : "#/components/schemas/common.Duration"
+    "time" : {
+      "type" : "string",
+      "format" : "date-time"
+    }
+  }
+};
+    defs["alert_service.AlertRule"] = {
+  "type" : "object",
+  "properties" : {
+    "alertType" : {
+      "$ref" : "#/components/schemas/alert_service.AlertType"
     },
     "channels" : {
       "type" : "array",
@@ -1307,12 +1285,43 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Channel"
       }
     },
-    "updateTime" : {
+    "condition" : {
+      "$ref" : "#/components/schemas/alert_service.Condition"
+    },
+    "error" : {
+      "type" : "string"
+    },
+    "for" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "group" : {
+      "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "interval" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "lastQueryTime" : {
       "type" : "string",
       "format" : "date-time"
     },
-    "condition" : {
-      "$ref" : "#/components/schemas/alert_service.Condition"
+    "logCondition" : {
+      "$ref" : "#/components/schemas/alert_service.LogCondition"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "mute" : {
+      "type" : "boolean"
+    },
+    "projectId" : {
+      "title" : "project it belongs to",
+      "type" : "string"
+    },
+    "query" : {
+      "type" : "string"
     },
     "renotifyDuration" : {
       "$ref" : "#/components/schemas/common.Duration"
@@ -1321,27 +1330,18 @@ ul.nav-tabs {
       "type" : "integer",
       "format" : "int32"
     },
-    "alertType" : {
-      "$ref" : "#/components/schemas/alert_service.AlertType"
-    },
-    "logCondition" : {
-      "$ref" : "#/components/schemas/alert_service.LogCondition"
-    },
-    "lastQueryTime" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "mute" : {
-      "type" : "boolean"
-    },
-    "interval" : {
-      "$ref" : "#/components/schemas/common.Duration"
-    },
-    "error" : {
-      "type" : "string"
-    },
     "sqlCondition" : {
       "$ref" : "#/components/schemas/alert_service.SQLCondition"
+    },
+    "state" : {
+      "$ref" : "#/components/schemas/alert_service.AlertRule.State"
+    },
+    "subject" : {
+      "type" : "string"
+    },
+    "updateTime" : {
+      "type" : "string",
+      "format" : "date-time"
     }
   }
 };
@@ -1361,27 +1361,8 @@ ul.nav-tabs {
     defs["alert_service_AlertService_SaveAlertRuleBody_rule"] = {
   "type" : "object",
   "properties" : {
-    "projectId" : {
-      "title" : "project it belongs to",
-      "type" : "string"
-    },
-    "state" : {
-      "$ref" : "#/components/schemas/alert_service.AlertRule.State"
-    },
-    "subject" : {
-      "type" : "string"
-    },
-    "message" : {
-      "type" : "string"
-    },
-    "group" : {
-      "type" : "string"
-    },
-    "query" : {
-      "type" : "string"
-    },
-    "for" : {
-      "$ref" : "#/components/schemas/common.Duration"
+    "alertType" : {
+      "$ref" : "#/components/schemas/alert_service.AlertType"
     },
     "channels" : {
       "type" : "array",
@@ -1389,12 +1370,40 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Channel"
       }
     },
-    "updateTime" : {
+    "condition" : {
+      "$ref" : "#/components/schemas/alert_service.Condition"
+    },
+    "error" : {
+      "type" : "string"
+    },
+    "for" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "group" : {
+      "type" : "string"
+    },
+    "interval" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "lastQueryTime" : {
       "type" : "string",
       "format" : "date-time"
     },
-    "condition" : {
-      "$ref" : "#/components/schemas/alert_service.Condition"
+    "logCondition" : {
+      "$ref" : "#/components/schemas/alert_service.LogCondition"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "mute" : {
+      "type" : "boolean"
+    },
+    "projectId" : {
+      "title" : "project it belongs to",
+      "type" : "string"
+    },
+    "query" : {
+      "type" : "string"
     },
     "renotifyDuration" : {
       "$ref" : "#/components/schemas/common.Duration"
@@ -1403,27 +1412,18 @@ ul.nav-tabs {
       "type" : "integer",
       "format" : "int32"
     },
-    "alertType" : {
-      "$ref" : "#/components/schemas/alert_service.AlertType"
-    },
-    "logCondition" : {
-      "$ref" : "#/components/schemas/alert_service.LogCondition"
-    },
-    "lastQueryTime" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "mute" : {
-      "type" : "boolean"
-    },
-    "interval" : {
-      "$ref" : "#/components/schemas/common.Duration"
-    },
-    "error" : {
-      "type" : "string"
-    },
     "sqlCondition" : {
       "$ref" : "#/components/schemas/alert_service.SQLCondition"
+    },
+    "state" : {
+      "$ref" : "#/components/schemas/alert_service.AlertRule.State"
+    },
+    "subject" : {
+      "type" : "string"
+    },
+    "updateTime" : {
+      "type" : "string",
+      "format" : "date-time"
     }
   }
 };
@@ -1435,28 +1435,23 @@ ul.nav-tabs {
     defs["alert_service.Condition"] = {
   "type" : "object",
   "properties" : {
-    "queries" : {
-      "title" : "to be deprecated",
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Query"
-      }
-    },
-    "formula" : {
-      "$ref" : "#/components/schemas/common.Formula"
-    },
     "comparisonOp" : {
       "type" : "string"
-    },
-    "threshold" : {
-      "type" : "number",
-      "format" : "double"
     },
     "eventsQueries" : {
       "title" : "to be deprecated",
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.SegmentationQuery"
+      }
+    },
+    "formula" : {
+      "$ref" : "#/components/schemas/common.Formula"
+    },
+    "insightQueries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/alert_service.Condition.InsightQuery"
       }
     },
     "priceQueries" : {
@@ -1466,11 +1461,16 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.PriceSegmentationQuery"
       }
     },
-    "insightQueries" : {
+    "queries" : {
+      "title" : "to be deprecated",
       "type" : "array",
       "items" : {
-        "$ref" : "#/components/schemas/alert_service.Condition.InsightQuery"
+        "$ref" : "#/components/schemas/common.Query"
       }
+    },
+    "threshold" : {
+      "type" : "number",
+      "format" : "double"
     },
     "threshold2" : {
       "type" : "number",
@@ -1481,11 +1481,11 @@ ul.nav-tabs {
     defs["alert_service.Condition.InsightQuery"] = {
   "type" : "object",
   "properties" : {
-    "metricsQuery" : {
-      "$ref" : "#/components/schemas/common.Query"
-    },
     "eventsQuery" : {
       "$ref" : "#/components/schemas/common.SegmentationQuery"
+    },
+    "metricsQuery" : {
+      "$ref" : "#/components/schemas/common.Query"
     },
     "priceQuery" : {
       "$ref" : "#/components/schemas/common.PriceSegmentationQuery"
@@ -1526,10 +1526,10 @@ ul.nav-tabs {
     defs["alert_service.LogCondition"] = {
   "type" : "object",
   "properties" : {
-    "query" : {
+    "comparisonOp" : {
       "type" : "string"
     },
-    "comparisonOp" : {
+    "query" : {
       "type" : "string"
     },
     "threshold" : {
@@ -1545,6 +1545,18 @@ ul.nav-tabs {
     defs["alert_service.Mute"] = {
   "type" : "object",
   "properties" : {
+    "active" : {
+      "title" : "unmute api will make it inactive",
+      "type" : "boolean"
+    },
+    "endTime" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "group" : {
+      "title" : "if alert id is empty, then group could be used to select a list of alerts",
+      "type" : "string"
+    },
     "id" : {
       "type" : "string"
     },
@@ -1552,19 +1564,7 @@ ul.nav-tabs {
       "title" : "can be valid alert id or empty meanning match all alerts",
       "type" : "string"
     },
-    "group" : {
-      "title" : "if alert id is empty, then group could be used to select a list of alerts",
-      "type" : "string"
-    },
-    "active" : {
-      "title" : "unmute api will make it inactive",
-      "type" : "boolean"
-    },
     "startTime" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "endTime" : {
       "type" : "string",
       "format" : "date-time"
     },
@@ -1596,11 +1596,8 @@ ul.nav-tabs {
     defs["alert_service.SQLCondition.ColumnCondition"] = {
   "type" : "object",
   "properties" : {
-    "valueColumn" : {
-      "type" : "string"
-    },
-    "timeColumn" : {
-      "type" : "string"
+    "aggregation" : {
+      "$ref" : "#/components/schemas/alert_service.SQLCondition.Aggregation"
     },
     "comparisonOp" : {
       "type" : "string"
@@ -1613,8 +1610,11 @@ ul.nav-tabs {
       "type" : "number",
       "format" : "double"
     },
-    "aggregation" : {
-      "$ref" : "#/components/schemas/alert_service.SQLCondition.Aggregation"
+    "timeColumn" : {
+      "type" : "string"
+    },
+    "valueColumn" : {
+      "type" : "string"
     }
   }
 };
@@ -1627,13 +1627,13 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "value" : {
-      "type" : "number",
-      "format" : "double"
-    },
     "timestamp" : {
       "type" : "string",
       "format" : "date-time"
+    },
+    "value" : {
+      "type" : "number",
+      "format" : "double"
     }
   }
 };
@@ -1648,27 +1648,27 @@ ul.nav-tabs {
     defs["analytic_service.AnalyticService.ExecuteSQLAsyncBody"] = {
   "type" : "object",
   "properties" : {
-    "projectId" : {
-      "title" : "use project id if project_owner and project_slug are not provided",
-      "type" : "string"
-    },
-    "version" : {
-      "title" : "version of the datasource, default to the active version if not provided",
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "sqlQuery" : {
-      "$ref" : "#/components/schemas/analytic_service.SQLQuery"
+    "cachePolicy" : {
+      "$ref" : "#/components/schemas/common.CachePolicy"
     },
     "cursor" : {
       "type" : "string",
       "description" : "Pagination cursor for the next page of results, using the value from the previous response."
     },
-    "cachePolicy" : {
-      "$ref" : "#/components/schemas/common.CachePolicy"
-    },
     "engine" : {
       "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
+    },
+    "projectId" : {
+      "title" : "use project id if project_owner and project_slug are not provided",
+      "type" : "string"
+    },
+    "sqlQuery" : {
+      "$ref" : "#/components/schemas/analytic_service.SQLQuery"
+    },
+    "version" : {
+      "title" : "version of the datasource, default to the active version if not provided",
+      "type" : "integer",
+      "format" : "int32"
     }
   },
   "example" : {
@@ -1680,27 +1680,27 @@ ul.nav-tabs {
     defs["analytic_service.AnalyticService.ExecuteSQLBody"] = {
   "type" : "object",
   "properties" : {
-    "projectId" : {
-      "title" : "use project id if project_owner and project_slug are not provided",
-      "type" : "string"
-    },
-    "version" : {
-      "title" : "version of the datasource, default to the active version if not provided",
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "sqlQuery" : {
-      "$ref" : "#/components/schemas/analytic_service.SQLQuery"
+    "cachePolicy" : {
+      "$ref" : "#/components/schemas/common.CachePolicy"
     },
     "cursor" : {
       "type" : "string",
       "description" : "Pagination cursor for the next page of results, using the value from the previous response."
     },
-    "cachePolicy" : {
-      "$ref" : "#/components/schemas/common.CachePolicy"
-    },
     "engine" : {
       "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
+    },
+    "projectId" : {
+      "title" : "use project id if project_owner and project_slug are not provided",
+      "type" : "string"
+    },
+    "sqlQuery" : {
+      "$ref" : "#/components/schemas/analytic_service.SQLQuery"
+    },
+    "version" : {
+      "title" : "version of the datasource, default to the active version if not provided",
+      "type" : "integer",
+      "format" : "int32"
     }
   },
   "example" : {
@@ -1712,20 +1712,20 @@ ul.nav-tabs {
     defs["analytic_service.AnalyticService.SaveRefreshableMaterializedViewBody"] = {
   "type" : "object",
   "properties" : {
-    "projectId" : {
-      "title" : "use project id if project_owner and project_slug are not provided",
-      "type" : "string"
-    },
     "name" : {
       "title" : "name of the materialized view, if name is exists, the materialized view will be updated",
       "type" : "string"
     },
-    "sql" : {
-      "title" : "the sql query",
+    "projectId" : {
+      "title" : "use project id if project_owner and project_slug are not provided",
       "type" : "string"
     },
     "refreshSettings" : {
       "$ref" : "#/components/schemas/analytic_service.ViewRefreshSettings"
+    },
+    "sql" : {
+      "title" : "the sql query",
+      "type" : "string"
     }
   }
 };
@@ -1736,34 +1736,34 @@ ul.nav-tabs {
       "title" : "use project id if project_owner and project_slug are not provided",
       "type" : "string"
     },
-    "version" : {
-      "title" : "version of the datasource, default to the active version if not provided",
-      "type" : "integer",
-      "format" : "int32"
+    "source" : {
+      "$ref" : "#/components/schemas/analytic_service.Source"
     },
     "sqlQuery" : {
       "$ref" : "#/components/schemas/analytic_service.SQLQuery"
     },
-    "source" : {
-      "$ref" : "#/components/schemas/analytic_service.Source"
+    "version" : {
+      "title" : "version of the datasource, default to the active version if not provided",
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
     defs["analytic_service.AsyncExecuteSQLResponse"] = {
   "type" : "object",
   "properties" : {
-    "queryId" : {
-      "type" : "string"
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
     },
     "executionId" : {
+      "type" : "string"
+    },
+    "queryId" : {
       "type" : "string"
     },
     "queueLength" : {
       "type" : "integer",
       "format" : "int32"
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
 };
@@ -1774,14 +1774,28 @@ ul.nav-tabs {
     defs["analytic_service.ExecutionInfo"] = {
   "type" : "object",
   "properties" : {
-    "queryId" : {
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
+    },
+    "error" : {
       "type" : "string"
     },
     "executionId" : {
       "type" : "string"
     },
-    "status" : {
-      "$ref" : "#/components/schemas/analytic_service.ExecutionStatus"
+    "finishedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "processorVersion" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "queryId" : {
+      "type" : "string"
+    },
+    "result" : {
+      "$ref" : "#/components/schemas/common.TabularData"
     },
     "scheduledAt" : {
       "type" : "string",
@@ -1791,22 +1805,8 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "date-time"
     },
-    "finishedAt" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "result" : {
-      "$ref" : "#/components/schemas/common.TabularData"
-    },
-    "error" : {
-      "type" : "string"
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
-    },
-    "processorVersion" : {
-      "type" : "integer",
-      "format" : "int32"
+    "status" : {
+      "$ref" : "#/components/schemas/analytic_service.ExecutionStatus"
     }
   }
 };
@@ -1818,10 +1818,10 @@ ul.nav-tabs {
     defs["analytic_service.GetRefreshableMaterializedViewStatusResponse"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
-      "type" : "string"
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
     },
-    "status" : {
+    "exception" : {
       "type" : "string"
     },
     "lastRefreshTime" : {
@@ -1832,6 +1832,9 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "date-time"
     },
+    "name" : {
+      "type" : "string"
+    },
     "nextRefreshTime" : {
       "type" : "string",
       "format" : "date-time"
@@ -1839,19 +1842,24 @@ ul.nav-tabs {
     "progress" : {
       "type" : "string"
     },
-    "readRows" : {
-      "type" : "string",
-      "format" : "uint64"
-    },
     "readBytes" : {
       "type" : "string",
       "format" : "uint64"
     },
-    "totalRows" : {
+    "readRows" : {
       "type" : "string",
       "format" : "uint64"
     },
-    "writtenRows" : {
+    "refreshSettings" : {
+      "$ref" : "#/components/schemas/analytic_service.ViewRefreshSettings"
+    },
+    "sql" : {
+      "type" : "string"
+    },
+    "status" : {
+      "type" : "string"
+    },
+    "totalRows" : {
       "type" : "string",
       "format" : "uint64"
     },
@@ -1859,17 +1867,9 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "uint64"
     },
-    "sql" : {
-      "type" : "string"
-    },
-    "refreshSettings" : {
-      "$ref" : "#/components/schemas/analytic_service.ViewRefreshSettings"
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
-    },
-    "exception" : {
-      "type" : "string"
+    "writtenRows" : {
+      "type" : "string",
+      "format" : "uint64"
     }
   }
 };
@@ -1877,23 +1877,23 @@ ul.nav-tabs {
   "title" : "Response message for GetSharingSQL",
   "type" : "object",
   "properties" : {
-    "query" : {
-      "$ref" : "#/components/schemas/analytic_service.GetSharingSQLResponse.Query"
-    },
     "project" : {
       "$ref" : "#/components/schemas/common.Project"
+    },
+    "query" : {
+      "$ref" : "#/components/schemas/analytic_service.GetSharingSQLResponse.Query"
     }
   }
 };
     defs["analytic_service.GetSharingSQLResponse.Query"] = {
   "type" : "object",
   "properties" : {
-    "sqlQuery" : {
-      "$ref" : "#/components/schemas/analytic_service.SQLQuery"
-    },
     "createdAt" : {
       "type" : "string",
       "format" : "date-time"
+    },
+    "sqlQuery" : {
+      "$ref" : "#/components/schemas/analytic_service.SQLQuery"
     },
     "updatedAt" : {
       "type" : "string",
@@ -1930,14 +1930,14 @@ ul.nav-tabs {
     defs["analytic_service.ListTablesResponse"] = {
   "type" : "object",
   "properties" : {
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
+    },
     "names" : {
       "type" : "array",
       "items" : {
         "type" : "string"
       }
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
 };
@@ -1947,34 +1947,28 @@ ul.nav-tabs {
     "field" : {
       "type" : "string"
     },
-    "value" : {
-      "type" : "string"
-    },
     "not" : {
       "type" : "boolean"
+    },
+    "value" : {
+      "type" : "string"
     }
   }
 };
     defs["analytic_service.LogQueryRequest.Sort"] = {
   "type" : "object",
   "properties" : {
-    "field" : {
-      "type" : "string"
-    },
     "desc" : {
       "type" : "boolean"
+    },
+    "field" : {
+      "type" : "string"
     }
   }
 };
     defs["analytic_service.LogQueryResponse"] = {
   "type" : "object",
   "properties" : {
-    "entries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.EventLogEntry"
-      }
-    },
     "after" : {
       "title" : "for pagination",
       "type" : "array",
@@ -1982,12 +1976,18 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Any"
       }
     },
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
+    },
+    "entries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.EventLogEntry"
+      }
+    },
     "total" : {
       "type" : "string",
       "format" : "int64"
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
 };
@@ -2010,61 +2010,61 @@ ul.nav-tabs {
     defs["analytic_service.QueryTableResponse"] = {
   "type" : "object",
   "properties" : {
-    "table" : {
-      "$ref" : "#/components/schemas/analytic_service.Table"
-    },
     "computeStats" : {
       "$ref" : "#/components/schemas/common.ComputeStats"
+    },
+    "table" : {
+      "$ref" : "#/components/schemas/analytic_service.Table"
     }
   }
 };
     defs["analytic_service.QueryTablesResponse"] = {
   "type" : "object",
   "properties" : {
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
+    },
     "tables" : {
       "type" : "object",
       "additionalProperties" : {
         "$ref" : "#/components/schemas/analytic_service.Table"
       }
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
 };
     defs["analytic_service.SQLQuery"] = {
   "type" : "object",
   "properties" : {
-    "sql" : {
-      "title" : "the sql query",
-      "type" : "string"
+    "name" : {
+      "type" : "string",
+      "description" : "the name of the query, if sql is empty and name not empty, the query will be fetched by the name."
+    },
+    "parameters" : {
+      "$ref" : "#/components/schemas/common.RichStruct"
+    },
+    "queryId" : {
+      "type" : "string",
+      "description" : "the id of the query, if sql and name both empty, the query will be fetched by the id."
     },
     "size" : {
       "title" : "the limit of the query",
       "type" : "integer",
       "format" : "int32"
     },
-    "parameters" : {
-      "$ref" : "#/components/schemas/common.RichStruct"
-    },
-    "name" : {
-      "type" : "string",
-      "description" : "the name of the query, if sql is empty and name not empty, the query will be fetched by the name."
-    },
-    "queryId" : {
-      "type" : "string",
-      "description" : "the id of the query, if sql and name both empty, the query will be fetched by the id."
+    "sql" : {
+      "title" : "the sql query",
+      "type" : "string"
     }
   }
 };
     defs["analytic_service.SaveRefreshableMaterializedViewResponse"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
-      "type" : "string"
-    },
     "isUpdated" : {
       "type" : "boolean"
+    },
+    "name" : {
+      "type" : "string"
     }
   }
 };
@@ -2080,13 +2080,13 @@ ul.nav-tabs {
   "title" : "Request message for SaveSharingSQL",
   "type" : "object",
   "properties" : {
-    "queryId" : {
-      "title" : "ID of the SQL query to share",
-      "type" : "string"
-    },
     "isPublic" : {
       "title" : "Whether the SQL query is publicly accessible",
       "type" : "boolean"
+    },
+    "queryId" : {
+      "title" : "ID of the SQL query to share",
+      "type" : "string"
     }
   }
 };
@@ -2094,22 +2094,22 @@ ul.nav-tabs {
   "title" : "Response message for SaveSharingSQL",
   "type" : "object",
   "properties" : {
-    "sharingId" : {
-      "title" : "ID of the sharing record",
-      "type" : "string"
-    },
-    "queryId" : {
-      "title" : "ID of the SQL query",
-      "type" : "string"
+    "createdAt" : {
+      "title" : "Creation timestamp",
+      "type" : "string",
+      "format" : "date-time"
     },
     "isPublic" : {
       "title" : "Whether the SQL query is publicly accessible",
       "type" : "boolean"
     },
-    "createdAt" : {
-      "title" : "Creation timestamp",
-      "type" : "string",
-      "format" : "date-time"
+    "queryId" : {
+      "title" : "ID of the SQL query",
+      "type" : "string"
+    },
+    "sharingId" : {
+      "title" : "ID of the sharing record",
+      "type" : "string"
     },
     "updatedAt" : {
       "title" : "Last update timestamp",
@@ -2121,26 +2121,20 @@ ul.nav-tabs {
     defs["analytic_service.SearchService.QueryLogBody"] = {
   "type" : "object",
   "properties" : {
-    "projectId" : {
-      "type" : "string"
-    },
-    "query" : {
-      "type" : "string"
-    },
-    "timeRange" : {
-      "$ref" : "#/components/schemas/common.TimeRange"
-    },
-    "sorts" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/analytic_service.LogQueryRequest.Sort"
-      }
-    },
     "after" : {
       "title" : "for pagination",
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.Any"
+      }
+    },
+    "cachePolicy" : {
+      "$ref" : "#/components/schemas/common.CachePolicy"
+    },
+    "filters" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/analytic_service.LogQueryRequest.Filter"
       }
     },
     "limit" : {
@@ -2151,21 +2145,27 @@ ul.nav-tabs {
       "type" : "integer",
       "format" : "int32"
     },
-    "filters" : {
+    "projectId" : {
+      "type" : "string"
+    },
+    "query" : {
+      "type" : "string"
+    },
+    "sorts" : {
       "type" : "array",
       "items" : {
-        "$ref" : "#/components/schemas/analytic_service.LogQueryRequest.Filter"
+        "$ref" : "#/components/schemas/analytic_service.LogQueryRequest.Sort"
       }
-    },
-    "version" : {
-      "type" : "integer",
-      "format" : "int32"
     },
     "source" : {
       "type" : "string"
     },
-    "cachePolicy" : {
-      "$ref" : "#/components/schemas/common.CachePolicy"
+    "timeRange" : {
+      "$ref" : "#/components/schemas/common.TimeRange"
+    },
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
@@ -2177,56 +2177,56 @@ ul.nav-tabs {
     defs["analytic_service.SyncExecuteSQLResponse"] = {
   "type" : "object",
   "properties" : {
-    "runtimeCost" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "result" : {
-      "$ref" : "#/components/schemas/common.TabularData"
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
     },
     "error" : {
       "type" : "string"
     },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
+    "result" : {
+      "$ref" : "#/components/schemas/common.TabularData"
+    },
+    "runtimeCost" : {
+      "type" : "string",
+      "format" : "int64"
     }
   }
 };
     defs["analytic_service.Table"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
-      "type" : "string"
-    },
     "columns" : {
       "type" : "object",
       "additionalProperties" : {
         "$ref" : "#/components/schemas/analytic_service.Table.Column"
       }
     },
-    "tableType" : {
-      "$ref" : "#/components/schemas/analytic_service.Table.TableType"
+    "name" : {
+      "type" : "string"
     },
     "relatedProjectId" : {
       "title" : "only exists if table is external",
       "type" : "string"
+    },
+    "tableType" : {
+      "$ref" : "#/components/schemas/analytic_service.Table.TableType"
     }
   }
 };
     defs["analytic_service.Table.Column"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
+    "clickhouseDataType" : {
       "type" : "string"
     },
     "columnType" : {
       "$ref" : "#/components/schemas/analytic_service.Table.Column.ColumnType"
     },
-    "clickhouseDataType" : {
-      "type" : "string"
-    },
     "isBuiltin" : {
       "type" : "boolean"
+    },
+    "name" : {
+      "type" : "string"
     }
   }
 };
@@ -2243,11 +2243,8 @@ ul.nav-tabs {
     defs["analytic_service.ViewRefreshSettings"] = {
   "type" : "object",
   "properties" : {
-    "refreshInterval" : {
-      "type" : "string"
-    },
-    "strategy" : {
-      "$ref" : "#/components/schemas/analytic_service.ViewRefreshSettings.RefreshStrategy"
+    "appendMode" : {
+      "type" : "boolean"
     },
     "dependsOn" : {
       "type" : "array",
@@ -2255,11 +2252,14 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "appendMode" : {
-      "type" : "boolean"
-    },
     "orderBy" : {
       "type" : "string"
+    },
+    "refreshInterval" : {
+      "type" : "string"
+    },
+    "strategy" : {
+      "$ref" : "#/components/schemas/analytic_service.ViewRefreshSettings.RefreshStrategy"
     }
   }
 };
@@ -2271,14 +2271,14 @@ ul.nav-tabs {
     defs["common.Aggregate"] = {
   "type" : "object",
   "properties" : {
-    "op" : {
-      "$ref" : "#/components/schemas/common.Aggregate.AggregateOps"
-    },
     "grouping" : {
       "type" : "array",
       "items" : {
         "type" : "string"
       }
+    },
+    "op" : {
+      "$ref" : "#/components/schemas/common.Aggregate.AggregateOps"
     }
   }
 };
@@ -2290,21 +2290,6 @@ ul.nav-tabs {
     defs["common.Any"] = {
   "type" : "object",
   "properties" : {
-    "intValue" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "longValue" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "doubleValue" : {
-      "type" : "number",
-      "format" : "double"
-    },
-    "stringValue" : {
-      "type" : "string"
-    },
     "boolValue" : {
       "type" : "boolean"
     },
@@ -2312,68 +2297,83 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "date-time"
     },
+    "doubleValue" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "intValue" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
     "listValue" : {
       "$ref" : "#/components/schemas/common.StringList"
+    },
+    "longValue" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "stringValue" : {
+      "type" : "string"
     }
   }
 };
     defs["common.Argument"] = {
   "type" : "object",
   "properties" : {
-    "stringValue" : {
-      "type" : "string"
-    },
-    "intValue" : {
-      "type" : "integer",
-      "format" : "int32"
+    "boolValue" : {
+      "type" : "boolean"
     },
     "doubleValue" : {
       "type" : "number",
       "format" : "double"
     },
-    "boolValue" : {
-      "type" : "boolean"
-    },
     "durationValue" : {
       "$ref" : "#/components/schemas/common.Duration"
+    },
+    "intValue" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "stringValue" : {
+      "type" : "string"
     }
   }
 };
     defs["common.BigDecimal"] = {
   "type" : "object",
   "properties" : {
-    "value" : {
-      "$ref" : "#/components/schemas/common.BigInteger"
-    },
     "exp" : {
       "type" : "integer",
       "format" : "int32"
+    },
+    "value" : {
+      "$ref" : "#/components/schemas/common.BigInteger"
     }
   }
 };
     defs["common.BigInteger"] = {
   "type" : "object",
   "properties" : {
-    "negative" : {
-      "type" : "boolean"
-    },
     "data" : {
       "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
       "type" : "string",
       "format" : "byte"
+    },
+    "negative" : {
+      "type" : "boolean"
     }
   }
 };
     defs["common.CachePolicy"] = {
   "type" : "object",
   "properties" : {
-    "cacheTtlSecs" : {
-      "title" : "how long the cache will be stored before it is evicted",
+    "cacheRefreshTtlSecs" : {
+      "title" : "how long the cache will be refreshed in the background",
       "type" : "integer",
       "format" : "int32"
     },
-    "cacheRefreshTtlSecs" : {
-      "title" : "how long the cache will be refreshed in the background",
+    "cacheTtlSecs" : {
+      "title" : "how long the cache will be stored before it is evicted",
       "type" : "integer",
       "format" : "int32"
     },
@@ -2391,48 +2391,48 @@ ul.nav-tabs {
   "title" : "TODO, finish this",
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "projectId" : {
-      "type" : "string"
-    },
-    "type" : {
-      "$ref" : "#/components/schemas/common.Channel.Type"
-    },
-    "slackWebhookUrl" : {
-      "type" : "string"
-    },
-    "emailAddress" : {
-      "type" : "string"
-    },
-    "name" : {
-      "type" : "string"
-    },
-    "customWebhookUrl" : {
-      "type" : "string"
-    },
     "customHeaders" : {
       "type" : "object",
       "additionalProperties" : {
         "type" : "string"
       }
     },
-    "telegramReference" : {
+    "customWebhookUrl" : {
       "type" : "string"
     },
-    "telegramChatId" : {
+    "emailAddress" : {
       "type" : "string"
     },
-    "slackTeam" : {
+    "id" : {
       "type" : "string"
     },
-    "slackChannel" : {
+    "name" : {
       "type" : "string"
     },
     "pagerdutyConfig" : {
       "type" : "object",
       "properties" : { }
+    },
+    "projectId" : {
+      "type" : "string"
+    },
+    "slackChannel" : {
+      "type" : "string"
+    },
+    "slackTeam" : {
+      "type" : "string"
+    },
+    "slackWebhookUrl" : {
+      "type" : "string"
+    },
+    "telegramChatId" : {
+      "type" : "string"
+    },
+    "telegramReference" : {
+      "type" : "string"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/common.Channel.Type"
     }
   }
 };
@@ -2444,17 +2444,17 @@ ul.nav-tabs {
     defs["common.CohortsFilter"] = {
   "type" : "object",
   "properties" : {
-    "symbol" : {
-      "type" : "boolean"
+    "aggregation" : {
+      "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation"
     },
     "name" : {
       "type" : "string"
     },
-    "aggregation" : {
-      "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation"
-    },
     "selectorExpr" : {
       "$ref" : "#/components/schemas/common.SelectorExpr"
+    },
+    "symbol" : {
+      "type" : "boolean"
     },
     "timeRange" : {
       "$ref" : "#/components/schemas/common.TimeRangeLite"
@@ -2464,14 +2464,14 @@ ul.nav-tabs {
     defs["common.CohortsFilter.Aggregation"] = {
   "type" : "object",
   "properties" : {
-    "total" : {
-      "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation.Total"
-    },
     "aggregateProperties" : {
       "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation.AggregateProperties"
     },
     "operator" : {
       "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation.OperatorType"
+    },
+    "total" : {
+      "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation.Total"
     },
     "value" : {
       "type" : "array",
@@ -2484,11 +2484,11 @@ ul.nav-tabs {
     defs["common.CohortsFilter.Aggregation.AggregateProperties"] = {
   "type" : "object",
   "properties" : {
-    "type" : {
-      "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation.AggregateProperties.AggregationType"
-    },
     "propertyName" : {
       "type" : "string"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/common.CohortsFilter.Aggregation.AggregateProperties.AggregationType"
     }
   }
 };
@@ -2505,33 +2505,33 @@ ul.nav-tabs {
     defs["common.CohortsGroup"] = {
   "type" : "object",
   "properties" : {
-    "joinOperator" : {
-      "$ref" : "#/components/schemas/common.JoinOperator"
-    },
     "filters" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.CohortsFilter"
       }
+    },
+    "joinOperator" : {
+      "$ref" : "#/components/schemas/common.JoinOperator"
     }
   }
 };
     defs["common.CohortsQuery"] = {
   "type" : "object",
   "properties" : {
-    "joinOperator" : {
-      "$ref" : "#/components/schemas/common.JoinOperator"
-    },
     "groups" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.CohortsGroup"
       }
     },
-    "name" : {
+    "id" : {
       "type" : "string"
     },
-    "id" : {
+    "joinOperator" : {
+      "$ref" : "#/components/schemas/common.JoinOperator"
+    },
+    "name" : {
       "type" : "string"
     }
   }
@@ -2539,11 +2539,11 @@ ul.nav-tabs {
     defs["common.CoinID"] = {
   "type" : "object",
   "properties" : {
-    "symbol" : {
-      "type" : "string"
-    },
     "address" : {
       "$ref" : "#/components/schemas/common.CoinID.AddressIdentifier"
+    },
+    "symbol" : {
+      "type" : "string"
     }
   }
 };
@@ -2561,6 +2561,12 @@ ul.nav-tabs {
     defs["common.ColumnState"] = {
   "type" : "object",
   "properties" : {
+    "columnOrder" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
     "columnSizing" : {
       "type" : "object",
       "additionalProperties" : {
@@ -2574,12 +2580,6 @@ ul.nav-tabs {
         "type" : "boolean"
       }
     },
-    "columnOrder" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
     "sorting" : {
       "type" : "array",
       "items" : {
@@ -2591,45 +2591,48 @@ ul.nav-tabs {
     defs["common.ColumnState.Sort"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
     "desc" : {
       "type" : "boolean"
+    },
+    "id" : {
+      "type" : "string"
     }
   }
 };
     defs["common.CommunityProject"] = {
   "type" : "object",
   "properties" : {
-    "dashAlias" : {
-      "type" : "string"
-    },
-    "curated" : {
-      "type" : "boolean"
-    },
     "chain" : {
       "type" : "object",
       "additionalProperties" : {
         "$ref" : "#/components/schemas/common.StringList"
       }
+    },
+    "curated" : {
+      "type" : "boolean"
+    },
+    "dashAlias" : {
+      "type" : "string"
     }
   }
 };
     defs["common.ComputeStats"] = {
   "type" : "object",
   "properties" : {
-    "computedAt" : {
+    "binaryVersionHash" : {
       "type" : "string",
-      "format" : "date-time"
+      "format" : "uint64"
+    },
+    "clickhouseStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats.ClickhouseStats"
     },
     "computeCostMs" : {
       "type" : "string",
       "format" : "int64"
     },
-    "binaryVersionHash" : {
+    "computedAt" : {
       "type" : "string",
-      "format" : "uint64"
+      "format" : "date-time"
     },
     "computedBy" : {
       "type" : "string"
@@ -2639,23 +2642,12 @@ ul.nav-tabs {
     },
     "isRefreshing" : {
       "type" : "boolean"
-    },
-    "clickhouseStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats.ClickhouseStats"
     }
   }
 };
     defs["common.ComputeStats.ClickhouseStats"] = {
   "type" : "object",
   "properties" : {
-    "readRows" : {
-      "type" : "string",
-      "format" : "uint64"
-    },
-    "readBytes" : {
-      "type" : "string",
-      "format" : "uint64"
-    },
     "memoryUsage" : {
       "type" : "string",
       "format" : "uint64"
@@ -2664,11 +2656,19 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "uint64"
     },
-    "resultRows" : {
+    "readBytes" : {
+      "type" : "string",
+      "format" : "uint64"
+    },
+    "readRows" : {
       "type" : "string",
       "format" : "uint64"
     },
     "resultBytes" : {
+      "type" : "string",
+      "format" : "uint64"
+    },
+    "resultRows" : {
       "type" : "string",
       "format" : "uint64"
     }
@@ -2677,27 +2677,35 @@ ul.nav-tabs {
     defs["common.Duration"] = {
   "type" : "object",
   "properties" : {
+    "unit" : {
+      "type" : "string"
+    },
     "value" : {
       "type" : "number",
       "format" : "double"
-    },
-    "unit" : {
-      "type" : "string"
     }
   }
 };
     defs["common.ErrorRecord"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "namespace" : {
+    "code" : {
+      "title" : "same as google.rpc.status.Status.code",
       "type" : "integer",
       "format" : "int32"
     },
-    "code" : {
-      "title" : "same as google.rpc.status.Status.code",
+    "createdAt" : {
+      "title" : "details",
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "namespace" : {
       "type" : "integer",
       "format" : "int32"
     },
@@ -2705,41 +2713,33 @@ ul.nav-tabs {
       "title" : "additional codes definted in the namespace",
       "type" : "integer",
       "format" : "int32"
-    },
-    "message" : {
-      "type" : "string"
-    },
-    "createdAt" : {
-      "title" : "details",
-      "type" : "string",
-      "format" : "date-time"
     }
   }
 };
     defs["common.EventLogColumn"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "size" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "name" : {
-      "type" : "string"
-    },
     "accessorKey" : {
       "type" : "string"
     },
     "enableHiding" : {
       "type" : "boolean"
     },
+    "enableResizing" : {
+      "type" : "boolean"
+    },
     "enableSorting" : {
       "type" : "boolean"
     },
-    "enableResizing" : {
-      "type" : "boolean"
+    "id" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "size" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
@@ -2760,24 +2760,9 @@ ul.nav-tabs {
     defs["common.EventLogEntry"] = {
   "type" : "object",
   "properties" : {
-    "message" : {
-      "type" : "string"
-    },
-    "timestamp" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "logLevel" : {
-      "type" : "string"
-    },
-    "logType" : {
-      "type" : "string"
-    },
-    "contractName" : {
-      "type" : "string"
-    },
-    "contractAddress" : {
-      "type" : "string"
+    "attributes" : {
+      "type" : "object",
+      "properties" : { }
     },
     "blockNumber" : {
       "type" : "string",
@@ -2786,17 +2771,10 @@ ul.nav-tabs {
     "chainId" : {
       "type" : "string"
     },
-    "attributes" : {
-      "type" : "object",
-      "properties" : { }
-    },
-    "id" : {
+    "contractAddress" : {
       "type" : "string"
     },
-    "transactionHash" : {
-      "type" : "string"
-    },
-    "highlightedMessage" : {
+    "contractName" : {
       "type" : "string"
     },
     "distinctId" : {
@@ -2805,9 +2783,31 @@ ul.nav-tabs {
     "eventName" : {
       "type" : "string"
     },
+    "highlightedMessage" : {
+      "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
     "logIndex" : {
       "type" : "integer",
       "format" : "int32"
+    },
+    "logLevel" : {
+      "type" : "string"
+    },
+    "logType" : {
+      "type" : "string"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "timestamp" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "transactionHash" : {
+      "type" : "string"
     },
     "transactionIndex" : {
       "type" : "integer",
@@ -2819,18 +2819,18 @@ ul.nav-tabs {
   "title" : "formula",
   "type" : "object",
   "properties" : {
-    "expression" : {
-      "type" : "string"
-    },
     "alias" : {
       "title" : "bool enabled = 2;",
       "type" : "string"
     },
-    "id" : {
+    "color" : {
       "type" : "string"
     },
     "disabled" : {
       "type" : "boolean"
+    },
+    "expression" : {
+      "type" : "string"
     },
     "functions" : {
       "type" : "array",
@@ -2838,7 +2838,7 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Function"
       }
     },
-    "color" : {
+    "id" : {
       "type" : "string"
     }
   },
@@ -2850,14 +2850,14 @@ ul.nav-tabs {
     defs["common.Function"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
-      "type" : "string"
-    },
     "arguments" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.Argument"
       }
+    },
+    "name" : {
+      "type" : "string"
     }
   }
 };
@@ -2884,7 +2884,7 @@ ul.nav-tabs {
     defs["common.Matrix.Metric"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
+    "displayName" : {
       "type" : "string"
     },
     "labels" : {
@@ -2893,7 +2893,7 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "displayName" : {
+    "name" : {
       "type" : "string"
     }
   }
@@ -2928,22 +2928,18 @@ ul.nav-tabs {
     defs["common.Organization"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "oid" : {
-      "type" : "string"
-    },
-    "name" : {
-      "type" : "string"
-    },
     "createdAt" : {
       "type" : "string",
       "format" : "int64"
     },
-    "updatedAt" : {
-      "type" : "string",
-      "format" : "int64"
+    "displayName" : {
+      "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "logoUrl" : {
+      "type" : "string"
     },
     "members" : {
       "type" : "array",
@@ -2951,10 +2947,10 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Organization.Member"
       }
     },
-    "displayName" : {
+    "name" : {
       "type" : "string"
     },
-    "logoUrl" : {
+    "oid" : {
       "type" : "string"
     },
     "projects" : {
@@ -2965,17 +2961,21 @@ ul.nav-tabs {
     },
     "tier" : {
       "$ref" : "#/components/schemas/common.Tier"
+    },
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "int64"
     }
   }
 };
     defs["common.Organization.Member"] = {
   "type" : "object",
   "properties" : {
-    "user" : {
-      "$ref" : "#/components/schemas/common.UserInfo"
-    },
     "role" : {
       "$ref" : "#/components/schemas/common.OrganizationRole"
+    },
+    "user" : {
+      "$ref" : "#/components/schemas/common.UserInfo"
     }
   }
 };
@@ -2987,14 +2987,14 @@ ul.nav-tabs {
     defs["common.Owner"] = {
   "type" : "object",
   "properties" : {
-    "user" : {
-      "$ref" : "#/components/schemas/common.User"
-    },
     "organization" : {
       "$ref" : "#/components/schemas/common.Organization"
     },
     "tier" : {
       "$ref" : "#/components/schemas/common.Tier"
+    },
+    "user" : {
+      "$ref" : "#/components/schemas/common.User"
     }
   }
 };
@@ -3006,9 +3006,6 @@ ul.nav-tabs {
     defs["common.PriceSegmentationQuery"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
     "alias" : {
       "type" : "string"
     },
@@ -3023,44 +3020,39 @@ ul.nav-tabs {
     },
     "disabled" : {
       "type" : "boolean"
+    },
+    "id" : {
+      "type" : "string"
     }
   }
 };
     defs["common.Project"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "displayName" : {
-      "type" : "string"
-    },
-    "description" : {
-      "type" : "string"
+    "communityProject" : {
+      "$ref" : "#/components/schemas/common.CommunityProject"
     },
     "createdAt" : {
       "type" : "string",
       "format" : "int64"
     },
-    "updatedAt" : {
-      "type" : "string",
-      "format" : "int64"
+    "defaultTimerange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
     },
-    "slug" : {
-      "title" : "{ownerName}/{slug} is the unique name of the project",
+    "description" : {
       "type" : "string"
     },
-    "ownerId" : {
+    "displayName" : {
       "type" : "string"
     },
-    "owner" : {
-      "$ref" : "#/components/schemas/common.Owner"
+    "enableDisk" : {
+      "type" : "boolean"
     },
-    "visibility" : {
-      "$ref" : "#/components/schemas/common.Project.Visibility"
+    "enableMaterializedView" : {
+      "type" : "boolean"
     },
-    "type" : {
-      "$ref" : "#/components/schemas/common.Project.Type"
+    "id" : {
+      "type" : "string"
     },
     "members" : {
       "type" : "array",
@@ -3071,14 +3063,40 @@ ul.nav-tabs {
     "multiVersion" : {
       "type" : "boolean"
     },
-    "ownerName" : {
-      "type" : "string"
-    },
     "notificationChannels" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.Channel"
       }
+    },
+    "owner" : {
+      "$ref" : "#/components/schemas/common.Owner"
+    },
+    "ownerId" : {
+      "type" : "string"
+    },
+    "ownerName" : {
+      "type" : "string"
+    },
+    "sentioNetwork" : {
+      "type" : "boolean"
+    },
+    "slug" : {
+      "title" : "{ownerName}/{slug} is the unique name of the project",
+      "type" : "string"
+    },
+    "superset" : {
+      "$ref" : "#/components/schemas/common.ProjectSuperset"
+    },
+    "supersetEnable" : {
+      "type" : "boolean"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/common.Project.Type"
+    },
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "int64"
     },
     "views" : {
       "type" : "array",
@@ -3086,69 +3104,26 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.ProjectView"
       }
     },
-    "supersetEnable" : {
-      "type" : "boolean"
-    },
-    "superset" : {
-      "$ref" : "#/components/schemas/common.ProjectSuperset"
-    },
-    "enableDisk" : {
-      "type" : "boolean"
-    },
-    "enableMaterializedView" : {
-      "type" : "boolean"
-    },
-    "defaultTimerange" : {
-      "$ref" : "#/components/schemas/common.TimeRangeLite"
-    },
-    "communityProject" : {
-      "$ref" : "#/components/schemas/common.CommunityProject"
-    },
-    "sentioNetwork" : {
-      "type" : "boolean"
+    "visibility" : {
+      "$ref" : "#/components/schemas/common.Project.Visibility"
     }
   }
 };
     defs["common.ProjectInfo"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "displayName" : {
-      "type" : "string"
-    },
-    "description" : {
-      "type" : "string"
-    },
     "createdAt" : {
       "type" : "string",
       "format" : "int64"
     },
-    "updatedAt" : {
-      "type" : "string",
-      "format" : "int64"
+    "defaultTimerange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
     },
-    "slug" : {
+    "description" : {
       "type" : "string"
     },
-    "owner" : {
+    "displayName" : {
       "type" : "string"
-    },
-    "visibility" : {
-      "$ref" : "#/components/schemas/common.Project.Visibility"
-    },
-    "type" : {
-      "$ref" : "#/components/schemas/common.Project.Type"
-    },
-    "multiVersion" : {
-      "type" : "boolean"
-    },
-    "supersetEnable" : {
-      "type" : "boolean"
-    },
-    "superset" : {
-      "$ref" : "#/components/schemas/common.ProjectSuperset"
     },
     "enableDisk" : {
       "type" : "boolean"
@@ -3156,31 +3131,56 @@ ul.nav-tabs {
     "enableMaterializedView" : {
       "type" : "boolean"
     },
-    "defaultTimerange" : {
-      "$ref" : "#/components/schemas/common.TimeRangeLite"
+    "id" : {
+      "type" : "string"
+    },
+    "multiVersion" : {
+      "type" : "boolean"
+    },
+    "owner" : {
+      "type" : "string"
+    },
+    "slug" : {
+      "type" : "string"
+    },
+    "superset" : {
+      "$ref" : "#/components/schemas/common.ProjectSuperset"
+    },
+    "supersetEnable" : {
+      "type" : "boolean"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/common.Project.Type"
+    },
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "visibility" : {
+      "$ref" : "#/components/schemas/common.Project.Visibility"
     }
   }
 };
     defs["common.Project.ProjectMember"] = {
   "type" : "object",
   "properties" : {
-    "user" : {
-      "$ref" : "#/components/schemas/common.UserInfo"
-    },
     "role" : {
       "type" : "string"
+    },
+    "user" : {
+      "$ref" : "#/components/schemas/common.UserInfo"
     }
   }
 };
     defs["common.ProjectSuperset"] = {
   "type" : "object",
   "properties" : {
-    "projectId" : {
-      "type" : "string"
-    },
     "createdAt" : {
       "type" : "string",
       "format" : "date-time"
+    },
+    "projectId" : {
+      "type" : "string"
     },
     "syncAt" : {
       "type" : "string",
@@ -3196,17 +3196,17 @@ ul.nav-tabs {
     defs["common.ProjectView"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
+    "config" : {
+      "$ref" : "#/components/schemas/common.ProjectView.ProjectViewConfig"
     },
-    "projectId" : {
+    "id" : {
       "type" : "string"
     },
     "name" : {
       "type" : "string"
     },
-    "config" : {
-      "$ref" : "#/components/schemas/common.ProjectView.ProjectViewConfig"
+    "projectId" : {
+      "type" : "string"
     }
   }
 };
@@ -3227,13 +3227,25 @@ ul.nav-tabs {
   "title" : "Metrics query",
   "type" : "object",
   "properties" : {
-    "query" : {
-      "title" : "the promql query or the metric name",
-      "type" : "string"
+    "aggregate" : {
+      "$ref" : "#/components/schemas/common.Aggregate"
     },
     "alias" : {
       "title" : "the alias of the query",
       "type" : "string"
+    },
+    "color" : {
+      "type" : "string"
+    },
+    "disabled" : {
+      "title" : "hide the result, usually used for formula, default is false",
+      "type" : "boolean"
+    },
+    "functions" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Function"
+      }
     },
     "id" : {
       "title" : "the id of the query",
@@ -3245,39 +3257,27 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "aggregate" : {
-      "$ref" : "#/components/schemas/common.Aggregate"
-    },
-    "functions" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Function"
-      }
-    },
-    "color" : {
+    "query" : {
+      "title" : "the promql query or the metric name",
       "type" : "string"
-    },
-    "disabled" : {
-      "title" : "hide the result, usually used for formula, default is false",
-      "type" : "boolean"
     }
   },
   "description" : "the query to fetch metrics data, promql",
   "example" : {
-    "query" : "transfer_sum",
     "alias" : "transfer (24h)",
-    "id" : "a",
-    "labelSelector" : { },
+    "disabled" : false,
     "functions" : [ {
-      "name" : "rollup_sum",
       "arguments" : [ {
         "durationValue" : {
-          "value" : 1,
-          "unit" : "d"
+          "unit" : "d",
+          "value" : 1
         }
-      } ]
+      } ],
+      "name" : "rollup_sum"
     } ],
-    "disabled" : false
+    "id" : "a",
+    "labelSelector" : { },
+    "query" : "transfer_sum"
   },
   "externalDocs" : {
     "description" : "Find more about prometheus query language here.",
@@ -3287,21 +3287,8 @@ ul.nav-tabs {
     defs["common.RetentionQuery"] = {
   "type" : "object",
   "properties" : {
-    "resources" : {
-      "title" : "only support 2 resources",
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.RetentionQuery.Resource"
-      }
-    },
     "criteria" : {
       "$ref" : "#/components/schemas/common.RetentionQuery.Criteria"
-    },
-    "interval" : {
-      "$ref" : "#/components/schemas/common.RetentionQuery.Interval"
-    },
-    "selectorExpr" : {
-      "$ref" : "#/components/schemas/common.SelectorExpr"
     },
     "groupBy" : {
       "type" : "array",
@@ -3309,11 +3296,24 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
+    "interval" : {
+      "$ref" : "#/components/schemas/common.RetentionQuery.Interval"
+    },
+    "resources" : {
+      "title" : "only support 2 resources",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.RetentionQuery.Resource"
+      }
+    },
     "segmentBy" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/common.SegmentParameter"
       }
+    },
+    "selectorExpr" : {
+      "$ref" : "#/components/schemas/common.SelectorExpr"
     },
     "windowSize" : {
       "type" : "integer",
@@ -3353,12 +3353,12 @@ ul.nav-tabs {
     defs["common.RetentionQuery.Interval"] = {
   "type" : "object",
   "properties" : {
+    "unit" : {
+      "$ref" : "#/components/schemas/common.RetentionQuery.Interval.Unit"
+    },
     "value" : {
       "type" : "integer",
       "format" : "int32"
-    },
-    "unit" : {
-      "$ref" : "#/components/schemas/common.RetentionQuery.Interval.Unit"
     }
   }
 };
@@ -3395,47 +3395,47 @@ ul.nav-tabs {
     defs["common.RichValue"] = {
   "type" : "object",
   "properties" : {
-    "nullValue" : {
-      "$ref" : "#/components/schemas/common.RichValue.NullValue"
+    "bigdecimalValue" : {
+      "$ref" : "#/components/schemas/common.BigDecimal"
     },
-    "intValue" : {
-      "type" : "integer",
-      "format" : "int32"
+    "bigintValue" : {
+      "$ref" : "#/components/schemas/common.BigInteger"
     },
-    "int64Value" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "floatValue" : {
-      "type" : "number",
-      "format" : "double"
+    "boolValue" : {
+      "type" : "boolean"
     },
     "bytesValue" : {
       "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
       "type" : "string",
       "format" : "byte"
     },
-    "boolValue" : {
-      "type" : "boolean"
+    "floatValue" : {
+      "type" : "number",
+      "format" : "double"
     },
-    "stringValue" : {
-      "type" : "string"
-    },
-    "timestampValue" : {
+    "int64Value" : {
       "type" : "string",
-      "format" : "date-time"
+      "format" : "int64"
     },
-    "bigintValue" : {
-      "$ref" : "#/components/schemas/common.BigInteger"
-    },
-    "bigdecimalValue" : {
-      "$ref" : "#/components/schemas/common.BigDecimal"
+    "intValue" : {
+      "type" : "integer",
+      "format" : "int32"
     },
     "listValue" : {
       "$ref" : "#/components/schemas/common.RichValueList"
     },
+    "nullValue" : {
+      "$ref" : "#/components/schemas/common.RichValue.NullValue"
+    },
+    "stringValue" : {
+      "type" : "string"
+    },
     "structValue" : {
       "$ref" : "#/components/schemas/common.RichStruct"
+    },
+    "timestampValue" : {
+      "type" : "string",
+      "format" : "date-time"
     },
     "tokenValue" : {
       "$ref" : "#/components/schemas/common.TokenAmount"
@@ -3461,41 +3461,28 @@ ul.nav-tabs {
     defs["common.SegmentParameter"] = {
   "type" : "object",
   "properties" : {
-    "cohortId" : {
-      "type" : "string"
-    },
     "allUsers" : {
       "type" : "boolean"
+    },
+    "cohortId" : {
+      "type" : "string"
     }
   }
 };
     defs["common.SegmentationQuery"] = {
   "type" : "object",
   "properties" : {
-    "resource" : {
-      "$ref" : "#/components/schemas/common.SegmentationQuery.Resource"
+    "aggregation" : {
+      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation"
     },
     "alias" : {
       "type" : "string"
     },
-    "id" : {
+    "color" : {
       "type" : "string"
     },
-    "aggregation" : {
-      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation"
-    },
-    "selectorExpr" : {
-      "$ref" : "#/components/schemas/common.SegmentationQuery.SelectorExpr"
-    },
-    "groupBy" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "limit" : {
-      "type" : "integer",
-      "format" : "int32"
+    "disabled" : {
+      "type" : "boolean"
     },
     "functions" : {
       "type" : "array",
@@ -3503,39 +3490,52 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Function"
       }
     },
-    "color" : {
+    "groupBy" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "id" : {
       "type" : "string"
     },
-    "disabled" : {
-      "type" : "boolean"
+    "limit" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "resource" : {
+      "$ref" : "#/components/schemas/common.SegmentationQuery.Resource"
+    },
+    "selectorExpr" : {
+      "$ref" : "#/components/schemas/common.SegmentationQuery.SelectorExpr"
     }
   }
 };
     defs["common.SegmentationQuery.Aggregation"] = {
   "type" : "object",
   "properties" : {
+    "aggregateProperties" : {
+      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.AggregateProperties"
+    },
+    "countUnique" : {
+      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.CountUnique"
+    },
     "total" : {
       "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.Total"
     },
     "unique" : {
       "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.Unique"
-    },
-    "countUnique" : {
-      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.CountUnique"
-    },
-    "aggregateProperties" : {
-      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.AggregateProperties"
     }
   }
 };
     defs["common.SegmentationQuery.Aggregation.AggregateProperties"] = {
   "type" : "object",
   "properties" : {
-    "type" : {
-      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.AggregateProperties.AggregationType"
-    },
     "propertyName" : {
       "type" : "string"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/common.SegmentationQuery.Aggregation.AggregateProperties.AggregationType"
     }
   }
 };
@@ -3555,12 +3555,6 @@ ul.nav-tabs {
     defs["common.SegmentationQuery.Resource"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
-      "type" : "string"
-    },
-    "type" : {
-      "$ref" : "#/components/schemas/common.SegmentationQuery.ResourceType"
-    },
     "cohortsId" : {
       "type" : "string"
     },
@@ -3572,6 +3566,12 @@ ul.nav-tabs {
       "items" : {
         "type" : "string"
       }
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/common.SegmentationQuery.ResourceType"
     }
   }
 };
@@ -3583,11 +3583,11 @@ ul.nav-tabs {
     defs["common.SegmentationQuery.SelectorExpr"] = {
   "type" : "object",
   "properties" : {
-    "selector" : {
-      "$ref" : "#/components/schemas/common.Selector"
-    },
     "logicExpr" : {
       "$ref" : "#/components/schemas/common.SegmentationQuery.SelectorExpr.LogicExpr"
+    },
+    "selector" : {
+      "$ref" : "#/components/schemas/common.Selector"
     }
   }
 };
@@ -3627,11 +3627,11 @@ ul.nav-tabs {
   "title" : "TODO migrate segmentationQuery to use this",
   "type" : "object",
   "properties" : {
-    "selector" : {
-      "$ref" : "#/components/schemas/common.Selector"
-    },
     "logicExpr" : {
       "$ref" : "#/components/schemas/common.SelectorExpr.LogicExpr"
+    },
+    "selector" : {
+      "$ref" : "#/components/schemas/common.Selector"
     }
   }
 };
@@ -3670,17 +3670,25 @@ ul.nav-tabs {
     defs["common.TabularData"] = {
   "type" : "object",
   "properties" : {
+    "columnTypes" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "$ref" : "#/components/schemas/common.TabularData.ColumnType"
+      }
+    },
     "columns" : {
       "type" : "array",
       "items" : {
         "type" : "string"
       }
     },
-    "columnTypes" : {
-      "type" : "object",
-      "additionalProperties" : {
-        "$ref" : "#/components/schemas/common.TabularData.ColumnType"
-      }
+    "cursor" : {
+      "type" : "string",
+      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
+    },
+    "generatedAt" : {
+      "type" : "string",
+      "format" : "date-time"
     },
     "rows" : {
       "type" : "array",
@@ -3688,14 +3696,6 @@ ul.nav-tabs {
         "type" : "object",
         "properties" : { }
       }
-    },
-    "generatedAt" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "cursor" : {
-      "type" : "string",
-      "description" : "The pagination cursor for the next page of results. If present, use this value in the `cursor` field of the next request to retrieve subsequent data. If null or empty, there are no more results."
     }
   }
 };
@@ -3712,18 +3712,18 @@ ul.nav-tabs {
     defs["common.TimeRange"] = {
   "type" : "object",
   "properties" : {
-    "start" : {
+    "end" : {
       "$ref" : "#/components/schemas/common.TimeRange.TimeLike"
     },
-    "end" : {
+    "interval" : {
+      "$ref" : "#/components/schemas/common.Duration"
+    },
+    "start" : {
       "$ref" : "#/components/schemas/common.TimeRange.TimeLike"
     },
     "step" : {
       "type" : "string",
       "format" : "int64"
-    },
-    "interval" : {
-      "$ref" : "#/components/schemas/common.Duration"
     },
     "timezone" : {
       "type" : "string"
@@ -3735,10 +3735,10 @@ ul.nav-tabs {
   "required" : [ "end", "start", "step" ],
   "type" : "object",
   "properties" : {
-    "start" : {
+    "end" : {
       "type" : "string"
     },
-    "end" : {
+    "start" : {
       "type" : "string"
     },
     "step" : {
@@ -3752,8 +3752,8 @@ ul.nav-tabs {
   },
   "description" : "start and end time of the time range, Find more: https://docs.sentio.xyz/reference/data#time-range-configuration-guide",
   "example" : {
-    "start" : "now-1M",
     "end" : "now",
+    "start" : "now-1M",
     "step" : 86400,
     "timezone" : "Europe/London"
   },
@@ -3765,36 +3765,33 @@ ul.nav-tabs {
     defs["common.TimeRange.RelativeTime"] = {
   "type" : "object",
   "properties" : {
+    "align" : {
+      "type" : "string"
+    },
     "unit" : {
       "type" : "string"
     },
     "value" : {
       "type" : "integer",
       "format" : "int32"
-    },
-    "align" : {
-      "type" : "string"
     }
   }
 };
     defs["common.TimeRange.TimeLike"] = {
   "type" : "object",
   "properties" : {
-    "relativeTime" : {
-      "$ref" : "#/components/schemas/common.TimeRange.RelativeTime"
-    },
     "absoluteTime" : {
       "type" : "string",
       "format" : "int64"
+    },
+    "relativeTime" : {
+      "$ref" : "#/components/schemas/common.TimeRange.RelativeTime"
     }
   }
 };
     defs["common.TokenAmount"] = {
   "type" : "object",
   "properties" : {
-    "token" : {
-      "$ref" : "#/components/schemas/common.CoinID"
-    },
     "amount" : {
       "$ref" : "#/components/schemas/common.BigDecimal"
     },
@@ -3802,14 +3799,21 @@ ul.nav-tabs {
       "title" : "optional, if not specified, it will use block_time in eventlogs",
       "type" : "string",
       "format" : "date-time"
+    },
+    "token" : {
+      "$ref" : "#/components/schemas/common.CoinID"
     }
   }
 };
     defs["common.User"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
+    "accountStatus" : {
+      "$ref" : "#/components/schemas/common.User.AccountStatus"
+    },
+    "createdAt" : {
+      "type" : "string",
+      "format" : "int64"
     },
     "email" : {
       "type" : "string"
@@ -3817,10 +3821,23 @@ ul.nav-tabs {
     "emailVerified" : {
       "type" : "boolean"
     },
-    "lastName" : {
+    "firstName" : {
       "type" : "string"
     },
-    "firstName" : {
+    "id" : {
+      "type" : "string"
+    },
+    "identities" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "isOrganization" : {
+      "title" : "true if the user is actually an organization account",
+      "type" : "boolean"
+    },
+    "lastName" : {
       "type" : "string"
     },
     "locale" : {
@@ -3835,35 +3852,18 @@ ul.nav-tabs {
     "sub" : {
       "type" : "string"
     },
-    "updatedAt" : {
-      "type" : "string",
-      "format" : "int64"
+    "tier" : {
+      "$ref" : "#/components/schemas/common.Tier"
     },
-    "createdAt" : {
+    "updatedAt" : {
       "type" : "string",
       "format" : "int64"
     },
     "username" : {
       "type" : "string"
     },
-    "accountStatus" : {
-      "$ref" : "#/components/schemas/common.User.AccountStatus"
-    },
-    "tier" : {
-      "$ref" : "#/components/schemas/common.Tier"
-    },
-    "isOrganization" : {
-      "title" : "true if the user is actually an organization account",
-      "type" : "boolean"
-    },
     "walletAddress" : {
       "type" : "string"
-    },
-    "identities" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
     }
   }
 };
@@ -3875,13 +3875,13 @@ ul.nav-tabs {
     defs["common.UserInfo"] = {
   "type" : "object",
   "properties" : {
+    "firstName" : {
+      "type" : "string"
+    },
     "id" : {
       "type" : "string"
     },
     "lastName" : {
-      "type" : "string"
-    },
-    "firstName" : {
       "type" : "string"
     },
     "nickname" : {
@@ -3913,37 +3913,22 @@ ul.nav-tabs {
     defs["evm.Transaction"] = {
   "type" : "object",
   "properties" : {
-    "blockNumber" : {
-      "type" : "string"
+    "accessList" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/evm.AccessListItem"
+      }
     },
     "blockHash" : {
       "type" : "string"
     },
-    "transactionIndex" : {
-      "type" : "string"
-    },
-    "hash" : {
+    "blockNumber" : {
       "type" : "string"
     },
     "chainId" : {
       "type" : "string"
     },
-    "type" : {
-      "type" : "string"
-    },
     "from" : {
-      "type" : "string"
-    },
-    "to" : {
-      "type" : "string"
-    },
-    "input" : {
-      "type" : "string"
-    },
-    "value" : {
-      "type" : "string"
-    },
-    "nonce" : {
       "type" : "string"
     },
     "gas" : {
@@ -3952,40 +3937,48 @@ ul.nav-tabs {
     "gasPrice" : {
       "type" : "string"
     },
+    "hash" : {
+      "type" : "string"
+    },
+    "input" : {
+      "type" : "string"
+    },
     "maxFeePerGas" : {
       "type" : "string"
     },
     "maxPriorityFeePerGas" : {
       "type" : "string"
     },
-    "accessList" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/evm.AccessListItem"
-      }
+    "nonce" : {
+      "type" : "string"
+    },
+    "to" : {
+      "type" : "string"
+    },
+    "transactionIndex" : {
+      "type" : "string"
+    },
+    "type" : {
+      "type" : "string"
+    },
+    "value" : {
+      "type" : "string"
     }
   }
 };
     defs["evm.TransactionReceipt"] = {
   "type" : "object",
   "properties" : {
-    "gasUsed" : {
-      "type" : "string"
-    },
     "cumulativeGasUsed" : {
       "type" : "string"
     },
     "effectiveGasPrice" : {
       "type" : "string"
     },
-    "status" : {
-      "title" : "0x0: failed, 0x1: succeed",
-      "type" : "string"
-    },
     "error" : {
       "type" : "string"
     },
-    "revertReason" : {
+    "gasUsed" : {
       "type" : "string"
     },
     "logs" : {
@@ -3994,6 +3987,13 @@ ul.nav-tabs {
         "type" : "object",
         "properties" : { }
       }
+    },
+    "revertReason" : {
+      "type" : "string"
+    },
+    "status" : {
+      "title" : "0x0: failed, 0x1: succeed",
+      "type" : "string"
     }
   }
 };
@@ -4043,23 +4043,16 @@ ul.nav-tabs {
     defs["insights_service.InsightsService.QueryBody"] = {
   "type" : "object",
   "properties" : {
-    "projectId" : {
-      "title" : "use project id if project_owner and project_slug are not provided",
-      "type" : "string"
+    "bypassCache" : {
+      "title" : "deprecated, use cachePolicy instead",
+      "type" : "boolean"
     },
-    "version" : {
-      "title" : "version of the datasource, default to the active version if not provided",
-      "type" : "integer",
-      "format" : "int32"
+    "cachePolicy" : {
+      "$ref" : "#/components/schemas/common.CachePolicy"
     },
-    "timeRange" : {
-      "$ref" : "#/components/schemas/common.TimeRangeLite"
-    },
-    "queries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/insights_service.QueryRequest.Query"
-      }
+    "enableExperimentalFeatures" : {
+      "title" : "enable experimental_features",
+      "type" : "boolean"
     },
     "formulas" : {
       "type" : "array",
@@ -4075,16 +4068,23 @@ ul.nav-tabs {
       "type" : "integer",
       "format" : "int32"
     },
-    "bypassCache" : {
-      "title" : "deprecated, use cachePolicy instead",
-      "type" : "boolean"
+    "projectId" : {
+      "title" : "use project id if project_owner and project_slug are not provided",
+      "type" : "string"
     },
-    "cachePolicy" : {
-      "$ref" : "#/components/schemas/common.CachePolicy"
+    "queries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/insights_service.QueryRequest.Query"
+      }
     },
-    "enableExperimentalFeatures" : {
-      "title" : "enable experimental_features",
-      "type" : "boolean"
+    "timeRange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "version" : {
+      "title" : "version of the datasource, default to the active version if not provided",
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
@@ -4105,17 +4105,17 @@ ul.nav-tabs {
     defs["insights_service.QueryRequest.Query"] = {
   "type" : "object",
   "properties" : {
-    "metricsQuery" : {
-      "$ref" : "#/components/schemas/common.Query"
+    "dataSource" : {
+      "$ref" : "#/components/schemas/insights_service.DataSource"
     },
     "eventsQuery" : {
       "$ref" : "#/components/schemas/common.SegmentationQuery"
     },
+    "metricsQuery" : {
+      "$ref" : "#/components/schemas/common.Query"
+    },
     "priceQuery" : {
       "$ref" : "#/components/schemas/common.PriceSegmentationQuery"
-    },
-    "dataSource" : {
-      "$ref" : "#/components/schemas/insights_service.DataSource"
     },
     "sourceName" : {
       "title" : "source name for the query, used when data is from a external project",
@@ -4137,56 +4137,47 @@ ul.nav-tabs {
     defs["insights_service.QueryResponse.Result"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
     "alias" : {
       "type" : "string"
     },
-    "dataSource" : {
-      "$ref" : "#/components/schemas/insights_service.DataSource"
-    },
-    "matrix" : {
-      "$ref" : "#/components/schemas/common.Matrix"
-    },
-    "error" : {
+    "color" : {
       "type" : "string"
     },
     "computeStats" : {
       "$ref" : "#/components/schemas/common.ComputeStats"
     },
-    "color" : {
+    "dataSource" : {
+      "$ref" : "#/components/schemas/insights_service.DataSource"
+    },
+    "error" : {
       "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "matrix" : {
+      "$ref" : "#/components/schemas/common.Matrix"
     }
   }
 };
     defs["metrics_service.GetMetricsResponse"] = {
   "type" : "object",
   "properties" : {
+    "computeStats" : {
+      "$ref" : "#/components/schemas/common.ComputeStats"
+    },
     "metrics" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/metrics_service.MetricInfo"
       }
-    },
-    "computeStats" : {
-      "$ref" : "#/components/schemas/common.ComputeStats"
     }
   }
 };
     defs["metrics_service.MetricInfo"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
-      "type" : "string"
-    },
-    "displayName" : {
-      "type" : "string"
-    },
-    "projectId" : {
-      "type" : "string"
-    },
-    "contractName" : {
+    "chainId" : {
       "type" : "array",
       "items" : {
         "type" : "string"
@@ -4198,11 +4189,14 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "chainId" : {
+    "contractName" : {
       "type" : "array",
       "items" : {
         "type" : "string"
       }
+    },
+    "displayName" : {
+      "type" : "string"
     },
     "labels" : {
       "type" : "object",
@@ -4212,39 +4206,45 @@ ul.nav-tabs {
     },
     "metadata" : {
       "$ref" : "#/components/schemas/metrics_service.MetricMetadata"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "projectId" : {
+      "type" : "string"
     }
   }
 };
     defs["metrics_service.MetricInfo.LabelValues"] = {
   "type" : "object",
   "properties" : {
+    "totalCount" : {
+      "type" : "string",
+      "format" : "uint64"
+    },
     "values" : {
       "type" : "array",
       "items" : {
         "type" : "string"
       }
-    },
-    "totalCount" : {
-      "type" : "string",
-      "format" : "uint64"
     }
   }
 };
     defs["metrics_service.MetricMetadata"] = {
   "type" : "object",
   "properties" : {
-    "type" : {
-      "type" : "string"
-    },
-    "unit" : {
-      "type" : "string"
-    },
     "help" : {
       "type" : "string"
     },
     "lastSeen" : {
       "type" : "string",
       "format" : "int64"
+    },
+    "type" : {
+      "type" : "string"
+    },
+    "unit" : {
+      "type" : "string"
     }
   }
 };
@@ -4277,7 +4277,8 @@ ul.nav-tabs {
     defs["metrics_service.MetricsQueryResponse.Metric"] = {
   "type" : "object",
   "properties" : {
-    "name" : {
+    "displayName" : {
+      "title" : "string project_id = 3;",
       "type" : "string"
     },
     "labels" : {
@@ -4286,8 +4287,7 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "displayName" : {
-      "title" : "string project_id = 3;",
+    "name" : {
       "type" : "string"
     }
   }
@@ -4295,23 +4295,23 @@ ul.nav-tabs {
     defs["metrics_service.MetricsQueryResponse.Result"] = {
   "type" : "object",
   "properties" : {
-    "matrix" : {
-      "$ref" : "#/components/schemas/metrics_service.MetricsQueryResponse.Matrix"
-    },
-    "error" : {
-      "type" : "string"
-    },
     "alias" : {
       "type" : "string"
     },
-    "id" : {
+    "color" : {
       "type" : "string"
     },
     "computeStats" : {
       "$ref" : "#/components/schemas/common.ComputeStats"
     },
-    "color" : {
+    "error" : {
       "type" : "string"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "matrix" : {
+      "$ref" : "#/components/schemas/metrics_service.MetricsQueryResponse.Matrix"
     }
   }
 };
@@ -4332,6 +4332,13 @@ ul.nav-tabs {
     defs["metrics_service.MetricsQueryResponse.Value"] = {
   "type" : "object",
   "properties" : {
+    "extraValues" : {
+      "type" : "array",
+      "items" : {
+        "type" : "number",
+        "format" : "double"
+      }
+    },
     "timestamp" : {
       "type" : "string",
       "format" : "int64"
@@ -4339,24 +4346,14 @@ ul.nav-tabs {
     "value" : {
       "type" : "number",
       "format" : "double"
-    },
-    "extraValues" : {
-      "type" : "array",
-      "items" : {
-        "type" : "number",
-        "format" : "double"
-      }
     }
   }
 };
     defs["metrics_service.ObservabilityService.QueryBody"] = {
   "type" : "object",
   "properties" : {
-    "queries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Query"
-      }
+    "enableExperimentalFeatures" : {
+      "type" : "boolean"
     },
     "formulas" : {
       "type" : "array",
@@ -4364,26 +4361,29 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Formula"
       }
     },
-    "time" : {
-      "type" : "string"
+    "queries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Query"
+      }
     },
     "samplesLimit" : {
       "type" : "integer",
       "format" : "int32"
     },
-    "version" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "timezone" : {
-      "type" : "string"
-    },
     "samplesOffset" : {
       "type" : "integer",
       "format" : "int32"
     },
-    "enableExperimentalFeatures" : {
-      "type" : "boolean"
+    "time" : {
+      "type" : "string"
+    },
+    "timezone" : {
+      "type" : "string"
+    },
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   }
 };
@@ -4391,11 +4391,8 @@ ul.nav-tabs {
   "required" : [ "timeRange" ],
   "type" : "object",
   "properties" : {
-    "queries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Query"
-      }
+    "enableExperimentalFeatures" : {
+      "type" : "boolean"
     },
     "formulas" : {
       "type" : "array",
@@ -4403,17 +4400,16 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Formula"
       }
     },
-    "samplesLimit" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "timeRange" : {
-      "$ref" : "#/components/schemas/common.TimeRangeLite"
-    },
     "projectId" : {
       "type" : "string"
     },
-    "version" : {
+    "queries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Query"
+      }
+    },
+    "samplesLimit" : {
       "type" : "integer",
       "format" : "int32"
     },
@@ -4421,50 +4417,54 @@ ul.nav-tabs {
       "type" : "integer",
       "format" : "int32"
     },
-    "enableExperimentalFeatures" : {
-      "type" : "boolean"
+    "timeRange" : {
+      "$ref" : "#/components/schemas/common.TimeRangeLite"
+    },
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
     }
   },
   "example" : {
+    "formulas" : [ ],
     "queries" : [ {
-      "query" : "mint_sum",
       "alias" : "Mint (24 hours)",
+      "disabled" : false,
+      "functions" : [ {
+        "arguments" : [ {
+          "durationValue" : {
+            "unit" : "d",
+            "value" : 1
+          }
+        } ],
+        "name" : "rollup_sum"
+      } ],
       "id" : "a",
       "labelSelector" : { },
+      "query" : "mint_sum"
+    }, {
+      "alias" : "Burn (24 hours)",
+      "disabled" : false,
       "functions" : [ {
-        "name" : "rollup_sum",
         "arguments" : [ {
           "durationValue" : {
-            "value" : 1,
-            "unit" : "d"
+            "unit" : "d",
+            "value" : 1
           }
-        } ]
+        } ],
+        "name" : "rollup_sum"
       } ],
-      "disabled" : false
-    }, {
-      "query" : "burn_sum",
-      "alias" : "Burn (24 hours)",
       "id" : "b",
       "labelSelector" : { },
-      "functions" : [ {
-        "name" : "rollup_sum",
-        "arguments" : [ {
-          "durationValue" : {
-            "value" : 1,
-            "unit" : "d"
-          }
-        } ]
-      } ],
-      "disabled" : false
+      "query" : "burn_sum"
     } ],
-    "formulas" : [ ],
+    "samplesLimit" : 20,
     "timeRange" : {
-      "start" : "now-30d",
       "end" : "now",
+      "start" : "now-30d",
       "step" : 3600,
       "timezone" : "America/Los_Angeles"
-    },
-    "samplesLimit" : 20
+    }
   }
 };
     defs["metrics_service.QueryValueResponse"] = {
@@ -4481,23 +4481,23 @@ ul.nav-tabs {
     defs["metrics_service.QueryValueResponse.Result"] = {
   "type" : "object",
   "properties" : {
-    "sample" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/metrics_service.MetricsQueryResponse.Sample"
-      }
-    },
-    "error" : {
+    "alias" : {
       "type" : "string"
     },
-    "alias" : {
+    "color" : {
+      "type" : "string"
+    },
+    "error" : {
       "type" : "string"
     },
     "id" : {
       "type" : "string"
     },
-    "color" : {
-      "type" : "string"
+    "sample" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/metrics_service.MetricsQueryResponse.Sample"
+      }
     }
   }
 };
@@ -4515,40 +4515,32 @@ ul.nav-tabs {
     defs["move_service.SuiCallTrace"] = {
   "type" : "object",
   "properties" : {
-    "from" : {
-      "type" : "string"
-    },
-    "to" : {
-      "type" : "string"
+    "calls" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/move_service.SuiCallTrace"
+      }
     },
     "contractName" : {
+      "type" : "string"
+    },
+    "error" : {
+      "$ref" : "#/components/schemas/move_service.SuiCallTrace.Error"
+    },
+    "from" : {
       "type" : "string"
     },
     "functionName" : {
       "type" : "string"
     },
+    "gasUsed" : {
+      "type" : "string",
+      "format" : "uint64"
+    },
     "inputs" : {
       "type" : "array",
       "items" : {
         "type" : "object"
-      }
-    },
-    "returnValue" : {
-      "type" : "array",
-      "items" : {
-        "type" : "object"
-      }
-    },
-    "typeArgs" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "calls" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/move_service.SuiCallTrace"
       }
     },
     "location" : {
@@ -4558,37 +4550,45 @@ ul.nav-tabs {
       "type" : "integer",
       "format" : "int64"
     },
-    "gasUsed" : {
-      "type" : "string",
-      "format" : "uint64"
+    "returnValue" : {
+      "type" : "array",
+      "items" : {
+        "type" : "object"
+      }
     },
-    "error" : {
-      "$ref" : "#/components/schemas/move_service.SuiCallTrace.Error"
+    "to" : {
+      "type" : "string"
+    },
+    "typeArgs" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
     }
   }
 };
     defs["move_service.SuiCallTrace.Error"] = {
   "type" : "object",
   "properties" : {
-    "majorStatus" : {
-      "type" : "string"
+    "codeOffset" : {
+      "type" : "integer",
+      "format" : "int64"
     },
-    "subStatus" : {
-      "type" : "string",
-      "format" : "uint64"
-    },
-    "message" : {
+    "functionName" : {
       "type" : "string"
     },
     "location" : {
       "$ref" : "#/components/schemas/move_service.SuiCallTrace.Error.ModuleId"
     },
-    "functionName" : {
+    "majorStatus" : {
       "type" : "string"
     },
-    "codeOffset" : {
-      "type" : "integer",
-      "format" : "int64"
+    "message" : {
+      "type" : "string"
+    },
+    "subStatus" : {
+      "type" : "string",
+      "format" : "uint64"
     }
   }
 };
@@ -4614,31 +4614,31 @@ ul.nav-tabs {
     defs["price_service.AddAssetByGeckoResponse"] = {
   "type" : "object",
   "properties" : {
-    "status" : {
-      "$ref" : "#/components/schemas/price_service.AddAssetByGeckoResponse.Status"
-    },
-    "message" : {
-      "type" : "string"
+    "addresses" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AddressID"
+      }
     },
     "assetId" : {
-      "type" : "string"
-    },
-    "symbol" : {
       "type" : "string"
     },
     "currentPrice" : {
       "type" : "number",
       "format" : "double"
     },
+    "message" : {
+      "type" : "string"
+    },
+    "status" : {
+      "$ref" : "#/components/schemas/price_service.AddAssetByGeckoResponse.Status"
+    },
+    "symbol" : {
+      "type" : "string"
+    },
     "timestamp" : {
       "type" : "string",
       "format" : "date-time"
-    },
-    "addresses" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/price_service.AddressID"
-      }
     }
   }
 };
@@ -4658,28 +4658,28 @@ ul.nav-tabs {
     defs["price_service.AddCoinByGeckoResponse"] = {
   "type" : "object",
   "properties" : {
-    "status" : {
-      "$ref" : "#/components/schemas/price_service.AddCoinByGeckoResponse.Status"
-    },
-    "message" : {
-      "type" : "string"
-    },
-    "currentPrice" : {
-      "type" : "number",
-      "format" : "double"
-    },
-    "timestamp" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "symbol" : {
-      "type" : "string"
-    },
     "coins" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/price_service.CoinID"
       }
+    },
+    "currentPrice" : {
+      "type" : "number",
+      "format" : "double"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "status" : {
+      "$ref" : "#/components/schemas/price_service.AddCoinByGeckoResponse.Status"
+    },
+    "symbol" : {
+      "type" : "string"
+    },
+    "timestamp" : {
+      "type" : "string",
+      "format" : "date-time"
     }
   }
 };
@@ -4691,10 +4691,10 @@ ul.nav-tabs {
     defs["price_service.AddressID"] = {
   "type" : "object",
   "properties" : {
-    "chain" : {
+    "address" : {
       "type" : "string"
     },
-    "address" : {
+    "chain" : {
       "type" : "string"
     }
   }
@@ -4702,38 +4702,38 @@ ul.nav-tabs {
     defs["price_service.AssetCandidate"] = {
   "type" : "object",
   "properties" : {
-    "assetId" : {
-      "type" : "string"
+    "addresses" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/price_service.AddressID"
+      }
     },
     "assetClass" : {
       "type" : "string"
     },
-    "symbol" : {
-      "type" : "string"
-    },
-    "name" : {
+    "assetId" : {
       "type" : "string"
     },
     "marketCap" : {
       "type" : "number",
       "format" : "double"
     },
-    "addresses" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/price_service.AddressID"
-      }
+    "name" : {
+      "type" : "string"
+    },
+    "symbol" : {
+      "type" : "string"
     }
   }
 };
     defs["price_service.AssetRef"] = {
   "type" : "object",
   "properties" : {
-    "assetId" : {
-      "type" : "string"
-    },
     "address" : {
       "$ref" : "#/components/schemas/price_service.AddressID"
+    },
+    "assetId" : {
+      "type" : "string"
     },
     "symbol" : {
       "type" : "string"
@@ -4744,13 +4744,6 @@ ul.nav-tabs {
   "title" : "GetPricesRequest is the request for GetPrices.\nreturn every price on every given timestamp (if exact exists) for the given coin",
   "type" : "object",
   "properties" : {
-    "timestamps" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string",
-        "format" : "date-time"
-      }
-    },
     "coinIds" : {
       "type" : "array",
       "items" : {
@@ -4759,6 +4752,13 @@ ul.nav-tabs {
     },
     "experimentalFlag" : {
       "$ref" : "#/components/schemas/price_service.ExperimentalFlag"
+    },
+    "timestamps" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string",
+        "format" : "date-time"
+      }
     }
   }
 };
@@ -4779,11 +4779,11 @@ ul.nav-tabs {
     "coinId" : {
       "$ref" : "#/components/schemas/price_service.CoinID"
     },
-    "price" : {
-      "$ref" : "#/components/schemas/price_service.BatchGetPricesResponse.CoinPrice.Price"
-    },
     "error" : {
       "type" : "string"
+    },
+    "price" : {
+      "$ref" : "#/components/schemas/price_service.BatchGetPricesResponse.CoinPrice.Price"
     }
   }
 };
@@ -4807,15 +4807,15 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/price_service.AssetRef"
       }
     },
+    "source" : {
+      "type" : "string"
+    },
     "timestamps" : {
       "type" : "array",
       "items" : {
         "type" : "string",
         "format" : "date-time"
       }
-    },
-    "source" : {
-      "type" : "string"
     }
   },
   "description" : "Cross-product request: each entry in `assets` is priced at each entry in `timestamps`.\nThe response groups the results per asset as a PriceSeries (one point per timestamp).\nIf `timestamps` is empty, the current price is used for every asset.\nUnlike GetPriceSeriesV2 (which returns a continuous range for one asset), this returns\nonly the discrete requested timestamps, across many assets."
@@ -4837,14 +4837,14 @@ ul.nav-tabs {
     "asset" : {
       "$ref" : "#/components/schemas/price_service.AssetRef"
     },
-    "series" : {
-      "$ref" : "#/components/schemas/price_service.PriceSeries"
-    },
     "candidates" : {
       "$ref" : "#/components/schemas/price_service.CandidateList"
     },
     "error" : {
       "type" : "string"
+    },
+    "series" : {
+      "$ref" : "#/components/schemas/price_service.PriceSeries"
     }
   }
 };
@@ -4862,14 +4862,14 @@ ul.nav-tabs {
     defs["price_service.CheckLatestPriceResponse"] = {
   "type" : "object",
   "properties" : {
+    "latestPrice" : {
+      "$ref" : "#/components/schemas/price_service.CheckLatestPriceResponse.CoinPrice"
+    },
     "prices" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/price_service.CheckLatestPriceResponse.CoinPrice"
       }
-    },
-    "latestPrice" : {
-      "$ref" : "#/components/schemas/price_service.CheckLatestPriceResponse.CoinPrice"
     }
   }
 };
@@ -4892,11 +4892,11 @@ ul.nav-tabs {
     defs["price_service.CoinID"] = {
   "type" : "object",
   "properties" : {
-    "symbol" : {
-      "type" : "string"
-    },
     "address" : {
       "$ref" : "#/components/schemas/price_service.CoinID.AddressIdentifier"
+    },
+    "symbol" : {
+      "type" : "string"
     }
   },
   "description" : "The identifier of a coin."
@@ -4929,13 +4929,13 @@ ul.nav-tabs {
       "description" : "Price in USD.",
       "format" : "double"
     },
+    "source" : {
+      "type" : "string"
+    },
     "timestamp" : {
       "type" : "string",
       "description" : "The actual timestamp of the price returned.",
       "format" : "date-time"
-    },
-    "source" : {
-      "type" : "string"
     }
   },
   "description" : "GetPriceResponse is the response for GetPrice."
@@ -4943,22 +4943,22 @@ ul.nav-tabs {
     defs["price_service.GetPriceSeriesV2Response"] = {
   "type" : "object",
   "properties" : {
-    "series" : {
-      "$ref" : "#/components/schemas/price_service.PriceSeries"
-    },
     "candidates" : {
       "$ref" : "#/components/schemas/price_service.CandidateList"
+    },
+    "series" : {
+      "$ref" : "#/components/schemas/price_service.PriceSeries"
     }
   }
 };
     defs["price_service.GetPriceV2Response"] = {
   "type" : "object",
   "properties" : {
-    "price" : {
-      "$ref" : "#/components/schemas/price_service.PricePoint"
-    },
     "candidates" : {
       "$ref" : "#/components/schemas/price_service.CandidateList"
+    },
+    "price" : {
+      "$ref" : "#/components/schemas/price_service.PricePoint"
     }
   }
 };
@@ -4976,16 +4976,16 @@ ul.nav-tabs {
     defs["price_service.ListCoinsResponse"] = {
   "type" : "object",
   "properties" : {
-    "coins" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/price_service.CoinID"
-      }
-    },
     "coinAddressesInChain" : {
       "title" : "map from symbol to address, only returned when chain is set",
       "type" : "object",
       "additionalProperties" : {
+        "$ref" : "#/components/schemas/price_service.CoinID"
+      }
+    },
+    "coins" : {
+      "type" : "array",
+      "items" : {
         "$ref" : "#/components/schemas/price_service.CoinID"
       }
     }
@@ -5001,12 +5001,12 @@ ul.nav-tabs {
       "type" : "number",
       "format" : "double"
     },
+    "source" : {
+      "type" : "string"
+    },
     "timestamp" : {
       "type" : "string",
       "format" : "date-time"
-    },
-    "source" : {
-      "type" : "string"
     }
   }
 };
@@ -5016,14 +5016,14 @@ ul.nav-tabs {
     "assetId" : {
       "type" : "string"
     },
-    "source" : {
-      "type" : "string"
-    },
     "points" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/price_service.PricePoint"
       }
+    },
+    "source" : {
+      "type" : "string"
     }
   }
 };
@@ -5045,6 +5045,33 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "The chain id."
     },
+    "estimatedLatestBlockNumber" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "handlerStat" : {
+      "title" : "The serialized handler stat",
+      "type" : "string"
+    },
+    "indexerState" : {
+      "type" : "string",
+      "description" : "The serialized indexer state."
+    },
+    "initialStartBlockNumber" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "lastBlockNumber" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "meterState" : {
+      "type" : "string",
+      "description" : "The serialized meter state."
+    },
+    "processedBlockHash" : {
+      "type" : "string"
+    },
     "processedBlockNumber" : {
       "type" : "string",
       "description" : "The most recently processed block number and block hash.",
@@ -5054,9 +5081,6 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "int64"
     },
-    "processedBlockHash" : {
-      "type" : "string"
-    },
     "processedVersion" : {
       "title" : "Processed version",
       "type" : "integer",
@@ -5065,41 +5089,17 @@ ul.nav-tabs {
     "status" : {
       "$ref" : "#/components/schemas/processor_service.ChainState.Status"
     },
-    "updatedAt" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
     "templates" : {
       "type" : "string",
       "description" : "The serialized templates info."
     },
-    "indexerState" : {
-      "type" : "string",
-      "description" : "The serialized indexer state."
-    },
-    "meterState" : {
-      "type" : "string",
-      "description" : "The serialized meter state."
-    },
-    "handlerStat" : {
-      "title" : "The serialized handler stat",
-      "type" : "string"
-    },
-    "initialStartBlockNumber" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "estimatedLatestBlockNumber" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "lastBlockNumber" : {
-      "type" : "string",
-      "format" : "int64"
-    },
     "trackers" : {
       "type" : "string",
       "description" : "To be deprecated after the migration."
+    },
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "date-time"
     }
   }
 };
@@ -5107,11 +5107,11 @@ ul.nav-tabs {
   "title" : "Status of this chain indexer",
   "type" : "object",
   "properties" : {
-    "state" : {
-      "$ref" : "#/components/schemas/processor_service.ChainState.Status.State"
-    },
     "errorRecord" : {
       "$ref" : "#/components/schemas/common.ErrorRecord"
+    },
+    "state" : {
+      "$ref" : "#/components/schemas/processor_service.ChainState.Status.State"
     }
   }
 };
@@ -5152,13 +5152,7 @@ ul.nav-tabs {
     defs["processor_service.GetProcessorStatusResponse.ProcessorEx"] = {
   "type" : "object",
   "properties" : {
-    "states" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/processor_service.ChainState"
-      }
-    },
-    "processorId" : {
+    "cliVersion" : {
       "type" : "string"
     },
     "codeHash" : {
@@ -5167,49 +5161,33 @@ ul.nav-tabs {
     "commitSha" : {
       "type" : "string"
     },
-    "uploadedBy" : {
-      "$ref" : "#/components/schemas/common.UserInfo"
+    "debugFork" : {
+      "type" : "string"
     },
-    "uploadedAt" : {
-      "type" : "string",
-      "format" : "date-time"
+    "driverVersion" : {
+      "type" : "string"
     },
-    "processorStatus" : {
-      "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse.ProcessorStatus"
+    "entitySchema" : {
+      "type" : "string"
     },
-    "version" : {
+    "entitySchemaVersion" : {
       "type" : "integer",
       "format" : "int32"
     },
-    "sdkVersion" : {
-      "type" : "string"
-    },
     "gitUrl" : {
-      "type" : "string"
-    },
-    "versionState" : {
-      "$ref" : "#/components/schemas/processor_service.ProcessorVersionState"
-    },
-    "versionLabel" : {
       "type" : "string"
     },
     "ipfsHash" : {
       "type" : "string"
     },
-    "debugFork" : {
-      "type" : "string"
-    },
-    "cliVersion" : {
-      "type" : "string"
-    },
-    "referenceProjectId" : {
-      "type" : "string"
-    },
-    "warnings" : {
+    "networkOverrides" : {
       "type" : "array",
       "items" : {
-        "type" : "string"
+        "$ref" : "#/components/schemas/processor_service.NetworkOverride"
       }
+    },
+    "numWorkers" : {
+      "type" : "string"
     },
     "pause" : {
       "type" : "boolean"
@@ -5221,19 +5199,16 @@ ul.nav-tabs {
     "pauseReason" : {
       "type" : "string"
     },
-    "networkOverrides" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/processor_service.NetworkOverride"
-      }
-    },
-    "driverVersion" : {
+    "processorId" : {
       "type" : "string"
     },
-    "numWorkers" : {
+    "processorStatus" : {
+      "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse.ProcessorStatus"
+    },
+    "referenceProjectId" : {
       "type" : "string"
     },
-    "entitySchema" : {
+    "sdkVersion" : {
       "type" : "string"
     },
     "snChainId" : {
@@ -5245,20 +5220,45 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "entitySchemaVersion" : {
+    "states" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/processor_service.ChainState"
+      }
+    },
+    "uploadedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "uploadedBy" : {
+      "$ref" : "#/components/schemas/common.UserInfo"
+    },
+    "version" : {
       "type" : "integer",
       "format" : "int32"
+    },
+    "versionLabel" : {
+      "type" : "string"
+    },
+    "versionState" : {
+      "$ref" : "#/components/schemas/processor_service.ProcessorVersionState"
+    },
+    "warnings" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
     }
   }
 };
     defs["processor_service.GetProcessorStatusResponse.ProcessorStatus"] = {
   "type" : "object",
   "properties" : {
-    "state" : {
-      "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse.ProcessorStatus.State"
-    },
     "errorRecord" : {
       "$ref" : "#/components/schemas/common.ErrorRecord"
+    },
+    "state" : {
+      "$ref" : "#/components/schemas/processor_service.GetProcessorStatusResponse.ProcessorStatus.State"
     }
   }
 };
@@ -5281,12 +5281,12 @@ ul.nav-tabs {
     defs["processor_service.ProcessorSourceFile"] = {
   "type" : "object",
   "properties" : {
-    "path" : {
-      "title" : "relative path of the source file",
-      "type" : "string"
-    },
     "content" : {
       "title" : "content of the source file",
+      "type" : "string"
+    },
+    "path" : {
+      "title" : "relative path of the source file",
       "type" : "string"
     }
   }
@@ -5299,14 +5299,21 @@ ul.nav-tabs {
     defs["solidity_service.BaseChainConfig"] = {
   "type" : "object",
   "properties" : {
-    "endpoint" : {
-      "type" : "string"
-    },
     "debugEndpoint" : {
       "type" : "string"
     },
-    "sourceFetcherType" : {
-      "$ref" : "#/components/schemas/solidity_service.SourceFetcherType"
+    "endpoint" : {
+      "type" : "string"
+    },
+    "oklinkChainShortName" : {
+      "title" : "Required if source_fetcher_type is OKLINK",
+      "type" : "string"
+    },
+    "sourceFetcherApiKeys" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
     },
     "sourceFetcherEndpoint" : {
       "type" : "string"
@@ -5315,33 +5322,14 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "int64"
     },
-    "sourceFetcherApiKeys" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "oklinkChainShortName" : {
-      "title" : "Required if source_fetcher_type is OKLINK",
-      "type" : "string"
+    "sourceFetcherType" : {
+      "$ref" : "#/components/schemas/solidity_service.SourceFetcherType"
     }
   }
 };
     defs["solidity_service.BlockOverrides"] = {
   "type" : "object",
   "properties" : {
-    "blockNumber" : {
-      "type" : "string"
-    },
-    "timestamp" : {
-      "type" : "string"
-    },
-    "gasLimit" : {
-      "type" : "string"
-    },
-    "difficulty" : {
-      "type" : "string"
-    },
     "baseFee" : {
       "type" : "string"
     },
@@ -5350,6 +5338,18 @@ ul.nav-tabs {
       "additionalProperties" : {
         "type" : "string"
       }
+    },
+    "blockNumber" : {
+      "type" : "string"
+    },
+    "difficulty" : {
+      "type" : "string"
+    },
+    "gasLimit" : {
+      "type" : "string"
+    },
+    "timestamp" : {
+      "type" : "string"
     }
   }
 };
@@ -5375,32 +5375,21 @@ ul.nav-tabs {
     defs["solidity_service.EvmRawTransaction"] = {
   "type" : "object",
   "properties" : {
-    "hash" : {
+    "abiItem" : {
       "type" : "string"
     },
     "blockNumber" : {
       "type" : "string",
       "format" : "int64"
     },
+    "hash" : {
+      "type" : "string"
+    },
     "isIn" : {
       "type" : "boolean"
     },
-    "trace" : {
-      "type" : "boolean"
-    },
-    "tx" : {
-      "$ref" : "#/components/schemas/evm.Transaction"
-    },
     "json" : {
       "type" : "string"
-    },
-    "timestamp" : {
-      "type" : "string",
-      "format" : "int64"
-    },
-    "transactionStatus" : {
-      "type" : "integer",
-      "format" : "int32"
     },
     "methodSignature" : {
       "type" : "string"
@@ -5408,24 +5397,35 @@ ul.nav-tabs {
     "methodSignatureText" : {
       "type" : "string"
     },
-    "abiItem" : {
-      "type" : "string"
+    "timestamp" : {
+      "type" : "string",
+      "format" : "int64"
+    },
+    "trace" : {
+      "type" : "boolean"
+    },
+    "transactionStatus" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "tx" : {
+      "$ref" : "#/components/schemas/evm.Transaction"
     }
   }
 };
     defs["solidity_service.EvmSearchTransactionsResponse"] = {
   "type" : "object",
   "properties" : {
+    "nextPageToken" : {
+      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+      "type" : "string",
+      "format" : "byte"
+    },
     "transactions" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/solidity_service.EvmRawTransaction"
       }
-    },
-    "nextPageToken" : {
-      "pattern" : "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-      "type" : "string",
-      "format" : "byte"
     }
   }
 };
@@ -5444,27 +5444,27 @@ ul.nav-tabs {
     defs["solidity_service.Fork"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
+    "createTime" : {
+      "type" : "string",
+      "format" : "date-time"
     },
-    "type" : {
-      "$ref" : "#/components/schemas/solidity_service.ForkType"
-    },
-    "name" : {
-      "type" : "string"
+    "externalFork" : {
+      "$ref" : "#/components/schemas/solidity_service.ExternalFork"
     },
     "extra" : {
+      "type" : "string"
+    },
+    "id" : {
       "type" : "string"
     },
     "managedFork" : {
       "$ref" : "#/components/schemas/solidity_service.ManagedFork"
     },
-    "externalFork" : {
-      "$ref" : "#/components/schemas/solidity_service.ExternalFork"
+    "name" : {
+      "type" : "string"
     },
-    "createTime" : {
-      "type" : "string",
-      "format" : "date-time"
+    "type" : {
+      "$ref" : "#/components/schemas/solidity_service.ForkType"
     },
     "updateTime" : {
       "type" : "string",
@@ -5498,6 +5498,9 @@ ul.nav-tabs {
     defs["solidity_service.GetForkInfoResponse"] = {
   "type" : "object",
   "properties" : {
+    "currentBlockHash" : {
+      "type" : "string"
+    },
     "currentBlockNumber" : {
       "type" : "string"
     },
@@ -5505,20 +5508,17 @@ ul.nav-tabs {
       "type" : "string",
       "format" : "uint64"
     },
-    "currentBlockHash" : {
-      "type" : "string"
+    "environment" : {
+      "$ref" : "#/components/schemas/solidity_service.NodeEnvironment"
+    },
+    "forkConfig" : {
+      "$ref" : "#/components/schemas/solidity_service.NodeForkConfig"
     },
     "hardFork" : {
       "type" : "string"
     },
     "transactionOrder" : {
       "type" : "string"
-    },
-    "environment" : {
-      "$ref" : "#/components/schemas/solidity_service.NodeEnvironment"
-    },
-    "forkConfig" : {
-      "$ref" : "#/components/schemas/solidity_service.NodeForkConfig"
     }
   }
 };
@@ -5533,14 +5533,14 @@ ul.nav-tabs {
     defs["solidity_service.GetSimulationBundleResponse"] = {
   "type" : "object",
   "properties" : {
+    "error" : {
+      "type" : "string"
+    },
     "simulations" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/solidity_service.Simulation"
       }
-    },
-    "error" : {
-      "type" : "string"
     }
   }
 };
@@ -5555,12 +5555,6 @@ ul.nav-tabs {
     defs["solidity_service.GetSimulationsResponse"] = {
   "type" : "object",
   "properties" : {
-    "simulations" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/solidity_service.Simulation"
-      }
-    },
     "count" : {
       "type" : "string",
       "format" : "int64"
@@ -5572,6 +5566,12 @@ ul.nav-tabs {
     "pageSize" : {
       "type" : "integer",
       "format" : "int32"
+    },
+    "simulations" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/solidity_service.Simulation"
+      }
     }
   }
 };
@@ -5589,17 +5589,17 @@ ul.nav-tabs {
     defs["solidity_service.ManagedFork"] = {
   "type" : "object",
   "properties" : {
-    "parentChainSpec" : {
-      "$ref" : "#/components/schemas/solidity_service.ChainIdentifier"
-    },
-    "parentRpcEndpoint" : {
+    "chainId" : {
       "type" : "string"
     },
     "parentBlockNumber" : {
       "type" : "string",
       "format" : "int64"
     },
-    "chainId" : {
+    "parentChainSpec" : {
+      "$ref" : "#/components/schemas/solidity_service.ChainIdentifier"
+    },
+    "parentRpcEndpoint" : {
       "type" : "string"
     },
     "rpcEndpoint" : {
@@ -5614,12 +5614,12 @@ ul.nav-tabs {
     defs["solidity_service.NodeEnvironment"] = {
   "type" : "object",
   "properties" : {
+    "baseFee" : {
+      "type" : "string"
+    },
     "chainId" : {
       "type" : "string",
       "format" : "uint64"
-    },
-    "baseFee" : {
-      "type" : "string"
     },
     "gasLimit" : {
       "type" : "string"
@@ -5632,9 +5632,6 @@ ul.nav-tabs {
     defs["solidity_service.NodeForkConfig"] = {
   "type" : "object",
   "properties" : {
-    "forkUrl" : {
-      "type" : "string"
-    },
     "forkBlockNumber" : {
       "type" : "string",
       "format" : "uint64"
@@ -5642,6 +5639,9 @@ ul.nav-tabs {
     "forkRetryBackoff" : {
       "type" : "string",
       "format" : "uint64"
+    },
+    "forkUrl" : {
+      "type" : "string"
     }
   }
 };
@@ -5651,14 +5651,14 @@ ul.nav-tabs {
     "bundleId" : {
       "type" : "string"
     },
+    "error" : {
+      "type" : "string"
+    },
     "simulations" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/solidity_service.Simulation"
       }
-    },
-    "error" : {
-      "type" : "string"
     }
   }
 };
@@ -5674,16 +5674,21 @@ ul.nav-tabs {
   "required" : [ "blockNumber", "chainSpec", "from", "gas", "gasPrice", "input", "networkId", "to", "transactionIndex", "value" ],
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
+    "accessList" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/evm.AccessListItem"
+      }
     },
-    "createAt" : {
-      "type" : "string"
+    "blockNumber" : {
+      "title" : "blockNumber",
+      "type" : "string",
+      "description" : "Can be \"latest\"."
+    },
+    "blockOverride" : {
+      "$ref" : "#/components/schemas/solidity_service.BlockOverrides"
     },
     "bundleId" : {
-      "type" : "string"
-    },
-    "networkId" : {
       "type" : "string"
     },
     "chainId" : {
@@ -5693,19 +5698,12 @@ ul.nav-tabs {
     "chainSpec" : {
       "$ref" : "#/components/schemas/solidity_service.ChainIdentifier"
     },
-    "to" : {
+    "createAt" : {
       "type" : "string"
     },
-    "input" : {
-      "type" : "string"
-    },
-    "blockNumber" : {
-      "title" : "blockNumber",
-      "type" : "string",
-      "description" : "Can be \"latest\"."
-    },
-    "transactionIndex" : {
-      "type" : "string"
+    "debugDeployment" : {
+      "title" : "for debugging user compilation deployment",
+      "type" : "boolean"
     },
     "from" : {
       "type" : "string"
@@ -5716,32 +5714,32 @@ ul.nav-tabs {
     "gasPrice" : {
       "type" : "string"
     },
+    "id" : {
+      "type" : "string"
+    },
+    "input" : {
+      "type" : "string"
+    },
+    "label" : {
+      "type" : "string"
+    },
     "maxFeePerGas" : {
       "type" : "string"
     },
     "maxPriorityFeePerGas" : {
       "type" : "string"
     },
-    "value" : {
+    "networkId" : {
       "type" : "string"
-    },
-    "accessList" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/evm.AccessListItem"
-      }
     },
     "originTxHash" : {
       "type" : "string"
     },
-    "label" : {
-      "type" : "string"
+    "result" : {
+      "$ref" : "#/components/schemas/solidity_service.Simulation.Result"
     },
-    "stateOverrides" : {
-      "type" : "object",
-      "additionalProperties" : {
-        "$ref" : "#/components/schemas/solidity_service.StateOverride"
-      }
+    "sharing" : {
+      "$ref" : "#/components/schemas/solidity_service.SimulationSharing"
     },
     "sourceOverrides" : {
       "title" : "map from address to compilationID",
@@ -5750,18 +5748,20 @@ ul.nav-tabs {
         "type" : "string"
       }
     },
-    "blockOverride" : {
-      "$ref" : "#/components/schemas/solidity_service.BlockOverrides"
+    "stateOverrides" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "$ref" : "#/components/schemas/solidity_service.StateOverride"
+      }
     },
-    "debugDeployment" : {
-      "title" : "for debugging user compilation deployment",
-      "type" : "boolean"
+    "to" : {
+      "type" : "string"
     },
-    "result" : {
-      "$ref" : "#/components/schemas/solidity_service.Simulation.Result"
+    "transactionIndex" : {
+      "type" : "string"
     },
-    "sharing" : {
-      "$ref" : "#/components/schemas/solidity_service.SimulationSharing"
+    "value" : {
+      "type" : "string"
     }
   }
 };
@@ -5779,11 +5779,11 @@ ul.nav-tabs {
     defs["solidity_service.SimulationSharing"] = {
   "type" : "object",
   "properties" : {
-    "isPublic" : {
-      "type" : "boolean"
-    },
     "id" : {
       "type" : "string"
+    },
+    "isPublic" : {
+      "type" : "boolean"
     },
     "simulationId" : {
       "type" : "string"
@@ -5800,23 +5800,23 @@ ul.nav-tabs {
   },
   "example" : {
     "simulation" : {
-      "networkId" : "1",
       "blockNumber" : "17415072",
-      "transactionIndex" : "97",
+      "blockOverride" : {
+        "baseFee" : "0x0"
+      },
       "from" : "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
-      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
-      "value" : "0x0",
       "gas" : "0x31ae2",
       "gasPrice" : "0xe59a1adbe",
       "input" : "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+      "networkId" : "1",
       "stateOverrides" : {
         "0x0811fd1808e14f0b93f0514313965a5f142c5539" : {
           "balance" : "0x1111111111111111"
         }
       },
-      "blockOverride" : {
-        "baseFee" : "0x0"
-      }
+      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+      "transactionIndex" : "97",
+      "value" : "0x0"
     }
   }
 };
@@ -5835,22 +5835,22 @@ ul.nav-tabs {
   "example" : {
     "simulations" : [ {
       "blockNumber" : "17415072",
-      "transactionIndex" : "97",
-      "network_id" : "1",
       "from" : "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
-      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
       "gas" : "0x31ae2",
       "gasPrice" : "0xe59a1adbe",
       "input" : "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+      "network_id" : "1",
+      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+      "transactionIndex" : "97",
       "value" : "0x0"
     }, {
       "from" : "0x99922ca65188cc218a5d316969dc66d8672994f2",
-      "to" : "0xae96a46b64e08861cf2af8c7d954b722e0725a0c",
       "gas" : "0x52",
       "gasPrice" : "0xe5909173e",
-      "maxPriorityFeePerGas" : "0x3b023380",
-      "maxFeePerGas" : "0x147d03",
       "input" : "0x",
+      "maxFeePerGas" : "0x147d03",
+      "maxPriorityFeePerGas" : "0x3b023380",
+      "to" : "0xae96a46b64e08861cf2af8c7d954b722e0725a0c",
       "value" : "0xbe32c0faed7400"
     } ]
   }
@@ -5870,22 +5870,22 @@ ul.nav-tabs {
   "example" : {
     "simulations" : [ {
       "blockNumber" : "17415072",
-      "transactionIndex" : "97",
-      "network_id" : "1",
       "from" : "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
-      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
       "gas" : "0x31ae2",
       "gasPrice" : "0xe59a1adbe",
       "input" : "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+      "network_id" : "1",
+      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+      "transactionIndex" : "97",
       "value" : "0x0"
     }, {
       "from" : "0x99922ca65188cc218a5d316969dc66d8672994f2",
-      "to" : "0xae96a46b64e08861cf2af8c7d954b722e0725a0c",
       "gas" : "0x52",
       "gasPrice" : "0xe5909173e",
-      "maxPriorityFeePerGas" : "0x3b023380",
-      "maxFeePerGas" : "0x147d03",
       "input" : "0x",
+      "maxFeePerGas" : "0x147d03",
+      "maxPriorityFeePerGas" : "0x3b023380",
+      "to" : "0xae96a46b64e08861cf2af8c7d954b722e0725a0c",
       "value" : "0xbe32c0faed7400"
     } ]
   }
@@ -5900,23 +5900,23 @@ ul.nav-tabs {
   },
   "example" : {
     "simulation" : {
-      "networkId" : "1",
       "blockNumber" : "17415072",
-      "transactionIndex" : "97",
+      "blockOverride" : {
+        "baseFee" : "0x0"
+      },
       "from" : "0x5e8bb488e85ea732e17150862b1acfc213a7c13d",
-      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
-      "value" : "0x0",
       "gas" : "0x31ae2",
       "gasPrice" : "0xe59a1adbe",
       "input" : "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000647dffef0000000000000000000000000000000000000000000000000000000000000002080c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000160000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000003077b58d5d378391980000000000000000000000000000000000000000000000000000000032b2ced3e40e9d100000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000082646b22a3960da69ef7a778c16dd6fb85dd999000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000032b2ced3e40e9d1",
+      "networkId" : "1",
       "stateOverrides" : {
         "0x0811fd1808e14f0b93f0514313965a5f142c5539" : {
           "balance" : "0x1111111111111111"
         }
       },
-      "blockOverride" : {
-        "baseFee" : "0x0"
-      }
+      "to" : "0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b",
+      "transactionIndex" : "97",
+      "value" : "0x0"
     }
   }
 };
@@ -5928,12 +5928,6 @@ ul.nav-tabs {
     defs["solidity_service.StateOverride"] = {
   "type" : "object",
   "properties" : {
-    "state" : {
-      "type" : "object",
-      "additionalProperties" : {
-        "type" : "string"
-      }
-    },
     "balance" : {
       "title" : "map<string, string> stateDiff = 4;",
       "type" : "string",
@@ -5941,6 +5935,12 @@ ul.nav-tabs {
     },
     "code" : {
       "type" : "string"
+    },
+    "state" : {
+      "type" : "object",
+      "additionalProperties" : {
+        "type" : "string"
+      }
     }
   }
 };
@@ -5955,14 +5955,18 @@ ul.nav-tabs {
     defs["web_service.Chart"] = {
   "type" : "object",
   "properties" : {
-    "type" : {
-      "$ref" : "#/components/schemas/web_service.ChartType"
+    "config" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig"
     },
-    "queries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.Query"
-      }
+    "datasourceType" : {
+      "$ref" : "#/components/schemas/web_service.Chart.DataSourceType"
+    },
+    "enableExperimentalFeatures" : {
+      "title" : "enable experimental_features",
+      "type" : "boolean"
+    },
+    "eventLogsConfig" : {
+      "$ref" : "#/components/schemas/web_service.EventLogsConfig"
     },
     "formulas" : {
       "type" : "array",
@@ -5970,20 +5974,8 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Formula"
       }
     },
-    "config" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig"
-    },
-    "note" : {
-      "$ref" : "#/components/schemas/web_service.Note"
-    },
-    "datasourceType" : {
-      "$ref" : "#/components/schemas/web_service.Chart.DataSourceType"
-    },
-    "segmentationQueries" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/common.SegmentationQuery"
-      }
+    "group" : {
+      "$ref" : "#/components/schemas/web_service.Group"
     },
     "insightsQueries" : {
       "type" : "array",
@@ -5991,24 +5983,8 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/insights_service.QueryRequest.Query"
       }
     },
-    "eventLogsConfig" : {
-      "$ref" : "#/components/schemas/web_service.EventLogsConfig"
-    },
-    "retentionQuery" : {
-      "$ref" : "#/components/schemas/common.RetentionQuery"
-    },
-    "sqlQuery" : {
-      "type" : "string"
-    },
-    "sqlQueryId" : {
-      "type" : "string"
-    },
-    "sqlExecuteEngine" : {
-      "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
-    },
-    "enableExperimentalFeatures" : {
-      "title" : "enable experimental_features",
-      "type" : "boolean"
+    "note" : {
+      "$ref" : "#/components/schemas/web_service.Note"
     },
     "overlayGraphs" : {
       "title" : "Overlay graphs for multi-axis support (max 3)",
@@ -6017,34 +5993,49 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/web_service.OverlayGraph"
       }
     },
-    "group" : {
-      "$ref" : "#/components/schemas/web_service.Group"
+    "queries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.Query"
+      }
+    },
+    "retentionQuery" : {
+      "$ref" : "#/components/schemas/common.RetentionQuery"
+    },
+    "segmentationQueries" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/common.SegmentationQuery"
+      }
+    },
+    "sqlExecuteEngine" : {
+      "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
+    },
+    "sqlQuery" : {
+      "type" : "string"
+    },
+    "sqlQueryId" : {
+      "type" : "string"
+    },
+    "type" : {
+      "$ref" : "#/components/schemas/web_service.ChartType"
     }
   }
 };
     defs["web_service.ChartConfig"] = {
   "type" : "object",
   "properties" : {
-    "yAxis" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.YAxisConfig"
-    },
     "barGauge" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.BarGaugeConfig"
     },
-    "valueConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig"
+    "dataConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.DataConfig"
     },
-    "timeRangeOverride" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.TimeRangeOverride"
+    "labelConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.LabelConfig"
     },
-    "tableConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.TableConfig"
-    },
-    "queryValueConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.QueryValueConfig"
-    },
-    "pieConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.PieConfig"
+    "lineConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.LineConfig"
     },
     "markers" : {
       "type" : "array",
@@ -6052,14 +6043,11 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/web_service.ChartConfig.Marker"
       }
     },
-    "lineConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.LineConfig"
+    "pieConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.PieConfig"
     },
-    "xAxis" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.XAxisConfig"
-    },
-    "labelConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.LabelConfig"
+    "queryValueConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.QueryValueConfig"
     },
     "scatterConfig" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.ScatterConfig"
@@ -6067,19 +6055,31 @@ ul.nav-tabs {
     "seriesConfig" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.SeriesConfig"
     },
-    "dataConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.DataConfig"
+    "tableConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.TableConfig"
+    },
+    "timeRangeOverride" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.TimeRangeOverride"
+    },
+    "valueConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig"
+    },
+    "xAxis" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.XAxisConfig"
+    },
+    "yAxis" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.YAxisConfig"
     }
   }
 };
     defs["web_service.ChartConfig.BarGaugeConfig"] = {
   "type" : "object",
   "properties" : {
-    "direction" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.Direction"
-    },
     "calculation" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
+    },
+    "direction" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.Direction"
     },
     "sort" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.Sort"
@@ -6094,10 +6094,10 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.ColorTheme"] = {
   "type" : "object",
   "properties" : {
-    "textColor" : {
+    "backgroundColor" : {
       "type" : "string"
     },
-    "backgroundColor" : {
+    "textColor" : {
       "type" : "string"
     },
     "themeType" : {
@@ -6141,14 +6141,14 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.LabelConfig"] = {
   "type" : "object",
   "properties" : {
+    "alias" : {
+      "type" : "string"
+    },
     "columns" : {
       "type" : "array",
       "items" : {
         "$ref" : "#/components/schemas/web_service.ChartConfig.LabelConfigColumn"
       }
-    },
-    "alias" : {
-      "type" : "string"
     }
   }
 };
@@ -6169,11 +6169,11 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.LineConfig"] = {
   "type" : "object",
   "properties" : {
-    "style" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.LineConfig.Style"
-    },
     "smooth" : {
       "type" : "boolean"
+    },
+    "style" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.LineConfig.Style"
     }
   }
 };
@@ -6185,36 +6185,36 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.MappingRule"] = {
   "type" : "object",
   "properties" : {
+    "colorTheme" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ColorTheme"
+    },
     "comparison" : {
+      "type" : "string"
+    },
+    "text" : {
       "type" : "string"
     },
     "value" : {
       "type" : "number",
       "format" : "double"
-    },
-    "text" : {
-      "type" : "string"
-    },
-    "colorTheme" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.ColorTheme"
     }
   }
 };
     defs["web_service.ChartConfig.Marker"] = {
   "type" : "object",
   "properties" : {
+    "color" : {
+      "type" : "string"
+    },
+    "label" : {
+      "type" : "string"
+    },
     "type" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.MarkerType"
     },
     "value" : {
       "type" : "number",
       "format" : "double"
-    },
-    "color" : {
-      "type" : "string"
-    },
-    "label" : {
-      "type" : "string"
     },
     "valueX" : {
       "type" : "string"
@@ -6229,6 +6229,12 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.PieConfig"] = {
   "type" : "object",
   "properties" : {
+    "absValue" : {
+      "type" : "boolean"
+    },
+    "calculation" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
+    },
     "pieType" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.PieConfig.PieType"
     },
@@ -6236,12 +6242,6 @@ ul.nav-tabs {
       "type" : "boolean"
     },
     "showValue" : {
-      "type" : "boolean"
-    },
-    "calculation" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
-    },
-    "absValue" : {
       "type" : "boolean"
     }
   }
@@ -6254,36 +6254,36 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.QueryValueConfig"] = {
   "type" : "object",
   "properties" : {
-    "colorTheme" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.ColorTheme"
-    },
-    "showBackgroundChart" : {
-      "type" : "boolean"
-    },
     "calculation" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
     },
+    "colorTheme" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ColorTheme"
+    },
     "seriesCalculation" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
+    },
+    "showBackgroundChart" : {
+      "type" : "boolean"
     }
   }
 };
     defs["web_service.ChartConfig.ScatterConfig"] = {
   "type" : "object",
   "properties" : {
-    "symbolSize" : {
-      "type" : "string"
-    },
     "color" : {
       "type" : "string"
+    },
+    "maxSize" : {
+      "type" : "integer",
+      "format" : "int32"
     },
     "minSize" : {
       "type" : "integer",
       "format" : "int32"
     },
-    "maxSize" : {
-      "type" : "integer",
-      "format" : "int32"
+    "symbolSize" : {
+      "type" : "string"
     }
   }
 };
@@ -6309,11 +6309,11 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.Sort"] = {
   "type" : "object",
   "properties" : {
-    "sortBy" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.SortBy"
-    },
     "orderDesc" : {
       "type" : "boolean"
+    },
+    "sortBy" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.SortBy"
     }
   }
 };
@@ -6328,17 +6328,10 @@ ul.nav-tabs {
     "calculation" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
     },
-    "showColumns" : {
-      "title" : "map<string, bool> sort_by = 2;",
+    "calculations" : {
       "type" : "object",
       "additionalProperties" : {
-        "type" : "boolean"
-      }
-    },
-    "sortColumns" : {
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/web_service.ChartConfig.ColumnSort"
+        "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
       }
     },
     "columnOrders" : {
@@ -6354,13 +6347,24 @@ ul.nav-tabs {
         "format" : "int32"
       }
     },
+    "rowLimit" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "showColumns" : {
+      "title" : "map<string, bool> sort_by = 2;",
+      "type" : "object",
+      "additionalProperties" : {
+        "type" : "boolean"
+      }
+    },
     "showPlainData" : {
       "type" : "boolean"
     },
-    "calculations" : {
-      "type" : "object",
-      "additionalProperties" : {
-        "$ref" : "#/components/schemas/web_service.ChartConfig.Calculation"
+    "sortColumns" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/web_service.ChartConfig.ColumnSort"
       }
     },
     "valueConfigs" : {
@@ -6368,39 +6372,28 @@ ul.nav-tabs {
       "additionalProperties" : {
         "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig"
       }
-    },
-    "rowLimit" : {
-      "type" : "integer",
-      "format" : "int32"
     }
   }
 };
     defs["web_service.ChartConfig.TimeRangeOverride"] = {
   "type" : "object",
   "properties" : {
+    "compareTime" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.CompareTime"
+    },
     "enabled" : {
       "type" : "boolean"
     },
     "timeRange" : {
       "$ref" : "#/components/schemas/common.TimeRange"
-    },
-    "compareTime" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.CompareTime"
     }
   }
 };
     defs["web_service.ChartConfig.ValueConfig"] = {
   "type" : "object",
   "properties" : {
-    "valueFormatter" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueFormatter"
-    },
-    "showValueLabel" : {
-      "type" : "boolean"
-    },
-    "maxSignificantDigits" : {
-      "type" : "integer",
-      "format" : "int32"
+    "currencySymbol" : {
+      "type" : "string"
     },
     "dateFormat" : {
       "type" : "string"
@@ -6411,10 +6404,11 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/web_service.ChartConfig.MappingRule"
       }
     },
-    "style" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig.Style"
-    },
     "maxFractionDigits" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "maxSignificantDigits" : {
       "type" : "integer",
       "format" : "int32"
     },
@@ -6422,17 +6416,23 @@ ul.nav-tabs {
       "type" : "integer",
       "format" : "int32"
     },
-    "currencySymbol" : {
+    "prefix" : {
+      "type" : "string"
+    },
+    "showValueLabel" : {
+      "type" : "boolean"
+    },
+    "style" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig.Style"
+    },
+    "suffix" : {
       "type" : "string"
     },
     "tooltipTotal" : {
       "type" : "boolean"
     },
-    "prefix" : {
-      "type" : "string"
-    },
-    "suffix" : {
-      "type" : "string"
+    "valueFormatter" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueFormatter"
     }
   }
 };
@@ -6449,28 +6449,28 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.XAxisConfig"] = {
   "type" : "object",
   "properties" : {
-    "type" : {
+    "column" : {
       "type" : "string"
     },
-    "min" : {
+    "format" : {
       "type" : "string"
     },
     "max" : {
       "type" : "string"
     },
-    "scale" : {
-      "type" : "boolean"
+    "min" : {
+      "type" : "string"
     },
     "name" : {
       "type" : "string"
     },
-    "column" : {
-      "type" : "string"
+    "scale" : {
+      "type" : "boolean"
     },
     "sort" : {
       "$ref" : "#/components/schemas/web_service.ChartConfig.Sort"
     },
-    "format" : {
+    "type" : {
       "type" : "string"
     }
   }
@@ -6478,22 +6478,22 @@ ul.nav-tabs {
     defs["web_service.ChartConfig.YAxisConfig"] = {
   "type" : "object",
   "properties" : {
-    "min" : {
+    "column" : {
       "type" : "string"
     },
     "max" : {
+      "type" : "string"
+    },
+    "min" : {
+      "type" : "string"
+    },
+    "name" : {
       "type" : "string"
     },
     "scale" : {
       "type" : "boolean"
     },
     "stacked" : {
-      "type" : "string"
-    },
-    "column" : {
-      "type" : "string"
-    },
-    "name" : {
       "type" : "string"
     }
   }
@@ -6511,25 +6511,45 @@ ul.nav-tabs {
     defs["web_service.Dashboard"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "name" : {
-      "type" : "string"
-    },
-    "projectId" : {
-      "type" : "string"
-    },
-    "description" : {
-      "type" : "string"
+    "createPanels" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
     },
     "createdAt" : {
       "type" : "string",
       "format" : "date-time"
     },
-    "updatedAt" : {
-      "type" : "string",
-      "format" : "date-time"
+    "default" : {
+      "type" : "boolean"
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "editPanels" : {
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "extra" : {
+      "$ref" : "#/components/schemas/web_service.Dashboard.Extra"
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "isPinned" : {
+      "type" : "boolean"
+    },
+    "layouts" : {
+      "$ref" : "#/components/schemas/web_service.Dashboard.ResponsiveLayouts"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "ownerId" : {
+      "type" : "string"
     },
     "panels" : {
       "type" : "object",
@@ -6537,34 +6557,7 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/web_service.Panel"
       }
     },
-    "layouts" : {
-      "$ref" : "#/components/schemas/web_service.Dashboard.ResponsiveLayouts"
-    },
-    "extra" : {
-      "$ref" : "#/components/schemas/web_service.Dashboard.Extra"
-    },
-    "sharing" : {
-      "$ref" : "#/components/schemas/web_service.DashboardSharing"
-    },
-    "default" : {
-      "type" : "boolean"
-    },
-    "isPinned" : {
-      "type" : "boolean"
-    },
-    "visibility" : {
-      "$ref" : "#/components/schemas/web_service.Dashboard.DashboardVisibility"
-    },
-    "ownerId" : {
-      "type" : "string"
-    },
-    "tags" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "url" : {
+    "projectId" : {
       "type" : "string"
     },
     "projectOwner" : {
@@ -6573,17 +6566,24 @@ ul.nav-tabs {
     "projectSlug" : {
       "type" : "string"
     },
-    "createPanels" : {
+    "sharing" : {
+      "$ref" : "#/components/schemas/web_service.DashboardSharing"
+    },
+    "tags" : {
       "type" : "array",
       "items" : {
         "type" : "string"
       }
     },
-    "editPanels" : {
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
+    "updatedAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "url" : {
+      "type" : "string"
+    },
+    "visibility" : {
+      "$ref" : "#/components/schemas/web_service.Dashboard.DashboardVisibility"
     }
   }
 };
@@ -6612,13 +6612,10 @@ ul.nav-tabs {
     defs["web_service.Dashboard.Extra.TemplateVariable"] = {
   "type" : "object",
   "properties" : {
-    "field" : {
-      "type" : "string"
-    },
     "defaultValue" : {
       "type" : "string"
     },
-    "sourceName" : {
+    "field" : {
       "type" : "string"
     },
     "options" : {
@@ -6626,6 +6623,9 @@ ul.nav-tabs {
       "items" : {
         "type" : "string"
       }
+    },
+    "sourceName" : {
+      "type" : "string"
     }
   }
 };
@@ -6643,31 +6643,43 @@ ul.nav-tabs {
     defs["web_service.DashboardHistory"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "integer",
-      "format" : "int64"
+    "createdAt" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "createdById" : {
+      "type" : "string"
     },
     "dashboardId" : {
       "type" : "string"
     },
-    "version" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "name" : {
-      "type" : "string"
+    "default" : {
+      "type" : "boolean"
     },
     "description" : {
       "type" : "string"
     },
-    "projectId" : {
-      "type" : "string"
+    "extra" : {
+      "$ref" : "#/components/schemas/web_service.Dashboard.Extra"
+    },
+    "id" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "isPinned" : {
+      "type" : "boolean"
     },
     "layouts" : {
       "$ref" : "#/components/schemas/web_service.Dashboard.ResponsiveLayouts"
     },
-    "extra" : {
-      "$ref" : "#/components/schemas/web_service.Dashboard.Extra"
+    "name" : {
+      "type" : "string"
+    },
+    "ownerId" : {
+      "type" : "string"
+    },
+    "projectId" : {
+      "type" : "string"
     },
     "tags" : {
       "type" : "array",
@@ -6678,24 +6690,12 @@ ul.nav-tabs {
     "url" : {
       "type" : "string"
     },
-    "default" : {
-      "type" : "boolean"
-    },
-    "isPinned" : {
-      "type" : "boolean"
-    },
-    "ownerId" : {
-      "type" : "string"
+    "version" : {
+      "type" : "integer",
+      "format" : "int32"
     },
     "visibility" : {
       "$ref" : "#/components/schemas/web_service.Dashboard.DashboardVisibility"
-    },
-    "createdAt" : {
-      "type" : "string",
-      "format" : "date-time"
-    },
-    "createdById" : {
-      "type" : "string"
     }
   }
 };
@@ -6713,22 +6713,22 @@ ul.nav-tabs {
     defs["web_service.Dashboard.Layouts.Layout"] = {
   "type" : "object",
   "properties" : {
+    "h" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
     "i" : {
       "type" : "string"
+    },
+    "w" : {
+      "type" : "integer",
+      "format" : "int32"
     },
     "x" : {
       "type" : "integer",
       "format" : "int32"
     },
     "y" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "w" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "h" : {
       "type" : "integer",
       "format" : "int32"
     }
@@ -6748,10 +6748,13 @@ ul.nav-tabs {
     defs["web_service.DashboardSharing"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
+    "config" : {
+      "$ref" : "#/components/schemas/web_service.SharingConfig"
     },
     "dashboardId" : {
+      "type" : "string"
+    },
+    "id" : {
       "type" : "string"
     },
     "isPublic" : {
@@ -6762,9 +6765,6 @@ ul.nav-tabs {
       "items" : {
         "type" : "string"
       }
-    },
-    "config" : {
-      "$ref" : "#/components/schemas/web_service.SharingConfig"
     }
   }
 };
@@ -6774,14 +6774,14 @@ ul.nav-tabs {
     "columnsConfig" : {
       "$ref" : "#/components/schemas/common.EventLogConfig"
     },
-    "timeRangeOverride" : {
-      "$ref" : "#/components/schemas/web_service.EventLogsConfig.TimeRangeOverride"
-    },
     "query" : {
       "type" : "string"
     },
     "sourceName" : {
       "type" : "string"
+    },
+    "timeRangeOverride" : {
+      "$ref" : "#/components/schemas/web_service.EventLogsConfig.TimeRangeOverride"
     }
   }
 };
@@ -6839,21 +6839,21 @@ ul.nav-tabs {
     defs["web_service.Group"] = {
   "type" : "object",
   "properties" : {
-    "title" : {
-      "type" : "string"
+    "childLayouts" : {
+      "$ref" : "#/components/schemas/web_service.Dashboard.ResponsiveLayouts"
     },
     "collapsed" : {
       "type" : "boolean"
     },
-    "childLayouts" : {
-      "$ref" : "#/components/schemas/web_service.Dashboard.ResponsiveLayouts"
+    "highlightColor" : {
+      "type" : "string",
+      "description" : "Palette key (e.g. \"green\", \"purple\") used to derive the header\nbackground. Empty string keeps the theme default."
     },
     "style" : {
       "$ref" : "#/components/schemas/web_service.Group.Style"
     },
-    "highlightColor" : {
-      "type" : "string",
-      "description" : "Palette key (e.g. \"green\", \"purple\") used to derive the header\nbackground. Empty string keeps the theme default."
+    "title" : {
+      "type" : "string"
     }
   },
   "description" : "Configuration for a GROUP-typed Panel — a collapsible container that holds\nother panels referencing it via Panel.group_id. Groups cannot nest."
@@ -6900,6 +6900,9 @@ ul.nav-tabs {
     defs["web_service.Note"] = {
   "type" : "object",
   "properties" : {
+    "backgroundColor" : {
+      "type" : "string"
+    },
     "content" : {
       "type" : "string"
     },
@@ -6909,14 +6912,11 @@ ul.nav-tabs {
     "textAlign" : {
       "$ref" : "#/components/schemas/web_service.Note.Alignment"
     },
-    "verticalAlign" : {
-      "$ref" : "#/components/schemas/web_service.Note.VerticalAlignment"
-    },
-    "backgroundColor" : {
-      "type" : "string"
-    },
     "textColor" : {
       "type" : "string"
+    },
+    "verticalAlign" : {
+      "$ref" : "#/components/schemas/web_service.Note.VerticalAlignment"
     }
   }
 };
@@ -6938,12 +6938,11 @@ ul.nav-tabs {
     defs["web_service.OverlayGraph"] = {
   "type" : "object",
   "properties" : {
-    "insightsQueries" : {
-      "title" : "Unified query format",
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/insights_service.QueryRequest.Query"
-      }
+    "chartType" : {
+      "$ref" : "#/components/schemas/web_service.ChartType"
+    },
+    "dataConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.DataConfig"
     },
     "formulas" : {
       "type" : "array",
@@ -6951,21 +6950,22 @@ ul.nav-tabs {
         "$ref" : "#/components/schemas/common.Formula"
       }
     },
-    "yAxis" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.YAxisConfig"
+    "insightsQueries" : {
+      "title" : "Unified query format",
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/insights_service.QueryRequest.Query"
+      }
+    },
+    "lineConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.LineConfig"
     },
     "name" : {
       "title" : "Y-axis label",
       "type" : "string"
     },
-    "lineConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.LineConfig"
-    },
-    "valueConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig"
-    },
-    "dataConfig" : {
-      "$ref" : "#/components/schemas/web_service.ChartConfig.DataConfig"
+    "sqlExecuteEngine" : {
+      "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
     },
     "sqlQuery" : {
       "title" : "For SQL datasource",
@@ -6975,11 +6975,11 @@ ul.nav-tabs {
       "title" : "For saved SQL queries",
       "type" : "string"
     },
-    "sqlExecuteEngine" : {
-      "$ref" : "#/components/schemas/analytic_service.ExecuteEngine"
+    "valueConfig" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.ValueConfig"
     },
-    "chartType" : {
-      "$ref" : "#/components/schemas/web_service.ChartType"
+    "yAxis" : {
+      "$ref" : "#/components/schemas/web_service.ChartConfig.YAxisConfig"
     }
   },
   "description" : "An additional graph overlaid on the primary chart, with its own queries\nand Y-axis configuration. Chart type defaults to the parent chart type."
@@ -6987,37 +6987,37 @@ ul.nav-tabs {
     defs["web_service.Panel"] = {
   "type" : "object",
   "properties" : {
-    "id" : {
-      "type" : "string"
-    },
-    "name" : {
-      "type" : "string"
-    },
-    "dashboardId" : {
-      "type" : "string"
-    },
     "chart" : {
       "$ref" : "#/components/schemas/web_service.Chart"
     },
     "creator" : {
       "$ref" : "#/components/schemas/common.UserInfo"
     },
-    "updater" : {
-      "$ref" : "#/components/schemas/common.UserInfo"
+    "dashboardId" : {
+      "type" : "string"
     },
     "groupId" : {
       "type" : "string",
       "description" : "When non-empty, this panel renders inside the Group panel identified by group_id.\nGROUP-typed panels must keep this field empty (groups cannot nest)."
+    },
+    "id" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "updater" : {
+      "$ref" : "#/components/schemas/common.UserInfo"
     }
   }
 };
     defs["web_service.SharingConfig"] = {
   "type" : "object",
   "properties" : {
-    "isReadonly" : {
+    "hideModifiers" : {
       "type" : "boolean"
     },
-    "hideModifiers" : {
+    "isReadonly" : {
       "type" : "boolean"
     }
   }
