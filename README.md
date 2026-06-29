@@ -98,7 +98,7 @@ import type { Project } from "@sentio/api/gen/service/common/protos/common_pb.js
 `createSentioClient` / `createSentioTransport` accept:
 
 - `apiKey` — sent as the `api-key` header.
-- `baseUrl` — defaults to `https://app.sentio.xyz`.
+- `baseUrl` — defaults to `https://api.sentio.xyz`.
 - everything else from `GatewayTransportOptions`
   (`headers`, `fetch`, `interceptors`, `defaultTimeoutMs`, ...).
 

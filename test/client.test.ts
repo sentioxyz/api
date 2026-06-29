@@ -63,13 +63,13 @@ test('an explicit api-key header is not overridden by apiKey', async () => {
   assert.equal(req.headers.get('api-key'), 'explicit')
 })
 
-test('defaults to the app.sentio.xyz origin', async () => {
+test('defaults to the api.sentio.xyz origin', async () => {
   const req = await callWith({ apiKey: 'k' })
   assert.ok(
     req.url.startsWith(DEFAULT_BASE_URL + '/'),
     `expected ${req.url} to start with ${DEFAULT_BASE_URL}`,
   )
-  assert.equal(DEFAULT_BASE_URL, 'https://app.sentio.xyz')
+  assert.equal(DEFAULT_BASE_URL, 'https://api.sentio.xyz')
 })
 
 test('a custom baseUrl is used and its trailing slash trimmed', async () => {
@@ -81,10 +81,11 @@ test('a custom baseUrl is used and its trailing slash trimmed', async () => {
   assert.ok(!req.url.startsWith('https://api-test.sentio.xyz//'), 'trailing slash not trimmed')
 })
 
-test('listCoins routes to GET /api/v1/prices/coins', async () => {
+test('listCoins routes to GET /v1/prices/coins (the /api prefix is stripped)', async () => {
   const req = await callWith({ apiKey: 'k' })
   assert.equal(req.method, 'GET')
-  assert.match(req.url, /\/api\/v1\/prices\/coins/)
+  assert.equal(req.url, 'https://api.sentio.xyz/v1/prices/coins')
+  assert.doesNotMatch(req.url, /\/api\/v1\//, 'the legacy /api prefix must not be sent')
 })
 
 test('one transport is shared across multiple service clients', async () => {
