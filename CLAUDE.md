@@ -42,11 +42,14 @@ approval in `pnpm-workspace.yaml` (`allowBuilds: esbuild`).
   speaking the gateway REST dialect; `apiKey` is sent as the `api-key` header.
   `createSentioClient(Service, options)` is the one-service shortcut; for
   several services create one transport and use connect's `createClient`.
-- Default `baseUrl` is `https://app.sentio.xyz`, which serves the annotation
-  paths (`/api/v1/...`) verbatim. `https://api.sentio.xyz` serves the same API
-  under `/v1/...` (the prefix-stripped form used in the REST docs and
-  `openapi.json`) and will NOT route the annotation paths — don't point the
-  transport at it.
+- Default `baseUrl` is `https://api.sentio.xyz`, which serves the API under the
+  prefix-stripped `/v1/...` paths (the form used in the REST docs and
+  `openapi.json`). The generated descriptors carry the gateway's `/api/v1/...`
+  annotation paths, so `createSentioTransport` wraps `fetch` to drop the leading
+  `/api` segment before the request goes out (every public binding is
+  `/api/v1/*`). The legacy `https://app.sentio.xyz` origin served the
+  `/api/v1/...` paths verbatim and is being deprecated; pointing `baseUrl` at it
+  no longer routes, since the client now emits `/v1/...`.
 - protobuf-es conventions apply: request messages are partial init shapes
   (omitted fields take proto defaults), `oneof` fields are `{ case, value }`
   discriminated unions, errors are connect-es `ConnectError`s carrying the
