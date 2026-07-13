@@ -88,6 +88,28 @@ test('listCoins routes to GET /v1/prices/coins (the /api prefix is stripped)', a
   assert.doesNotMatch(req.url, /\/api\/v1\//, 'the legacy /api prefix must not be sent')
 })
 
+test('hosted environment origins are also stripped', async () => {
+  const req = await callWith({ baseUrl: 'https://api-test.sentio.xyz' })
+  assert.equal(req.url, 'https://api-test.sentio.xyz/v1/prices/coins')
+})
+
+test('a non-hosted origin keeps the annotated /api/v1 path', async () => {
+  // A grpc-gateway server on its own origin routes the annotated
+  // /api/v1/... paths verbatim; stripping there would 404 every call.
+  const req = await callWith({ baseUrl: 'http://gateway.internal:10070' })
+  assert.equal(req.url, 'http://gateway.internal:10070/api/v1/prices/coins')
+})
+
+test('stripApiPrefix forces stripping on a non-hosted origin', async () => {
+  const req = await callWith({ baseUrl: 'https://proxy.example.com', stripApiPrefix: true })
+  assert.equal(req.url, 'https://proxy.example.com/v1/prices/coins')
+})
+
+test('stripApiPrefix: false keeps the annotated path on a hosted origin', async () => {
+  const req = await callWith({ stripApiPrefix: false })
+  assert.equal(req.url, 'https://api.sentio.xyz/api/v1/prices/coins')
+})
+
 test('one transport is shared across multiple service clients', async () => {
   const transport = createSentioTransport({ apiKey: 'shared' })
   const price = createClient(PriceService, transport)

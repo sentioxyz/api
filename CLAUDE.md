@@ -47,9 +47,11 @@ approval in `pnpm-workspace.yaml` (`allowBuilds: esbuild`).
   `openapi.json`). The generated descriptors carry the gateway's `/api/v1/...`
   annotation paths, so `createSentioTransport` wraps `fetch` to drop the leading
   `/api` segment before the request goes out (every public binding is
-  `/api/v1/*`). The legacy `https://app.sentio.xyz` origin served the
-  `/api/v1/...` paths verbatim and is being deprecated; pointing `baseUrl` at it
-  no longer routes, since the client now emits `/v1/...`.
+  `/api/v1/*`). The strip is applied only for the hosted `api*.sentio.xyz`
+  origins (and a relative `baseUrl`, assumed to proxy them); any other origin —
+  e.g. a grpc-gateway server reached directly — gets the annotated
+  `/api/v1/...` paths verbatim, and the `stripApiPrefix` option forces either
+  behavior explicitly.
 - protobuf-es conventions apply: request messages are partial init shapes
   (omitted fields take proto defaults), `oneof` fields are `{ case, value }`
   discriminated unions, errors are connect-es `ConnectError`s carrying the

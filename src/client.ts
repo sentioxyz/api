@@ -19,6 +19,16 @@ export interface SentioApiOptions extends Omit<GatewayTransportOptions, 'baseUrl
   apiKey?: string
   /** API origin; defaults to {@link DEFAULT_BASE_URL}. */
   baseUrl?: string
+  /**
+   * Force whether the leading `/api` segment is dropped from the generated
+   * `/api/v1/...` binding paths before a request is sent. Defaults to
+   * auto-detection by origin: stripped for the hosted `api*.sentio.xyz`
+   * origins (and for a relative `baseUrl`, assumed to proxy them), kept
+   * verbatim for any other origin — a grpc-gateway server routes the
+   * annotated `/api/v1/...` paths unchanged, and stripping there turns
+   * every call into an HTTP 404 (surfaced as Connect's `NotFound`).
+   */
+  stripApiPrefix?: boolean
 }
 
 /**
@@ -46,20 +56,38 @@ function stripGatewayPathPrefix(
 }
 
 /**
+ * Whether `baseUrl` points at a Sentio-hosted API origin (`api.sentio.xyz`
+ * and its environment variants like `api-test.sentio.xyz`), which serve the
+ * prefix-stripped `/v1/...` paths. A relative `baseUrl` counts as hosted —
+ * it is assumed to be a same-origin proxy of one of these hosts. Anything
+ * else (a grpc-gateway server on its own origin) serves the annotated
+ * `/api/v1/...` paths verbatim.
+ */
+function isHostedApiOrigin(baseUrl: string): boolean {
+  try {
+    const { hostname } = new URL(baseUrl)
+    return hostname.startsWith('api') && (hostname === 'api.sentio.xyz' || hostname.endsWith('.sentio.xyz'))
+  } catch {
+    return true
+  }
+}
+
+/**
  * Creates a Connect transport that speaks Sentio's REST (grpc-gateway)
  * dialect. Share one transport across clients of multiple services.
  */
 export function createSentioTransport(options: SentioApiOptions = {}): Transport {
-  const { apiKey, baseUrl, headers, fetch: customFetch, ...rest } = options
+  const { apiKey, baseUrl, headers, fetch: customFetch, stripApiPrefix, ...rest } = options
   const h = new Headers(headers)
   if (apiKey !== undefined && !h.has('api-key')) {
     h.set('api-key', apiKey)
   }
   const baseFetch = customFetch ?? globalThis.fetch
+  const strip = stripApiPrefix ?? isHostedApiOrigin(baseUrl ?? DEFAULT_BASE_URL)
   return createGatewayTransport({
     baseUrl: baseUrl ?? DEFAULT_BASE_URL,
     headers: h,
-    fetch: (input, init) => baseFetch(stripGatewayPathPrefix(input), init),
+    fetch: strip ? (input, init) => baseFetch(stripGatewayPathPrefix(input), init) : baseFetch,
     ...rest,
   })
 }
