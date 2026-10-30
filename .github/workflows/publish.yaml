@@ -9,6 +9,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -55,8 +58,6 @@ jobs:
         run: |
           ./scripts/update-version.sh ${{ steps.semantic.outputs.new_release_version }}
           pnpm publish --no-git-checks --tag ${{ steps.npm.outputs.dist_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: report error
         if: steps.semantic.outputs.new_release_published == 'false'
         run: |
