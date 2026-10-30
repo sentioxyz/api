@@ -19,7 +19,7 @@
   "sideEffects": false,
   "packageManager": "pnpm@11.3.0",
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   },
   "scripts": {
     "build": "tsc",
@@ -32,7 +32,7 @@
     "@sentio/connect-gateway-es": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^24.13.2",
+    "@types/node": "^26.0.0",
     "conventional-changelog-conventionalcommits": "^9.3.1",
     "json": "^11.0.0",
     "semantic-release": "^25.0.5",
