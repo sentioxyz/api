@@ -54,10 +54,28 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - name: NPM Publish
-        if: steps.semantic.outputs.new_release_published == 'true'
+        env:
+          RELEASE_VERSION: ${{ steps.semantic.outputs.new_release_version }}
+          DIST_TAG: ${{ steps.npm.outputs.dist_tag }}
         run: |
-          ./scripts/update-version.sh ${{ steps.semantic.outputs.new_release_version }}
-          pnpm publish --no-git-checks --tag ${{ steps.npm.outputs.dist_tag }}
+          if [[ -z "$RELEASE_VERSION" ]]; then
+            RELEASE_TAG=$(git describe --tags --exact-match --match 'v[0-9]*' HEAD 2>/dev/null || true)
+            RELEASE_VERSION=${RELEASE_TAG#v}
+          fi
+          if [[ -z "$RELEASE_VERSION" ]]; then
+            echo "No release at this commit."
+            exit 0
+          fi
+
+          STATUS=$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+            "https://registry.npmjs.org/@sentio%2fapi/$RELEASE_VERSION")
+          case "$STATUS" in
+            200) echo "$RELEASE_VERSION is already published."; exit 0 ;;
+            404) ;;
+            *) echo "Registry lookup failed with HTTP $STATUS."; exit 1 ;;
+          esac
+          ./scripts/update-version.sh "$RELEASE_VERSION"
+          pnpm publish --no-git-checks --tag "$DIST_TAG"
       - name: report error
         if: steps.semantic.outputs.new_release_published == 'false'
         run: |
