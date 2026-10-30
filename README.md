@@ -13,7 +13,7 @@ endpoints.
 > **v2 is a breaking rewrite.** v1 (`openapi-ts` based: `client.setConfig` +
 > static service classes) is replaced by connect-es style clients. The REST
 > API itself is unchanged; see the examples below for the new shapes. The
-> package is ESM-only and requires Node 24+.
+> package is ESM-only and requires Node 26+.
 
 ## Setup
 

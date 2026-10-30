@@ -33,7 +33,7 @@ pnpm test           # node:test via tsx; offline tests always run,
                     # the live test runs only when SENTIO_API_KEY is set
 ```
 
-The package is ESM-only and requires Node 24+. pnpm 11 needs the build-script
+The package is ESM-only and requires Node 26+. pnpm 11 needs the build-script
 approval in `pnpm-workspace.yaml` (`allowBuilds: esbuild`).
 
 ## Architecture notes
